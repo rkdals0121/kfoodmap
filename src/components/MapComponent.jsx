@@ -1,6 +1,18 @@
 import React from 'react';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
+import { MAP_CENTER } from '../utils';
+
+// Reports the map center upward after each pan/zoom so the list can re-sort by distance
+function CenterReporter({ onCenterChange }) {
+  useMapEvents({
+    moveend: (e) => {
+      const c = e.target.getCenter();
+      onCenterChange([c.lat, c.lng]);
+    },
+  });
+  return null;
+}
 
 // Teardrop pin: white body with green outline, solid green when selected
 const pinIcon = (selected) => L.divIcon({
@@ -14,13 +26,11 @@ const pinIcon = (selected) => L.divIcon({
   iconAnchor: [17, 42],
 });
 
-export default function MapComponent({ restaurants, onMarkerClick, selectedId }) {
-  // Frames the Seoul cluster (Jongno down to Itaewon); Incheon is a short pan away
-  const center = [37.5540, 126.9880];
-
+export default function MapComponent({ restaurants, onMarkerClick, selectedId, onCenterChange }) {
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
-      <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false}>
+      <MapContainer center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false}>
+        {onCenterChange && <CenterReporter onCenterChange={onCenterChange} />}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"

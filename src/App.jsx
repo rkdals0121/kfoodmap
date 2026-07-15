@@ -7,6 +7,7 @@ import RestaurantDetail from './components/RestaurantDetail';
 import TabBar from './components/TabBar';
 import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
+import { MAP_CENTER } from './utils';
 import './index.css';
 
 const BOOKMARKS_KEY = 'kfm-bookmarks';
@@ -26,6 +27,7 @@ export default function App() {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [bookmarkedIds, setBookmarkedIds] = useState(loadBookmarks);
   const [activeTab, setActiveTab] = useState('map');
+  const [mapCenter, setMapCenter] = useState(MAP_CENTER);
 
   useEffect(() => {
     localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarkedIds));
@@ -77,15 +79,19 @@ export default function App() {
           restaurants={filteredRestaurants}
           onMarkerClick={(r) => setSelectedRestaurant(r)}
           selectedId={selectedRestaurant?.id}
+          onCenterChange={setMapCenter}
         />
       </div>
 
-      {/* Restaurant list — always visible (cards rebuilt in step 1A-2) */}
+      {/* Restaurant list — always visible, nearest to the map center first */}
       <section className="list-region" aria-label="Restaurant list">
         <BottomSheetList
           restaurants={filteredRestaurants}
-          onRestaurantClick={(r) => setSelectedRestaurant(r)}
+          mapCenter={mapCenter}
           bookmarkedIds={bookmarkedIds}
+          onRestaurantClick={(r) => setSelectedRestaurant(r)}
+          onReadStory={(r) => setSelectedRestaurant(r)}
+          onToggleBookmark={handleToggleBookmark}
         />
       </section>
 

@@ -6,7 +6,7 @@
 // Prototype note: ratings/reviews are illustrative, and entries with
 // `hours: null` or area-level addresses still need on-site verification.
 
-export const restaurants = [
+const raw = [
   {
     id: 'balwoo',
     name: 'Balwoo Gongyang (발우공양)',
@@ -448,3 +448,38 @@ export const restaurants = [
     story: "Nestled in the historic Gaehang-ro district, Akiya acts as a culinary bridge between Incheon's rich past and a sustainable future. The kitchen's philosophy revolves around ultra-local sourcing, reducing food mileage to a mere 5 kilometers. Their artisanal approach highlights the natural, unmasked flavors of the season, honoring the tireless work of local farmers.",
   },
 ];
+
+// Cultural category — links each place to shared Korean food culture content.
+const categoryById = {
+  balwoo: 'temple',
+  sanchon: 'temple',
+  maji: 'temple',
+  osegyehyang: 'korean-chinese',
+  gonghwachun: 'korean-chinese',
+  'plant-cafe': 'vegan-dining',
+  'monks-butcher': 'vegan-dining',
+  camouflage: 'vegan-dining',
+  'chaeyuk-songdo': 'vegan-dining',
+  rim: 'vegan-dining',
+  eid: 'halal-korean',
+  makan: 'halal-korean',
+  kampungku: 'halal-korean',
+  arabesque: 'world-halal',
+  'bombay-brau': 'world-halal',
+  'nono-shop': 'zero-waste',
+  'ggot-epida': 'zero-waste',
+  iryonghal: 'brunch-bakery',
+  'meat-morning': 'brunch-bakery',
+  akiya: 'local-seasonal',
+};
+
+// Image-system contract: every place supports real photography via `photo`
+// (cards), `coverImage` (detail hero) and `gallery`. They stay null/empty
+// until real photos exist; PlaceImage falls back to the illustration.
+export const restaurants = raw.map(r => ({
+  photo: null,
+  coverImage: null,
+  gallery: [],
+  category: categoryById[r.id] ?? 'local-seasonal',
+  ...r,
+}));
