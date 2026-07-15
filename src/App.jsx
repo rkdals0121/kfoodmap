@@ -12,10 +12,14 @@ import './index.css';
 
 const BOOKMARKS_KEY = 'kfm-bookmarks';
 
+// Stored as [{ id, savedAt }]; older versions stored plain id strings — migrate on read
 function loadBookmarks() {
   try {
     const saved = JSON.parse(localStorage.getItem(BOOKMARKS_KEY));
-    return Array.isArray(saved) ? saved : [];
+    if (!Array.isArray(saved)) return [];
+    return saved
+      .map(entry => (typeof entry === 'string' ? { id: entry, savedAt: null } : entry))
+      .filter(entry => entry && typeof entry.id === 'string');
   } catch {
     return [];
   }
@@ -25,7 +29,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const [bookmarkedIds, setBookmarkedIds] = useState(loadBookmarks);
+  const [bookmarks, setBookmarks] = useState(loadBookmarks);
   const [activeTab, setActiveTab] = useState('map');
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   const [focusStory, setFocusStory] = useState(false);
@@ -34,8 +38,10 @@ export default function App() {
   const openStory = (r) => { setSelectedRestaurant(r); setFocusStory(true); };
 
   useEffect(() => {
-    localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarkedIds));
-  }, [bookmarkedIds]);
+    localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks));
+  }, [bookmarks]);
+
+  const bookmarkedIds = useMemo(() => bookmarks.map(b => b.id), [bookmarks]);
 
   const handleToggleFilter = (filter) => {
     setSelectedFilters(prev => 
@@ -45,8 +51,10 @@ export default function App() {
   };
 
   const handleToggleBookmark = (id) => {
-    setBookmarkedIds(prev => 
-      prev.includes(id) ? prev.filter(bId => bId !== id) : [...prev, id]
+    setBookmarks(prev =>
+      prev.some(b => b.id === id)
+        ? prev.filter(b => b.id !== id)
+        : [...prev, { id, savedAt: Date.now() }]
     );
   };
 
@@ -111,7 +119,7 @@ export default function App() {
 
       {/* Non-map tabs cover the map; the tab bar stays on top */}
       {activeTab === 'journal' && (
-        <JournalPanel bookmarkedIds={bookmarkedIds} onRestaurantClick={openDetail} />
+        <JournalPanel bookmarks={bookmarks} mapCenter={mapCenter} onRestaurantClick={openDetail} />
       )}
       {activeTab !== 'map' && activeTab !== 'journal' && (
         <TabPanel tab={activeTab} />
