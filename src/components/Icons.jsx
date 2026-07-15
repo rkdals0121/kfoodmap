@@ -129,3 +129,16 @@ export const MenuIcon = ({ size = 18 }) => (
     <path d="M4 6h16M4 12h16M4 18h10" />
   </svg>
 );
+
+export const UserIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <circle cx="12" cy="8" r="3.4" />
+    <path d="M5.5 20a6.5 6.5 0 0 1 13 0" />
+  </svg>
+);
+
+export const ChevronRightIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="m9 5 7 7-7 7" />
+  </svg>
+);

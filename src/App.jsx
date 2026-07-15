@@ -122,7 +122,7 @@ export default function App() {
         <JournalPanel bookmarks={bookmarks} mapCenter={mapCenter} onRestaurantClick={openDetail} />
       )}
       {activeTab !== 'map' && activeTab !== 'journal' && (
-        <TabPanel tab={activeTab} />
+        <TabPanel tab={activeTab} onNavigate={setActiveTab} />
       )}
       <TabBar activeTab={activeTab} onSelect={setActiveTab} />
 

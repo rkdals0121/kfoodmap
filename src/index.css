@@ -830,21 +830,43 @@ button {
   gap: 14px;
   animation: fadeIn 0.25s ease;
 }
+.panel-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #E7F6F0;
+  color: var(--green-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .tab-panel h2 {
   font-size: 22px;
   font-weight: 700;
   color: var(--ink);
-}
-.tab-panel .panel-rule {
-  width: 36px;
-  height: 1px;
-  background: var(--line);
 }
 .tab-panel p {
   color: var(--muted);
   line-height: 1.65;
   font-size: 15px;
   max-width: 320px;
+}
+.panel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0 8px;
+  margin-top: -2px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green-strong);
+  cursor: pointer;
+}
+.panel-link:hover {
+  text-decoration: underline;
 }
 
 /* ---------- Journal: premium travel passport ---------- */
