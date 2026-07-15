@@ -60,38 +60,34 @@ export default function App() {
     });
   }, [selectedFilters, searchQuery]);
 
-  const hasActiveFilters = selectedFilters.length > 0 || searchQuery.trim() !== '';
-
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden', backgroundColor: '#e5e3df' }}>
-      
-      {/* Layer 0: Map Background — all curated places stay pinned; filters narrow them down */}
-      <MapComponent
-        restaurants={filteredRestaurants}
-        onMarkerClick={(r) => setSelectedRestaurant(r)}
-        selectedId={selectedRestaurant?.id}
-      />
+    <div className="app-shell">
 
-      {/* Cream-celadon tint + hanji paper grain over the map */}
-      <div className="map-tint" />
-      <div className="paper-overlay" />
-
-      {/* Layer 1: UI Overlays (Header) */}
-      <FilterBar 
+      {/* Search + dietary filters */}
+      <FilterBar
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        selectedFilters={selectedFilters} 
-        onToggleFilter={handleToggleFilter} 
+        selectedFilters={selectedFilters}
+        onToggleFilter={handleToggleFilter}
       />
-      
-      {/* Conditional Bottom List */}
-      {hasActiveFilters && (
-        <BottomSheetList 
+
+      {/* Map: the discovery hero (~46vh) — filters narrow the pins */}
+      <div className="map-region">
+        <MapComponent
+          restaurants={filteredRestaurants}
+          onMarkerClick={(r) => setSelectedRestaurant(r)}
+          selectedId={selectedRestaurant?.id}
+        />
+      </div>
+
+      {/* Restaurant list — always visible (cards rebuilt in step 1A-2) */}
+      <section className="list-region" aria-label="Restaurant list">
+        <BottomSheetList
           restaurants={filteredRestaurants}
           onRestaurantClick={(r) => setSelectedRestaurant(r)}
           bookmarkedIds={bookmarkedIds}
         />
-      )}
+      </section>
 
       {/* Layer 2: Full-Screen Detail Modal */}
       <RestaurantDetail
