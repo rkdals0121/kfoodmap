@@ -9,8 +9,9 @@
   --line: #E5E7EB;
   --green: #0E9F6E;        /* pins, icons, accents */
   --green-strong: #087F5B; /* filled controls; AA contrast with white text */
-  --orange: #F97316;       /* primary CTAs, favorites, rating */
-  --danger: #D92D20;       /* closed status */
+  --orange: #F97316;        /* favorites, rating, warm accents */
+  --orange-strong: #C2410C; /* filled CTAs; AA contrast with white text */
+  --danger: #D92D20;        /* closed status */
   --radius: 12px;
   --radius-lg: 16px;
   --shadow-1: 0 1px 3px rgba(16, 24, 40, 0.08);
@@ -408,6 +409,297 @@ button {
 .place-image--thumb {
   width: 88px;
   height: 88px;
+  flex-shrink: 0;
+}
+
+/* ---------- Restaurant detail: a storytelling journey ---------- */
+
+.detail-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 24, 40, 0.45);
+  z-index: 20;
+  animation: fadeIn 0.25s ease;
+}
+
+.detail-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 92dvh;
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  z-index: 21;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+  outline: none;
+}
+
+.detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-1);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.detail-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.place-image--hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+}
+.place-image--hero .place-image__illustration {
+  width: 30%;
+  height: 56%;
+}
+
+.detail-content {
+  padding: 20px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.detail-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  line-height: 1.25;
+}
+.detail-meta {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--ink);
+}
+.detail-meta__muted,
+.practical-muted {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* Quick facts */
+.fact-row {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.fact {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.fact svg {
+  color: var(--green-strong);
+  flex-shrink: 0;
+}
+
+/* Practical block */
+.practical {
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.practical-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.practical-row svg {
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.practical-copy {
+  margin-left: auto;
+  background: none;
+  border: none;
+  min-height: 44px;
+  margin-top: -12px;
+  margin-bottom: -12px;
+  padding: 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-strong);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.practical-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+.btn-primary {
+  flex: 1;
+  height: 48px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--orange-strong);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.12s ease;
+}
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+.icon-btn--lg {
+  width: 48px;
+  height: 48px;
+  background: var(--surface);
+}
+
+/* Story sections */
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-margin-top: 12px;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-head__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #E7F6F0;
+  color: var(--green-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.section-head h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.section-head__kr {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.detail-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #3F444A;
+}
+
+.quote-card {
+  background: var(--bg);
+  border-left: 3px solid var(--green);
+  border-radius: 4px var(--radius) var(--radius) 4px;
+  padding: 14px 16px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.callout {
+  background: #ECF8F2;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #14532D;
+}
+.callout__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--green-strong);
+  margin-bottom: 4px;
+}
+
+.menu-rows {
+  display: flex;
+  flex-direction: column;
+}
+.menu-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+.menu-row:last-child {
+  border-bottom: none;
+}
+.menu-row__price {
+  color: var(--muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sus-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tips-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tip {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #3F444A;
+}
+.tip__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-top: 8px;
   flex-shrink: 0;
 }
 

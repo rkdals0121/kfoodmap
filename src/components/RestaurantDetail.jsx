@@ -1,183 +1,228 @@
-import React, { useState, useEffect } from 'react';
-import { LeafIcon, RouteIcon, CompassIcon, CopyIcon, CheckIcon, HeartIcon } from './Icons';
+import React, { useState, useEffect, useRef } from 'react';
+import PlaceImage from './PlaceImage';
+import {
+  HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
+  MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon, RouteIcon,
+  SparkleIcon, BookIcon, BowlIcon, MenuIcon,
+} from './Icons';
+import { getCulture } from '../data/culture';
+import { haversineKm, formatDistance, getOpenStatus, directionsUrl } from '../utils';
 
-export default function RestaurantDetail({ restaurant, onClose, isBookmarked, onToggleBookmark }) {
+// "Can I eat here?" — dietary tags rendered as icon facts
+const FACT_META = {
+  'Vegan': { Icon: LeafIcon, label: 'Vegan' },
+  'Halal': { Icon: CrescentIcon, label: 'Halal friendly' },
+  'Mild Taste': { Icon: MildIcon, label: 'Mild taste' },
+  'Fermented': { Icon: FermentIcon, label: 'Fermented' },
+  'Zero-waste': { Icon: RecycleIcon, label: 'Zero waste' },
+  'Local Sourcing': { Icon: SproutIcon, label: 'Locally sourced' },
+};
+
+function SectionHead({ Icon, title, kr }) {
+  return (
+    <div className="section-head">
+      <span className="section-head__icon" aria-hidden="true"><Icon size={17} /></span>
+      <h3>{title}{kr && <span className="section-head__kr"> · {kr}</span>}</h3>
+    </div>
+  );
+}
+
+export default function RestaurantDetail({
+  restaurant, onClose, isBookmarked, onToggleBookmark, mapCenter, focusStory,
+}) {
   const [copied, setCopied] = useState(false);
+  const storyRef = useRef(null);
+  const sheetRef = useRef(null);
 
   useEffect(() => {
     setCopied(false);
-  }, [restaurant]);
+    if (!restaurant) return;
+    if (focusStory && storyRef.current) {
+      storyRef.current.scrollIntoView({ block: 'start' });
+    } else {
+      sheetRef.current?.focus();
+    }
+  }, [restaurant, focusStory]);
+
+  useEffect(() => {
+    if (!restaurant) return undefined;
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [restaurant, onClose]);
 
   if (!restaurant) return null;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(restaurant.address)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      })
-      .catch(err => console.error('Failed to copy: ', err));
+  const name = restaurant.name.split('(')[0].trim();
+  const status = getOpenStatus(restaurant.hours);
+  const culture = getCulture(restaurant);
+  const distance = mapCenter
+    ? formatDistance(haversineKm(mapCenter[0], mapCenter[1], restaurant.lat, restaurant.lng))
+    : null;
+  const facts = restaurant.tags.map(t => FACT_META[t]).filter(Boolean);
+
+  // Clipboard API needs focus/permission (in-app browsers often lack it) — fall back to execCommand
+  const fallbackCopy = (text) => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    ta.remove();
+    return ok;
   };
 
-  const handleDirections = () => {
-    window.open(`https://www.google.com/maps/search/?api=1&query=${restaurant.lat},${restaurant.lng}`, '_blank');
+  const handleCopy = async () => {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(restaurant.address);
+      ok = true;
+    } catch {
+      ok = fallbackCopy(restaurant.address);
+    }
+    if (ok) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (
     <>
-      <div 
-        onClick={onClose}
-        style={{
-          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.4)', zIndex: 20,
-          animation: 'fadeIn 0.3s ease'
-        }}
-      />
-      
-      <div style={{
-        position: 'fixed', bottom: 0, left: 0, right: 0,
-        backgroundColor: 'var(--bg-cream)',
-        borderTopLeftRadius: '32px', borderTopRightRadius: '32px',
-        padding: '32px 28px 24px', zIndex: 21,
-        boxShadow: '0 -10px 40px rgba(0,0,0,0.15)',
-        animation: 'slideUp 0.3s ease-out',
-        height: '92vh', // Full screen modal experience
-        display: 'flex', flexDirection: 'column'
-      }}>
-        {/* Close / Drag Handle Area */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px', flexShrink: 0, position: 'relative' }}>
-          <div style={{ width: '40px', height: '5px', backgroundColor: 'rgba(122, 145, 124, 0.3)', borderRadius: '3px' }} />
-          <button 
-            onClick={onClose}
-            style={{ position: 'absolute', right: 0, top: '-10px', background: 'none', border: 'none', fontSize: '1.5rem', color: 'var(--text-light)', cursor: 'pointer' }}
-          >
-            ✕
-          </button>
-        </div>
+      <div className="detail-backdrop" onClick={onClose} />
 
-        {/* Scrollable Content */}
-        <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '20px' }} className="no-scrollbar">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {restaurant.tags.map(tag => (
-                <span key={tag} className="tag-chip tag-chip--lg">{tag}</span>
-              ))}
-            </div>
+      <div className="detail-sheet" role="dialog" aria-modal="true" aria-label={name} ref={sheetRef} tabIndex={-1}>
+        <button className="detail-close" aria-label="Close" onClick={onClose}>
+          <XIcon size={18} />
+        </button>
 
-            <button
-              onClick={(e) => { e.stopPropagation(); onToggleBookmark(restaurant.id); }}
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                color: isBookmarked ? 'var(--gold-accent)' : 'var(--sage-green-light)',
-                transition: 'all 0.2s ease', padding: '0 0 0 10px'
-              }}
-              aria-label="Bookmark"
-            >
-              <HeartIcon size={26} filled={isBookmarked} />
-            </button>
-          </div>
+        <div className="detail-scroll">
+          <PlaceImage place={restaurant} variant="hero" />
 
-          <h2 className="serif-title" style={{ fontSize: '2rem', marginBottom: '8px', color: 'var(--text-dark)' }}>
-            {restaurant.name}
-          </h2>
+          <div className="detail-content">
+            <header className="detail-header">
+              <h2>{restaurant.name}</h2>
+              <p className="detail-meta">
+                <span className="place-card__star" aria-hidden="true">★</span> {restaurant.rating}
+                <span className="detail-meta__muted"> ({restaurant.reviews})</span>
+                <span aria-hidden="true"> · </span>{restaurant.zone}
+                {distance && <><span aria-hidden="true"> · </span>{distance}</>}
+              </p>
+            </header>
 
-          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px', marginBottom: '12px', fontSize: '0.95rem', color: 'var(--text-dark)' }}>
-            <span style={{ color: 'var(--text-light)' }}>{restaurant.zone}</span>
-            <span style={{ color: 'var(--border)' }}>·</span>
-            <span style={{ color: 'var(--gold-accent)', fontSize: '1.2rem' }}>★</span>
-            <span style={{ fontWeight: 600 }}>{restaurant.rating}</span>
-            <span style={{ color: 'var(--text-light)', marginLeft: '4px' }}>({restaurant.reviews} reviews)</span>
-          </div>
-
-          <div style={{
-            height: '150px', borderRadius: '20px', marginBottom: '16px',
-            backgroundColor: 'rgba(122, 145, 124, 0.12)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'
-          }}>
-            <img src={restaurant.image} alt="" style={{ height: '110px', objectFit: 'contain' }} />
-          </div>
-
-          {restaurant.hours && (
-            <div style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: '12px' }}>
-              Open {restaurant.hours}
-            </div>
-          )}
-
-          <p style={{ fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--text-light)', marginBottom: '24px', lineHeight: '1.5' }}>
-            "{restaurant.vibe}"
-          </p>
-
-          <div style={{ padding: '16px', backgroundColor: 'rgba(122, 145, 124, 0.08)', borderRadius: '16px', marginBottom: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: 'var(--sage-green)' }}>
-               <LeafIcon size={18} />
-               <strong style={{ fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>ESG Point</strong>
-            </div>
-            <p style={{ fontSize: '0.95rem', color: 'var(--text-dark)', lineHeight: '1.5' }}>{restaurant.esg_point}</p>
-            <div style={{ marginTop: '12px', fontSize: '0.85rem', color: 'var(--text-light)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-               <RouteIcon size={15} />
-               <span>Food Mileage:</span>
-               <strong style={{ color: 'var(--text-dark)' }}>{restaurant.food_mile} km</strong>
-            </div>
-          </div>
-
-          {restaurant.menus?.length > 0 && (
-            <>
-              <h3 className="serif-title" style={{ fontSize: '1.2rem', color: 'var(--sage-green)', marginBottom: '12px' }}>
-                Signature Menu
-              </h3>
-              <div style={{ marginBottom: '24px' }}>
-                {restaurant.menus.map(m => (
-                  <div key={m.name} style={{
-                    display: 'flex', justifyContent: 'space-between', gap: '12px',
-                    padding: '10px 0', borderBottom: '1px solid var(--border)', fontSize: '0.95rem'
-                  }}>
-                    <span style={{ color: 'var(--text-dark)' }}>{m.name}</span>
-                    <span style={{ color: 'var(--gold-accent)', fontWeight: 600, whiteSpace: 'nowrap' }}>{m.price}</span>
-                  </div>
+            {/* 1. Can I eat here? */}
+            {facts.length > 0 && (
+              <ul className="fact-row" aria-label="Dietary compatibility">
+                {facts.map(({ Icon, label }) => (
+                  <li key={label} className="fact">
+                    <Icon size={16} aria-hidden="true" /> {label}
+                  </li>
                 ))}
+              </ul>
+            )}
+
+            {/* 2. How do I get there? */}
+            <div className="practical">
+              <div className="practical-row">
+                <ClockIcon size={17} />
+                {status ? (
+                  <span>
+                    <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
+                    {' '}· {status.detail} <span className="practical-muted">({restaurant.hours})</span>
+                  </span>
+                ) : (
+                  <span className="practical-muted">Hours not verified yet — check locally</span>
+                )}
               </div>
-            </>
-          )}
 
-          <h3 className="serif-title" style={{ fontSize: '1.2rem', color: 'var(--sage-green)', marginBottom: '12px' }}>
-            Sustainable Philosophy
-          </h3>
-          <p style={{
-            fontSize: '1.05rem', lineHeight: '1.6', color: 'var(--text-light)', marginBottom: '32px', fontFamily: 'Outfit, sans-serif'
-          }}>
-            {restaurant.story}
-          </p>
+              <div className="practical-row">
+                <MapPinIcon size={17} />
+                <span>{restaurant.address}</span>
+                <button className="practical-copy" onClick={handleCopy}>
+                  {copied ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+
+              <div className="practical-actions">
+                <button className="btn-primary" onClick={() => window.open(directionsUrl(restaurant), '_blank')}>
+                  <CompassIcon size={18} /> Get Directions
+                </button>
+                <button
+                  className={`icon-btn icon-btn--lg${isBookmarked ? ' icon-btn--saved' : ''}`}
+                  aria-label={isBookmarked ? `Remove ${name} from journal` : `Save ${name} to journal`}
+                  aria-pressed={isBookmarked}
+                  onClick={() => onToggleBookmark(restaurant.id)}
+                >
+                  <HeartIcon size={21} filled={isBookmarked} />
+                </button>
+              </div>
+            </div>
+
+            {/* Signature menu */}
+            {restaurant.menus?.length > 0 && (
+              <section className="detail-section">
+                <SectionHead Icon={MenuIcon} title="Signature Menu" />
+                <div className="menu-rows">
+                  {restaurant.menus.map(m => (
+                    <div key={m.name} className="menu-row">
+                      <span>{m.name}</span>
+                      <span className="menu-row__price">{m.price}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* 3. Why is this place special? */}
+            <section className="detail-section">
+              <SectionHead Icon={SparkleIcon} title="Why it's special" />
+              <div className="quote-card">{restaurant.vibe}</div>
+            </section>
+
+            {/* 4. What does this food tell me about Korea? */}
+            <section className="detail-section" ref={storyRef}>
+              <SectionHead Icon={BookIcon} title="The Food Story" kr="이야기" />
+              <p className="detail-body">{restaurant.story}</p>
+              <div className="callout">
+                <p className="callout__label">Did you know?</p>
+                <p>{culture.didYouKnow}</p>
+              </div>
+            </section>
+
+            {/* 5. Why is it sustainable? */}
+            <section className="detail-section">
+              <SectionHead Icon={LeafIcon} title="Sustainability" />
+              <div className="sus-rows">
+                <div className="practical-row">
+                  <LeafIcon size={17} />
+                  <span>{restaurant.esg_point}</span>
+                </div>
+                <div className="practical-row">
+                  <RouteIcon size={17} />
+                  <span>
+                    <strong>{restaurant.food_mile} km</strong> food mileage
+                    <span className="practical-muted"> — roughly how far the ingredients traveled to reach your plate</span>
+                  </span>
+                </div>
+              </div>
+            </section>
+
+            {/* 6. What should I know before eating? */}
+            <section className="detail-section">
+              <SectionHead Icon={BowlIcon} title="Dining Tips" />
+              <ul className="tips-list">
+                {culture.diningTips.map(tip => (
+                  <li key={tip} className="tip">
+                    <span className="tip__dot" aria-hidden="true" />
+                    <span>{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
         </div>
-
-        {/* Action Buttons (Side by Side) */}
-        <div style={{ flexShrink: 0, display: 'flex', gap: '12px', marginTop: '16px' }}>
-          <button 
-            onClick={handleDirections}
-            style={{
-              flex: 1, padding: '16px 12px', backgroundColor: 'var(--gold-accent)',
-              color: 'white', border: 'none', borderRadius: '16px',
-              fontSize: '0.95rem', fontWeight: 600, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px',
-              cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 12px rgba(194, 158, 101, 0.25)', fontFamily: 'Outfit, sans-serif'
-            }}
-          >
-            <CompassIcon size={22} />
-            Get Directions
-          </button>
-
-          <button 
-            onClick={handleCopy}
-            style={{
-              flex: 1, padding: '16px 12px', backgroundColor: copied ? '#6C9472' : 'var(--sage-green)',
-              color: 'white', border: 'none', borderRadius: '16px',
-              fontSize: '0.95rem', fontWeight: 600, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px',
-              cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 12px rgba(122, 145, 124, 0.25)', fontFamily: 'Outfit, sans-serif'
-            }}
-          >
-            {copied ? <CheckIcon size={22} /> : <CopyIcon size={22} />}
-            {copied ? 'Copied!' : 'Copy Address'}
-          </button>
-        </div>
-
       </div>
     </>
   );

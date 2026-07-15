@@ -28,6 +28,10 @@ export default function App() {
   const [bookmarkedIds, setBookmarkedIds] = useState(loadBookmarks);
   const [activeTab, setActiveTab] = useState('map');
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
+  const [focusStory, setFocusStory] = useState(false);
+
+  const openDetail = (r) => { setSelectedRestaurant(r); setFocusStory(false); };
+  const openStory = (r) => { setSelectedRestaurant(r); setFocusStory(true); };
 
   useEffect(() => {
     localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarkedIds));
@@ -77,7 +81,7 @@ export default function App() {
       <div className="map-region">
         <MapComponent
           restaurants={filteredRestaurants}
-          onMarkerClick={(r) => setSelectedRestaurant(r)}
+          onMarkerClick={openDetail}
           selectedId={selectedRestaurant?.id}
           onCenterChange={setMapCenter}
         />
@@ -89,8 +93,8 @@ export default function App() {
           restaurants={filteredRestaurants}
           mapCenter={mapCenter}
           bookmarkedIds={bookmarkedIds}
-          onRestaurantClick={(r) => setSelectedRestaurant(r)}
-          onReadStory={(r) => setSelectedRestaurant(r)}
+          onRestaurantClick={openDetail}
+          onReadStory={openStory}
           onToggleBookmark={handleToggleBookmark}
         />
       </section>
@@ -101,11 +105,13 @@ export default function App() {
         onClose={() => setSelectedRestaurant(null)}
         isBookmarked={selectedRestaurant ? bookmarkedIds.includes(selectedRestaurant.id) : false}
         onToggleBookmark={handleToggleBookmark}
+        mapCenter={mapCenter}
+        focusStory={focusStory}
       />
 
       {/* Non-map tabs cover the map; the tab bar stays on top */}
       {activeTab === 'journal' && (
-        <JournalPanel bookmarkedIds={bookmarkedIds} onRestaurantClick={setSelectedRestaurant} />
+        <JournalPanel bookmarkedIds={bookmarkedIds} onRestaurantClick={openDetail} />
       )}
       {activeTab !== 'map' && activeTab !== 'journal' && (
         <TabPanel tab={activeTab} />
