@@ -116,6 +116,29 @@ export const UserIcon = ({ size = 18 }) => (
   </svg>
 );
 
+export const TrainIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <rect x="6" y="3.5" width="12" height="13" rx="3" />
+    <path d="M6 10h12" />
+    <circle cx="9.5" cy="13.2" r="0.6" />
+    <circle cx="14.5" cy="13.2" r="0.6" />
+    <path d="m8.5 20 1.5-3.5M15.5 20 14 16.5" />
+  </svg>
+);
+
+export const PhoneIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="M8.4 4.5H5.6A1.6 1.6 0 0 0 4 6.2c0 7.6 6.2 13.8 13.8 13.8a1.6 1.6 0 0 0 1.7-1.6v-2.8l-3.6-1.4-1.8 2.2a12.6 12.6 0 0 1-5.3-5.3l2.2-1.8Z" />
+  </svg>
+);
+
+export const LinkIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="M10.5 13.5a4 4 0 0 0 5.7 0l2.8-2.8a4 4 0 1 0-5.7-5.7L11.9 6.4" />
+    <path d="M13.5 10.5a4 4 0 0 0-5.7 0L5 13.3a4 4 0 1 0 5.7 5.7l1.4-1.4" />
+  </svg>
+);
+
 export const ChevronRightIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
     <path d="m9 5 7 7-7 7" />

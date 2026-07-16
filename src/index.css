@@ -546,6 +546,19 @@ button {
   flex-shrink: 0;
   margin-top: 2px;
 }
+.practical-link {
+  color: var(--green-strong);
+  font-weight: 500;
+  text-decoration: none;
+}
+.practical-link:hover {
+  text-decoration: underline;
+}
+.practical-links {
+  display: flex;
+  gap: 14px;
+}
+
 .practical-copy {
   margin-left: auto;
   background: none;

@@ -1,6 +1,7 @@
 // Shared helpers for distance and opening hours.
 
-import { isKnown } from './data/verification';
+// Extension is explicit so data QA scripts can import this under plain Node.
+import { isKnown } from './data/verification.js';
 
 // Initial map view: frames the Seoul cluster (Jongno down to Itaewon)
 export const MAP_CENTER = [37.5540, 126.9880];
@@ -26,28 +27,97 @@ export function formatDistance(km) {
   return `${Math.round(km)} km`;
 }
 
-// "11:30 AM" → minutes since midnight, null if unparseable
+export const DAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+// "11:30 AM" or "11:30" → minutes since midnight, null if unparseable
 function toMinutes(str) {
-  const m = str.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
-  if (!m) return null;
-  let h = parseInt(m[1], 10) % 12;
-  if (/pm/i.test(m[3])) h += 12;
-  return h * 60 + parseInt(m[2], 10);
+  const ampm = str.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+  if (ampm) {
+    let h = parseInt(ampm[1], 10) % 12;
+    if (/pm/i.test(ampm[3])) h += 12;
+    return h * 60 + parseInt(ampm[2], 10);
+  }
+  const h24 = str.match(/^(\d{1,2}):(\d{2})$/);
+  return h24 ? parseInt(h24[1], 10) * 60 + parseInt(h24[2], 10) : null;
 }
 
-// hoursFact → { open, label, detail } | null when the hours aren't known.
-// Never guesses: an unknown fact yields no status rather than a default.
-export function getOpenStatus(hoursFact, now = new Date()) {
-  if (!isKnown(hoursFact)) return null;
-  const parts = hoursFact.value.split('–').map(s => s.trim());
+const fromMinutes = (mins) => {
+  const h = Math.floor(mins / 60);
+  const m = String(mins % 60).padStart(2, '0');
+  const suffix = h < 12 ? 'AM' : 'PM';
+  return `${((h + 11) % 12) + 1}:${m} ${suffix}`;
+};
+
+// Fall back to reading a free-text range like "11:30 AM – 9:30 PM". Only used
+// for places whose hours haven't been structured yet.
+function statusFromRaw(raw, cur) {
+  const parts = String(raw).split('–').map(s => s.trim());
   if (parts.length !== 2) return null;
   const opens = toMinutes(parts[0]);
   const closes = toMinutes(parts[1]);
   if (opens == null || closes == null) return null;
-  const cur = now.getHours() * 60 + now.getMinutes();
   return cur >= opens && cur < closes
     ? { open: true, label: 'Open', detail: `until ${parts[1]}` }
     : { open: false, label: 'Closed', detail: `opens ${parts[0]}` };
+}
+
+/**
+ * hoursFact → { open, label, detail } | null when we can't say.
+ *
+ * Never guesses. A day absent from `weekly` means we don't know that day's
+ * hours, and returns null rather than assuming the venue is shut.
+ */
+export function getOpenStatus(hoursFact, now = new Date()) {
+  if (!isKnown(hoursFact)) return null;
+  const { raw, weekly } = hoursFact.value;
+  const cur = now.getHours() * 60 + now.getMinutes();
+
+  if (!weekly) return raw ? statusFromRaw(raw, cur) : null;
+
+  const today = weekly[DAY_KEYS[now.getDay()]];
+  if (!today) return null; // day not recorded — say nothing
+
+  if (today.length === 0) return { open: false, label: 'Closed', detail: 'closed today' };
+
+  for (const slot of today) {
+    const from = toMinutes(slot.from);
+    const to = toMinutes(slot.to);
+    if (from == null || to == null) continue;
+    if (cur >= from && cur < to) {
+      const lo = slot.lastOrder ? toMinutes(slot.lastOrder) : null;
+      // Once last order has passed, "open until close" would mislead someone
+      // deciding whether it's worth the trip.
+      if (lo != null && cur >= lo) {
+        return { open: true, label: 'Open', detail: `last order passed, closes ${fromMinutes(to)}` };
+      }
+      return {
+        open: true,
+        label: 'Open',
+        detail: slot.lastOrder
+          ? `until ${fromMinutes(to)} · last order ${fromMinutes(lo)}`
+          : `until ${fromMinutes(to)}`,
+      };
+    }
+  }
+
+  const next = today
+    .map(s => toMinutes(s.from))
+    .filter(m => m != null && m > cur)
+    .sort((a, b) => a - b)[0];
+  return next != null
+    ? { open: false, label: 'Closed', detail: `opens ${fromMinutes(next)}` }
+    : { open: false, label: 'Closed', detail: 'closed for today' };
+}
+
+/** Today's printed hours, e.g. "11:30 AM – 3:00 PM, 6:00 PM – 8:20 PM". */
+export function todaysHours(hoursFact, now = new Date()) {
+  if (!isKnown(hoursFact)) return null;
+  const { weekly } = hoursFact.value;
+  if (!weekly) return hoursFact.value.raw ?? null;
+  const today = weekly[DAY_KEYS[now.getDay()]];
+  if (!today) return null;
+  if (today.length === 0) return 'Closed today';
+  return today.map(s => `${fromMinutes(toMinutes(s.from))} – ${fromMinutes(toMinutes(s.to))}`).join(', ');
 }
 
 export function directionsUrl(place) {

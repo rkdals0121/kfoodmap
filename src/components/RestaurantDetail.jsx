@@ -3,10 +3,10 @@ import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
-  BookIcon, BowlIcon, MenuIcon,
+  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, coordsOf } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
 } from '../data/verification';
@@ -83,6 +83,7 @@ export default function RestaurantDetail({
 
   const name = restaurant.name.split('(')[0].trim();
   const status = getOpenStatus(restaurant.hours);
+  const today = todaysHours(restaurant.hours);
   const culture = getCulture(restaurant);
   const coords = coordsOf(restaurant);
   const distance = mapCenter
@@ -100,6 +101,12 @@ export default function RestaurantDetail({
   const facts = [...dietFacts, ...traitFacts];
   const certClaim = restaurant.dietary.halalCertClaim;
   const caveat = DIET_CAVEAT[dietaryConfidence(restaurant)] ?? DIET_CAVEAT[CONFIDENCE.UNKNOWN];
+  // The most recent check across every fact on the record.
+  const lastChecked = [
+    restaurant.coordinates, restaurant.address, restaurant.hours, restaurant.menus,
+    restaurant.phone, restaurant.officialUrl, restaurant.instagram, restaurant.transit,
+    restaurant.dietary.vegan, restaurant.dietary.halal,
+  ].map(f => f?.lastCheckedAt).filter(Boolean).sort().at(-1);
 
   // Clipboard API needs focus/permission (in-app browsers often lack it) — fall back to execCommand
   const fallbackCopy = (text) => {
@@ -185,13 +192,27 @@ export default function RestaurantDetail({
                   <span>
                     <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
                     {' '}· {status.detail}{' '}
-                    <span className="practical-muted">({restaurant.hours.value})</span>
+                    {today && <span className="practical-muted">(today {today})</span>}
                     {needsCheck(restaurant.hours) && <Trust fact={restaurant.hours} />}
                   </span>
                 ) : (
-                  <span className="practical-muted">Opening hours unknown — check before you go</span>
+                  <span className="practical-muted">
+                    Opening hours unknown — check before you go
+                  </span>
                 )}
               </div>
+
+              {isKnown(restaurant.transit) && (
+                <div className="practical-row">
+                  <TrainIcon size={17} />
+                  <span>
+                    {restaurant.transit.value.station} {restaurant.transit.value.line}
+                    {restaurant.transit.value.exit && `, exit ${restaurant.transit.value.exit}`}
+                    {' '}· {restaurant.transit.value.walkingMinutes} min walk
+                    <span className="practical-muted"> ({restaurant.transit.value.distanceM} m)</span>
+                  </span>
+                </div>
+              )}
 
               <div className="practical-row">
                 <MapPinIcon size={17} />
@@ -205,6 +226,33 @@ export default function RestaurantDetail({
                   {copied ? 'Copied!' : 'Copy'}
                 </button>
               </div>
+
+              {isKnown(restaurant.phone) && (
+                <div className="practical-row">
+                  <PhoneIcon size={17} />
+                  <a className="practical-link" href={`tel:${restaurant.phone.value.replace(/-/g, '')}`}>
+                    {restaurant.phone.value}
+                  </a>
+                </div>
+              )}
+
+              {(isKnown(restaurant.officialUrl) || isKnown(restaurant.instagram)) && (
+                <div className="practical-row">
+                  <LinkIcon size={17} />
+                  <span className="practical-links">
+                    {isKnown(restaurant.officialUrl) && (
+                      <a className="practical-link" href={restaurant.officialUrl.value} target="_blank" rel="noreferrer noopener">
+                        Website
+                      </a>
+                    )}
+                    {isKnown(restaurant.instagram) && (
+                      <a className="practical-link" href={restaurant.instagram.value} target="_blank" rel="noreferrer noopener">
+                        Instagram
+                      </a>
+                    )}
+                  </span>
+                </div>
+              )}
 
               <div className="practical-actions">
                 <button className="btn-primary" onClick={() => window.open(directionsUrl(restaurant), '_blank')}>
@@ -288,7 +336,7 @@ export default function RestaurantDetail({
             <footer className="provenance">
               <p className="provenance__title">About this information</p>
               <p>
-                Nothing on this page has been confirmed with the restaurant yet.
+                <strong>Official</strong> means we checked it against a map service or registry;
                 <strong> Reported</strong> means a source states it; <strong>Inferred</strong> means
                 we read it from context. Hours, prices and dietary details change — treat this as
                 a starting point.
@@ -311,7 +359,7 @@ export default function RestaurantDetail({
                 </div>
                 <div>
                   <dt>Last checked</dt>
-                  <dd>{restaurant.hours.lastCheckedAt ?? 'Never'}</dd>
+                  <dd>{lastChecked ?? 'Never'}</dd>
                 </div>
               </dl>
             </footer>

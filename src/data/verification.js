@@ -39,6 +39,17 @@ export const SOURCE = {
   OFFICIAL: 'Official registry or certifying body',
   /** The restaurant itself — its site, its staff, a call. */
   OPERATOR: 'The restaurant',
+  /**
+   * Naver Place or Kakao Map, read through their official APIs. Korea's de
+   * facto business registers: operators maintain their own listings, so this
+   * is strong enough to carry CONFIRMED when both services agree.
+   */
+  MAP_SERVICE: 'Naver Place / Kakao Map',
+  /**
+   * A third-party restaurant directory (e.g. DiningCode) that aggregates other
+   * listings. Useful, but a step removed from the operator — SUPPORTED at best.
+   */
+  DIRECTORY: 'Restaurant directory listing',
   /** Traveller reports. Needs moderation before it can carry CONFIRMED. */
   COMMUNITY: 'Traveller reports',
   /** Our own project research. */

@@ -27,17 +27,35 @@ export const restaurants = [
     zone: "Jongno, Seoul",
     category: "temple",
 
-    coordinates: fact({ lat: 37.5737728, lng: 126.983174 }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GEOCODER, evidence: "Geocoder hit; not confirmed as the venue entrance" }),
-    address: fact("56 Ujeongguk-ro, Jongno-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact("11:30 AM – 9:30 PM", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    coordinates: fact({ lat: 37.5738365, lng: 126.9832147 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map agrees to within ~15 m" }),
+    address: fact("5F Templestay Information Center, 56 Ujeongguk-ro, Jongno-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 우정국로 56; Naver adds 템플스테이 통합정보센터 5층" }),
+    hours: fact({
+      raw: "Mon–Sat 11:30–20:20, break 15:00–18:00, last order 19:10; closed Sunday",
+      weekly: {
+        mon: [{ from: "11:30", to: "15:00" }, { from: "18:00", to: "20:20", lastOrder: "19:10" }],
+        tue: [{ from: "11:30", to: "15:00" }, { from: "18:00", to: "20:20", lastOrder: "19:10" }],
+        wed: [{ from: "11:30", to: "15:00" }, { from: "18:00", to: "20:20", lastOrder: "19:10" }],
+        thu: [{ from: "11:30", to: "15:00" }, { from: "18:00", to: "20:20", lastOrder: "19:10" }],
+        fri: [{ from: "11:30", to: "15:00" }, { from: "18:00", to: "20:20", lastOrder: "19:10" }],
+        sat: [{ from: "11:30", to: "15:00" }, { from: "18:00", to: "20:20", lastOrder: "19:10" }],
+        sun: [],
+      },
+    }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode per-day schedule (11:30–20:20, break 15:00–18:00, 일요일 휴무); last order 19:10 listed by DiningCode only" }),
     menus: fact([
       { name: "Michelin Temple Course", price: "45,000 KRW" },
       { name: "Meditation Set Meal", price: "65,000 KRW" },
       { name: "Fermented Plum Tea", price: "~8,000 KRW" },
     ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
 
+    phone: fact("02-733-2081", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing" }),
+    officialUrl: fact("http://balwoo.or.kr/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
+    transit: fact({ station: "Anguk", line: "Line 3", exit: null, walkingMinutes: 7, distanceM: 427 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 안국역 3호선: 427 m / 392 s. Exit not given by the routing API" }),
+
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.INFERRED, source: SOURCE.RESEARCH, evidence: "v1 tagged Vegan; Buddhist temple course menu (\"Michelin Temple Course\")" }),
+      // Still inferred: Naver Place categorises the venue as 사찰음식 (temple
+      // cuisine), which is vegan by doctrine — but that is a category, not a
+      // statement about this kitchen. Stronger basis than v3, same level.
+      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.INFERRED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place category 한식>사찰음식 (temple cuisine); temple cuisine excludes animal products by doctrine" }),
       halal: unknownFact("No halal information in the source"),
     },
     traits: ["Mild Taste","Fermented","Zero-waste"],
@@ -59,17 +77,32 @@ export const restaurants = [
     zone: "Insadong, Seoul",
     category: "temple",
 
-    coordinates: fact({ lat: 37.5732644, lng: 126.9860943 }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GEOCODER, evidence: "Geocoder hit; not confirmed as the venue entrance" }),
-    address: fact("30-13 Insadong-gil, Jongno-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact("12:00 PM – 9:00 PM", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    coordinates: fact({ lat: 37.5737994, lng: 126.9860728 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map agrees to within ~17 m. The old geocoder hit sat ~60 m south" }),
+    address: fact("30-13 Insadong-gil, Jongno-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 인사동길 30-13" }),
+    hours: fact({
+      raw: "11:30–22:00 daily, open year-round (연중무휴)",
+      weekly: {
+        mon: [{ from: "11:30", to: "22:00" }],
+        tue: [{ from: "11:30", to: "22:00" }],
+        wed: [{ from: "11:30", to: "22:00" }],
+        thu: [{ from: "11:30", to: "22:00" }],
+        fri: [{ from: "11:30", to: "22:00" }],
+        sat: [{ from: "11:30", to: "22:00" }],
+        sun: [{ from: "11:30", to: "22:00" }],
+      },
+    }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode: 11:30–22:00 across every listed day, 연중무휴; no break or last order listed" }),
     menus: fact([
       { name: "Traditional Temple Banchan Set", price: "33,000 KRW" },
       { name: "Wild Mountain Greens Rice", price: "22,000 KRW" },
       { name: "Lotus Root Pancakes", price: "~15,000 KRW" },
     ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
 
+    phone: fact("0507-1393-0312", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing; a 0507 number forwards to the venue's real line" }),
+    officialUrl: fact("http://www.sanchon.com/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
+    transit: fact({ station: "Anguk", line: "Line 3", exit: null, walkingMinutes: 9, distanceM: 606 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 안국역 3호선: 606 m / 540 s. Exit not given by the routing API" }),
+
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.INFERRED, source: SOURCE.RESEARCH, evidence: "v1 tagged Vegan; temple banchan / mountain-greens menu" }),
+      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.INFERRED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place category 한식>사찰음식 (temple cuisine); temple cuisine excludes animal products by doctrine" }),
       halal: unknownFact("No halal information in the source"),
     },
     traits: ["Mild Taste","Fermented","Local Sourcing"],
@@ -91,17 +124,32 @@ export const restaurants = [
     zone: "Insadong, Seoul",
     category: "korean-chinese",
 
-    coordinates: fact({ lat: 37.5747, lng: 126.9853 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("14-5, Insadong 12-gil, Jongno-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact("11:30 AM – 9:00 PM", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    coordinates: fact({ lat: 37.5746953, lng: 126.9852674 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map agrees to within ~4 m. The old fallback centre happened to land within ~5 m, but was never checked" }),
+    address: fact("14-5, Insadong 12-gil, Jongno-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 인사동12길 14-5" }),
+    hours: fact({
+      raw: "11:30–21:00, break 16:00–17:00, last orders 15:00 and 20:00; closed Thursdays",
+      weekly: {
+        mon: [{ from: "11:30", to: "16:00", lastOrder: "15:00" }, { from: "17:00", to: "21:00", lastOrder: "20:00" }],
+        tue: [{ from: "11:30", to: "16:00", lastOrder: "15:00" }, { from: "17:00", to: "21:00", lastOrder: "20:00" }],
+        wed: [{ from: "11:30", to: "16:00", lastOrder: "15:00" }, { from: "17:00", to: "21:00", lastOrder: "20:00" }],
+        thu: [],
+        fri: [{ from: "11:30", to: "16:00", lastOrder: "15:00" }, { from: "17:00", to: "21:00", lastOrder: "20:00" }],
+        sat: [{ from: "11:30", to: "16:00", lastOrder: "15:00" }, { from: "17:00", to: "21:00", lastOrder: "20:00" }],
+        sun: [{ from: "11:30", to: "16:00", lastOrder: "15:00" }, { from: "17:00", to: "21:00", lastOrder: "20:00" }],
+      },
+    }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode: 11:30–21:00, break 16:00–17:00, last orders 15:00 and 20:00. Thursday closure stated by a listing summary (월~수, 금~일 / 매주 목요일 정기휴무), not by DiningCode's own schedule block" }),
     menus: fact([
       { name: "Vegan Jajangmyeon", price: "9,000 KRW" },
       { name: "Soy Meat Sweet and Sour", price: "18,000 KRW" },
       { name: "Spicy Vegan Jjamppong", price: "10,000 KRW" },
     ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
 
+    phone: fact("02-735-7171", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing" }),
+    officialUrl: fact("http://www.go5.co.kr/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
+    transit: fact({ station: "Anguk", line: "Line 3", exit: null, walkingMinutes: 6, distanceM: 373 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 안국역 3호선: 373 m / 334 s. A listing summary mentions exit 6, unconfirmed, so no exit is recorded" }),
+
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states: \"convert rich Korean-Chinese classics into 100% vegan meals\"" }),
+      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "Research states \"100% vegan meals\"; Naver Place titles it 채식요리전문점 and DiningCode categorises it 비건식당" }),
       halal: unknownFact("No halal information in the source"),
     },
     traits: [],
@@ -125,7 +173,7 @@ export const restaurants = [
 
     coordinates: fact({ lat: 37.533, lng: 126.993 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
     address: fact("117, Bogwang-ro, Yongsan-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact("11:00 AM – 10:00 PM", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    hours: fact({ raw: "11:00 AM – 10:00 PM", weekly: null }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
     menus: fact([
       { name: "Lentil Veggie Burrito Bowl", price: "14,500 KRW" },
       { name: "Avocado Burger", price: "15,500 KRW" },
@@ -221,7 +269,7 @@ export const restaurants = [
 
     coordinates: fact({ lat: 37.5332, lng: 126.9967 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
     address: fact("67, Usadan-ro 10-gil, Yongsan-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact("11:30 AM – 9:00 PM", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    hours: fact({ raw: "11:30 AM – 9:00 PM", weekly: null }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
     menus: fact([
       { name: "Halal Bulgogi", price: "~15,000 KRW" },
       { name: "Halal Samgyetang", price: "~18,000 KRW" },
@@ -345,22 +393,41 @@ export const restaurants = [
 
   {
     id: "ggot-epida",
-    name: "Ggot, E-Pi Da (꽃, 에피다)",
+    // Renamed: the venue is 꽃밥에피다 (two branches). The draft's "꽃, 에피다"
+    // does not exist on either map service. This entry is the Bukchon branch.
+    name: "Kkotbap Epida Bukchon (꽃밥에피다 북촌)",
     zone: "Bukchon, Seoul",
     category: "zero-waste",
 
-    coordinates: fact({ lat: 37.5802, lng: 126.9775 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("15-2 Bukchon-ro 5-gil, Jongno-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: unknownFact("Opening hours never confirmed"),
-    menus: fact([
-      { name: "Seasonal Whole-Vegetable Course", price: "~38,000 KRW" },
-      { name: "Root-to-Leaf Salad", price: "~16,000 KRW" },
-      { name: "Omija Tea", price: "~7,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+    coordinates: fact({ lat: 37.5802965, lng: 126.9848089 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map agrees to within ~1 m. The old fallback centre sat ~640 m west" }),
+    address: fact("1F, 39 Bukchon-ro, Jongno-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 북촌로 39 1층. The draft's 북촌로5길 15-2 matches no listing" }),
+    hours: fact({
+      raw: "11:30–19:30, break 15:00–16:00, last orders 14:30 and 19:00. One Wednesday was listed as 17:00–19:30 — whether that repeats is unknown",
+      weekly: {
+        mon: [{ from: "11:30", to: "15:00", lastOrder: "14:30" }, { from: "16:00", to: "19:30", lastOrder: "19:00" }],
+        tue: [{ from: "11:30", to: "15:00", lastOrder: "14:30" }, { from: "16:00", to: "19:30", lastOrder: "19:00" }],
+        // wed omitted on purpose: the one Wednesday on file opened at 17:00.
+        // A weekly rule from a single observation would be a guess.
+        thu: [{ from: "11:30", to: "15:00", lastOrder: "14:30" }, { from: "16:00", to: "19:30", lastOrder: "19:00" }],
+        fri: [{ from: "11:30", to: "15:00", lastOrder: "14:30" }, { from: "16:00", to: "19:30", lastOrder: "19:00" }],
+        sat: [{ from: "11:30", to: "15:00", lastOrder: "14:30" }, { from: "16:00", to: "19:30", lastOrder: "19:00" }],
+        sun: [{ from: "11:30", to: "15:00", lastOrder: "14:30" }, { from: "16:00", to: "19:30", lastOrder: "19:00" }],
+      },
+    }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode dated schedule: Sat/Sun/Mon/Tue/Thu all 11:30–19:30, break 15:00–16:00, last orders 14:30 and 19:00. No regular closing day listed" }),
+    // Withdrawn: the draft's menu is contradicted by the venue's actual listing,
+    // which shows dishes including 돼지불고기 and 한우. Better unknown than wrong.
+    menus: unknownFact("Draft menu (Seasonal Whole-Vegetable Course, Root-to-Leaf Salad) matches no listing; DiningCode shows a different menu. Withdrawn pending verification"),
+
+    phone: fact("02-766-6272", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing" }),
+    officialUrl: fact("https://goodbabstory.imweb.me/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
+    instagram: fact("https://www.instagram.com/flowerrice_bukchon/", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "Account @flowerrice_bukchon self-describes as 꽃밥에피다 2호점, 북촌 친환경 그로서란트" }),
+    transit: fact({ station: "Anguk", line: "Line 3", exit: null, walkingMinutes: 9, distanceM: 520 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 안국역 3호선: 520 m / 525 s. Exit not given by the routing API" }),
 
     dietary: {
-      vegan: unknownFact("Source describes whole-plant cooking but never states the kitchen is vegan — not inferred"),
-      halal: unknownFact("No halal information in the source"),
+      // v3 refused to infer vegan here. Checking paid off in the opposite
+      // direction: the kitchen serves meat, so "vegan" would have been wrong.
+      vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode: every sauce is vegan, but 돼지불고기 and 한우 are on the menu — vegan dishes exist, the kitchen is not vegan" }),
+      halal: fact(HALAL.NONE, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode lists 돼지불고기 (pork bulgogi)" }),
     },
     traits: ["Mild Taste","Zero-waste"],
 
@@ -381,17 +448,23 @@ export const restaurants = [
     zone: "Seochon, Seoul",
     category: "temple",
 
-    coordinates: fact({ lat: 37.5786, lng: 126.9691 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("19 Jahamun-ro 10-gil, Jongno-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.5776553, lng: 126.9708015 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map agrees to within ~4 m. The old fallback centre sat ~180 m away" }),
+    address: fact("19 Jahamun-ro 5-gil, Jongno-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place gives 자하문로5길 19 (지번 체부동 132-1). The draft said 자하문로10길 — a different street" }),
+    // Left unknown on purpose: two listings disagree on both the hours and the
+    // closing days, so picking one would be a guess dressed as a fact.
+    hours: unknownFact("Sources conflict — DiningCode: closed Mon–Tue, Wed–Sat 11:30–20:00 (break 15:00–17:30), Sun 11:30–15:00. A listing summary instead says Mon–Sat 11:00–21:00, Sun 12:00–20:00, break 15:30–17:00. Unresolved"),
     menus: fact([
       { name: "Temple-style Jang Course", price: "~35,000 KRW" },
       { name: "Fermented Soybean Stew", price: "~14,000 KRW" },
       { name: "Seasonal Namul Plate", price: "~12,000 KRW" },
     ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
 
+    phone: fact("02-536-5228", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "Menupan listing. DiningCode instead lists 0507-1418-5228, a forwarding number — not contradictory, but unconfirmed" }),
+    officialUrl: fact("http://templefood.com/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
+    transit: fact({ station: "Gyeongbokgung", line: "Line 3", exit: null, walkingMinutes: 7, distanceM: 432 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 경복궁역 3호선: 432 m / 410 s. Exit not given by the routing API" }),
+
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states: \"a fully plant-based menu\"" }),
+      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, lastCheckedAt: "2026-07-17", evidence: "Research states \"a fully plant-based menu\"; Naver Place category 한식>사찰음식 is consistent" }),
       halal: unknownFact("v1 Halal tag was derived from the plant-based menu; certification never evidenced — inference removed"),
     },
     traits: ["Fermented"],
@@ -415,7 +488,7 @@ export const restaurants = [
 
     coordinates: fact({ lat: 37.383, lng: 126.637 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
     address: fact("5, Technopark-ro 111beon-gil, Yeonsu-gu, Incheon", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact("10:00 AM – 10:00 PM", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    hours: fact({ raw: "10:00 AM – 10:00 PM", weekly: null }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
     menus: fact([
       { name: "Soy-Meat Jeyuk Set", price: "13,500 KRW" },
       { name: "Mushroom Bulgogi Set", price: "~14,000 KRW" },
