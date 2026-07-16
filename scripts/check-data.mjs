@@ -7,6 +7,9 @@ import { restaurants } from '../src/data/restaurants.js';
 import {
   CONFIDENCE, HALAL, IMAGE_RIGHTS, isKnown, validateDietary, dietaryBadges,
 } from '../src/data/verification.js';
+import { hasEvidence } from '../src/data/evidence.js';
+import { loadStore } from './lib/evidence-store.mjs';
+import { checkEvidence } from './lib/check-evidence.mjs';
 
 const DAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const TIME = /^\d{1,2}:\d{2}$/;
@@ -59,10 +62,12 @@ for (const r of restaurants) {
     // A known fact must say where it came from and why we believe it.
     if (isKnown(f) && !f.source) note(r.id, `${name} is ${f.confidence} with no source`);
     // Anything CONFIRMED must be auditable: dated, and repeatable by someone
-    // else. A confirmation nobody can re-run is just an assertion.
+    // else. A confirmation nobody can re-run is just an assertion. The method
+    // may be inline (pre-evidence-layer) or carried by a referenced evidence
+    // version — both are repeatable, so both pass.
     if (f.confidence === CONFIDENCE.CONFIRMED) {
       if (!f.lastCheckedAt) note(r.id, `${name} is confirmed but has no lastCheckedAt`);
-      if (!f.method) note(r.id, `${name} is confirmed but records no verification method`);
+      if (!f.method && !hasEvidence(f)) note(r.id, `${name} is confirmed but records neither a method nor an evidence reference`);
       if (!f.evidence) note(r.id, `${name} is confirmed but quotes no evidence`);
     }
   }
@@ -87,14 +92,23 @@ for (const r of restaurants) {
   }
 }
 
+// The evidence layer validates itself and its references back to the facts.
+const store = loadStore();
+problems.push(...checkEvidence(store, restaurants));
+
 const certified = restaurants.filter((r) => r.dietary.halal.value === HALAL.CERTIFIED);
 const confirmed = restaurants.filter((r) =>
   [r.coordinates, r.address, r.hours, r.menus, r.dietary.vegan, r.dietary.halal]
     .some((f) => f.confidence === CONFIDENCE.CONFIRMED));
+const onEvidenceLayer = restaurants.filter((r) =>
+  [r.coordinates, r.address, r.hours, r.menus, r.phone, r.officialUrl, r.instagram, r.transit,
+    r.dietary.vegan, r.dietary.halal].some(hasEvidence));
+const versions = Object.values(store.records).reduce((n, rec) => n + (rec.versions?.length ?? 0), 0);
 
 console.log(`Checked ${restaurants.length} places.`);
 console.log(`  halal certified: ${certified.length}  (each needs a sighted certificate)`);
 console.log(`  any field confirmed: ${confirmed.length}`);
+console.log(`  on the evidence layer: ${onEvidenceLayer.length}  (${Object.keys(store.records).length} records, ${versions} versions, ${Object.keys(store.sources).filter(k => !k.startsWith('_')).length} sources)`);
 
 if (problems.length) {
   console.error(`\n${problems.length} problem(s):`);

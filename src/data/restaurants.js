@@ -19,6 +19,7 @@
 
 // Extension is explicit so data QA scripts can import this under plain Node.
 import { fact, unknownFact, imageLead, CONFIDENCE, SOURCE, METHOD, VEGAN, HALAL, IMAGE_RIGHTS } from './verification.js';
+import { evidenceRef } from './evidence.js';
 
 export const restaurants = [
   {
@@ -787,8 +788,27 @@ export const restaurants = [
     zone: "Chinatown, Jemulpo-gu, Incheon",
     category: "korean-chinese",
 
-    coordinates: fact({ lat: 37.4754345, lng: 126.619569 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, url: "https://map.naver.com/", method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map's route endpoint agrees to within ~2 m. The old fallback centre happened to sit ~5 m away but was never checked" }),
-    address: fact("43 Chinatown-ro, Jemulpo-gu, Incheon", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, url: "https://map.naver.com/", method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 인천 제물포구 차이나타운로 43; Incheon's own tourism site gives the same. Was area-level, and named a district that no longer exists" }),
+    // Migrated onto the evidence layer (demo). Bulky provenance — URLs, dated
+    // excerpts, licences, who fetched what — now lives in
+    // data/evidence/gonghwachun.json; these facts keep only what the UI shows
+    // plus a pinned reference to the evidence version each rests on.
+    coordinates: fact({ lat: 37.4754345, lng: 126.619569 }, {
+      confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17",
+      evidence: "Naver Place; Kakao Map agrees to within ~2 m",
+      evidenceRefs: [
+        evidenceRef("ev-gonghwachun-naver-place", 1, "position as listed"),
+        evidenceRef("ev-gonghwachun-kakao-map", 1, "independent corroboration — what makes this confirmed"),
+      ],
+    }),
+    address: fact("43 Chinatown-ro, Jemulpo-gu, Incheon", {
+      confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", precision: "street",
+      evidence: "Naver, Kakao and Incheon city all give 제물포구 차이나타운로 43",
+      evidenceRefs: [
+        evidenceRef("ev-gonghwachun-naver-place", 1),
+        evidenceRef("ev-gonghwachun-kakao-map", 1, "independent corroboration"),
+        evidenceRef("ev-gonghwachun-itour", 1, "the city uses the post-merger district too"),
+      ],
+    }),
     hours: fact({
       raw: "10:00–21:30 daily, no break, open year-round",
       weekly: {
@@ -800,20 +820,44 @@ export const restaurants = [
         sat: [{ from: "10:00", to: "21:30" }],
         sun: [{ from: "10:00", to: "21:30" }],
       },
-    }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, url: "https://itour.incheon.go.kr/ssst/ssst/detail.do?cotId=ITD21121017064750125", method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Incheon city tourism site: \"10:00~21:30 브레이크 타임 없음\", 휴무일 \"연중무휴\". Several independent visitor write-ups give the same 10:00–21:30 daily. Not raised to confirmed: the operator's own site could not be reached" }),
+    }, {
+      confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17",
+      evidence: "Incheon city: 10:00~21:30, no break, 연중무휴; visitor write-ups agree",
+      evidenceRefs: [evidenceRef("ev-gonghwachun-itour", 1, "not raised to confirmed: the operator's own site could not be reached")],
+    }),
     menus: fact([
       { name: "Gonghwachun Jajangmyeon", price: null },
       { name: "Jjamppong", price: null },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, url: "https://itour.incheon.go.kr/ssst/ssst/detail.do?cotId=ITD21121017064750125", method: METHOD.GOV_LISTING, lastCheckedAt: "2026-07-17", evidence: "Incheon city tourism site names 공화춘짜장면 and 짬뽕 as the representative dishes and prints no prices. The draft's \"Original Jajangmyeon / Mild White Jjamppong / Sweet and Sour Pork\" at invented prices is dropped" }),
+    ], {
+      confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17",
+      evidence: "The two dishes Incheon city names; it prints no prices, so none are given",
+      evidenceRefs: [evidenceRef("ev-gonghwachun-itour", 1)],
+    }),
 
-    phone: fact("032-765-0571", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, url: "https://itour.incheon.go.kr/ssst/ssst/detail.do?cotId=ITD21121017064750125", method: METHOD.GOV_LISTING, lastCheckedAt: "2026-07-17", evidence: "Incheon city tourism site. Visitor write-ups list 0507-1363-0571, a forwarding number — not contradictory" }),
-    transit: fact({ station: "Incheon", line: "Line 1 / Suin-Bundang", exit: 1, walkingMinutes: 6, distanceM: 323 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, url: "https://map.kakao.com/", method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 인천역 1호선: 323 m / 383 s. Exit 1 is named consistently by independent write-ups (\"인천역 1번 출구에서 229–237m\"), the only exit evidenced anywhere in this dataset" }),
+    phone: fact("032-765-0571", {
+      confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17",
+      evidence: "Incheon city listing; write-ups also give 0507-1363-0571, a forwarding number",
+      evidenceRefs: [evidenceRef("ev-gonghwachun-itour", 1)],
+    }),
+    transit: fact({ station: "Incheon", line: "Line 1 / Suin-Bundang", exit: 1, walkingMinutes: 6, distanceM: 323 }, {
+      confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17",
+      evidence: "Kakao route from 인천역 1호선: 323 m / 383 s; exit 1 named consistently by write-ups",
+      evidenceRefs: [evidenceRef("ev-gonghwachun-kakao-map", 1, "route distance and duration")],
+    }),
 
     dietary: {
       // The "no pork/not vegan" call used to rest on a menu the draft invented.
       // It still holds — but now on the city's own description of the kitchen.
-      vegan: fact(VEGAN.NONE, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, url: "https://itour.incheon.go.kr/ssst/ssst/detail.do?cotId=ITD21121017064750125", method: METHOD.GOV_LISTING, lastCheckedAt: "2026-07-17", evidence: "Incheon city tourism site notes the house jajangmyeon is unusual for containing no meat (\"해물과 야채, 감자 등으로만\") — seafood is not vegan, and the wider menu is a standard Korean-Chinese one" }),
-      halal: fact(HALAL.NONE, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, method: METHOD.DIRECTORY_LISTING, lastCheckedAt: "2026-07-17", evidence: "A standard Korean-Chinese kitchen serving pork dishes; no halal provision claimed by any source" }),
+      vegan: fact(VEGAN.NONE, {
+        confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17",
+        evidence: "The house jajangmyeon is meat-free but made with 해물 (seafood); the wider menu is a standard Korean-Chinese one",
+        evidenceRefs: [evidenceRef("ev-gonghwachun-itour", 1, "\"해물과 야채, 감자 등으로만\"")],
+      }),
+      halal: fact(HALAL.NONE, {
+        confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17",
+        evidence: "A standard Korean-Chinese kitchen; no halal provision claimed by any source",
+        evidenceRefs: [evidenceRef("ev-gonghwachun-itour", 1)],
+      }),
     },
     traits: ["Mild Taste"],
 
@@ -830,6 +874,14 @@ export const restaurants = [
     vibe: "Jajangmyeon's birthplace is next door — now a museum.",
     story: "Korea's most famous noodle was born on this street: the original Gonghwachun opened here in 1905 and served jajangmyeon for three generations before closing in 1983. Its building still stands about 150 metres away as the Jajangmyeon Museum, a registered national heritage site, and the plot is marked on maps as Gonghwachun-teo — the Gonghwachun site. The restaurant trading under the name today is a separate business that registered the trademark in 2002 and opened in 2004; the founding family contested its claim to be the original. Come for the noodles, then walk to the museum for the history.",
     esg_point: "Serves the dish that made this street, beside the museum that keeps its history",
+    // Editorial is where an unsourced claim does the most damage — the old copy
+    // asserted a lineage this venue does not have. Every load-bearing statement
+    // above traces to one of these.
+    storyRefs: [
+      evidenceRef("ev-gonghwachun-sportsseoul-trademark", 1, "1905 founding, 1983 closure, 2002 trademark, 2004 opening, the family's suit"),
+      evidenceRef("ev-jajangmyeon-museum-heritage", 1, "the old building is the museum, and is registered heritage"),
+      evidenceRef("ev-gonghwachun-naver-place", 1, "공화춘터 listed separately as a heritage site"),
+    ],
 
     imageLeads: [
       imageLead({ owner: "Incheon Metropolitan City (itour.incheon.go.kr)", url: "https://itour.incheon.go.kr/ssst/ssst/detail.do?cotId=ITD21121017064750125", official: true, rights: IMAGE_RIGHTS.PERMISSION_NEEDED, licence: null, photographer: null, commercialUse: null, note: "City tourism listing carries photos of the venue. No KOGL notice found on the page, so default copyright applies — worth asking, as city tourism offices often licence for promotion" }),

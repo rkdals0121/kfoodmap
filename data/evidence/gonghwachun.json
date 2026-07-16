@@ -1,0 +1,136 @@
+{
+  "restaurantId": "gonghwachun",
+  "_comment": "Evidence for the Gonghwachun record. Every version here was retrieved on 2026-07-17 while verifying the venue; the excerpts are what the pages actually said. Versions are immutable — `hash` covers the frozen fields, and check-data recomputes it. To record a change, append version 2 with supersedes: 1; never edit a published version.",
+  "records": {
+    "ev-gonghwachun-itour": {
+      "id": "ev-gonghwachun-itour",
+      "sourceId": "src-itour-incheon",
+      "title": "공화춘 | 여행지 | 인천투어",
+      "url": "https://itour.incheon.go.kr/ssst/ssst/detail.do?cotId=ITD21121017064750125",
+      "versions": [
+        {
+          "version": 1,
+          "method": "GOV_LISTING",
+          "confidence": "supported",
+          "status": "active",
+          "capturedAt": "2026-07-17",
+          "checkedAt": "2026-07-17",
+          "retrievedBy": "claude-opus-4-8",
+          "excerpt": "주소: 인천 제물포구 차이나타운로 43 / 전화번호: 032-765-0571 / 이용시간: 10:00~21:30 브레이크 타임 없음 / 휴무일: 연중무휴 / 대표메뉴: 공화춘짜장면, 짬뽕 (가격 미표기) / 주차: 있음(60대, 주차요금 무료) / 설명: 중식의 대명사 공화춘의 역사를 느낄수 있는 곳이다. 일반짜장면은 고기가 들어가 있지만, 공화춘 짜장은 해물과 야채, 감자 등으로만 만들어진 공화춘에만 있는 짜장면이다.",
+          "license": {
+            "type": "unknown",
+            "commercialUse": null,
+            "note": "No 공공누리/KOGL notice found on the page or its footer, so default copyright applies to the photos it carries."
+          },
+          "notes": "The city's own listing. Notable for what it does not say: no mention of the 1905 original, which is consistent with the operating venue not claiming that lineage on official channels.",
+          "supersedes": null,
+          "hash": "ea0e4dd587ff9034"
+        }
+      ]
+    },
+    "ev-gonghwachun-naver-place": {
+      "id": "ev-gonghwachun-naver-place",
+      "sourceId": "src-naver-place",
+      "title": "공화춘 — Naver Place listing",
+      "url": "https://map.naver.com/p/search/%EC%9D%B8%EC%B2%9C%20%EC%B0%A8%EC%9D%B4%EB%82%98%ED%83%80%EC%9A%B4%20%EA%B3%B5%ED%99%94%EC%B6%98",
+      "versions": [
+        {
+          "version": 1,
+          "method": "MAP_LOOKUP",
+          "confidence": "supported",
+          "status": "active",
+          "capturedAt": "2026-07-17",
+          "checkedAt": "2026-07-17",
+          "retrievedBy": "claude-opus-4-8",
+          "excerpt": "title: 공화춘 / category: 중식>중식당 / address: 인천광역시 제물포구 북성동3가 5-6 / roadAddress: 인천광역시 제물포구 차이나타운로 43 / mapx: 1266195690, mapy: 374754345 (= 126.619569, 37.4754345) / link: http://공화춘.yeogiyou.co.kr/. The same query also returned two separate entries: 짜장면박물관 (여행,명소>박물관, 차이나타운로 56-14) and 공화춘터 (여행,명소>국가유산, 선린동).",
+          "license": {
+            "type": "allRightsReserved",
+            "commercialUse": false,
+            "note": "Naver's listing content is not licensed for reuse."
+          },
+          "notes": "Retrieved via Naver's official local-search API. The three distinct entries — restaurant, museum, heritage site — are what showed the operating venue is not the 1905 original.",
+          "supersedes": null,
+          "hash": "d30a2f343b6142f9"
+        }
+      ]
+    },
+    "ev-gonghwachun-kakao-map": {
+      "id": "ev-gonghwachun-kakao-map",
+      "sourceId": "src-kakao-map",
+      "title": "공화춘 차이나타운1호점 — Kakao Map listing and walking route",
+      "url": "http://place.map.kakao.com/8189016",
+      "versions": [
+        {
+          "version": 1,
+          "method": "MAP_CROSSCHECK",
+          "confidence": "confirmed",
+          "status": "active",
+          "capturedAt": "2026-07-17",
+          "checkedAt": "2026-07-17",
+          "retrievedBy": "claude-opus-4-8",
+          "excerpt": "Place search '인천 차이나타운 공화춘' → 공화춘 차이나타운1호점, 인천 제물포구 차이나타운로 43, 음식점>중식>중국요리. Walking route 인천역 1호선 → 공화춘 차이나타운1호점: 약 323 m / 약 383초; route endpoint ep=37.4753908741045,126.619588013992 — agrees with Naver Place to within ~2 m.",
+          "license": {
+            "type": "allRightsReserved",
+            "commercialUse": false,
+            "note": "Kakao's listing content is not licensed for reuse."
+          },
+          "notes": "Retrieved via Kakao's official APIs. Confidence is 'confirmed' because this retrieval independently corroborates Naver on both address and position — a single map lookup would only justify 'supported'. Kakao's name for the venue, 차이나타운1호점, is a branch name.",
+          "supersedes": null,
+          "hash": "75d95377d59bcd53"
+        }
+      ]
+    },
+    "ev-gonghwachun-sportsseoul-trademark": {
+      "id": "ev-gonghwachun-sportsseoul-trademark",
+      "sourceId": "src-sportsseoul",
+      "title": "'공화춘 상표권 소송'으로 보는 외식업계 원조 논란",
+      "url": "https://www.sportsseoul.com/news/read/824143",
+      "versions": [
+        {
+          "version": 1,
+          "method": "CORROBORATED",
+          "confidence": "supported",
+          "status": "active",
+          "capturedAt": "2026-07-17",
+          "checkedAt": "2026-07-17",
+          "retrievedBy": "claude-opus-4-8",
+          "excerpt": "원조 공화춘은 1905년부터 3대에 걸쳐 운영되다 1983년 경영난으로 폐업했다. 구 공화춘 건물은 현재 자장면 박물관으로 활용되고 있다. 이씨가 2002년 상표등록을 하고 2004년부터 구 공화춘 건물 옆에서 신 공화춘을 운영 중. 창업주 일가인 왕씨가 이씨를 상대로 손해배상 청구 소송을 제기함.",
+          "license": {
+            "type": "allRightsReserved",
+            "commercialUse": false,
+            "note": "Press article; quoted here as evidence, not reproduced."
+          },
+          "notes": "The basis for rewriting the story. The article does not state the lawsuit's outcome, which is why the story says the claim was contested rather than how it ended.",
+          "supersedes": null,
+          "hash": "f71001c38bdb2219"
+        }
+      ]
+    },
+    "ev-jajangmyeon-museum-heritage": {
+      "id": "ev-jajangmyeon-museum-heritage",
+      "sourceId": "src-naver-encyc",
+      "title": "짜장면박물관 — 네이버 지식백과",
+      "url": "https://terms.naver.com/entry.naver?docId=3337491&cid=42856&categoryId=42856",
+      "versions": [
+        {
+          "version": 1,
+          "method": "CORROBORATED",
+          "confidence": "supported",
+          "status": "partial",
+          "capturedAt": "2026-07-17",
+          "checkedAt": "2026-07-17",
+          "retrievedBy": "claude-opus-4-8",
+          "excerpt": "옛 공화춘 건물을 리모델링하여 개관한 짜장면 박물관은 국가등록문화유산으로 짜장면 관련 다양한 콘텐츠를 지속적으로 만들어가는 국내 최초의 짜장 테마박물관이다. 총 6개의 상설전시…",
+          "license": {
+            "type": "allRightsReserved",
+            "commercialUse": false,
+            "note": "Encyclopedia entry; quoted as evidence."
+          },
+          "notes": "Status is 'partial': terms.naver.com blocks direct fetching, so this excerpt comes from the search API's abstract of the same entry rather than from the page body. Enough to establish the heritage designation and the building's identity; not a full read.",
+          "supersedes": null,
+          "hash": "61e48a128a4ad845"
+        }
+      ]
+    }
+  }
+}

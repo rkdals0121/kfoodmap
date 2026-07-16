@@ -1,0 +1,60 @@
+{
+  "_comment": "Registry of sources, shared by every evidence record. `tier` is the priority when sources disagree (lower wins). A source's authority does not by itself set how confident a fact may be — that ceiling is on each evidence version, because the same source can be read well or badly.",
+
+  "src-naver-place": {
+    "id": "src-naver-place",
+    "name": "Naver Place",
+    "kind": "map",
+    "tier": 3,
+    "homepage": "https://map.naver.com/",
+    "note": "Korea's dominant business directory; operators maintain their own listings. Read through Naver's official search API."
+  },
+  "src-kakao-map": {
+    "id": "src-kakao-map",
+    "name": "Kakao Map",
+    "kind": "map",
+    "tier": 3,
+    "homepage": "https://map.kakao.com/",
+    "note": "Second map service, used to cross-check Naver. Also supplies walking routes. Read through Kakao's official API."
+  },
+  "src-itour-incheon": {
+    "id": "src-itour-incheon",
+    "name": "Incheon Metropolitan City — Incheon Tour",
+    "kind": "government",
+    "tier": 2,
+    "homepage": "https://itour.incheon.go.kr/",
+    "note": "The city's own tourism listing. Authoritative and independent of the venue, but curated and liable to go stale."
+  },
+  "src-visitseoul": {
+    "id": "src-visitseoul",
+    "name": "Seoul Metropolitan Government — Visit Seoul",
+    "kind": "government",
+    "tier": 2,
+    "homepage": "https://visitseoul.net/",
+    "note": "Seoul's official tourism site."
+  },
+  "src-diningcode": {
+    "id": "src-diningcode",
+    "name": "DiningCode",
+    "kind": "directory",
+    "tier": 5,
+    "homepage": "https://www.diningcode.com/",
+    "note": "Third-party aggregator over other listings. Useful for per-day hours, but a step removed from the operator."
+  },
+  "src-sportsseoul": {
+    "id": "src-sportsseoul",
+    "name": "Sports Seoul",
+    "kind": "press",
+    "tier": 6,
+    "homepage": "https://www.sportsseoul.com/",
+    "note": "Press. Cited only for the documented history of the Gonghwachun trademark dispute, not for operating details."
+  },
+  "src-naver-encyc": {
+    "id": "src-naver-encyc",
+    "name": "Naver Encyclopedia (지식백과)",
+    "kind": "reference",
+    "tier": 6,
+    "homepage": "https://terms.naver.com/",
+    "note": "Reference work aggregating published encyclopedias. Cited for heritage designations."
+  }
+}
