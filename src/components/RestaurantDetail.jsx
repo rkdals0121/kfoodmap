@@ -39,6 +39,10 @@ function Trust({ fact }) {
 
 // What the dietary caveat should say, keyed to the weakest level on the record.
 const DIET_CAVEAT = {
+  [CONFIDENCE.CONFIRMED]: {
+    title: 'Confirmed with the restaurant.',
+    body: 'The kitchen states this itself. Menus still change, so ask if you have a strict requirement.',
+  },
   [CONFIDENCE.SUPPORTED]: {
     title: 'Reported, not confirmed.',
     body: 'These details come from what the restaurant and our research describe. We haven’t checked them in person — confirm with staff before ordering.',

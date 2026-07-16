@@ -18,7 +18,7 @@
 // decision tables in scripts/migrate-dietary-v2.mjs and this file's successor.
 
 // Extension is explicit so data QA scripts can import this under plain Node.
-import { fact, unknownFact, CONFIDENCE, SOURCE, VEGAN, HALAL } from './verification.js';
+import { fact, unknownFact, imageLead, CONFIDENCE, SOURCE, VEGAN, HALAL, IMAGE_RIGHTS } from './verification.js';
 
 export const restaurants = [
   {
@@ -171,19 +171,42 @@ export const restaurants = [
     zone: "Itaewon, Seoul",
     category: "vegan-dining",
 
-    coordinates: fact({ lat: 37.533, lng: 126.993 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("117, Bogwang-ro, Yongsan-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact({ raw: "11:00 AM – 10:00 PM", weekly: null }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    coordinates: fact({ lat: 37.5331396, lng: 126.994198 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map's route endpoint agrees to within ~7 m. The old fallback centre sat ~107 m west" }),
+    address: fact("2F, 117 Bogwang-ro, Yongsan-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, lastCheckedAt: "2026-07-17", precision: "street", evidence: "The venue's own site: \"04391 서울특별시 용산구 보광로 117 (이태원동 130-43) 2층\"; Naver Place agrees. The draft had the street right but not the floor" }),
+    // First hours in the dataset confirmed by the operator themselves.
+    hours: fact({
+      raw: "Tue–Sun 11:00–22:00, last order 21:00, no kitchen break; closed Mondays",
+      weekly: {
+        mon: [],
+        tue: [{ from: "11:00", to: "22:00", lastOrder: "21:00" }],
+        wed: [{ from: "11:00", to: "22:00", lastOrder: "21:00" }],
+        thu: [{ from: "11:00", to: "22:00", lastOrder: "21:00" }],
+        fri: [{ from: "11:00", to: "22:00", lastOrder: "21:00" }],
+        sat: [{ from: "11:00", to: "22:00", lastOrder: "21:00" }],
+        sun: [{ from: "11:00", to: "22:00", lastOrder: "21:00" }],
+      },
+    }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, lastCheckedAt: "2026-07-17", evidence: "The venue's own site: \"Tues-Sun 11am-10pm\", \"Closed every Monday\", last order \"9pm\", \"NO Kitchen break\". The draft never recorded the Monday closure" }),
     menus: fact([
       { name: "Lentil Veggie Burrito Bowl", price: "14,500 KRW" },
       { name: "Avocado Burger", price: "15,500 KRW" },
       { name: "Vegan Chocolate Cake", price: "~8,000 KRW" },
     ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
 
+    phone: fact("02-749-1981", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, lastCheckedAt: "2026-07-17", evidence: "The venue's own site" }),
+    officialUrl: fact("https://plantcafeseoul.com/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site; the site itself confirms the Itaewon branch" }),
+    instagram: fact("https://www.instagram.com/plantcafeseoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, lastCheckedAt: "2026-07-17", evidence: "Linked from the venue's own site" }),
+    transit: fact({ station: "Itaewon", line: "Line 6", exit: null, walkingMinutes: 4, distanceM: 243 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 이태원역 6호선: 243 m / 224 s. Exit not given by the routing API" }),
+
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "v1 tagged Vegan; source describes \"hearty western-style vegan dining\" with an in-house vegan bakery" }),
+      // The first CONFIRMED dietary fact in the dataset: the kitchen says so itself.
+      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, lastCheckedAt: "2026-07-17", evidence: "The venue's own site describes it as a \"100% vegan restaurant and bakery cafe\"" }),
       halal: unknownFact("No halal information in the source"),
     },
+
+    imageLeads: [
+      imageLead({ owner: "Plant Cafe Seoul (operator)", url: "https://plantcafeseoul.com/", official: true, rights: IMAGE_RIGHTS.PERMISSION_NEEDED, licence: null, photographer: null, commercialUse: null, note: "No licence stated, so default copyright applies. The operator runs the site and @plantcafeseoul, so one request could cover both" }),
+      imageLead({ owner: "Plant Cafe Seoul (operator)", url: "https://www.instagram.com/plantcafeseoul", official: true, rights: IMAGE_RIGHTS.PERMISSION_NEEDED, licence: null, photographer: null, commercialUse: null, note: "Instagram's terms don't grant third-party reuse; ask the operator directly" }),
+    ],
     traits: [],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
@@ -203,19 +226,44 @@ export const restaurants = [
     zone: "Itaewon, Seoul",
     category: "vegan-dining",
 
-    coordinates: fact({ lat: 37.5355, lng: 126.9991 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Itaewon-ro, Yongsan-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.535452, lng: 126.9992256 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map's route endpoint agrees to within ~1 m" }),
+    address: fact("3F–4F, 228-1 Itaewon-ro, Yongsan-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, lastCheckedAt: "2026-07-17", precision: "street", evidence: "The venue's own site: \"(04400) 3F, 4F, 228-1, Itaewon-ro, Yongsan-gu, Seoul\"; Naver Place gives 이태원로 228-1 3층 4층. Was area-level before" }),
+    hours: fact({
+      raw: "12:00–22:30 daily, break 15:00–17:00, last order 21:30",
+      weekly: {
+        mon: [{ from: "12:00", to: "15:00" }, { from: "17:00", to: "22:30", lastOrder: "21:30" }],
+        tue: [{ from: "12:00", to: "15:00" }, { from: "17:00", to: "22:30", lastOrder: "21:30" }],
+        wed: [{ from: "12:00", to: "15:00" }, { from: "17:00", to: "22:30", lastOrder: "21:30" }],
+        thu: [{ from: "12:00", to: "15:00" }, { from: "17:00", to: "22:30", lastOrder: "21:30" }],
+        fri: [{ from: "12:00", to: "15:00" }, { from: "17:00", to: "22:30", lastOrder: "21:30" }],
+        sat: [{ from: "12:00", to: "15:00" }, { from: "17:00", to: "22:30", lastOrder: "21:30" }],
+        sun: [{ from: "12:00", to: "15:00" }, { from: "17:00", to: "22:30", lastOrder: "21:30" }],
+      },
+    }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode: 12:00–22:30 every listed day, break 15:00–17:00, last order 21:30, no closing day. The operator's site shows \"C/S 10:00-18:00 … Sat, Sun, Holiday OFF\" — that is customer service, not the dining room, so it is deliberately not used" }),
     menus: fact([
       { name: "Beyond Meat Burger", price: "~18,000 KRW" },
       { name: "Vegan Mushroom Risotto", price: "~20,000 KRW" },
       { name: "Plant-based Steak", price: "~28,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate. DiningCode instead lists 비건 비프 치즈 버거 (18,000) and 콰트로 버섯 리조또 (21,000) — same shape, different names, so the draft's wording is unconfirmed" }),
+
+    phone: fact("02-790-1108", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, lastCheckedAt: "2026-07-17", evidence: "The venue's own site; DiningCode lists the same number" }),
+    officialUrl: fact("https://monksbutcher.com", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
+    instagram: fact("https://www.instagram.com/monksbutcher_itaewon", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, lastCheckedAt: "2026-07-17", evidence: "Linked from the venue's own site as the Itaewon branch account" }),
+    transit: fact({ station: "Hangangjin", line: "Line 6", exit: null, walkingMinutes: 11, distanceM: 678 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 한강진역 6호선: 678 m / 650 s. Exit not given by the routing API" }),
 
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states: \"modern, upscale vegan dining\"; menu is entirely plant-based" }),
+      // Held at SUPPORTED, not raised: every current source calls it a
+      // 비건레스토랑 and no non-vegan dish appears, but the operator's own site
+      // never says so, and a 2019 report described separate vegan and
+      // vegetarian menus. Enough for the badge, not enough to confirm.
+      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode tags it 비건/비건레스토랑 and lists only vegan dishes. The operator's site does not state it, and a 2019 blog reported vegan and vegetarian menus being distinguished — unresolved" }),
       halal: unknownFact("No halal information in the source"),
     },
+
+    imageLeads: [
+      imageLead({ owner: "Monk's Butcher (operator)", url: "https://monksbutcher.com", official: true, rights: IMAGE_RIGHTS.PERMISSION_NEEDED, licence: null, photographer: null, commercialUse: null, note: "No licence stated, so default copyright applies" }),
+      imageLead({ owner: "Monk's Butcher (operator)", url: "https://www.instagram.com/monksbutcher_itaewon", official: true, rights: IMAGE_RIGHTS.PERMISSION_NEEDED, licence: null, photographer: null, commercialUse: null, note: "Instagram's terms don't grant third-party reuse; ask the operator directly" }),
+    ],
     traits: [],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
@@ -231,23 +279,43 @@ export const restaurants = [
 
   {
     id: "camouflage",
-    name: "Camouflage",
+    // Korean name recorded: the venue trades as 카무플라주, which is what any
+    // map or delivery app will match.
+    name: "Camouflage (카무플라주)",
     zone: "Itaewon, Seoul",
     category: "vegan-dining",
 
-    coordinates: fact({ lat: 37.533, lng: 126.996 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Itaewon-dong, Yongsan-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.5336238, lng: 126.9935757 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map's route endpoint agrees to within ~1 m. The old fallback centre sat ~225 m east" }),
+    address: fact("2F, 19 Itaewon-ro 26-gil, Yongsan-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place gives 이태원로26길 19 2층. Was area-level before" }),
+    hours: fact({
+      raw: "11:00–24:00 daily, last order 23:00",
+      weekly: {
+        mon: [{ from: "11:00", to: "24:00", lastOrder: "23:00" }],
+        tue: [{ from: "11:00", to: "24:00", lastOrder: "23:00" }],
+        wed: [{ from: "11:00", to: "24:00", lastOrder: "23:00" }],
+        thu: [{ from: "11:00", to: "24:00", lastOrder: "23:00" }],
+        fri: [{ from: "11:00", to: "24:00", lastOrder: "23:00" }],
+        sat: [{ from: "11:00", to: "24:00", lastOrder: "23:00" }],
+        sun: [{ from: "11:00", to: "24:00", lastOrder: "23:00" }],
+      },
+    }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode lists 11:00–00:00; several independent visitor write-ups give 매일 11:00~24:00 with a 23:00 last order. No closing day found" }),
     menus: fact([
       { name: "Vegan Kung Pao Chick'n", price: "~19,000 KRW" },
       { name: "Plant-based Chow Mein", price: "~16,000 KRW" },
       { name: "Crispy Mushroom Bites", price: "~12,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft. DiningCode lists KungpaoChicken at 21,000 and 차우면 (Chow Mein) at 9,000 — the dishes exist, the draft's prices do not match" }),
+
+    instagram: fact("https://www.instagram.com/camouflage_iteawon", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this account as the venue's own" }),
+    transit: fact({ station: "Itaewon", line: "Line 6", exit: null, walkingMinutes: 4, distanceM: 237 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 이태원역 6호선: 237 m / 240 s. Exit not given by the routing API" }),
 
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states: menu is \"completely free of animal products\"" }),
+      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "Research states the menu is \"completely free of animal products\"; DiningCode tags it 비건 and independent write-ups call it a \"100% 비건 아메리칸 차이니즈 레스토랑\"" }),
       halal: unknownFact("No halal information in the source"),
     },
+
+    imageLeads: [
+      imageLead({ owner: "Camouflage / 카무플라주 (operator)", url: "https://www.instagram.com/camouflage_iteawon", official: true, rights: IMAGE_RIGHTS.PERMISSION_NEEDED, licence: null, photographer: null, commercialUse: null, note: "The venue's only official channel found — no website. Instagram's terms don't grant third-party reuse; ask the operator" }),
+    ],
     traits: [],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
@@ -267,27 +335,58 @@ export const restaurants = [
     zone: "Itaewon, Seoul",
     category: "halal-korean",
 
-    coordinates: fact({ lat: 37.5332, lng: 126.9967 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("67, Usadan-ro 10-gil, Yongsan-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact({ raw: "11:30 AM – 9:00 PM", weekly: null }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    coordinates: fact({ lat: 37.5332746, lng: 126.9964157 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Naver Place; Kakao Map's route endpoint agrees to within ~3 m. The old fallback centre sat ~27 m away" }),
+    address: fact("1F, 15 Usadan-ro 10-gil, Yongsan-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place gives 우사단로10길 15 1층; Seoul's tourism site gives the same building number. The draft's 67 matches no listing" }),
+    hours: fact({
+      raw: "12:00–21:00 daily",
+      weekly: {
+        mon: [{ from: "12:00", to: "21:00" }],
+        tue: [{ from: "12:00", to: "21:00" }],
+        wed: [{ from: "12:00", to: "21:00" }],
+        thu: [{ from: "12:00", to: "21:00" }],
+        fri: [{ from: "12:00", to: "21:00" }],
+        sat: [{ from: "12:00", to: "21:00" }],
+        sun: [{ from: "12:00", to: "21:00" }],
+      },
+    }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17", evidence: "Seoul tourism site: \"12:00 ~ 21:00\", 휴무일 매일 (none); DiningCode independently lists 12:00–21:00. The draft's 11:30 open was wrong" }),
     menus: fact([
       { name: "Halal Bulgogi", price: "~15,000 KRW" },
       { name: "Halal Samgyetang", price: "~18,000 KRW" },
       { name: "Halal Bibimbap", price: "~10,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate. Seoul's tourism site lists 비빔밥/소불고기/소고기김치볶음밥 in the 1만원대 range, which is consistent but not itemised" }),
+
+    phone: fact("0507-1404-8219", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17", evidence: "Seoul tourism site listing; a 0507 number forwards to the venue's real line" }),
+    transit: fact({ station: "Itaewon", line: "Line 6", exit: null, walkingMinutes: 8, distanceM: 395 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 이태원역 6호선: 395 m / 475 s. Exit not given by the routing API" }),
 
     dietary: {
       vegan: unknownFact("No vegan information in the source"),
-      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.INFERRED, source: SOURCE.SELF_DECLARED, evidence: "Venue name declares halal (\"EID Halal Korean Food\")" }),
-      // Unverified certification claim — never treated as HALAL.CERTIFIED.
-      halalCertClaim: {"body":"KMF (Korea Muslim Federation)","status":"claimed in project draft; certificate not sighted"},
+      // Upgraded INFERRED -> SUPPORTED: no longer resting on the venue's name.
+      // Held at FRIENDLY on purpose — see halalCertClaim.
+      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17", evidence: "Seoul's official tourism site describes it as a halal Korean restaurant beside the Seoul Central Mosque" }),
+      // Seoul's tourism site states KMF certification — the strongest evidence
+      // in the dataset, and still not enough for HALAL.CERTIFIED: no certificate
+      // number or expiry was sighted, and the certifier's own register was not
+      // reached. A lapsed certificate would read identically. Needs a call.
+      halalCertClaim: {
+        body: "KMF / 한국이슬람중앙회",
+        statedBy: "Seoul Metropolitan Government tourism site (visitseoul.net)",
+        quote: "한국이슬람중앙회에서 할랄 인증을 받은 유일한 한식당입니다",
+        status: "stated by a government source; certificate number and expiry not sighted, KMF register not consulted",
+      },
     },
+
+    imageLeads: [
+      imageLead({ owner: "Seoul Metropolitan Government (visitseoul.net)", url: "https://korean.visitseoul.net/yongsan-yeouido/%EC%9D%B4%EB%93%9C_/18263", official: true, rights: IMAGE_RIGHTS.PERMISSION_NEEDED, licence: null, photographer: null, commercialUse: null, note: "No KOGL notice found on the page or footer, so default copyright applies — ask before any use" }),
+    ],
     traits: ["Mild Taste"],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A warm, family-run dining room near the Seoul Central Mosque.",
-    story: "Run by a dedicated Korean Muslim family, EID was one of the first KMF-certified restaurants in Seoul. They offer the comfort of home-cooked Korean meals, like mild Bulgogi and Samgyetang, with absolute Halal integrity. This warm, welcoming space truly bridges Korean heritage and Islamic dietary laws.",
-    esg_point: "KMF-certified family kitchen serving inclusive Korean home cooking",
+    // Reworded: both lines used to assert KMF certification as fact while the
+    // dietary record deliberately declines to confirm it — the page contradicted
+    // itself. The claim is now attributed to the source that makes it.
+    story: "Run by a dedicated Korean Muslim family beside the Seoul Central Mosque, EID is described by Seoul's tourism office as the only Korean restaurant certified by the Korea Muslim Federation. They offer the comfort of home-cooked Korean meals, like mild Bulgogi and Samgyetang, in a warm space that bridges Korean heritage and Islamic dietary law.",
+    esg_point: "Family-run kitchen serving inclusive Korean home cooking by the Central Mosque",
 
     image: "/images/halal_meat.svg",
     photo: null,
@@ -301,9 +400,15 @@ export const restaurants = [
     zone: "Itaewon, Seoul",
     category: "halal-korean",
 
-    coordinates: fact({ lat: 37.536, lng: 126.993 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Near Seoul Central Mosque, Itaewon, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    // ⚠ Could not be verified on 2026-07-17. Neither Naver Place nor Kakao Map
+    // returns this venue under any spelling, which is unusual for an operating
+    // Korean restaurant — every other place in this dataset is listed on both.
+    // Only third-party aggregators (TripAdvisor, autoreserve) still carry it,
+    // and those keep closed venues. Nothing here is upgraded, and the entry is
+    // flagged for manual verification before this list is published.
+    coordinates: fact({ lat: 37.536, lng: 126.993 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m. Re-checked 2026-07-17: no map-service listing exists to correct it against" }),
+    address: fact("Near Seoul Central Mosque, Itaewon, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only. An aggregator lists 52 Usadan-ro 10-gil, unconfirmed by either map service, so it is not adopted", precision: "area" }),
+    hours: unknownFact("Opening hours never confirmed; no map-service listing exists to check against as of 2026-07-17"),
     menus: fact([
       { name: "Halal Braised Chicken (Jjimdak)", price: "~10,000 KRW" },
       { name: "Halal Grilled Mackerel", price: "~10,000 KRW" },
@@ -312,7 +417,7 @@ export const restaurants = [
 
     dietary: {
       vegan: unknownFact("No vegan information in the source"),
-      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.INFERRED, source: SOURCE.SELF_DECLARED, evidence: "Venue name declares halal (\"Makan Halal Korean Restaurant\")" }),
+      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.INFERRED, source: SOURCE.SELF_DECLARED, evidence: "Venue name declares halal (\"Makan Halal Korean Restaurant\"). Not raised: the venue could not be found on either map service on 2026-07-17" }),
     },
     traits: [],
 

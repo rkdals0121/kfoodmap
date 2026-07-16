@@ -40,6 +40,12 @@ export const SOURCE = {
   /** The restaurant itself — its site, its staff, a call. */
   OPERATOR: 'The restaurant',
   /**
+   * A government tourism or open-data site (e.g. Visit Seoul). Authoritative
+   * and independent, but a curated listing rather than the operator — pages
+   * go stale, so this reports a fact rather than confirming it.
+   */
+  GOVERNMENT: 'Government tourism site',
+  /**
    * Naver Place or Kakao Map, read through their official APIs. Korea's de
    * facto business registers: operators maintain their own listings, so this
    * is strong enough to carry CONFIRMED when both services agree.
@@ -61,6 +67,46 @@ export const SOURCE = {
   /** Neighbourhood centre standing in for a real position. */
   AREA_FALLBACK: 'Neighbourhood centre placeholder',
 };
+
+/**
+ * Whether a photo could lawfully be used, once someone goes and gets it.
+ * Research metadata only — the app never renders this, and no image is
+ * fetched on the strength of it. `photo`/`coverImage`/`gallery` stay null
+ * until a real file exists with permission on file.
+ */
+export const IMAGE_RIGHTS = {
+  /** Public domain or a licence permitting commercial use with attribution. */
+  REUSABLE: 'reusable',
+  /** Reuse needs the owner's written permission. */
+  PERMISSION_NEEDED: 'permissionNeeded',
+  /** Known not to be licensable for this project. */
+  UNUSABLE: 'unusable',
+  /** Rights not established. Never treat as usable. */
+  UNKNOWN: 'unknown',
+};
+
+/**
+ * A lead on where a photo might come from. Records rights, not pixels.
+ * @param {{owner: string, url: string, official: boolean, rights: string,
+ *          licence: string|null, photographer: string|null,
+ *          commercialUse: boolean|null, note?: string}} lead
+ */
+export function imageLead(lead) {
+  return {
+    owner: lead.owner,
+    url: lead.url,
+    official: lead.official,
+    rights: lead.rights ?? IMAGE_RIGHTS.UNKNOWN,
+    licence: lead.licence ?? null,
+    photographer: lead.photographer ?? null,
+    commercialUse: lead.commercialUse ?? null,
+    note: lead.note ?? null,
+  };
+}
+
+/** Photo leads that could be pursued without a rights problem. */
+export const usableImageLeads = (place) =>
+  (place.imageLeads ?? []).filter(l => l.rights === IMAGE_RIGHTS.REUSABLE);
 
 /** Vegan assurance, strongest first. */
 export const VEGAN = {

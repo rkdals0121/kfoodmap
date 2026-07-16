@@ -5,7 +5,7 @@
 
 import { restaurants } from '../src/data/restaurants.js';
 import {
-  CONFIDENCE, HALAL, isKnown, validateDietary, dietaryBadges,
+  CONFIDENCE, HALAL, IMAGE_RIGHTS, isKnown, validateDietary, dietaryBadges,
 } from '../src/data/verification.js';
 
 const DAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
@@ -63,6 +63,18 @@ for (const r of restaurants) {
   }
 
   for (const p of validateDietary(r)) note(r.id, p);
+
+  // Image leads are research notes. They must never have caused a file to be
+  // shipped, and a lead can only be called reusable with a licence named.
+  for (const lead of r.imageLeads ?? []) {
+    if (!lead.owner || !lead.url) note(r.id, 'image lead needs an owner and url');
+    if (!Object.values(IMAGE_RIGHTS).includes(lead.rights)) note(r.id, `image lead has unknown rights "${lead.rights}"`);
+    if (lead.rights === IMAGE_RIGHTS.REUSABLE && !lead.licence) note(r.id, 'image lead marked reusable without naming a licence');
+    if (lead.rights === IMAGE_RIGHTS.REUSABLE && lead.commercialUse === null) note(r.id, 'image lead marked reusable without settling commercial use');
+  }
+  if ((r.imageLeads?.length ?? 0) > 0 && (r.photo || r.coverImage || r.gallery.length)) {
+    note(r.id, 'image leads are research only — a lead must not put a file into photo/coverImage/gallery');
+  }
 
   // A dietary badge must never be shown for a level we can't back.
   for (const b of dietaryBadges(r)) {
