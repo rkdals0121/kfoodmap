@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import PlaceImage from './PlaceImage';
-import { HeartIcon, CompassIcon } from './Icons';
+import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
 import { haversineKm, formatDistance, getOpenStatus, directionsUrl } from '../utils';
 
 function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory }) {
@@ -105,6 +105,7 @@ export default function BottomSheetList({
 
       {sorted.length === 0 && (
         <div className="place-list__empty">
+          <MapPinIcon size={26} />
           <p><strong>No places match</strong></p>
           <p>Try removing a filter or searching a different name or area.</p>
         </div>

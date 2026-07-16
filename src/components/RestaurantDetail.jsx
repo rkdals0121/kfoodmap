@@ -3,7 +3,7 @@ import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon, RouteIcon,
-  SparkleIcon, BookIcon, BowlIcon, MenuIcon,
+  BookIcon, BowlIcon, MenuIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, directionsUrl } from '../utils';
@@ -175,10 +175,10 @@ export default function RestaurantDetail({
               </section>
             )}
 
-            {/* 3. Why is this place special? */}
-            <section className="detail-section">
-              <SectionHead Icon={SparkleIcon} title="Why it's special" />
-              <div className="quote-card">{restaurant.vibe}</div>
+            {/* 3. Why is this place special? — the hook, kept short on purpose */}
+            <section className="detail-hook">
+              <p className="detail-hook__label">Why it's special</p>
+              <p className="detail-hook__quote">&ldquo;{restaurant.vibe}&rdquo;</p>
             </section>
 
             {/* 4. What does this food tell me about Korea? */}
