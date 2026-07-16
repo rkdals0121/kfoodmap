@@ -7,7 +7,9 @@ import {
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf } from '../utils';
-import { dietaryBadges, isKnown, needsCheck } from '../data/verification';
+import {
+  dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
+} from '../data/verification';
 
 // Descriptive traits rendered as icon facts. Dietary facts come from the
 // structured dietary record instead, so their wording matches the evidence.
@@ -28,6 +30,30 @@ function SectionHead({ Icon, title, kr }) {
     </div>
   );
 }
+
+/** One badge collapsing a fact's confidence and source, with the reason on hover. */
+function Trust({ fact }) {
+  const { label, tone, detail } = trustBadge(fact);
+  return <span className={`trust trust--${tone}`} title={detail}>{label}</span>;
+}
+
+// What the dietary caveat should say, keyed to the weakest level on the record.
+const DIET_CAVEAT = {
+  [CONFIDENCE.SUPPORTED]: {
+    title: 'Reported, not confirmed.',
+    body: 'These details come from what the restaurant and our research describe. We haven’t checked them in person — confirm with staff before ordering.',
+  },
+  [CONFIDENCE.INFERRED]: {
+    // Covers both bases we infer from: the kind of kitchen, and the venue's own
+    // branding. Neither is a stated claim about what's actually served.
+    title: 'Partly our own reading.',
+    body: 'Some of this we read from the kind of kitchen it is, or from how the venue describes itself — not from a stated fact. Treat it as a lead and ask staff before ordering.',
+  },
+  [CONFIDENCE.UNKNOWN]: {
+    title: 'No dietary information yet.',
+    body: 'We haven’t established what this kitchen serves, so we don’t make a claim either way.',
+  },
+};
 
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, mapCenter, focusStory,
@@ -73,6 +99,7 @@ export default function RestaurantDetail({
     .map(t => ({ ...t, fact: null }));
   const facts = [...dietFacts, ...traitFacts];
   const certClaim = restaurant.dietary.halalCertClaim;
+  const caveat = DIET_CAVEAT[dietaryConfidence(restaurant)] ?? DIET_CAVEAT[CONFIDENCE.UNKNOWN];
 
   // Clipboard API needs focus/permission (in-app browsers often lack it) — fall back to execCommand
   const fallbackCopy = (text) => {
@@ -124,31 +151,25 @@ export default function RestaurantDetail({
               </p>
             </header>
 
-            {/* 1. Can I eat here? */}
+            {/* 1. Can I eat here? Each dietary fact carries how far we trust it,
+                so "the kitchen says it's vegan" doesn't read like "we checked". */}
             {facts.length > 0 && (
               <ul className="fact-row" aria-label="Dietary and dining facts">
-                {facts.map(({ Icon, label }) => (
+                {facts.map(({ Icon, label, fact: f }) => (
                   <li key={label} className="fact">
                     <Icon size={16} aria-hidden="true" /> {label}
+                    {f && <Trust fact={f} />}
                   </li>
                 ))}
               </ul>
             )}
 
-            {/* Dietary needs are safety-critical: say plainly that we haven't
-                confirmed them, and never let a claimed certificate read as one. */}
+            {/* Dietary needs are safety-critical: name the weakest level on the
+                record, and never let a claimed certificate read as one. */}
             <div className="diet-note">
-              {dietFacts.length > 0 ? (
-                <p>
-                  <strong>Dietary details are unverified.</strong> They come from project
-                  research, not from the restaurant. Please confirm with staff before ordering.
-                </p>
-              ) : (
-                <p>
-                  <strong>No dietary information yet.</strong> We haven&apos;t confirmed what this
-                  kitchen serves, so we don&apos;t make a claim either way.
-                </p>
-              )}
+              <p>
+                <strong>{caveat.title}</strong> {caveat.body}
+              </p>
               {certClaim && (
                 <p className="diet-note__cert">
                   Certification claimed: {certClaim.body} — we have not sighted the certificate.
@@ -164,10 +185,8 @@ export default function RestaurantDetail({
                   <span>
                     <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
                     {' '}· {status.detail}{' '}
-                    <span className="practical-muted">
-                      ({restaurant.hours.value}
-                      {needsCheck(restaurant.hours) && ', unverified'})
-                    </span>
+                    <span className="practical-muted">({restaurant.hours.value})</span>
+                    {needsCheck(restaurant.hours) && <Trust fact={restaurant.hours} />}
                   </span>
                 ) : (
                   <span className="practical-muted">Opening hours unknown — check before you go</span>
@@ -269,9 +288,10 @@ export default function RestaurantDetail({
             <footer className="provenance">
               <p className="provenance__title">About this information</p>
               <p>
-                Compiled from project research and not yet confirmed with the restaurant.
-                Hours, prices and dietary details change — treat this as a starting point
-                and check before you travel.
+                Nothing on this page has been confirmed with the restaurant yet.
+                <strong> Reported</strong> means a source states it; <strong>Inferred</strong> means
+                we read it from context. Hours, prices and dietary details change — treat this as
+                a starting point.
               </p>
               <dl className="provenance__list">
                 <div>
@@ -284,8 +304,8 @@ export default function RestaurantDetail({
                 <div>
                   <dt>Dietary</dt>
                   <dd>
-                    {isKnown(restaurant.dietary.vegan) || isKnown(restaurant.dietary.halal)
-                      ? restaurant.dietary.vegan.source || restaurant.dietary.halal.source
+                    {dietFacts.length > 0
+                      ? [...new Set(dietFacts.map(f => f.fact.source))].join(' · ')
                       : 'Not recorded'}
                   </dd>
                 </div>

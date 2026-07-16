@@ -11,6 +11,7 @@
   --ink: #1F2328;
   --ink-body: #3F444A;      /* long-form copy: softer than headings */
   --muted: #6B7280;
+  --muted-strong: #616875;  /* muted text on a tinted fill, where AA needs more */
   --line: #E5E7EB;
   --line-hover: #C9CDD3;
 
@@ -658,6 +659,33 @@ button {
 /* ---------- Honest disclosure ----------
    The dataset is unverified research. These blocks say so where it matters,
    sized to inform without shouting over the content. */
+
+/* Trust badge: confidence × source collapsed into one word. Deliberately quiet
+   — it qualifies the fact it follows, it isn't the headline. */
+.trust {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: help;
+}
+.trust--strong {
+  background: var(--green-tint);
+  color: var(--green-strong);
+}
+.trust--medium,
+.trust--none {
+  background: var(--fill);
+  color: var(--muted-strong);
+}
+.trust--weak {
+  background: var(--orange-tint);
+  color: var(--orange-strong);
+}
 
 .diet-note {
   margin-top: -16px; /* sits with the facts above, not as its own block */

@@ -1,25 +1,31 @@
-# Restaurant data — schema v2
+# Restaurant data — schema v3
 
 The app's credibility rests on this file being honest. Two rules govern it:
 
-1. **Never infer.** A value is only stated when a source states it. Where the
-   source is silent, ambiguous, or contradicts itself, the answer is `unknown`.
-2. **Never chain.** A value derived from another unverified value is inference,
-   not evidence. "Plant-based, therefore halal" is exactly the mistake v1 made.
+1. **Never overstate.** A value is stated only as strongly as its evidence. Where
+   the source is silent, ambiguous, or contradicts itself, the answer is `unknown`.
+2. **Never chain.** A value derived from another unconfirmed value is not
+   evidence. "Plant-based, therefore halal" is exactly the mistake v1 made.
 
 `unknown` is always preferable to a plausible guess. A traveller can work with
 "we don't know"; they cannot work with a wrong badge.
 
+Run `npm run check-data` to enforce these mechanically.
+
 ---
 
-## The `fact()` wrapper
+## Two axes, not one
 
-Every field a user might act on carries its provenance:
+Every fact carries **confidence** (how far we trust it) and **source** (where it
+came from). These answer different questions and are kept apart on purpose:
+a single enum mixing them cannot express "community-reported *and* we confirmed
+it" or "official *but* three years stale". The UI collapses the pair into one
+badge — model expressiveness and screen simplicity are not a trade-off.
 
 ```js
 hours: fact('11:30 AM – 9:30 PM', {
-  status: STATUS.ESTIMATED,
-  source: SOURCE.DRAFT,
+  confidence: CONFIDENCE.SUPPORTED,
+  source: SOURCE.RESEARCH,
   lastCheckedAt: null,
 })
 ```
@@ -27,22 +33,51 @@ hours: fact('11:30 AM – 9:30 PM', {
 | Key | Meaning |
 |---|---|
 | `value` | The value, or `null` when unknown |
-| `status` | `verified` \| `estimated` \| `unknown` |
+| `confidence` | `confirmed` \| `supported` \| `inferred` \| `unknown` |
 | `source` | Where it came from (`SOURCE.*`) |
 | `lastCheckedAt` | ISO date of the last confirmation, or `null` |
-| `evidence` | Free text: the quote or reasoning behind the value |
+| `evidence` | The quote or reasoning behind the value |
 
 `fact()` enforces the invariant that an `unknown` fact has no value, and a
 valueless fact is `unknown` — the two can never disagree.
 
-### Status meanings
+### Confidence
 
-- **`verified`** — confirmed against a primary source (on-site visit, official
-  registry, or the operator). **Nothing in the dataset is `verified` today.**
-- **`estimated`** — from project research, not confirmed. Treat as a lead.
-- **`unknown`** — we don't know. The UI must not render it as fact.
+- **`confirmed`** — checked against a primary source: a registry, the operator,
+  or an on-site visit. Requires `lastCheckedAt`. **Nothing is `confirmed` today.**
+- **`supported`** — a source states it outright ("100% vegan meals"; a menu
+  lists it), but nobody has checked it.
+- **`inferred`** — our reading of context: the kind of kitchen, or how the venue
+  brands itself. The reasoning goes in `evidence`.
+- **`unknown`** — we don't know. Never rendered as fact.
 
-Helpers: `isKnown(f)`, `isVerified(f)`, `needsCheck(f)`.
+The `supported` / `inferred` split is why the app can now say *"the kitchen
+describes itself as 100% vegan"* rather than flattening that into the same
+"unverified" as *"we assumed, because it's a temple"*.
+
+### Source
+
+`OFFICIAL` · `OPERATOR` · `COMMUNITY` · `RESEARCH` · `SELF_DECLARED` ·
+`GEOCODER` · `AREA_FALLBACK`
+
+`COMMUNITY` is reserved for traveller reports. It must not carry `confirmed`
+until a moderation policy exists — for a public-diplomacy project, unmoderated
+crowd claims about halal would be worse than no data at all.
+
+### The badge
+
+`trustBadge(fact)` collapses the pair into one word:
+
+| Confidence × source | Badge |
+|---|---|
+| confirmed + OFFICIAL | **Official** |
+| confirmed + COMMUNITY | **Community-checked** |
+| confirmed (other) | **Confirmed** |
+| supported | **Reported** |
+| inferred | **Inferred** |
+| unknown | **Unknown** |
+
+Helpers: `isKnown(f)`, `isConfirmed(f)`, `needsCheck(f)`, `dietaryConfidence(place)`.
 
 ---
 
@@ -79,12 +114,16 @@ dietary: {
 
 **`certified` may never be derived** from a venue's name, its menu wording, or a
 vegan claim. Halal concerns slaughter, cross-contamination and certification —
-not just ingredients. Where a certificate is *claimed* but unsighted, record it
-as `halalCertClaim` and leave the level at `friendly`. The UI prints the claim
-as a claim.
+not just ingredients. It requires `confidence: CONFIRMED` **and** a `cert`
+reference; `validateDietary()` rejects anything less. Where a certificate is
+*claimed* but unsighted, record it as `halalCertClaim` and leave the level at
+`friendly`. The UI prints the claim as a claim.
+
+Halal may only be `inferred` from the venue's own declaration (`SELF_DECLARED`)
+— never from a category or another dietary field.
 
 `porkFree` exists for when someone confirms it directly. It is **not** derived
-from a `full` vegan level: that would chain one unverified value onto another.
+from a `full` vegan level: that would chain one unconfirmed value onto another.
 
 ### Filtering
 
@@ -108,11 +147,13 @@ it can return as a `fact()`.
 
 ---
 
-## Migration v1 → v2
+## Migrations
 
-Performed by `scripts/migrate-dietary-v2.mjs`, which is the migration record:
-every dietary judgement is in its decision table with the evidence quoted from
-the v1 draft. Re-run `--dry` to review the reasoning without writing.
+The scripts are the migration record: every judgement sits in a decision table
+citing the evidence it rests on. Run either with `--dry` to review the reasoning
+without writing.
+
+### v1 → v2 — `scripts/migrate-dietary-v2.mjs`
 
 | v1 | v2 |
 |---|---|
@@ -122,8 +163,26 @@ the v1 draft. Re-run `--dry` to review the reasoning without writing.
 | `hours` (string \| null) | `hours: fact(…)`; `null` → `unknownFact` |
 | `menus` (array) | `menus: fact(array, …)` |
 | `rating`, `reviews`, `food_mile` | removed |
-| `vibe`, `story`, `esg_point` | unchanged (editorial; claims inside unverified) |
+| `vibe`, `story`, `esg_point` | unchanged (editorial; claims inside unconfirmed) |
 | `image`, `photo`, `coverImage`, `gallery` | unchanged |
+
+### v2 → v3 — `scripts/migrate-confidence-v3.mjs`
+
+Splits v2's single `estimated` level into `supported` / `inferred` and renames
+`status` → `confidence`. The ceiling does not move: nothing becomes `confirmed`.
+
+Outcome: 11 vegan and 4 halal facts are **Reported**; 3 vegan and 2 halal are
+**Inferred** (temple category; venue self-naming).
+
+v2 records import a `STATUS` export that v3 no longer has, so they cannot be
+loaded in place. Extract a v2 copy from git and pass it in:
+
+```bash
+mkdir -p /tmp/v2 && echo '{"type":"module"}' > /tmp/v2/package.json
+git show <v2-commit>:src/data/verification.js > /tmp/v2/verification.js
+git show <v2-commit>:src/data/restaurants.js  > /tmp/v2/restaurants.js
+node scripts/migrate-confidence-v3.mjs --dry --input=/tmp/v2/restaurants.js
+```
 
 Two integrity fixes landed with the migration:
 
@@ -137,12 +196,16 @@ Bookmarks are keyed by `id` and are unaffected; no localStorage migration.
 
 ### Adding or updating a place
 
-1. Write the value with the **weakest** level the evidence supports.
-2. Set `status`, `source`, and quote the evidence.
-3. If you had to reason from another field to get there — stop. That's `unknown`.
+1. Write the value with the **weakest** confidence the evidence supports.
+2. Set `confidence`, `source`, and quote the evidence.
+3. Does a source state it? `supported`. Did you reason it out? `inferred`, and
+   say so in `evidence`. Did you reason it from another unconfirmed field?
+   Stop — that's `unknown`.
+4. Run `npm run check-data`.
 
-### Promoting to `verified` (P1)
+### Promoting to `confirmed` (P1)
 
-Confirm against a primary source, then set `status: STATUS.VERIFIED`, a real
-`source`, and `lastCheckedAt`. The UI's disclosure text keys off `status`, so it
-quietens down on its own as real verification arrives.
+Check against a primary source, then set `confidence: CONFIDENCE.CONFIRMED`, a
+real `source`, and `lastCheckedAt`. The UI's badges and caveats key off
+`confidence`, so the page quietens down on its own as real checks arrive — no
+UI work needed to cash in the improvement.
