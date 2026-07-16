@@ -2,21 +2,23 @@ import React, { useState, useEffect, useRef } from 'react';
 import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
-  MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon, RouteIcon,
+  MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
   BookIcon, BowlIcon, MenuIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, directionsUrl } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf } from '../utils';
+import { dietaryBadges, isKnown, needsCheck } from '../data/verification';
 
-// "Can I eat here?" — dietary tags rendered as icon facts
-const FACT_META = {
-  'Vegan': { Icon: LeafIcon, label: 'Vegan' },
-  'Halal': { Icon: CrescentIcon, label: 'Halal friendly' },
+// Descriptive traits rendered as icon facts. Dietary facts come from the
+// structured dietary record instead, so their wording matches the evidence.
+const TRAIT_META = {
   'Mild Taste': { Icon: MildIcon, label: 'Mild taste' },
   'Fermented': { Icon: FermentIcon, label: 'Fermented' },
   'Zero-waste': { Icon: RecycleIcon, label: 'Zero waste' },
   'Local Sourcing': { Icon: SproutIcon, label: 'Locally sourced' },
 };
+
+const DIETARY_ICON = { vegan: LeafIcon, halal: CrescentIcon };
 
 function SectionHead({ Icon, title, kr }) {
   return (
@@ -56,10 +58,21 @@ export default function RestaurantDetail({
   const name = restaurant.name.split('(')[0].trim();
   const status = getOpenStatus(restaurant.hours);
   const culture = getCulture(restaurant);
+  const coords = coordsOf(restaurant);
   const distance = mapCenter
-    ? formatDistance(haversineKm(mapCenter[0], mapCenter[1], restaurant.lat, restaurant.lng))
+    ? formatDistance(haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng))
     : null;
-  const facts = restaurant.tags.map(t => FACT_META[t]).filter(Boolean);
+
+  // Quick Facts: what we know about the diet first, then descriptive traits.
+  const dietFacts = dietaryBadges(restaurant).map(b => ({
+    Icon: DIETARY_ICON[b.key], label: b.label, fact: b.fact,
+  }));
+  const traitFacts = restaurant.traits
+    .map(t => TRAIT_META[t])
+    .filter(Boolean)
+    .map(t => ({ ...t, fact: null }));
+  const facts = [...dietFacts, ...traitFacts];
+  const certClaim = restaurant.dietary.halalCertClaim;
 
   // Clipboard API needs focus/permission (in-app browsers often lack it) — fall back to execCommand
   const fallbackCopy = (text) => {
@@ -77,11 +90,12 @@ export default function RestaurantDetail({
 
   const handleCopy = async () => {
     let ok = false;
+    const address = restaurant.address.value;
     try {
-      await navigator.clipboard.writeText(restaurant.address);
+      await navigator.clipboard.writeText(address);
       ok = true;
     } catch {
-      ok = fallbackCopy(restaurant.address);
+      ok = fallbackCopy(address);
     }
     if (ok) {
       setCopied(true);
@@ -105,16 +119,14 @@ export default function RestaurantDetail({
             <header className="detail-header">
               <h2>{restaurant.name}</h2>
               <p className="detail-meta">
-                <span className="place-card__star" aria-hidden="true">★</span> {restaurant.rating}
-                <span className="detail-meta__muted"> ({restaurant.reviews})</span>
-                <span aria-hidden="true"> · </span>{restaurant.zone}
+                {restaurant.zone}
                 {distance && <><span aria-hidden="true"> · </span>{distance}</>}
               </p>
             </header>
 
             {/* 1. Can I eat here? */}
             {facts.length > 0 && (
-              <ul className="fact-row" aria-label="Dietary compatibility">
+              <ul className="fact-row" aria-label="Dietary and dining facts">
                 {facts.map(({ Icon, label }) => (
                   <li key={label} className="fact">
                     <Icon size={16} aria-hidden="true" /> {label}
@@ -123,6 +135,27 @@ export default function RestaurantDetail({
               </ul>
             )}
 
+            {/* Dietary needs are safety-critical: say plainly that we haven't
+                confirmed them, and never let a claimed certificate read as one. */}
+            <div className="diet-note">
+              {dietFacts.length > 0 ? (
+                <p>
+                  <strong>Dietary details are unverified.</strong> They come from project
+                  research, not from the restaurant. Please confirm with staff before ordering.
+                </p>
+              ) : (
+                <p>
+                  <strong>No dietary information yet.</strong> We haven&apos;t confirmed what this
+                  kitchen serves, so we don&apos;t make a claim either way.
+                </p>
+              )}
+              {certClaim && (
+                <p className="diet-note__cert">
+                  Certification claimed: {certClaim.body} — we have not sighted the certificate.
+                </p>
+              )}
+            </div>
+
             {/* 2. How do I get there? */}
             <div className="practical">
               <div className="practical-row">
@@ -130,16 +163,25 @@ export default function RestaurantDetail({
                 {status ? (
                   <span>
                     <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
-                    {' '}· {status.detail} <span className="practical-muted">({restaurant.hours})</span>
+                    {' '}· {status.detail}{' '}
+                    <span className="practical-muted">
+                      ({restaurant.hours.value}
+                      {needsCheck(restaurant.hours) && ', unverified'})
+                    </span>
                   </span>
                 ) : (
-                  <span className="practical-muted">Hours not verified yet — check locally</span>
+                  <span className="practical-muted">Opening hours unknown — check before you go</span>
                 )}
               </div>
 
               <div className="practical-row">
                 <MapPinIcon size={17} />
-                <span>{restaurant.address}</span>
+                <span>
+                  {restaurant.address.value}
+                  {restaurant.address.precision === 'area' && (
+                    <span className="practical-muted"> — area only, exact address unknown</span>
+                  )}
+                </span>
                 <button className="practical-copy" onClick={handleCopy}>
                   {copied ? 'Copied!' : 'Copy'}
                 </button>
@@ -161,17 +203,20 @@ export default function RestaurantDetail({
             </div>
 
             {/* Signature menu */}
-            {restaurant.menus?.length > 0 && (
+            {isKnown(restaurant.menus) && (
               <section className="detail-section">
                 <SectionHead Icon={MenuIcon} title="Signature Menu" />
                 <div className="menu-rows">
-                  {restaurant.menus.map(m => (
+                  {restaurant.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
                       <span>{m.name}</span>
                       <span className="menu-row__price">{m.price}</span>
                     </div>
                   ))}
                 </div>
+                {needsCheck(restaurant.menus) && (
+                  <p className="section-note">Dishes and prices are unverified and may have changed.</p>
+                )}
               </section>
             )}
 
@@ -191,7 +236,9 @@ export default function RestaurantDetail({
               </div>
             </section>
 
-            {/* 5. Why is it sustainable? */}
+            {/* 5. Why is it sustainable?
+                The food-mileage figure that used to sit here was invented, so it
+                is gone rather than replaced with another guess. */}
             <section className="detail-section">
               <SectionHead Icon={LeafIcon} title="Sustainability" />
               <div className="sus-rows">
@@ -199,14 +246,10 @@ export default function RestaurantDetail({
                   <LeafIcon size={17} />
                   <span>{restaurant.esg_point}</span>
                 </div>
-                <div className="practical-row">
-                  <RouteIcon size={17} />
-                  <span>
-                    <strong>{restaurant.food_mile} km</strong> food mileage
-                    <span className="practical-muted"> — roughly how far the ingredients traveled to reach your plate</span>
-                  </span>
-                </div>
               </div>
+              <p className="section-note">
+                Described by the restaurant and our research; not independently audited.
+              </p>
             </section>
 
             {/* 6. What should I know before eating? */}
@@ -221,6 +264,37 @@ export default function RestaurantDetail({
                 ))}
               </ul>
             </section>
+
+            {/* Provenance: what this page rests on, stated plainly. */}
+            <footer className="provenance">
+              <p className="provenance__title">About this information</p>
+              <p>
+                Compiled from project research and not yet confirmed with the restaurant.
+                Hours, prices and dietary details change — treat this as a starting point
+                and check before you travel.
+              </p>
+              <dl className="provenance__list">
+                <div>
+                  <dt>Location</dt>
+                  <dd>
+                    {restaurant.coordinates.source}
+                    {restaurant.address.precision === 'area' && ' · address is area-level'}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Dietary</dt>
+                  <dd>
+                    {isKnown(restaurant.dietary.vegan) || isKnown(restaurant.dietary.halal)
+                      ? restaurant.dietary.vegan.source || restaurant.dietary.halal.source
+                      : 'Not recorded'}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Last checked</dt>
+                  <dd>{restaurant.hours.lastCheckedAt ?? 'Never'}</dd>
+                </div>
+              </dl>
+            </footer>
           </div>
         </div>
       </div>

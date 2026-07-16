@@ -8,7 +8,12 @@ import TabBar from './components/TabBar';
 import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
 import { MAP_CENTER } from './utils';
+import { matchesDietary } from './data/verification';
 import './index.css';
+
+// Dietary chips are answered by the structured dietary record (never a tag
+// string); the rest are descriptive traits.
+const DIETARY_CHIPS = ['Vegan', 'Halal'];
 
 const BOOKMARKS_KEY = 'kfm-bookmarks';
 
@@ -60,8 +65,12 @@ export default function App() {
 
   const filteredRestaurants = useMemo(() => {
     return restaurants.filter(r => {
-      // 1. Tag Filtering (AND logic)
-      const matchesTags = selectedFilters.length === 0 || selectedFilters.every(f => r.tags.includes(f));
+      // 1. Filter chips (AND logic). A dietary chip only matches on evidence —
+      // an unknown dietary record never matches, so we never send someone
+      // somewhere we can't vouch for.
+      const matchesChips = selectedFilters.length === 0 || selectedFilters.every(f => (
+        DIETARY_CHIPS.includes(f) ? matchesDietary(r, f) : r.traits.includes(f)
+      ));
 
       // 2. Search Query Filtering (Match name, vibe or area)
       const query = searchQuery.toLowerCase().trim();
@@ -70,7 +79,7 @@ export default function App() {
                             r.vibe.toLowerCase().includes(query) ||
                             r.zone.toLowerCase().includes(query);
 
-      return matchesTags && matchesSearch;
+      return matchesChips && matchesSearch;
     });
   }, [selectedFilters, searchQuery]);
 

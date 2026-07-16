@@ -1,7 +1,12 @@
 // Shared helpers for distance and opening hours.
 
+import { isKnown } from './data/verification';
+
 // Initial map view: frames the Seoul cluster (Jongno down to Itaewon)
 export const MAP_CENTER = [37.5540, 126.9880];
+
+/** Coordinates are stored as a fact(); every consumer reads them through here. */
+export const coordsOf = (place) => place.coordinates.value;
 
 export function haversineKm(lat1, lng1, lat2, lng2) {
   const R = 6371;
@@ -30,10 +35,11 @@ function toMinutes(str) {
   return h * 60 + parseInt(m[2], 10);
 }
 
-// hours: "11:30 AM – 9:30 PM" (or null) → { open, label, detail } | null
-export function getOpenStatus(hours, now = new Date()) {
-  if (!hours) return null;
-  const parts = hours.split('–').map(s => s.trim());
+// hoursFact → { open, label, detail } | null when the hours aren't known.
+// Never guesses: an unknown fact yields no status rather than a default.
+export function getOpenStatus(hoursFact, now = new Date()) {
+  if (!isKnown(hoursFact)) return null;
+  const parts = hoursFact.value.split('–').map(s => s.trim());
   if (parts.length !== 2) return null;
   const opens = toMinutes(parts[0]);
   const closes = toMinutes(parts[1]);
@@ -45,5 +51,6 @@ export function getOpenStatus(hours, now = new Date()) {
 }
 
 export function directionsUrl(place) {
-  return `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`;
+  const { lat, lng } = coordsOf(place);
+  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 }

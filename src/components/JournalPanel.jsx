@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { restaurants } from '../data/restaurants';
-import { haversineKm, formatDistance } from '../utils';
+import { haversineKm, formatDistance, coordsOf } from '../utils';
 
 function formatStampDate(ts) {
   if (!ts) return null;
@@ -25,7 +25,10 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
     const candidates = restaurants.filter(r => !savedIds.has(r.id));
     if (candidates.length === 0) return null;
     return candidates
-      .map(r => ({ ...r, distanceKm: haversineKm(mapCenter[0], mapCenter[1], r.lat, r.lng) }))
+      .map(r => {
+        const { lat, lng } = coordsOf(r);
+        return { ...r, distanceKm: haversineKm(mapCenter[0], mapCenter[1], lat, lng) };
+      })
       .sort((a, b) => a.distanceKm - b.distanceKm)[0];
   }, [bookmarks, mapCenter]);
 

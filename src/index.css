@@ -655,6 +655,72 @@ button {
   color: var(--ink);
 }
 
+/* ---------- Honest disclosure ----------
+   The dataset is unverified research. These blocks say so where it matters,
+   sized to inform without shouting over the content. */
+
+.diet-note {
+  margin-top: -16px; /* sits with the facts above, not as its own block */
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.diet-note strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.diet-note__cert {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+}
+
+.section-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.provenance {
+  padding: 16px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.provenance__title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.provenance__list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.provenance__list > div {
+  display: flex;
+  gap: 8px;
+}
+.provenance__list dt {
+  flex: 0 0 84px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.provenance__list dd {
+  flex: 1;
+  min-width: 0;
+}
+
 .callout {
   background: var(--green-tint);
   border-radius: var(--radius);

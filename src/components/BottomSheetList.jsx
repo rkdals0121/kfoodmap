@@ -1,12 +1,16 @@
 import React, { useMemo } from 'react';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, directionsUrl } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf } from '../utils';
+import { dietaryBadges } from '../data/verification';
 
 function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory }) {
   const name = place.name.split('(')[0].trim();
   const status = getOpenStatus(place.hours);
-  const extraTags = place.tags.length - 3;
+  // Dietary badges say exactly what we know ("Vegan options" ≠ "Fully vegan");
+  // traits are descriptive. Cards stay scannable, so cap the list.
+  const badges = [...dietaryBadges(place).map(b => b.label), ...place.traits];
+  const extraBadges = badges.length - 3;
 
   return (
     <article className="place-card">
@@ -31,21 +35,16 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory })
         </p>
 
         <div className="place-card__badges">
-          {place.tags.slice(0, 3).map(tag => (
-            <span key={tag} className="tag-chip">{tag}</span>
+          {badges.slice(0, 3).map(label => (
+            <span key={label} className="tag-chip">{label}</span>
           ))}
-          {extraTags > 0 && <span className="tag-chip">+{extraTags}</span>}
+          {extraBadges > 0 && <span className="tag-chip">+{extraBadges}</span>}
         </div>
       </div>
 
       <PlaceImage place={place} variant="thumb" className="place-card__media" />
 
       <div className="place-card__foot">
-        <span className="place-card__rating">
-          <span className="place-card__star" aria-hidden="true">★</span> {place.rating}
-          <span className="place-card__reviews"> ({place.reviews})</span>
-        </span>
-
         <button
           className="place-card__story-btn"
           aria-label={`Read the story of ${name}`}
@@ -81,7 +80,10 @@ export default function BottomSheetList({
 }) {
   const sorted = useMemo(() =>
     restaurants
-      .map(r => ({ ...r, distanceKm: haversineKm(mapCenter[0], mapCenter[1], r.lat, r.lng) }))
+      .map(r => {
+        const { lat, lng } = coordsOf(r);
+        return { ...r, distanceKm: haversineKm(mapCenter[0], mapCenter[1], lat, lng) };
+      })
       .sort((a, b) => a.distanceKm - b.distanceKm),
   [restaurants, mapCenter]);
 

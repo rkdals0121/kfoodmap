@@ -15,14 +15,6 @@ export const LeafIcon = ({ size = 18 }) => (
   </svg>
 );
 
-export const RouteIcon = ({ size = 16 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
-    <circle cx="5.5" cy="18.5" r="2" />
-    <circle cx="18.5" cy="5.5" r="2" />
-    <path d="M7 17 17 7" strokeDasharray="2.5 3" />
-  </svg>
-);
-
 export const CompassIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
     <path d="M12 2.5 19 21l-7-4-7 4Z" />

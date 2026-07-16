@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { MAP_CENTER } from '../utils';
+import { MAP_CENTER, coordsOf } from '../utils';
 
 // Reports the map center upward after each pan/zoom so the list can re-sort by distance
 function CenterReporter({ onCenterChange }) {
@@ -54,7 +54,7 @@ export default function MapComponent({ restaurants, onMarkerClick, selectedId, o
         {restaurants.map(r => (
           <Marker
             key={r.id}
-            position={[r.lat, r.lng]}
+            position={[coordsOf(r).lat, coordsOf(r).lng]}
             icon={pinIcon(selectedId === r.id)}
             eventHandlers={{
               click: () => onMarkerClick(r),
