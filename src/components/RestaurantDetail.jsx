@@ -281,7 +281,9 @@ export default function RestaurantDetail({
                   {restaurant.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
                       <span>{m.name}</span>
-                      <span className="menu-row__price">{m.price}</span>
+                      {/* A dish we know of but have no price for says so,
+                          rather than showing a blank where a number goes. */}
+                      <span className="menu-row__price">{m.price ?? 'Price not listed'}</span>
                     </div>
                   ))}
                 </div>

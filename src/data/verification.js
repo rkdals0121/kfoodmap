@@ -136,19 +136,49 @@ export const HALAL = {
 };
 
 /**
+ * How a value was established. Paired with `url`, this is what lets someone
+ * else repeat the check rather than take our word for it.
+ */
+export const METHOD = {
+  /** Read from the operator's own website. */
+  OPERATOR_SITE: 'Read from the operator’s own website',
+  /** Read from a government tourism or open-data listing. */
+  GOV_LISTING: 'Read from a government listing',
+  /** Looked up on one map service. */
+  MAP_LOOKUP: 'Map service lookup',
+  /** Looked up on both map services, which agreed. */
+  MAP_CROSSCHECK: 'Naver Place and Kakao Map agree',
+  /** Computed by a routing API. */
+  ROUTING_API: 'Map service routing API',
+  /** Read from a third-party directory listing. */
+  DIRECTORY_LISTING: 'Read from a directory listing',
+  /** Two or more independent sources say the same thing. */
+  CORROBORATED: 'Independent sources agree',
+};
+
+/**
  * Wrap a value with its provenance.
+ *
+ * `source` says where it came from, `url` and `method` say how to repeat the
+ * check, `evidence` quotes what the source actually said, and `lastCheckedAt`
+ * dates it. Together they make a fact auditable instead of merely asserted.
+ *
  * @param {*} value
- * @param {{confidence: string, source?: string, lastCheckedAt?: string,
- *          evidence?: string, precision?: string, cert?: object}} meta
+ * @param {{confidence: string, source?: string, url?: string, method?: string,
+ *          lastCheckedAt?: string, evidence?: string, precision?: string,
+ *          cert?: object}} meta
  */
 export function fact(value, meta = {}) {
-  const { confidence = CONFIDENCE.UNKNOWN, source = null, lastCheckedAt = null, ...rest } = meta;
+  const {
+    confidence = CONFIDENCE.UNKNOWN, source = null, url = null,
+    method = null, lastCheckedAt = null, ...rest
+  } = meta;
 
   // An unknown fact carries no value, and a valueless fact cannot be known.
   if (confidence === CONFIDENCE.UNKNOWN || value === null || value === undefined) {
-    return { value: null, confidence: CONFIDENCE.UNKNOWN, source: null, lastCheckedAt: null, ...rest };
+    return { value: null, confidence: CONFIDENCE.UNKNOWN, source: null, url: null, method: null, lastCheckedAt: null, ...rest };
   }
-  return { value, confidence, source, lastCheckedAt, ...rest };
+  return { value, confidence, source, url, method, lastCheckedAt, ...rest };
 }
 
 /** An explicitly unknown fact. `evidence` should say why we don't know. */

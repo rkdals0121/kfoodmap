@@ -58,8 +58,13 @@ for (const r of restaurants) {
     if (f.value === null && f.confidence !== CONFIDENCE.UNKNOWN) note(r.id, `${name} has no value but claims ${f.confidence}`);
     // A known fact must say where it came from and why we believe it.
     if (isKnown(f) && !f.source) note(r.id, `${name} is ${f.confidence} with no source`);
-    // Anything CONFIRMED must record when it was checked.
-    if (f.confidence === CONFIDENCE.CONFIRMED && !f.lastCheckedAt) note(r.id, `${name} is confirmed but has no lastCheckedAt`);
+    // Anything CONFIRMED must be auditable: dated, and repeatable by someone
+    // else. A confirmation nobody can re-run is just an assertion.
+    if (f.confidence === CONFIDENCE.CONFIRMED) {
+      if (!f.lastCheckedAt) note(r.id, `${name} is confirmed but has no lastCheckedAt`);
+      if (!f.method) note(r.id, `${name} is confirmed but records no verification method`);
+      if (!f.evidence) note(r.id, `${name} is confirmed but quotes no evidence`);
+    }
   }
 
   for (const p of validateDietary(r)) note(r.id, p);
