@@ -764,28 +764,40 @@ export const restaurants = [
   {
     id: "meat-morning",
     name: "Meat Morning (밋모닝)",
-    zone: "Michuhol, Incheon",
+    // Corrected 2026-07-17, from "Michuhol, Incheon". Naver, Kakao and
+    // Incheon's own tourism site all place it in Namdong-gu, Guwol-dong —
+    // the same wrong-district pattern as `iryonghal`.
+    zone: "Guwol-dong, Incheon",
     category: "brunch-bakery",
 
-    coordinates: fact({ lat: 37.448, lng: 126.702 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Michuhol-gu, Incheon", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.445718, lng: 126.698182 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Kakao's routing endpoint gives 37.445718/126.698182; Naver Place's mapx/mapy (lat/lng ×10⁷) converts to 37.445706/126.698224 — ~5 m apart. Replaces a neighbourhood-centre fallback ~400 m away, in the wrong district" }),
+    address: fact("55-26 Munhwaseo-ro 4beon-gil, Namdong-gu, Incheon (1F)", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place, Kakao Map and Incheon's own tourism site (itour.incheon.go.kr) all give 남동구 문화서로4번길 55-26 (지번 구월동 1373-15). The draft held only \"Michuhol-gu\" — a different district" }),
+    // Sources genuinely disagree, so this stays unknown rather than picking
+    // one — the same call made for `maji` and `iryonghal` (§2.11).
+    hours: unknownFact("Not stated because sources conflict: Incheon's tourism site (last modified 2026-04-23) gives 10:00–19:30, closed Monday; a directory listing dated 2026-07-11 gives daily 10:00–21:00, last order 20:30. A government source and a directory disagree on both the closing time and the weekly pattern, with no third source to break the tie"),
     menus: fact([
-      { name: "Sugar/Butter-free Cookies", price: "~4,000 KRW" },
-      { name: "Gluten-free Bread", price: "~6,000 KRW" },
-      { name: "Homemade Vegan Greek Yogurt", price: "~7,500 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Signature vegan cookie (시그니처 비건쿠키)", price: "4,500 KRW" },
+      { name: "Greek yogurt bowl (그릭요거트 볼)", price: "5,800–6,900 KRW" },
+      { name: "Peanut ppotto yellow cheesecake (피넛뽀또 황치즈케이크) — not vegan", price: "7,800 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "A directory listing and an independent visitor write-up agree on these items and prices. The draft's \"Gluten-free Bread\" appears in no source found and is dropped. The cheesecake is listed deliberately: the same visitor write-up labels it \"논비건\" (not vegan), which is why the dietary level below is corrected" }),
 
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states: \"vegan desserts\" and \"homemade plant-based Greek yogurt\"" }),
+      // Corrected 2026-07-17, from VEGAN.FULL. Same defect class as
+      // chaeyuk-songdo and rim: a place a vegan filter would return, with a
+      // named non-vegan item on the menu.
+      vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "A directory listing states plainly that not every item is vegan, naming a dairy cheesecake; an independent visitor write-up confirms it directly, labelling the 피넛뽀또 황치즈케이크 \"논비건\" (non-vegan). The kitchen's other items are vegan-forward (비건쿠키, plant-based yogurt bowls), so OPTIONS, not NONE" }),
       halal: unknownFact("No halal information in the source"),
     },
     traits: [],
+    instagram: fact("https://www.instagram.com/meet_morning_", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this account as the venue's own" }),
+    transit: fact({ station: "Arts Center", line: "Incheon Line 1", exit: null, walkingMinutes: 10, distanceM: 596 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 예술회관역 인천1호선: 596 m / 590 s. Exit not given by the routing API" }),
 
     // Editorial copy from the project draft; claims inside are not confirmed.
-    vibe: "A quiet bakery counter of sugar-free, butter-free small-batch treats.",
-    story: "Despite its somewhat ironic name, Meat Morning is actually a haven for health-conscious vegan desserts. They meticulously bake sugar-free and butter-free cookies alongside artisan gluten-free breads. Their homemade plant-based Greek yogurt offers a creamy, probiotic-rich treat for mindful eaters.",
-    esg_point: "Sugar-free, butter-free baking in small daily batches",
+    // Rewritten 2026-07-17: the draft leaned on the "ironic name" to assert a
+    // vegan-only kitchen the evidence contradicts — rule 16's defect class.
+    vibe: "A cat-and-dog-friendly dessert counter, mostly but not entirely plant-based.",
+    story: "The name plays on an irony that turns out to be only half true: Meat Morning bakes vegan cookies and Greek yogurt bowls that built its reputation with health-conscious regulars, but the counter also holds a dairy cheesecake alongside them. Vegan and not, side by side — worth knowing before you order on the badge alone.",
+    esg_point: "Vegan-forward baking, sugar-conscious, made in small daily batches",
 
     image: "/images/vegan_cafe.svg",
     photo: null,
