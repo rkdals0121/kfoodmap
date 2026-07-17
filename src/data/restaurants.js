@@ -619,25 +619,39 @@ export const restaurants = [
     zone: "Songdo, Incheon",
     category: "vegan-dining",
 
-    coordinates: fact({ lat: 37.383, lng: 126.637 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("5, Technopark-ro 111beon-gil, Yeonsu-gu, Incheon", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: fact({ raw: "10:00 AM – 10:00 PM", weekly: null }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH }),
+    // Verified end-to-end 2026-07-17. The draft recorded this as a fully vegan
+    // kitchen; the operator's own site says the opposite in its own brand
+    // statement, and the vegan level is corrected below. See the Data Change
+    // Log in the completion report.
+    coordinates: fact({ lat: 37.385797, lng: 126.644465 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Kakao's routing endpoint for 채육식당 송도점 gives 37.385797/126.644465; Naver Place's entry for the building it is licensed into (스타타워, 송도동 8-12, the same road address) gives 37.385803/126.644607 — ~12 m apart. Replaces a neighbourhood-centre fallback that sat ~730 m away" }),
+    address: fact("5 Technopark-ro 111beon-gil, Yeonsu-gu, Incheon (Star Building, 1F)", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", precision: "street", evidence: "chaeyuk.com's branch list, Kakao Map and Incheon's public food-business licensing record all give 테크노파크로111번길 5. The licence adds the unit: 스타빌딩 주1동 1층 일부호 (송도동), 지번 송도동 8-12, licensed 2024-05-02" }),
+    hours: fact({ raw: "10:00 – 22:00", weekly: null }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "chaeyuk.com lists the Songdo branch as 10:00–22:00; two independent visitor write-ups give the same window and say daily. Last order is left out on purpose: the operator says 21:00 and the write-ups say 21:30, and a conflict is not averaged. No per-day breakdown is published, so weekly stays null" }),
     menus: fact([
-      { name: "Soy-Meat Jeyuk Set", price: "13,500 KRW" },
-      { name: "Mushroom Bulgogi Set", price: "~14,000 KRW" },
-      { name: "Unlimited Namul Bar", price: "Included" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Handon jeyuk jeongsik (한돈 제육 정식) — grade-1 Korean pork", price: null },
+      { name: "U-bulgogi jeongsik (우불고기 정식) — beef", price: null },
+      { name: "Chadolbak sundubu-jjigae baekban (차돌백 순두부찌개 백반) — beef brisket", price: null },
+      { name: "Kongogi jeyuk jeongsik (콩고기 제육 정식) — the soy-meat version", price: null },
+    ], { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "The operator's three featured dishes plus the soy-meat counterpart it pairs them with. Prices are not published on the operator's site and are left unstated rather than carried over from the draft. Replaces a draft list whose \"Mushroom Bulgogi Set\" appears nowhere on the operator's menu" }),
+
+    phone: fact("032-833-1554", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "chaeyuk.com's branch list. Visitor write-ups give 0507-1450-1554, a forwarding number; the operator's own landline is recorded instead" }),
+    officialUrl: fact("https://chaeyuk.com", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "The chain's own site, operated by 푸드닥터에프앤비 (사업자등록번호 157-81-02579); it lists the Songdo branch. Chain-level, not branch-specific" }),
+    transit: fact({ station: "Incheon National University", line: "Incheon Line 1", exit: null, walkingMinutes: 11, distanceM: 716 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 인천대입구역 인천1호선: 716 m / 643 s. Exit not given by the routing API" }),
 
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states pork is replaced with soy meat as a \"vegan alternative\"" }),
-      halal: unknownFact("No halal information in the source"),
+      // Corrected 2026-07-17, from VEGAN.FULL. This is the bombay-brau defect
+      // again (P0, §6): a place a vegan could filter to, whose signature dish
+      // is pork. The operator's own site is unambiguous.
+      vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "chaeyuk.com spells the name out character by character: 채 is \"fresh vegetables and plant-based meat alternatives\", 육 is \"uses only grade-1 domestic Korean pork\". The menu carries 11 meat dishes (한돈 제육, 고추장 오겹살, 차돌백 찌개, 우불고기) beside 4 콩고기 (soy-meat) ones, so the soy dishes are an option, not the kitchen" }),
+      halal: fact(HALAL.NONE, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "The operator states the kitchen uses grade-1 Korean pork and lists 고추장 오겹살 정식 and 한돈 제육 정식. Pork is stated by the venue itself, not read off the category or the vegan level" }),
     },
     traits: ["Mild Taste"],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
+    // The vegan framing was corrected 2026-07-17 — it contradicted the record's
+    // own dietary badge, the defect class §11 rule 16 exists for.
     vibe: "A bright, cafeteria-style spot with an unlimited fresh namul bar.",
-    story: "Chaeyuk Sikdang cleverly replaces pork in the classic Korean Jeyuk Bokkeum with high-quality soy meat, creating a surprisingly realistic vegan alternative. Their mild, savory marinades are accompanied by a generous self-serve bar of fresh salads and namul. It's a bountiful, healthy take on a ubiquitous worker's lunch.",
-    esg_point: "Soy-meat jeyuk and a self-serve namul bar cutting food waste",
+    story: "채육 means vegetable and meat, and Chaeyuk Sikdang means both literally: the same jeyuk bokkeum — the pork stir-fry that is the default Korean worker's lunch — arrives either as grade-1 Korean pork or as a soy-meat version made with a plant-based meat the company patented in 2022. You pick. Either way it comes with rice, a stew, and a self-serve vegetable bar, which is what a Korean lunch has always looked like.",
+    esg_point: "A patented soy meat offered as a swap for pork in everyday Korean dishes",
 
     image: "/images/vegan_cafe.svg",
     photo: null,
