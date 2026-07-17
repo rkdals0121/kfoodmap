@@ -1,7 +1,7 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-17 · **HEAD:** `b13b084` · **Places:** 20
+**Last updated:** 2026-07-17 · **HEAD:** `95023d6` · **Places:** 20
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -60,7 +60,7 @@ hero → quick facts ("can I eat here?") → practical (directions/hours/address
 |---|---|
 | UI / UX | **Done.** Five approved steps; responsive mobile/tablet/desktop; AA contrast; no known regressions. |
 | Trust & evidence architecture | **Done.** Production-grade, validated, documented. |
-| Data | **~35% verified.** 20 places; 10 have ≥1 confirmed field; 10 have zero. |
+| Data | **Partly verified.** 20 places; 10 have ≥1 confirmed field; 10 have zero. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown.) |
 | Evidence migration | **1 of 20** restaurants migrated (demonstration only). |
 | Content (stories) | **Draft quality.** Marketing tone in 13/20; one story corrected so far. |
 
@@ -604,6 +604,14 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 12. **No automated tests.** `check-data` is the only gate. The evidence rules
     were proven by a throwaway mutation harness that was not kept — worth
     formalising if this grows.
+13. **Documentation rot.** ~15 quantitative claims across §1, §7, §8 and §9 are
+    hand-maintained and go stale on the next data commit. Two were already
+    wrong at drafting (street addresses stated as 12/20, actually 13/20;
+    marketing-tone stories stated as ~14/20, actually 13/20) and were caught
+    only by measuring against the repository, not by review. There is no
+    `npm run metrics` to regenerate them and no rule requiring one. Until such
+    a script exists, treat every number in this document as valid only at the
+    `HEAD` stated in the header, and re-measure before citing it elsewhere.
 
 ---
 
@@ -751,6 +759,15 @@ These are enforced by `check-data` where a machine can; the rest are on you.
     `:root`.
 20. Do not modify unrelated files. Record out-of-scope findings in the report
     instead (see `akiya`).
+
+**Documentation**
+21. Update this document in the same commit as the change it describes. A
+    handoff that lags the code is a trap: it is most trusted exactly when it is
+    most wrong. If a change moves a number quoted in §1, §7, §8, or §9, move it
+    there too — do not let the next reader discover the drift by measuring.
+22. Bump `Last updated` and `HEAD` at the top of this document whenever you
+    touch it. They are the reader's only signal of how far to trust the numbers
+    below.
 
 ---
 
