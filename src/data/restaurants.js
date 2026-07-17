@@ -18,7 +18,7 @@
 // decision tables in scripts/migrate-dietary-v2.mjs and this file's successor.
 
 // Extension is explicit so data QA scripts can import this under plain Node.
-import { fact, unknownFact, imageLead, CONFIDENCE, SOURCE, METHOD, VEGAN, HALAL, IMAGE_RIGHTS } from './verification.js';
+import { fact, unknownFact, imageLead, CONFIDENCE, SOURCE, METHOD, VEGAN, HALAL, IMAGE_RIGHTS, LIFECYCLE } from './verification.js';
 import { evidenceRef } from './evidence.js';
 
 export const restaurants = [
@@ -899,6 +899,24 @@ export const restaurants = [
     name: "Akiya (아키야)",
     zone: "Gaehang-ro, Incheon",
     category: "local-seasonal",
+
+    // Existence itself is unconfirmed (2026-07-17 investigation): no trace on
+    // Naver Place, Kakao Map, the geocoding pipeline, or git history
+    // predating this repo. Not proven fabricated either — QUARANTINE, not
+    // DELETED, per LIFECYCLE in verification.js. Recorded inline rather than
+    // as an Evidence Layer record: this is a search-absence finding about our
+    // own search coverage, not a sourced claim about the venue (see the
+    // 2026-07-17 negative-evidence review).
+    lifecycle: {
+      status: LIFECYCLE.QUARANTINE,
+      determination: fact(LIFECYCLE.QUARANTINE, {
+        confidence: CONFIDENCE.SUPPORTED,
+        source: SOURCE.RESEARCH,
+        method: METHOD.MAP_CROSSCHECK,
+        lastCheckedAt: "2026-07-17",
+        evidence: "Naver Place and Kakao Map both return zero listings for the name near Gaehang-ro (checked 2026-07-17); also absent from the geocoding pipeline and from git history predating this repo. Not proven fabricated, so quarantined rather than deleted.",
+      }),
+    },
 
     coordinates: fact({ lat: 37.4764, lng: 126.6225 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
     address: fact("12 Gaehang-ro, Jung-gu, Incheon", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),

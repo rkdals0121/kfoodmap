@@ -5,7 +5,7 @@
 
 import { restaurants } from '../src/data/restaurants.js';
 import {
-  CONFIDENCE, HALAL, IMAGE_RIGHTS, isKnown, validateDietary, dietaryBadges,
+  CONFIDENCE, HALAL, IMAGE_RIGHTS, LIFECYCLE, isKnown, validateDietary, dietaryBadges,
 } from '../src/data/verification.js';
 import { hasEvidence } from '../src/data/evidence.js';
 import { loadStore } from './lib/evidence-store.mjs';
@@ -73,6 +73,19 @@ for (const r of restaurants) {
   }
 
   for (const p of validateDietary(r)) note(r.id, p);
+
+  // Quarantine is itself a claim and needs evidence like any other. These are
+  // the only two required lifecycle rules for the MVP — see the Restaurant
+  // Lifecycle design (2026-07-17); further rules are proposed, not enforced.
+  // Auditable either way — an evidence ref or an inline method + evidence —
+  // the same dual path already allowed for CONFIRMED facts above.
+  if (r.lifecycle?.status === LIFECYCLE.QUARANTINE) {
+    const det = r.lifecycle.determination;
+    if (!det) note(r.id, 'lifecycle is quarantine but has no lifecycle.determination fact');
+    else if (!hasEvidence(det) && !(det.method && det.evidence)) {
+      note(r.id, 'lifecycle.determination is quarantine but is not auditable — needs evidenceRefs or an inline method + evidence');
+    }
+  }
 
   // Image leads are research notes. They must never have caused a file to be
   // shipped, and a lead can only be called reusable with a licence named.

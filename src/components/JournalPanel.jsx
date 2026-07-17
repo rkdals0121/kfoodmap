@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { restaurants } from '../data/restaurants';
 import { haversineKm, formatDistance, coordsOf } from '../utils';
+import { isQuarantined } from '../data/verification';
 
 function formatStampDate(ts) {
   if (!ts) return null;
@@ -22,7 +23,7 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
 
   const nextStop = useMemo(() => {
     const savedIds = new Set(bookmarks.map(b => b.id));
-    const candidates = restaurants.filter(r => !savedIds.has(r.id));
+    const candidates = restaurants.filter(r => !savedIds.has(r.id) && !isQuarantined(r));
     if (candidates.length === 0) return null;
     return candidates
       .map(r => {

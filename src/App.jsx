@@ -8,12 +8,16 @@ import TabBar from './components/TabBar';
 import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
 import { MAP_CENTER } from './utils';
-import { matchesDietary } from './data/verification';
+import { matchesDietary, isQuarantined } from './data/verification';
 import './index.css';
 
 // Dietary chips are answered by the structured dietary record (never a tag
 // string); the rest are descriptive traits.
 const DIETARY_CHIPS = ['Vegan', 'Halal'];
+
+// Quarantined records (existence itself unconfirmed) are excluded from every
+// discovery surface — map, search, cards, Journal — at this single point.
+const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
 
 const BOOKMARKS_KEY = 'kfm-bookmarks';
 
@@ -39,8 +43,11 @@ export default function App() {
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   const [focusStory, setFocusStory] = useState(false);
 
-  const openDetail = (r) => { setSelectedRestaurant(r); setFocusStory(false); };
-  const openStory = (r) => { setSelectedRestaurant(r); setFocusStory(true); };
+  // Single choke point for every path that opens detail (map pin, card,
+  // Journal stamp/next-stop) — a quarantined restaurant is a no-op here
+  // rather than rendering unverified detail.
+  const openDetail = (r) => { if (isQuarantined(r)) return; setSelectedRestaurant(r); setFocusStory(false); };
+  const openStory = (r) => { if (isQuarantined(r)) return; setSelectedRestaurant(r); setFocusStory(true); };
 
   useEffect(() => {
     localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks));
@@ -64,7 +71,7 @@ export default function App() {
   };
 
   const filteredRestaurants = useMemo(() => {
-    return restaurants.filter(r => {
+    return activeRestaurants.filter(r => {
       // 1. Filter chips (AND logic). A dietary chip only matches on evidence —
       // an unknown dietary record never matches, so we never send someone
       // somewhere we can't vouch for.

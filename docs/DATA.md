@@ -134,6 +134,76 @@ tag system got wrong.
 
 ---
 
+## Lifecycle (optional field, MVP — uncommitted as of 2026-07-17)
+
+A restaurant's existence/publication state, kept apart from field-level
+`confidence` for the same reason confidence is kept apart from source: they
+answer different questions. A record can have well-sourced facts and still
+need excluding from the live app if its existence *as an entity* is itself in
+doubt.
+
+```js
+lifecycle: {
+  status: LIFECYCLE.QUARANTINE,
+  determination: fact(LIFECYCLE.QUARANTINE, {
+    confidence: CONFIDENCE.SUPPORTED,
+    source: SOURCE.RESEARCH,
+    method: METHOD.MAP_CROSSCHECK,
+    lastCheckedAt: "2026-07-17",
+    evidence: "…what was and wasn't found…",
+  }),
+}
+```
+
+The field is **optional** — a record with no `lifecycle` key is `ACTIVE` by
+default (`isQuarantined()` reads `restaurant?.lifecycle?.status`, which is
+`undefined` and therefore not `QUARANTINE` for every unmigrated record). No
+existing record needed a migration to adopt this.
+
+| Status | Implemented? | Meaning |
+|---|---|---|
+| `ACTIVE` | Yes (the default) | Renders everywhere: map, search, cards, Journal. |
+| `QUARANTINE` | Yes | Existence unconfirmed. Excluded from every discovery surface; direct navigation to detail is a no-op. Not a claim that the place is fake — see below. |
+| `ARCHIVED` | No — named only, `TODO(lifecycle)` | Reserved for confirmed prior existence + confirmed closure. |
+| `DELETED` | No — named only, `TODO(lifecycle)` | Reserved for removal from the active array while retaining the evidence file. Nothing enforces the retention yet. |
+
+**`QUARANTINE`, never `DELETE`, for "we found nothing."** Deleting a record
+is itself an unevidenced claim — that the place definitely does not exist —
+and this project does not get to skip its own evidence bar just because the
+claim is negative. `QUARANTINE` says "excluded pending better evidence,"
+which is what a search-absence finding actually supports.
+
+**The determination is a `fact()`, not a new mechanism.** Reuse, not a
+parallel system: `check-data` requires `lifecycle.determination` to be
+auditable (an evidence ref, or an inline `method` + `evidence`) before it
+will accept `QUARANTINE`, exactly like it requires of any `CONFIRMED` fact.
+
+**Deliberately not on the Evidence Layer.** A quarantine determination for a
+search-absence finding is not a sourced claim about the venue — it is a
+statement about our own search coverage — so it is recorded inline rather
+than as a `data/evidence/<id>.json` record. See `EVIDENCE.md` for what does
+belong on the layer.
+
+**Known gap:** `scripts/lib/check-evidence.mjs`'s `factsOf()` — the list of
+fields the evidence-layer rules walk — does not include `lifecycle`. If a
+future determination used `evidenceRefs` instead of an inline method, those
+refs would not get the broken-reference/ceiling/stale-pin checks that every
+other fact's refs get. Not triggered by the one live example (`akiya` uses
+an inline method), but real if someone adds a second quarantined record via
+evidence refs before this is fixed.
+
+### Filtering (extended)
+
+`isQuarantined(restaurant)` is applied once, at the top of `src/App.jsx`
+(`activeRestaurants = restaurants.filter(r => !isQuarantined(r))`), and again
+at the `openDetail`/`openStory` choke point so a stale reference (a map pin
+built before a filter re-render, a Journal stamp) cannot open detail for a
+quarantined place. `src/components/JournalPanel.jsx`'s stamp grid and
+passport-progress count do **not** go through this filter yet — see
+`HANDOFF.md` §7 Medium #11.
+
+---
+
 ## Removed in v2
 
 | Field | Why |

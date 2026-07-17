@@ -254,6 +254,42 @@ export function dietaryConfidence(place) {
 }
 
 /**
+ * A restaurant record's existence/publication state — separate from
+ * field-level CONFIDENCE. A record can have well-sourced facts and still need
+ * excluding from the live app if its existence as an entity is itself unclear.
+ *
+ * The determination reuses fact()/CONFIDENCE/evidenceRefs (see
+ * `restaurant.lifecycle.determination`) rather than a parallel verification
+ * mechanism — classifying a record as QUARANTINE is itself a claim, and
+ * claims need evidence like any other.
+ *
+ * Only ACTIVE and QUARANTINE have implemented behaviour today. ARCHIVED and
+ * DELETED are named so the vocabulary exists when a restaurant needs them,
+ * but carry no transition logic or UI treatment yet — see the Restaurant
+ * Lifecycle design (2026-07-17).
+ */
+export const LIFECYCLE = {
+  /** Normal operation: renders everywhere, included in search/map/filters. */
+  ACTIVE: 'active',
+  /**
+   * Existence itself is unconfirmed — neither proven real nor proven
+   * fabricated. Excluded from every discovery surface; a direct navigation
+   * attempt is a no-op rather than rendering unverified detail.
+   */
+  QUARANTINE: 'quarantine',
+  // TODO(lifecycle): no transition logic or UI treatment implemented.
+  // Reserved for a restaurant with confirmed prior existence + confirmed closure.
+  ARCHIVED: 'archived',
+  // TODO(lifecycle): no transition logic implemented. Deletion must retain the
+  // restaurant's evidence file permanently even after removal from the active
+  // array — see the Restaurant Lifecycle design (2026-07-17).
+  DELETED: 'deleted',
+};
+
+/** True only for a record explicitly marked QUARANTINE; no lifecycle field = active. */
+export const isQuarantined = (restaurant) => restaurant?.lifecycle?.status === LIFECYCLE.QUARANTINE;
+
+/**
  * Data QA: dietary rules a record must never break. Returns a list of problems.
  * Run from scripts/check-data.mjs; keeps the never-infer rules mechanical
  * rather than relying on reviewer memory.
