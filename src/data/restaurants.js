@@ -662,21 +662,35 @@ export const restaurants = [
   {
     id: "iryonghal",
     name: "Iryonghal Yangsik (일용할양식)",
-    zone: "Michuhol, Incheon",
+    // Corrected 2026-07-17, from "Michuhol, Incheon". The draft had the wrong
+    // Incheon district: Naver, Kakao and the owner's own interview all place
+    // it in 남동구 구월동 (Namdong-gu, Guwol-dong). Michuhol-gu is a different
+    // district ~6 km away, which is why the coordinates were ~590 m out and
+    // why no street address was ever found under the old one.
+    zone: "Guwol-dong, Incheon",
     category: "brunch-bakery",
 
-    coordinates: fact({ lat: 37.451, lng: 126.701 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Michuhol-gu, Incheon", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.448239, lng: 126.695264 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Kakao's routing endpoint gives 37.448239/126.695264 and Naver Place gives 37.448239/126.695269 — under a metre apart. Replaces a Michuhol-gu neighbourhood-centre fallback ~590 m away, in the wrong district" }),
+    address: fact("50 Injudae-ro 522beon-gil, Namdong-gu, Incheon (1F)", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 인천 남동구 인주대로522번길 50 1층, and the owner names the same address in a published interview. The draft held only \"Michuhol-gu\" at area precision — the wrong district" }),
+    // Sources genuinely disagree on closing time, so the field stays unknown
+    // rather than picking one — the same call made for `maji` (§2.11).
+    hours: unknownFact("Not stated because sources conflict: a directory listing gives 11:00–20:00 with a 15:30–17:30 break, a March 2026 visitor report gives 11:00–21:00. Every source agrees it closes Tuesday and Wednesday, but a set of hours that cannot state its own closing time is not worth stating. The operator publishes no site and orders go through a table QR code, so settling this needs a call to the venue"),
     menus: fact([
-      { name: "Signature Ratatouille", price: "~18,000 KRW" },
-      { name: "Vegetable-forward Brunch Plate", price: "~16,000 KRW" },
-      { name: "Fresh Tomato Bruschetta", price: "~10,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Ratatouille (라따뚜이) — the vegan signature", price: "23,000 KRW" },
+      { name: "Fish steak (피쉬 스테이크)", price: "19,000 KRW" },
+      { name: "Cream gnocchi (크림 뇨끼)", price: "19,000 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "A directory listing and two independent visitor write-ups give these three dishes at these same prices. Replaces a draft list whose \"Vegetable-forward Brunch Plate\" and \"Fresh Tomato Bruschetta\" appear in no source found, and which priced the ratatouille at ~18,000 where every 2026 source says 23,000. The kitchen changes its menu seasonally, so this is a snapshot, not a fixed card" }),
+
+    phone: fact("0507-1393-3312", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing; a 0507 number forwards to the venue's real line" }),
+    instagram: fact("https://www.instagram.com/our.daily.meal", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this account as the venue's own. It is the only channel the venue publishes — there is no website" }),
+    transit: fact({ station: "Arts Center", line: "Incheon Line 1", exit: null, walkingMinutes: 13, distanceM: 869 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 예술회관역 인천1호선: 869 m / 794 s. Nearer than 인천터미널역 (1,062 m / 1,032 s), which was checked as the alternative. Exit not given by the routing API" }),
 
     dietary: {
-      vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.INFERRED, source: SOURCE.RESEARCH, evidence: "Source says \"vegetable-forward\" and \"meatless\", not vegan — dairy/egg unclear, so the stronger claim is not made" }),
-      halal: unknownFact("No halal information in the source"),
+      // Level unchanged from the draft, but the reasoning it rested on is
+      // replaced: the draft left dairy/egg "unclear", and that is now settled
+      // — the kitchen serves dairy and seafood, and does mark a vegan menu.
+      vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.COMMUNITY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Two independent 2026 visitor reports say the menu carries a separate 비건 category and that the ratatouille is \"완전 비건\"; the Blue Ribbon Survey's own listing calls it 채식 위주의 브런치. FULL is wrong: the kitchen serves no meat but does serve seafood (피쉬 스테이크, 굴/oyster and 오징어/squid pastas) and dairy (ricotta, greek yogurt, cream gnocchi). Held at SUPPORTED, never CONFIRMED — the venue publishes no menu (ordering is by table QR) and COMMUNITY may not carry CONFIRMED under the project's own rule" }),
+      halal: unknownFact("Still no halal information from any source. Not downgraded to NONE either: no source establishes pork, and the absence of a meat menu is not evidence about slaughter or cross-contamination"),
     },
     traits: ["Mild Taste"],
 
