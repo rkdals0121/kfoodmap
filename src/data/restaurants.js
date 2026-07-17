@@ -711,25 +711,49 @@ export const restaurants = [
     zone: "Cheongna, Incheon",
     category: "vegan-dining",
 
-    coordinates: fact({ lat: 37.534, lng: 126.635 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Cheongna, Seo-gu, Incheon", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    // Verified end-to-end 2026-07-17. The record described the restaurant this
+    // was until roughly June 2026: a vegan Italian dining room. It renovated
+    // into a weekly-rotating brunch buffet that serves chicken, so the dietary
+    // level, the menu and the editorial all had to follow the venue. Its
+    // address also named 서구, a district abolished on 2026-07-01 — the same
+    // Incheon reform that stranded `akiya`, but reaching a live record.
+    coordinates: fact({ lat: 37.521149, lng: 126.625895 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Kakao's routing endpoint gives 37.521149/126.625895 and Naver Place gives 37.521178/126.625889 — ~3 m apart. Replaces a neighbourhood-centre fallback that sat ~1.6 km away" }),
+    address: fact("11 Boseok-ro 12beon-gil, Seohae-gu, Incheon (1F)", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 보석로12번길 11 1층 (지번 청라동 104-154). The district is 서해구, not 서구: Incheon's 2026-07-01 reform created 검단구 and renamed the remainder of 서구 to 서해구. Both map services already carry the new name" }),
+    hours: fact({ raw: "Mon–Sat 09:00–16:00 (last order 15:00); closed Sunday", weekly: {
+      mon: [{ from: "09:00", to: "16:00", lastOrder: "15:00" }],
+      tue: [{ from: "09:00", to: "16:00", lastOrder: "15:00" }],
+      wed: [{ from: "09:00", to: "16:00", lastOrder: "15:00" }],
+      thu: [{ from: "09:00", to: "16:00", lastOrder: "15:00" }],
+      fri: [{ from: "09:00", to: "16:00", lastOrder: "15:00" }],
+      sat: [{ from: "09:00", to: "16:00", lastOrder: "15:00" }],
+      sun: [],
+    } }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "A directory listing and four independent 2026 visitor reports all give the same window: 월–토 09:00–16:00, 라스트오더 15:00, 일요일 정기휴무. These are the post-renovation hours; the 10:00–21:00 in older write-ups belonged to the à la carte restaurant and is superseded, not in conflict" }),
     menus: fact([
-      { name: "Vegan Lasagna", price: "~22,000 KRW" },
-      { name: "Vegan Gnocchi", price: "~19,000 KRW" },
-      { name: "Basil Pesto Pasta", price: "~18,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Brunch buffet — adult", price: "15,900 KRW" },
+      { name: "Brunch buffet — elementary school child", price: "9,900 KRW" },
+      { name: "Brunch buffet — preschool child", price: "6,900 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Buffet pricing, corroborated by a directory listing, a booking platform and visitor reports. The à la carte list this replaces (Vegan Lasagna / Vegan Gnocchi / Basil Pesto Pasta) no longer exists as a format. Individual dishes are not listed because the buffet rotates weekly — naming them would be stale within days" }),
+
+    phone: fact("0507-1330-0619", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing, matched by three independent write-ups; a 0507 number forwards to the venue's real line" }),
 
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states: \"100% plant-based Italian cuisine\"" }),
-      halal: unknownFact("No halal information in the source"),
+      // Corrected 2026-07-17, from VEGAN.FULL. The draft was true when written
+      // and is now false — the venue stopped being vegan-only at its June 2026
+      // renovation. Staleness, not fabrication, but a vegan filtering the map
+      // would still have been sent to a buffet serving chicken.
+      vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.COMMUNITY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Five independent first-hand reports from June 2026 say the same thing: the vegan restaurant renovated into a brunch buffet that is no longer vegan-only. One is explicit — \"비건 메뉴만 있는 게 아닌\" (not only vegan menus), naming a 치킨 (chicken) tomato stew; another, a regular from the vegan years, writes \"이제는 비건 외\" (now, besides vegan). Vegan dishes remain alongside, so OPTIONS, not NONE. Naver Place's own current name for the venue — 브런치 뷔페 림 — corroborates the format change independently. Directory metadata still calling it 비건레스토랑 lags the renovation. Held at SUPPORTED: COMMUNITY may not carry CONFIRMED under the project's own rule, and the buffet rotates weekly, so no standing vegan guarantee is established" }),
+      halal: unknownFact("No halal information from any source"),
     },
     traits: [],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
-    vibe: "An intimate Italian dining room, plant-based from sauce to dessert.",
-    story: "Rim proves that 100% plant-based Italian cuisine can rival its traditional counterparts. By crafting approximately 98% of their rich sauces entirely in-house, they ensure ultimate freshness and vegan integrity. Their lasagna and gnocchi provide deep, comforting layers of flavor without relying on dairy.",
-    esg_point: "98% of sauces made in-house, fully dairy-free",
+    // Rewritten 2026-07-17: the draft described the pre-renovation restaurant
+    // and contradicted the corrected dietary badge — rule 16's defect class.
+    // The history it rests on (2019 동인천, 2023 Cheongna, the vegan years) is
+    // corroborated and kept.
+    vibe: "A weekly-changing brunch buffet, in the room that was Incheon's best-known vegan restaurant.",
+    story: "Rim opened in 2019 on Dongincheon's Gaehang-ro as 더 비기닝 (The Beginning), moved to Cheongna in 2023, and spent years as the restaurant Incheon vegans named first — a Blue Ribbon kitchen where nothing on the plate came from an animal and the sauces were made in-house. In June 2026 it renovated into a brunch buffet with a menu that changes every week. Plant-based dishes are still the heart of it, but the buffet is no longer vegan-only: a chicken stew may sit on the same counter as the tofu salad. Worth knowing before you go, whichever way you eat.",
+    esg_point: "A plant-based kitchen at its core, now served as a weekly-rotating buffet",
 
     image: "/images/pasta.svg",
     photo: null,
