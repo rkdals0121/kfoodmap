@@ -1,8 +1,8 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-17 · **HEAD:** `d24144c` (`rim` verified)
-**+ uncommitted changes** (`meat-morning` verification) · **Places:** 20
+**Last updated:** 2026-07-17 · **HEAD:** `677c980` (`meat-morning` verified)
+**+ uncommitted changes** (`bombay-brau` verification) · **Places:** 20
 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -10,7 +10,7 @@ without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
 tree**, not remembered. The working tree currently differs from `HEAD` —
 `git status` shows `src/data/restaurants.js` and this file modified, no
-commit yet — see §12 for the `meat-morning` finding before assuming this
+commit yet — see §12 for the `bombay-brau` finding before assuming this
 document describes committed code.
 
 ---
@@ -67,7 +67,7 @@ hero → quick facts ("can I eat here?") → practical (directions/hours/address
 | UI / UX | **Done.** Five approved steps; responsive mobile/tablet/desktop; AA contrast; no known regressions. |
 | Trust & evidence architecture | **Done.** Production-grade, validated, documented. |
 | Lifecycle (existence/publication state) | **MVP, uncommitted.** `ACTIVE`/`QUARANTINE` implemented and enforced by `check-data`; `ARCHIVED`/`DELETED` are named only, no logic. See §2.14. |
-| Data | **Partly verified.** 20 places (18 active, 2 quarantined); 14 have ≥1 confirmed field; 6 have zero — two of those six (`akiya`, `makan`) are quarantined rather than pending verification, so 4 active restaurants still have nothing confirmed. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown.) |
+| Data | **Partly verified.** 20 places (18 active, 2 quarantined); 15 have ≥1 confirmed field; 5 have zero — two of those five (`akiya`, `makan`) are quarantined rather than pending verification, so 3 active restaurants still have nothing confirmed. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown.) |
 | Evidence migration | **1 of 20** restaurants migrated (demonstration only). |
 | Content (stories) | **Draft quality.** Marketing tone in 13/20; one story corrected so far. |
 
@@ -747,15 +747,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
    but the audit trail is one restaurant deep. *Rationale for the debt:*
    migrating in bulk would defeat the purpose; the value is in re-reading each
    claim while moving it. That is how Gonghwachun's false story surfaced.
-2. **6 of 20 restaurants have zero confirmed fields.** `kampungku`,
-   `nono-shop`, `arabesque`, `bombay-brau`, `akiya`,
+2. **5 of 20 restaurants have zero confirmed fields.** `kampungku`,
+   `nono-shop`, `arabesque`, `akiya`,
    `makan` — each has ~3/8 fields known. (`chaeyuk-songdo`, `iryonghal`,
-   `rim` and `meat-morning` all left this list on 2026-07-17; see §12.)
-   Two of the six, `akiya` and `makan`, are now `QUARANTINE`d (§2.14): their
+   `rim`, `meat-morning` and `bombay-brau` all left this list on 2026-07-17;
+   see §12.)
+   Two of the five, `akiya` and `makan`, are now `QUARANTINE`d (§2.14): their
    gap is no longer "unverified," it is "not currently operating" (`akiya`:
    existence never confirmed; `makan`: prior existence well-evidenced, but
    Seoul's tourism site marks it "[운영중지]" and it is absent from both map
-   services) — see §12. The other four need the standard verification pass.
+   services) — see §12. The other three need the standard verification pass.
 3. **`akiya`'s stale `Jung-gu` address is now moot, not fixed.** The district
    merger (`Jung-gu` → 제물포구, effective 2026-07-01) that originally put
    `akiya` on this list is superseded by a bigger finding: the place itself
@@ -763,14 +764,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
    quarantined on 2026-07-17 rather than corrected — see §2.14. The stale
    address text is left in the record as-is; it is inert while the record is
    hidden from every discovery surface.
-4. **3 area-level addresses among active restaurants:** `nono-shop`,
-   `arabesque`, `bombay-brau`. Not routable to a door.
-   (`iryonghal`, `rim` and `meat-morning` all left this list 2026-07-17 — in
-   each case the draft's area value named the wrong district entirely; see
-   §12. `makan`'s area-level address is not counted here: it is quarantined
-   and hidden from every discovery surface.)
+4. **2 area-level addresses among active restaurants:** `nono-shop`,
+   `arabesque`. Not routable to a door.
+   (`iryonghal`, `rim`, `meat-morning` and `bombay-brau` all left this list
+   2026-07-17 — in `bombay-brau`'s case the draft's area value was actually
+   close to correct, but had never been confirmed against a source; the
+   other three had the wrong district entirely; see §12. `makan`'s
+   area-level address is not counted here: it is quarantined and hidden from
+   every discovery surface.)
 5. **The Lifecycle MVP (§2.14) is committed** at `b4c0e4b`. **A new, separate
-   uncommitted change sits on top of it:** the `meat-morning` investigation
+   uncommitted change sits on top of it:** the `bombay-brau` investigation
    (`src/data/restaurants.js` + this file). Every gate passes against the
    working tree — `check-data`, `lint`, `build`, `evidence-hash.mjs --check`
    — but this change does not survive a lost session until it too is
@@ -862,12 +865,12 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 
 | Item | State | Confidence |
 |---|---|---|
-| Data verification | 14/20 have ≥1 confirmed field; 14/20 confirmed coordinates; 16/20 street addresses; 10/20 structured hours | high (measured 2026-07-17) |
+| Data verification | 15/20 have ≥1 confirmed field; 15/20 confirmed coordinates; 17/20 street addresses; 11/20 structured hours | high (measured 2026-07-17) |
 | Lifecycle rollout | 2/20 (`akiya`, `makan`) quarantined; 18/20 `ACTIVE`; mechanism (§2.14) committed at `b4c0e4b`, `makan`'s determination is a new uncommitted change | high (measured, incl. live browser check) |
 | Evidence migration | 1/20 | high |
 | Story sourcing | 1/20 has `storyRefs` | high |
 | Image rights research | 5/20 have leads; **8 leads, 0 reusable** | medium — only 5 venues surveyed |
-| Contact data | officialUrl 8/20, phone 12/20, instagram 6/20, transit 13/20 | high (measured 2026-07-17) |
+| Contact data | officialUrl 8/20, phone 12/20, instagram 6/20, transit 14/20 | high (measured 2026-07-17) |
 
 ### Not started
 
@@ -900,7 +903,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 
 Each phase depends on the last. Do not reorder.
 
-### Phase A — Data Verification *(current; ~60% done)*
+### Phase A — Data Verification *(current; ~70% done)*
 Bring the remaining unverified restaurants to the Gonghwachun standard, one at
 a time, each with a completion report.
 **`akiya` and `makan` are both resolved, not verified.** `akiya` (investigated
@@ -912,17 +915,20 @@ existence-unconfirmed one, though both land on `QUARANTINE` today since
 `ARCHIVED` (the more precise label for confirmed-closure) has no implemented
 logic — see §2.14. Neither was brought to production quality; both close out
 of this queue without adding to the "verified" count.
-`chaeyuk-songdo`, `iryonghal`, `rim` and `meat-morning` were all verified to
-the Gonghwachun standard on 2026-07-17 and all four stay `ACTIVE` — the
-first four Incheon-cluster records done. Between them they show four
-distinct ways a draft record goes wrong: `chaeyuk-songdo`'s dietary level
-described a different kitchen, `iryonghal` was filed under the wrong Incheon
-district outright, `rim` was accurate when written but went stale, and
+`chaeyuk-songdo`, `iryonghal`, `rim`, `meat-morning` and `bombay-brau` were
+all verified to the Gonghwachun standard on 2026-07-17 and all five stay
+`ACTIVE` — five of six Incheon-cluster records done. Between them they show
+five distinct ways a draft record goes wrong: `chaeyuk-songdo`'s dietary
+level described a different kitchen, `iryonghal` was filed under the wrong
+Incheon district outright, `rim` was accurate when written but went stale,
 `meat-morning` combined both — wrong district and a mislabelled vegan claim
-in the same record.
-**Order for the remaining 4:** the rest of the Incheon cluster
-(`bombay-brau`, `arabesque`), then the Seoul remainder (`kampungku`,
-`nono-shop`) — see §12 for the immediate next recommendation.
+— and `bombay-brau` was the mildest case: district and vegan level already
+correct, but a specific menu item ("Vegan Dal Makhani") turned out to be
+mislabelled, and every field's confidence had to be earned rather than
+assumed.
+**Order for the remaining 3:** `arabesque` finishes the Incheon cluster,
+then the Seoul remainder — `kampungku`, `nono-shop` — see §12 for the
+immediate next recommendation.
 **Why first:** everything downstream compounds on the data. Migrating unverified
 facts into evidence records just makes bad data auditable.
 
@@ -1019,51 +1025,54 @@ These are enforced by `check-data` where a machine can; the rest are on you.
 
 ## 12. Next Recommended Task
 
-**`meat-morning` is done — verified 2026-07-17, stays `ACTIVE`.** Address,
-coordinates, instagram and transit now confirmed; menus and the vegan level
-corroborated; hours honestly unknown. It is a **new uncommitted change** on
-top of `d24144c`.
+**`bombay-brau` is done — verified 2026-07-17, stays `ACTIVE`.** Coordinates,
+address, hours and transit now confirmed; menus, vegan and halal evidence all
+upgraded to real citations. It is a **new uncommitted change** on top of
+`677c980`.
 
-Its defect combined the previous two, and worth remembering:
+This was the mildest defect in the cluster, and the pattern is worth
+recording precisely — not every record breaks the same way:
 
-> **Wrong district and a mislabelled vegan claim, in the same record.** Like
-> `iryonghal`, the draft's "Michuhol-gu" was wrong — Naver, Kakao and
-> Incheon's own tourism site all place it in Namdong-gu, Guwol-dong. Like
-> `chaeyuk-songdo` and `rim`, the vegan claim didn't survive contact with the
-> menu: a directory and an independent visitor write-up both name a specific
-> non-vegan item, a dairy cheesecake, sitting beside the vegan cookies and
-> yogurt bowls. `VEGAN.FULL` → `VEGAN.OPTIONS` — the fourth time this project
-> has caught a badge asserting more than the kitchen delivers, after EID,
-> `chaeyuk-songdo` and `rim`.
+> **District and vegan level were already correct.** Unlike the previous
+> three, `bombay-brau` needed no district correction — "Songdo, Incheon" was
+> right from the start. `VEGAN.OPTIONS` also held. What was wrong was
+> narrower: the draft's "Vegan Dal Makhani" named a real dish that isn't
+> vegan — Makhani-style sauce is butter-and-cream-based by definition (a
+> detailed source lists the ingredients directly: "콩, 버터, 크림"), and two
+> independent, methodical vegan-food blogs cataloguing this chain's
+> vegan-safe items across branches never include it. One casual source did
+> call it vegan, reasoning only "no meat" — a common conflation this project
+> does not adopt. "Halal Tandoori Chicken" as a dish *label* was also
+> dropped: no source names any dish that way. The kitchen's halal-friendly
+> status is real — an official Busan government document classifies this
+> chain's BIFC branch as "무슬림 프렌들리," one tier below KMF-certified — but
+> it is a restaurant-level fact, not a per-dish one. `HALAL.FRIENDLY` was
+> never upgraded to `CERTIFIED`; nothing Songdo-specific has been sighted.
 
-Two sources conflicted and neither was picked: Incheon's tourism site gives
-one set of hours, a directory gives another, and two different forwarding
-phone numbers surfaced with no third source to break the tie — both stay
-unresolved rather than averaged or guessed.
+One more thing worth noting: a phone number surfaced in a single blog post,
+and was deliberately **not added** — neither Naver Place nor Kakao Map's own
+listing carries it, so a single community source wasn't enough.
 
-**Next: `bombay-brau`, continuing §10 Phase A's Incheon cluster.**
+**Next: `arabesque`, finishing §10 Phase A's Incheon cluster.**
 
 1. **Evidence.** Zero confirmed fields (§7 High #2) and an area-level address
-   (§7 High #3). It is also the other known dietary overstatement on record
-   (§6, P0: tagged Vegan while its menu lists Halal Tandoori Chicken) and has
-   never been re-checked against an operator source since. Given the pattern
-   across the last three records, check both the district and the dietary
-   claim against a primary source before trusting anything else in the draft.
-2. **Production priority.** Four active restaurants still have nothing
-   confirmed, and `bombay-brau` carries the highest-severity known defect
-   among them — a live dietary overstatement, not just a data gap.
-3. **Existing plan.** §10 Phase A's order is unchanged: `bombay-brau` and
-   `arabesque` finish the Incheon cluster, then the Seoul remainder
-   (`kampungku`, `nono-shop`).
+   (§7 High #4). Given the pattern across this cluster — three of five prior
+   records had a wrong or unconfirmed district, one had a mislabelled menu
+   item — check both district and every dietary claim against a primary
+   source before trusting anything else in the draft.
+2. **Production priority.** Three active restaurants still have nothing
+   confirmed; finishing `arabesque` closes out the Incheon cluster entirely,
+   leaving only the two-restaurant Seoul remainder.
+3. **Existing plan.** §10 Phase A's order is unchanged: `arabesque` finishes
+   the Incheon cluster, then the Seoul remainder (`kampungku`, `nono-shop`).
 
-**Definition of done for `bombay-brau`:** district and address cross-checked
+**Definition of done for `arabesque`:** district and address cross-checked
 against Naver Place and Kakao Map at street precision (not area), coordinates
 confirmed, hours structured or honestly unknown, transit from the routing
 API, both dietary fields checked against a primary source rather than the
-draft — the Halal Tandoori Chicken finding in particular needs either
-confirming or superseding with sourced evidence — `npm run check-data`
-clean, completion report with a Data Change Log (previous value / new value
-/ source / reason for every field touched, per §11 rule 15).
+draft, `npm run check-data` clean, completion report with a Data Change Log
+(previous value / new value / source / reason for every field touched, per
+§11 rule 15).
 
 **Do not:** start Phase C, add features beyond what Lifecycle already
 defines, or verify more than one restaurant in the same pass.

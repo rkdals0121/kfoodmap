@@ -840,28 +840,40 @@ export const restaurants = [
   {
     id: "bombay-brau",
     name: "Bombay Brau",
+    // Verified end-to-end 2026-07-17. Zone/district was already correct —
+    // unlike the last three Incheon records, no wrong-district defect here.
     zone: "Songdo, Incheon",
     category: "world-halal",
 
-    coordinates: fact({ lat: 37.3918, lng: 126.6448 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Songdo, Yeonsu-gu, Incheon", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.39178, lng: 126.644859 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Kakao's routing endpoint gives 37.39178/126.644859; Naver Place's mapx/mapy converts to 37.391754/126.644959 — under 10 m apart. The prior fallback happened to sit almost on this point, but was never confirmed against a source" }),
+    address: fact("160 Central-ro, Yeonsu-gu, Incheon (C-dong 254, 255)", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 센트럴로 160; Naver adds the unit (C동 254, 255호), matched independently by a first-hand 2026-07-07 visitor post" }),
+    hours: fact({ raw: "Daily 11:15 AM – 10:00 PM (break 3:00–5:00 PM on weekdays only; last order 9:30 PM)", weekly: {
+      mon: [{ from: "11:15", to: "15:00" }, { from: "17:00", to: "22:00", lastOrder: "21:30" }],
+      tue: [{ from: "11:15", to: "15:00" }, { from: "17:00", to: "22:00", lastOrder: "21:30" }],
+      wed: [{ from: "11:15", to: "15:00" }, { from: "17:00", to: "22:00", lastOrder: "21:30" }],
+      thu: [{ from: "11:15", to: "15:00" }, { from: "17:00", to: "22:00", lastOrder: "21:30" }],
+      fri: [{ from: "11:15", to: "15:00" }, { from: "17:00", to: "22:00", lastOrder: "21:30" }],
+      sat: [{ from: "11:15", to: "22:00", lastOrder: "21:30" }],
+      sun: [{ from: "11:15", to: "22:00", lastOrder: "21:30" }],
+    } }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Two independent visitor posts (2026-07-07, 2026-07-11) agree exactly: daily 11:15–22:00, weekday break 15:00–17:00 (not on weekends), last order 21:30. No conflict found" }),
     menus: fact([
-      { name: "Vegan Dal Makhani", price: "~14,000 KRW" },
-      { name: "Halal Tandoori Chicken", price: "~20,000 KRW" },
-      { name: "Vegetable Samosas", price: "~8,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Tandoori Chicken (whole / half)", price: "23,000 / 13,000 KRW" },
+      { name: "Vegetable Samosas", price: null },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.COMMUNITY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Tandoori Chicken and its portion pricing come from a first-hand 2026-07-11 Songdo visit. Samosas are corroborated as this chain's vegan-safe order by two independent, methodical vegan-food blogs cataloguing exact orderable items across branches — no Songdo-specific price found, left unstated rather than carried over from the draft. The draft's \"Vegan Dal Makhani\" is dropped: Makhani-style sauce is butter-and-cream-based (한 상세 후기: \"콩, 버터, 크림\"), and the same vegan-mapping blogs never list it as a vegan-safe order at any branch — one casual post called it vegan on the sole reasoning that it contains no meat, which the ingredient-level accounts contradict. \"Halal Tandoori Chicken\" as a menu label is also dropped: no source names the dish that way — halal-friendliness is a restaurant-level fact (see dietary.halal), not a per-dish label" }),
+    transit: fact({ station: "Incheon National University", line: "Incheon Line 1", exit: null, walkingMinutes: 15, distanceM: 921 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 인천대입구역 인천1호선: 921 m / 880 s. Checked against two farther alternatives (센트럴파크역 1,321 m; 테크노파크역 1,834 m). Exit not given by the routing API" }),
 
     dietary: {
-      vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu lists \"Vegan Dal Makhani\" alongside \"Halal Tandoori Chicken\" — vegan dishes exist, the kitchen is not vegan" }),
-      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu lists \"Halal Tandoori Chicken\"; source states it caters to halal diets" }),
+      vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.COMMUNITY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Level unchanged, evidence replaced: two independent, methodical vegan-food blogs name specific vegan-orderable items (samosas, roti, chana-style curry) across this chain's branches, and a first-hand 2022 Songdo visit has staff proactively flag which dishes are vegetarian when ordering. The kitchen is meat-forward (tandoori, kebabs, lamb, prawn), so OPTIONS, not FULL" }),
+      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, method: METHOD.GOV_LISTING, lastCheckedAt: "2026-07-17", evidence: "An official Busan Metropolitan City reference document classifies this chain's BIFC branch explicitly as \"무슬림 프렌들리\" (Muslim-friendly) — one tier below the document's own definition of \"한국이슬람교중앙회(KMF)로부터 할랄 인증을 획득한 식당\" (KMF-certified). Incheon's own tourism site separately selected the Songdo branch for the Korea Tourism Organization's 2021 Halal Restaurant Week, consistent with accommodating rather than certified. No Songdo-specific certificate sighted, so the level stays FRIENDLY, not CERTIFIED" }),
     },
     traits: [],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
-    vibe: "Rich curries shared with no compromise, halal or vegan.",
-    story: "Nestled in the international district of Songdo, Bombay Brau caters brilliantly to both Halal and Vegan diets. Their expansive menu guarantees that diverse groups can dine together without compromising their beliefs. The rich curries here showcase the intense, sustainable power of plant and certified-meat cooking.",
-    esg_point: "One table welcoming Halal and Vegan diners alike",
+    // Rewritten 2026-07-17: "certified-meat cooking" implied a certification
+    // never sighted, and the story leaned on the draft's now-dropped menu item.
+    vibe: "A nationwide Indian chain's Songdo branch — meat-forward tandoori and curries, with vegan options for those who ask.",
+    story: "Bombay Brau is part of a national Indian restaurant chain with branches from Songdo to Busan, built around tandoori-oven cooking and buttery curries. The kitchen isn't vegan or halal-certified, but it accommodates both: staff will point out which dishes are vegetarian, and the chain has been recognized by Korea's tourism authorities as Muslim-friendly. It's a table where a halal diner and a vegan diner can sit down together, even if neither gets a dish made just for them.",
+    esg_point: "A Muslim-friendly, vegetarian-accommodating table — not certified, but genuinely welcoming",
 
     image: "/images/halal_meat.svg",
     photo: null,
