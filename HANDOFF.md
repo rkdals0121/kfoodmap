@@ -1,17 +1,17 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-17 · **HEAD:** `677c980` (`meat-morning` verified)
-**+ uncommitted changes** (`bombay-brau` verification) · **Places:** 20
-(18 active, 2 quarantined)
+**Last updated:** 2026-07-18 · **HEAD:** `ae3a5c0` (`bombay-brau` verified)
+**+ uncommitted changes** (§10 Roadmap reconciliation — documentation only,
+no restaurant data) · **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
 tree**, not remembered. The working tree currently differs from `HEAD` —
-`git status` shows `src/data/restaurants.js` and this file modified, no
-commit yet — see §12 for the `bombay-brau` finding before assuming this
-document describes committed code.
+`git status` shows only this file modified, no commit yet — see §10 for the
+project-roadmap addition before assuming this document describes committed
+code.
 
 ---
 
@@ -901,9 +901,32 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 
 ## 10. Roadmap
 
-Each phase depends on the last. Do not reorder.
+**Project roadmap — six phases, adopted 2026-07-18.** This is the
+authoritative statement of it. Prior discussion of this roadmap outside this
+document was provisional — a decision meant to survive sessions is not
+project state until it is written here (§11 rule 21 extended to governance,
+not only data).
 
-### Phase A — Data Verification *(current; ~70% done)*
+| # | Phase | State |
+|---|---|---|
+| 1 | Foundation | ✅ Done — see §1 Maturity |
+| 2 | Production Infrastructure | ✅ Done — see §1 Maturity, §8 Completed |
+| 3 | **Production Data** | **← current.** Contains Phase A below. |
+| 4 | Final QA | Not started |
+| 5 | Version 1.0 | Not started |
+| 6 | Feature Phase 2 | Not started — begins only after Phase 5 |
+
+Each phase depends on the last. Do not reorder without explicit approval.
+
+### Phase 3 — Production Data *(current)*
+
+This phase contains the existing implementation roadmap below, Phases A–D.
+**Only Phase A gates Phase 4 and 5.** Phases B, C and D continue past Phase 3
+but do not block Final QA or v1.0 — §7 High #1 already treats evidence
+migration as non-blocking debt; this makes that fact part of the roadmap,
+not only the debt log.
+
+#### Phase A — Data Verification *(~70% done)*
 Bring the remaining unverified restaurants to the Gonghwachun standard, one at
 a time, each with a completion report.
 **`akiya` and `makan` are both resolved, not verified.** `akiya` (investigated
@@ -932,26 +955,26 @@ immediate next recommendation.
 **Why first:** everything downstream compounds on the data. Migrating unverified
 facts into evidence records just makes bad data auditable.
 
-### Phase B — Evidence Migration
+#### Phase B — Evidence Migration *(not required for v1.0)*
 Move all 20 onto the evidence layer, retiring inline `url`/`method`.
 **Why after A:** migration is a re-reading exercise. Migrate a verified fact and
 you capture a real excerpt; migrate an unverified one and you fabricate one.
 Doing A and B in one pass per restaurant is acceptable and probably optimal.
 
-### Phase C — Entity Layer
+#### Phase C — Entity Layer *(not required for v1.0)*
 Restaurants are not the only entities. `짜장면박물관` is a museum; `공화춘터` is a
 heritage site; `ggot-epida` has two branches. Introduce a place-entity model
 with typed relations (`branch-of`, `succeeded-by`, `near`, `commemorates`).
 **Why after B:** relations need sourcing too. An entity graph built on unsourced
 claims is a faster way to be confidently wrong.
 
-### Phase D — Knowledge Graph
+#### Phase D — Knowledge Graph *(not required for v1.0)*
 Link entities to culture concepts (jajangmyeon, 사찰음식, 발우공양, 오신채) and to
 each other. This is where the public-diplomacy value compounds: a traveller
 follows *fermentation* across four restaurants and a museum.
 **Why last:** a graph is only as good as its nodes and edges.
 
-### Cross-cutting, any time after A
+#### Cross-cutting, any time after A *(not required for v1.0)*
 - **Content pass:** strip marketing tone from the 19 remaining stories; write
   per-place `didYouKnow`/`diningTips` for the crowded categories.
 - **Photography:** the licence research says every route needs permission.
@@ -959,6 +982,57 @@ follows *fermentation* across four restaurants and a museum.
 - **Staleness policy:** decide a re-check interval; have `check-data` warn.
 - **Coverage:** add reusable-container venues and traditional markets — both in
   the founding proposal, both absent.
+
+### Phase 4 — Final QA
+
+One complete sweep, run only after Phase A has no unverified active
+restaurants left. Reuses gates that already exist — no new tooling:
+
+- `npm run check-data` — 0 violations
+- `node scripts/evidence-hash.mjs --check` — 0 pending, 0 drifted
+- confidence/lifecycle consistency — no active fact above its evidence
+  ceiling (§2.7); the `JournalPanel` quarantine bypass resolved (§7 Medium #11)
+- browser QA — responsive (375/768/1280/1440) and AA contrast re-check (§8)
+- bundle hygiene — `grep -c retrievedBy dist/assets/*.js` = 0
+- documentation verification — every figure in this document re-measured
+  against the repository at the release commit, not carried over (§7 Low #16)
+
+**Why after Phase 3:** these gates check that Phase 3's work is true at the
+release commit; running them earlier just means running them again later.
+
+### Phase 5 — Version 1.0
+
+Release once every Phase 4 gate is green. v1.0 means every visible claim is
+either verified or honestly marked unknown — no speculation, no hidden
+assumptions. Does **not** require Phase B/C/D complete, real photography,
+i18n, or any Phase 6 feature — see §8 "Not started" for what ships absent.
+
+### Phase 6 — Feature Phase 2
+
+Begins only after Phase 5. No Phase 6 work starts before v1.0 ships.
+Recommended order, frozen 2026-07-18 unless explicitly changed:
+
+1. **Multilingual (i18n).** Largest reach limiter for a public-diplomacy
+   product aimed at foreign visitors; touches every screen, so it goes first
+   to avoid rework once more screens exist.
+2. **Nearby Route.** Reuses coordinates already confirmed in Phase 3 and the
+   Kakao routing already used at authoring time — low new-risk, high reuse.
+3. **Journey + Passport expansion.** Extends the existing Journal/passport
+   already in the core loop; no new data risk.
+4. **ESG Explorer.** Gated on a content pass first — `esg_point` is
+   currently thin and unaudited (the invented `food_mile` field was already
+   deleted at P0; nothing sourced replaced it).
+5. **AI Food Guide.** Deliberately late. An inference layer is only safe on
+   top of fully-sourced data and Phase C/D's entity/knowledge graph;
+   attempted earlier, it risks reintroducing the confident-hallucination
+   failure P0 removed.
+6. **Offline Mode.** A packaging concern, largely orthogonal to the rest.
+   Caching unstable content offline is worse than not caching, so it waits
+   for content to settle rather than leading.
+7. **User features.** The only item that breaks the load-bearing no-backend
+   constraint (§2.1), and it carries a moderation obligation already reasoned
+   about (§2.11: unmoderated crowd halal claims would be worse than no data).
+   Last, and gated on an infrastructure decision not yet made.
 
 ---
 
