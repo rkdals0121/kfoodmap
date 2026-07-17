@@ -401,12 +401,39 @@ export const restaurants = [
     zone: "Itaewon, Seoul",
     category: "halal-korean",
 
-    // ⚠ Could not be verified on 2026-07-17. Neither Naver Place nor Kakao Map
-    // returns this venue under any spelling, which is unusual for an operating
-    // Korean restaurant — every other place in this dataset is listed on both.
-    // Only third-party aggregators (TripAdvisor, autoreserve) still carry it,
-    // and those keep closed venues. Nothing here is upgraded, and the entry is
-    // flagged for manual verification before this list is published.
+    // Investigated end-to-end 2026-07-17 (see lifecycle.determination below).
+    // Not an "existence never confirmed" case like akiya: prior existence is
+    // well-evidenced (a decade of independent blog visits 2016-2025, 112
+    // TripAdvisor reviews, a named owner, a phone number, a Facebook business
+    // page). What changed: Seoul's official tourism site (visitseoul.net,
+    // last modified 2025-11-17) marks it "마칸 [운영중지]" (operation
+    // suspended) in its own Muslim-visitor restaurant guide — a closure
+    // signal, corroborated by absence from both Naver Place and Kakao Map
+    // under every name/address variant tried (validated against a working
+    // control: `eid`, on the same street, resolves fine on both). No blog or
+    // social evidence found dated after mid-2025 confirms continued
+    // operation; the aggregators still listing it as open (TripAdvisor,
+    // trazy, ohmyseoul, 10mag) are directory-tier and known to lag closures.
+    // QUARANTINE, not ARCHIVED (the conceptually closer label — confirmed
+    // prior existence + credible closure), because ARCHIVED has no
+    // implemented transition logic or UI treatment (verification.js) and
+    // this investigation reused Lifecycle exactly as designed rather than
+    // extending it. Also out of scope, recorded here rather than acted on:
+    // the same tourism page states Makan was KMF-certified halal — moot
+    // while quarantined, and not adopted into dietary.halal (would need its
+    // own sighting, per the halal-certification rule).
+    lifecycle: {
+      status: LIFECYCLE.QUARANTINE,
+      determination: fact(LIFECYCLE.QUARANTINE, {
+        confidence: CONFIDENCE.SUPPORTED,
+        source: SOURCE.GOVERNMENT,
+        method: METHOD.GOV_LISTING,
+        lastCheckedAt: "2026-07-17",
+        url: "https://korean.visitseoul.net/tours/%EB%AC%B4%EC%8A%AC%EB%A6%BC-%EA%B4%80%EA%B4%91%EA%B0%9D%EB%93%A4%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%84%9C%EC%9A%B8-%EC%9D%8C%EC%8B%9D%EC%A0%90-%EA%B0%80%EC%9D%B4%EB%93%9C_/26294",
+        evidence: "Seoul's official tourism site lists Makan with the status marker \"[운영중지]\" (operation suspended) in its Muslim-visitor restaurant guide (page last modified 2025-11-17). Corroborated: absent from Naver Place and Kakao Map under every name and address variant tried (checked 2026-07-17), while the same tools correctly resolve a nearby confirmed-active comparator (`eid`) on the same street. No evidence dated after mid-2025 confirms continued operation. Not the same finding as akiya: prior existence here is well-documented (a decade of independent blog visits, 112 TripAdvisor reviews, a named owner), so this is a closure signal, not an unconfirmed-existence signal.",
+      }),
+    },
+
     coordinates: fact({ lat: 37.536, lng: 126.993 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m. Re-checked 2026-07-17: no map-service listing exists to correct it against" }),
     address: fact("Near Seoul Central Mosque, Itaewon, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only. An aggregator lists 52 Usadan-ro 10-gil, unconfirmed by either map service, so it is not adopted", precision: "area" }),
     hours: unknownFact("Opening hours never confirmed; no map-service listing exists to check against as of 2026-07-17"),

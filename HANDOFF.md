@@ -1,15 +1,17 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-17 · **HEAD:** `10b2374` **+ uncommitted changes**
-(Lifecycle MVP, §2.14) · **Places:** 20 (19 active, 1 quarantined)
+**Last updated:** 2026-07-17 · **HEAD:** `b4c0e4b` (Lifecycle MVP baseline)
+**+ uncommitted changes** (`makan` investigation) · **Places:** 20 (18 active,
+2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
 tree**, not remembered. The working tree currently differs from `HEAD` —
-`git status` shows five modified files, no commit — see §2.14 and §7 High #5
-before assuming this document describes committed code.
+`git status` shows `src/data/restaurants.js` and this file modified, no
+commit yet — see §2.14 for the Lifecycle mechanism and §12 for the `makan`
+finding before assuming this document describes committed code.
 
 ---
 
@@ -65,7 +67,7 @@ hero → quick facts ("can I eat here?") → practical (directions/hours/address
 | UI / UX | **Done.** Five approved steps; responsive mobile/tablet/desktop; AA contrast; no known regressions. |
 | Trust & evidence architecture | **Done.** Production-grade, validated, documented. |
 | Lifecycle (existence/publication state) | **MVP, uncommitted.** `ACTIVE`/`QUARANTINE` implemented and enforced by `check-data`; `ARCHIVED`/`DELETED` are named only, no logic. See §2.14. |
-| Data | **Partly verified.** 20 places (19 active, 1 quarantined); 10 have ≥1 confirmed field; 10 have zero — one of those ten (`akiya`) is quarantined rather than pending verification. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown.) |
+| Data | **Partly verified.** 20 places (18 active, 2 quarantined); 10 have ≥1 confirmed field; 10 have zero — two of those ten (`akiya`, `makan`) are quarantined rather than pending verification. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown.) |
 | Evidence migration | **1 of 20** restaurants migrated (demonstration only). |
 | Content (stories) | **Draft quality.** Marketing tone in 13/20; one story corrected so far. |
 
@@ -381,14 +383,16 @@ id strings ship. Confirm after any change:
 npm run build && grep -c retrievedBy dist/assets/*.js   # must be 0
 ```
 
-### 2.14 Restaurant lifecycle — ACTIVE / QUARANTINE (MVP, **uncommitted**)
+### 2.14 Restaurant lifecycle — ACTIVE / QUARANTINE (MVP)
 
 A restaurant record's existence/publication state, kept separate from
 field-level `CONFIDENCE` (§2.4). A record can have well-sourced facts and
-still need excluding from the live app if its existence *as an entity* is
-itself in doubt — `CONFIDENCE` has no vocabulary for that question, and
-conflating the two would mean either blocking a well-verified place because
-one field is shaky, or shipping an entity nobody can find.
+still need excluding from the live app — because its existence *as an
+entity* is in doubt, or because the entity existed and has since stopped
+operating. `CONFIDENCE` has no vocabulary for either question: it grades how
+far we trust a *field*, and conflating the two would mean either blocking a
+well-verified place because one field is shaky, or shipping a restaurant
+that closed last year with impeccably-sourced hours.
 
 **Why this is an extension, not new architecture.** This was proposed after
 the project's architecture froze at the Evidence Layer (`b13b084`), so it is
@@ -416,8 +420,34 @@ named in `src/data/verification.js` for vocabulary continuity — so the next
 restaurant that needs them doesn't invent a fifth status — but have no
 transition logic and no UI treatment; both are marked `TODO(lifecycle)` in
 the source. Backward compatible by construction: `isQuarantined()` reads
-`restaurant?.lifecycle?.status`, so the 19 restaurants with no `lifecycle`
-key are unaffected and need no migration.
+`restaurant?.lifecycle?.status`, so a restaurant with no `lifecycle` key is
+unaffected and needs no migration.
+
+**Two different findings currently share `QUARANTINE`. Read the
+`determination`, not the status, to know which.** The MVP implements two
+statuses, but three distinct situations have already arisen:
+
+| Finding | Example | Status today | Status once `ARCHIVED` exists |
+|---|---|---|---|
+| Existence never established | `akiya` — no trace on either map service, the geocoding pipeline, or git history | `QUARANTINE` | `QUARANTINE` (unchanged — nothing was ever confirmed to archive) |
+| Existence well-established, credible evidence it has stopped operating | `makan` — a decade of independent write-ups and 112 reviews, but Seoul's tourism site marks it "[운영중지]" and both map services have dropped it | `QUARANTINE` | `ARCHIVED` |
+| Operating normally | the other 18 | `ACTIVE` | `ACTIVE` |
+
+The two are **not** the same claim, and the distinction is real: one says
+*we cannot find this place*, the other says *this place was real and is
+gone*. They collapse onto one status only because `ARCHIVED` is unimplemented
+(above), and both need the same user-facing outcome today — excluded from
+every discovery surface. Implementing `ARCHIVED` to separate them is a
+deliberate deferral, not an oversight: it would need transition logic, a UI
+treatment (an archived venue is arguably worth *showing* as closed rather
+than hiding, which is a design question nobody has answered), and a rule
+about what evidence promotes `QUARANTINE` → `ARCHIVED`. None of that is
+needed to keep a closed restaurant off the map, which is the whole job
+today. **Until then, a reader must not infer the finding from the status** —
+`akiya` and `makan` read identically as `QUARANTINE` and mean different
+things. Each record's `lifecycle.determination` carries the actual finding,
+its source, and its method; that fact, not the enum, is the audit record.
+This is also why the determination is a `fact()` rather than a boolean.
 
 **Why QUARANTINE and not DELETE:** deletion is a claim of its own — that the
 place definitely does not exist — and the project holds that claim to the
@@ -426,7 +456,10 @@ fabricated certainty; never invent a value). `akiya`'s investigation found
 *no trace*, not *proof of absence*. Quarantine excludes it from every
 discovery surface without asserting a negative nobody has proven, and
 without discarding the record (and its evidence file, once it has one) if
-better evidence later confirms or refutes it.
+better evidence later confirms or refutes it. The answer holds for `makan`
+for the opposite reason: it demonstrably *did* exist, and deleting it would
+discard a decade of sourced history — including the finding that it closed,
+which is worth keeping precisely so nobody re-adds it next year.
 
 **Determination reuses `fact()`, not a parallel mechanism.** Classifying a
 record `QUARANTINE` is itself a claim, so it is written as one, using the
@@ -449,13 +482,24 @@ lifecycle: {
 inline `method` + `evidence`, the same dual path already allowed for
 `CONFIRMED` facts (§2.12) — before it accepts a `QUARANTINE` status.
 
-**Not on the Evidence Layer, by design.** `akiya`'s determination is inline,
-not a `data/evidence/akiya.json` record. The finding is "our search coverage
-turned up nothing," which is a statement about our own search, not a sourced
-claim about the venue — the Evidence Layer (§2.7) exists for the latter.
-This is also why the store gained no "negative evidence" record type: it
-keeps storing only evidence that says something about a source; an
+**Not on the Evidence Layer, by design — for `akiya`.** Its determination is
+inline, not a `data/evidence/akiya.json` record. The finding is "our search
+coverage turned up nothing," which is a statement about our own search, not a
+sourced claim about the venue — the Evidence Layer (§2.7) exists for the
+latter. This is also why the store gained no "negative evidence" record type:
+it keeps storing only evidence that says something about a source; an
 absence-of-listing finding stays where it was judged, on the fact itself.
+
+**`makan`'s determination is inline for a weaker reason, and that is worth
+knowing.** Unlike `akiya`'s, it *is* a sourced claim about the venue: a
+government page, at a stable URL, with a quotable marker ("[운영중지]") and a
+retrieval date. By the rule above it is evidence-layer-eligible, and a
+reviewer who notices the mismatch is reading correctly. It is inline anyway
+because 19 of 20 restaurants still carry inline `url`/`method`/`evidence`
+(§7 High #1) and migration is deliberately one-restaurant-at-a-time (§10
+Phase B) — so this is the project's existing migration debt, not a new
+exemption for lifecycle. When `makan` is migrated, its determination should
+move onto the layer with the rest of its facts; `akiya`'s should not.
 
 **`akiya` (아키야) — quarantined 2026-07-17.** Absent from Naver Place and
 Kakao Map under the name near Gaehang-ro, absent from the geocoding
@@ -480,23 +524,28 @@ architecture (not yet fixed):**
   stamp card and count toward "of 20 stamped" — opening it stays blocked by
   the `App.jsx` choke point, so this is a display inconsistency, not an
   unverified-detail leak. No live bookmark currently exercises this for
-  `akiya`; it is a code-level gap, not an observed defect. See §7 Medium #11.
+  either quarantined record; it is a code-level gap, not an observed defect.
+  See §7 Medium #11.
 - `scripts/lib/check-evidence.mjs`'s `factsOf()` — the whitelist the
   evidence-layer rules (broken references, confidence ceilings, stale pins)
   walk — does not include `lifecycle`. `check-data`'s quarantine rule only
   checks that a determination *has* evidence refs (a presence check, via
   `hasEvidence()`), not that they resolve or respect the confidence ceiling.
-  Not triggered today — `akiya` uses inline `method`/`evidence`, no
-  `evidenceRefs` — but a future determination that used evidence refs would
-  bypass those checks until `factsOf()` is extended. See §7 Medium #12.
+  Not triggered today — `akiya` and `makan` both use inline
+  `method`/`evidence`, no `evidenceRefs` — but a determination that cited
+  evidence refs would bypass those checks until `factsOf()` is extended.
+  `makan` is the likely trigger, since its determination is
+  evidence-layer-eligible (above). See §7 Medium #12.
 
-**Status as of this writing:** implemented in the working tree, not
-committed — `git status` shows five modified files
-(`scripts/check-data.mjs`, `src/App.jsx`, `src/components/JournalPanel.jsx`,
-`src/data/restaurants.js`, `src/data/verification.js`) and no new commit.
-`check-data`, `lint`, `build`, and `node scripts/evidence-hash.mjs --check`
-all pass against the working tree; a live `npm run dev` check confirmed 19 of
-20 cards render with no "Akiya"/"아키야" text anywhere on the page.
+**Status as of this writing:** the mechanism is **committed** at `b4c0e4b`
+(`LIFECYCLE`, `isQuarantined()`, the `check-data` rule, the `App.jsx`
+filters, and `akiya`'s determination). The `makan` determination described
+above is a **separate, uncommitted change** on top of it —
+`src/data/restaurants.js` and this file. All gates pass against the working
+tree: `check-data` (20 places, 0 violations), `lint`, `build`,
+`node scripts/evidence-hash.mjs --check`, and a live `npm run dev` check
+confirming 18 of 20 cards render with no "Akiya"/"Makan" text anywhere on
+the page. See §12.
 
 ---
 
@@ -701,9 +750,11 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 2. **10 of 20 restaurants have zero confirmed fields.** `kampungku`,
    `nono-shop`, `chaeyuk-songdo`, `iryonghal`, `rim`, `meat-morning`,
    `arabesque`, `bombay-brau`, `akiya`, `makan` — each has ~3/8 fields known.
-   One of the ten, `akiya`, is now `QUARANTINE`d (§2.14): its gap is no longer
-   "unverified," it is "existence unconfirmed," and it needs a different
-   resolution than the other nine — see §12.
+   Two of the ten, `akiya` and `makan`, are now `QUARANTINE`d (§2.14): their
+   gap is no longer "unverified," it is "not currently operating" (`akiya`:
+   existence never confirmed; `makan`: prior existence well-evidenced, but
+   Seoul's tourism site marks it "[운영중지]" and it is absent from both map
+   services) — see §12. The other eight need the standard verification pass.
 3. **`akiya`'s stale `Jung-gu` address is now moot, not fixed.** The district
    merger (`Jung-gu` → 제물포구, effective 2026-07-01) that originally put
    `akiya` on this list is superseded by a bigger finding: the place itself
@@ -711,15 +762,17 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
    quarantined on 2026-07-17 rather than corrected — see §2.14. The stale
    address text is left in the record as-is; it is inert while the record is
    hidden from every discovery surface.
-4. **7 area-level addresses:** `makan`, `nono-shop`, `iryonghal`, `rim`,
-   `meat-morning`, `arabesque`, `bombay-brau`. Not routable to a door.
-5. **The Lifecycle MVP (§2.14) is uncommitted.** Five files are modified in
-   the working tree with no commit: `scripts/check-data.mjs`, `src/App.jsx`,
-   `src/components/JournalPanel.jsx`, `src/data/restaurants.js`,
-   `src/data/verification.js`. Every gate passes against the working tree —
-   `check-data`, `lint`, `build`, `evidence-hash.mjs --check`, and a live
-   browser check (19/20 cards render, no "Akiya"/"아키야" text on the page) —
-   but none of it survives a lost session until it is committed.
+4. **6 area-level addresses among active restaurants:** `nono-shop`,
+   `iryonghal`, `rim`, `meat-morning`, `arabesque`, `bombay-brau`. Not routable
+   to a door. (`makan`'s area-level address is no longer counted here — it is
+   quarantined and hidden from every discovery surface; see item 3-style
+   note in §12.)
+5. **The Lifecycle MVP (§2.14) is committed** at `b4c0e4b`. **A new, separate
+   uncommitted change sits on top of it:** the `makan` investigation
+   (`src/data/restaurants.js` + this file). Every gate passes against the
+   working tree — `check-data`, `lint`, `build`, `evidence-hash.mjs --check`
+   — but this second change does not survive a lost session until it too is
+   committed. See §12.
 
 ### Medium
 
@@ -745,15 +798,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     stamp card and count toward "of 20 stamped." Opening it stays blocked by
     `App.jsx`'s `openDetail`/`openStory` choke point, so this is a display
     inconsistency, not an unverified-detail leak. No live bookmark currently
-    triggers it for `akiya`.
+    triggers it for either quarantined record.
 12. **`check-evidence.mjs`'s `factsOf()` whitelist excludes `lifecycle`
     (§2.14).** The evidence-layer rules (broken references, confidence
     ceilings, stale pins) never walk a `lifecycle.determination` fact.
     `check-data`'s quarantine rule only checks that a determination *has*
     evidence refs, not that they resolve or respect the ceiling. Not
-    triggered today — `akiya` uses an inline `method`/`evidence`, no
-    `evidenceRefs` — but a future determination that used evidence refs would
-    bypass those checks until `factsOf()` is extended to include `lifecycle`.
+    triggered today — `akiya` and `makan` both use an inline
+    `method`/`evidence`, no `evidenceRefs` — but a determination that cited
+    evidence refs would bypass those checks until `factsOf()` is extended to
+    include `lifecycle`. Extend it when `makan` is migrated (§2.14).
 
 ### Low
 
@@ -803,7 +857,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 | Item | State | Confidence |
 |---|---|---|
 | Data verification | 10/20 have ≥1 confirmed field; 10/20 confirmed coordinates; 13/20 street addresses; 9/20 structured hours | high (measured) |
-| Lifecycle rollout | 1/20 (`akiya`) quarantined; 19/20 default `ACTIVE`; MVP **uncommitted** — §2.14 | high (measured, incl. live browser check) |
+| Lifecycle rollout | 2/20 (`akiya`, `makan`) quarantined; 18/20 `ACTIVE`; mechanism (§2.14) committed at `b4c0e4b`, `makan`'s determination is a new uncommitted change | high (measured, incl. live browser check) |
 | Evidence migration | 1/20 | high |
 | Story sourcing | 1/20 has `storyRefs` | high |
 | Image rights research | 5/20 have leads; **8 leads, 0 reusable** | medium — only 5 venues surveyed |
@@ -824,7 +878,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 | Risk | Severity | Detail |
 |---|---|---|
 | **KMF certification unverified** | **High** | Seoul's official tourism site states EID is *"한국이슬람중앙회에서 할랄 인증을 받은 유일한 한식당"* — the strongest evidence in the dataset. Still held at `FRIENDLY`: no certificate number or expiry sighted, KMF's own register never reached, **and a lapsed certificate would read identically**. Recorded in `halalCertClaim`. Resolving this needs a call to the venue or KMF. Do not upgrade on the tourism page alone. |
-| **`makan` may not exist** | **High** | Absent from *both* Naver Place and Kakao Map under every spelling tried — unusual for an operating Korean restaurant; the 18 other active places are on both. Only aggregators that retain closed venues (TripAdvisor, autoreserve) still list it. Nothing was upgraded. **Must be settled before any publication.** `akiya` had the identical signature and was quarantined 2026-07-17 rather than guessed at — see §2.14 and §12 for applying the same resolution here. |
+| **`makan` — resolved, quarantined 2026-07-17** | Was **High** | Settled, not merely upgraded. Prior existence is well-evidenced (a decade of independent blog visits, 112 TripAdvisor reviews, a named owner) — this was never an "invented restaurant" risk. What settled it: Seoul's official tourism site (visitseoul.net, last modified 2025-11-17) marks it **"[운영중지]"** (operation suspended), corroborated by absence from both Naver Place and Kakao Map under every name/address variant tried, validated against a working control (`eid`, same street, resolves on both). No evidence dated after mid-2025 shows continued operation. Directory sites (TripAdvisor, trazy, ohmyseoul, 10mag) still list it as open — expected lag, not counter-evidence. Quarantined rather than archived only because `ARCHIVED` has no implemented logic yet (§2.14). See §12. |
 | **Story evidence coverage** | **High** | 19/20 stories have no `storyRefs`. Gonghwachun proves the risk is real, not theoretical: the story asserted a heritage lineage the venue does not have, and no fact-level check could have caught it. |
 | **Image licensing** | **Medium** | 8 leads, **0 reusable**. No KOGL notice on Seoul or Incheon tourism pages → default copyright. Instagram's terms grant no third-party reuse. **Every route requires written permission.** `check-data` blocks a lead from becoming a shipped file. |
 | **Evidence migration drift** | **Medium** | While two shapes coexist, a reviewer must know which to trust. Mitigated: `check-data` accepts both; `hasEvidence(fact)` distinguishes them. |
@@ -843,15 +897,19 @@ Each phase depends on the last. Do not reorder.
 ### Phase A — Data Verification *(current; ~50% done)*
 Bring the remaining unverified restaurants to the Gonghwachun standard, one at
 a time, each with a completion report.
-**`akiya` is resolved, not verified.** Investigation (2026-07-17) found no
-trace of it on Naver Place, Kakao Map, or the geocoding pipeline; it is
-`QUARANTINE`d rather than brought to production quality — see §2.14. That
-closes it out of this queue without adding a 20th "verified" restaurant.
-**Order for the remaining 9:** the Incheon cluster (`chaeyuk-songdo`,
+**`akiya` and `makan` are both resolved, not verified.** `akiya` (investigated
+2026-07-17): no trace on Naver Place, Kakao Map, or the geocoding pipeline;
+existence itself unconfirmed. `makan` (investigated 2026-07-17): existence is
+well-evidenced historically, but Seoul's tourism site marks it "[운영중지]"
+and it is absent from both map services — a closure signal, not an
+existence-unconfirmed one, though both land on `QUARANTINE` today since
+`ARCHIVED` (the more precise label for confirmed-closure) has no implemented
+logic — see §2.14. Neither was brought to production quality; both close out
+of this queue without adding to the "verified" count.
+**Order for the remaining 8:** the Incheon cluster (`chaeyuk-songdo`,
 `iryonghal`, `rim`, `meat-morning`, `bombay-brau`, `arabesque`), then the
-Seoul remainder (`kampungku`, `nono-shop`), then `makan`. `makan` carries the
-same "may-not-exist" risk `akiya` did (§9) and could be resolved out of turn
-with the same Lifecycle mechanism — see §12 for the recommendation.
+Seoul remainder (`kampungku`, `nono-shop`) — see §12 for the immediate next
+recommendation.
 **Why first:** everything downstream compounds on the data. Migrating unverified
 facts into evidence records just makes bad data auditable.
 
@@ -948,49 +1006,57 @@ These are enforced by `check-data` where a machine can; the rest are on you.
 
 ## 12. Next Recommended Task
 
-**`akiya` is closed out — see §2.14.** It was not brought to production
-quality; it was investigated and quarantined (existence unconfirmed). That
-resolves the item this section previously recommended.
+**Both `akiya` and `makan` are closed out.** Neither was brought to
+production quality; both were investigated and quarantined:
 
-**Prerequisite before new restaurant work: land the Lifecycle MVP.** §2.14 and
-§7 High #5 — five files are modified with no commit. Starting `makan` (below)
-on top of an uncommitted, undocumented change mixes two units of work in one
-diff and risks losing the Lifecycle change entirely if the session ends first.
-Commit it (or explicitly decide not to) before picking up the next restaurant.
+- `akiya` — existence itself never confirmed (no trace on Naver Place, Kakao
+  Map, or the geocoding pipeline).
+- `makan` — investigated 2026-07-17. Prior existence is well-evidenced (a
+  decade of independent blog visits, 112 TripAdvisor reviews, a named owner),
+  so this was never an "invented restaurant" case. What resolved it: Seoul's
+  official tourism site (visitseoul.net, last modified 2025-11-17) marks it
+  **"[운영중지]"** (operation suspended) in its own Muslim-visitor restaurant
+  guide, corroborated by absence from both Naver Place and Kakao Map under
+  every name/address variant tried — validated against a working control
+  (`eid`, the same street, resolves fine on both, so the negative result
+  isn't a tool failure). No evidence dated after mid-2025 shows continued
+  operation. `QUARANTINE`d rather than `ARCHIVED` (the more precise label —
+  confirmed prior existence + credible closure) only because `ARCHIVED` has
+  no implemented transition logic yet (§2.14); this investigation reused
+  Lifecycle exactly as designed rather than extending it. See
+  `src/data/restaurants.js`'s `makan` record for the full determination and
+  §9 for the updated risk entry.
 
-**Then: resolve `makan`'s existence, applying the same Lifecycle mechanism
-just used for `akiya`.**
+Both resolutions are a **new uncommitted change** sitting on top of the
+committed Lifecycle baseline (`b4c0e4b`) — see §7 High #5 before starting
+anything else.
 
-**Why this and not the next restaurant in the Incheon cluster:**
+**Next: the Incheon cluster, per §10 Phase A's existing order —
+`chaeyuk-songdo` first.**
 
-1. **Evidence.** `makan` already carries the identical failure signature
-   `akiya` did — absent from *both* Naver Place and Kakao Map under every
-   spelling tried, where all 18 other active places are on both (§9). That is
-   not a new investigation; it is applying a now-tested method
-   (`METHOD.MAP_CROSSCHECK`, `SOURCE.RESEARCH`, `fact()`-wrapped
-   `lifecycle.determination`) to a second, already-documented case.
-2. **Production priority.** §9 marks `makan` **High** severity and says
-   explicitly: "**Must be settled before any publication.**" It is the single
-   highest-severity open item in the entire Known Risks table. Resolving it
-   — whether that means `QUARANTINE`, or turning up a listing that upgrades
-   it to `ACTIVE` — outranks verifying a restaurant with merely-missing
-   fields (the Incheon cluster's problem, which is real but lower severity).
-3. **Existing plan.** §10 Phase A's own text names this exact reordering as
-   acceptable: "`makan` last — or resolve its existence first." Taking that
-   option now is not a deviation from the plan; it is exercising a branch the
-   plan already anticipated, once a working, tested mechanism existed to act
-   on it.
+1. **Evidence.** `chaeyuk-songdo`, like the rest of the Incheon cluster, has
+   zero confirmed fields today (§7 High #2) but — unlike `akiya`/`makan` —
+   no existence question hangs over it; the open work is ordinary
+   verification (address, hours, transit, dietary), not a Lifecycle
+   determination.
+2. **Production priority.** With both existence-risk items now settled, the
+   highest-value remaining gap is the Incheon cluster's complete absence of
+   confirmed data, not the Seoul remainder (`kampungku`, `nono-shop`), which
+   §10 already places after it.
+3. **Existing plan.** §10 Phase A's order was always "the Incheon cluster
+   (`chaeyuk-songdo`, `iryonghal`, `rim`, `meat-morning`, `bombay-brau`,
+   `arabesque`), then the Seoul remainder" once the two existence-risk items
+   were out of the queue. Nothing about today's findings changes that order.
 
-**Definition of done:** re-run the existence check (Naver Place, Kakao Map,
-the geocoding pipeline, and any spelling variants not yet tried) dated
-2026-07-17 or later; either a `lifecycle.determination` fact quarantining it
-(mirroring `akiya`) or a confirmed listing that lets other fields proceed to
-normal verification; `npm run check-data` clean; completion report with a
-Data Change Log (previous value / new value / source / reason for every
-field touched, per §11 rule 15).
+**Definition of done for `chaeyuk-songdo`:** address cross-checked against
+Naver Place and Kakao Map, coordinates confirmed, hours structured or
+honestly unknown, transit from the routing API, dietary fields verified
+against a primary source where possible, `npm run check-data` clean,
+completion report with a Data Change Log (previous value / new value /
+source / reason for every field touched, per §11 rule 15).
 
-**Do not:** start Phase C, add features beyond what Lifecycle already defines,
-or resolve/verify more than one restaurant in the same pass.
+**Do not:** start Phase C, add features beyond what Lifecycle already
+defines, or verify more than one restaurant in the same pass.
 
 ---
 

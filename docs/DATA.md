@@ -134,13 +134,13 @@ tag system got wrong.
 
 ---
 
-## Lifecycle (optional field, MVP — uncommitted as of 2026-07-17)
+## Lifecycle (optional field, MVP)
 
 A restaurant's existence/publication state, kept apart from field-level
 `confidence` for the same reason confidence is kept apart from source: they
 answer different questions. A record can have well-sourced facts and still
-need excluding from the live app if its existence *as an entity* is itself in
-doubt.
+need excluding from the live app — because its existence *as an entity* is in
+doubt, or because it existed and has since stopped operating.
 
 ```js
 lifecycle: {
@@ -163,34 +163,68 @@ existing record needed a migration to adopt this.
 | Status | Implemented? | Meaning |
 |---|---|---|
 | `ACTIVE` | Yes (the default) | Renders everywhere: map, search, cards, Journal. |
-| `QUARANTINE` | Yes | Existence unconfirmed. Excluded from every discovery surface; direct navigation to detail is a no-op. Not a claim that the place is fake — see below. |
-| `ARCHIVED` | No — named only, `TODO(lifecycle)` | Reserved for confirmed prior existence + confirmed closure. |
+| `QUARANTINE` | Yes | **Excluded pending better evidence.** Not rendered on any discovery surface; direct navigation to detail is a no-op. Never a claim that the place is fake. Currently carries two different findings — see below. |
+| `ARCHIVED` | No — named only, `TODO(lifecycle)` | Reserved for confirmed prior existence + confirmed closure. **Until it exists, that case is filed under `QUARANTINE`.** |
 | `DELETED` | No — named only, `TODO(lifecycle)` | Reserved for removal from the active array while retaining the evidence file. Nothing enforces the retention yet. |
 
-**`QUARANTINE`, never `DELETE`, for "we found nothing."** Deleting a record
-is itself an unevidenced claim — that the place definitely does not exist —
-and this project does not get to skip its own evidence bar just because the
-claim is negative. `QUARANTINE` says "excluded pending better evidence,"
-which is what a search-absence finding actually supports.
+### Two findings share `QUARANTINE`. Read the `determination`, not the status.
+
+`ARCHIVED` is the right label for "this existed and has closed," but it is
+unimplemented — so that case is filed under `QUARANTINE` alongside "we could
+never establish this exists." Both live examples are real:
+
+| Finding | Example | Determination says |
+|---|---|---|
+| Existence never established | `akiya` | no trace on either map service, the geocoding pipeline, or git history |
+| Existed, evidence it has closed | `makan` | Seoul's tourism site marks it "[운영중지]"; dropped by both map services; a decade of prior write-ups confirms it was real |
+
+These are **not** the same claim — *we cannot find this* versus *this was
+real and is gone*. They share a status only because both need the same
+outcome today (keep it off the map) and `ARCHIVED` would need transition
+logic, a rule for what evidence promotes `QUARANTINE` → `ARCHIVED`, and a UI
+decision nobody has made (a closed venue may be worth *showing* as closed
+rather than hiding). Deferred deliberately, not overlooked.
+
+**Consequence for anyone reading a record:** do not infer the finding from
+the status. `lifecycle.determination` is the audit record — it carries the
+finding, its source, its method, and its date. That is why it is a `fact()`
+and not a boolean.
+
+**`QUARANTINE`, never `DELETE` — for either finding.** Deleting a record is
+an unevidenced claim of its own, and this project does not skip its own
+evidence bar just because the claim is negative. For a search-absence finding
+(`akiya`), deletion would assert an absence nobody proved. For a closure
+(`makan`), it would discard a decade of sourced history including the closure
+finding itself — which is worth keeping precisely so nobody re-adds the venue
+next year.
 
 **The determination is a `fact()`, not a new mechanism.** Reuse, not a
 parallel system: `check-data` requires `lifecycle.determination` to be
 auditable (an evidence ref, or an inline `method` + `evidence`) before it
 will accept `QUARANTINE`, exactly like it requires of any `CONFIRMED` fact.
 
-**Deliberately not on the Evidence Layer.** A quarantine determination for a
-search-absence finding is not a sourced claim about the venue — it is a
-statement about our own search coverage — so it is recorded inline rather
-than as a `data/evidence/<id>.json` record. See `EVIDENCE.md` for what does
-belong on the layer.
+**Deliberately not on the Evidence Layer — for a search-absence finding.**
+`akiya`'s determination is not a sourced claim about the venue; it is a
+statement about our own search coverage, so it is recorded inline rather than
+as a `data/evidence/<id>.json` record. See `EVIDENCE.md` for what does belong
+on the layer.
+
+A closure finding is different: `makan`'s determination cites a government
+page at a stable URL with a quotable marker, so by that rule it *is*
+evidence-layer-eligible. It is inline anyway because 19 of 20 restaurants
+still carry inline `url`/`method`/`evidence` and migration is deliberately
+one-restaurant-at-a-time — existing migration debt, not a lifecycle
+exemption. Migrate it with the rest of `makan`'s facts, not before.
 
 **Known gap:** `scripts/lib/check-evidence.mjs`'s `factsOf()` — the list of
 fields the evidence-layer rules walk — does not include `lifecycle`. If a
 future determination used `evidenceRefs` instead of an inline method, those
 refs would not get the broken-reference/ceiling/stale-pin checks that every
-other fact's refs get. Not triggered by the one live example (`akiya` uses
-an inline method), but real if someone adds a second quarantined record via
-evidence refs before this is fixed.
+other fact's refs get. Not triggered by either live example — `akiya` and
+`makan` both use an inline method — but real the moment someone writes a
+determination that cites `evidenceRefs`. `makan` is the likely trigger: its
+determination is evidence-layer-eligible (above), so whoever migrates it
+should extend `factsOf()` in the same pass.
 
 ### Filtering (extended)
 
