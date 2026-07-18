@@ -529,28 +529,51 @@ export const restaurants = [
   {
     id: "nono-shop",
     name: "Nono Shop & Cafe",
-    zone: "Yongsan, Seoul",
+    // Corrected 2026-07-17. Not a draft error like kampungku's — this is the
+    // `rim` pattern: accurate when written, then went stale. Nine independent,
+    // dated blog posts (2026-06-01 through 2026-07-14) document a real,
+    // recent relocation from Itaewon to Hoehyeon Station, one framing it as
+    // part of a wave of businesses leaving Itaewon over rising rents. The
+    // vegan-full claim survives the move; only the address doesn't.
+    zone: "Hoehyeon, Seoul",
     category: "zero-waste",
 
-    coordinates: fact({ lat: 37.533, lng: 126.991 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Yongsan-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.557388, lng: 126.977379 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Kakao's routing endpoint gives 37.557388/126.977379; Naver Place's mapx/mapy converts to 37.557391/126.977387 — under 5 m apart. Replaces a Yongsan-area fallback describing a location the venue has since left" }),
+    address: fact("2 Toegye-ro 4-gil, Jung-gu, Seoul (1F–2F)", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place and Kakao Map both give 퇴계로4길 2, matched by a DiningCode listing for the current location including the lot number (남창동 205-104). One blog gives a different lot number (34-82); two independent map-service registrations plus DiningCode outweigh the single outlier" }),
+    hours: fact({ raw: "Mon–Fri & Sun 9:30 AM – 9:00 PM; Sat 10:30 AM – 9:00 PM", weekly: {
+      mon: [{ from: "09:30", to: "21:00" }],
+      tue: [{ from: "09:30", to: "21:00" }],
+      wed: [{ from: "09:30", to: "21:00" }],
+      thu: [{ from: "09:30", to: "21:00" }],
+      fri: [{ from: "09:30", to: "21:00" }],
+      sat: [{ from: "10:30", to: "21:00" }],
+      sun: [{ from: "09:30", to: "21:00" }],
+    } }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.DIRECTORY_LISTING, lastCheckedAt: "2026-07-17", evidence: "A DiningCode listing for the current Hoehyeon-station location, checked 2026-07-17: weekdays and Sunday 09:30-21:00, Saturday 10:30-21:00. Single-source — no second listing found yet for the new address, so held at SUPPORTED rather than corroborated" }),
+    phone: fact("0507-1465-1072", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing for the current location" }),
+    instagram: fact("https://www.instagram.com/nonoshop_cafe", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this account as the venue's own" }),
+    transit: fact({ station: "Hoehyeon", line: "Line 4", exit: null, walkingMinutes: 4, distanceM: 211 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 회현역 4호선: 211 m / 205 s. Exit not given by the routing API" }),
     menus: fact([
-      { name: "Vegan Croissant", price: "~5,500 KRW" },
-      { name: "Oat Milk Latte", price: "~6,000 KRW" },
-      { name: "Zero Waste Nut Mix", price: "~7,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Americano", price: "5,000 KRW" },
+      { name: "Praline Latte", price: "8,000 KRW" },
+      { name: "Lotus Tiramisu", price: "8,500 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.DIRECTORY_LISTING, lastCheckedAt: "2026-07-17", evidence: "A DiningCode listing for the current location, described as representative, non-exhaustive offerings. None of the draft's three items (Vegan Croissant, Oat Milk Latte, Zero Waste Nut Mix) are named in any source found, at either the old or new address" }),
 
     dietary: {
-      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states: \"Every vegan product and beverage sold here\"" }),
+      // Level unchanged (VEGAN.FULL); evidence refreshed to the current
+      // location. The claim survived the relocation.
+      vegan: fact(VEGAN.FULL, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.DIRECTORY_LISTING, lastCheckedAt: "2026-07-17", evidence: "A DiningCode listing for the current Hoehyeon-station location states plainly: \"All items are 100% vegan\"" }),
       halal: unknownFact("No halal information in the source"),
     },
     traits: ["Zero-waste"],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
-    vibe: "Part cafe, part refill shop — a tiny zero-waste lifestyle hub.",
-    story: "More than just a cafe, Nono Shop is a lifestyle space fiercely dedicated to environmental preservation. Every vegan product and beverage sold here adheres to a strict zero-waste philosophy, refusing single-use plastics. Visitors can nourish their bodies while actively reducing their ecological footprint.",
-    esg_point: "Single-use plastic free; every item vegan and package-free",
+    // Rewritten 2026-07-17 to reflect the relocation; refill-station and
+    // bookstore claims from the draft's original framing are left out where
+    // this investigation didn't specifically corroborate them at the new
+    // address.
+    vibe: "A vegan cafe and zero-waste shop by Hoehyeon Station, run by broadcaster Julian, since relocating from Itaewon.",
+    story: "Nono Shop moved from Itaewon to a spot beside Hoehyeon Station in mid-2026, one of several small businesses to leave Itaewon as rents climbed. Run by Julian — familiar from Korean TV — it's still a cafe where every drink and dessert on the menu is vegan, paired with zero-waste retail for people building the habit of shopping without single-use packaging.",
+    esg_point: "Every menu item vegan; zero-waste retail alongside the cafe",
 
     image: "/images/vegan_cafe.svg",
     photo: null,
