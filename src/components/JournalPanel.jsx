@@ -36,6 +36,9 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
   const recent = stamped.length > 0 ? stamped[stamped.length - 1] : null;
   const recentDate = recent ? formatStampDate(recent.savedAt) : null;
   const total = restaurants.length;
+  // A stamp means you have been there. Saved-only places still show on the
+  // page as plans, but the passport counts visits.
+  const visitedCount = stamped.filter(s => s.visitedAt != null).length;
 
   return (
     <section className="journal-panel" aria-label="Journal">
@@ -43,16 +46,16 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
         <p className="passport-cover__eyebrow">Gourmet Passport</p>
         <h2 className="passport-cover__title">Taste your way through Korea</h2>
         <div className="passport-cover__progress">
-          <span><strong>{stamped.length}</strong> of {total} stamped</span>
+          <span><strong>{visitedCount}</strong> of {total} stamped</span>
           <div
             className="progress-bar"
             role="progressbar"
             aria-label="Stamp progress"
             aria-valuemin={0}
             aria-valuemax={total}
-            aria-valuenow={stamped.length}
+            aria-valuenow={visitedCount}
           >
-            <div className="progress-bar__fill" style={{ width: `${(stamped.length / total) * 100}%` }} />
+            <div className="progress-bar__fill" style={{ width: `${(visitedCount / total) * 100}%` }} />
           </div>
         </div>
       </div>
@@ -70,7 +73,7 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
 
       {recent && (
         <p className="journal-recent">
-          <span className="journal-recent__label">Recently stamped</span>
+          <span className="journal-recent__label">Recently saved</span>
           {recent.place.name.split('(')[0].trim()}{recentDate ? ` · ${recentDate}` : ''}
         </p>
       )}
@@ -82,10 +85,18 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
       ) : (
         <div className="passport-page">
           <div className="journal-grid">
-            {stamped.map(({ place, savedAt }) => {
-              const date = formatStampDate(savedAt);
+            {stamped.map(({ place, savedAt, visitedAt }) => {
+              // A visit outranks the save for the date shown: the stamp records
+              // when you were there, falling back to when you saved it if you
+              // have not been yet. A fully inked stamp always means "visited".
+              const visited = visitedAt != null;
+              const date = formatStampDate(visitedAt ?? savedAt);
               return (
-                <button key={place.id} className="stamp" onClick={() => onRestaurantClick(place)}>
+                <button
+                  key={place.id}
+                  className={`stamp${visited ? '' : ' stamp--saved'}`}
+                  onClick={() => onRestaurantClick(place)}
+                >
                   <span className="stamp-ring">
                     <img src={place.image} alt="" />
                   </span>

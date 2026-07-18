@@ -1,19 +1,19 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-18 · **HEAD:** `f0e5af4` (`nono-shop` verified —
-**Phase 3 / Phase A complete**)
-**+ uncommitted changes** (Phase 4 Final QA — documentation-debt corrections
-to this file only; no data or code changed) · **Places:** 20 (18 active, 2
-quarantined)
+**Last updated:** 2026-07-18 · **HEAD:** `07feea7` (`CHANGELOG.md` added —
+**v1.0 released**)
+**+ uncommitted changes** (Phase 6 — Passport Enhancement MVP: saved/visited
+state and visit-based progress; app code and this file, no restaurant data
+changed) · **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
-tree**, not remembered. The working tree currently differs from `HEAD` only
-in this file — `git status` shows `HANDOFF.md` modified, no commit yet — see
-§12 for Phase A's completion and §10 for Phase 4's status before assuming
-this document describes committed code.
+tree**, not remembered. The working tree currently differs from `HEAD` in this
+file and five app-code files (`App.jsx`, `Icons.jsx`, `JournalPanel.jsx`,
+`RestaurantDetail.jsx`, `index.css`), no commit yet — see §2.15 for what that
+change is before assuming this document describes committed code.
 
 ---
 
@@ -83,8 +83,9 @@ current phase. **Do not add features. Fill the data.**
 ### 2.1 Stack
 
 React 19 + Vite 7 + react-leaflet 5 + Leaflet 1.9. No backend, no router, no
-state library. State is `useState` in `src/App.jsx`. Bookmarks persist to
-`localStorage` under `kfm-bookmarks`. Lint is `oxlint`.
+state library. State is `useState` in `src/App.jsx`. The journal persists to
+`localStorage` under `kfm-bookmarks` as `[{ id, savedAt, visitedAt }]` — see
+§2.15. Lint is `oxlint`.
 
 **Why no backend:** it was a hard constraint from the outset, and it has been
 load-bearing rather than limiting. Everything — verification, evidence,
@@ -549,6 +550,45 @@ tree: `check-data` (20 places, 0 violations), `lint`, `build`,
 confirming 18 of 20 cards render with no "Akiya"/"Makan" text anywhere on
 the page. See §12.
 
+### 2.15 Journal state — saved vs visited (Passport Enhancement MVP)
+
+The journal entry, in `localStorage` under `kfm-bookmarks`:
+
+```js
+{ id, savedAt, visitedAt }   // visitedAt: timestamp, or null
+```
+
+**Two states, one entry.** `savedAt` is the wishlist — a place you mean to go.
+`visitedAt` is the visit record — a place you have been. They are not
+independent: **`visitedAt != null` implies `savedAt != null`.** A visit is
+recorded on a place already in the journal, so the visit control in
+`RestaurantDetail` stays disabled until the place is saved, and removing a
+bookmark drops the whole entry, taking the visit with it. `handleToggleVisited`
+only ever edits an existing entry — it cannot create one — so the invariant
+holds by construction rather than by check.
+
+**Passport progress counts visits, not saves.** `JournalPanel`'s "N of 20
+stamped" numerator is the visited count; the denominator stays
+`restaurants.length`. Saved-only places still appear in the journal, drawn with
+an open (dashed) ring, and are simply not counted. A fully inked stamp always
+means "you have been here" — which is what the passport metaphor claimed all
+along and did not previously deliver. The displayed stamp date is
+`visitedAt ?? savedAt`.
+
+**Migration is read-time, reusing the existing pattern** in `loadBookmarks()`.
+Two older shapes normalise: `{ id, savedAt }` gains `visitedAt: null`, and the
+original plain id strings become `savedAt: 0` — "saved at an unknown time"
+rather than `null`, so "is it saved" stays a plain `savedAt` test with no legacy
+special case. `0` is falsy, so date rendering is unchanged for those records,
+and they can still be marked visited like any other.
+
+The journal's recent line is labelled **"Recently saved"**, not "stamped": it
+is ordered by `savedAt` and prints `savedAt`, so the wording follows the logic
+rather than the other way round.
+
+**Not in this MVP:** cross-device sync of this state, and any accessible (text
+or ARIA) signal for the saved/visited distinction — see §7 Low #18.
+
 ---
 
 ## 3. Directory Structure
@@ -870,6 +910,21 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     This edit (2026-07-17) is itself such a re-measurement: the Lifecycle
     section, `akiya`'s outcome, and the dead-file list were verified against
     the repository, not carried over from a prior draft.
+17. **`.icon-btn--lg` suppresses the tinted state background — pre-existing.**
+    Inside the detail action row, a large icon button never shows its state
+    tint: `.icon-btn--lg` sets `background: var(--surface)` and, being later in
+    `index.css` at equal specificity, wins over `.icon-btn--saved` and
+    `.icon-btn--visited`. Found while verifying Passport Enhancement, and
+    confirmed **not** a regression from it — the shipped `--saved` state behaves
+    identically, and both classes resolve correctly in isolation (verified:
+    `--visited` yields `#ECF8F2` / `#0E9F6E` / `#087F5B` on a bare `.icon-btn`).
+    Border and text colour do apply; only the background is lost. Left alone
+    deliberately: fixing it would have expanded a scoped feature commit into a
+    change to shipped visual behaviour.
+18. **Saved vs visited is conveyed visually only.** The journal distinguishes
+    the two states through the stamp ring and date colour, with no text or ARIA
+    signal, so a screen-reader user cannot perceive it. Adding one requires new
+    wording, which was out of scope for the Passport Enhancement MVP.
 
 ---
 
@@ -1051,6 +1106,9 @@ Recommended order, frozen 2026-07-18 unless explicitly changed:
    Kakao routing already used at authoring time — low new-risk, high reuse.
 3. **Journey + Passport expansion.** Extends the existing Journal/passport
    already in the core loop; no new data risk.
+   **Passport half: MVP shipped.** Saved and visited are now distinct states
+   and passport progress counts visits — see §2.15 for the state model and §7
+   Low #17–18 for the debt it left. The Journey half is untouched.
 4. **ESG Explorer.** Gated on a content pass first — `esg_point` is
    currently thin and unaudited (the invented `food_mile` field was already
    deleted at P0; nothing sourced replaced it).
@@ -1131,54 +1189,44 @@ These are enforced by `check-data` where a machine can; the rest are on you.
 
 ## 12. Next Recommended Task
 
-**`nono-shop` is done — verified 2026-07-17, stays `ACTIVE`. This was the
-last Phase A restaurant.** Coordinates, address, hours, phone, Instagram and
-transit now confirmed; the `VEGAN.FULL` level held, with evidence refreshed
-to the current location. It is a **new uncommitted change** on top of
-`68b653c`. **Phase A — Data Verification is complete: 8 restaurants
-verified, 2 quarantined, 0 remaining, 0 active restaurants with zero
-confirmed fields, 0 active restaurants at area-level address precision.**
+**Phases 1–5 are closed.** Production Data (Phase 3) and Final QA (Phase 4)
+completed 2026-07-18, and v1.0 shipped at `07feea7` with `README.md` and
+`CHANGELOG.md`. The project is in **Phase 6 — Feature Phase 2** (§10).
 
-Its defect closed the phase the way it opened — with a real business event,
-not a drafting error:
+**`Passport Enhancement` MVP is complete** — the first Phase 6 feature,
+uncommitted at the time of writing.
 
-> **The `rim` pattern again: accurate when written, then genuinely went
-> stale.** Nine independent, dated blog posts (2026-06-01 through
-> 2026-07-14) document a real relocation from Itaewon to Hoehyeon Station,
-> one framing it as part of a wave of small businesses leaving Itaewon over
-> rising rents. Naver Place, Kakao Map and a DiningCode listing for the new
-> address all agree exactly. The dietary claim survived the move intact —
-> DiningCode's listing for the current location states plainly "All items
-> are 100% vegan" — so `VEGAN.FULL` never needed correcting, only
-> re-sourcing. Hours are held at `SUPPORTED`, not upgraded further: only one
-> source has been found for the new address's schedule, and the record says
-> so rather than presenting single-source detail as corroborated.
+- **Saved and visited are now distinct states.** The journal entry carries
+  `visitedAt` alongside `savedAt`, under the same `kfm-bookmarks` key, with
+  the invariant `visitedAt != null` implies `savedAt != null` holding by
+  construction. Full model in §2.15.
+- **Passport progress counts visits, not saves.** "N of 20 stamped" takes the
+  visited count as its numerator; saved-only places still appear in the
+  journal, drawn with an open ring, and are simply not counted.
+- Debt it left is recorded at §7 Low #17–18, both deliberately not fixed
+  inside a scoped feature commit.
 
-**Phase A is closed. No restaurant is queued.** §10 Phase 3 is marked
-complete; §10 Phase 4 (Final QA) is ready to begin.
+### Next recommended task — ESG Explorer
 
-### Begin Phase 4 — Final QA
+The next Phase 6 feature to implement. Two things established during Phase 6
+planning are worth carrying into it rather than rediscovering:
 
-Per §10, this is one complete sweep, reusing gates that already exist —
-no new tooling to build:
+- Its MVP surfaces `esg_point` (present on 20/20) and the existing
+  `Zero-waste` / `Local Sourcing` traits as a browsable axis. It does **not**
+  depend on the content pass — it reuses content already displayed in the
+  detail page, carrying the caveat that already ships with it, so claim
+  strength does not increase.
+- **ESG scores, ratings or rankings are out of scope permanently.** The
+  invented `food_mile` field deleted at P0 was exactly that, and nothing
+  sourced replaced it.
 
-- `npm run check-data` — 0 violations
-- `node scripts/evidence-hash.mjs --check` — 0 pending, 0 drifted
-- confidence/lifecycle consistency — no active fact above its evidence
-  ceiling (§2.7); the `JournalPanel` quarantine bypass (§7 Medium #11) and
-  the `check-evidence.mjs` `factsOf()` gap (§7 Medium #12) should be
-  resolved or explicitly accepted as post-v1.0 debt before sign-off, not
-  silently carried forward
-- browser QA — responsive (375/768/1280/1440) and AA contrast re-check (§8)
-- bundle hygiene — `grep -c retrievedBy dist/assets/*.js` = 0
-- documentation verification — every figure in this document re-measured
-  against the repository at the release commit, not carried over (§7 Low #16)
+Note that §10 Phase 6 item 4 states this feature is "gated on a content pass
+first". That gate describes the full feature; the MVP above is scoped below
+it. Reconcile the two before treating either as settled.
 
-**Do not:** start Phase 5 (v1.0) before every Phase 4 gate is green and
-reported; start Phase 6 (Feature Phase 2) under any circumstance before
-Phase 5 ships; treat Final QA as a formality — it is the only remaining
-check between this document's claims and what a released v1.0 asserts to
-users.
+**Do not:** widen a feature commit to fix pre-existing UI behaviour found in
+passing (§7 Low #17 is the precedent); begin a second Phase 6 feature before
+the current one is committed.
 
 ---
 

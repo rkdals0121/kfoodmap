@@ -21,14 +21,22 @@ const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
 
 const BOOKMARKS_KEY = 'kfm-bookmarks';
 
-// Stored as [{ id, savedAt }]; older versions stored plain id strings — migrate on read
+// Stored as [{ id, savedAt, visitedAt }]. Two earlier shapes migrate on read:
+// { id, savedAt } (saved, never marked visited) and plain id strings (saved,
+// no timestamp). savedAt is the wishlist; visitedAt is the visit record, and a
+// visit only exists on a saved entry: visitedAt != null implies savedAt != null.
+//
+// Legacy string entries normalise to savedAt: 0, "saved at an unknown time",
+// rather than null: that keeps "is it saved" a plain savedAt test with no
+// legacy special case, and 0 is falsy so date rendering is unchanged.
 function loadBookmarks() {
   try {
     const saved = JSON.parse(localStorage.getItem(BOOKMARKS_KEY));
     if (!Array.isArray(saved)) return [];
     return saved
-      .map(entry => (typeof entry === 'string' ? { id: entry, savedAt: null } : entry))
-      .filter(entry => entry && typeof entry.id === 'string');
+      .map(entry => (typeof entry === 'string' ? { id: entry, savedAt: 0 } : entry))
+      .filter(entry => entry && typeof entry.id === 'string')
+      .map(entry => ({ ...entry, savedAt: entry.savedAt ?? 0, visitedAt: entry.visitedAt ?? null }));
   } catch {
     return [];
   }
@@ -54,6 +62,10 @@ export default function App() {
   }, [bookmarks]);
 
   const bookmarkedIds = useMemo(() => bookmarks.map(b => b.id), [bookmarks]);
+  const visitedIds = useMemo(
+    () => bookmarks.filter(b => b.visitedAt !== null).map(b => b.id),
+    [bookmarks],
+  );
 
   const handleToggleFilter = (filter) => {
     setSelectedFilters(prev => 
@@ -65,9 +77,20 @@ export default function App() {
   const handleToggleBookmark = (id) => {
     setBookmarks(prev =>
       prev.some(b => b.id === id)
-        ? prev.filter(b => b.id !== id)
-        : [...prev, { id, savedAt: Date.now() }]
+        ? prev.filter(b => b.id !== id)   // drops visitedAt with the entry
+        : [...prev, { id, savedAt: Date.now(), visitedAt: null }]
     );
+  };
+
+  // Marking a visit only ever edits an entry that is already saved, so the
+  // invariant (visitedAt implies savedAt) holds by construction — this can
+  // never create a record. Unsaving drops the entry, taking the visit with it.
+  const handleToggleVisited = (id) => {
+    setBookmarks(prev => prev.map(b =>
+      b.id === id && b.savedAt !== null
+        ? { ...b, visitedAt: b.visitedAt === null ? Date.now() : null }
+        : b
+    ));
   };
 
   const filteredRestaurants = useMemo(() => {
@@ -129,6 +152,8 @@ export default function App() {
         onClose={() => setSelectedRestaurant(null)}
         isBookmarked={selectedRestaurant ? bookmarkedIds.includes(selectedRestaurant.id) : false}
         onToggleBookmark={handleToggleBookmark}
+        isVisited={selectedRestaurant ? visitedIds.includes(selectedRestaurant.id) : false}
+        onToggleVisited={handleToggleVisited}
         mapCenter={mapCenter}
         focusStory={focusStory}
       />

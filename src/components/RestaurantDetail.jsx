@@ -3,7 +3,7 @@ import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
-  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon,
+  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, coordsOf } from '../utils';
@@ -60,7 +60,8 @@ const DIET_CAVEAT = {
 };
 
 export default function RestaurantDetail({
-  restaurant, onClose, isBookmarked, onToggleBookmark, mapCenter, focusStory,
+  restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited,
+  mapCenter, focusStory,
 }) {
   const [copied, setCopied] = useState(false);
   const storyRef = useRef(null);
@@ -269,6 +270,23 @@ export default function RestaurantDetail({
                   onClick={() => onToggleBookmark(restaurant.id)}
                 >
                   <HeartIcon size={21} filled={isBookmarked} />
+                </button>
+                {/* A visit is recorded on a saved place, so this stays disabled
+                    until the place is in the journal (see App.jsx invariant) */}
+                <button
+                  className={`icon-btn icon-btn--lg${isVisited ? ' icon-btn--visited' : ''}`}
+                  aria-label={
+                    !isBookmarked
+                      ? `Save ${name} to your journal before marking it visited`
+                      : isVisited
+                        ? `Mark ${name} as not visited`
+                        : `Mark ${name} as visited`
+                  }
+                  aria-pressed={isVisited}
+                  disabled={!isBookmarked}
+                  onClick={() => onToggleVisited(restaurant.id)}
+                >
+                  <CheckIcon size={21} />
                 </button>
               </div>
             </div>

@@ -384,6 +384,23 @@ button {
 .icon-btn--saved svg {
   animation: heart-pop 0.25s ease;
 }
+/* Visited mirrors the saved treatment in the green family — a place you have
+   been, rather than one you mean to go to */
+.icon-btn--visited {
+  color: var(--green-strong);
+  border-color: var(--green);
+  background: var(--green-tint);
+}
+/* Marking a visit needs the place saved first, so the control is offered but
+   inert until then */
+.icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.icon-btn:disabled:hover {
+  background: var(--surface);
+  border-color: var(--line);
+}
 @keyframes heart-pop {
   0% { transform: scale(1); }
   40% { transform: scale(1.25); }
@@ -1152,6 +1169,16 @@ button {
   font-size: 11px;
   letter-spacing: 0.03em;
   color: var(--green-strong);
+}
+/* A saved place is a plan, not a stamp: the ring stays open until the visit is
+   recorded, so a fully inked stamp always means "you have been here" */
+.stamp--saved .stamp-ring {
+  border-style: dashed;
+  border-color: var(--line-hover);
+  background: var(--surface);
+}
+.stamp--saved .stamp-date {
+  color: var(--muted);
 }
 
 /* ---------- Responsive: tablet & desktop split layout ----------

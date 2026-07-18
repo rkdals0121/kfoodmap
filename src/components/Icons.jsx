@@ -27,6 +27,12 @@ export const HeartIcon = ({ size = 20, filled = false }) => (
   </svg>
 );
 
+export const CheckIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="m5 12.5 4.5 4.5L19 7.5" />
+  </svg>
+);
+
 export const XIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
     <path d="m6 6 12 12M18 6 6 18" />
