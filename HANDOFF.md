@@ -1,19 +1,19 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-18 · **HEAD:** `07feea7` (`CHANGELOG.md` added —
-**v1.0 released**)
-**+ uncommitted changes** (Phase 6 — Passport Enhancement MVP: saved/visited
-state and visit-based progress; app code and this file, no restaurant data
-changed) · **Places:** 20 (18 active, 2 quarantined)
+**Last updated:** 2026-07-18 · **HEAD:** `c01db9c` (Passport Enhancement MVP —
+**Phase 6 underway**; v1.0 shipped at `07feea7`)
+**+ uncommitted changes** (Phase 6 — ESG Explorer MVP: sustainability chip
+group and a list lens over the existing `esg_point`; app code and this file,
+**no restaurant data changed**) · **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
 tree**, not remembered. The working tree currently differs from `HEAD` in this
-file and five app-code files (`App.jsx`, `Icons.jsx`, `JournalPanel.jsx`,
-`RestaurantDetail.jsx`, `index.css`), no commit yet — see §2.15 for what that
-change is before assuming this document describes committed code.
+file and four app-code files (`App.jsx`, `FilterBar.jsx`, `BottomSheetList.jsx`,
+`index.css`), no commit yet — see §12 for what that change is before assuming
+this document describes committed code.
 
 ---
 
@@ -925,6 +925,20 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     the two states through the stamp ring and date colour, with no text or ARIA
     signal, so a screen-reader user cannot perceive it. Adding one requires new
     wording, which was out of scope for the Passport Enhancement MVP.
+19. **The sustainability axis is thin, and `esg_point` is not an ESG field.**
+    Measured 2026-07-18 while building ESG Explorer, and recorded as a limit of
+    the current data rather than a reason to revisit the plan. Of 18 active
+    restaurants, **4** carry a sustainability trait (`Zero-waste` ×3,
+    `Local Sourcing` ×1), so the axis filters to 4. And while `esg_point` is
+    present on 18/18, reading all of them shows it is a mixed "what this place
+    stands for" line, not a sustainability field: some are environmental
+    (`sanchon`, `ggot-epida`), several restate the dietary record
+    (`osegyehyang`, `camouflage`), and some are cultural or commercial
+    (`eid`, `kampungku`, `gonghwachun`). **This is why the MVP surfaces
+    `esg_point` verbatim and never classifies, scores or aggregates it** —
+    deriving a sustainability category from that text would be inventing ESG
+    facts, which is permanently out of scope. Widening the axis is a content
+    problem (the content pass, §10 Cross-cutting), not a UI one.
 
 ---
 
@@ -1112,6 +1126,15 @@ Recommended order, frozen 2026-07-18 unless explicitly changed:
 4. **ESG Explorer.** Gated on a content pass first — `esg_point` is
    currently thin and unaudited (the invented `food_mile` field was already
    deleted at P0; nothing sourced replaced it).
+   **MVP shipped, deliberately below that gate — recorded as F4 in Phase 6
+   planning, not an oversight.** The gate above describes the *full* feature:
+   a richer ESG surface does need the content pass first. The MVP scoped
+   under it does not, because it writes nothing — it surfaces the `esg_point`
+   already rendered on the detail page, carrying the same "not independently
+   audited" caveat, so no claim gets stronger by being easier to find. The
+   two statements are both true at different scopes; read them together
+   rather than treating either as settled on its own. See §7 Low #19 for what
+   the current data can and cannot support, and §12.
 5. **AI Food Guide.** Deliberately late. An inference layer is only safe on
    top of fully-sourced data and Phase C/D's entity/knowledge graph;
    attempted earlier, it risks reintroducing the confident-hallucination
@@ -1193,40 +1216,47 @@ These are enforced by `check-data` where a machine can; the rest are on you.
 completed 2026-07-18, and v1.0 shipped at `07feea7` with `README.md` and
 `CHANGELOG.md`. The project is in **Phase 6 — Feature Phase 2** (§10).
 
-**`Passport Enhancement` MVP is complete** — the first Phase 6 feature,
-uncommitted at the time of writing.
+**Two Phase 6 features are complete.**
 
-- **Saved and visited are now distinct states.** The journal entry carries
-  `visitedAt` alongside `savedAt`, under the same `kfm-bookmarks` key, with
-  the invariant `visitedAt != null` implies `savedAt != null` holding by
-  construction. Full model in §2.15.
-- **Passport progress counts visits, not saves.** "N of 20 stamped" takes the
-  visited count as its numerator; saved-only places still appear in the
-  journal, drawn with an open ring, and are simply not counted.
-- Debt it left is recorded at §7 Low #17–18, both deliberately not fixed
-  inside a scoped feature commit.
+**`Passport Enhancement` MVP** — committed at `c01db9c`. Saved and visited are
+distinct states (`visitedAt` alongside `savedAt` under the same
+`kfm-bookmarks` key, invariant holding by construction — §2.15), and passport
+progress counts visits rather than saves. Debt at §7 Low #17–18.
 
-### Next recommended task — ESG Explorer
+**`ESG Explorer` MVP** — uncommitted at the time of writing. A sustainability
+lens over the list that **creates no data**:
 
-The next Phase 6 feature to implement. Two things established during Phase 6
-planning are worth carrying into it rather than rediscovering:
+- A `Sustainability` chip matching either member trait, added *alongside*
+  `Zero-waste` and `Local Sourcing` rather than replacing them. It is the one
+  place chips OR instead of AND, because its two members are narrow enough
+  that selecting both returns nothing. Chips are now grouped, which also fixed
+  a `role="group"` label that had wrongly called four non-dietary chips
+  "Dietary filters".
+- While the axis is filtered, each card shows that restaurant's `esg_point`
+  **verbatim**, with the detail page's caveat printed once above the list. The
+  matched trait moves to the front of the card's traits so the 3-badge cap
+  stops hiding it — display order only.
+- **Shipped below §10's stated gate on purpose.** See §10 Phase 6 item 4 for
+  the F4 record, and §7 Low #19 for the measured limits of the underlying data.
 
-- Its MVP surfaces `esg_point` (present on 20/20) and the existing
-  `Zero-waste` / `Local Sourcing` traits as a browsable axis. It does **not**
-  depend on the content pass — it reuses content already displayed in the
-  detail page, carrying the caveat that already ships with it, so claim
-  strength does not increase.
-- **ESG scores, ratings or rankings are out of scope permanently.** The
-  invented `food_mile` field deleted at P0 was exactly that, and nothing
-  sourced replaced it.
+### Next recommended task — Nearby Route
 
-Note that §10 Phase 6 item 4 states this feature is "gated on a content pass
-first". That gate describes the full feature; the MVP above is scoped below
-it. Reconcile the two before treating either as settled.
+The remaining Phase 6 features are unchanged in §10. `Nearby Route` is the
+natural next one: its coordinates are already confirmed (18/20) and it is the
+only feature that repairs an existing leak — today `directionsUrl()` hands the
+user to Google Maps at the moment of highest intent, ending the session.
+
+One thing established in Phase 6 planning and worth not rediscovering: §10
+describes it as reusing "the Kakao routing already used at authoring time", but
+that reuse is narrower than it reads. What was reused at authoring time is API
+familiarity, not a shipped integration — **in-app routing means the deployed
+app makes a runtime network call, which this project has never done**, and that
+touches the §2.1 no-backend constraint. Settle that before starting.
 
 **Do not:** widen a feature commit to fix pre-existing UI behaviour found in
 passing (§7 Low #17 is the precedent); begin a second Phase 6 feature before
-the current one is committed.
+the current one is committed; derive any ESG category, score or ranking from
+`esg_point` text (§7 Low #19).
 
 ---
 

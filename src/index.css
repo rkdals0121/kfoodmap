@@ -143,6 +143,17 @@ button {
   padding: 2px;
   margin: -2px;
 }
+/* Chip groups sit in the same scrolling row, separated by a hairline so the
+   sustainability axis reads as a set rather than as loose chips */
+.chip-group {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.chip-group + .chip-group {
+  padding-left: 8px;
+  border-left: 1px solid var(--line);
+}
 .chip {
   height: 40px;
   padding: 0 14px;
@@ -301,6 +312,16 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+/* Sustainability lens: the restaurant's own recorded line, shown only while
+   the axis is filtered. Sits below the badges, quieter than the meta row. */
+.place-card__esg {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.place-list__note {
+  margin: -2px 0 2px;
 }
 
 .place-card__media {

@@ -15,6 +15,20 @@ import './index.css';
 // string); the rest are descriptive traits.
 const DIETARY_CHIPS = ['Vegan', 'Halal'];
 
+// A group chip matches *any* trait in its set, which is the one place chips
+// are not AND-ed. Sustainability exists because its two members are narrow
+// enough that selecting both returns nothing — the group is the way to browse
+// the axis, the members are still there to narrow within it.
+const TRAIT_GROUPS = {
+  Sustainability: ['Zero-waste', 'Local Sourcing'],
+};
+
+// Selecting anything on the sustainability axis — the group chip or either
+// member — turns the list into a lens: each card states, in the restaurant's
+// own recorded words, why it is here. Nothing new is written for this; the
+// line is the esg_point already shown on the detail page.
+const SUSTAINABILITY_AXIS = ['Sustainability', ...TRAIT_GROUPS.Sustainability];
+
 // Quarantined records (existence itself unconfirmed) are excluded from every
 // discovery surface — map, search, cards, Journal — at this single point.
 const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
@@ -66,6 +80,10 @@ export default function App() {
     () => bookmarks.filter(b => b.visitedAt !== null).map(b => b.id),
     [bookmarks],
   );
+  const sustainabilityLens = useMemo(
+    () => selectedFilters.some(f => SUSTAINABILITY_AXIS.includes(f)),
+    [selectedFilters],
+  );
 
   const handleToggleFilter = (filter) => {
     setSelectedFilters(prev => 
@@ -95,12 +113,14 @@ export default function App() {
 
   const filteredRestaurants = useMemo(() => {
     return activeRestaurants.filter(r => {
-      // 1. Filter chips (AND logic). A dietary chip only matches on evidence —
-      // an unknown dietary record never matches, so we never send someone
-      // somewhere we can't vouch for.
-      const matchesChips = selectedFilters.length === 0 || selectedFilters.every(f => (
-        DIETARY_CHIPS.includes(f) ? matchesDietary(r, f) : r.traits.includes(f)
-      ));
+      // 1. Filter chips (AND across chips). A dietary chip only matches on
+      // evidence — an unknown dietary record never matches, so we never send
+      // someone somewhere we can't vouch for. A group chip ORs within itself.
+      const matchesChips = selectedFilters.length === 0 || selectedFilters.every(f => {
+        if (DIETARY_CHIPS.includes(f)) return matchesDietary(r, f);
+        const group = TRAIT_GROUPS[f];
+        return group ? r.traits.some(t => group.includes(t)) : r.traits.includes(f);
+      });
 
       // 2. Search Query Filtering (Match name, vibe or area)
       const query = searchQuery.toLowerCase().trim();
@@ -143,6 +163,7 @@ export default function App() {
           onRestaurantClick={openDetail}
           onReadStory={openStory}
           onToggleBookmark={handleToggleBookmark}
+          sustainabilityLens={sustainabilityLens}
         />
       </section>
 

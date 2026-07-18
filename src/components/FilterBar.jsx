@@ -1,6 +1,13 @@
 import React from 'react';
 
-const filters = ['Vegan', 'Halal', 'Mild Taste', 'Fermented', 'Zero-waste', 'Local Sourcing'];
+// Grouped so sustainability reads as an axis rather than two chips lost in a
+// flat row. `Sustainability` matches either member (see TRAIT_GROUPS in
+// App.jsx); the members stay, to narrow within the axis.
+const CHIP_GROUPS = [
+  { label: 'Dietary filters', chips: ['Vegan', 'Halal'] },
+  { label: 'Sustainability filters', chips: ['Sustainability', 'Zero-waste', 'Local Sourcing'] },
+  { label: 'Dining filters', chips: ['Mild Taste', 'Fermented'] },
+];
 
 export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange }) {
   return (
@@ -19,20 +26,24 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
         />
       </div>
 
-      <div className="chip-row no-scrollbar" role="group" aria-label="Dietary filters">
-        {filters.map(f => {
-          const isActive = selectedFilters.includes(f);
-          return (
-            <button
-              key={f}
-              className={`chip${isActive ? ' active' : ''}`}
-              aria-pressed={isActive}
-              onClick={() => onToggleFilter(f)}
-            >
-              {f}
-            </button>
-          );
-        })}
+      <div className="chip-row no-scrollbar">
+        {CHIP_GROUPS.map(group => (
+          <div key={group.label} className="chip-group" role="group" aria-label={group.label}>
+            {group.chips.map(f => {
+              const isActive = selectedFilters.includes(f);
+              return (
+                <button
+                  key={f}
+                  className={`chip${isActive ? ' active' : ''}`}
+                  aria-pressed={isActive}
+                  onClick={() => onToggleFilter(f)}
+                >
+                  {f}
+                </button>
+              );
+            })}
+          </div>
+        ))}
       </div>
     </header>
   );

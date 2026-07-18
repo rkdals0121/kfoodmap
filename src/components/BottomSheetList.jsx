@@ -4,12 +4,25 @@ import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
 import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf } from '../utils';
 import { dietaryBadges } from '../data/verification';
 
-function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory }) {
+// The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
+const SUSTAINABILITY_TRAITS = ['Zero-waste', 'Local Sourcing'];
+
+function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, lens }) {
   const name = place.name.split('(')[0].trim();
   const status = getOpenStatus(place.hours);
   // Dietary badges say exactly what we know ("Vegan options" ≠ "Fully vegan");
   // traits are descriptive. Cards stay scannable, so cap the list.
-  const badges = [...dietaryBadges(place).map(b => b.label), ...place.traits];
+  //
+  // Under the lens the matched trait moves to the front of the traits, because
+  // the 3-badge cap otherwise hides it on exactly the places it matters most —
+  // balwoo and sanchon both carry it last. Display order only; place.traits is
+  // never mutated, and dietary badges keep the lead since they are the
+  // safety-relevant ones.
+  const traits = lens
+    ? [...place.traits].sort((a, b) =>
+        Number(SUSTAINABILITY_TRAITS.includes(b)) - Number(SUSTAINABILITY_TRAITS.includes(a)))
+    : place.traits;
+  const badges = [...dietaryBadges(place).map(b => b.label), ...traits];
   const extraBadges = badges.length - 3;
 
   return (
@@ -40,6 +53,10 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory })
           ))}
           {extraBadges > 0 && <span className="tag-chip">+{extraBadges}</span>}
         </div>
+
+        {/* The restaurant's own recorded line, verbatim — the same string the
+            detail page shows. Nothing is written or summarised for the list. */}
+        {lens && <p className="place-card__esg">{place.esg_point}</p>}
       </div>
 
       <PlaceImage place={place} variant="thumb" className="place-card__media" />
@@ -77,6 +94,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory })
 
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onToggleBookmark, bookmarkedIds, mapCenter,
+  sustainabilityLens,
 }) {
   const sorted = useMemo(() =>
     restaurants
@@ -94,6 +112,15 @@ export default function BottomSheetList({
         {sorted.length > 1 && <span className="place-list__hint">Nearest first</span>}
       </div>
 
+      {/* Said once for the whole list rather than on every card: the same
+          caveat the detail page carries, so the lines below are never read as
+          audited. */}
+      {sustainabilityLens && sorted.length > 0 && (
+        <p className="section-note place-list__note">
+          Described by the restaurant and our research; not independently audited.
+        </p>
+      )}
+
       {sorted.map(r => (
         <PlaceCard
           key={r.id}
@@ -102,6 +129,7 @@ export default function BottomSheetList({
           onOpen={onRestaurantClick}
           onReadStory={onReadStory}
           onToggleBookmark={onToggleBookmark}
+          lens={sustainabilityLens}
         />
       ))}
 
