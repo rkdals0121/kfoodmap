@@ -463,28 +463,62 @@ export const restaurants = [
   {
     id: "kampungku",
     name: "Kampungku",
-    zone: "Itaewon, Seoul",
+    // Corrected 2026-07-17, from "Itaewon, Seoul". Naver Place and Kakao Map
+    // both place this in Jung-gu, near Myeongdong — ~4 km from Usadan-ro, a
+    // different part of Seoul entirely. A search specifically for a Kampungku
+    // near Usadan-ro/Itaewon returned nothing: there is exactly one location,
+    // and it has never been there. Unlike the Incheon cluster's wrong-district
+    // cases, this is not a stale or imprecise address — it names a real street
+    // (Usadan-ro 10-gil, the same pattern `eid`'s real address uses) that has
+    // no connection to this venue.
+    zone: "Myeongdong, Seoul",
     category: "halal-korean",
 
-    coordinates: fact({ lat: 37.5332, lng: 126.9976 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("39, Usadan-ro 10-gil, Yongsan-gu, Seoul", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, precision: "street" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.559061, lng: 126.986034 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Kakao's routing endpoint gives 37.559061/126.986034; Naver Place's mapx/mapy converts to 37.559090/126.986037 — under 15 m apart. Replaces a Yongsan-gu-area fallback ~4 km away, in the wrong part of Seoul" }),
+    address: fact("25 Toegye-ro 20-gil, Jung-gu, Seoul", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place, Kakao Map and a DiningCode listing (checked 2026-07-17) all give 퇴계로20길 25 (남산동2가 16-3). The previous \"39, Usadan-ro 10-gil, Yongsan-gu\" was not a stale version of this address — it is a different, real street with no connection to this venue" }),
+    hours: fact({ raw: "Daily 11:00 AM – 10:00 PM (break 4:00–5:00 PM; last order 9:10 PM)", weekly: {
+      mon: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:10" }],
+      tue: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:10" }],
+      wed: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:10" }],
+      thu: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:10" }],
+      fri: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:10" }],
+      sat: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:10" }],
+      sun: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:10" }],
+    } }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Three independent sources (a visitor write-up, a DiningCode listing, and a live reservation-platform listing, all checked 2026-07-17) agree exactly: daily 11:00-22:00, break 16:00-17:00, last order 21:10. One older, undated blog gives a 23:00 close instead; given the three-source agreement including a specific last-order time and a live booking platform, that outlier is treated as imprecise or dated rather than a live conflict" }),
+    phone: fact("0507-1380-9249", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing" }),
+    transit: fact({ station: "Myeongdong", line: "Line 4", exit: null, walkingMinutes: 5, distanceM: 318 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 명동역 4호선: 318 m / 314 s. Exit not given by the routing API" }),
     menus: fact([
-      { name: "Nasi Lemak", price: "~12,000 KRW" },
-      { name: "Halal Bibimbap", price: "~9,000 KRW" },
-      { name: "Korean Fried Chicken", price: "~16,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Nasi Lemak", price: "9,000–14,000 KRW" },
+      { name: "Nasi Goreng Kampungku", price: "11,000 KRW" },
+      { name: "Budae Jjigae (Army Stew)", price: "24,000 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Nasi Lemak and Nasi Goreng Kampungku from a DiningCode listing, the latter's price matched independently by a visitor write-up. Budae Jjigae and its price come directly from Seoul's official tourism page (visitseoul.net, last modified 2026-06-30). The draft's \"Halal Bibimbap\" is named in no source found" }),
 
     dietary: {
       vegan: unknownFact("No vegan information in the source"),
-      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states menus are prepared \"under a strict Halal standard\"" }),
+      // Upgraded RESEARCH -> GOVERNMENT for the level's own evidence; still
+      // FRIENDLY, not CERTIFIED — see halalCertClaim.
+      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17", evidence: "Seoul's official tourism site (visitseoul.net, last modified 2026-06-30) describes the kitchen as using halal ingredients with a Muslim chef. It does not use the word \"certified\" or name a certifying body" }),
+      // Two directory-tier sources (DiningCode, a travel-aggregator page)
+      // independently describe "할랄인증" signage, but neither names a
+      // certifying body, and the more authoritative, fresher government page
+      // does not use the word "certified" at all — a materially weaker claim
+      // than eid's (§ eid dietary.halalCertClaim), where a government source
+      // named KMF directly. Recorded as a claim, not adopted as fact.
+      halalCertClaim: {
+        body: "an unnamed halal certifier (per directory-listed \"할랄인증\" signage; no authority named, and Seoul's own tourism page does not use the word \"certified\")",
+        statedBy: "DiningCode and a travel-aggregator listing, not the government tourism source",
+        quote: "할랄인증 (signage described by directory listings)",
+        status: "stated only by directory-tier sources; no certifying body named, no certificate number or expiry sighted",
+      },
     },
     traits: ["Mild Taste"],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
-    vibe: "A cozy Malaysian-Korean fusion spot on Usadan-ro's halal street.",
-    story: "Kampungku represents a beautiful culinary fusion of Korean and Malaysian traditions under a strict Halal standard. Patrons can effortlessly switch between a comforting bowl of Nasi Lemak and a sizzling Korean Bibimbap. This harmonious cross-cultural menu highlights the global adaptability of K-Food.",
-    esg_point: "Cross-cultural Halal menu bridging Korean and Malaysian tables",
+    // Rewritten 2026-07-17: dropped the fabricated Usadan-ro framing and the
+    // certification-implying "strict Halal standard" language.
+    vibe: "A Malaysian-Korean fusion spot near Myeongdong, with a Muslim chef and a third-floor prayer room.",
+    story: "Kampungku — Malay for \"my village\" — pairs a Malaysian chef's nasi lemak and nasi goreng with halal-ingredient Korean dishes like budae jjigae, steps from Myeongdong's shopping streets. A third-floor prayer room, noted independently by visitors, makes it a stop several halal-food guides point Muslim travelers to. The kitchen describes itself as halal-friendly; no certificate has been sighted to call it more than that.",
+    esg_point: "A Muslim chef's kitchen bridging Malaysian and Korean tables, with an on-site prayer room",
 
     image: "/images/halal_meat.svg",
     photo: null,
