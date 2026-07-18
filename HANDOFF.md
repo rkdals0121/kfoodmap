@@ -1,17 +1,19 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-18 · **HEAD:** `68b653c` (`kampungku` verified)
-**+ uncommitted changes** (`nono-shop` verification — **the last Phase A
-restaurant**) · **Places:** 20 (18 active, 2 quarantined)
+**Last updated:** 2026-07-18 · **HEAD:** `f0e5af4` (`nono-shop` verified —
+**Phase 3 / Phase A complete**)
+**+ uncommitted changes** (Phase 4 Final QA — documentation-debt corrections
+to this file only; no data or code changed) · **Places:** 20 (18 active, 2
+quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
-tree**, not remembered. The working tree currently differs from `HEAD` —
-`git status` shows `src/data/restaurants.js` and this file modified, no
-commit yet — see §12 for the `nono-shop` finding and Phase A's completion
-before assuming this document describes committed code.
+tree**, not remembered. The working tree currently differs from `HEAD` only
+in this file — `git status` shows `HANDOFF.md` modified, no commit yet — see
+§12 for Phase A's completion and §10 for Phase 4's status before assuming
+this document describes committed code.
 
 ---
 
@@ -773,18 +775,19 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
    area value described a location the venue had since relocated away from;
    see §12. `makan`'s area-level address is not counted here: it is
    quarantined and hidden from every discovery surface.)
-5. **The Lifecycle MVP (§2.14) is committed** at `b4c0e4b`. **A new, separate
-   uncommitted change sits on top of it:** the `nono-shop` investigation —
-   **the last Phase A restaurant** — (`src/data/restaurants.js` + this
-   file). Every gate passes against the
-   working tree — `check-data`, `lint`, `build`, `evidence-hash.mjs --check`
-   — but this change does not survive a lost session until it too is
-   committed. See §12.
+5. **Resolved.** The Lifecycle MVP (§2.14) is committed at `b4c0e4b`, and the
+   `nono-shop` investigation — the last Phase A restaurant — is committed at
+   `f0e5af4`. Both previously sat uncommitted on top of each other; neither
+   does now. No residual risk from this item. See §12.
 
 ### Medium
 
-6. **10 restaurants have unknown hours.** The UI is honest ("Opening hours
-   unknown — check before you go") but it is a real gap.
+6. **5 restaurants have unknown hours** (re-measured 2026-07-18: `makan`,
+   `akiya`, `maji`, `iryonghal`, `meat-morning` — down from 10 as Phase A
+   verification progressively resolved most of them; this line had drifted
+   from the true count across several Phase A commits without being moved,
+   the exact class of staleness §7 Low #16 warns about). The UI is honest
+   ("Opening hours unknown — check before you go") but it is a real gap.
 7. **Story tone.** 12/20 stories carry marketing superlatives ("pinnacle",
    "zenith", "uncompromising", "artisanal" ×5) — residue of the original AI
    draft, and at odds with `culture.js`'s plain voice. `gonghwachun` and
@@ -808,8 +811,20 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     A restaurant bookmarked before it was quarantined would still render as a
     stamp card and count toward "of 20 stamped." Opening it stays blocked by
     `App.jsx`'s `openDetail`/`openStory` choke point, so this is a display
-    inconsistency, not an unverified-detail leak. No live bookmark currently
-    triggers it for either quarantined record.
+    inconsistency, not an unverified-detail leak. Reproduced live during
+    Phase 4 QA (2026-07-18): a test-session browser had a stale `makan`
+    bookmark, which rendered a stamp card and inflated the "of 20" count;
+    clicking it was confirmed a no-op, no dialog, no console error. Not
+    reachable by a fresh user through the current UI — a restaurant can only
+    be bookmarked while active, and `makan`/`akiya` are unreachable from
+    every discovery surface (§2.1's map/search/list filter) before ever
+    being quarantined in this dataset.
+    **Phase 4 QA disposition (2026-07-18): accepted as post-v1.0
+    Documentation/UX debt, not a Release Blocker.** The trigger condition is
+    unreachable for a fresh v1.0 launch, and the one live reproduction above
+    confirmed the failure mode stays cosmetic (miscounted denominator, inert
+    card) — no unverified detail is ever exposed. Fix when `JournalPanel` is
+    next touched; do not gate v1.0 on it.
 12. **`check-evidence.mjs`'s `factsOf()` whitelist excludes `lifecycle`
     (§2.14).** The evidence-layer rules (broken references, confidence
     ceilings, stale pins) never walk a `lifecycle.determination` fact.
@@ -819,6 +834,15 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     `method`/`evidence`, no `evidenceRefs` — but a determination that cited
     evidence refs would bypass those checks until `factsOf()` is extended to
     include `lifecycle`. Extend it when `makan` is migrated (§2.14).
+    Re-confirmed inert during Phase 4 QA (2026-07-18): 0/20 quarantine
+    determinations use evidence-layer refs, so no violation is currently
+    possible through this gap.
+    **Phase 4 QA disposition (2026-07-18): accepted as post-v1.0
+    Documentation/tooling debt, not a Release Blocker.** The gap cannot fire
+    against any data that exists today; it only becomes live risk if/when
+    `makan`'s determination is migrated onto the Evidence Layer, which is
+    Phase B work and out of scope for v1.0. Extend `factsOf()` at that
+    migration, not before.
 
 ### Low
 
@@ -868,7 +892,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 | Item | State | Confidence |
 |---|---|---|
 | Data verification | 18/20 have ≥1 confirmed field; 18/20 confirmed coordinates; 19/20 street addresses (the 20th is `makan`, quarantined); 14/20 structured hours | high (measured 2026-07-17) |
-| Lifecycle rollout | 2/20 (`akiya`, `makan`) quarantined; 18/20 `ACTIVE`; mechanism (§2.14) committed at `b4c0e4b`, `makan`'s determination is a new uncommitted change | high (measured, incl. live browser check) |
+| Lifecycle rollout | 2/20 (`akiya`, `makan`) quarantined; 18/20 `ACTIVE`; mechanism (§2.14) committed at `b4c0e4b`, `makan`'s determination committed at `55490f1` | high (measured, incl. live browser check) |
 | Evidence migration | 1/20 | high |
 | Story sourcing | 1/20 has `storyRefs` | high |
 | Image rights research | 5/20 have leads; **8 leads, 0 reusable** | medium — only 5 venues surveyed |
@@ -913,7 +937,7 @@ not only data).
 |---|---|---|
 | 1 | Foundation | ✅ Done — see §1 Maturity |
 | 2 | Production Infrastructure | ✅ Done — see §1 Maturity, §8 Completed |
-| 3 | **Production Data** | **✅ Done, 2026-07-17** (uncommitted — see header). Phase A below is complete: every active restaurant verified. |
+| 3 | **Production Data** | **✅ Done, 2026-07-17, committed `f0e5af4`.** Phase A below is complete: every active restaurant verified. |
 | 4 | Final QA | **Ready to begin** — not yet started; see §12 |
 | 5 | Version 1.0 | Not started |
 | 6 | Feature Phase 2 | Not started — begins only after Phase 5 |
