@@ -808,28 +808,45 @@ export const restaurants = [
   {
     id: "arabesque",
     name: "Arabesque",
+    // Verified end-to-end 2026-07-17. District (Yeonsu-gu) was already
+    // correct. Coordinates were ~700 m off, in the wrong part of the
+    // district. Older sources for this venue cite 옥련동 (Ongnyeon-dong);
+    // a business directory documents a relocation to the current 동춘동
+    // address, so that is not a live conflict.
     zone: "Yeonsu, Incheon",
     category: "world-halal",
 
-    coordinates: fact({ lat: 37.409, lng: 126.667 }, { confidence: CONFIDENCE.INFERRED, source: SOURCE.AREA_FALLBACK, evidence: "Neighbourhood centre used because geocoding did not resolve — may be off by ~100 m" }),
-    address: fact("Yeonsu-gu, Incheon", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Area-level only — no street address on file", precision: "area" }),
-    hours: unknownFact("Opening hours never confirmed"),
+    coordinates: fact({ lat: 37.413439, lng: 126.65533 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", evidence: "Kakao's routing endpoint gives 37.413439/126.655330; Naver Place's mapx/mapy converts to 37.413523/126.655329 — under 15 m apart. Replaces a neighbourhood-centre fallback ~700 m away" }),
+    address: fact("30 Neungho-daero 267beon-gil, Yeonsu-gu, Incheon (1F)", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_CROSSCHECK, lastCheckedAt: "2026-07-17", precision: "street", evidence: "Naver Place, Kakao Map and a DiningCode listing (checked 2026-07-17) all give 능허대로267번길 30 (지번 동춘동 813-7). Three branches share the name Arabesque (Itaewon, Dong-incheon, this one) — this address is specific to the Yeonsu-gu/Songdo location" }),
+    hours: fact({ raw: "Daily 11:00 AM – 10:00 PM (break 4:00–5:00 PM; last order 9:00 PM)", weekly: {
+      mon: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:00" }],
+      tue: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:00" }],
+      wed: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:00" }],
+      thu: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:00" }],
+      fri: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:00" }],
+      sat: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:00" }],
+      sun: [{ from: "11:00", to: "16:00" }, { from: "17:00", to: "22:00", lastOrder: "21:00" }],
+    } }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "The daily 11:00-22:00 window is corroborated by two independent sources (a DiningCode listing and a Siksinhot listing, both checked 2026-07-17). The break (16:00-17:00) and last order (21:00) come from DiningCode only — that detail is not yet independently corroborated by a second source, unlike the open/close window itself" }),
     menus: fact([
-      { name: "Halal Lamb Kebab", price: "~18,000 KRW" },
-      { name: "Chicken Tikka Masala", price: "~15,000 KRW" },
-      { name: "Fresh Hummus & Pita", price: "~9,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Chicken Curry", price: "14,000 KRW" },
+      { name: "Lamb Curry", price: "16,000 KRW" },
+      { name: "Lamb Kebab", price: null },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Curry names and prices from a DiningCode listing checked 2026-07-17. Lamb Kebab is real and prominent — independently described across nine visitor write-ups from 2015 to 2025 — but the only price found for it dates to 2022, four years stale, so it is left unstated rather than carried forward as current. \"Chicken Tikka Masala\" and \"Fresh Hummus & Pita\" are dropped: neither has current-dated confirmation. \"Halal\" is not used as a dish label — halal-friendliness is a restaurant-level fact (see dietary.halal), not a menu label, the same rule applied to bombay-brau" }),
+    phone: fact("032-859-6900", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing; a landline, not a 0507 forwarding number" }),
 
     dietary: {
       vegan: unknownFact("No vegan information in the source"),
-      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Source states: \"strictly Halal, alcohol-free Indian and Turkish delicacies\"" }),
+      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "A DiningCode listing and Korea Tourism Organization's own multilingual tourism page both describe the venue as halal-oriented (Indian/Turkish/Arabic cuisine, a clientele of Southeast Asian students and Middle Eastern traders), but neither, nor any of the dozen visitor write-ups reviewed, mentions KMF certification. Held at FRIENDLY, not CERTIFIED — no certificate has been sighted" }),
     },
     traits: [],
 
     // Editorial copy from the project draft; claims inside are not confirmed.
-    vibe: "Tandoor-warmed, serving Incheon's Muslims since 2003.",
-    story: "A historic pillar in Incheon since 2003, Arabesque serves strictly Halal, alcohol-free Indian and Turkish delicacies. Their enduring presence highlights the city's long-standing multiculturalism. Diners are treated to authentic, spice-rich meats cooked in traditional tandoors.",
-    esg_point: "Two decades of strictly Halal, alcohol-free kitchens",
+    // Rewritten 2026-07-17: the founding history is now dated to a government
+    // source, and "strictly Halal, alcohol-free" (implying certification) is
+    // corrected to halal-friendly, matching dietary.halal.
+    vibe: "Tandoor-warmed Indian and Turkish cooking in Yeonsu-gu, halal-friendly since the name was Sahara Ten.",
+    story: "Arabesque opened in 2003 under the name Sahara Ten, and was renamed Arabesque in August 2007 — per Korea Tourism Organization's own record of it. The kitchen is Indian-led, the owner Jordanian, and the cooking spans Indian curries and Turkish kebab, tandoor-warmed and halal-friendly rather than formally certified. It has drawn Incheon's international community — Middle Eastern traders, Southeast Asian students, and curious locals — for over two decades under one name or another.",
+    esg_point: "Over two decades of halal-friendly Indian and Turkish cooking in one Incheon kitchen",
 
     image: "/images/halal_meat.svg",
     photo: null,
