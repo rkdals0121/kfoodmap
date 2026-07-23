@@ -8,6 +8,10 @@ function formatStampDate(ts) {
   return new Date(ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
+// Quarantined records excluded from total and next-stop, consistent with
+// every other discovery surface (see App.jsx activeRestaurants).
+const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
+
 // A premium travel passport: progress, the next place to explore,
 // and every saved place as a dated stamp.
 export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }) {
@@ -17,7 +21,7 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
   const stamped = useMemo(() =>
     bookmarks
       .map(b => ({ ...b, place: byId[b.id] }))
-      .filter(b => b.place)
+      .filter(b => b.place && !isQuarantined(b.place))
       .sort((a, b) => (a.savedAt ?? 0) - (b.savedAt ?? 0)),
   [bookmarks, byId]);
 
@@ -35,10 +39,11 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
 
   const recent = stamped.length > 0 ? stamped[stamped.length - 1] : null;
   const recentDate = recent ? formatStampDate(recent.savedAt) : null;
-  const total = restaurants.length;
+  const total = activeCount;
   // A stamp means you have been there. Saved-only places still show on the
   // page as plans, but the passport counts visits.
   const visitedCount = stamped.filter(s => s.visitedAt != null).length;
+  const progressPct = (visitedCount / total) * 100;
 
   return (
     <section className="journal-panel" aria-label="Journal">
@@ -55,9 +60,18 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
             aria-valuemax={total}
             aria-valuenow={visitedCount}
           >
-            <div className="progress-bar__fill" style={{ width: `${(visitedCount / total) * 100}%` }} />
+            <div className="progress-bar__fill" style={{ width: `${progressPct}%` }} />
           </div>
         </div>
+        {visitedCount === 0 && stamped.length > 0 && (
+          <p className="passport-cover__nudge">Your first stamp awaits</p>
+        )}
+        {visitedCount > 0 && visitedCount < total && (
+          <p className="passport-cover__nudge">{total - visitedCount} places to go</p>
+        )}
+        {visitedCount === total && visitedCount > 0 && (
+          <p className="passport-cover__nudge passport-cover__nudge--complete">Passport complete 🎉</p>
+        )}
       </div>
 
       {nextStop && (
@@ -79,9 +93,29 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
       )}
 
       {stamped.length === 0 ? (
-        <p className="journal-empty">
-          Bookmark places you love on the map — each one becomes a stamp in your passport.
-        </p>
+        <div className="journal-empty">
+          <div className="journal-empty__icon" aria-hidden="true">📕</div>
+          <p className="journal-empty__title">Your passport is empty</p>
+          <p className="journal-empty__body">
+            Every place you save on the map becomes a page in your passport.
+            Visit and tap ✓ to stamp it — collect them all to complete your
+            Korean food journey.
+          </p>
+          <p className="journal-empty__steps">
+            <span className="journal-empty__step">
+              <span className="journal-empty__step-num">1</span>
+              Find a place on the map
+            </span>
+            <span className="journal-empty__step">
+              <span className="journal-empty__step-num">2</span>
+              Tap ♡ to save it
+            </span>
+            <span className="journal-empty__step">
+              <span className="journal-empty__step-num">3</span>
+              Visit and tap ✓ to stamp
+            </span>
+          </p>
+        </div>
       ) : (
         <div className="passport-page">
           <div className="journal-grid">

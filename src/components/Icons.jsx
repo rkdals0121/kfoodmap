@@ -150,3 +150,18 @@ export const ChevronRightIcon = ({ size = 18 }) => (
     <path d="m9 5 7 7-7 7" />
   </svg>
 );
+
+export const ShareIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7" />
+    <path d="m16 6-4-4-4 4" />
+    <path d="M12 2v13" />
+  </svg>
+);
+
+export const ShieldCheckIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="M12 2s7 2.5 7 8v4.5c0 3.5-3.5 6-7 7.5-3.5-1.5-7-4-7-7.5V10c0-5.5 7-8 7-8Z" />
+    <path d="m9 12.5 2 2 4-4" />
+  </svg>
+);

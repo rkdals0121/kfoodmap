@@ -3,7 +3,7 @@ import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
-  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon,
+  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, coordsOf } from '../utils';
@@ -45,7 +45,7 @@ const DIET_CAVEAT = {
   },
   [CONFIDENCE.SUPPORTED]: {
     title: 'Reported, not confirmed.',
-    body: 'These details come from what the restaurant and our research describe. We haven’t checked them in person — confirm with staff before ordering.',
+    body: `These details come from what the restaurant and our research describe. We haven't checked them in person — confirm with staff before ordering.`,
   },
   [CONFIDENCE.INFERRED]: {
     // Covers both bases we infer from: the kind of kitchen, and the venue's own
@@ -55,7 +55,7 @@ const DIET_CAVEAT = {
   },
   [CONFIDENCE.UNKNOWN]: {
     title: 'No dietary information yet.',
-    body: 'We haven’t established what this kitchen serves, so we don’t make a claim either way.',
+    body: `We haven't established what this kitchen serves, so we don't make a claim either way.`,
   },
 };
 
@@ -64,11 +64,13 @@ export default function RestaurantDetail({
   mapCenter, focusStory,
 }) {
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
   const storyRef = useRef(null);
   const sheetRef = useRef(null);
 
   useEffect(() => {
     setCopied(false);
+    setShared(false);
     if (!restaurant) return;
     if (focusStory && storyRef.current) {
       storyRef.current.scrollIntoView({ block: 'start' });
@@ -142,6 +144,28 @@ export default function RestaurantDetail({
     }
   };
 
+  // Share: use Web Share API where available, fall back to copying a link
+  const handleShare = async () => {
+    const shareText = `${restaurant.name} — ${restaurant.vibe}`;
+    const shareUrl = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: restaurant.name, text: shareText, url: shareUrl });
+        setShared(true);
+        setTimeout(() => setShared(false), 2500);
+      } catch { /* user cancelled */ }
+    } else {
+      // Fallback: copy a shareable text to clipboard
+      const text = `${shareText}\n${shareUrl}`;
+      let ok = false;
+      try { await navigator.clipboard.writeText(text); ok = true; } catch { ok = fallbackCopy(text); }
+      if (ok) {
+        setShared(true);
+        setTimeout(() => setShared(false), 2500);
+      }
+    }
+  };
+
   return (
     <>
       <div className="detail-backdrop" onClick={onClose} />
@@ -189,7 +213,15 @@ export default function RestaurantDetail({
               )}
             </div>
 
-            {/* 2. How do I get there? */}
+            {/* 2. Why is this place special? — the emotional hook, placed right
+                after "can I eat here?" so interest is sparked before practical
+                info. This matches the Persona journey: Trust → Interest → Visit */}
+            <section className="detail-hook">
+              <p className="detail-hook__label">Why it's special</p>
+              <p className="detail-hook__quote">&ldquo;{restaurant.vibe}&rdquo;</p>
+            </section>
+
+            {/* 3. How do I get there? */}
             <div className="practical">
               <div className="practical-row">
                 <ClockIcon size={17} />
@@ -288,6 +320,14 @@ export default function RestaurantDetail({
                 >
                   <CheckIcon size={21} />
                 </button>
+                <button
+                  className="icon-btn icon-btn--lg"
+                  aria-label={`Share ${name}`}
+                  onClick={handleShare}
+                  title={shared ? 'Shared!' : 'Share'}
+                >
+                  <ShareIcon size={21} />
+                </button>
               </div>
             </div>
 
@@ -310,12 +350,6 @@ export default function RestaurantDetail({
                 )}
               </section>
             )}
-
-            {/* 3. Why is this place special? — the hook, kept short on purpose */}
-            <section className="detail-hook">
-              <p className="detail-hook__label">Why it's special</p>
-              <p className="detail-hook__quote">&ldquo;{restaurant.vibe}&rdquo;</p>
-            </section>
 
             {/* 4. What does this food tell me about Korea? */}
             <section className="detail-section" ref={storyRef}>
