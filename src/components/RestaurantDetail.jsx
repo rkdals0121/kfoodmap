@@ -260,7 +260,7 @@ export default function RestaurantDetail({
               )}
 
               <div className="practical-actions">
-                <button className="btn-primary" onClick={() => window.open(directionsUrl(restaurant), '_blank')}>
+                <button className="btn-primary" onClick={() => window.open(directionsUrl(restaurant, mapCenter), '_blank')}>
                   <CompassIcon size={18} /> Get Directions
                 </button>
                 <button

@@ -7,7 +7,7 @@ import { dietaryBadges } from '../data/verification';
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = ['Zero-waste', 'Local Sourcing'];
 
-function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, lens }) {
+function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, lens, mapCenter }) {
   const name = place.name.split('(')[0].trim();
   const status = getOpenStatus(place.hours);
   // Dietary badges say exactly what we know ("Vegan options" ≠ "Fully vegan");
@@ -82,7 +82,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
           <button
             className="icon-btn"
             aria-label={`Get directions to ${name}`}
-            onClick={() => window.open(directionsUrl(place), '_blank')}
+            onClick={() => window.open(directionsUrl(place, mapCenter), '_blank')}
           >
             <CompassIcon size={20} />
           </button>
@@ -130,6 +130,7 @@ export default function BottomSheetList({
           onReadStory={onReadStory}
           onToggleBookmark={onToggleBookmark}
           lens={sustainabilityLens}
+          mapCenter={mapCenter}
         />
       ))}
 

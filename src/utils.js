@@ -120,7 +120,22 @@ export function todaysHours(hoursFact, now = new Date()) {
   return today.map(s => `${fromMinutes(toMinutes(s.from))} – ${fromMinutes(toMinutes(s.to))}`).join(', ');
 }
 
-export function directionsUrl(place) {
+// A directions deep link into Google Maps. With an origin (the current map
+// centre — the area the user is looking at) it opens a routed trip rather than
+// just dropping a pin they then have to route from themselves. Without one it
+// falls back to the previous pin behaviour, so a missing origin never breaks
+// the link. No runtime routing call is made here — the map app does the
+// routing — so this stays inside the no-backend constraint (§2.1).
+export function directionsUrl(place, origin = null) {
   const { lat, lng } = coordsOf(place);
-  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+  const destination = `${lat},${lng}`;
+  if (origin && Number.isFinite(origin[0]) && Number.isFinite(origin[1])) {
+    const params = new URLSearchParams({
+      api: '1',
+      origin: `${origin[0]},${origin[1]}`,
+      destination,
+    });
+    return `https://www.google.com/maps/dir/?${params}`;
+  }
+  return `https://www.google.com/maps/search/?api=1&query=${destination}`;
 }

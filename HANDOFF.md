@@ -1,19 +1,19 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-18 · **HEAD:** `c01db9c` (Passport Enhancement MVP —
+**Last updated:** 2026-07-18 · **HEAD:** `3a0ca9f` (ESG Explorer MVP —
 **Phase 6 underway**; v1.0 shipped at `07feea7`)
-**+ uncommitted changes** (Phase 6 — ESG Explorer MVP: sustainability chip
-group and a list lens over the existing `esg_point`; app code and this file,
+**+ uncommitted changes** (Phase 6 — Nearby Route MVP: `directionsUrl` now
+deep-links with an origin as well as a destination; app code and this file,
 **no restaurant data changed**) · **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
 tree**, not remembered. The working tree currently differs from `HEAD` in this
-file and four app-code files (`App.jsx`, `FilterBar.jsx`, `BottomSheetList.jsx`,
-`index.css`), no commit yet — see §12 for what that change is before assuming
-this document describes committed code.
+file and three app-code files (`utils.js`, `BottomSheetList.jsx`,
+`RestaurantDetail.jsx`), no commit yet — see §12 for what that change is before
+assuming this document describes committed code.
 
 ---
 
@@ -1118,6 +1118,13 @@ Recommended order, frozen 2026-07-18 unless explicitly changed:
    to avoid rework once more screens exist.
 2. **Nearby Route.** Reuses coordinates already confirmed in Phase 3 and the
    Kakao routing already used at authoring time — low new-risk, high reuse.
+   **MVP shipped.** The §2.1 question raised in §12 was settled by *not*
+   routing in-app: `directionsUrl()` now deep-links to Google Maps with an
+   origin (the current map centre) as well as the destination, so it opens a
+   routed trip rather than a bare pin — a link, not a runtime routing call, so
+   the no-backend constraint holds. Everything the planning notes filed under
+   Future Expansion (in-app polyline, ETA, transit-mode choice, live location)
+   stays out of scope. See §12.
 3. **Journey + Passport expansion.** Extends the existing Journal/passport
    already in the core loop; no new data risk.
    **Passport half: MVP shipped.** Saved and visited are now distinct states
@@ -1216,47 +1223,49 @@ These are enforced by `check-data` where a machine can; the rest are on you.
 completed 2026-07-18, and v1.0 shipped at `07feea7` with `README.md` and
 `CHANGELOG.md`. The project is in **Phase 6 — Feature Phase 2** (§10).
 
-**Two Phase 6 features are complete.**
+**Three Phase 6 features are complete.**
 
 **`Passport Enhancement` MVP** — committed at `c01db9c`. Saved and visited are
 distinct states (`visitedAt` alongside `savedAt` under the same
 `kfm-bookmarks` key, invariant holding by construction — §2.15), and passport
 progress counts visits rather than saves. Debt at §7 Low #17–18.
 
-**`ESG Explorer` MVP** — uncommitted at the time of writing. A sustainability
-lens over the list that **creates no data**:
+**`ESG Explorer` MVP** — committed at `3a0ca9f`. A sustainability lens over the
+list that **creates no data**: a `Sustainability` group chip (OR over its two
+member traits, kept alongside them), and — while the axis is filtered — each
+card showing that restaurant's `esg_point` **verbatim** with the detail page's
+caveat printed once. Shipped below §10's stated content-pass gate on purpose
+(§10 Phase 6 item 4, the F4 record); the data's measured limits are §7 Low #19.
 
-- A `Sustainability` chip matching either member trait, added *alongside*
-  `Zero-waste` and `Local Sourcing` rather than replacing them. It is the one
-  place chips OR instead of AND, because its two members are narrow enough
-  that selecting both returns nothing. Chips are now grouped, which also fixed
-  a `role="group"` label that had wrongly called four non-dietary chips
-  "Dietary filters".
-- While the axis is filtered, each card shows that restaurant's `esg_point`
-  **verbatim**, with the detail page's caveat printed once above the list. The
-  matched trait moves to the front of the card's traits so the 3-badge cap
-  stops hiding it — display order only.
-- **Shipped below §10's stated gate on purpose.** See §10 Phase 6 item 4 for
-  the F4 record, and §7 Low #19 for the measured limits of the underlying data.
+**`Nearby Route` MVP** — uncommitted at the time of writing. The §2.1 question
+this section previously flagged was settled by **not routing in-app**:
+`directionsUrl(place, origin)` now deep-links to Google Maps with the current
+map centre as `origin` and the venue as `destination`, opening a routed trip
+instead of the bare destination pin it dropped before. The user starts a trip
+without re-entering where they are — which is the MVP — while the map app does
+the routing, so no runtime network call is added and the no-backend constraint
+(§2.1) is untouched. `origin` is optional: absent or non-finite, it falls back
+to the previous pin URL, so the link can never break. Both call sites (list
+card and detail) pass the `mapCenter` that already flowed to them for distance
+display, so no new state was introduced. Everything else — in-app polyline,
+ETA, transit-mode choice, live location — is Future Expansion and was not
+built.
 
-### Next recommended task — Nearby Route
+### Next recommended task
 
-The remaining Phase 6 features are unchanged in §10. `Nearby Route` is the
-natural next one: its coordinates are already confirmed (18/20) and it is the
-only feature that repairs an existing leak — today `directionsUrl()` hands the
-user to Google Maps at the moment of highest intent, ending the session.
-
-One thing established in Phase 6 planning and worth not rediscovering: §10
-describes it as reusing "the Kakao routing already used at authoring time", but
-that reuse is narrower than it reads. What was reused at authoring time is API
-familiarity, not a shipped integration — **in-app routing means the deployed
-app makes a runtime network call, which this project has never done**, and that
-touches the §2.1 no-backend constraint. Settle that before starting.
+Four Phase 6 features remain, unchanged in §10: Multilingual (i18n), AI Food
+Guide, Offline Mode, and the `User Features` split (Cross-Device Sync +
+User-Generated Content), plus the Story Timeline / Food Journey pieces of the
+Journey item. Their MVP scopes are frozen from Phase 6 planning; pick one and
+implement it directly rather than re-planning. Note that three of them
+(AI Food Guide, Cross-Device Sync, User-Generated Content) are gated on the
+same unmade §2.1 decision — see §7 High debt and the planning record.
 
 **Do not:** widen a feature commit to fix pre-existing UI behaviour found in
 passing (§7 Low #17 is the precedent); begin a second Phase 6 feature before
 the current one is committed; derive any ESG category, score or ranking from
-`esg_point` text (§7 Low #19).
+`esg_point` text (§7 Low #19); add in-app routing, ETA, or live location to
+Nearby Route (all Future Expansion, §10 item 2).
 
 ---
 
