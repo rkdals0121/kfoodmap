@@ -1519,28 +1519,102 @@ button {
 
 @media (min-width: 1024px) {
   .app-shell {
-    --left-w: 420px;
-    grid-template-rows: auto auto 1fr;
-    grid-template-areas:
-      'nav    map'
-      'header map'
-      'list   map';
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .sidebar-region {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+    border-right: 1px solid var(--line);
+    background: var(--surface);
+    z-index: 20;
+  }
+  
+  .border-region {
+    width: 0px;
+    position: relative;
+    display: flex;
+    align-items: center; /* Vertically center the button */
+    z-index: 30;
+  }
+  
+  .map-region {
+    flex-grow: 1;
+    position: relative;
+    z-index: 10;
+    min-width: 0;
+  }
+
+  /* When collapsed */
+  .app-shell.is-collapsed .sidebar-region {
+    width: 64px;
+  }
+
+  /* Reset grid properties since we are in flex column */
+  .home-header {
+    grid-area: auto;
+    border-right: none;
+    flex-shrink: 0;
+  }
+  
+  .list-region, .journal-panel, .tab-panel {
+    grid-area: auto;
+    height: auto;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  /* To prevent content squishing while transitioning width to 64px */
+  .home-header, .list-region, .journal-panel, .tab-panel {
+    width: 420px; 
+    transition: opacity 0.15s ease;
+  }
+  
+  .app-shell.is-collapsed .home-header,
+  .app-shell.is-collapsed .list-region,
+  .app-shell.is-collapsed .journal-panel,
+  .app-shell.is-collapsed .tab-panel {
+    opacity: 0;
+    pointer-events: none;
   }
 
   /* The tab bar leaves the bottom edge and becomes the left panel's own
      top navigation — a permanent split shouldn't also need a floating bar */
   .tab-bar {
-    grid-area: nav;
+    grid-area: auto;
+    width: 420px;
     position: static;
     height: auto;
     padding: 10px 12px;
+    display: flex;
     justify-content: flex-start;
     gap: 4px;
     border-top: none;
     border-bottom: 1px solid var(--line);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  
+  .app-shell.is-collapsed .tab-bar {
+    width: 64px;
+    flex-direction: column;
+    padding: 16px 0;
+    gap: 12px;
+    align-items: center;
+    border-bottom: none;
+  }
+
   .tab-item {
     flex: 0 0 auto;
+    display: flex;
     flex-direction: row;
     gap: 6px;
     min-height: 40px; /* pointer-sized, still comfortable on touch laptops */
@@ -1556,10 +1630,40 @@ button {
     height: 18px;
   }
 
-  .list-region,
-  .journal-panel,
-  .tab-panel {
-    height: 100%; /* no fixed bottom bar left to clear */
+  .app-shell.is-collapsed .tab-item {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .app-shell.is-collapsed .tab-label {
+    display: none;
+  }
+
+  /* Google Maps style collapse button, vertically centered on the border */
+  .sidebar-toggle {
+    position: absolute;
+    left: -12px; /* Center on the 0px border */
+    /* top is removed so it aligns center due to flex align-items: center */
+    width: 24px;
+    height: 48px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    color: var(--ink-body);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .sidebar-toggle:hover {
+    background: var(--surface-hover);
+    color: var(--ink-title);
   }
 
   /* Detail becomes a centered dialog rather than a full-height sheet —
@@ -1583,78 +1687,9 @@ button {
   to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-/* ---------- Sidebar Toggle (Desktop) ---------- */
-@media (min-width: 1024px) {
-  .app-shell {
-    transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .app-shell.is-collapsed {
-    --left-w: 64px;
-  }
-  .app-shell.is-collapsed .tab-bar {
-    flex-direction: column;
-    padding: 16px 0;
-    gap: 12px;
-    align-items: center;
-  }
-  .app-shell.is-collapsed .tab-item {
-    width: 44px;
-    height: 44px;
-    min-height: 44px;
-    padding: 0;
-    justify-content: center;
-    border-radius: 50%;
-  }
-  .app-shell.is-collapsed .tab-label {
-    display: none;
-  }
-  .app-shell.is-collapsed .home-header,
-  .app-shell.is-collapsed .list-region,
-  .app-shell.is-collapsed .journal-panel,
-  .app-shell.is-collapsed .tab-panel {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .home-header, .list-region, .journal-panel, .tab-panel {
-    transition: opacity 0.15s ease, visibility 0.15s;
-    min-width: 420px;
-  }
-  
-  /* Map overlap to hide the sidebar smoothly */
-  .map-region {
-    position: relative;
-    z-index: 10;
-    background: var(--background); /* In case map tiles load late, show clean background */
-  }
-
-  /* Google Maps style collapse button */
-  .sidebar-toggle {
-    position: absolute;
-    top: 24px;
-    left: 0;
-    transform: translateX(-50%);
-    z-index: 1000;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    width: 24px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    color: var(--ink-body);
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-  .sidebar-toggle:hover {
-    background: var(--surface-hover);
-    color: var(--ink-title);
-  }
-}
-
 @media (max-width: 1023px) {
+  .sidebar-region { display: contents; }
+  .border-region { display: none; }
   .sidebar-toggle {
     display: none !important;
   }

@@ -137,16 +137,44 @@ export default function App() {
   return (
     <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
 
-      {/* Search + dietary filters */}
-      <FilterBar
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        selectedFilters={selectedFilters}
-        onToggleFilter={handleToggleFilter}
-      />
+      <div className="sidebar-region">
+        {/* Search + dietary filters */}
+        <FilterBar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedFilters={selectedFilters}
+          onToggleFilter={handleToggleFilter}
+        />
 
-      {/* Map: the discovery hero (~46vh) — filters narrow the pins */}
-      <div className="map-region">
+        {/* Restaurant list — always visible, nearest to the map center first */}
+        <section className="list-region" aria-label="Restaurant list">
+          <BottomSheetList
+            restaurants={filteredRestaurants}
+            mapCenter={mapCenter}
+            bookmarkedIds={bookmarkedIds}
+            onRestaurantClick={openDetail}
+            onReadStory={openStory}
+            onToggleBookmark={handleToggleBookmark}
+            sustainabilityLens={sustainabilityLens}
+          />
+        </section>
+
+        {/* Non-map tabs cover the map; the tab bar stays on top */}
+        {activeTab === 'journal' && (
+          <JournalPanel bookmarks={bookmarks} mapCenter={mapCenter} onRestaurantClick={openDetail} />
+        )}
+        {activeTab !== 'map' && activeTab !== 'journal' && (
+          <TabPanel tab={activeTab} onNavigate={setActiveTab} />
+        )}
+        
+        <TabBar 
+          activeTab={activeTab} 
+          onSelect={setActiveTab} 
+          isCollapsed={isSidebarCollapsed} 
+        />
+      </div>
+
+      <div className="border-region">
         <button 
           className="sidebar-toggle"
           aria-label={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -158,6 +186,10 @@ export default function App() {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
           )}
         </button>
+      </div>
+
+      {/* Map: the discovery hero (~46vh) — filters narrow the pins */}
+      <div className="map-region">
         <MapComponent
           restaurants={filteredRestaurants}
           onMarkerClick={openDetail}
@@ -165,19 +197,6 @@ export default function App() {
           onCenterChange={setMapCenter}
         />
       </div>
-
-      {/* Restaurant list — always visible, nearest to the map center first */}
-      <section className="list-region" aria-label="Restaurant list">
-        <BottomSheetList
-          restaurants={filteredRestaurants}
-          mapCenter={mapCenter}
-          bookmarkedIds={bookmarkedIds}
-          onRestaurantClick={openDetail}
-          onReadStory={openStory}
-          onToggleBookmark={handleToggleBookmark}
-          sustainabilityLens={sustainabilityLens}
-        />
-      </section>
 
       {/* Layer 2: Full-Screen Detail Modal */}
       <RestaurantDetail
@@ -189,20 +208,6 @@ export default function App() {
         onToggleVisited={handleToggleVisited}
         mapCenter={mapCenter}
         focusStory={focusStory}
-      />
-
-      {/* Non-map tabs cover the map; the tab bar stays on top */}
-      {activeTab === 'journal' && (
-        <JournalPanel bookmarks={bookmarks} mapCenter={mapCenter} onRestaurantClick={openDetail} />
-      )}
-      {activeTab !== 'map' && activeTab !== 'journal' && (
-        <TabPanel tab={activeTab} onNavigate={setActiveTab} />
-      )}
-      <TabBar 
-        activeTab={activeTab} 
-        onSelect={setActiveTab} 
-        isCollapsed={isSidebarCollapsed} 
-        onToggleCollapse={() => setIsSidebarCollapsed(prev => !prev)} 
       />
 
     </div>
