@@ -321,6 +321,18 @@ export default function RestaurantDetail({
             <section className="detail-section" ref={storyRef}>
               <SectionHead Icon={BookIcon} title="The Food Story" kr="이야기" />
               <p className="detail-body">{restaurant.story}</p>
+              {/* Only the few venues with a sourced history carry a timeline;
+                  the rest render nothing here, the same as any absent field. */}
+              {restaurant.timeline?.length > 0 && (
+                <ol className="timeline">
+                  {restaurant.timeline.map(t => (
+                    <li key={`${t.year}-${t.event}`} className="timeline__item">
+                      <span className="timeline__year">{t.year}</span>
+                      <span className="timeline__event">{t.event}</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
               <div className="callout">
                 <p className="callout__label">Did you know?</p>
                 <p>{culture.didYouKnow}</p>

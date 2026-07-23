@@ -810,6 +810,13 @@ export const restaurants = [
     // corroborated and kept.
     vibe: "A weekly-changing brunch buffet, in the room that was Incheon's best-known vegan restaurant.",
     story: "Rim opened in 2019 on Dongincheon's Gaehang-ro as 더 비기닝 (The Beginning), moved to Cheongna in 2023, and spent years as the restaurant Incheon vegans named first — a Blue Ribbon kitchen where nothing on the plate came from an animal and the sauces were made in-house. In June 2026 it renovated into a brunch buffet with a menu that changes every week. Plant-based dishes are still the heart of it, but the buffet is no longer vegan-only: a chicken stew may sit on the same counter as the tofu salad. Worth knowing before you go, whichever way you eat.",
+    // Timeline events are drawn straight from the story above — all confirmed
+    // during the 2026-07-17 verification (d24144c), none newly researched.
+    timeline: [
+      { year: "2019", event: "Opens on Dongincheon's Gaehang-ro as 더 비기닝 (The Beginning)" },
+      { year: "2023", event: "Moves to Cheongna — a Blue Ribbon fully-vegan kitchen" },
+      { year: "2026", event: "Renovates into a weekly-changing brunch buffet; no longer vegan-only" },
+    ],
     esg_point: "A plant-based kitchen at its core, now served as a weekly-rotating buffet",
 
     image: "/images/pasta.svg",
@@ -903,6 +910,12 @@ export const restaurants = [
     // corrected to halal-friendly, matching dietary.halal.
     vibe: "Tandoor-warmed Indian and Turkish cooking in Yeonsu-gu, halal-friendly since the name was Sahara Ten.",
     story: "Arabesque opened in 2003 under the name Sahara Ten, and was renamed Arabesque in August 2007 — per Korea Tourism Organization's own record of it. The kitchen is Indian-led, the owner Jordanian, and the cooking spans Indian curries and Turkish kebab, tandoor-warmed and halal-friendly rather than formally certified. It has drawn Incheon's international community — Middle Eastern traders, Southeast Asian students, and curious locals — for over two decades under one name or another.",
+    // From the story above, per Korea Tourism Organization's record — confirmed
+    // during the 2026-07-17 verification (66b2877), not newly researched.
+    timeline: [
+      { year: "2003", event: "Opens under the name Sahara Ten" },
+      { year: "2007", event: "Renamed Arabesque (August)" },
+    ],
     esg_point: "Over two decades of halal-friendly Indian and Turkish cooking in one Incheon kitchen",
 
     image: "/images/halal_meat.svg",
@@ -1050,6 +1063,16 @@ export const restaurants = [
     // project's purpose. The real story is more interesting anyway.
     vibe: "Jajangmyeon's birthplace is next door — now a museum.",
     story: "Korea's most famous noodle was born on this street: the original Gonghwachun opened here in 1905 and served jajangmyeon for three generations before closing in 1983. Its building still stands about 150 metres away as the Jajangmyeon Museum, a registered national heritage site, and the plot is marked on maps as Gonghwachun-teo — the Gonghwachun site. The restaurant trading under the name today is a separate business that registered the trademark in 2002 and opened in 2004; the founding family contested its claim to be the original. Come for the noodles, then walk to the museum for the history.",
+    // The two entities the story is careful to separate stay separated here:
+    // the 1905 original (closed 1983) and the separate business trading under
+    // the name today. All confirmed during the 2026-07-17 verification
+    // (e84f677); the timeline must not blur them into one lineage.
+    timeline: [
+      { year: "1905", event: "The original Gonghwachun opens on this street, serving jajangmyeon" },
+      { year: "1983", event: "The original closes, after three generations" },
+      { year: "2002", event: "A separate business registers the Gonghwachun trademark" },
+      { year: "2004", event: "That business opens the restaurant trading here today" },
+    ],
     esg_point: "Serves the dish that made this street, beside the museum that keeps its history",
     // Editorial is where an unsourced claim does the most damage — the old copy
     // asserted a lineage this venue does not have. Every load-bearing statement

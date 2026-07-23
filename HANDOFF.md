@@ -1,19 +1,20 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-18 · **HEAD:** `3a0ca9f` (ESG Explorer MVP —
+**Last updated:** 2026-07-18 · **HEAD:** `8807bac` (Nearby Route MVP —
 **Phase 6 underway**; v1.0 shipped at `07feea7`)
-**+ uncommitted changes** (Phase 6 — Nearby Route MVP: `directionsUrl` now
-deep-links with an origin as well as a destination; app code and this file,
-**no restaurant data changed**) · **Places:** 20 (18 active, 2 quarantined)
+**+ uncommitted changes** (Phase 6 — Story Timeline MVP: a sourced history
+timeline on the three venues whose story already carries one; `restaurants.js`
+gains a `timeline` editorial field on those three, plus app code and this
+file) · **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
 tree**, not remembered. The working tree currently differs from `HEAD` in this
-file and three app-code files (`utils.js`, `BottomSheetList.jsx`,
-`RestaurantDetail.jsx`), no commit yet — see §12 for what that change is before
-assuming this document describes committed code.
+file and three app-code/data files (`restaurants.js`, `RestaurantDetail.jsx`,
+`index.css`), no commit yet — see §12 for what that change is before assuming
+this document describes committed code.
 
 ---
 
@@ -1129,7 +1130,10 @@ Recommended order, frozen 2026-07-18 unless explicitly changed:
    already in the core loop; no new data risk.
    **Passport half: MVP shipped.** Saved and visited are now distinct states
    and passport progress counts visits — see §2.15 for the state model and §7
-   Low #17–18 for the debt it left. The Journey half is untouched.
+   Low #17–18 for the debt it left. **Story Timeline — the separate `Add`
+   candidate this item was split into during Phase 6 planning — also shipped:**
+   a sourced history timeline in the detail page, on the three venues whose
+   story already carries one (§12). The Food Journey half is untouched.
 4. **ESG Explorer.** Gated on a content pass first — `esg_point` is
    currently thin and unaudited (the invented `food_mile` field was already
    deleted at P0; nothing sourced replaced it).
@@ -1223,7 +1227,7 @@ These are enforced by `check-data` where a machine can; the rest are on you.
 completed 2026-07-18, and v1.0 shipped at `07feea7` with `README.md` and
 `CHANGELOG.md`. The project is in **Phase 6 — Feature Phase 2** (§10).
 
-**Three Phase 6 features are complete.**
+**Four Phase 6 features are complete.**
 
 **`Passport Enhancement` MVP** — committed at `c01db9c`. Saved and visited are
 distinct states (`visitedAt` alongside `savedAt` under the same
@@ -1237,35 +1241,55 @@ card showing that restaurant's `esg_point` **verbatim** with the detail page's
 caveat printed once. Shipped below §10's stated content-pass gate on purpose
 (§10 Phase 6 item 4, the F4 record); the data's measured limits are §7 Low #19.
 
-**`Nearby Route` MVP** — uncommitted at the time of writing. The §2.1 question
-this section previously flagged was settled by **not routing in-app**:
-`directionsUrl(place, origin)` now deep-links to Google Maps with the current
-map centre as `origin` and the venue as `destination`, opening a routed trip
-instead of the bare destination pin it dropped before. The user starts a trip
-without re-entering where they are — which is the MVP — while the map app does
-the routing, so no runtime network call is added and the no-backend constraint
-(§2.1) is untouched. `origin` is optional: absent or non-finite, it falls back
-to the previous pin URL, so the link can never break. Both call sites (list
-card and detail) pass the `mapCenter` that already flowed to them for distance
-display, so no new state was introduced. Everything else — in-app polyline,
-ETA, transit-mode choice, live location — is Future Expansion and was not
-built.
+**`Nearby Route` MVP** — committed at `8807bac`. The §2.1 question this section
+previously flagged was settled by **not routing in-app**:
+`directionsUrl(place, origin)` deep-links to Google Maps with the current map
+centre as `origin` and the venue as `destination`, opening a routed trip
+instead of a bare pin. `origin` is optional and falls back to the previous pin
+URL, so the link can never break. No runtime network call is added, so the
+no-backend constraint (§2.1) holds. In-app polyline, ETA, transit-mode choice
+and live location are Future Expansion and were not built.
+
+**`Story Timeline` MVP** — uncommitted at the time of writing. A sourced
+history timeline in the detail page's Food Story section, and it **creates no
+new facts** — every entry is drawn from the venue's existing `story`, all
+confirmed during the 2026-07-17 Phase 3 verification, none newly researched:
+
+- A new `timeline` **editorial field** (`[{ year, event }]`) on the data
+  layer, at the same level as `story`/`vibe`/`esg_point` — not a `fact()`, so
+  it inherits the story's sourcing rather than adding a parallel one, and
+  `check-data` (which only validates the known fact fields) is unaffected.
+- Present on **three** venues only — `gonghwachun`, `arabesque`, `rim` — the
+  ones whose story carries **more than one** dated event. `nono-shop` and
+  `chaeyuk-songdo` have a single dated event each (a relocation, a patent
+  year), which is not a timeline; they get none. Not researching the absent
+  ones is the point (Scope forbids new historical research), so partial
+  coverage is correct, not a gap — the same stance as `storyRefs` 1/20.
+- `gonghwachun`'s entry keeps the distinction its story is built around: the
+  1905 original (closed 1983) and the separate business trading under the name
+  today (trademark 2002, opened 2004) are four separate events, never merged
+  into one lineage. Blurring them would repeat the false-heritage error that
+  `gonghwachun`'s own verification (`e84f677`) existed to correct.
+- Renders only where `timeline` is present; every other detail page is
+  byte-unchanged. `restaurants.js` is edited for the first time since v1.0 —
+  three records gain the field, no existing value is touched.
 
 ### Next recommended task
 
 Four Phase 6 features remain, unchanged in §10: Multilingual (i18n), AI Food
 Guide, Offline Mode, and the `User Features` split (Cross-Device Sync +
-User-Generated Content), plus the Story Timeline / Food Journey pieces of the
-Journey item. Their MVP scopes are frozen from Phase 6 planning; pick one and
-implement it directly rather than re-planning. Note that three of them
-(AI Food Guide, Cross-Device Sync, User-Generated Content) are gated on the
-same unmade §2.1 decision — see §7 High debt and the planning record.
+User-Generated Content), plus the Food Journey piece of the Journey item. Their
+MVP scopes are frozen from Phase 6 planning; pick one and implement it directly
+rather than re-planning. Note that three of them (AI Food Guide, Cross-Device
+Sync, User-Generated Content) are gated on the same unmade §2.1 decision — see
+§7 High debt and the planning record.
 
 **Do not:** widen a feature commit to fix pre-existing UI behaviour found in
 passing (§7 Low #17 is the precedent); begin a second Phase 6 feature before
 the current one is committed; derive any ESG category, score or ranking from
 `esg_point` text (§7 Low #19); add in-app routing, ETA, or live location to
-Nearby Route (all Future Expansion, §10 item 2).
+Nearby Route (all Future Expansion, §10 item 2); research new history to widen
+Story Timeline coverage (Scope forbids it — §10 item 3).
 
 ---
 

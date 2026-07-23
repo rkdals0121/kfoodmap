@@ -683,6 +683,36 @@ button {
   color: var(--ink-body);
 }
 
+/* A sourced history for the few venues that have one. A left rule ties the
+   entries together; the year anchors each. Tokens only, no new colours. */
+.timeline {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 2px 0 2px 14px;
+  border-left: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.timeline__item {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.timeline__year {
+  flex-shrink: 0;
+  min-width: 42px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-strong);
+  font-variant-numeric: tabular-nums;
+}
+.timeline__event {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-body);
+}
+
 /* The emotional hook — deliberately lighter than a full section: a label
    and one pull-quote line, no icon header, so it reads fast and stands
    apart from the structured sections below it. */
