@@ -67,6 +67,28 @@ export default function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
 
+  // Touch states for mobile bottom sheet swipe
+  const [touchStartY, setTouchStartY] = useState(null);
+  const [touchEndY, setTouchEndY] = useState(null);
+
+  const handleTouchStart = (e) => setTouchStartY(e.targetTouches[0].clientY);
+  const handleTouchMove = (e) => setTouchEndY(e.targetTouches[0].clientY);
+  const handleTouchEnd = () => {
+    if (!touchStartY || !touchEndY) return;
+    const distance = touchStartY - touchEndY;
+    const swipeThreshold = 50;
+
+    if (distance > swipeThreshold) {
+      // Swiped up -> expand
+      setSheetState(s => Math.min(s + 1, 2));
+    } else if (distance < -swipeThreshold) {
+      // Swiped down -> collapse
+      setSheetState(s => Math.max(s - 1, 0));
+    }
+    setTouchStartY(null);
+    setTouchEndY(null);
+  };
+
   // Single choke point for every path that opens detail (map pin, card,
   // Journal stamp/next-stop) — a quarantined restaurant is a no-op here
   // rather than rendering unverified detail.
@@ -148,18 +170,25 @@ export default function App() {
       </div>
 
       <div className={`sidebar-region sheet-state-${sheetState}`}>
-        {/* Mobile handle to cycle through sheet states */}
-        <div className="sheet-handle-area" onClick={() => setSheetState(s => (s + 1) % 3)}>
-          <div className="sheet-handle-bar" />
-        </div>
+        {/* Mobile handle and header wrapped for touch events */}
+        <div 
+          className="sheet-header-drag-area"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="sheet-handle-area" onClick={() => setSheetState(s => (s + 1) % 3)}>
+            <div className="sheet-handle-bar" />
+          </div>
 
-        {/* Search + dietary filters */}
-        <FilterBar
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          selectedFilters={selectedFilters}
-          onToggleFilter={handleToggleFilter}
-        />
+          {/* Search + dietary filters */}
+          <FilterBar
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            selectedFilters={selectedFilters}
+            onToggleFilter={handleToggleFilter}
+          />
+        </div>
 
         {/* Restaurant list */}
         <section className="list-region" aria-label="Restaurant list">
