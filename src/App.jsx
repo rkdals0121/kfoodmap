@@ -64,6 +64,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('map');
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   const [focusStory, setFocusStory] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   // Single choke point for every path that opens detail (map pin, card,
   // Journal stamp/next-stop) — a quarantined restaurant is a no-op here
@@ -134,7 +135,7 @@ export default function App() {
   }, [selectedFilters, searchQuery]);
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
 
       {/* Search + dietary filters */}
       <FilterBar
@@ -146,6 +147,17 @@ export default function App() {
 
       {/* Map: the discovery hero (~46vh) — filters narrow the pins */}
       <div className="map-region">
+        <button 
+          className="sidebar-toggle"
+          aria-label={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          onClick={() => setIsSidebarCollapsed(prev => !prev)}
+        >
+          {isSidebarCollapsed ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          )}
+        </button>
         <MapComponent
           restaurants={filteredRestaurants}
           onMarkerClick={openDetail}
@@ -186,7 +198,12 @@ export default function App() {
       {activeTab !== 'map' && activeTab !== 'journal' && (
         <TabPanel tab={activeTab} onNavigate={setActiveTab} />
       )}
-      <TabBar activeTab={activeTab} onSelect={setActiveTab} />
+      <TabBar 
+        activeTab={activeTab} 
+        onSelect={setActiveTab} 
+        isCollapsed={isSidebarCollapsed} 
+        onToggleCollapse={() => setIsSidebarCollapsed(prev => !prev)} 
+      />
 
     </div>
   );

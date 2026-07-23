@@ -35,7 +35,7 @@ const tabs = [
   { id: 'profile', label: 'Profile' },
 ];
 
-export default function TabBar({ activeTab, onSelect }) {
+export default function TabBar({ activeTab, onSelect, isCollapsed }) {
   return (
     <nav className="tab-bar" aria-label="Primary">
       {tabs.map(t => (
@@ -44,9 +44,10 @@ export default function TabBar({ activeTab, onSelect }) {
           className={`tab-item${activeTab === t.id ? ' active' : ''}`}
           aria-current={activeTab === t.id ? 'page' : undefined}
           onClick={() => onSelect(t.id)}
+          title={isCollapsed ? t.label : undefined}
         >
           {icons[t.id]}
-          <span>{t.label}</span>
+          <span className="tab-label">{t.label}</span>
         </button>
       ))}
     </nav>

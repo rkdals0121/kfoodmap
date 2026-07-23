@@ -139,3 +139,18 @@ export function directionsUrl(place, origin = null) {
   }
   return `https://www.google.com/maps/search/?api=1&query=${destination}`;
 }
+
+export function naverMapUrl(place, origin = null) {
+  const { lat, lng } = coordsOf(place);
+  const name = encodeURIComponent(place.name);
+  if (origin && Number.isFinite(origin[0]) && Number.isFinite(origin[1])) {
+    return `https://map.naver.com/p/directions/${origin[1]},${origin[0]},Origin/${lng},${lat},${name}/-/transit?c=15,0,0,0,dh`;
+  }
+  return `https://map.naver.com/p/search/${name}?c=15,0,0,0,dh`;
+}
+
+export function kakaoMapUrl(place, origin = null) {
+  const { lat, lng } = coordsOf(place);
+  const name = encodeURIComponent(place.name);
+  return `https://map.kakao.com/link/to/${name},${lat},${lng}`;
+}

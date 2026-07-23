@@ -6,7 +6,7 @@ import {
   BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, coordsOf } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
 } from '../data/verification';
@@ -65,12 +65,14 @@ export default function RestaurantDetail({
 }) {
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  const [showDirections, setShowDirections] = useState(false);
   const storyRef = useRef(null);
   const sheetRef = useRef(null);
 
   useEffect(() => {
     setCopied(false);
     setShared(false);
+    setShowDirections(false);
     if (!restaurant) return;
     if (focusStory && storyRef.current) {
       storyRef.current.scrollIntoView({ block: 'start' });
@@ -292,9 +294,27 @@ export default function RestaurantDetail({
               )}
 
               <div className="practical-actions">
-                <button className="btn-primary" onClick={() => window.open(directionsUrl(restaurant, mapCenter), '_blank')}>
-                  <CompassIcon size={18} /> Get Directions
-                </button>
+                <div style={{ position: 'relative' }}>
+                  <button className="btn-primary" onClick={() => setShowDirections(true)}>
+                    <CompassIcon size={18} /> Get Directions
+                  </button>
+                  {showDirections && (
+                    <>
+                      <div className="directions-sheet__backdrop" onClick={() => setShowDirections(false)} />
+                      <div className="directions-sheet__menu">
+                        <button className="directions-btn" onClick={() => window.open(directionsUrl(restaurant, mapCenter), '_blank')}>
+                          Google Maps
+                        </button>
+                        <button className="directions-btn" onClick={() => window.open(naverMapUrl(restaurant, mapCenter), '_blank')} style={{ color: '#03c75a' }}>
+                          Naver Map
+                        </button>
+                        <button className="directions-btn" onClick={() => window.open(kakaoMapUrl(restaurant, mapCenter), '_blank')} style={{ color: '#dcb800' }}>
+                          Kakao Map
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
                 <button
                   className={`icon-btn icon-btn--lg${isBookmarked ? ' icon-btn--saved' : ''}`}
                   aria-label={isBookmarked ? `Remove ${name} from journal` : `Save ${name} to journal`}

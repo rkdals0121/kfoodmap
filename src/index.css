@@ -1452,7 +1452,7 @@ button {
   .app-shell {
     --left-w: 380px;
     display: grid;
-    grid-template-columns: var(--left-w) 1fr;
+    grid-template-columns: minmax(0, var(--left-w)) minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     grid-template-areas:
       'header map'
@@ -1581,4 +1581,119 @@ button {
 @keyframes dialogIn {
   from { opacity: 0; transform: translate(-50%, -50%) scale(0.97); }
   to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ---------- Sidebar Toggle (Desktop) ---------- */
+@media (min-width: 1024px) {
+  .app-shell {
+    transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .app-shell.is-collapsed {
+    --left-w: 64px;
+  }
+  .app-shell.is-collapsed .tab-bar {
+    flex-direction: column;
+    padding: 16px 0;
+    gap: 12px;
+    align-items: center;
+  }
+  .app-shell.is-collapsed .tab-item {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .app-shell.is-collapsed .tab-label {
+    display: none;
+  }
+  .app-shell.is-collapsed .home-header,
+  .app-shell.is-collapsed .list-region,
+  .app-shell.is-collapsed .journal-panel,
+  .app-shell.is-collapsed .tab-panel {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .home-header, .list-region, .journal-panel, .tab-panel {
+    transition: opacity 0.15s ease, visibility 0.15s;
+    min-width: 420px;
+  }
+  
+  /* Map overlap to hide the sidebar smoothly */
+  .map-region {
+    position: relative;
+    z-index: 10;
+    background: var(--background); /* In case map tiles load late, show clean background */
+  }
+
+  /* Google Maps style collapse button */
+  .sidebar-toggle {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    width: 24px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    color: var(--ink-body);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .sidebar-toggle:hover {
+    background: var(--surface-hover);
+    color: var(--ink-title);
+  }
+}
+
+@media (max-width: 1023px) {
+  .sidebar-toggle {
+    display: none !important;
+  }
+}
+
+/* ---------- Directions Menu ---------- */
+.directions-sheet__menu {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  min-width: 160px;
+  margin-bottom: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 101;
+  box-shadow: var(--shadow-2);
+  animation: slideUpFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.directions-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-title);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+.directions-btn:hover {
+  background: var(--surface-hover);
+}
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
