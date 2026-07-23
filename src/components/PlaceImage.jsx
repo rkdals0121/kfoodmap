@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 // when available; until then, a designed placeholder built from the place's
 // illustration. Swapping in real photos later means filling the data fields —
 // no component changes.
-export default function PlaceImage({ place, variant = 'thumb', className = '' }) {
+export default function PlaceImage({ place, variant = 'thumb', className = '', onClick }) {
   const real = place.photo || place.coverImage || null;
   const [failed, setFailed] = useState(false);
   const showReal = real && !failed;
 
   return (
-    <div className={`place-image place-image--${variant} ${className}`}>
+    <div className={`place-image place-image--${variant} ${className}`} onClick={onClick}>
       {showReal ? (
         // real photos are heavier — lazy-load them
         <img src={real} alt="" loading="lazy" onError={() => setFailed(true)} />

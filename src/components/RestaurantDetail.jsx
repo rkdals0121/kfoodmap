@@ -3,7 +3,8 @@ import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
-  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon
+  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon,
+  ChevronLeftIcon, ChevronRightIcon
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf } from '../utils';
@@ -66,6 +67,8 @@ export default function RestaurantDetail({
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [showDirections, setShowDirections] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryIdx, setGalleryIdx] = useState(0);
   const storyRef = useRef(null);
   const sheetRef = useRef(null);
 
@@ -83,10 +86,30 @@ export default function RestaurantDetail({
 
   useEffect(() => {
     if (!restaurant) return undefined;
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (e) => { 
+      if (e.key === 'Escape') {
+        if (galleryOpen) {
+          e.stopPropagation();
+          setGalleryOpen(false);
+        } else {
+          onClose(); 
+        }
+      }
+    };
+    window.addEventListener('keydown', onKey, true); // capture phase to handle gallery first
+    return () => window.removeEventListener('keydown', onKey, true);
+  }, [restaurant, onClose, galleryOpen]);
+
+  // Gallery key navigation
+  useEffect(() => {
+    if (!galleryOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight') setGalleryIdx(i => i === 0 ? 0 : 0); // only 1 image currently
+      if (e.key === 'ArrowLeft') setGalleryIdx(i => i === 0 ? 0 : 0);
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [restaurant, onClose]);
+  }, [galleryOpen]);
 
   if (!restaurant) return null;
 
@@ -116,6 +139,8 @@ export default function RestaurantDetail({
     restaurant.phone, restaurant.officialUrl, restaurant.instagram, restaurant.transit,
     restaurant.dietary.vegan, restaurant.dietary.halal,
   ].map(f => f?.lastCheckedAt).filter(Boolean).sort().at(-1);
+
+  const galleryImages = [restaurant.photo || restaurant.coverImage || restaurant.image].filter(Boolean);
 
   // Clipboard API needs focus/permission (in-app browsers often lack it) — fall back to execCommand
   const fallbackCopy = (text) => {
@@ -178,7 +203,11 @@ export default function RestaurantDetail({
         </button>
 
         <div className="detail-scroll">
-          <PlaceImage place={restaurant} variant="hero" />
+          <PlaceImage 
+            place={restaurant} 
+            variant="hero" 
+            onClick={() => setGalleryOpen(true)} 
+          />
 
           <div className="detail-content">
             <header className="detail-header">
@@ -453,9 +482,53 @@ export default function RestaurantDetail({
                 </div>
               </dl>
             </footer>
+            
+            {/* Source transparency log */}
+            <div className="transparency-log">
+              {lastChecked && (
+                <p>
+                  Last verified: {new Date(lastChecked).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </p>
+              )}
+              <p>
+                To suggest an edit, email <a href="mailto:hello@kfoodmap.com">hello@kfoodmap.com</a>
+              </p>
+            </div>
+
           </div>
         </div>
       </div>
+
+      {galleryOpen && galleryImages.length > 0 && (
+        <div className="gallery-overlay" onClick={() => setGalleryOpen(false)}>
+          <button className="gallery-close" onClick={() => setGalleryOpen(false)}>
+            <XIcon size={24} />
+          </button>
+          
+          <div className="gallery-slider" onClick={e => e.stopPropagation()}>
+            {galleryImages.map((img, i) => (
+              <img key={i} src={img} className="gallery-slide" alt="Gallery item" />
+            ))}
+          </div>
+
+          {galleryImages.length > 1 && (
+            <>
+              <button 
+                className="gallery-nav prev" 
+                onClick={(e) => { e.stopPropagation(); setGalleryIdx(i => (i - 1 + galleryImages.length) % galleryImages.length); }}
+              >
+                <ChevronLeftIcon size={24} />
+              </button>
+              <button 
+                className="gallery-nav next" 
+                onClick={(e) => { e.stopPropagation(); setGalleryIdx(i => (i + 1) % galleryImages.length); }}
+              >
+                <ChevronRightIcon size={24} />
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </>
   );
 }

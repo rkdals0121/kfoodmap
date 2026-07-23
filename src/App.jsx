@@ -65,6 +65,7 @@ export default function App() {
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   const [focusStory, setFocusStory] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
 
   // Single choke point for every path that opens detail (map pin, card,
   // Journal stamp/next-stop) — a quarantined restaurant is a no-op here
@@ -136,8 +137,22 @@ export default function App() {
 
   return (
     <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
+      {/* Map is now at the base level */}
+      <div className="map-region">
+        <MapComponent
+          restaurants={filteredRestaurants}
+          onMarkerClick={openDetail}
+          selectedId={selectedRestaurant?.id}
+          onCenterChange={setMapCenter}
+        />
+      </div>
 
-      <div className="sidebar-region">
+      <div className={`sidebar-region sheet-state-${sheetState}`}>
+        {/* Mobile handle to cycle through sheet states */}
+        <div className="sheet-handle-area" onClick={() => setSheetState(s => (s + 1) % 3)}>
+          <div className="sheet-handle-bar" />
+        </div>
+
         {/* Search + dietary filters */}
         <FilterBar
           searchQuery={searchQuery}
@@ -146,7 +161,7 @@ export default function App() {
           onToggleFilter={handleToggleFilter}
         />
 
-        {/* Restaurant list — always visible, nearest to the map center first */}
+        {/* Restaurant list */}
         <section className="list-region" aria-label="Restaurant list">
           <BottomSheetList
             restaurants={filteredRestaurants}
@@ -186,16 +201,6 @@ export default function App() {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
           )}
         </button>
-      </div>
-
-      {/* Map: the discovery hero (~46vh) — filters narrow the pins */}
-      <div className="map-region">
-        <MapComponent
-          restaurants={filteredRestaurants}
-          onMarkerClick={openDetail}
-          selectedId={selectedRestaurant?.id}
-          onCenterChange={setMapCenter}
-        />
       </div>
 
       {/* Layer 2: Full-Screen Detail Modal */}

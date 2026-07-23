@@ -165,3 +165,11 @@ export const ShieldCheckIcon = ({ size = 18 }) => (
     <path d="m9 12.5 2 2 4-4" />
   </svg>
 );
+
+export const ChevronLeftIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="M15 18l-6-6 6-6" />
+  </svg>
+);
+
+
