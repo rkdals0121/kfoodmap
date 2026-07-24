@@ -7,6 +7,7 @@ import RestaurantDetail from './components/RestaurantDetail';
 import TabBar from './components/TabBar';
 import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
+import Prologue from './components/Prologue';
 import { MAP_CENTER } from './utils';
 import { matchesDietary, isQuarantined } from './data/verification';
 import './index.css';
@@ -66,6 +67,9 @@ export default function App() {
   const [focusStory, setFocusStory] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
+  const [prologueCompleted, setPrologueCompleted] = useState(
+    () => localStorage.getItem('kfm-prologue') === 'true'
+  );
 
   // Touch states for mobile bottom sheet swipe
   const [touchStartY, setTouchStartY] = useState(null);
@@ -157,6 +161,17 @@ export default function App() {
     });
   }, [selectedFilters, searchQuery]);
 
+  if (!prologueCompleted) {
+    return (
+      <Prologue 
+        onComplete={() => {
+          localStorage.setItem('kfm-prologue', 'true');
+          setPrologueCompleted(true);
+        }} 
+      />
+    );
+  }
+
   return (
     <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
       {/* Map is now at the base level */}
@@ -169,48 +184,53 @@ export default function App() {
         />
       </div>
 
-      <div className={`sidebar-region sheet-state-${sheetState}`}>
-        {/* Mobile handle and header wrapped for touch events */}
-        <div 
-          className="sheet-header-drag-area"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="sheet-handle-area" onClick={() => setSheetState(s => (s + 1) % 3)}>
-            <div className="sheet-handle-bar" />
-          </div>
+      <div className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`}>
+        {/* Render Map Items ONLY when activeTab is 'map' */}
+        {activeTab === 'map' && (
+          <>
+            {/* Mobile handle and header wrapped for touch events */}
+            <div 
+              className="sheet-header-drag-area"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div className="sheet-handle-area" onClick={() => setSheetState(s => (s + 1) % 3)}>
+                <div className="sheet-handle-bar" />
+              </div>
 
-          {/* Search + dietary filters */}
-          <FilterBar
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            selectedFilters={selectedFilters}
-            onToggleFilter={handleToggleFilter}
-          />
-        </div>
+              {/* Search + dietary filters */}
+              <FilterBar
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                selectedFilters={selectedFilters}
+                onToggleFilter={handleToggleFilter}
+              />
+            </div>
 
-        {/* Restaurant list */}
-        <section className="list-region" aria-label="Restaurant list">
-          <BottomSheetList
-            restaurants={filteredRestaurants}
-            mapCenter={mapCenter}
-            bookmarkedIds={bookmarkedIds}
-            onRestaurantClick={openDetail}
-            onReadStory={openStory}
-            onToggleBookmark={handleToggleBookmark}
-            sustainabilityLens={sustainabilityLens}
-          />
-        </section>
+            {/* Restaurant list */}
+            <section className="list-region" aria-label="Restaurant list">
+              <BottomSheetList
+                restaurants={filteredRestaurants}
+                mapCenter={mapCenter}
+                bookmarkedIds={bookmarkedIds}
+                onRestaurantClick={openDetail}
+                onReadStory={openStory}
+                onToggleBookmark={handleToggleBookmark}
+                sustainabilityLens={sustainabilityLens}
+              />
+            </section>
+          </>
+        )}
 
-        {/* Non-map tabs cover the map; the tab bar stays on top */}
+        {/* Tab panels rendered inside the sidebar */}
         {activeTab === 'journal' && (
           <JournalPanel bookmarks={bookmarks} mapCenter={mapCenter} onRestaurantClick={openDetail} />
         )}
         {activeTab !== 'map' && activeTab !== 'journal' && (
           <TabPanel tab={activeTab} onNavigate={setActiveTab} />
         )}
-        
+
         <TabBar 
           activeTab={activeTab} 
           onSelect={setActiveTab} 

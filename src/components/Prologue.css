@@ -1,0 +1,111 @@
+.prologue-layout {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.prologue-content {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.3s ease;
+}
+
+.prologue-content.fade-in {
+  opacity: 1;
+}
+
+.prologue-content.fade-out {
+  opacity: 0;
+}
+
+.prologue-step {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prologue-step--center {
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+
+.prologue-title {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink-title);
+  margin-bottom: 8px;
+}
+
+.prologue-subtitle {
+  font-size: 16px;
+  color: var(--ink-body);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.prologue-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--green-strong);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.prologue-btn:hover {
+  opacity: 0.9;
+}
+
+.prologue-btn--ghost {
+  background: transparent;
+  color: var(--muted-strong);
+  margin-top: -8px;
+}
+.prologue-btn--ghost:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.prologue-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--green-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: var(--green-strong);
+}
+
+.prologue-icon-wrapper svg {
+  width: 32px;
+  height: 32px;
+}
+
+.prologue-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--line);
+  border-top-color: var(--green-strong);
+  border-radius: 50%;
+  animation: prologueSpin 1s linear infinite;
+}
+
+@keyframes prologueSpin {
+  to { transform: rotate(360deg); }
+}

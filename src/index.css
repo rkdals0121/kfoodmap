@@ -102,6 +102,7 @@ button {
   flex-direction: column;
   gap: 12px;
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
 .search-field {
@@ -1660,17 +1661,37 @@ button {
   }
 
   /* To prevent content squishing while transitioning width to 64px */
-  .home-header, .list-region, .journal-panel, .tab-panel {
+  .sheet-header-drag-area, .list-region, .journal-panel, .tab-panel {
     width: 420px; 
     transition: opacity 0.15s ease;
   }
   
-  .app-shell.is-collapsed .home-header,
+  .app-shell.is-collapsed .sheet-header-drag-area,
   .app-shell.is-collapsed .list-region,
   .app-shell.is-collapsed .journal-panel,
   .app-shell.is-collapsed .tab-panel {
     opacity: 0;
     pointer-events: none;
+  }
+
+
+  /* Non-map tabs */
+  .journal-panel, .tab-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: var(--tab-h);
+    z-index: 100;
+    background: var(--surface);
+    overflow-y: auto;
+  }
+
+  .journal-panel, .tab-panel {
+    position: static;
+    flex-grow: 1;
+    z-index: auto;
+    background: transparent;
   }
 
   /* The tab bar leaves the bottom edge and becomes the left panel's own
@@ -1780,6 +1801,20 @@ button {
 }
 
 @media (max-width: 767px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .sidebar-region.non-map-tab {
+    background: transparent;
+    box-shadow: none;
+    pointer-events: none;
+    height: auto !important;
+  }
+  .sidebar-region.non-map-tab > * {
+    pointer-events: auto;
+  }
+
   .app-shell { display: block; }
   
   .map-region {
@@ -1829,6 +1864,20 @@ button {
     box-shadow: none;
     flex: 1;
     min-height: 0;
+    padding-bottom: var(--tab-h);
+  }
+
+  /* Fixed bottom navigation for mobile */
+  .tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -1px 8px rgba(0,0,0,0.05);
   }
 
   .border-region { display: none; }
@@ -1872,4 +1921,260 @@ button {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
- 
+
+/* ---------- Discover & Profile Tabs ---------- */
+
+.tab-panel-header {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.tab-panel-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink-title);
+}
+.tab-panel-header p {
+  font-size: 15px;
+  color: var(--ink-body);
+}
+
+.story-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+.story-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.story-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-1);
+}
+.story-card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background: var(--fill);
+}
+.story-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.story-card-content h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-title);
+}
+.story-card-content p {
+  font-size: 14px;
+  color: var(--ink-body);
+  line-height: 1.5;
+}
+.story-card-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green-strong);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 4px;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px;
+}
+.settings-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.settings-item:last-child {
+  border-bottom: none;
+}
+.settings-icon {
+  font-size: 20px;
+}
+.settings-text {
+  flex: 1;
+}
+.settings-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink-title);
+}
+.settings-value {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------- Journal Passport Polish ---------- */
+.passport-cover {
+  padding: 16px 20px 0;
+}
+
+.tab-panel-header {
+  padding: 16px 20px 8px;
+}
+.tab-panel-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink-title);
+  margin-top: 8px;
+}
+.tab-panel-header p {
+  font-size: 14px;
+  color: var(--ink-body);
+  margin-top: 4px;
+}
+
+.passport-stats {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+.stat-box {
+  flex: 1;
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--line);
+}
+.stat-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink-title);
+}
+.stat-label {
+  font-size: 13px;
+  color: var(--muted-strong);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.journal-section {
+  padding: 24px 20px 0;
+}
+.journal-section:last-child {
+  padding-bottom: 32px;
+}
+.journal-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.journal-section-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-title);
+}
+.journal-badge-count {
+  font-size: 14px;
+  color: var(--green-strong);
+  font-weight: 600;
+}
+
+.badges-grid {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.badges-grid::-webkit-scrollbar { display: none; }
+
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 80px;
+}
+.badge-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.badge-item.locked .badge-icon {
+  background: var(--surface);
+  filter: grayscale(100%) opacity(0.3);
+  box-shadow: none;
+}
+.badge-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-title);
+  text-align: center;
+}
+.badge-item.locked .badge-name {
+  color: var(--muted);
+}
+
+/* ---------- PlaceImage Premium Fallback ---------- */
+.place-image__fallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--green-tint) 0%, #f0f7f4 100%);
+  overflow: hidden;
+}
+.fallback-initial {
+  position: absolute;
+  font-size: 64px;
+  font-weight: 800;
+  color: rgba(0, 168, 107, 0.08); /* faint watermark */
+  user-select: none;
+}
+.place-image--thumb .fallback-initial {
+  font-size: 40px;
+}
+.fallback-illustration {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  opacity: 0.9;
+  z-index: 1;
+}
+.place-image--hero .fallback-illustration {
+  width: 80px;
+  height: 80px;
+}
