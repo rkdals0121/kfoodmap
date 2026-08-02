@@ -77,4 +77,33 @@ for (const place of active) {
   writeFileSync(path.join(dir, 'index.html'), pageFor(place), 'utf8');
 }
 
+// Generated here rather than kept as a static file in public/, for the same
+// reason the pages above are generated: the URL set IS the active-restaurant
+// set, so deriving both from `active` makes it impossible for the sitemap to
+// list a quarantined place or miss a newly-added one. A hand-maintained
+// public/sitemap.xml would silently drift the first time the data changed.
+//
+// Quarantined restaurants are absent by construction — they have no page to
+// point at, and listing an unverified venue for crawlers is the same
+// discovery-surface exposure §2.14 excludes them from everywhere else.
+function sitemapXml() {
+  const urls = ['', ...active.map(place => `place/${place.id}`)];
+  const entries = urls
+    .map(p => `  <url><loc>${SITE_URL}/${p}</loc></url>`)
+    .join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries}
+</urlset>
+`;
+}
+
+writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml(), 'utf8');
+writeFileSync(
+  path.join(distDir, 'robots.txt'),
+  `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`,
+  'utf8',
+);
+
 console.log(`Prerendered ${active.length} place page(s) into dist/place/ (of ${restaurants.length} total).`);
+console.log(`Wrote sitemap.xml (${active.length + 1} URLs) and robots.txt.`);

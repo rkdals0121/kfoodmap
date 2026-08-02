@@ -4,8 +4,9 @@
 **Last updated:** 2026-08-03 · **Base commit:** `56dbebf` (Multilingual
 infra + its final-review fixes; Stages 0–2 complete and Stage 3's infra
 slice shipped — see §12 for where that leaves things). **This edit lands
-together with the og:image restoration commit** it describes (§7 #22, #24)
-— no data changed. **Places:** 20 (18 active, 2 quarantined)
+together with the sitemap/robots commit** it describes (§7 #24; #22 and
+the `twitter:card` half landed just before, at `8478576`) — no data
+changed. **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -804,7 +805,8 @@ k-food-map/
 ├── scripts/                Node-only tooling
 │   ├── check-data.mjs      the QA gate
 │   ├── evidence-hash.mjs   seal / --check / --reseal
-│   ├── prerender-places.mjs  per-restaurant static HTML for crawler og:* meta;
+│   ├── prerender-places.mjs  per-restaurant static HTML for crawler og:* meta,
+│   │                          plus sitemap.xml + robots.txt (§7 #24);
 │   │                          runs after `vite build` (see package.json)
 │   ├── rasterize-apple-touch-icon.mjs  one-off, not wired into the build;
 │   │                          re-run manually if favicon.svg ever changes
@@ -1224,18 +1226,23 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     gate is the first thing they'd hit. Decided (2026-08-03) to leave as-is
     for now rather than special-case it; revisit if real usage shows
     meaningful drop-off on shared links before completing Prologue.
-24. **One of the two SEO extensions is now built; the other still isn't
-    (2026-08-03).** `twitter:card: summary_large_image` **shipped** with
-    the `og:image` restoration (#22) — it sits in `index.html`, so the
+24. **Resolved (2026-08-03).** Both SEO extensions are now built.
+    `twitter:card: summary_large_image` sits in `index.html`, so the
     prerendered copies inherit it without needing a `replacements()` entry
-    (it's identical for every page, unlike `og:title`/`og:image`). Still
-    **not** built: a `sitemap.xml`/`robots.txt` pointing crawlers at the 18
-    prerendered `/place/:id` URLs — there's no `public/robots.txt` or
-    sitemap today, so nothing tells a crawler the set exists beyond
-    whatever it discovers by following links. Not scheduled; recorded so
-    it stays a deliberate choice rather than an oversight. It would be
-    ~10 lines in a build script that already enumerates the active
-    restaurants (`prerender-places.mjs`).
+    (it's identical for every page, unlike `og:title`/`og:image`).
+    `sitemap.xml` and `robots.txt` are **generated** by
+    `prerender-places.mjs`, not kept as static files in `public/` — the
+    URL set *is* the active-restaurant set, so deriving both from the same
+    `active` array makes it structurally impossible for the sitemap to
+    list a quarantined place or miss a newly-added one; a hand-maintained
+    `public/sitemap.xml` would silently drift the first time the data
+    changed. 19 URLs today (18 restaurants + the homepage). Quarantined
+    restaurants are absent by construction — they have no page to point
+    at, and listing an unverified venue for crawlers is the same
+    discovery-surface exposure §2.14 excludes them from everywhere else.
+    Both files land after `vite build` finalizes the service worker's
+    precache manifest, so neither is precached — correct, since
+    crawler-only files have no reason to be available offline.
 25. **`--ink-title` CSS custom property is referenced 12 times across
     `index.css`/`Prologue.css` but never declared anywhere** — found
     2026-08-03 while building the offline banner (`.offline-banner`),
