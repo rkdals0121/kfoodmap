@@ -1,20 +1,20 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-07-18 · **HEAD:** `8807bac` (Nearby Route MVP —
-**Phase 6 underway**; v1.0 shipped at `07feea7`)
-**+ uncommitted changes** (Phase 6 — Story Timeline MVP: a sourced history
-timeline on the three venues whose story already carries one; `restaurants.js`
-gains a `timeline` editorial field on those three, plus app code and this
-file) · **Places:** 20 (18 active, 2 quarantined)
+**Last updated:** 2026-08-02 · **HEAD:** `dd0c7a4` (master restored to K-Food
+Map after the 밥친구 incident — see §2.16; Phase 6 underway, four MVPs
+shipped; v1.0 at `07feea7`)
+**+ uncommitted changes** (this file only — documentation re-sync after the
+external shell work and the repository incident; no code or data changed) ·
+**Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
 was measured from the repository at the commit above **plus the working
-tree**, not remembered. The working tree currently differs from `HEAD` in this
-file and three app-code/data files (`restaurants.js`, `RestaurantDetail.jsx`,
-`index.css`), no commit yet — see §12 for what that change is before assuming
-this document describes committed code.
+tree**, not remembered. **One caution this update exists to record:** commits
+`9b84565..b160514` (2026-07-23/24) reworked the app shell outside the
+engineering log and outside the validation gates — see §2.16 for what they
+contain and §7 Low #20 for the debt they left.
 
 ---
 
@@ -568,13 +568,13 @@ bookmark drops the whole entry, taking the visit with it. `handleToggleVisited`
 only ever edits an existing entry — it cannot create one — so the invariant
 holds by construction rather than by check.
 
-**Passport progress counts visits, not saves.** `JournalPanel`'s "N of 20
-stamped" numerator is the visited count; the denominator stays
-`restaurants.length`. Saved-only places still appear in the journal, drawn with
-an open (dashed) ring, and are simply not counted. A fully inked stamp always
-means "you have been here" — which is what the passport metaphor claimed all
-along and did not previously deliver. The displayed stamp date is
-`visitedAt ?? savedAt`.
+**The passport counts visits, not saves.** Since the §2.16 shell rework the
+UI expression changed: the "N of 20 stamped" progress bar is gone, and the
+cover instead shows three counters — Visited, Saved, and Areas (distinct
+zones among visited places). Stamps render in two text-labelled sections,
+"Visited Places" (dated by `visitedAt`) and "Saved for Later" (dashed ring,
+dated by `savedAt`). A fully inked stamp still always means "you have been
+here". Quarantined places are filtered out of both sections.
 
 **Migration is read-time, reusing the existing pattern** in `loadBookmarks()`.
 Two older shapes normalise: `{ id, savedAt }` gains `visitedAt: null`, and the
@@ -583,12 +583,52 @@ rather than `null`, so "is it saved" stays a plain `savedAt` test with no legacy
 special case. `0` is falsy, so date rendering is unchanged for those records,
 and they can still be marked visited like any other.
 
-The journal's recent line is labelled **"Recently saved"**, not "stamped": it
-is ordered by `savedAt` and prints `savedAt`, so the wording follows the logic
-rather than the other way round.
+**Not in this MVP:** cross-device sync of this state. (The original MVP also
+left the saved/visited distinction visual-only; the §2.16 shell rework later
+gave the two states separate, text-labelled sections, closing that gap.)
 
-**Not in this MVP:** cross-device sync of this state, and any accessible (text
-or ARIA) signal for the saved/visited distinction — see §7 Low #18.
+### 2.16 App-shell rework and the repository incident (2026-07-23 → 08-02)
+
+Two things happened outside this document's log, recorded here after the fact.
+
+**The shell rework** (`9b84565..b160514`, six commits, 2026-07-23/24) — real
+product work, but it ran without the §11 process: no HANDOFF sync, no gate
+run, no one-unit-per-commit discipline. What it contains:
+
+- **Prologue** (`Prologue.jsx/.css`, new): a 4-step onboarding gate shown
+  before the app until completed once; completion persists to `localStorage`
+  under `kfm-prologue`.
+- **New layout shell** (`App.jsx`, `index.css` ±956 lines): desktop gets a
+  collapsible sidebar (`isSidebarCollapsed`) holding filters/list/tabs beside
+  a full-height map; mobile gets a three-state bottom sheet
+  (collapsed/half/expanded, `sheetState`) driven by swipe gestures and a
+  drag handle. Non-map tabs now render inside the sidebar instead of covering
+  the map.
+- **Naver/Kakao directions** (`utils.js`, `RestaurantDetail.jsx`):
+  `naverMapUrl()` / `kakaoMapUrl()` beside the existing Google deep link —
+  three buttons in the detail page. (Kakao's link format carries no origin.)
+- **JournalPanel redesign**: passport cover now shows Visited/Saved/Areas
+  stat boxes; stamps split into text-labelled "Visited Places" and "Saved for
+  Later" sections; a Badges grid was added. The progress bar, "N of 20
+  stamped" line, next-stop card and "Recently saved" line were removed. Two
+  §7 debts got fixed in passing: the quarantine bypass (old Medium #11 —
+  `stamped` now filters `isQuarantined`) and the visual-only saved/visited
+  distinction (old Low #18). One new debt arrived: the Badges grid is a
+  **hardcoded mockup** ("1 Earned", "First Taste" always earned) — see §7
+  Low #20.
+- Also: a GitHub Pages deploy workflow (`.github/workflows/deploy.yml`), and
+  `temp.js` + `.claude/launch.json` became tracked files.
+
+**The repository incident** (2026-08-02) — a second app (밥친구/Eatple, a team
+project that grew out of this codebase in a sibling folder) was merged into
+`rkdals0121/kfoodmap` `master` and briefly served from `kfoodmap.vercel.app`.
+Resolution, done in a separate session: the sibling folder's remote now points
+only at `rkdals0121/test` (with a `pre-push` hook and a `where-this-deploys`
+doc guarding it), and `dd0c7a4` restored this repo's `master` to a tree
+**byte-identical to `b160514`** — as a normal commit on top, so no history was
+rewritten; the 87 밥친구 commits remain reachable and also live in the `test`
+repo. Pre-incident state is kept at `backup/master-before-restore-2026-08-02`.
+Ownership now: this folder → `rkdals0121/kfoodmap` → `kfoodmap.vercel.app`.
 
 ---
 
@@ -845,27 +885,13 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
    Itaewon is 6 of 12 Seoul places.
 10. **No exit numbers** except `gonghwachun`. Kakao's routing API does not return
     them.
-11. **`JournalPanel` partially bypasses the quarantine filter (§2.14).**
-    `restaurants` is imported directly; `nextStop` filters with
-    `isQuarantined`, but `byId`, `stamped`, and the passport progress
-    denominator `total` do not (`src/components/JournalPanel.jsx:14,17,38`).
-    A restaurant bookmarked before it was quarantined would still render as a
-    stamp card and count toward "of 20 stamped." Opening it stays blocked by
-    `App.jsx`'s `openDetail`/`openStory` choke point, so this is a display
-    inconsistency, not an unverified-detail leak. Reproduced live during
-    Phase 4 QA (2026-07-18): a test-session browser had a stale `makan`
-    bookmark, which rendered a stamp card and inflated the "of 20" count;
-    clicking it was confirmed a no-op, no dialog, no console error. Not
-    reachable by a fresh user through the current UI — a restaurant can only
-    be bookmarked while active, and `makan`/`akiya` are unreachable from
-    every discovery surface (§2.1's map/search/list filter) before ever
-    being quarantined in this dataset.
-    **Phase 4 QA disposition (2026-07-18): accepted as post-v1.0
-    Documentation/UX debt, not a Release Blocker.** The trigger condition is
-    unreachable for a fresh v1.0 launch, and the one live reproduction above
-    confirmed the failure mode stays cosmetic (miscounted denominator, inert
-    card) — no unverified detail is ever exposed. Fix when `JournalPanel` is
-    next touched; do not gate v1.0 on it.
+11. **Resolved (2026-07-23, §2.16 shell rework).** `JournalPanel` no longer
+    bypasses the quarantine filter: `stamped` now filters
+    `!isQuarantined(b.place)`, so a stale bookmark for a quarantined place
+    renders nothing and counts nowhere. The old "of 20" denominator this item
+    worried about was removed outright along with the progress bar. History:
+    accepted as post-v1.0 debt at Phase 4 QA; fixed in passing by the
+    external rewrite rather than by a scoped commit.
 12. **`check-evidence.mjs`'s `factsOf()` whitelist excludes `lifecycle`
     (§2.14).** The evidence-layer rules (broken references, confidence
     ceilings, stale pins) never walk a `lifecycle.determination` fact.
@@ -887,16 +913,20 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 
 ### Low
 
-13. **Dead files, re-confirmed 2026-07-17:** `temp.js` (0 bytes, untracked),
-    `verify.cjs`, `geocode_and_build.cjs` (18 kB), `src/data/restaurants.json`
-    (18 kB, the pre-schema-v2 JSON `verify.cjs` reads and
-    `geocode_and_build.cjs` writes). Re-grepped across `src/`, `scripts/`,
-    `index.html`, `vite.config.js`, and `package.json` — zero references to
-    any of the four from live code. `geocode_and_build.cjs` is the only one
-    with salvage value (a re-geocoding pipeline; its embedded data is the
-    pre-P0 marketing-tone draft and should not be reused as-is).
-    Not deleted — no destructive action without explicit approval.
-14. **`oxlint` warns ×2** — both inside dead `geocode_and_build.cjs`.
+13. **Dead files:** `temp.js` (0 bytes), `verify.cjs`, `geocode_and_build.cjs`
+    (18 kB), `src/data/restaurants.json` (18 kB, the pre-schema-v2 JSON
+    `verify.cjs` reads and `geocode_and_build.cjs` writes). Zero references
+    from live code (re-grepped 2026-07-17). **Update 2026-08-02:** `temp.js`
+    and `.claude/launch.json` (local tooling config) are now *tracked* — the
+    §2.16 shell commits added them, ending the every-commit-excludes-temp.js
+    discipline by accident. Removal candidates on the next housekeeping
+    commit. Not deleted — no destructive action without explicit approval.
+14. **`oxlint` baseline moved: 2 → 15 warnings.** The original two live in
+    dead `geocode_and_build.cjs`; the §2.16 shell work added 13 more, all
+    unused imports/variables in `JournalPanel.jsx`, `RestaurantDetail.jsx`,
+    `TabPanel.jsx` (measured 2026-08-02). Gates still pass (warnings, not
+    errors), but "no new warnings" comparisons must use 15 as the baseline
+    until a cleanup commit lands.
 15. **No automated tests.** `check-data` is the only gate. The evidence rules
     were proven by a throwaway mutation harness that was not kept — worth
     formalising if this grows.
@@ -921,11 +951,13 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     `--visited` yields `#ECF8F2` / `#0E9F6E` / `#087F5B` on a bare `.icon-btn`).
     Border and text colour do apply; only the background is lost. Left alone
     deliberately: fixing it would have expanded a scoped feature commit into a
-    change to shipped visual behaviour.
-18. **Saved vs visited is conveyed visually only.** The journal distinguishes
-    the two states through the stamp ring and date colour, with no text or ARIA
-    signal, so a screen-reader user cannot perceive it. Adding one requires new
-    wording, which was out of scope for the Passport Enhancement MVP.
+    change to shipped visual behaviour. *(2026-08-02: not re-verified since
+    the §2.16 CSS overhaul — re-check before citing.)*
+18. **Resolved (2026-07-23, §2.16 shell rework).** Saved vs visited is no
+    longer visual-only: the journal now renders the two states in separate
+    sections with text headings ("Visited Places" / "Saved for Later"), which
+    screen readers announce. History: recorded as debt at the Passport
+    Enhancement MVP; fixed in passing by the external rewrite.
 19. **The sustainability axis is thin, and `esg_point` is not an ESG field.**
     Measured 2026-07-18 while building ESG Explorer, and recorded as a limit of
     the current data rather than a reason to revisit the plan. Of 18 active
@@ -940,6 +972,26 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     deriving a sustainability category from that text would be inventing ESG
     facts, which is permanently out of scope. Widening the axis is a content
     problem (the content pass, §10 Cross-cutting), not a UI one.
+20. **Debt left by the §2.16 shell rework (2026-08-02 audit).** Beyond the
+    lint baseline (#14) and the newly tracked scratch files (#13):
+    - **The Badges grid is a hardcoded mockup.** `JournalPanel` always shows
+      "1 Earned" with "First Taste" earned and two locked badges, regardless
+      of state — a UI asserting something untrue, in the one app whose whole
+      identity is not doing that. Wire it to real state or remove it before
+      any release.
+    - **Inline brand hexes** on the Naver/Kakao direction buttons
+      (`#03c75a`, `#FEE500`, `#191919` as `style=` props in
+      `RestaurantDetail.jsx`) — the first colours outside `:root` since the
+      token system landed (§11 rule 19). Brand colours may justify an
+      exception; decide, then either tokenise or record the exception here.
+    - **Dual deploy targets**: the GH Pages workflow deploys on every master
+      push while Vercel also builds the same repo. `vite.config.js` sets no
+      `base`, so the Pages build almost certainly serves broken asset paths
+      anyway. Pick one target (Vercel is the working one) and delete or fix
+      the other.
+    - The rework was **never gate-checked or browser-QA'd under §11 rule
+      16** — it happens to pass the gates now, but its responsive/AA claims
+      in §8 are unverified for the new shell.
 
 ---
 
@@ -1125,12 +1177,15 @@ Recommended order, frozen 2026-07-18 unless explicitly changed:
    routed trip rather than a bare pin — a link, not a runtime routing call, so
    the no-backend constraint holds. Everything the planning notes filed under
    Future Expansion (in-app polyline, ETA, transit-mode choice, live location)
-   stays out of scope. See §12.
+   stays out of scope. See §12. *(The §2.16 shell rework later added Naver and
+   Kakao deep-link buttons beside the Google one — same link-not-runtime-call
+   approach, so §2.1 still holds.)*
 3. **Journey + Passport expansion.** Extends the existing Journal/passport
    already in the core loop; no new data risk.
    **Passport half: MVP shipped.** Saved and visited are now distinct states
    and passport progress counts visits — see §2.15 for the state model and §7
-   Low #17–18 for the debt it left. **Story Timeline — the separate `Add`
+   Low #17 for the debt it left (#18 was later fixed by the §2.16 rework).
+   **Story Timeline — the separate `Add`
    candidate this item was split into during Phase 6 planning — also shipped:**
    a sourced history timeline in the detail page, on the three venues whose
    story already carries one (§12). The Food Journey half is untouched.
@@ -1232,7 +1287,8 @@ completed 2026-07-18, and v1.0 shipped at `07feea7` with `README.md` and
 **`Passport Enhancement` MVP** — committed at `c01db9c`. Saved and visited are
 distinct states (`visitedAt` alongside `savedAt` under the same
 `kfm-bookmarks` key, invariant holding by construction — §2.15), and passport
-progress counts visits rather than saves. Debt at §7 Low #17–18.
+progress counts visits rather than saves. Debt at §7 Low #17 (#18 was later
+fixed by the §2.16 rework).
 
 **`ESG Explorer` MVP** — committed at `3a0ca9f`. A sustainability lens over the
 list that **creates no data**: a `Sustainability` group chip (OR over its two
@@ -1250,10 +1306,10 @@ URL, so the link can never break. No runtime network call is added, so the
 no-backend constraint (§2.1) holds. In-app polyline, ETA, transit-mode choice
 and live location are Future Expansion and were not built.
 
-**`Story Timeline` MVP** — uncommitted at the time of writing. A sourced
-history timeline in the detail page's Food Story section, and it **creates no
-new facts** — every entry is drawn from the venue's existing `story`, all
-confirmed during the 2026-07-17 Phase 3 verification, none newly researched:
+**`Story Timeline` MVP** — committed at `31e4b2f`. A sourced history timeline
+in the detail page's Food Story section, and it **creates no new facts** —
+every entry is drawn from the venue's existing `story`, all confirmed during
+the 2026-07-17 Phase 3 verification, none newly researched:
 
 - A new `timeline` **editorial field** (`[{ year, event }]`) on the data
   layer, at the same level as `story`/`vibe`/`esg_point` — not a `fact()`, so
@@ -1274,22 +1330,42 @@ confirmed during the 2026-07-17 Phase 3 verification, none newly researched:
   byte-unchanged. `restaurants.js` is edited for the first time since v1.0 —
   three records gain the field, no existing value is touched.
 
+**After those four MVPs**, the §2.16 shell rework landed externally
+(Prologue, sidebar/bottom-sheet layout, Naver/Kakao direction buttons, the
+Journal redesign) and the repository incident was resolved with the `dd0c7a4`
+restore. That is the state this HEAD describes.
+
 ### Next recommended task
 
-Four Phase 6 features remain, unchanged in §10: Multilingual (i18n), AI Food
-Guide, Offline Mode, and the `User Features` split (Cross-Device Sync +
-User-Generated Content), plus the Food Journey piece of the Journey item. Their
-MVP scopes are frozen from Phase 6 planning; pick one and implement it directly
-rather than re-planning. Note that three of them (AI Food Guide, Cross-Device
-Sync, User-Generated Content) are gated on the same unmade §2.1 decision — see
-§7 High debt and the planning record.
+A new growth-oriented development plan was drawn up on 2026-08-02 (informed
+by a competitive study of eatpass.kr and the map/curation-app market). Its
+staged shape: **(0)** housekeeping → **(1)** shareable URLs + SEO →
+**(2)** activation work that needs no backend (sample passport, empty states,
+Food Journey MVP, offline) → **(3)** Multilingual → **(4)** the
+backend-gated community features (UGC intake, Cross-Device Sync) plus a
+verification-gated data-expansion pipeline — explicitly *not* a bulk import.
 
-**Do not:** widen a feature commit to fix pre-existing UI behaviour found in
-passing (§7 Low #17 is the precedent); begin a second Phase 6 feature before
-the current one is committed; derive any ESG category, score or ranking from
-`esg_point` text (§7 Low #19); add in-app routing, ETA, or live location to
-Nearby Route (all Future Expansion, §10 item 2); research new history to widen
-Story Timeline coverage (Scope forbids it — §10 item 3).
+Immediately next, in order:
+
+1. **Housekeeping commit** — untrack `temp.js` / `.claude/launch.json`,
+   remove the 13 new lint warnings, settle the dual-deploy question
+   (§7 Low #20), decide the Badges mockup (wire or remove).
+2. **The §2.1 routing decision** — shareable per-restaurant URLs require a
+   router, which §2.1 currently forbids ("no router"). This is an
+   architecture amendment and needs explicit approval before Stage 1 starts.
+3. Then Stage 2 features, one at a time, under the normal §11 discipline.
+
+The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide, Offline,
+Cross-Device Sync, UGC, Food Journey) stay frozen from Phase 6 planning and
+slot into the stages above; implement them directly rather than re-planning.
+
+**Do not:** repeat the §2.16 pattern — no work outside the gates and this
+log; bulk-import restaurant data (the eatpass study is the cautionary tale:
+3,867 unverified rows render a ghost town); derive any ESG category, score
+or ranking from `esg_point` text (§7 Low #19); add in-app routing, ETA, or
+live location to Nearby Route (Future Expansion, §10 item 2); research new
+history to widen Story Timeline coverage (Scope forbids it — §10 item 3);
+ship the hardcoded Badges grid in any release (§7 Low #20).
 
 ---
 
