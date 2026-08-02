@@ -31,6 +31,12 @@
   gap: 16px;
 }
 
+.prologue-step--center {
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+
 .prologue-title {
   font-size: 28px;
   font-weight: 800;
@@ -64,15 +70,42 @@
   opacity: 0.9;
 }
 
-/* The Korean name of the product, set in the same myeongjo the rest of the
-   app uses for Hangul. It replaced a flag emoji: a flag says which country,
-   which the next line already says, and says nothing about what this is. */
-.prologue-kr {
-  font-family: var(--ex-kr);
-  font-size: 34px;
-  line-height: 1;
-  letter-spacing: 0.1em;
-  color: var(--ex-brass);
-  margin-bottom: 6px;
+.prologue-btn--ghost {
+  background: transparent;
+  color: var(--muted-strong);
+  margin-top: -8px;
+}
+.prologue-btn--ghost:hover {
+  background: transparent;
+  color: var(--ink);
 }
 
+.prologue-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--green-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: var(--green-strong);
+}
+
+.prologue-icon-wrapper svg {
+  width: 32px;
+  height: 32px;
+}
+
+.prologue-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--line);
+  border-top-color: var(--green-strong);
+  border-radius: 50%;
+  animation: prologueSpin 1s linear infinite;
+}
+
+@keyframes prologueSpin {
+  to { transform: rotate(360deg); }
+}

@@ -1,23 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PlaceImage from './PlaceImage';
-import PlaceCard from './PlaceCard';
-import { menuById } from '../domain/catalog/menus.js';
-import { isPast } from '../domain/policy/table.js';
-import { listTables } from '../data/tableRepository.js';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
   BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon,
-  ChevronLeftIcon, ChevronRightIcon, SparkleIcon
+  ChevronLeftIcon, ChevronRightIcon
 } from './Icons';
-import CulturalRoute from './CulturalRoute';
 import { getCulture } from '../data/culture';
-import { tipsFor } from '../data/journey';
-import { restaurants } from '../data/restaurants';
-import { featuredZones } from '../data/experiences';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf } from '../utils';
 import {
-  dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, isQuarantined,
+  dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
 } from '../data/verification';
 
 const TRAIT_META = {
@@ -50,55 +42,10 @@ const DIET_CAVEAT = {
   [CONFIDENCE.UNKNOWN]: { title: 'No dietary information yet.', body: `We haven't established what this kitchen serves, so we don't make a claim either way.` },
 };
 
-export default class RestaurantDetail extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'red', color: 'white', zIndex: 9999, padding: 20 }}>
-          <h1>Error in RestaurantDetail</h1>
-          <pre>{this.state.error?.toString()}</pre>
-          <pre>{this.state.error?.stack}</pre>
-          <button onClick={() => this.setState({ hasError: false })}>Dismiss</button>
-        </div>
-      );
-    }
-    return <RestaurantDetailInner {...this.props} />;
-  }
-}
-
-function RestaurantDetailInner({
+export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited,
-  mapCenter, focusStory, onOpenRestaurant, onExploreZone, bookmarkedIds = [], onNavigate,
-  onOpenTableHere, onOpenTable,
+  mapCenter, focusStory,
 }) {
-  // Tables already happening at this restaurant. Read the same way every
-  // other screen reads them, so the Supabase swap reaches here for free.
-  const [tablesHere, setTablesHere] = useState([]);
-
-  // This component renders before `restaurant` exists — the hook has to run
-  // on every render, so it cannot assume the prop is there.
-  const restaurantName = restaurant?.name;
-
-  useEffect(() => {
-    if (!restaurantName) { setTablesHere([]); return undefined; }
-    let alive = true;
-    const key = restaurantName.split('(')[0].trim().toLowerCase();
-    (async () => {
-      const all = await listTables();
-      const here = all.filter(t =>
-        !isPast(t) && t.restaurant && t.restaurant.trim().toLowerCase() === key);
-      if (alive) setTablesHere(here);
-    })();
-    return () => { alive = false; };
-  }, [restaurantName]);
-
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [showDirections, setShowDirections] = useState(false);
@@ -156,22 +103,15 @@ function RestaurantDetailInner({
     ? formatDistance(haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng))
     : null;
 
-  // Same-category places elsewhere — the closest thing to "related foods"
-  // that doesn't require inventing dish data we don't have.
-  const relatedPlaces = restaurants
-    .filter(r => r.id !== restaurant.id && r.category === restaurant.category && !isQuarantined(r))
-    .slice(0, 6);
-  const zoneInfo = featuredZones.find(z => z.zone === restaurant.zone);
-
   const dietFacts = dietaryBadges(restaurant).map(b => ({ Icon: DIETARY_ICON[b.key], label: b.label, fact: b.fact }));
   const traitFacts = restaurant.traits.map(t => TRAIT_META[t]).filter(Boolean).map(t => ({ ...t, fact: null }));
   const facts = [...dietFacts, ...traitFacts];
-  const certClaim = restaurant.dietary?.halalCertClaim;
+  const certClaim = restaurant.dietary.halalCertClaim;
   const caveat = DIET_CAVEAT[dietaryConfidence(restaurant)] ?? DIET_CAVEAT[CONFIDENCE.UNKNOWN];
   const lastChecked = [
     restaurant.coordinates, restaurant.address, restaurant.hours, restaurant.menus,
     restaurant.phone, restaurant.officialUrl, restaurant.instagram, restaurant.transit,
-    restaurant.dietary?.vegan, restaurant.dietary?.halal,
+    restaurant.dietary.vegan, restaurant.dietary.halal,
   ].map(f => f?.lastCheckedAt).filter(Boolean).sort().at(-1);
 
   const galleryImages = [restaurant.photo || restaurant.coverImage || restaurant.image].filter(Boolean);
@@ -263,100 +203,7 @@ function RestaurantDetailInner({
               {certClaim && <p className="diet-note__cert">Certification claimed: {certClaim.body} — we have not sighted the certificate.</p>}
             </div>
 
-            {/* Quick Info — hours, transit, phone, links, save/visit/share */}
-            <section className="detail-section">
-              <SectionHead Icon={ClockIcon} title="Quick Info" />
-              <div className="practical">
-                <div className="practical-row">
-                  <ClockIcon size={17} />
-                  {status ? (
-                    <span>
-                      <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
-                      {' '}· {status.detail}{' '}
-                      {today && <span className="practical-muted">(today {today})</span>}
-                    </span>
-                  ) : (
-                    <span className="practical-muted">Opening hours unknown — check before you go</span>
-                  )}
-                </div>
-
-                {isKnown(restaurant.transit) && (
-                  <div className="practical-row">
-                    <TrainIcon size={17} />
-                    {/* Each piece gets its own element rather than sitting as
-                        a bare text node beside its siblings.
-
-                        This app is read by people whose browsers offer to
-                        translate it, and Chrome's translator does not edit
-                        text in place — it replaces each text node with a
-                        <font> wrapper. React still holds the original node,
-                        so when it later removes one it calls removeChild on
-                        something that is no longer a child, and the whole
-                        screen dies with NotFoundError. Removing an *element*
-                        survives that, because the element itself is still
-                        where React left it. */}
-                    <span>
-                      <span>{restaurant.transit.value.station}</span>{' '}
-                      <span>{restaurant.transit.value.line}</span>
-                      {restaurant.transit.value.exit && (
-                        <span>, exit {restaurant.transit.value.exit}</span>
-                      )}
-                      <span> · {restaurant.transit.value.walkingMinutes} min walk</span>
-                    </span>
-                  </div>
-                )}
-
-                {isKnown(restaurant.phone) && (
-                  <div className="practical-row">
-                    <PhoneIcon size={17} />
-                    <a className="practical-link" href={`tel:${restaurant.phone.value.replace(/-/g, '')}`}>
-                      {restaurant.phone.value}
-                    </a>
-                  </div>
-                )}
-
-                {(isKnown(restaurant.officialUrl) || isKnown(restaurant.instagram)) && (
-                  <div className="practical-row">
-                    <LinkIcon size={17} />
-                    <span className="practical-links">
-                      {isKnown(restaurant.officialUrl) && (
-                        <a className="practical-link" href={restaurant.officialUrl.value} target="_blank" rel="noreferrer noopener">Website</a>
-                      )}
-                      {isKnown(restaurant.instagram) && (
-                        <a className="practical-link" href={restaurant.instagram.value} target="_blank" rel="noreferrer noopener">Instagram</a>
-                      )}
-                    </span>
-                  </div>
-                )}
-
-                <div className="practical-actions">
-                  <button
-                    className={`icon-btn icon-btn--lg${isBookmarked ? ' icon-btn--saved' : ''}`}
-                    aria-label={isBookmarked ? `Remove ${name} from journal` : `Save ${name} to journal`}
-                    onClick={() => onToggleBookmark(restaurant.id)}
-                  >
-                    <HeartIcon size={21} filled={isBookmarked} />
-                  </button>
-                  <button
-                    className={`icon-btn icon-btn--lg${isVisited ? ' icon-btn--visited' : ''}`}
-                    aria-label={isVisited ? `Mark ${name} as not visited` : `Mark ${name} as visited`}
-                    onClick={() => onToggleVisited(restaurant.id)}
-                  >
-                    <CheckIcon size={21} />
-                  </button>
-                  <button
-                    className="icon-btn icon-btn--lg"
-                    aria-label={`Share ${name}`}
-                    onClick={handleShare}
-                    title={shared ? 'Shared!' : 'Share'}
-                  >
-                    <ShareIcon size={21} />
-                  </button>
-                </div>
-              </div>
-            </section>
-
-            {/* Signature Menu */}
+            {/* 4. Representative Menu */}
             {isKnown(restaurant.menus) && (
               <section className="detail-section">
                 <SectionHead Icon={MenuIcon} title="Signature Menu" />
@@ -374,215 +221,111 @@ function RestaurantDetailInner({
               </section>
             )}
 
-            {/* Why Locals Love This */}
-            <section className="detail-section">
-              <SectionHead Icon={SparkleIcon} title="Why Locals Love This" />
-              <p className="detail-body">{culture.whyLocalsLoveIt}</p>
-            </section>
-
-            {/* Local Tips — what someone who eats here would tell you */}
-            <section className="detail-section">
-              <SectionHead Icon={SparkleIcon} title="Local Tips" kr="현지 팁" />
-              <div className="tip-cards">
-                {tipsFor(restaurant).map(t => (
-                  <div key={t.tag} className="tip-card">
-                    <span className="tip-card__tag">{t.tag}</span>
-                    <span className="tip-card__detail">{t.detail}</span>
-                  </div>
-                ))}
+            {/* 5. Quick Information (Hours, Transit, Links, Actions) */}
+            <div className="practical">
+              <div className="practical-row">
+                <ClockIcon size={17} />
+                {status ? (
+                  <span>
+                    <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
+                    {' '}· {status.detail}{' '}
+                    {today && <span className="practical-muted">(today {today})</span>}
+                  </span>
+                ) : (
+                  <span className="practical-muted">Opening hours unknown — check before you go</span>
+                )}
               </div>
-            </section>
 
-            {/* Food Story — Origin / Cultural Meaning / When Koreans Eat
-                This / Fun Fact, as separate scannable cards rather than one
-                long paragraph. */}
+              {isKnown(restaurant.transit) && (
+                <div className="practical-row">
+                  <TrainIcon size={17} />
+                  <span>
+                    {restaurant.transit.value.station} {restaurant.transit.value.line}
+                    {restaurant.transit.value.exit && `, exit ${restaurant.transit.value.exit}`}
+                    {' '}· {restaurant.transit.value.walkingMinutes} min walk
+                  </span>
+                </div>
+              )}
+
+              {isKnown(restaurant.phone) && (
+                <div className="practical-row">
+                  <PhoneIcon size={17} />
+                  <a className="practical-link" href={`tel:${restaurant.phone.value.replace(/-/g, '')}`}>
+                    {restaurant.phone.value}
+                  </a>
+                </div>
+              )}
+
+              {(isKnown(restaurant.officialUrl) || isKnown(restaurant.instagram)) && (
+                <div className="practical-row">
+                  <LinkIcon size={17} />
+                  <span className="practical-links">
+                    {isKnown(restaurant.officialUrl) && (
+                      <a className="practical-link" href={restaurant.officialUrl.value} target="_blank" rel="noreferrer noopener">Website</a>
+                    )}
+                    {isKnown(restaurant.instagram) && (
+                      <a className="practical-link" href={restaurant.instagram.value} target="_blank" rel="noreferrer noopener">Instagram</a>
+                    )}
+                  </span>
+                </div>
+              )}
+
+              <div className="practical-actions">
+                <button
+                  className={`icon-btn icon-btn--lg${isBookmarked ? ' icon-btn--saved' : ''}`}
+                  aria-label={isBookmarked ? `Remove ${name} from journal` : `Save ${name} to journal`}
+                  onClick={() => onToggleBookmark(restaurant.id)}
+                >
+                  <HeartIcon size={21} filled={isBookmarked} />
+                </button>
+                <button
+                  className={`icon-btn icon-btn--lg${isVisited ? ' icon-btn--visited' : ''}`}
+                  aria-label={isVisited ? `Mark ${name} as not visited` : `Mark ${name} as visited`}
+                  disabled={!isBookmarked}
+                  onClick={() => onToggleVisited(restaurant.id)}
+                >
+                  <CheckIcon size={21} />
+                </button>
+                <button
+                  className="icon-btn icon-btn--lg"
+                  aria-label={`Share ${name}`}
+                  onClick={handleShare}
+                  title={shared ? 'Shared!' : 'Share'}
+                >
+                  <ShareIcon size={21} />
+                </button>
+              </div>
+            </div>
+
+            {/* 6. Story & Hook */}
             <section className="detail-hook">
               <p className="detail-hook__label">Why it's special</p>
               <p className="detail-hook__quote">&ldquo;{restaurant.vibe}&rdquo;</p>
             </section>
-
+            
             <section className="detail-section" ref={storyRef}>
-              <SectionHead Icon={BookIcon} title="Food Story" kr="이야기" />
-              <div className="story-grid">
-                <div className="story-mini-card">
-                  <p className="story-mini-card__label">📜 Origin</p>
-                  <p>{restaurant.story}</p>
-                  {restaurant.timeline?.length > 0 && (
-                    <ol className="timeline">
-                      {restaurant.timeline.map(t => (
-                        <li key={`${t.year}-${t.event}`} className="timeline__item">
-                          <span className="timeline__year">{t.year}</span>
-                          <span className="timeline__event">{t.event}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                </div>
-                <div className="story-mini-card">
-                  <p className="story-mini-card__label">🌏 Cultural Meaning</p>
-                  <p>{culture.culturalMeaning}</p>
-                </div>
-                <div className="story-mini-card">
-                  <p className="story-mini-card__label">🍽 When Koreans Eat This</p>
-                  <p>{culture.whenKoreansEatThis}</p>
-                </div>
-                <div className="story-mini-card">
-                  <p className="story-mini-card__label">✨ Fun Fact</p>
-                  <p>{culture.didYouKnow}</p>
-                </div>
-              </div>
-            </section>
-
-            {/* Dining Etiquette */}
-            <section className="detail-section">
-              <SectionHead Icon={SparkleIcon} title="Dining Etiquette" />
-              <ul className="tips-list">
-                {culture.diningTips.map(tip => (
-                  <li key={tip} className="tip">
-                    <span className="tip__dot" aria-hidden="true" />
-                    <span>{tip}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {/* Useful Korean */}
-            {culture.usefulKorean?.length > 0 && (
-              <section className="detail-section">
-                <SectionHead Icon={BookIcon} title="Useful Korean" kr="유용한 한국어" />
-                <div className="phrase-list">
-                  {culture.usefulKorean.map(p => (
-                    <div key={p.ko} className="phrase-row">
-                      <div className="phrase-row__kr">
-                        <span className="phrase-ko">{p.ko}</span>
-                        <span className="phrase-ro">{p.ro}</span>
-                      </div>
-                      <span className="phrase-en">{p.en}</span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* Conversation Tips */}
-            {culture.conversationTips?.length > 0 && (
-              <section className="detail-section">
-                <SectionHead Icon={SparkleIcon} title="Conversation Tips" />
-                <ul className="tips-list">
-                  {culture.conversationTips.map(tip => (
-                    <li key={tip} className="tip">
-                      <span className="tip__dot" aria-hidden="true" />
-                      <span>{tip}</span>
+              <SectionHead Icon={BookIcon} title="The Food Story" kr="이야기" />
+              <p className="detail-body">{restaurant.story}</p>
+              {restaurant.timeline?.length > 0 && (
+                <ol className="timeline">
+                  {restaurant.timeline.map(t => (
+                    <li key={`${t.year}-${t.event}`} className="timeline__item">
+                      <span className="timeline__year">{t.year}</span>
+                      <span className="timeline__event">{t.event}</span>
                     </li>
                   ))}
-                </ul>
-              </section>
-            )}
-
-            {/* Continue Your Journey — the meal is step one, not the end */}
-            <section className="detail-section detail-section--route">
-              <SectionHead Icon={CompassIcon} title="Continue Your Journey" kr="여정 잇기" />
-              <p className="section-note">Where this meal leads next.</p>
-              <CulturalRoute
-                place={restaurant}
-                onOpenRestaurant={onOpenRestaurant}
-                onExploreZone={onExploreZone}
-              />
-            </section>
-
-            {/* Nearby Experiences */}
-            <section className="detail-section">
-              <SectionHead Icon={MapPinIcon} title="Nearby Experiences" />
-              <p className="detail-body">
-                {zoneInfo?.blurb ?? `More of ${restaurant.zone.split(',')[0]} is waiting just outside.`}
-              </p>
-              <div className="cta-stack">
-                {onExploreZone && (
-                  <button className="btn-primary" onClick={() => onExploreZone(restaurant.zone)}>
-                    Explore Nearby <ChevronRightIcon size={16} />
-                  </button>
-                )}
-                <div className="cta-stack__row">
-                  <button
-                    className={`btn-secondary${isBookmarked ? ' is-active' : ''}`}
-                    onClick={() => onToggleBookmark(restaurant.id)}
-                  >
-                    <HeartIcon size={16} filled={isBookmarked} />
-                    {isBookmarked ? 'In Passport' : 'Save to Passport'}
-                  </button>
-                </div>
-
-                {/* The one thing this app does, offered from the place it
-                    would happen. "Meet Travelers" used to sit here and go to
-                    a swipe deck that no longer exists; before that the whole
-                    Places half of the app had no route into a table at all,
-                    which left eighteen restaurants sitting outside the
-                    product looking in. */}
-                {onOpenTableHere && (
-                  <button className="place-table-cta" onClick={() => onOpenTableHere(restaurant)}>
-                    <span className="place-table-cta__title">여기서 상 차리기</span>
-                    <span className="place-table-cta__sub">
-                      Open a table at {name} and see who wants to come.
-                    </span>
-                  </button>
-                )}
-
-                {tablesHere.length > 0 && (
-                  <div className="place-tables">
-                    <p className="place-tables__label">
-                      {tablesHere.length === 1 ? 'A table here' : `${tablesHere.length} tables here`}
-                    </p>
-                    {tablesHere.map(t => (
-                      <button key={t.id} className="place-tables__row" onClick={() => onOpenTable?.(t.id)}>
-                        <span className="place-tables__dish">{menuById(t.menuId)?.name ?? t.menuId}</span>
-                        <span className="place-tables__when">{t.date} · {t.time}</span>
-                        <ChevronRightIcon size={14} />
-                      </button>
-                    ))}
-                  </div>
-                )}
+                </ol>
+              )}
+              <div className="callout">
+                <p className="callout__label">Did you know?</p>
+                <p>{culture.didYouKnow}</p>
               </div>
             </section>
 
-            {/* Related Foods — other places in the same category */}
-            {relatedPlaces.length > 0 && (
-              <section className="detail-section">
-                <SectionHead Icon={BowlIcon} title="Related Foods" />
-                <div className="home-scroll-row" style={{ padding: 0 }}>
-                  {relatedPlaces.map(p => (
-                    <PlaceCard
-                      key={p.id}
-                      place={p}
-                      onClick={() => onOpenRestaurant?.(p)}
-                      isSaved={bookmarkedIds.includes(p.id)}
-                      onToggleSave={onToggleBookmark}
-                    />
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* Passport Mission */}
-            {culture.passportMission && (
-              <section className="detail-section">
-                <SectionHead Icon={SparkleIcon} title="Passport Mission" kr="여권 미션" />
-                <p className="detail-body">
-                  <strong>{culture.passportMission.title}</strong> — {culture.passportMission.detail}
-                </p>
-                <div className={`mission-status${isVisited ? ' mission-status--done' : ''}`}>
-                  {isVisited ? (
-                    <><CheckIcon size={16} /> Mission complete — logged in your Passport</>
-                  ) : (
-                    'Mark this place visited to complete the mission'
-                  )}
-                </div>
-              </section>
-            )}
-
-            {/* Location & Directions / Map */}
+            {/* 7. Directions / Address */}
             <section className="detail-section">
               <SectionHead Icon={CompassIcon} title="Location & Directions" />
-
+              
               <div className="practical-row">
                 <MapPinIcon size={17} />
                 <span>
@@ -607,6 +350,19 @@ function RestaurantDetailInner({
                   Kakao Map
                 </button>
               </div>
+            </section>
+            
+            {/* Dining Tips */}
+            <section className="detail-section">
+              <SectionHead Icon={BowlIcon} title="Dining Tips" />
+              <ul className="tips-list">
+                {culture.diningTips.map(tip => (
+                  <li key={tip} className="tip">
+                    <span className="tip__dot" aria-hidden="true" />
+                    <span>{tip}</span>
+                  </li>
+                ))}
+              </ul>
             </section>
 
             {/* Footer */}

@@ -1,35 +1,16 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { restaurants } from './data/restaurants';
-import MapOverlay from './components/MapOverlay';
+import MapComponent from './components/MapComponent';
+import FilterBar from './components/FilterBar';
+import BottomSheetList from './components/BottomSheetList';
 import RestaurantDetail from './components/RestaurantDetail';
 import TabBar from './components/TabBar';
+import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
-import HomeTab from './components/HomeTab';
 import Prologue from './components/Prologue';
-import TravelSummary from './components/TravelSummary';
-import ThemeComplete from './components/ThemeComplete';
-import TablesTab from './components/TablesTab';
-import PlacesTab from './components/PlacesTab';
-import TableCreate from './components/TableCreate';
-import TableDetail from './components/TableDetail';
-import TableRequest from './components/TableRequest';
-import { getProfile, saveProfile } from './data/profile';
-// From the repository, not the profile module: it is the seam that knows
-// whether there is a database to write to at all. On localStorage it is a
-// no-op, so this code path is identical either way.
-import { saveProfileFields } from './data/tableRepository.js';
 import { MAP_CENTER } from './utils';
-import { pathFor, stateFromPath } from './routes.js';
 import { matchesDietary, isQuarantined } from './data/verification';
-import { journeyFromLegacy } from './domain/bridge/legacyJourney.js';
-import { journeyProgress } from './domain/projection/journeyProgress.js';
-import { passportRecord } from './domain/projection/passportRecord.js';
-import { themeById, experienceById, experienceIdsOfTheme } from './domain/catalog/index.js';
-import { experienceDone, themeCompletionKind } from './domain/policy/completion.js';
-import { reasonFor, themeOfTheDay } from './domain/policy/recommendation.js';
-import ThemePage from './components/ThemePage';
 import './index.css';
-import './custom.css';
 
 // Dietary chips are answered by the structured dietary record (never a tag
 // string); the rest are descriptive traits.
@@ -76,190 +57,40 @@ function loadBookmarks() {
   }
 }
 
-const MARKETS_KEY = 'kfm-markets';
-
-// Markets aren't restaurant records (no hours, menu or dietary facts to
-// verify), so a market visit is tracked separately. Stored as [{id, at}];
-// entries written before the Passport needed dates are bare id strings and
-// are read as `at: 0` — done, but with no date to place on the timeline.
-function loadMarkets() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(MARKETS_KEY));
-    if (!Array.isArray(saved)) return [];
-    return saved
-      .map(e => (typeof e === 'string' ? { id: e, at: 0 } : e))
-      .filter(e => e && typeof e.id === 'string')
-      .map(e => ({ id: e.id, at: e.at ?? 0 }));
-  } catch {
-    return [];
-  }
-}
-
-const EXPERIENCES_KEY = 'kfm-experiences';
-
-// Experiences a traveller has declared done themselves — the only route open
-// to a theme with no verified venue. Stored as [{id, at}]; bare id strings
-// from before the Passport needed dates read as `at: 0`.
-function loadAttestations() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(EXPERIENCES_KEY));
-    if (!Array.isArray(saved)) return [];
-    return saved
-      .map(e => (typeof e === 'string' ? { id: e, at: 0 } : e))
-      .filter(e => e && typeof e.id === 'string')
-      .map(e => ({ id: e.id, at: e.at ?? 0 }));
-  } catch {
-    return [];
-  }
-}
-
-const COMPANIONS_KEY = 'kfm-companions';
-
-// Stored as [{ travelerId, matchedAt }] — logged whenever "Eat together" is
-// confirmed in Match. Journal reads this alongside bookmarks to show who was
-// met, separate from where was visited.
-function loadCompanions() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(COMPANIONS_KEY));
-    if (!Array.isArray(saved)) return [];
-    return saved.filter(entry => entry && typeof entry.travelerId === 'string');
-  } catch {
-    return [];
-  }
-}
-
-// Read once, before any state exists: a link somebody was sent names a screen,
-// and the app has to start on it rather than on Explore and jump afterwards.
-const opening = stateFromPath(typeof window === 'undefined' ? '/' : window.location.pathname);
-
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [selectedRestaurant, setSelectedRestaurant] = useState(
-    () => activeRestaurants.find(r => r.id === opening.restaurantId) ?? null);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [bookmarks, setBookmarks] = useState(loadBookmarks);
-  const [companions, setCompanions] = useState(loadCompanions);
-  const [visitedMarkets, setVisitedMarkets] = useState(loadMarkets);
-  const [attestations, setAttestations] = useState(loadAttestations);
-  const [activeTab, setActiveTab] = useState(opening.activeTab);
+  const [activeTab, setActiveTab] = useState('map');
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   const [focusStory, setFocusStory] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
   const [prologueCompleted, setPrologueCompleted] = useState(
     () => localStorage.getItem('kfm-prologue') === 'true'
   );
-  const [showSummary, setShowSummary] = useState(false);
 
-  // 밥친구 navigation, kept local to the Tables tab rather than in the global
-  // tab state — opening a table is a step inside that tab, not a fifth
-  // destination, and switching tabs should not strand you mid-form.
-  const [tableView, setTableView] = useState(opening.tableView);
-  // Carried from a restaurant into the open-a-table form.
-  const [tablePrefill, setTablePrefill] = useState(null);
+  // Touch states for mobile bottom sheet swipe
+  const [touchStartY, setTouchStartY] = useState(null);
+  const [touchEndY, setTouchEndY] = useState(null);
 
-  // Pressing a tab means "take me to that tab", and for 밥친구 that is the list
-  // of tables. The state above was left where it stood, so a traveller who had
-  // read one table, gone to Explore and pressed Tables again arrived back at
-  // that same table instead of the tables — the nav pointing at a screen they
-  // had already finished with, and no way to reach the list except Back.
-  //
-  // Only for the nav. Arriving at a specific table from Explore or from a
-  // restaurant sets the view straight after and is meant to land there.
-  const goToTab = (tab) => {
-    if (tab === 'match') setTableView({ screen: 'list' });
-    setActiveTab(tab);
-  };
-  // Stands in for a logged-in user until Supabase auth arrives. The id has to
-  // stay stable for "this is your table" to mean anything, so it is read once
-  // and only the name and nationality are ever written back.
-  const [profile, setProfile] = useState(getProfile);
+  const handleTouchStart = (e) => setTouchStartY(e.targetTouches[0].clientY);
+  const handleTouchMove = (e) => setTouchEndY(e.targetTouches[0].clientY);
+  const handleTouchEnd = () => {
+    if (!touchStartY || !touchEndY) return;
+    const distance = touchStartY - touchEndY;
+    const swipeThreshold = 50;
 
-  // Written to this device first, then to the database.
-  //
-  // Only the first half existed. saveProfileFields was implemented in the
-  // Supabase backend, re-exported through the repository for both backends,
-  // and called by nothing — the same shape of gap as ensureProfile. So the
-  // Passport's settings looked like they saved, and did save, into a browser.
-  // The profiles row stayed blank.
-  //
-  // Local first because the screen must not wait on a network round trip to
-  // echo a keystroke back. The remote write is fire-and-forget for the same
-  // reason: a failed sync should not throw away what somebody just typed, and
-  // the next successful save carries the whole object anyway.
-  const updateProfile = (next) => {
-    const saved = saveProfile(next);
-    setProfile(saved);
-    saveProfileFields({
-      name: saved.name ?? '',
-      nationality: saved.nationality ?? '',
-      languages: saved.languages ?? [],
-    }).catch(() => { /* stays on the device; the next save tries again */ });
-    return saved;
-  };
-
-  // The map is a tool now, not the backdrop. `mapScope` records what the user
-  // was looking at when they opened it, so the overlay can say which question
-  // it is answering rather than presenting itself as the destination.
-  const [mapOpen, setMapOpen] = useState(false);
-  const [mapScope, setMapScope] = useState({ title: 'Explore on the map', subtitle: null });
-
-  // Theme is a screen, not a sheet: it replaces the tab's content and has a
-  // back affordance, rather than stacking another overlay on the pile.
-  const [openThemeId, setOpenThemeId] = useState(opening.openThemeId);
-
-  // ---------------------------------------------------------------------
-  // The address bar
-  // ---------------------------------------------------------------------
-  // Everything above is screen state, and none of it used to reach the URL.
-  // Two things broke for the people testing this: the phone's back button
-  // left the app entirely, because every screen in a session shared one
-  // address and the browser had nowhere to go back to; and a table could not
-  // be sent to anybody, because there was no link to send. The second is not
-  // a convenience — 핵심기능 5 is SNS 확산, and the product had no shareable
-  // object in it at all.
-  //
-  // Written against the History API rather than a router, because the mapping
-  // is nine paths over four pieces of state that already exist.
-  const path = pathFor({
-    activeTab, tableView, openThemeId, restaurantId: selectedRestaurant?.id ?? null,
-  });
-
-  // Push only when the address actually changes, or every render would add a
-  // history entry and Back would walk on the spot.
-  const lastPath = useRef(null);
-  useEffect(() => {
-    if (lastPath.current === path) return;
-    // The first run adopts whatever is already in the bar — a shared link —
-    // instead of pushing a duplicate on top of it.
-    if (lastPath.current === null) window.history.replaceState({ path }, '', path);
-    else window.history.pushState({ path }, '', path);
-    lastPath.current = path;
-  }, [path]);
-
-  // Back and forward. Applied to state rather than reloading, so the trip is
-  // instant and nothing already fetched is thrown away.
-  useEffect(() => {
-    const onPop = () => {
-      const next = stateFromPath(window.location.pathname);
-      lastPath.current = window.location.pathname;
-      setOpenThemeId(next.openThemeId);
-      setActiveTab(next.activeTab);
-      setTableView(next.tableView);
-      if (!next.restaurantId) setSelectedRestaurant(null);
-      else {
-        const found = activeRestaurants.find(r => r.id === next.restaurantId);
-        setSelectedRestaurant(found ?? null);
-      }
-    };
-    window.addEventListener('popstate', onPop);
-    return () => window.removeEventListener('popstate', onPop);
-  }, []);
-
-  const openMap = (scope = {}) => {
-    setMapScope({
-      title: scope.title ?? 'Explore on the map',
-      subtitle: scope.subtitle ?? null,
-    });
-    setMapOpen(true);
+    if (distance > swipeThreshold) {
+      // Swiped up -> expand
+      setSheetState(s => Math.min(s + 1, 2));
+    } else if (distance < -swipeThreshold) {
+      // Swiped down -> collapse
+      setSheetState(s => Math.max(s - 1, 0));
+    }
+    setTouchStartY(null);
+    setTouchEndY(null);
   };
 
   // Single choke point for every path that opens detail (map pin, card,
@@ -272,170 +103,15 @@ export default function App() {
     localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks));
   }, [bookmarks]);
 
-  useEffect(() => {
-    localStorage.setItem(COMPANIONS_KEY, JSON.stringify(companions));
-  }, [companions]);
-
-  useEffect(() => {
-    localStorage.setItem(MARKETS_KEY, JSON.stringify(visitedMarkets));
-  }, [visitedMarkets]);
-
-  useEffect(() => {
-    localStorage.setItem(EXPERIENCES_KEY, JSON.stringify(attestations));
-  }, [attestations]);
-
-  const handleToggleAttestation = (experienceId) => {
-    setAttestations(prev =>
-      prev.some(e => e.id === experienceId)
-        ? prev.filter(e => e.id !== experienceId)
-        : [...prev, { id: experienceId, at: Date.now() }]
-    );
-  };
-
   const bookmarkedIds = useMemo(() => bookmarks.map(b => b.id), [bookmarks]);
   const visitedIds = useMemo(
     () => bookmarks.filter(b => b.visitedAt !== null).map(b => b.id),
     [bookmarks],
   );
-
-  // The single source of truth for what this traveller has done. Everything
-  // below is derived from it, so no two surfaces can disagree.
-  //
-  // Built from React state rather than by re-reading localStorage, so it
-  // recomputes the moment a place is marked visited or a step is checked off.
-  const domainJourney = useMemo(
-    () => journeyFromLegacy({ bookmarks, markets: visitedMarkets, companions, attestations }),
-    [bookmarks, visitedMarkets, companions, attestations],
-  );
-
-  // Counts and challenges — what Passport, Explore's challenge row and the
-  // shareable summary read. Formerly computeJourney, which could only see
-  // restaurant visits; this sees the whole Journey, so a step completed by
-  // attestation reaches the Passport too.
-  const journey = useMemo(() => passportRecord(domainJourney), [domainJourney]);
-
-  // Progress on the Theme axis: which theme is underway and what comes next.
-  const themeProgress = useMemo(() => journeyProgress(domainJourney), [domainJourney]);
-
-  // Finishing a culture used to change one line of text and nothing else.
-  // This watches the set of finished themes for a new arrival, so the moment a
-  // theme completes the app can mark it — and so "you have just finished X"
-  // becomes a thing it can honestly say. It is deliberately session-scoped:
-  // "just" means during this visit, not "at some point in your trip".
-  // `complete` is the domain's answer — a theme is finished when one of its
-  // narratives is, which is not the same as having ticked every experience in
-  // it. Counting `done >= total` instead would withhold the moment from a
-  // traveller who walked a path to its end but left the optional detours.
-  const completedThemeIds = useMemo(
-    () => themeProgress.themes.filter(t => t.complete).map(t => t.themeId).sort().join(','),
-    [themeProgress],
-  );
-  const seenCompleteRef = useRef(null);
-  const [justCompletedThemeId, setJustCompletedThemeId] = useState(null);
-  // Separate from the above: the card is dismissed, the fact is not. Closing
-  // the celebration should not make the app forget what was just finished.
-  const [celebrateThemeId, setCelebrateThemeId] = useState(null);
-
-  useEffect(() => {
-    const now = new Set(completedThemeIds ? completedThemeIds.split(',') : []);
-    // The first pass records what was already finished before this session, so
-    // reopening the app does not congratulate a traveller for old work.
-    if (seenCompleteRef.current === null) {
-      seenCompleteRef.current = now;
-      return;
-    }
-    const fresh = [...now].find(id => !seenCompleteRef.current.has(id));
-    seenCompleteRef.current = now;
-    if (fresh) {
-      setJustCompletedThemeId(fresh);
-      setCelebrateThemeId(fresh);
-    }
-  }, [completedThemeIds]);
-
-  // "Continue" must mean a theme genuinely underway. journeyProgress's
-  // currentTheme falls back to the least-progressed theme when nothing has
-  // been started, which for a first-run traveller would point at whichever
-  // theme sorts first — a preview one with no venues. Requiring `explored`
-  // keeps the resume state honest and lets the start state take over.
-  //
-  // "More to do" is `done < total`, not `!complete`. A theme completes when
-  // any one of its narratives does, so finishing a short path can mark the
-  // theme complete while experiences in it remain untouched — and telling a
-  // traveller who just visited somewhere to "start your journey" would be
-  // plainly wrong.
-  const continueTheme = useMemo(() => {
-    const started = themeProgress.themes.filter(t => t.explored && t.done < t.total);
-    return started.sort((a, b) => b.pct - a.pct || a.themeId.localeCompare(b.themeId))[0] ?? null;
-  }, [themeProgress]);
-
-  // Derived from the continue theme rather than themeProgress.currentTheme,
-  // which skips complete themes — the same mismatch that would leave a
-  // resumable theme without a next step to name.
-  const nextExperience = useMemo(() => {
-    if (!continueTheme) return null;
-    const id = experienceIdsOfTheme(continueTheme.themeId)
-      .find(x => !experienceDone(experienceById(x), domainJourney));
-    return id ? { id, title: experienceById(id)?.title ?? id } : null;
-  }, [continueTheme, domainJourney]);
-
-  // The start state and today's pick both need a theme that actually has
-  // verified places behind it, so a traveller's first tap is never a dead end.
-  // Zones the traveller has actually eaten in — the only honest basis for a
-  // proximity-flavoured recommendation reason.
-  const visitedZones = useMemo(
-    () => [...new Set(visitedIds
-      .map(id => activeRestaurants.find(r => r.id === id)?.zone)
-      .filter(Boolean))],
-    [visitedIds],
-  );
-
-  const suggestedTheme = useMemo(
-    () => themeOfTheDay({
-      exclude: [
-        continueTheme?.themeId,
-        // A theme with nothing left in it is not a suggestion.
-        ...themeProgress.themes.filter(t => t.done >= t.total).map(t => t.themeId),
-      ].filter(Boolean),
-    }),
-    [continueTheme, themeProgress],
-  );
-
-  const suggestedReason = useMemo(
-    () => {
-      if (!suggestedTheme) return null;
-      const entry = themeProgress.themes.find(t => t.themeId === suggestedTheme.id);
-      return reasonFor(suggestedTheme, {
-        visitedZones,
-        hasStarted: Boolean(continueTheme),
-        justFinished: justCompletedThemeId ? themeById(justCompletedThemeId) : null,
-        untouched: (entry?.done ?? 0) === 0,
-        hasAnyProgress: journey.experienceCount > 0,
-      });
-    },
-    [suggestedTheme, visitedZones, continueTheme, themeProgress, justCompletedThemeId, journey],
-  );
-
-  const handleToggleMarket = (marketId) => {
-    setVisitedMarkets(prev =>
-      prev.some(e => e.id === marketId)
-        ? prev.filter(e => e.id !== marketId)
-        : [...prev, { id: marketId, at: Date.now() }]
-    );
-  };
   const sustainabilityLens = useMemo(
     () => selectedFilters.some(f => SUSTAINABILITY_AXIS.includes(f)),
     [selectedFilters],
   );
-
-  // Logged from Match's "Eat together" — re-matching the same traveler moves
-  // their entry to the top rather than duplicating it in Journal.
-  // "Explore nearby" used to switch to a map tab. There is no map tab now:
-  // the same intent opens the map as a tool, pre-filtered to what was asked
-  // for, and closing it returns to whatever the user was reading.
-  const goExplore = (query) => {
-    setSearchQuery(query);
-    openMap({ title: query, subtitle: 'Places matching this search' });
-  };
 
   const handleToggleFilter = (filter) => {
     setSelectedFilters(prev => 
@@ -455,31 +131,12 @@ export default function App() {
   // Marking a visit only ever edits an entry that is already saved, so the
   // invariant (visitedAt implies savedAt) holds by construction — this can
   // never create a record. Unsaving drops the entry, taking the visit with it.
-  // Marking a place visited saves it too, if it was not saved already.
-  //
-  // A visit used to be a field on a bookmark record, so the control was
-  // disabled until you had hearted the place first — with nothing on screen
-  // saying so. The theme page tells you "mark a place visited to complete
-  // this step", you go to the place, and the button is grey. That was the
-  // only route through the culture half of the app, and it was a dead end
-  // for anybody who did not guess the prerequisite.
-  //
-  // Having been somewhere implies having been interested in it, so the save
-  // is created rather than demanded.
   const handleToggleVisited = (id) => {
-    setBookmarks(prev => {
-      const existing = prev.find(b => b.id === id);
-      if (!existing) {
-        return [...prev, { id, savedAt: Date.now(), visitedAt: Date.now() }];
-      }
-      return prev.map(b => (b.id === id
-        ? {
-            ...b,
-            savedAt: b.savedAt ?? Date.now(),
-            visitedAt: b.visitedAt == null ? Date.now() : null,
-          }
-        : b));
-    });
+    setBookmarks(prev => prev.map(b =>
+      b.id === id && b.savedAt !== null
+        ? { ...b, visitedAt: b.visitedAt === null ? Date.now() : null }
+        : b
+    ));
   };
 
   const filteredRestaurants = useMemo(() => {
@@ -516,159 +173,84 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell">
-      {/* Content is the substrate now. The map used to sit behind every screen
-          — at `inset: 0` on mobile, holding most of the viewport on desktop —
-          which made a culture platform read as a maps product. It is summoned
-          from here instead, by whichever surface wants it. */}
-      <div className="content-region" key={openThemeId ?? activeTab}>
-        {/* A theme takes over the content area rather than opening over it. */}
-        {openThemeId && (
-          <ThemePage
-            theme={themeById(openThemeId)}
-            journey={domainJourney}
-            onBack={() => setOpenThemeId(null)}
-            onOpenRestaurant={openDetail}
-            onToggleAttestation={handleToggleAttestation}
-            visitedMarkets={visitedMarkets}
-            onToggleMarket={handleToggleMarket}
-            onFindTable={() => { setOpenThemeId(null); setActiveTab('match'); setTableView({ screen: 'list' }); }}
-          />
-        )}
-
-        {!openThemeId && activeTab === 'home' && (
-          <HomeTab
-            onNavigate={goToTab}
-            onOpenRestaurant={openDetail}
-            onOpenStory={openStory}
-            onExploreZone={goExplore}
-            bookmarkedIds={bookmarkedIds}
-            onToggleBookmark={handleToggleBookmark}
-            journey={journey}
-            visitedMarkets={visitedMarkets}
-            onToggleMarket={handleToggleMarket}
-            onOpenSummary={() => setShowSummary(true)}
-            onOpenMap={openMap}
-            onOpenTheme={setOpenThemeId}
-            continueTheme={continueTheme}
-            nextExperience={nextExperience}
-            suggestedTheme={suggestedTheme}
-            suggestedReason={suggestedReason}
-            themeProgress={themeProgress}
-            profile={profile}
-            onOpenTodayTable={(id) => {
-              setActiveTab('match');
-              setTableView({ screen: 'detail', tableId: id });
-            }}
-            onOpenTable={(id) => {
-              setActiveTab('match');
-              setTableView({ screen: 'detail', tableId: id });
-            }}
-          />
-        )}
-        {/* 밥친구. The tab leads with tables now — a dish somebody cannot
-            order alone is the product, and the swipe deck was a demo of
-            people rather than a way to eat. The deck is still reachable from
-            the table list, so nothing that existed has gone away. */}
-        {!openThemeId && activeTab === 'match' && tableView.screen === 'list' && (
-          <TablesTab
-            profile={profile}
-            onCreateTable={() => { setTablePrefill(null); setTableView({ screen: 'create' }); }}
-            onRequestTable={() => setTableView({ screen: 'request' })}
-            onOpenTable={(id) => setTableView({ screen: 'detail', tableId: id })}
-          />
-        )}
-        {!openThemeId && activeTab === 'match' && tableView.screen === 'request' && (
-          <TableRequest
-            profile={profile}
-            onBack={() => setTableView({ screen: 'list' })}
-            onOpenTable={(id) => setTableView({ screen: 'detail', tableId: id })}
-            /* A want nobody answered, carried into the form as a table. */
-            onOpenAsHost={(prefill) => { setTablePrefill(prefill); setTableView({ screen: 'create' }); }}
-          />
-        )}
-        {!openThemeId && activeTab === 'match' && tableView.screen === 'create' && (
-          <TableCreate
-            prefill={tablePrefill}
-            profile={profile}
-            onProfileChange={updateProfile}
-            onBack={() => setTableView({ screen: 'list' })}
-            onCreated={(id) => setTableView({ screen: 'detail', tableId: id })}
-          />
-        )}
-        {!openThemeId && activeTab === 'match' && tableView.screen === 'detail' && (
-          <TableDetail
-            tableId={tableView.tableId}
-            profile={profile}
-            onProfileChange={updateProfile}
-            onBack={() => setTableView({ screen: 'list' })}
-            onOpenTheme={(id) => { setTableView({ screen: 'list' }); setActiveTab('home'); setOpenThemeId(id); }}
-          />
-        )}
-        {!openThemeId && activeTab === 'places' && (
-          <PlacesTab
-            onOpenRestaurant={openDetail}
-            onOpenStory={openStory}
-            onExploreZone={goExplore}
-            bookmarkedIds={bookmarkedIds}
-            onToggleBookmark={handleToggleBookmark}
-            visitedMarkets={visitedMarkets}
-            onToggleMarket={handleToggleMarket}
-            onOpenMap={openMap}
-          />
-        )}
-        {!openThemeId && activeTab === 'journal' && (
-          <JournalPanel
-            bookmarks={bookmarks}
-            companions={companions}
-            mapCenter={mapCenter}
-            onRestaurantClick={openDetail}
-            onNavigate={goToTab}
-            journey={journey}
-            profile={profile}
-            onProfileChange={updateProfile}
-            attestations={attestations}
-            visitedMarkets={visitedMarkets}
-            onOpenSummary={() => setShowSummary(true)}
-            onOpenTheme={setOpenThemeId}
-            /* The Set-shaped journey the completion policy reads. The other
-               `journey` prop above is the legacy projection the stats use. */
-            domainJourney={domainJourney}
-          />
-        )}
-        {/* The Profile tab used to render here. It is a section at the bottom
-            of the Passport now — the 8/2 meeting's decision, and the same
-            thing a foreign tester asked for independently. */}
-
+    <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
+      {/* Map is now at the base level */}
+      <div className="map-region">
+        <MapComponent
+          restaurants={filteredRestaurants}
+          onMarkerClick={openDetail}
+          selectedId={selectedRestaurant?.id}
+          onCenterChange={setMapCenter}
+        />
       </div>
 
-      {/* Selecting a tab leaves the theme screen. Without this the tab bar
-          looks dead while a theme is open, since the theme route guards
-          every tab's content. */}
-      <TabBar
-        activeTab={activeTab}
-        onSelect={(tab) => { setOpenThemeId(null); goToTab(tab); }}
-      />
+      <div className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`}>
+        {/* Render Map Items ONLY when activeTab is 'map' */}
+        {activeTab === 'map' && (
+          <>
+            {/* Mobile handle and header wrapped for touch events */}
+            <div 
+              className="sheet-header-drag-area"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div className="sheet-handle-area" onClick={() => setSheetState(s => (s + 1) % 3)}>
+                <div className="sheet-handle-bar" />
+              </div>
 
-      <MapOverlay
-        open={mapOpen}
-        onClose={() => setMapOpen(false)}
-        title={mapScope.title}
-        subtitle={mapScope.subtitle}
-        restaurants={filteredRestaurants}
-        mapCenter={mapCenter}
-        onCenterChange={setMapCenter}
-        selectedId={selectedRestaurant?.id}
-        onRestaurantClick={openDetail}
-        onReadStory={openStory}
-        bookmarkedIds={bookmarkedIds}
-        onToggleBookmark={handleToggleBookmark}
-        sustainabilityLens={sustainabilityLens}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        selectedFilters={selectedFilters}
-        onToggleFilter={handleToggleFilter}
-      />
+              {/* Search + dietary filters */}
+              <FilterBar
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                selectedFilters={selectedFilters}
+                onToggleFilter={handleToggleFilter}
+              />
+            </div>
+
+            {/* Restaurant list */}
+            <section className="list-region" aria-label="Restaurant list">
+              <BottomSheetList
+                restaurants={filteredRestaurants}
+                mapCenter={mapCenter}
+                bookmarkedIds={bookmarkedIds}
+                onRestaurantClick={openDetail}
+                onReadStory={openStory}
+                onToggleBookmark={handleToggleBookmark}
+                sustainabilityLens={sustainabilityLens}
+              />
+            </section>
+          </>
+        )}
+
+        {/* Tab panels rendered inside the sidebar */}
+        {activeTab === 'journal' && (
+          <JournalPanel bookmarks={bookmarks} mapCenter={mapCenter} onRestaurantClick={openDetail} />
+        )}
+        {activeTab !== 'map' && activeTab !== 'journal' && (
+          <TabPanel tab={activeTab} onNavigate={setActiveTab} />
+        )}
+
+        <TabBar 
+          activeTab={activeTab} 
+          onSelect={setActiveTab} 
+          isCollapsed={isSidebarCollapsed} 
+        />
+      </div>
+
+      <div className="border-region">
+        <button 
+          className="sidebar-toggle"
+          aria-label={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          onClick={() => setIsSidebarCollapsed(prev => !prev)}
+        >
+          {isSidebarCollapsed ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          )}
+        </button>
+      </div>
 
       {/* Layer 2: Full-Screen Detail Modal */}
       <RestaurantDetail
@@ -677,53 +259,10 @@ export default function App() {
         isBookmarked={selectedRestaurant ? bookmarkedIds.includes(selectedRestaurant.id) : false}
         onToggleBookmark={handleToggleBookmark}
         isVisited={selectedRestaurant ? visitedIds.includes(selectedRestaurant.id) : false}
-        onOpenTableHere={(r) => {
-          setTablePrefill({
-            restaurant: r.name.split('(')[0].trim(),
-            place: r.address?.value ?? r.zone,
-          });
-          setSelectedRestaurant(null);
-          setActiveTab('match');
-          setTableView({ screen: 'create' });
-        }}
-        onOpenTable={(id) => {
-          setSelectedRestaurant(null);
-          setActiveTab('match');
-          setTableView({ screen: 'detail', tableId: id });
-        }}
         onToggleVisited={handleToggleVisited}
         mapCenter={mapCenter}
         focusStory={focusStory}
-        onOpenRestaurant={openDetail}
-        onExploreZone={goExplore}
-        bookmarkedIds={bookmarkedIds}
-        onNavigate={goToTab}
       />
-
-      {showSummary && (
-        <TravelSummary journey={journey} profile={profile} onClose={() => setShowSummary(false)} />
-      )}
-
-      {celebrateThemeId && (
-        <ThemeComplete
-          theme={themeById(celebrateThemeId)}
-          remaining={(() => {
-            const t = themeProgress.themes.find(x => x.themeId === celebrateThemeId);
-            return t ? t.total - t.done : 0;
-          })()}
-          /* What actually backed the completion, so the stamp does not
-             describe four taps and four meals with one sentence. */
-          kind={themeCompletionKind(celebrateThemeId, domainJourney)}
-          next={suggestedTheme}
-          nextReason={suggestedReason}
-          onClose={() => setCelebrateThemeId(null)}
-          onOpenNext={(theme) => {
-            setCelebrateThemeId(null);
-            setActiveTab('home');
-            setOpenThemeId(theme.id);
-          }}
-        />
-      )}
 
     </div>
   );

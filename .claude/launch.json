@@ -4,8 +4,8 @@
     {
       "name": "k-food-map-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "5175", "--strictPort"],
-      "port": 5175
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173
     }
   ]
 }

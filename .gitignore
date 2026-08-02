@@ -22,9 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Local secrets. The anon key is public-safe, but this file is where a
-# service_role key would end up by accident, and that one is not.
-.env
-.env.local
-.env.*.local

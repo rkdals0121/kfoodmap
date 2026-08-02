@@ -57,12 +57,6 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
         {/* The restaurant's own recorded line, verbatim — the same string the
             detail page shows. Nothing is written or summarised for the list. */}
         {lens && <p className="place-card__esg">{place.esg_point}</p>}
-
-        {place.distanceKm < 3 && (
-          <div style={{ background: '#e8f5e9', padding: '6px 10px', borderRadius: '4px', marginTop: '10px', fontSize: '12px', color: '#2e7d32' }}>
-            ✨ <strong>98% Match:</strong> Fits your budget, dietary needs, and schedule!
-          </div>
-        )}
       </div>
 
       <PlaceImage place={place} variant="thumb" className="place-card__media" />
@@ -141,11 +135,10 @@ export default function BottomSheetList({
       ))}
 
       {sorted.length === 0 && (
-        <div className="place-list__empty" style={{ textAlign: 'center', padding: '40px 20px', background: '#fff', borderRadius: '16px' }}>
-          <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?auto=format&fit=crop&q=80&w=200&h=200" alt="No places" style={{ width: 120, height: 120, borderRadius: '50%', objectFit: 'cover', marginBottom: '16px' }} />
-          <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>No Places Found</h3>
-          <p style={{ color: '#666', marginBottom: '16px' }}>Try removing a filter or searching a different name or area.</p>
-          <button className="btn-secondary" onClick={() => window.location.reload()}>Reset Filters</button>
+        <div className="place-list__empty">
+          <MapPinIcon size={26} />
+          <p><strong>No places match</strong></p>
+          <p>Try removing a filter or searching a different name or area.</p>
         </div>
       )}
     </div>
