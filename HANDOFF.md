@@ -1338,8 +1338,10 @@ restore. That is the state this HEAD describes.
 ### Next recommended task
 
 A new growth-oriented development plan was drawn up on 2026-08-02 (informed
-by a competitive study of eatpass.kr and the map/curation-app market). Its
-staged shape: **(0)** housekeeping → **(1)** shareable URLs + SEO →
+by a competitive study of eatpass.kr and the map/curation-app market) and is
+written out in full — stages, open decisions, session-start procedure — in
+**`docs/GROWTH-PLAN.md`**, the handoff for continuing this work in any
+session. Its staged shape: **(0)** housekeeping → **(1)** shareable URLs + SEO →
 **(2)** activation work that needs no backend (sample passport, empty states,
 Food Journey MVP, offline) → **(3)** Multilingual → **(4)** the
 backend-gated community features (UGC intake, Cross-Device Sync) plus a
