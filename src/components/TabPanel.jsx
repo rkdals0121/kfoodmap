@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { SparkleIcon, UserIcon, ChevronRightIcon, CompassIcon } from './Icons';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined } from '../data/verification';
@@ -87,9 +89,56 @@ function DiscoverTab({ onNavigate }) {
   );
 }
 
+// Only English exists today -- LANGUAGES grows when a second locale file
+// is added under src/i18n/locales/ and registered in src/i18n/index.js.
+// The picker is built to scale to that list without a component change.
+const LANGUAGES = [{ code: 'en', labelKey: 'profile.languageEnglish' }];
+const LANGUAGE_STORAGE_KEY = 'kfm-language';
+
+function LanguagePicker({ onClose }) {
+  const { t, i18n } = useTranslation();
+
+  const selectLanguage = (code) => {
+    i18n.changeLanguage(code);
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, code);
+    onClose();
+  };
+
+  // Rendered via a portal to document.body rather than in place: .tab-panel
+  // is `position: fixed; z-index: 12` (src/index.css), which establishes its
+  // own stacking context. Any z-index on a descendant -- no matter how large
+  // -- only ranks against other descendants of .tab-panel; it can never win
+  // against a sibling subtree like .tab-bar (z-index 200 on mobile) that
+  // sits outside .tab-panel entirely. Confirmed empirically: without the
+  // portal, the picker rendered in place but the mobile tab bar painted over
+  // it and intercepted every click, whatever value .language-picker-overlay's
+  // z-index had. The portal escapes that trap so the overlay's z-index: 500
+  // (src/index.css) is actually compared at the document root, where it
+  // resolves the way the rule's own comment intends.
+  return createPortal(
+    <div className="language-picker-overlay" onClick={onClose}>
+      <div className="language-picker" onClick={(e) => e.stopPropagation()}>
+        {LANGUAGES.map(lang => (
+          <button
+            key={lang.code}
+            className={`language-picker__option${i18n.language === lang.code ? ' active' : ''}`}
+            onClick={() => selectLanguage(lang.code)}
+          >
+            {t(lang.labelKey)}
+          </button>
+        ))}
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
 function ProfileTab({ onNavigate }) {
+  const { t } = useTranslation();
+  const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
+
   const settings = [
-    { label: 'Language', value: 'English', icon: '🌐' },
+    { label: t('profile.language'), value: t('profile.languageEnglish'), icon: '🌐', action: () => setLanguagePickerOpen(true) },
     { label: 'Food Preferences', value: 'Not set', icon: '🍲' },
     { label: 'Dietary Preferences', value: 'Not set', icon: '🌱' },
     { label: 'Saved Places', value: 'View Journal', icon: '❤️', action: () => onNavigate('journal') },
@@ -117,6 +166,8 @@ function ProfileTab({ onNavigate }) {
           </div>
         ))}
       </div>
+
+      {languagePickerOpen && <LanguagePicker onClose={() => setLanguagePickerOpen(false)} />}
     </section>
   );
 }

@@ -1,3 +1,6 @@
+import i18next from 'i18next';
+import '../i18n/index.js';
+
 // Data-integrity primitives.
 //
 // Every fact carries two independent things, and collapsing them loses
@@ -194,28 +197,35 @@ export const needsCheck = (f) => isKnown(f) && !isConfirmed(f);
  * `tone` drives styling; `detail` is the long-form explanation.
  */
 export function trustBadge(f) {
-  if (!isKnown(f)) return { label: 'Unknown', tone: 'none', detail: f?.evidence ?? 'Not established.' };
+  if (!isKnown(f)) return { label: i18next.t('trust.unknown'), tone: 'none', detail: f?.evidence ?? i18next.t('trust.unknownDetail') };
 
   if (f.confidence === CONFIDENCE.CONFIRMED) {
-    if (f.source === SOURCE.OFFICIAL) return { label: 'Official', tone: 'strong', detail: 'Confirmed against an official registry.' };
-    if (f.source === SOURCE.COMMUNITY) return { label: 'Community-checked', tone: 'medium', detail: 'Reported by travellers and checked by us.' };
-    return { label: 'Confirmed', tone: 'strong', detail: 'Confirmed with the restaurant.' };
+    if (f.source === SOURCE.OFFICIAL) return { label: i18next.t('trust.official'), tone: 'strong', detail: i18next.t('trust.officialDetail') };
+    if (f.source === SOURCE.COMMUNITY) return { label: i18next.t('trust.communityChecked'), tone: 'medium', detail: i18next.t('trust.communityCheckedDetail') };
+    return { label: i18next.t('trust.confirmed'), tone: 'strong', detail: i18next.t('trust.confirmedDetail') };
   }
   if (f.confidence === CONFIDENCE.SUPPORTED) {
-    return { label: 'Reported', tone: 'medium', detail: `Stated by a source, not yet confirmed. ${f.evidence ?? ''}`.trim() };
+    return { label: i18next.t('trust.reported'), tone: 'medium', detail: i18next.t('trust.reportedDetail', { evidence: f.evidence ?? '' }).trim() };
   }
-  return { label: 'Inferred', tone: 'weak', detail: `Our reading, not a stated fact. ${f.evidence ?? ''}`.trim() };
+  return { label: i18next.t('trust.inferred'), tone: 'weak', detail: i18next.t('trust.inferredDetail', { evidence: f.evidence ?? '' }).trim() };
 }
 
-/** Human labels for dietary levels. Absent levels intentionally render nothing. */
+/**
+ * Human labels for dietary levels. Absent levels intentionally render
+ * nothing. Functions, not plain objects, because the value must be
+ * read through i18next.t() at call time (not import time) so a language
+ * change picks it up on the next render -- dietaryBadges() below, and
+ * every call site, already calls these fresh on every invocation, so
+ * this is a drop-in replacement for what was a plain object lookup.
+ */
 export const VEGAN_LABEL = {
-  [VEGAN.FULL]: 'Fully vegan',
-  [VEGAN.OPTIONS]: 'Vegan options',
+  get [VEGAN.FULL]() { return i18next.t('dietary.veganFull'); },
+  get [VEGAN.OPTIONS]() { return i18next.t('dietary.veganOptions'); },
 };
 export const HALAL_LABEL = {
-  [HALAL.CERTIFIED]: 'Halal certified',
-  [HALAL.FRIENDLY]: 'Halal-friendly',
-  [HALAL.PORK_FREE]: 'Pork-free',
+  get [HALAL.CERTIFIED]() { return i18next.t('dietary.halalCertified'); },
+  get [HALAL.FRIENDLY]() { return i18next.t('dietary.halalFriendly'); },
+  get [HALAL.PORK_FREE]() { return i18next.t('dietary.porkFree'); },
 };
 
 /** Dietary badges a card/detail may show, in priority order. */

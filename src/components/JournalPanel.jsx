@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN } from '../data/verification';
 
@@ -14,6 +15,7 @@ function formatStampDate(ts) {
 const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 
 export default function JournalPanel({ bookmarks, onRestaurantClick }) {
+  const { t } = useTranslation();
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
 
   const samples = useMemo(
@@ -37,11 +39,11 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
   }, [visitedList]);
 
   const badges = [
-    { key: 'first-taste', icon: '🇰🇷', name: 'First Taste', earned: visitedList.length > 0 },
+    { key: 'first-taste', icon: '🇰🇷', name: t('journal.firstTaste'), earned: visitedList.length > 0 },
     {
       key: 'plant-based',
       icon: '🌱',
-      name: 'Plant Based',
+      name: t('journal.plantBased'),
       earned: visitedList.some(({ place }) => isKnown(place.dietary?.vegan) && place.dietary.vegan.value === VEGAN.FULL),
     },
   ];
@@ -140,7 +142,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
 
           {samples.length > 0 && (
             <>
-              <p className="journal-sample-label">What it'll look like</p>
+              <p className="journal-sample-label">{t('journal.whatItllLookLike')}</p>
               <div className="journal-grid journal-grid--sample">
                 {samples.map(place => (
                   <button
@@ -153,7 +155,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
                     </span>
                     <span className="stamp-name">{place.name.split('(')[0].trim()}</span>
                     <span className="stamp-zone">{place.zone}</span>
-                    <span className="stamp-sample-tag">Sample</span>
+                    <span className="stamp-sample-tag">{t('journal.sample')}</span>
                   </button>
                 ))}
               </div>
@@ -163,15 +165,15 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
           <div className="journal-empty__steps">
             <div className="journal-empty__step">
               <span className="journal-empty__step-num">1</span>
-              Find a restaurant you like
+              {t('journal.step1')}
             </div>
             <div className="journal-empty__step">
               <span className="journal-empty__step-num">2</span>
-              Tap the heart to save it
+              {t('journal.step2')}
             </div>
             <div className="journal-empty__step">
               <span className="journal-empty__step-num">3</span>
-              Mark it visited after your trip
+              {t('journal.step3')}
             </div>
           </div>
         </div>

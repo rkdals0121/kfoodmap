@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const icons = {
   map: (
@@ -28,26 +29,23 @@ const icons = {
   ),
 };
 
-const tabs = [
-  { id: 'map', label: 'Map' },
-  { id: 'discover', label: 'Discover' },
-  { id: 'journal', label: 'Journal' },
-  { id: 'profile', label: 'Profile' },
-];
+const tabIds = ['map', 'discover', 'journal', 'profile'];
 
 export default function TabBar({ activeTab, onSelect, isCollapsed }) {
+  const { t } = useTranslation();
+
   return (
     <nav className="tab-bar" aria-label="Primary">
-      {tabs.map(t => (
+      {tabIds.map(id => (
         <button
-          key={t.id}
-          className={`tab-item${activeTab === t.id ? ' active' : ''}`}
-          aria-current={activeTab === t.id ? 'page' : undefined}
-          onClick={() => onSelect(t.id)}
-          title={isCollapsed ? t.label : undefined}
+          key={id}
+          className={`tab-item${activeTab === id ? ' active' : ''}`}
+          aria-current={activeTab === id ? 'page' : undefined}
+          onClick={() => onSelect(id)}
+          title={isCollapsed ? t(`tabBar.${id}`) : undefined}
         >
-          {icons[t.id]}
-          <span className="tab-label">{t.label}</span>
+          {icons[id]}
+          <span className="tab-label">{t(`tabBar.${id}`)}</span>
         </button>
       ))}
     </nav>

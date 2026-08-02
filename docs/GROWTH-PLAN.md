@@ -129,10 +129,21 @@
    보이는 곳)이 아니라 Prologue 1회성 화면에만 배치 — 상시 배너로
    화면을 어지럽히지 않기 위함
 
-### Stage 3 — 도달
-- **Multilingual MVP** — UI + 안전 라벨만 (동결된 범위). 영어 우선.
-  편집 콘텐츠(story 등) 번역은 범위 밖. 안전 라벨 번역은 검증 가능
-  인력 확보가 전제 (P0의 "자신 있게 틀림"을 번역으로 재도입 금지)
+### Stage 3 — 도달 (인프라 ✅ 2026-08-03 / 콘텐츠 ⬜ 인력 대기)
+- ✅ **Multilingual 인프라 완료** — `react-i18next` + `i18next` 도입,
+  영어 문자열을 JS에 번들(별도 fetch 없음 → 프리렌더·서비스워커
+  precache와 무간섭). 핵심 4개 화면 추출: TabBar 탭 라벨, Prologue 전체,
+  `verification.js`의 안전/신뢰 라벨 전부(trustBadge 6분기 +
+  VEGAN/HALAL_LABEL), JournalPanel 배지·샘플 태그·빈 상태 3단계.
+  Profile에 언어 선택 UI 신설(현재 선택지 English 하나 — 없는 선택지를
+  있는 척하지 않음). 상세는 HANDOFF §2.1 "i18n"
+- ⬜ **번역 콘텐츠는 여전히 0** — 검증 가능 인력이 전제라는 원칙 그대로.
+  "Halal-friendly"/"Fully vegan" 오역은 검증 안 된 할랄 표시와 같은
+  범주의 실패라, 인력 확보 전엔 영어 단일 유지 (HANDOFF §7 #27)
+- ⬜ **나머지 화면 문자열 추출** — FilterBar·BottomSheetList·
+  RestaurantDetail·JournalPanel/TabPanel 잔여·Food Journeys는 아직
+  하드코딩 영어. 첫 i18n diff를 리뷰 가능한 크기로 유지하려 의도적으로
+  미룬 것이며, 아키텍처상 새로 정할 건 없음 (키 추가 + t() 치환 반복)
 
 ### Stage 4 — 커뮤니티/규모 (백엔드 결정 필요)
 - ⚠️ **미결정 D:** §2.1 no-backend 수정 (Supabase류 최소 도입 권장,

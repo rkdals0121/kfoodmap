@@ -2154,6 +2154,41 @@ button {
   color: var(--muted);
 }
 
+.language-picker-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(16, 24, 40, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.language-picker {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.language-picker__option {
+  padding: 14px 16px;
+  border: none;
+  background: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.language-picker__option.active {
+  background: var(--green-tint);
+  color: var(--green-strong);
+}
+
 /* ---------- Journal Passport Polish ---------- */
 .passport-cover {
   padding: 16px 20px 0;

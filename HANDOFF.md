@@ -1,12 +1,13 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-03 · **Base commit:** `118335a` (Offline MVP spec
-correction + plan, on top of `4f882c1`/`269dc58`/`07e0900`/`125667d`/
-`b21db67`/`84c3b3d`/`d501e1f`/`875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see
-§2.16 and §7 for that history; Phase 6 underway, four MVPs shipped; v1.0 at
-`07feea7`). **This edit lands together with the Offline MVP commit** it
-describes — the last Stage 2 item, no data changed.
+**Last updated:** 2026-08-03 · **Base commit:** `a73990c` (Multilingual
+infra spec + plan, on top of `6183368`/`86936c8`/`a7979a3`/`118335a`/
+`269dc58`/`4f882c1`/`07e0900`/`125667d`/`b21db67`/`84c3b3d`/`d501e1f`/
+`875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see §2.16 and §7 for that history;
+Phase 6 underway, four MVPs shipped; v1.0 at `07feea7`). **This edit lands
+together with the Multilingual infrastructure commit** it describes — Stage
+2 is fully shipped, Stage 3's infra slice lands here, no data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -167,6 +168,55 @@ experiences) always fires the DOM event correctly. Design spec:
 `docs/superpowers/specs/2026-08-03-offline-mvp-design.md`; implementation
 plan and task-by-task review record:
 `docs/superpowers/plans/2026-08-03-offline-mvp.md`.
+
+**i18n (2026-08-03, GROWTH-PLAN Stage 3 — infrastructure only).**
+`react-i18next` + `i18next`, initialized in `src/i18n/index.js` (a
+side-effect-only module) with English resources from
+`src/i18n/locales/en.js` bundled **into the JS**, not fetched — so this
+adds no new asset type and needs no change to the prerender script or the
+service-worker precache manifest. **No translated content ships:** there
+is no verified translation personnel yet, and per §11's rule against
+inventing anything safety-adjacent, that means zero translated strings
+rather than a guess. English is the only registered language; the Profile
+tab's Language row opens a picker containing exactly one option, which is
+the honest representation of that state.
+
+Extraction is deliberately partial — four "core screens" only: `TabBar`'s
+nav labels, all of `Prologue`, every safety/trust label in
+`verification.js`, and `JournalPanel`'s badge names/sample tag/empty-state
+steps. `FilterBar`, `BottomSheetList`, `RestaurantDetail`, the rest of
+`JournalPanel`/`TabPanel`, and Food Journeys stay hardcoded English —
+future incremental rounds. `story`/`vibe`/`esg_point`, restaurant names
+and zone names are **permanently** out of scope: data, not UI chrome.
+
+Three implementation details worth knowing before touching this:
+
+- **`verification.js` imports `../i18n/index.js` itself**, not just
+  `i18next`. It is not a React component, so it calls the `i18next`
+  singleton's `.t()` directly — and it is imported by
+  `scripts/check-data.mjs`, a plain Node script that never loads
+  `main.jsx`. Verified during planning: `i18next.t()` returns `undefined`
+  (not the key, not a fallback) before `.init()` runs, so without that
+  import the `check-data` gate would silently produce `undefined` labels.
+  The explicit `/index.js` is also required — Node's native ESM loader
+  rejects directory imports (`ERR_UNSUPPORTED_DIR_IMPORT`) that Vite
+  resolves happily.
+- **`VEGAN_LABEL`/`HALAL_LABEL` are objects with getters**, not plain
+  string values. A plain value would be computed once at module-load time
+  and freeze in whatever language was active then; a getter re-invokes
+  `i18next.t()` on every property access, which matches how
+  `dietaryBadges()` already reads them fresh per render. (No visible
+  effect with one language — correctness for the feature this infra
+  exists to enable.)
+- **`f.evidence` is never translated.** It's research-authored English
+  source-quote text — data, like `story`. `trustBadge()` interpolates it
+  as a *value* into an already-translated template
+  (`trust.reportedDetail`/`trust.inferredDetail`), so it stays in its
+  original language whatever the UI language is.
+
+Design spec: `docs/superpowers/specs/2026-08-03-multilingual-infra-design.md`;
+implementation plan and task-by-task review record:
+`docs/superpowers/plans/2026-08-03-multilingual-infra.md`.
 
 ### 2.2 Restaurant data model — `src/data/restaurants.js` (928 lines)
 
@@ -725,6 +775,9 @@ k-food-map/
 │   ├── index.css           design tokens + every style (no CSS-in-JS)
 │   ├── hooks/
 │   │   └── useOnlineStatus.js  navigator.onLine + online/offline events
+│   ├── i18n/
+│   │   ├── index.js        side-effect-only i18next init (see §2.1 i18n)
+│   │   └── locales/en.js   English strings; the file a 2nd language copies
 │   ├── components/         presentational; no data fetching
 │   │   ├── MapComponent.jsx    Leaflet; pins; ResizeSync; moveend → mapCenter
 │   │   ├── FilterBar.jsx       search + dietary chips
@@ -1205,6 +1258,32 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     returning offline user hitting exactly these paths) rather than the
     core scenario (browsing already-known restaurants offline), which
     works correctly.
+27. **i18n is infrastructure-only; two things gate finishing it
+    (2026-08-03).** (1) **A second language needs verified translation
+    personnel** — someone who can translate dietary/safety labels
+    responsibly. This is a hard precondition from GROWTH-PLAN Stage 3, not
+    a scheduling preference: "Halal-friendly" or "Fully vegan" mistranslated
+    is the same category of failure as an unverified halal claim, which is
+    what this whole project exists to avoid. Until then, `en.js` stays the
+    only locale. (2) **String extraction is only ~4 screens deep.**
+    `FilterBar`, `BottomSheetList`, `RestaurantDetail`, the rest of
+    `JournalPanel`/`TabPanel`, and the Food Journeys section are still
+    hardcoded English — deliberately deferred to keep the first i18n diff
+    reviewable, not overlooked. A future round extracts them the same way
+    (add keys to `en.js`, swap literals for `t()`); nothing architectural
+    is left to decide. Neither is scheduled.
+28. **A language switcher rendered inside `.tab-panel` needs a portal.**
+    Found while building the Profile language picker: `.tab-panel` is
+    `position: fixed; z-index: 12`, which establishes a stacking context —
+    so any descendant's `z-index`, however large, only ranks against other
+    descendants and can never beat `.tab-bar` (`z-index: 200` on mobile),
+    which is a *sibling* subtree. The picker's overlay rendered invisibly
+    behind the tab bar, which also swallowed its clicks. Fixed by rendering
+    it through `createPortal(..., document.body)` (`TabPanel.jsx`), which
+    escapes the trap so its `z-index: 500` is compared at the document
+    root. Recorded because this is the third z-index/stacking-context
+    surprise in this codebase (see #20) and the next overlay added inside
+    a tab panel will hit exactly the same wall.
 
 ---
 
@@ -1239,7 +1318,11 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 - Discover tab content; Profile settings
 - Entity layer (§10 Phase C)
 - Any backend, auth, or user-generated content
-- i18n (English only; Korean accents are hand-placed)
+- i18n **content** — the infrastructure shipped 2026-08-03 (§2.1 i18n), but
+  English is still the only language and only four core screens are
+  extracted. A second language needs verified translation personnel first
+  (§7 #27); the remaining screens need further incremental extraction.
+  Korean accents in the UI are still hand-placed, not translated.
 
 ---
 
@@ -1632,13 +1715,25 @@ Immediately next, in order:
      offline. Design spec:
      `docs/superpowers/specs/2026-08-03-offline-mvp-design.md`; plan +
      review record: `docs/superpowers/plans/2026-08-03-offline-mvp.md`.
-   - **Stage 2 is now fully shipped (all 5 items).** Stage 3
-     (Multilingual) is next per GROWTH-PLAN §4 — not started, no work done
-     toward it yet.
+   - **Stage 2 is fully shipped (all 5 items).**
+4. **Stage 3 (Multilingual) — infrastructure slice shipped 2026-08-03**
+   (pending commit). `react-i18next`/`i18next` wired, four core screens
+   extracted, Profile language picker built. **Stage 3 is not finished:**
+   English remains the only language and most screens are still hardcoded.
+   See §2.1 "i18n" for the architecture and §7 #27 for the two things
+   gating completion (verified translation personnel; further extraction).
+   Design spec and plan: `docs/superpowers/specs/2026-08-03-multilingual-infra-design.md`,
+   `docs/superpowers/plans/2026-08-03-multilingual-infra.md`.
+5. **Next: Stage 4** (GROWTH-PLAN §4) — community/scale features, all
+   gated on decision **D** (§2.1's "no backend" constraint). That decision
+   has not been asked yet and should not be made unilaterally: UGC intake,
+   Cross-Device Sync, and AI Food Guide all hang off it. The
+   verification-gated data-expansion pipeline (explicitly *not* a bulk
+   import) is the other Stage 4 item.
 
-The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide,
-Cross-Device Sync, UGC) stay frozen from Phase 6 planning (Offline and
-Food Journey are now both shipped, see above) and slot into the stages
+The remaining Phase 6 MVP scopes (AI Food Guide, Cross-Device Sync, UGC)
+stay frozen from Phase 6 planning (Offline, Food Journey, and
+Multilingual's infra are now shipped, see above) and slot into the stages
 above; implement them directly rather than re-planning.
 
 **Do not:** repeat the §2.16 pattern — no work outside the gates and this
