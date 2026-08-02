@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { ShieldCheckIcon } from './Icons';
+import { restaurants } from '../data/restaurants';
+import { isQuarantined } from '../data/verification';
 import './Prologue.css';
+
+const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
 
 export default function Prologue({ onComplete }) {
   const [step, setStep] = useState(1);
@@ -31,6 +36,11 @@ export default function Prologue({ onComplete }) {
           <div className="prologue-step">
             <h1 className="prologue-title">Welcome to Korea.</h1>
             <p className="prologue-subtitle">Discover food that matches your taste.</p>
+            <p className="prologue-trust">
+              <ShieldCheckIcon size={16} />
+              {activeCount} restaurants, researched one at a time — every
+              claim sourced, or marked honestly unknown.
+            </p>
             <button className="prologue-btn" onClick={nextStep}>Continue</button>
           </div>
         )}
