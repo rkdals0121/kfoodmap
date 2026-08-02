@@ -149,6 +149,11 @@ export function naverMapUrl(place, origin = null) {
   return `https://map.naver.com/p/search/${name}?c=15,0,0,0,dh`;
 }
 
+// `origin` is accepted for signature parity with directionsUrl/naverMapUrl
+// but not yet used: unlike those two, this always drops a pin rather than
+// opening a routed trip from the map centre. Kakao's link scheme does
+// support a routed `from/.../to/...` form; wiring it up is a real feature
+// change, not a housekeeping one, so it stays unimplemented here.
 export function kakaoMapUrl(place, origin = null) {
   const { lat, lng } = coordsOf(place);
   const name = encodeURIComponent(place.name);

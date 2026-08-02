@@ -1,11 +1,11 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-02 · **HEAD:** `dd0c7a4` (master restored to K-Food
-Map after the 밥친구 incident — see §2.16; Phase 6 underway, four MVPs
-shipped; v1.0 at `07feea7`)
-**+ uncommitted changes** (this file only — documentation re-sync after the
-external shell work and the repository incident; no code or data changed) ·
+**Last updated:** 2026-08-02 · **Base commit:** `cb360f8` (adds
+`docs/GROWTH-PLAN.md`, on top of `dd0c7a4` — master restored to K-Food Map
+after the 밥친구 incident, see §2.16; Phase 6 underway, four MVPs shipped;
+v1.0 at `07feea7`). **This edit lands together with the Stage 0 housekeeping
+commit** it describes (§7 #13, #14, #20 partially; §12) — no data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -913,20 +913,24 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 
 ### Low
 
-13. **Dead files:** `temp.js` (0 bytes), `verify.cjs`, `geocode_and_build.cjs`
-    (18 kB), `src/data/restaurants.json` (18 kB, the pre-schema-v2 JSON
-    `verify.cjs` reads and `geocode_and_build.cjs` writes). Zero references
-    from live code (re-grepped 2026-07-17). **Update 2026-08-02:** `temp.js`
-    and `.claude/launch.json` (local tooling config) are now *tracked* — the
-    §2.16 shell commits added them, ending the every-commit-excludes-temp.js
-    discipline by accident. Removal candidates on the next housekeeping
-    commit. Not deleted — no destructive action without explicit approval.
-14. **`oxlint` baseline moved: 2 → 15 warnings.** The original two live in
-    dead `geocode_and_build.cjs`; the §2.16 shell work added 13 more, all
-    unused imports/variables in `JournalPanel.jsx`, `RestaurantDetail.jsx`,
-    `TabPanel.jsx` (measured 2026-08-02). Gates still pass (warnings, not
-    errors), but "no new warnings" comparisons must use 15 as the baseline
-    until a cleanup commit lands.
+13. **Resolved (2026-08-02, Stage 0 housekeeping).** `temp.js` and
+    `.claude/launch.json` are untracked (removed from git, added to
+    `.gitignore`; `temp.js` itself is also deleted since it was 0 bytes and
+    unreferenced). `verify.cjs` and `src/data/restaurants.json` remain dead
+    and untouched — not part of this pass, still zero references from live
+    code.
+14. **Resolved (2026-08-02, Stage 0 housekeeping). `oxlint` baseline moved:
+    15 → 1 warning.** The 13 unused imports/variables from the §2.16 shell
+    work were removed (`JournalPanel.jsx`, `RestaurantDetail.jsx` — including
+    two genuinely dead pieces of state, `showDirections` and the gallery's
+    `galleryIdx`, both write-only and never read — and `TabPanel.jsx`); the
+    two in dead `geocode_and_build.cjs` were fixed directly (unused `reject`
+    param, unused `catch` binding). **One warning is left deliberately:**
+    `kakaoMapUrl`'s unused `origin` parameter in `src/utils.js`, documented
+    in a comment there — it's the same "Kakao's link format carries no
+    origin" gap noted in §2.16, and fixing it is a real feature (wiring
+    Kakao's `from/.../to/...` routed-link format), not a lint chore. Left for
+    a future Stage 2/Nearby-Route-adjacent commit, not silently suppressed.
 15. **No automated tests.** `check-data` is the only gate. The evidence rules
     were proven by a throwaway mutation harness that was not kept — worth
     formalising if this grows.
@@ -973,25 +977,34 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     facts, which is permanently out of scope. Widening the axis is a content
     problem (the content pass, §10 Cross-cutting), not a UI one.
 20. **Debt left by the §2.16 shell rework (2026-08-02 audit).** Beyond the
-    lint baseline (#14) and the newly tracked scratch files (#13):
-    - **The Badges grid is a hardcoded mockup.** `JournalPanel` always shows
-      "1 Earned" with "First Taste" earned and two locked badges, regardless
-      of state — a UI asserting something untrue, in the one app whose whole
-      identity is not doing that. Wire it to real state or remove it before
-      any release.
+    lint baseline (#14) and the newly tracked scratch files (#13), both
+    resolved above:
+    - **Resolved (2026-08-02, Stage 0 housekeeping).** The Badges grid no
+      longer hardcodes state. `JournalPanel` now computes two badges from
+      the actual journal: **First Taste** (earned once `visitedAt` is set on
+      any bookmark) and **Plant Based** (earned once a *visited* place has
+      `dietary.vegan.value === VEGAN.FULL`, via `isKnown`/`VEGAN` from
+      `verification.js` — never inferred, only a fact already marked known).
+      **Spicy Master was removed outright**, not wired: there is no spice-
+      level field anywhere in the data model, so there was nothing honest to
+      compute. The earned count in the header (`"N Earned"`) is now derived
+      from the same two badges, not a literal string.
     - **Inline brand hexes** on the Naver/Kakao direction buttons
       (`#03c75a`, `#FEE500`, `#191919` as `style=` props in
       `RestaurantDetail.jsx`) — the first colours outside `:root` since the
       token system landed (§11 rule 19). Brand colours may justify an
       exception; decide, then either tokenise or record the exception here.
-    - **Dual deploy targets**: the GH Pages workflow deploys on every master
-      push while Vercel also builds the same repo. `vite.config.js` sets no
-      `base`, so the Pages build almost certainly serves broken asset paths
-      anyway. Pick one target (Vercel is the working one) and delete or fix
-      the other.
+      **Untouched by the Stage 0 housekeeping commit** — out of its scope.
+    - **Resolved (2026-08-02, Stage 0 housekeeping — user decision A).** The
+      GH Pages workflow (`.github/workflows/deploy.yml`) is deleted. Vercel
+      is the sole deploy target now; there is no dual-deploy question left.
     - The rework was **never gate-checked or browser-QA'd under §11 rule
-      16** — it happens to pass the gates now, but its responsive/AA claims
-      in §8 are unverified for the new shell.
+      16** — still true for the shell as a whole (Prologue, sidebar/bottom
+      sheet, layout). The Stage 0 housekeeping commit itself passed all five
+      gates; its one UI-visible change (the Badges grid) was checked in a
+      running `npm run dev` session with the user confirming the result
+      directly, since the browser-automation tool was unavailable in that
+      session.
 
 ---
 
@@ -1349,12 +1362,15 @@ verification-gated data-expansion pipeline — explicitly *not* a bulk import.
 
 Immediately next, in order:
 
-1. **Housekeeping commit** — untrack `temp.js` / `.claude/launch.json`,
-   remove the 13 new lint warnings, settle the dual-deploy question
-   (§7 Low #20), decide the Badges mockup (wire or remove).
-2. **The §2.1 routing decision** — shareable per-restaurant URLs require a
-   router, which §2.1 currently forbids ("no router"). This is an
-   architecture amendment and needs explicit approval before Stage 1 starts.
+1. ~~**Housekeeping commit**~~ — **done, 2026-08-02.** Untracked `temp.js` /
+   `.claude/launch.json`; lint 15 → 1 (one warning left deliberately, see §7
+   #14); GH Pages workflow deleted (§7 #20, decision A); Badges grid wired
+   to real journal state, Spicy Master removed rather than faked
+   (§7 #20, decision B). Both decisions were the user's, per GROWTH-PLAN §5.
+2. **The §2.1 routing decision (GROWTH-PLAN decision C)** — shareable
+   per-restaurant URLs require a router, which §2.1 currently forbids ("no
+   router"). This is an architecture amendment and needs explicit approval
+   before Stage 1 starts. Not yet asked.
 3. Then Stage 2 features, one at a time, under the normal §11 discipline.
 
 The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide, Offline,
@@ -1367,7 +1383,7 @@ log; bulk-import restaurant data (the eatpass study is the cautionary tale:
 or ranking from `esg_point` text (§7 Low #19); add in-app routing, ETA, or
 live location to Nearby Route (Future Expansion, §10 item 2); research new
 history to widen Story Timeline coverage (Scope forbids it — §10 item 3);
-ship the hardcoded Badges grid in any release (§7 Low #20).
+decide GROWTH-PLAN's open decisions (C, D) unilaterally — ask first.
 
 ---
 

@@ -284,7 +284,7 @@ async function geocode(address) {
     headers: { 'User-Agent': 'KFoodMapPrototype/1.0' }
   };
   
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     https.get(url, options, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
@@ -296,7 +296,7 @@ async function geocode(address) {
           } else {
             resolve(null);
           }
-        } catch (e) {
+        } catch {
           resolve(null);
         }
       });

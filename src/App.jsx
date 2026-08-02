@@ -225,7 +225,7 @@ export default function App() {
 
         {/* Tab panels rendered inside the sidebar */}
         {activeTab === 'journal' && (
-          <JournalPanel bookmarks={bookmarks} mapCenter={mapCenter} onRestaurantClick={openDetail} />
+          <JournalPanel bookmarks={bookmarks} onRestaurantClick={openDetail} />
         )}
         {activeTab !== 'map' && activeTab !== 'journal' && (
           <TabPanel tab={activeTab} onNavigate={setActiveTab} />

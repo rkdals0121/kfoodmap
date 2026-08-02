@@ -56,18 +56,19 @@
 
 ## 4. 단계별 계획
 
-### Stage 0 — 하우스키핑 ✅ 대부분 완료
+### Stage 0 — 하우스키핑 ✅ 완료 (2026-08-02)
 - ✅ 저장소 분리 (밥친구 사건 해결, §2.16)
 - ✅ HANDOFF 재동기화 (`4b775c5`)
-- ⬜ **하우스키핑 커밋 1개** ← 다음 작업. 내용:
-  - `temp.js`, `.claude/launch.json` untrack (실수로 tracked됨)
-  - lint 경고 15→2 (외부 작업의 미사용 import 13건 제거)
-  - ⚠️ **미결정 A:** GH Pages 워크플로 삭제 여부 (Vercel과 이중 배포 중,
-    Pages는 `base` 미설정으로 깨져 있을 가능성. 권장: 삭제)
-  - ⚠️ **미결정 B:** Journal의 하드코딩 배지 목업("1 Earned" 고정) 처리.
-    권장: 실데이터 연결 (First Taste=방문≥1, Plant Based=Fully vegan 방문;
-    계산 불가능한 Spicy Master는 제거). 대안: 그리드 통째 제거
-  - **미결정 A·B는 사용자에게 물어보고 진행할 것**
+- ✅ **하우스키핑 커밋** — 내용:
+  - `temp.js`, `.claude/launch.json` untrack + `.gitignore` 등록, `temp.js` 삭제
+  - lint 경고 15→1 (13건 제거 + geocode_and_build.cjs 2건 수정; 남은 1건은
+    `utils.js`의 `kakaoMapUrl` origin 미사용 — Kakao 라우팅 미구현은 실제
+    기능 작업이라 의도적으로 남기고 주석으로 기록)
+  - **결정 A (사용자):** GH Pages 워크플로 삭제 → 완료, Vercel 단일 배포
+  - **결정 B (사용자):** 배지 실데이터 연결 → 완료. First Taste=방문≥1,
+    Plant Based=방문한 곳 중 `dietary.vegan.value === VEGAN.FULL` 존재.
+    Spicy Master는 계산 불가능한 필드라 제거
+  - 전문은 HANDOFF §7 #13·#14·#20, §12
 
 ### Stage 1 — 공유 가능한 앱 (구조 결정 필요)
 - ⚠️ **미결정 C (아키텍처 수정):** URL 라우팅 도입 (`/place/gonghwachun`).
@@ -110,8 +111,8 @@ esg_point 텍스트에서 카테고리 유도 · 게이트 밖 작업(§2.16 재
 
 | ID | 결정 | 막고 있는 것 |
 |---|---|---|
-| A | GH Pages 워크플로 삭제? | 하우스키핑 커밋 |
-| B | 배지 목업: 실연결 vs 제거? | 하우스키핑 커밋 |
+| A | ✅ GH Pages 워크플로 삭제 (2026-08-02 결정: 삭제) | — 완료 |
+| B | ✅ 배지 목업 처리 (2026-08-02 결정: 실연결) | — 완료 |
 | C | §2.1 "no router" 수정 (URL 라우팅)? | Stage 1 전체 |
 | D | §2.1 "no backend" 수정 (관리형 백엔드)? | Stage 4 전체 |
 

@@ -4,7 +4,6 @@ import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
   BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon,
-  ChevronLeftIcon, ChevronRightIcon
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf } from '../utils';
@@ -48,16 +47,13 @@ export default function RestaurantDetail({
 }) {
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
-  const [showDirections, setShowDirections] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
-  const [galleryIdx, setGalleryIdx] = useState(0);
   const storyRef = useRef(null);
   const sheetRef = useRef(null);
 
   useEffect(() => {
     setCopied(false);
     setShared(false);
-    setShowDirections(false);
     if (!restaurant) return;
     if (focusStory && storyRef.current) {
       storyRef.current.scrollIntoView({ block: 'start' });
@@ -81,16 +77,6 @@ export default function RestaurantDetail({
     window.addEventListener('keydown', onKey, true);
     return () => window.removeEventListener('keydown', onKey, true);
   }, [restaurant, onClose, galleryOpen]);
-
-  useEffect(() => {
-    if (!galleryOpen) return;
-    const onKey = (e) => {
-      if (e.key === 'ArrowRight') setGalleryIdx(i => i === 0 ? 0 : 0);
-      if (e.key === 'ArrowLeft') setGalleryIdx(i => i === 0 ? 0 : 0);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [galleryOpen]);
 
   if (!restaurant) return null;
 

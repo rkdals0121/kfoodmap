@@ -1,17 +1,13 @@
 import React, { useMemo } from 'react';
 import { restaurants } from '../data/restaurants';
-import { haversineKm, formatDistance, coordsOf } from '../utils';
-import { isQuarantined } from '../data/verification';
-import { HeartIcon, CompassIcon } from './Icons';
+import { isQuarantined, isKnown, VEGAN } from '../data/verification';
 
 function formatStampDate(ts) {
   if (!ts) return null;
   return new Date(ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
-
-export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }) {
+export default function JournalPanel({ bookmarks, onRestaurantClick }) {
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
 
   const stamped = useMemo(() =>
@@ -28,6 +24,17 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
     const zones = new Set(visitedList.map(s => s.place.zone));
     return Array.from(zones);
   }, [visitedList]);
+
+  const badges = [
+    { key: 'first-taste', icon: '🇰🇷', name: 'First Taste', earned: visitedList.length > 0 },
+    {
+      key: 'plant-based',
+      icon: '🌱',
+      name: 'Plant Based',
+      earned: visitedList.some(({ place }) => isKnown(place.dietary?.vegan) && place.dietary.vegan.value === VEGAN.FULL),
+    },
+  ];
+  const earnedCount = badges.filter(b => b.earned).length;
 
   return (
     <section className="journal-panel" aria-label="Journal">
@@ -52,21 +59,15 @@ export default function JournalPanel({ bookmarks, mapCenter, onRestaurantClick }
       <div className="journal-section">
         <div className="journal-section-header">
           <h3>Badges</h3>
-          <span className="journal-badge-count">1 Earned</span>
+          <span className="journal-badge-count">{earnedCount} Earned</span>
         </div>
         <div className="badges-grid">
-          <div className="badge-item earned">
-            <div className="badge-icon">🇰🇷</div>
-            <span className="badge-name">First Taste</span>
-          </div>
-          <div className="badge-item locked">
-            <div className="badge-icon">🔥</div>
-            <span className="badge-name">Spicy Master</span>
-          </div>
-          <div className="badge-item locked">
-            <div className="badge-icon">🌱</div>
-            <span className="badge-name">Plant Based</span>
-          </div>
+          {badges.map(badge => (
+            <div key={badge.key} className={`badge-item ${badge.earned ? 'earned' : 'locked'}`}>
+              <div className="badge-icon">{badge.icon}</div>
+              <span className="badge-name">{badge.name}</span>
+            </div>
+          ))}
         </div>
       </div>
 

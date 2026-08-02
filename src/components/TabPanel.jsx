@@ -1,5 +1,5 @@
 import React from 'react';
-import { SparkleIcon, UserIcon, ChevronRightIcon, HeartIcon } from './Icons';
+import { SparkleIcon, UserIcon, ChevronRightIcon } from './Icons';
 import { restaurants } from '../data/restaurants';
 import PlaceImage from './PlaceImage';
 
