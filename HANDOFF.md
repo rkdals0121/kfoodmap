@@ -1,11 +1,12 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-02 · **Base commit:** `cb360f8` (adds
-`docs/GROWTH-PLAN.md`, on top of `dd0c7a4` — master restored to K-Food Map
-after the 밥친구 incident, see §2.16; Phase 6 underway, four MVPs shipped;
-v1.0 at `07feea7`). **This edit lands together with the Stage 0 housekeeping
-commit** it describes (§7 #13, #14, #20 partially; §12) — no data changed.
+**Last updated:** 2026-08-03 · **Base commit:** `875a148` (adds the Stage 1
+routing design spec, on top of `2b1e6ac` — the Stage 0 housekeeping commit,
+on top of `cb360f8`/`dd0c7a4`; see §2.16 and §7 #13/#14/#20 for that history;
+Phase 6 underway, four MVPs shipped; v1.0 at `07feea7`). **This edit lands
+together with a standalone mobile z-index fix** (§7 #20) found while
+browser-verifying unrelated Stage 1 routing work — no data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -998,9 +999,27 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     - **Resolved (2026-08-02, Stage 0 housekeeping — user decision A).** The
       GH Pages workflow (`.github/workflows/deploy.yml`) is deleted. Vercel
       is the sole deploy target now; there is no dual-deploy question left.
+    - **Resolved (2026-08-03, found and fixed while browser-verifying
+      unrelated work on a real phone).** On mobile (`max-width: 767px`),
+      the §2.16 rework gave `.sidebar-region` (the bottom sheet)
+      `z-index: 100` and `.tab-bar` `z-index: 200`, but never raised
+      `.detail-backdrop`/`.detail-sheet` above their pre-rework values of
+      `20`/`21` — so opening a restaurant's detail on a phone rendered it
+      **behind** the bottom sheet and tab bar, with only a sliver visible
+      at the top of the screen (looks like "nothing happened" or "opened
+      behind the map," depending on sheet height). Root cause confirmed
+      via `src/index.css`: `.app-shell` has `position: relative` but no
+      `z-index`, so it creates no stacking context, and `.detail-sheet`
+      (`position: fixed`) competes directly against `.sidebar-region` in
+      the *global* stacking context regardless of DOM order — 100 beats
+      21. Fix: raised `.detail-backdrop`/`.detail-sheet` to
+      `z-index: 210`/`211` — clears the mobile tab bar (200) with room to
+      spare, still well below the gallery lightbox (`9999`/`10000`),
+      which must stay above the detail sheet itself.
     - The rework was **never gate-checked or browser-QA'd under §11 rule
       16** — still true for the shell as a whole (Prologue, sidebar/bottom
-      sheet, layout). The Stage 0 housekeeping commit itself passed all five
+      sheet, layout) apart from the one detail-view stacking bug just
+      fixed above. The Stage 0 housekeeping commit itself passed all five
       gates; its one UI-visible change (the Badges grid) was checked in a
       running `npm run dev` session with the user confirming the result
       directly, since the browser-automation tool was unavailable in that

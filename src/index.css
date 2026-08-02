@@ -499,7 +499,12 @@ button {
   position: fixed;
   inset: 0;
   background: rgba(16, 24, 40, 0.45);
-  z-index: 20;
+  /* Must clear the mobile bottom sheet (.sidebar-region, z-index 100) and
+     its tab bar (.tab-bar, z-index 200) — both fixed/absolute in the same
+     stacking context — or the detail view opens hidden behind them. Below
+     the gallery lightbox (9999/10000), which must sit above the detail
+     sheet itself. */
+  z-index: 210;
   animation: fadeIn 0.25s ease;
 }
 
@@ -511,7 +516,7 @@ button {
   height: 92dvh;
   background: var(--surface);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  z-index: 21;
+  z-index: 211;
   overflow: hidden;
   display: flex;
   flex-direction: column;
