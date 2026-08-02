@@ -9,6 +9,16 @@
   --surface-hover: #FAFAFB;
   --fill: #F1F2F4;          /* inset fields, image placeholders */
   --ink: #1F2328;
+  /* Headings. Same value as --ink by design (--ink-body is defined as the
+     softer one *relative to headings*), but named separately because 11
+     rules across index.css/Prologue.css already say `var(--ink-title)`.
+     It went undeclared until 2026-08-03, and because an invalid var() on
+     an inherited property silently falls back to the parent's colour
+     rather than erroring, most of those rules happened to look right —
+     while .stat-num, sitting inside .passport-cover's white-on-dark-green
+     block, inherited #fff and rendered white on a near-white .stat-box.
+     See §7 #25. */
+  --ink-title: #1F2328;
   --ink-body: #3F444A;      /* long-form copy: softer than headings */
   --muted: #6B7280;
   --muted-strong: #616875;  /* muted text on a tinted fill, where AA needs more */

@@ -4,9 +4,10 @@
 **Last updated:** 2026-08-03 · **Base commit:** `56dbebf` (Multilingual
 infra + its final-review fixes; Stages 0–2 complete and Stage 3's infra
 slice shipped — see §12 for where that leaves things). **This edit lands
-together with the sitemap/robots commit** it describes (§7 #24; #22 and
-the `twitter:card` half landed just before, at `8478576`) — no data
-changed. **Places:** 20 (18 active, 2 quarantined)
+together with the `--ink-title` fix** it describes (§7 #25 — an invisible
+white-on-white contrast bug on the Journal passport, not the cosmetic
+cleanup it had been recorded as) — no data changed.
+**Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -1243,24 +1244,34 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     Both files land after `vite build` finalizes the service worker's
     precache manifest, so neither is precached — correct, since
     crawler-only files have no reason to be available offline.
-25. **`--ink-title` CSS custom property is referenced 12 times across
-    `index.css`/`Prologue.css` but never declared anywhere** — found
-    2026-08-03 while building the offline banner (`.offline-banner`),
-    which needed a `background: var(--ink-title)` per the original plan
-    and rendered with an invisible (transparent) background as a result.
-    Root cause: `color` is an inherited CSS property, so the other 11
-    pre-existing `color: var(--ink-title)` usages silently fall back to
-    whatever dark color their ancestor already resolves to (ultimately
-    `body`'s `color: var(--ink)`) and look correct by accident;
-    `background` is not inherited, so the same invalid reference resolves
-    to `transparent` instead, which is how this stayed hidden until a
-    `background` usage finally exposed it. Fixed locally: the banner uses
-    `var(--ink)` (the actual defined variable, `#1F2328`) instead. The
-    other 11 pre-existing usages were deliberately left untouched —
-    currently harmless, out of that task's scope. Future cleanup should
-    either declare `--ink-title` in `:root` (as an alias to `--ink`, if
-    that's genuinely what all 12 sites meant) or rename all 12 references
-    to `--ink` directly. Not scheduled.
+25. **Resolved (2026-08-03), and it was not harmless after all.**
+    `--ink-title` was referenced 12 times across `index.css`/`Prologue.css`
+    and never declared. Found while building the offline banner, whose
+    `background: var(--ink-title)` rendered transparent; that was fixed
+    locally at the time by using `var(--ink)`, and the other 11 `color:`
+    usages were left alone on the reasoning that an invalid `var()` on an
+    *inherited* property silently falls back to the ancestor's colour, so
+    they "looked correct by accident."
+    **That reasoning was right about the mechanism and wrong about the
+    consequence.** Falling back to *the ancestor's* colour is only benign
+    when the ancestor is the usual dark ink. `.stat-num` — the
+    Visited/Saved/Areas counts on the Journal passport — sits inside
+    `.passport-cover`, which sets `color: #fff` on a dark green
+    background. Its own `.stat-box` parent sets a light `--bg` background
+    but no colour, so the number inherited **white on #F7F7F8**: a
+    contrast ratio of roughly 1:1, invisible, and shipped that way.
+    Measured in a browser (`getComputedStyle`), not inferred.
+    Fixed by declaring `--ink-title: #1F2328` in `:root` rather than
+    renaming the 12 references — the token is what the CSS author
+    consistently reached for, and `--ink-body`'s own comment ("softer than
+    headings") shows the title/body distinction was deliberate; leaving it
+    undeclared would let the next `var(--ink-title)` inside any coloured
+    container repeat this exact bug. Verified by measuring computed colour
+    at all 8 distinct selectors before and after: **exactly one changed**
+    (`.stat-num`, `rgb(255,255,255)` → `rgb(31,35,40)`). `.badge-name`
+    stays `--muted` because `.badge-item.locked .badge-name` sets it
+    explicitly and wins on specificity — the muted locked-badge styling is
+    intentional and survived the fix.
 26. **Two more offline gaps found by the final whole-branch review
     (2026-08-03), not fixed in the same pass as #1 (illustration SVGs,
     which WAS fixed):** (1) The Inter webfont (`src/index.css:1`, `@import`
