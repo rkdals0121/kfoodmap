@@ -89,14 +89,17 @@ before then.
 ## Technology
 
 - [Vite](https://vite.dev/) — build tooling and dev server
-- [React](https://react.dev/) 19 — UI, `useState` only, no state library
+- [React](https://react.dev/) 19 — UI, mostly `useState`, no state library
+- [react-router](https://reactrouter.com/) 8 — client-side routing (`/`, `/place/:id`)
 - JavaScript — no TypeScript
 - [Leaflet](https://leafletjs.com/) / [react-leaflet](https://react-leaflet.js.org/) — the map
 - [oxlint](https://oxc.rs/) — linting
 - Node.js — authoring-time verification and validation scripts
 
-No backend, no router, no build-time framework beyond Vite. Data is authored
-and validated in Node, then ships as static data.
+No backend, no state library, no build-time framework beyond Vite. Routing
+is client-side (`react-router`) plus build-time static prerendering for
+crawler-visible metadata (see HANDOFF §2.1). Data is authored and validated
+in Node, then ships as static data.
 
 ## Development
 

@@ -125,6 +125,10 @@ with `restaurants.js` since the script reads it directly, the same way
 `scripts/check-data.mjs` already does. Full design rationale:
 `docs/superpowers/specs/2026-08-02-routing-design.md`; implementation plan
 and task-by-task review record: `docs/superpowers/plans/2026-08-02-stage1-routing.md`.
+`react-router@8.3.0` requires Node ≥22.22.0 (local dev Node is v24.18.0,
+fine) — worth confirming the Vercel project's Node runtime is on 22.x or
+newer before this deploys, since npm only warns on an engine mismatch
+rather than failing the build.
 
 ### 2.2 Restaurant data model — `src/data/restaurants.js` (928 lines)
 
@@ -418,7 +422,7 @@ real bug the rule caught on itself.
 id strings ship. Confirm after any change:
 
 ```bash
-npm run build && grep -c retrievedBy dist/assets/*.js   # must be 0
+npm run build && grep -rc retrievedBy dist/   # must be 0
 ```
 
 ### 2.14 Restaurant lifecycle — ACTIVE / QUARANTINE (MVP)
@@ -676,7 +680,8 @@ k-food-map/
 ├── package.json            scripts: dev, build, lint, check-data, preview
 │
 ├── src/                    everything that ships to the browser
-│   ├── App.jsx             all app state; filter + search logic; layout shell
+│   ├── App.jsx             route table (App) + shell (AppShell); filter +
+│   │                       search state; detail view is URL-derived, not state
 │   ├── utils.js            haversine, formatDistance, coordsOf,
 │   │                       getOpenStatus, todaysHours, directionsUrl, MAP_CENTER
 │   ├── index.css           design tokens + every style (no CSS-in-JS)
@@ -705,6 +710,8 @@ k-food-map/
 ├── scripts/                Node-only tooling
 │   ├── check-data.mjs      the QA gate
 │   ├── evidence-hash.mjs   seal / --check / --reseal
+│   ├── prerender-places.mjs  per-restaurant static HTML for crawler og:* meta;
+│   │                          runs after `vite build` (see package.json)
 │   ├── lib/
 │   │   ├── evidence-store.mjs   load, hash, resolve, currentVersion
 │   │   └── check-evidence.mjs   the ten evidence rules + todayInSeoul()
@@ -1053,9 +1060,14 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       `.detail-backdrop`/`.detail-sheet` to `z-index: 210`/`211` —
       clears the mobile tab bar (200) with room to spare, still well
       below the gallery lightbox (`9999`/`10000`), which must stay above
-      the detail sheet itself. Landed at `d501e1f`, its own commit
-      separate from the routing commit, since it's an unrelated
-      pre-existing bug.
+      the detail sheet itself. The fix is not media-query-scoped, so it
+      applies at every breakpoint, not just mobile — checked at a
+      1440×900 desktop viewport too: the only behavioral change there is
+      that the sidebar-collapse chevron (`.sidebar-toggle`, `z-index: 30`)
+      is now covered by the modal backdrop while a detail is open, which
+      is correct modal behavior, not a regression. Landed at `d501e1f`,
+      its own commit separate from the routing commit, since it's an
+      unrelated pre-existing bug.
     - The rework was **never gate-checked or browser-QA'd under §11 rule
       16** — still true for the shell as a whole (Prologue, sidebar/bottom
       sheet, layout) apart from the one detail-view stacking bug just
@@ -1082,6 +1094,33 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       routing plan guarantees all target tags exist), but there's no
       assertion catching future drift. Worth an explicit check
       (`if (html === before) throw ...`) if this script grows more tags.
+22. **og:image intentionally omitted from both the homepage and all 18
+    prerendered restaurant pages (2026-08-03).** Every restaurant's `image`
+    field today is a category illustration SVG (§2.2's image contract — no
+    real photos yet), and Facebook/Twitter/KakaoTalk link-preview crawlers
+    all require JPEG/PNG/GIF/WebP, silently dropping `og:image` values
+    pointing at SVG. Rather than ship a tag that never renders, it was
+    removed for now — `og:title`/`og:description` still work correctly and
+    are the substantive part of the crawler-visibility improvement.
+    Restoring `og:image` needs raster (PNG/JPEG) versions of the
+    illustrations, or real restaurant photos once available — not
+    scheduled.
+23. **A first-time visitor following a shared `/place/:id` link sees the
+    4-step Prologue onboarding before the shared restaurant, not the
+    restaurant itself.** It's recoverable — the URL is untouched, so
+    completing onboarding lands on the correct place — but Stage 1 exists
+    specifically to make links reachable by strangers, and this onboarding
+    gate is the first thing they'd hit. Decided (2026-08-03) to leave as-is
+    for now rather than special-case it; revisit if real usage shows
+    meaningful drop-off on shared links before completing Prologue.
+24. **Two small SEO extensions were suggested but not built (2026-08-03
+    review):** a `twitter:card`/`summary_large_image` tag (X falls back to
+    `og:*` today, rendering a smaller card) — one line in
+    `scripts/prerender-places.mjs`'s `replacements()` table if added; and a
+    `sitemap.xml`/`robots.txt` pointing crawlers at the 18 prerendered
+    `/place/:id` URLs (there's no `public/robots.txt` or sitemap today).
+    Neither is scheduled — recorded so they're a deliberate future choice,
+    not an oversight.
 
 ---
 
@@ -1237,7 +1276,7 @@ restaurants left. Reuses gates that already exist — no new tooling:
 - confidence/lifecycle consistency — no active fact above its evidence
   ceiling (§2.7); the `JournalPanel` quarantine bypass resolved (§7 Medium #11)
 - browser QA — responsive (375/768/1280/1440) and AA contrast re-check (§8)
-- bundle hygiene — `grep -c retrievedBy dist/assets/*.js` = 0
+- bundle hygiene — `grep -rc retrievedBy dist/` = 0
 - documentation verification — every figure in this document re-measured
   against the repository at the release commit, not carried over (§7 Low #16)
 
@@ -1477,7 +1516,7 @@ npm install
 npm run dev           # http://localhost:5173
 npm run check-data    # the gate — must print "No violations."
 npm run lint
-npm run build && grep -c retrievedBy dist/assets/*.js   # must print 0
+npm run build && grep -rc retrievedBy dist/   # must print 0
 
 node scripts/evidence-hash.mjs --check            # evidence seal drift
 node scripts/migrate-dietary-v2.mjs --dry         # the dietary decision record

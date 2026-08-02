@@ -111,7 +111,7 @@ function AppShell() {
   // Single choke point for every path that opens detail (map pin, card,
   // Journal stamp/next-stop) — a quarantined restaurant is a no-op here
   // rather than rendering unverified detail.
-  const openDetail = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`); };
+  const openDetail = (r) => { if (isQuarantined(r)) return; if (r.id !== id) navigate(`/place/${r.id}`); };
   const openStory = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`, { state: { focusStory: true } }); };
 
   useEffect(() => {
@@ -132,7 +132,7 @@ function AppShell() {
     setSelectedFilters(prev =>
       prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]
     );
-    if (id) navigate('/');
+    if (id) navigate('/', { replace: true });
   };
 
   const handleToggleBookmark = (id) => {

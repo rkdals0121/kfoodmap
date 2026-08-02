@@ -38,14 +38,12 @@ function replacements(place) {
   const name = escapeHtml(place.name.split('(')[0].trim());
   const description = escapeHtml(place.vibe);
   const url = `${SITE_URL}/place/${place.id}`;
-  const image = place.image ? `${SITE_URL}${place.image}` : `${SITE_URL}/favicon.svg`;
 
   return [
     [/<title>.*<\/title>/, `<title>${name} · K-Food Map</title>`],
     [/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${description}" />`],
     [/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${name} · K-Food Map" />`],
     [/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${description}" />`],
-    [/<meta property="og:image" content="[^"]*" \/>/, `<meta property="og:image" content="${image}" />`],
     [/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`],
     [/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`],
   ];
