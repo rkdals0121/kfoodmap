@@ -98,9 +98,19 @@
    남은 범위: 다른 막다른 화면들(예: 필터 결과 0건인 "No places match")
    — `BottomSheetList`의 기존 빈 상태는 이미 "필터 제거해보라"는
    제안이 있어 우선순위 낮음
-3. **Food Journey MVP** — 편집 저작 코스 1개 (예: 이태원 할랄 반나절 —
-   검증된 eid·kampungku 중심). 기획은 Phase 6 계획에서 동결됨:
-   테마 큐레이션이지 경로 계산이 아님. 이동은 Nearby Route 책임
+3. ✅ **Food Journey MVP 완료 (2026-08-03)** — 원래 예시("eid·kampungku
+   중심 이태원 반나절")는 실제 데이터로 확인해보니 지리적으로 성립하지
+   않았음: `kampungku`는 2026-07-17 검증에서 이태원이 아니라 명동/중구로
+   정정됨(4km 이상 떨어짐), 이태원에 남은 유일한 활성 할랄 식당은 `eid`
+   하나뿐. **사용자 결정으로 재구성:** "이태원 식이 다양성 반나절" —
+   eid(할랄) + plant-cafe·monks-butcher(비건) 3곳, 전부 실제 이태원.
+   `src/data/journeys.js`에 편집 콘텐츠로만 저장(새 fact 없음, 기존
+   검증된 식당을 테마로 묶기만 함 — story/vibe와 같은 성격).
+   Discover 탭에 "Food Journeys" 섹션 신설, 각 스톱 클릭 시 실제
+   `/place/:id` 라우트로 이동. 이동/경로 계산 없음(Nearby Route 책임
+   원칙 유지). 상세는 HANDOFF §10 Phase 6 item 3
+4. **Offline MVP** — 정적 데이터의 오프라인 이용 (기획 동결됨.
+   지도 타일은 범위 밖)
 4. **Offline MVP** — 정적 데이터의 오프라인 이용 (기획 동결됨.
    지도 타일은 범위 밖)
 5. ✅ **신뢰의 전면화 완료 (2026-08-03, `125667d`)** — Prologue 1단계에

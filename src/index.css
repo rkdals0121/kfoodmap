@@ -2017,6 +2017,92 @@ button {
   margin-top: 4px;
 }
 
+.journey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+.journey-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+.journey-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink-title);
+  margin-bottom: 6px;
+}
+.journey-card__description {
+  font-size: 14px;
+  color: var(--ink-body);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.journey-card__stops {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+}
+.journey-stop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font);
+  transition: background 0.15s ease;
+}
+.journey-stop:hover {
+  background: var(--surface-hover);
+}
+.journey-stop__num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--green-tint);
+  color: var(--green-strong);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.journey-stop__img {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius);
+  background: var(--green-tint);
+}
+.journey-stop__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.journey-stop__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.journey-stop__zone {
+  font-size: 12px;
+  color: var(--muted);
+}
+
 .settings-list {
   display: flex;
   flex-direction: column;

@@ -1,12 +1,12 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-03 · **Base commit:** `07e0900` (Stage 1 routing +
-Stage 2 trust surfacing, on top of `125667d`/`b21db67`/`84c3b3d`/`d501e1f`/
-`875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see §2.16 and §7 for that history;
-Phase 6 underway, four MVPs shipped; v1.0 at `07feea7`). **This edit lands
-together with the Stage 2 sample-passport commit** it describes — no data
-changed. **Places:** 20 (18 active, 2 quarantined)
+**Last updated:** 2026-08-03 · **Base commit:** `4643137` (Stage 1 routing +
+Stage 2 trust surfacing + sample passport, on top of `07e0900`/`125667d`/
+`b21db67`/`84c3b3d`/`d501e1f`/`875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see
+§2.16 and §7 for that history; Phase 6 underway, four MVPs shipped; v1.0 at
+`07feea7`). **This edit lands together with the Food Journey MVP commit**
+it describes — no data changed. **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -700,7 +700,9 @@ k-food-map/
 │       │                   trustBadge, validateDietary, imageLead (278 lines)
 │       ├── evidence.js     evidenceRef(), vocabularies, IMMUTABLE_VERSION_FIELDS
 │       │                   — the only bundled part of the evidence layer (113 lines)
-│       └── culture.js      Korean food culture by category (82 lines)
+│       ├── culture.js      Korean food culture by category (82 lines)
+│       └── journeys.js     Food Journeys — editorial theme curation over
+│                            verified restaurants, no new facts
 │
 ├── data/evidence/          audit data — NOT bundled, read only by scripts/
 │   ├── sources.json        7 sources, shared
@@ -1316,7 +1318,27 @@ Recommended order, frozen 2026-07-18 unless explicitly changed:
    **Story Timeline — the separate `Add`
    candidate this item was split into during Phase 6 planning — also shipped:**
    a sourced history timeline in the detail page, on the three venues whose
-   story already carries one (§12). The Food Journey half is untouched.
+   story already carries one (§12).
+   **Food Journey half: MVP shipped (2026-08-03, GROWTH-PLAN Stage 2 item 3).**
+   `src/data/journeys.js` holds one editorially-curated journey — theme
+   curation over already-verified restaurants, no new facts, same as
+   `story`/`vibe` prose. **The frozen plan's example itinerary didn't
+   survive contact with the data:** it named `eid` + `kampungku` as an
+   "Itaewon half-day," but `kampungku`'s zone was corrected to Myeongdong/
+   Jung-gu during 2026-07-17 verification — over 4 km from Itaewon, not a
+   stale address but a different real street with no connection to the
+   venue (see its record in `restaurants.js`). Itaewon's only other active,
+   non-quarantined halal option is `makan`, which is quarantined
+   (unconfirmed existence, §2.14) and cannot be used. Re-scoped, with the
+   user's approval, to "Itaewon: A Half-Day of Dietary Diversity" — `eid`
+   (halal) plus two of Itaewon's three verified vegan restaurants
+   (`plant-cafe`, `monks-butcher`) — all three genuinely in the same
+   neighborhood. Rendered in `TabPanel.jsx`'s Discover tab; each stop
+   navigates via `useNavigate()` straight to `/place/:id` (no prop-drilled
+   `onRestaurantClick` needed — any router descendant can call the hook
+   directly). A journey is hidden entirely if any one of its stops is ever
+   quarantined, rather than silently dropping a stop and leaving the
+   editorial "N restaurants" claim wrong.
 4. **ESG Explorer.** Gated on a content pass first — `esg_point` is
    currently thin and unaudited (the invented `food_mile` field was already
    deleted at P0; nothing sourced replaced it).
@@ -1499,7 +1521,7 @@ Immediately next, in order:
      or marked honestly unknown." Deliberately not "verified"/a percentage
      — §8 already established no single such figure is meaningful here.
      Placed once, in Prologue, not as a persistent home-screen banner.
-   - ~~**Sample passport**~~ — **done, 2026-08-03** (pending commit).
+   - ~~**Sample passport**~~ — **done, 2026-08-03** (`4643137`).
      `JournalPanel`'s empty state (0 bookmarks) now previews 3 real
      restaurants (`SAMPLE_IDS` in `JournalPanel.jsx`, filtered through
      `isQuarantined` like everywhere else) rendered as stamps but tagged
@@ -1511,8 +1533,13 @@ Immediately next, in order:
      covers GROWTH-PLAN Stage 2 item 2 ("빈 상태 개선") for the Journal
      specifically; other dead-end screens (e.g. zero-filter-match) are
      lower priority since they already suggest a next action.
-   - Remaining Stage 2 items, in GROWTH-PLAN §4 order: Food Journey MVP,
-     Offline MVP.
+   - ~~**Food Journey MVP**~~ — **done, 2026-08-03** (pending commit).
+     See §10 Phase 6 item 3 for the full account, including why the
+     frozen plan's original example itinerary (`eid`+`kampungku`) had to
+     be re-scoped — it wasn't geographically real. Shipped as "Itaewon: A
+     Half-Day of Dietary Diversity" (`eid` + `plant-cafe` + `monks-butcher`)
+     in `src/data/journeys.js`, surfaced in Discover.
+   - Remaining Stage 2 items, in GROWTH-PLAN §4 order: Offline MVP.
 
 The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide, Offline,
 Cross-Device Sync, UGC, Food Journey) stay frozen from Phase 6 planning and
