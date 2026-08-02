@@ -1185,6 +1185,26 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     either declare `--ink-title` in `:root` (as an alias to `--ink`, if
     that's genuinely what all 12 sites meant) or rename all 12 references
     to `--ink` directly. Not scheduled.
+26. **Two more offline gaps found by the final whole-branch review
+    (2026-08-03), not fixed in the same pass as #1 (illustration SVGs,
+    which WAS fixed):** (1) The Inter webfont (`src/index.css:1`, `@import`
+    from `fonts.googleapis.com`) is a cross-origin request the service
+    worker doesn't cache — offline, the app silently falls back to system
+    fonts. Fixing it needs a Workbox `runtimeCaching` rule for
+    `fonts.googleapis.com`/`fonts.gstatic.com` (the standard CacheFirst
+    recipe) or self-hosting the font; neither was done here to avoid
+    guessing at unverified Workbox runtime-caching config syntax, matching
+    this project's practice of not shipping unverified assumptions (see
+    the build-ordering and `navigateFallbackDenylist` corrections earlier
+    in this same feature). (2) A restaurant added to `restaurants.js`
+    after a user's service worker last updated won't appear if they open a
+    deep link to it while offline — the cached shell's JS bundle is the
+    version at last update, so it doesn't know about the new restaurant
+    and redirects home via the existing bad-id guard, same as a genuinely
+    nonexistent id. Neither gap is scheduled; both are edge cases (a
+    returning offline user hitting exactly these paths) rather than the
+    core scenario (browsing already-known restaurants offline), which
+    works correctly.
 
 ---
 
@@ -1602,11 +1622,12 @@ Immediately next, in order:
      be re-scoped — it wasn't geographically real. Shipped as "Itaewon: A
      Half-Day of Dietary Diversity" (`eid` + `plant-cafe` + `monks-butcher`)
      in `src/data/journeys.js`, surfaced in Discover.
-   - ~~**Offline MVP**~~ — **done, 2026-08-03** (pending commit). See §2.1
-     "Offline" for the full architecture. `navigateFallback` — already
-     configured for the routing work's reasons — turned out to be the
-     *sole* mechanism making `/place/:id` work offline too, once a
-     build-ordering gap meant those pages are never precached; verified
+   - ~~**Offline MVP**~~ — **done, 2026-08-03** (`a7979a3`). See §2.1
+     "Offline" for the full architecture. `navigateFallback` was already
+     in the *drafted* Offline MVP config as a general safety net, and
+     turned out to be the sole mechanism actually needed for `/place/:id`
+     to work offline, once a build-ordering gap meant those pages are
+     never precached; verified
      end-to-end with a never-visited `/place/:id` opened cold, genuinely
      offline. Design spec:
      `docs/superpowers/specs/2026-08-03-offline-mvp-design.md`; plan +

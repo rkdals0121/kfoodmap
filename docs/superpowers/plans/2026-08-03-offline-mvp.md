@@ -136,9 +136,9 @@ injected into the built `index.html`).
   worker (the mechanism `/place/:id` offline support actually depends on)**
 
 ```bash
-grep -o '"url":"[^"]*place[^"]*"' dist/sw.js | head -5
-grep -c '"url":"' dist/sw.js
-grep -c 'navigateFallback' dist/sw.js
+grep -o 'url:"[^"]*place[^"]*"' dist/sw.js | head -5
+grep -o 'url:"[^"]*"' dist/sw.js | wc -l
+grep -c 'NavigationRoute' dist/sw.js
 ```
 
 **Expected — and this is the corrected expectation, not the original
@@ -146,9 +146,12 @@ draft's:** the first command prints nothing (none of the 18
 `dist/place/<id>/index.html` pages are in the precache manifest, because
 `prerender-places.mjs` runs after `vite build` already finalized it — see
 this plan's Architecture section). The second command's count reflects
-only the JS/CSS/main-shell assets, not 18+. The third command prints `1`
-or more — confirming `navigateFallback` made it into the generated service
-worker, which is what actually makes offline `/place/:id` navigation work
+only the JS/CSS/main-shell assets, not 18+. The third command checks for
+the `NavigationRoute` class name Workbox actually emits in the minified
+output (the literal string `navigateFallback` never appears there) and
+prints `1` or more — confirming `navigateFallback` made it into the
+generated service worker, which is what actually makes offline
+`/place/:id` navigation work
 (verified end-to-end in Task 4, not here). If the third command prints
 `0`, that's a real problem — `workbox: { navigateFallback: '/index.html'
 }` from Step 2 didn't take effect and must be investigated before

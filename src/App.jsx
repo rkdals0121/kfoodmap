@@ -195,7 +195,7 @@ function AppShell() {
       <div className="map-region">
         {!isOnline && (
           <div className="offline-banner" role="status">
-            Offline — map imagery will return when you're back online.
+            Offline — showing saved data
           </div>
         )}
         <MapComponent
