@@ -76,10 +76,11 @@
   (`/`, `/place/:id`). `superpowers:brainstorming` → `writing-plans` →
   `subagent-driven-development`로 설계·계획·구현·리뷰를 거쳤다.
 - ✅ 페이지별 title/meta: 빌드 후 `scripts/prerender-places.mjs`가 활성
-  식당 18곳 각각에 `dist/place/<id>/index.html`(og:title/description/url
-  + canonical 포함 — og:image는 SVG라 크롤러가 못 읽어 제외, HANDOFF §7)를
-  정적 생성 — 헤드리스 브라우저 없이,
-  크롤러(카카오톡/페이스북/트위터)가 실제로 보는 HTML까지 정확함.
+  식당 18곳 각각에 `dist/place/<id>/index.html`(og:title/description/
+  image/url + canonical + twitter:card 포함)을 정적 생성 — 헤드리스
+  브라우저 없이, 크롤러(카카오톡/페이스북/트위터)가 실제로 보는 HTML까지
+  정확함. og:image는 초기엔 제외했다가(일러스트가 SVG라 크롤러가 못 읽음)
+  2026-08-03에 1200×630 PNG로 래스터화해 복구 — 상세는 HANDOFF §7 #22.
   quarantine 2곳(akiya, makan)은 발견 표면 제외 원칙에 따라 프리렌더도
   라우트도 없음.
 - 설계 문서: `docs/superpowers/specs/2026-08-02-routing-design.md`

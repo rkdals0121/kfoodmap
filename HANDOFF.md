@@ -1,14 +1,11 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-03 · **Base commit:** `a73990c` (Multilingual
-infra spec + plan, on top of `6183368`/`86936c8`/`a7979a3`/`118335a`/
-`269dc58`/`4f882c1`/`07e0900`/`125667d`/`b21db67`/`84c3b3d`/`d501e1f`/
-`875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see §2.16 and §7 for that history;
-Phase 6 underway, four MVPs shipped; v1.0 at `07feea7`). **This edit lands
-together with the Multilingual infrastructure commit** it describes — Stage
-2 is fully shipped, Stage 3's infra slice lands here, no data changed.
-**Places:** 20 (18 active, 2 quarantined)
+**Last updated:** 2026-08-03 · **Base commit:** `56dbebf` (Multilingual
+infra + its final-review fixes; Stages 0–2 complete and Stage 3's infra
+slice shipped — see §12 for where that leaves things). **This edit lands
+together with the og:image restoration commit** it describes (§7 #22, #24)
+— no data changed. **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -811,6 +808,8 @@ k-food-map/
 │   │                          runs after `vite build` (see package.json)
 │   ├── rasterize-apple-touch-icon.mjs  one-off, not wired into the build;
 │   │                          re-run manually if favicon.svg ever changes
+│   ├── rasterize-og-images.mjs  one-off, not wired into the build; re-run
+│   │                          if the illustrations change (§7 #22)
 │   ├── lib/
 │   │   ├── evidence-store.mjs   load, hash, resolve, currentVersion
 │   │   └── check-evidence.mjs   the ten evidence rules + todayInSeoul()
@@ -824,7 +823,9 @@ k-food-map/
 │
 ├── public/                 favicon.svg, apple-touch-icon.png (180×180,
 │                           rasterized once, see scripts/ above)
-│   └── images/             7 food illustration SVGs + fallback
+│   ├── images/             7 food illustration SVGs + fallback
+│   └── og/                 the same 8, rasterized to 1200×630 PNG for
+│                           crawler og:image (§7 #22)
 └── [DEAD — see §7]         temp.js (0 bytes), verify.cjs, geocode_and_build.cjs,
                             src/data/restaurants.json
 ```
@@ -1195,17 +1196,26 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       routing plan guarantees all target tags exist), but there's no
       assertion catching future drift. Worth an explicit check
       (`if (html === before) throw ...`) if this script grows more tags.
-22. **og:image intentionally omitted from both the homepage and all 18
-    prerendered restaurant pages (2026-08-03).** Every restaurant's `image`
-    field today is a category illustration SVG (§2.2's image contract — no
+22. **Resolved (2026-08-03).** `og:image` had been omitted from the
+    homepage and all 18 prerendered pages because every restaurant's
+    `image` is a category illustration **SVG** (§2.2's image contract — no
     real photos yet), and Facebook/Twitter/KakaoTalk link-preview crawlers
-    all require JPEG/PNG/GIF/WebP, silently dropping `og:image` values
-    pointing at SVG. Rather than ship a tag that never renders, it was
-    removed for now — `og:title`/`og:description` still work correctly and
-    are the substantive part of the crawler-visibility improvement.
-    Restoring `og:image` needs raster (PNG/JPEG) versions of the
-    illustrations, or real restaurant photos once available — not
-    scheduled.
+    all require a raster format, silently dropping an SVG `og:image`.
+    Shipping a tag that never renders was worse than shipping none, so it
+    was pulled. Now restored properly: `scripts/rasterize-og-images.mjs`
+    (one-off, not wired into the build — re-run it if the illustrations
+    change) renders each `public/images/*.svg` into a 1200×630 PNG under
+    `public/og/`. The source art is 400×300 (4:3) and `og:image` wants
+    ~1.91:1, so each is scaled to *fit* and centred on the illustration's
+    own background colour rather than cropped — the letterboxing is
+    invisible because it matches the artwork's canvas. `prerender-places.mjs`
+    maps `/images/<name>.svg` → `/og/<name>.png` per restaurant, so a
+    shared restaurant link now previews with its category's card;
+    the homepage uses `og/fallback.png`. `twitter:card:
+    summary_large_image` added at the same time (previously §7 #24), so X
+    renders the large card rather than a small summary. Real photography
+    would still be better and remains the §2.2 image-contract goal — this
+    makes the share layer honest and functional in the meantime.
 23. **A first-time visitor following a shared `/place/:id` link sees the
     4-step Prologue onboarding before the shared restaurant, not the
     restaurant itself.** It's recoverable — the URL is untouched, so
@@ -1214,14 +1224,18 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     gate is the first thing they'd hit. Decided (2026-08-03) to leave as-is
     for now rather than special-case it; revisit if real usage shows
     meaningful drop-off on shared links before completing Prologue.
-24. **Two small SEO extensions were suggested but not built (2026-08-03
-    review):** a `twitter:card`/`summary_large_image` tag (X falls back to
-    `og:*` today, rendering a smaller card) — one line in
-    `scripts/prerender-places.mjs`'s `replacements()` table if added; and a
-    `sitemap.xml`/`robots.txt` pointing crawlers at the 18 prerendered
-    `/place/:id` URLs (there's no `public/robots.txt` or sitemap today).
-    Neither is scheduled — recorded so they're a deliberate future choice,
-    not an oversight.
+24. **One of the two SEO extensions is now built; the other still isn't
+    (2026-08-03).** `twitter:card: summary_large_image` **shipped** with
+    the `og:image` restoration (#22) — it sits in `index.html`, so the
+    prerendered copies inherit it without needing a `replacements()` entry
+    (it's identical for every page, unlike `og:title`/`og:image`). Still
+    **not** built: a `sitemap.xml`/`robots.txt` pointing crawlers at the 18
+    prerendered `/place/:id` URLs — there's no `public/robots.txt` or
+    sitemap today, so nothing tells a crawler the set exists beyond
+    whatever it discovers by following links. Not scheduled; recorded so
+    it stays a deliberate choice rather than an oversight. It would be
+    ~10 lines in a build script that already enumerates the active
+    restaurants (`prerender-places.mjs`).
 25. **`--ink-title` CSS custom property is referenced 12 times across
     `index.css`/`Prologue.css` but never declared anywhere** — found
     2026-08-03 while building the offline banner (`.offline-banner`),

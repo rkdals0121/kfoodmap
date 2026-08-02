@@ -34,6 +34,18 @@ function escapeHtml(s) {
 // replaces its content/href with this restaurant's value. Driven by a table
 // rather than one .replace() call per tag, so adding a tag later (e.g.
 // twitter:card) is a one-line addition, not a new repeated block.
+// Maps a restaurant's illustration (/images/foo.svg) to its rasterized
+// 1200x630 og card (/og/foo.png), generated once by
+// scripts/rasterize-og-images.mjs. Crawlers require a raster format and
+// silently drop an SVG og:image, which is why the tag pointed at nothing
+// usable before (HANDOFF §7 #22). Falls back to the shared card if a
+// restaurant ever has no illustration.
+function ogImageFor(place) {
+  const svg = place.image ?? '';
+  const match = svg.match(/^\/images\/(.+)\.svg$/);
+  return `${SITE_URL}/og/${match ? match[1] : 'fallback'}.png`;
+}
+
 function replacements(place) {
   const name = escapeHtml(place.name.split('(')[0].trim());
   const description = escapeHtml(place.vibe);
@@ -44,6 +56,7 @@ function replacements(place) {
     [/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${description}" />`],
     [/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${name} · K-Food Map" />`],
     [/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${description}" />`],
+    [/<meta property="og:image" content="[^"]*" \/>/, `<meta property="og:image" content="${ogImageFor(place)}" />`],
     [/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`],
     [/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`],
   ];
