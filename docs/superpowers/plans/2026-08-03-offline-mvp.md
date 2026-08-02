@@ -10,12 +10,18 @@ cold start — app shell, all 20 restaurants' data, and deep links to
 
 **Architecture:** `vite-plugin-pwa` (Workbox `generateSW` strategy)
 precaches the built static payload — restaurant data is already inside the
-JS bundle, so precaching the bundle *is* precaching the data. Workbox's
-default `globPatterns` already matches every `.html` under `dist/`
-(confirmed from the installed package's own type definitions, not assumed),
-so the 18 crawler-prerendered `/place/<id>` pages get precached alongside
-the main shell automatically — no exclusion needed. `navigateFallback`
-stays configured as a safety net for anything not in the precache.
+JS bundle, so precaching the bundle *is* precaching the data.
+**Update, found during Task 1 implementation:** `npm run build` runs `vite
+build` (which finalizes the service-worker precache manifest near the end
+of that step) *before* the separate `node scripts/prerender-places.mjs`
+step creates the 18 `dist/place/<id>/index.html` crawler pages — so in
+practice those pages are never in the precache manifest, regardless of
+`globPatterns`. This is fine and requires no build-pipeline change:
+`navigateFallback: '/index.html'` was already configured as the mechanism
+for exactly this case (any navigation request that isn't an exact cache
+hit), and it's sufficient on its own — every offline `/place/:id`
+navigation goes through it, verified in Task 4. See the design spec's
+"Second correction" note for the full account.
 
 **Tech Stack:** `vite-plugin-pwa@^1.3.0` (confirmed compatible with this
 project's `vite@^8.1.1` via its own `peerDependencies`), Workbox
@@ -126,18 +132,27 @@ grep -c 'rel="manifest"' dist/index.html
 Expected: both files exist; the grep prints `1` (the manifest link was
 injected into the built `index.html`).
 
-- [ ] **Step 4: Confirm the 18 prerendered pages are precached, not excluded**
+- [ ] **Step 4: Confirm `navigateFallback` is present in the built service
+  worker (the mechanism `/place/:id` offline support actually depends on)**
 
 ```bash
 grep -o '"url":"[^"]*place[^"]*"' dist/sw.js | head -5
 grep -c '"url":"' dist/sw.js
+grep -c 'navigateFallback' dist/sw.js
 ```
 
-Expected: several `place/<id>/index.html` entries appear in the first
-command's output, and the second command's count is comfortably above 18
-(it includes the JS/CSS bundle entries too). This confirms the design
-spec's corrected understanding — no `navigateFallbackDenylist` or asset
-exclusion was needed.
+**Expected — and this is the corrected expectation, not the original
+draft's:** the first command prints nothing (none of the 18
+`dist/place/<id>/index.html` pages are in the precache manifest, because
+`prerender-places.mjs` runs after `vite build` already finalized it — see
+this plan's Architecture section). The second command's count reflects
+only the JS/CSS/main-shell assets, not 18+. The third command prints `1`
+or more — confirming `navigateFallback` made it into the generated service
+worker, which is what actually makes offline `/place/:id` navigation work
+(verified end-to-end in Task 4, not here). If the third command prints
+`0`, that's a real problem — `workbox: { navigateFallback: '/index.html'
+}` from Step 2 didn't take effect and must be investigated before
+continuing.
 
 - [ ] **Step 5: Run the full gate suite**
 
@@ -523,8 +538,12 @@ throughout this session) before proceeding to commit.
 
 - §2.1: add a short paragraph describing the offline architecture
   (mirroring the style of the existing "Routing" paragraph added earlier
-  this session) — `vite-plugin-pwa` precaches the static payload,
-  `navigateFallback` as a safety net, map tiles uncached, offline banner.
+  this session) — `vite-plugin-pwa` precaches the app shell + bundled
+  data; the 18 crawler-prerendered `/place/<id>` pages are NOT precached
+  (build-ordering: `prerender-places.mjs` runs after `vite build`
+  finalizes the manifest) so offline `/place/:id` navigation goes through
+  `navigateFallback` to the shell instead; map tiles uncached; offline
+  banner.
 - §3 Directory Structure: add `src/hooks/useOnlineStatus.js` and
   `scripts/rasterize-apple-touch-icon.mjs` to the tree, and
   `public/apple-touch-icon.png` if the `public/` listing enumerates files.
@@ -568,14 +587,13 @@ git commit -m "Stage 2: Offline MVP -- installable, works from a cold offline st
 
 - vite-plugin-pwa precaches the built static payload (app shell + all
   20 restaurants' data, already bundled in the JS -- no separate fetch
-  to cache). Workbox's default globPatterns already matches every
-  dist/**/*.html, so the 18 crawler-prerendered /place/<id> pages get
-  precached automatically alongside the shell -- confirmed from the
-  installed package's own type definitions, not assumed, so no
-  navigateFallbackDenylist exclusion was needed as originally drafted.
-- navigateFallback stays configured as a safety net for anything not
-  in the precache (e.g. a restaurant added after the service worker
-  last updated).
+  to cache). The 18 crawler-prerendered /place/<id> pages are NOT in the
+  precache manifest (prerender-places.mjs runs after vite build already
+  finalized it -- a build-ordering fact found during implementation, not
+  a design choice), so every offline /place/:id navigation goes through
+  navigateFallback instead: the cached shell loads, and react-router with
+  its bundled data renders the right restaurant, no second network round
+  trip either way. Verified end-to-end, not assumed.
 - apple-touch-icon.png (180x180, rasterized once from favicon.svg via
   scripts/rasterize-apple-touch-icon.mjs) for iOS home-screen install,
   since iOS doesn't reliably read Web App Manifest icons the way
@@ -622,8 +640,14 @@ Vercel production deploy, same as every prior commit this session.
   plan has the actual command and actual expected output, not "test that
   it works" — including the one the design review specifically demanded
   (Task 4 Step 2's script).
-- **Corrected mid-writing, not left as a guess:** the precache-exclusion
-  question was resolved by downloading and reading the actual installed
-  package's type definitions (documented in both the spec's Architecture
-  section and this plan's own header), rather than shipping a plan built
-  on an assumption.
+- **Corrected twice, not left as a guess either time:** first, before
+  writing this plan, by downloading and reading the actual installed
+  package's type definitions (`globPatterns` behavior). Second, during
+  Task 1's actual implementation, when the build-ordering gap between
+  `vite build`'s precache finalization and `prerender-places.mjs`'s later
+  run was found by inspecting the real built `dist/sw.js`, not assumed
+  from the type-level reasoning alone. Both corrections are recorded in
+  the spec (`docs/superpowers/specs/2026-08-03-offline-mvp-design.md`)
+  and reflected in Task 1 Step 4's expectations above. The actual
+  requirement — offline `/place/:id` support — was never at risk either
+  time; only the internal mechanism understanding changed.

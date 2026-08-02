@@ -48,19 +48,41 @@ background and takes effect on the next navigation, no user-facing "update
 available" prompt. Matches the "waits for content to settle" caution: this
 is the conservative default, not a leading-edge freshness guarantee.
 
-**Correction after checking `vite-plugin-pwa`'s and `workbox-build`'s actual
-type definitions (not assumed from memory — downloaded and read both
-packages' `.d.ts` files):** the 18 `dist/place/<id>/index.html` prerendered
-pages do **not** need to be excluded from precaching. Workbox's default
-`globPatterns` (`["**/*.{js,wasm,css,html}"]`, confirmed in
-`workbox-build`'s `GenerateSWOptions` type) already matches every `.html`
-file under `dist/`, recursively — so all 18 prerendered pages get precached
-automatically alongside the main shell, at negligible size cost (each is a
-near-copy of `index.html` with different `<head>` tags, a few KB). This is
-strictly simpler than the originally-drafted design (which planned to
-exclude them via `navigateFallbackDenylist` and lean entirely on fallback):
-a direct navigation to an already-precached `/place/<id>` gets an *exact*
-cache hit — no fallback logic even runs.
+**Second correction, found during implementation (Task 1), not during
+design review — recorded here because the repository is the only
+authoritative state:** the type-definition-based reasoning above
+(`globPatterns` matches every `.html` under `dist/`, so the 18 prerendered
+pages get precached "for free") turned out to be right about what
+`globPatterns` *matches*, but wrong about *when*. `npm run build` is `vite
+build && node scripts/prerender-places.mjs` — two separate shell steps.
+`vite-plugin-pwa`'s `generateSW` strategy finalizes the service worker's
+precache manifest as part of the `vite build` step itself (a Vite plugin
+hook near the end of that process), which completes and writes `dist/sw.js`
+**before** `prerender-places.mjs` ever runs and creates
+`dist/place/<id>/index.html`. So in practice, none of the 18 prerendered
+pages are in the precache manifest — confirmed by inspecting the actual
+built `dist/sw.js`, not assumed.
+
+**This doesn't change the offline feature's design, only the mechanism by
+which `/place/:id` ends up working offline.** `navigateFallback:
+'/index.html'` was already configured as a safety net regardless of
+precache membership — for any navigation request the service worker can't
+serve from an *exact* cache match, it falls back to the cached shell, and
+the client-side router (with all restaurant data bundled in the JS)
+renders the correct page from there, no second network round-trip needed.
+Since none of the 18 place pages are precached, every offline `/place/:id`
+navigation goes through this fallback path — which is exactly the original
+first-draft design, before the type-definition read above suggested
+(incorrectly, as it turned out) that exclusion logic was unnecessary
+because precaching would happen automatically. It doesn't; the fallback
+was never optional, just now confirmed as the sole path rather than a
+backup for the rare cache-miss. No build-pipeline restructuring was made
+to force the prerendered pages into the precache — the added complexity
+(moving prerendering into a Vite plugin hook so it runs before
+`vite-plugin-pwa` finalizes the manifest) isn't justified by any actual
+gap: `navigateFallback` alone fully satisfies "offline `/place/:id` works,
+including links never visited this session," which is the actual
+requirement (see Verification plan).
 
 `navigateFallback` (a real `workbox-build` option, confirmed in its
 `GenerateSWOptions` type — set under the plugin's `workbox: {...}` key, not

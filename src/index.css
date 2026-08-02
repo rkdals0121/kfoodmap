@@ -190,6 +190,23 @@ button {
   min-height: 0;
 }
 
+.offline-banner {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 450;
+  background: var(--ink);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-2);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 /* List reads as a layered sheet over the map (Google Maps-style) */
 .list-region {
   position: relative;

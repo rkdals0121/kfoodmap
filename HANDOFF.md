@@ -1,12 +1,13 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-03 · **Base commit:** `4643137` (Stage 1 routing +
-Stage 2 trust surfacing + sample passport, on top of `07e0900`/`125667d`/
+**Last updated:** 2026-08-03 · **Base commit:** `118335a` (Offline MVP spec
+correction + plan, on top of `4f882c1`/`269dc58`/`07e0900`/`125667d`/
 `b21db67`/`84c3b3d`/`d501e1f`/`875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see
 §2.16 and §7 for that history; Phase 6 underway, four MVPs shipped; v1.0 at
-`07feea7`). **This edit lands together with the Food Journey MVP commit**
-it describes — no data changed. **Places:** 20 (18 active, 2 quarantined)
+`07feea7`). **This edit lands together with the Offline MVP commit** it
+describes — the last Stage 2 item, no data changed.
+**Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -128,6 +129,44 @@ and task-by-task review record: `docs/superpowers/plans/2026-08-02-stage1-routin
 fine) — worth confirming the Vercel project's Node runtime is on 22.x or
 newer before this deploys, since npm only warns on an engine mismatch
 rather than failing the build.
+
+**Offline (2026-08-03, GROWTH-PLAN Stage 2 item 4, the last one).**
+`vite-plugin-pwa` (Workbox `generateSW` strategy) precaches the app shell
+and all bundled static assets on first online visit — restaurant data is
+already inside the JS bundle, so precaching the bundle *is* precaching the
+data. **The 18 crawler-prerendered `dist/place/<id>/index.html` pages are
+NOT in the precache manifest** — found during implementation, not
+designed in: `npm run build` is `vite build && node
+scripts/prerender-places.mjs`, two separate shell steps, and
+`vite-plugin-pwa` finalizes the precache manifest as part of `vite build`
+itself, before `prerender-places.mjs` ever creates those files. This
+turned out not to matter: `workbox: { navigateFallback: '/index.html' }`
+was already configured, and it handles exactly this case — any offline
+navigation request that isn't an exact cache hit falls back to the cached
+shell, and `react-router` with its bundled data renders the correct
+restaurant from there, verified end-to-end with a `/place/:id` never
+opened in the test session, opened cold while genuinely offline (see the
+plan's Task 4 for the script). A small `useOnlineStatus()` hook
+(`src/hooks/useOnlineStatus.js`, plain `navigator.onLine` +
+`online`/`offline` window events) drives a banner over the map when
+offline — map tiles need network and stay uncached, per the frozen scope;
+everything else works offline regardless. `public/apple-touch-icon.png`
+(180×180, rasterized once from `favicon.svg` via
+`scripts/rasterize-apple-touch-icon.mjs`, not part of the build) covers
+iOS home-screen install, since iOS doesn't reliably read Web App Manifest
+icons the way Android/Chrome does — same class of format gap as the
+`og:image` SVG issue, §7 #22, handled proactively this time. **Testing
+note:** Playwright's `context.setOffline(true)` reliably blocks network
+requests (proving the service-worker/navigateFallback path works) but
+does not reliably update `navigator.onLine` for a document created by a
+*fresh navigation* while already offline — confirmed by manually
+dispatching a real `offline` event afterward, which made the banner
+appear immediately and correctly. This is a Playwright/CDP emulation gap,
+not an app bug: a genuine OS-level disconnection (what a real user
+experiences) always fires the DOM event correctly. Design spec:
+`docs/superpowers/specs/2026-08-03-offline-mvp-design.md`; implementation
+plan and task-by-task review record:
+`docs/superpowers/plans/2026-08-03-offline-mvp.md`.
 
 ### 2.2 Restaurant data model — `src/data/restaurants.js` (928 lines)
 
@@ -684,6 +723,8 @@ k-food-map/
 │   ├── utils.js            haversine, formatDistance, coordsOf,
 │   │                       getOpenStatus, todaysHours, directionsUrl, MAP_CENTER
 │   ├── index.css           design tokens + every style (no CSS-in-JS)
+│   ├── hooks/
+│   │   └── useOnlineStatus.js  navigator.onLine + online/offline events
 │   ├── components/         presentational; no data fetching
 │   │   ├── MapComponent.jsx    Leaflet; pins; ResizeSync; moveend → mapCenter
 │   │   ├── FilterBar.jsx       search + dietary chips
@@ -713,6 +754,8 @@ k-food-map/
 │   ├── evidence-hash.mjs   seal / --check / --reseal
 │   ├── prerender-places.mjs  per-restaurant static HTML for crawler og:* meta;
 │   │                          runs after `vite build` (see package.json)
+│   ├── rasterize-apple-touch-icon.mjs  one-off, not wired into the build;
+│   │                          re-run manually if favicon.svg ever changes
 │   ├── lib/
 │   │   ├── evidence-store.mjs   load, hash, resolve, currentVersion
 │   │   └── check-evidence.mjs   the ten evidence rules + todayInSeoul()
@@ -724,7 +767,9 @@ k-food-map/
 │   ├── DATA.md             schema, never-infer/never-chain rules, migrations
 │   └── EVIDENCE.md         the evidence layer in depth
 │
-├── public/images/          7 food illustration SVGs + fallback
+├── public/                 favicon.svg, apple-touch-icon.png (180×180,
+│                           rasterized once, see scripts/ above)
+│   └── images/             7 food illustration SVGs + fallback
 └── [DEAD — see §7]         temp.js (0 bytes), verify.cjs, geocode_and_build.cjs,
                             src/data/restaurants.json
 ```
@@ -1122,6 +1167,24 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     `/place/:id` URLs (there's no `public/robots.txt` or sitemap today).
     Neither is scheduled — recorded so they're a deliberate future choice,
     not an oversight.
+25. **`--ink-title` CSS custom property is referenced 12 times across
+    `index.css`/`Prologue.css` but never declared anywhere** — found
+    2026-08-03 while building the offline banner (`.offline-banner`),
+    which needed a `background: var(--ink-title)` per the original plan
+    and rendered with an invisible (transparent) background as a result.
+    Root cause: `color` is an inherited CSS property, so the other 11
+    pre-existing `color: var(--ink-title)` usages silently fall back to
+    whatever dark color their ancestor already resolves to (ultimately
+    `body`'s `color: var(--ink)`) and look correct by accident;
+    `background` is not inherited, so the same invalid reference resolves
+    to `transparent` instead, which is how this stayed hidden until a
+    `background` usage finally exposed it. Fixed locally: the banner uses
+    `var(--ink)` (the actual defined variable, `#1F2328`) instead. The
+    other 11 pre-existing usages were deliberately left untouched —
+    currently harmless, out of that task's scope. Future cleanup should
+    either declare `--ink-title` in `:root` (as an alias to `--ink`, if
+    that's genuinely what all 12 sites meant) or rename all 12 references
+    to `--ink` directly. Not scheduled.
 
 ---
 
@@ -1533,17 +1596,29 @@ Immediately next, in order:
      covers GROWTH-PLAN Stage 2 item 2 ("빈 상태 개선") for the Journal
      specifically; other dead-end screens (e.g. zero-filter-match) are
      lower priority since they already suggest a next action.
-   - ~~**Food Journey MVP**~~ — **done, 2026-08-03** (pending commit).
+   - ~~**Food Journey MVP**~~ — **done, 2026-08-03** (`4f882c1`).
      See §10 Phase 6 item 3 for the full account, including why the
      frozen plan's original example itinerary (`eid`+`kampungku`) had to
      be re-scoped — it wasn't geographically real. Shipped as "Itaewon: A
      Half-Day of Dietary Diversity" (`eid` + `plant-cafe` + `monks-butcher`)
      in `src/data/journeys.js`, surfaced in Discover.
-   - Remaining Stage 2 items, in GROWTH-PLAN §4 order: Offline MVP.
+   - ~~**Offline MVP**~~ — **done, 2026-08-03** (pending commit). See §2.1
+     "Offline" for the full architecture. `navigateFallback` — already
+     configured for the routing work's reasons — turned out to be the
+     *sole* mechanism making `/place/:id` work offline too, once a
+     build-ordering gap meant those pages are never precached; verified
+     end-to-end with a never-visited `/place/:id` opened cold, genuinely
+     offline. Design spec:
+     `docs/superpowers/specs/2026-08-03-offline-mvp-design.md`; plan +
+     review record: `docs/superpowers/plans/2026-08-03-offline-mvp.md`.
+   - **Stage 2 is now fully shipped (all 5 items).** Stage 3
+     (Multilingual) is next per GROWTH-PLAN §4 — not started, no work done
+     toward it yet.
 
-The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide, Offline,
-Cross-Device Sync, UGC, Food Journey) stay frozen from Phase 6 planning and
-slot into the stages above; implement them directly rather than re-planning.
+The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide,
+Cross-Device Sync, UGC) stay frozen from Phase 6 planning (Offline and
+Food Journey are now both shipped, see above) and slot into the stages
+above; implement them directly rather than re-planning.
 
 **Do not:** repeat the §2.16 pattern — no work outside the gates and this
 log; bulk-import restaurant data (the eatpass study is the cautionary tale:

@@ -9,6 +9,7 @@ import TabBar from './components/TabBar';
 import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
 import Prologue from './components/Prologue';
+import { useOnlineStatus } from './hooks/useOnlineStatus';
 import { MAP_CENTER } from './utils';
 import { matchesDietary, isQuarantined } from './data/verification';
 import './index.css';
@@ -62,6 +63,7 @@ function AppShell() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const isOnline = useOnlineStatus();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilters, setSelectedFilters] = useState([]);
   // The URL is the source of truth for which restaurant is open — no
@@ -191,6 +193,11 @@ function AppShell() {
     <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
       {/* Map is now at the base level */}
       <div className="map-region">
+        {!isOnline && (
+          <div className="offline-banner" role="status">
+            Offline — map imagery will return when you're back online.
+          </div>
+        )}
         <MapComponent
           restaurants={filteredRestaurants}
           onMarkerClick={openDetail}

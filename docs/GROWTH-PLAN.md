@@ -86,7 +86,7 @@
 - 계획·리뷰 기록: `docs/superpowers/plans/2026-08-02-stage1-routing.md`
 - 상세는 HANDOFF §2.1, §12
 
-### Stage 2 — 활성화 (백엔드 불필요, 작은 단위 여러 개)
+### Stage 2 — 활성화 ✅ 완료 (2026-08-03, 5개 항목 전부)
 1. ✅ **샘플 여권 완료 (2026-08-03)** — Journal이 비어있을 때(북마크 0개)
    실제 식당 3곳(gonghwachun·kampungku·plant-cafe, 각각 `SAMPLE_IDS`
    상수 + isQuarantined 필터 통과분만)을 "SAMPLE" 라벨을 붙여 실제
@@ -109,10 +109,18 @@
    Discover 탭에 "Food Journeys" 섹션 신설, 각 스톱 클릭 시 실제
    `/place/:id` 라우트로 이동. 이동/경로 계산 없음(Nearby Route 책임
    원칙 유지). 상세는 HANDOFF §10 Phase 6 item 3
-4. **Offline MVP** — 정적 데이터의 오프라인 이용 (기획 동결됨.
-   지도 타일은 범위 밖)
-4. **Offline MVP** — 정적 데이터의 오프라인 이용 (기획 동결됨.
-   지도 타일은 범위 밖)
+4. ✅ **Offline MVP 완료 (2026-08-03)** — `vite-plugin-pwa`로 앱 셸 +
+   번들된 전체 데이터를 첫 온라인 방문 시 precache. 구현 중 발견: `npm
+   run build`가 `vite build && node scripts/prerender-places.mjs` 두
+   단계라, 프리렌더 페이지 18개는 precache 확정 이후에 생성돼서 실제로는
+   precache에 안 들어감 — 하지만 라우팅 작업 때부터 이미 설정해둔
+   `navigateFallback`이 이 경우를 그대로 처리해서 문제 없음(오프라인
+   `/place/:id` 딥링크가 셸+라우터로 정상 렌더). 이번 세션에 한 번도 안
+   열어본 `/place/:id`를 완전 오프라인 상태에서 콜드 오픈하는 시나리오로
+   실제 검증함. 지도 타일은 원칙대로 범위 밖 — 오프라인 배너로 안내.
+   설계: `docs/superpowers/specs/2026-08-03-offline-mvp-design.md`,
+   계획·리뷰: `docs/superpowers/plans/2026-08-03-offline-mvp.md`,
+   상세는 HANDOFF §2.1
 5. ✅ **신뢰의 전면화 완료 (2026-08-03, `125667d`)** — Prologue 1단계에
    활성 식당 수(데이터에서 계산, 하드코딩 아님) + "researched one at a
    time — every claim sourced, or marked honestly unknown" 명시.
