@@ -7,8 +7,19 @@ function formatStampDate(ts) {
   return new Date(ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
+// A small, fixed sample for the empty-passport preview — not the user's own
+// data, so every stamp below carries a "Sample" label instead of a date and
+// is filtered through isQuarantined, same as everywhere else a restaurant is
+// shown, in case one of these three is ever quarantined later.
+const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
+
 export default function JournalPanel({ bookmarks, onRestaurantClick }) {
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
+
+  const samples = useMemo(
+    () => SAMPLE_IDS.map(id => byId[id]).filter(place => place && !isQuarantined(place)),
+    [byId],
+  );
 
   const stamped = useMemo(() =>
     bookmarks
@@ -126,6 +137,43 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
           <p className="journal-empty__body">
             Save places to your passport and track your Korean food journey.
           </p>
+
+          {samples.length > 0 && (
+            <>
+              <p className="journal-sample-label">What it'll look like</p>
+              <div className="journal-grid journal-grid--sample">
+                {samples.map(place => (
+                  <button
+                    key={place.id}
+                    className="stamp"
+                    onClick={() => onRestaurantClick(place)}
+                  >
+                    <span className="stamp-ring">
+                      <img src={place.image} alt="" />
+                    </span>
+                    <span className="stamp-name">{place.name.split('(')[0].trim()}</span>
+                    <span className="stamp-zone">{place.zone}</span>
+                    <span className="stamp-sample-tag">Sample</span>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          <div className="journal-empty__steps">
+            <div className="journal-empty__step">
+              <span className="journal-empty__step-num">1</span>
+              Find a restaurant you like
+            </div>
+            <div className="journal-empty__step">
+              <span className="journal-empty__step-num">2</span>
+              Tap the heart to save it
+            </div>
+            <div className="journal-empty__step">
+              <span className="journal-empty__step-num">3</span>
+              Mark it visited after your trip
+            </div>
+          </div>
         </div>
       )}
     </section>

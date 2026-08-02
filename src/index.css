@@ -1390,6 +1390,19 @@ button {
   color: var(--muted);
   max-width: 300px;
 }
+.journal-sample-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 12px;
+}
+.journal-grid--sample {
+  margin-top: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
 .journal-empty__steps {
   display: flex;
   flex-direction: column;
@@ -1491,7 +1504,8 @@ button {
   border-radius: 999px;
   margin-top: 2px;
 }
-.stamp-saved-label {
+.stamp-saved-label,
+.stamp-sample-tag {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;

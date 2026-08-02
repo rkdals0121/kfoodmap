@@ -1,12 +1,12 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-03 · **Base commit:** `b21db67` (Stage 1 routing +
-its final-review fixes; on top of `84c3b3d`/`d501e1f`/`875a148`/`2b1e6ac`/
-`cb360f8`/`dd0c7a4`; see §2.16 and §7 for that history; Phase 6 underway,
-four MVPs shipped; v1.0 at `07feea7`). **This edit syncs the Stage 2 trust
-Prologue commit** (`125667d`) — no data changed.
-**Places:** 20 (18 active, 2 quarantined)
+**Last updated:** 2026-08-03 · **Base commit:** `07e0900` (Stage 1 routing +
+Stage 2 trust surfacing, on top of `125667d`/`b21db67`/`84c3b3d`/`d501e1f`/
+`875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see §2.16 and §7 for that history;
+Phase 6 underway, four MVPs shipped; v1.0 at `07feea7`). **This edit lands
+together with the Stage 2 sample-passport commit** it describes — no data
+changed. **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -1499,8 +1499,20 @@ Immediately next, in order:
      or marked honestly unknown." Deliberately not "verified"/a percentage
      — §8 already established no single such figure is meaningful here.
      Placed once, in Prologue, not as a persistent home-screen banner.
-   - Remaining Stage 2 items, in GROWTH-PLAN §4 order: sample passport,
-     empty-state improvements, Food Journey MVP, Offline MVP.
+   - ~~**Sample passport**~~ — **done, 2026-08-03** (pending commit).
+     `JournalPanel`'s empty state (0 bookmarks) now previews 3 real
+     restaurants (`SAMPLE_IDS` in `JournalPanel.jsx`, filtered through
+     `isQuarantined` like everywhere else) rendered as stamps but tagged
+     "SAMPLE" instead of a date — no fabricated visit/save data, per §11's
+     honesty rule. Followed by a 3-step "how to start" guide, reusing
+     `.journal-empty__steps`/`.journal-empty__step-num` CSS that existed
+     but was unused since the §2.16 rework simplified the passport (dead
+     code, not deleted, now doing something). This also substantially
+     covers GROWTH-PLAN Stage 2 item 2 ("빈 상태 개선") for the Journal
+     specifically; other dead-end screens (e.g. zero-filter-match) are
+     lower priority since they already suggest a next action.
+   - Remaining Stage 2 items, in GROWTH-PLAN §4 order: Food Journey MVP,
+     Offline MVP.
 
 The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide, Offline,
 Cross-Device Sync, UGC, Food Journey) stay frozen from Phase 6 planning and
