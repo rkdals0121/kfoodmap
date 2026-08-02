@@ -182,9 +182,11 @@ tab's Language row opens a picker containing exactly one option, which is
 the honest representation of that state.
 
 Extraction is deliberately partial — four "core screens" only: `TabBar`'s
-nav labels, all of `Prologue`, every safety/trust label in
-`verification.js`, and `JournalPanel`'s badge names/sample tag/empty-state
-steps. `FilterBar`, `BottomSheetList`, `RestaurantDetail`, the rest of
+nav labels, all of `Prologue`, every label produced by `verification.js`'s
+`trustBadge()`/`VEGAN_LABEL`/`HALAL_LABEL` (its `SOURCE`/`METHOD` enum
+values are also user-facing prose but are *not* extracted — see §7 #27b
+for why they're harder), and `JournalPanel`'s badge names/sample
+tag/empty-state steps. `FilterBar`, `BottomSheetList`, `RestaurantDetail`, the rest of
 `JournalPanel`/`TabPanel`, and Food Journeys stay hardcoded English —
 future incremental rounds. `story`/`vibe`/`esg_point`, restaurant names
 and zone names are **permanently** out of scope: data, not UI chrome.
@@ -1269,9 +1271,21 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     `FilterBar`, `BottomSheetList`, `RestaurantDetail`, the rest of
     `JournalPanel`/`TabPanel`, and the Food Journeys section are still
     hardcoded English — deliberately deferred to keep the first i18n diff
-    reviewable, not overlooked. A future round extracts them the same way
-    (add keys to `en.js`, swap literals for `t()`); nothing architectural
-    is left to decide. Neither is scheduled.
+    reviewable, not overlooked. Most of them extract mechanically (add
+    keys to `en.js`, swap literals for `t()`), but **two do not, and
+    getting this wrong fails silently**: (a) `FilterBar`'s chip labels
+    *are* the filter identity — they flow into `selectedFilters` and are
+    compared in `App.jsx` against `DIETARY_CHIPS`, `TRAIT_GROUPS` keys,
+    and `r.traits` (raw values in `restaurants.js`), and in
+    `matchesDietary()` against literal `'Vegan'`/`'Halal'`. Translate them
+    without first splitting id from label and every chip matches zero
+    restaurants, with no error. (b) `SOURCE` and `METHOD` enum *values* in
+    `verification.js` are user-facing English prose (rendered in
+    `RestaurantDetail.jsx`) that is simultaneously stored data —
+    `source: SOURCE.OFFICIAL` serializes that prose into every restaurant
+    record. Same split needed, plus a data migration. Both need an
+    `{ id, labelKey }` refactor before extraction, which is architectural
+    work, not a swap. Neither is scheduled.
 28. **A language switcher rendered inside `.tab-panel` needs a portal.**
     Found while building the Profile language picker: `.tab-panel` is
     `position: fixed; z-index: 12`, which establishes a stacking context —

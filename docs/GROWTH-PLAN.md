@@ -133,8 +133,9 @@
 - ✅ **Multilingual 인프라 완료** — `react-i18next` + `i18next` 도입,
   영어 문자열을 JS에 번들(별도 fetch 없음 → 프리렌더·서비스워커
   precache와 무간섭). 핵심 4개 화면 추출: TabBar 탭 라벨, Prologue 전체,
-  `verification.js`의 안전/신뢰 라벨 전부(trustBadge 6분기 +
-  VEGAN/HALAL_LABEL), JournalPanel 배지·샘플 태그·빈 상태 3단계.
+  `verification.js`의 `trustBadge()` 6분기 + `VEGAN`/`HALAL_LABEL`
+  (같은 파일의 `SOURCE`/`METHOD` 값도 화면 노출 문자열이지만 미추출 —
+  HANDOFF §7 #27 참조), JournalPanel 배지·샘플 태그·빈 상태 3단계.
   Profile에 언어 선택 UI 신설(현재 선택지 English 하나 — 없는 선택지를
   있는 척하지 않음). 상세는 HANDOFF §2.1 "i18n"
 - ⬜ **번역 콘텐츠는 여전히 0** — 검증 가능 인력이 전제라는 원칙 그대로.
@@ -143,7 +144,14 @@
 - ⬜ **나머지 화면 문자열 추출** — FilterBar·BottomSheetList·
   RestaurantDetail·JournalPanel/TabPanel 잔여·Food Journeys는 아직
   하드코딩 영어. 첫 i18n diff를 리뷰 가능한 크기로 유지하려 의도적으로
-  미룬 것이며, 아키텍처상 새로 정할 건 없음 (키 추가 + t() 치환 반복)
+  미룬 것. **대부분은 키 추가 + t() 치환의 기계적 작업이지만 두 곳은
+  아님:** FilterBar의 칩 라벨은 곧 필터 식별자(App.jsx의
+  `DIETARY_CHIPS`/`TRAIT_GROUPS`/`r.traits`와 문자열 비교)라 그냥
+  번역하면 모든 칩이 조용히 0건 매칭됨. `verification.js`의
+  `SOURCE`/`METHOD` 값도 화면에 그대로 노출되면서 동시에
+  `restaurants.js`에 저장되는 데이터라 같은 문제 + 데이터 마이그레이션
+  필요. 둘 다 `{ id, labelKey }` 분리가 선행돼야 함 — 아키텍처 작업이지
+  치환이 아님 (HANDOFF §7 #27)
 
 ### Stage 4 — 커뮤니티/규모 (백엔드 결정 필요)
 - ⚠️ **미결정 D:** §2.1 no-backend 수정 (Supabase류 최소 도입 권장,

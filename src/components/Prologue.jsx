@@ -40,7 +40,7 @@ export default function Prologue({ onComplete }) {
             <p className="prologue-subtitle">{t('prologue.welcomeSubtitle')}</p>
             <p className="prologue-trust">
               <ShieldCheckIcon size={16} />
-              {t('prologue.trustLine', { count: activeCount })}
+              {t('prologue.trustLine', { activeCount })}
             </p>
             <button className="prologue-btn" onClick={nextStep}>{t('prologue.continue')}</button>
           </div>

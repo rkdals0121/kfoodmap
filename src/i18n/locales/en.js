@@ -13,7 +13,7 @@ export default {
   prologue: {
     welcomeTitle: 'Welcome to Korea.',
     welcomeSubtitle: 'Discover food that matches your taste.',
-    trustLine: '{{count}} restaurants, researched one at a time — every claim sourced, or marked honestly unknown.',
+    trustLine: '{{activeCount}} restaurants, researched one at a time — every claim sourced, or marked honestly unknown.',
     continue: 'Continue',
     storiesTitle: 'Explore Korean food stories.',
     storiesSubtitle: 'Every restaurant has a cultural story.',

@@ -7,6 +7,7 @@ import { restaurants } from '../data/restaurants';
 import { isQuarantined } from '../data/verification';
 import { journeys } from '../data/journeys';
 import PlaceImage from './PlaceImage';
+import { LANGUAGE_STORAGE_KEY } from '../i18n/index.js';
 
 // Pick some interesting stories for Discover
 const cultureStories = [
@@ -93,7 +94,6 @@ function DiscoverTab({ onNavigate }) {
 // is added under src/i18n/locales/ and registered in src/i18n/index.js.
 // The picker is built to scale to that list without a component change.
 const LANGUAGES = [{ code: 'en', labelKey: 'profile.languageEnglish' }];
-const LANGUAGE_STORAGE_KEY = 'kfm-language';
 
 function LanguagePicker({ onClose }) {
   const { t, i18n } = useTranslation();
@@ -134,11 +134,12 @@ function LanguagePicker({ onClose }) {
 }
 
 function ProfileTab({ onNavigate }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
+  const currentLanguage = LANGUAGES.find(l => l.code === i18n.language) ?? LANGUAGES[0];
 
   const settings = [
-    { label: t('profile.language'), value: t('profile.languageEnglish'), icon: '🌐', action: () => setLanguagePickerOpen(true) },
+    { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: '🌐', action: () => setLanguagePickerOpen(true) },
     { label: 'Food Preferences', value: 'Not set', icon: '🍲' },
     { label: 'Dietary Preferences', value: 'Not set', icon: '🌱' },
     { label: 'Saved Places', value: 'View Journal', icon: '❤️', action: () => onNavigate('journal') },
