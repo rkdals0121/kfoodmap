@@ -1,12 +1,11 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-03 · **Base commit:** `d501e1f` (fixes the mobile
-detail-view z-index bug, §7 #20 — found while browser-verifying this very
-routing work — on top of `875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see §2.16
-and §7 #13/#14/#20 for that history; Phase 6 underway, four MVPs shipped;
-v1.0 at `07feea7`). **This edit lands together with the Stage 1 routing
-commit** it describes (§2.1, §7, §12) — no data changed.
+**Last updated:** 2026-08-03 · **Base commit:** `b21db67` (Stage 1 routing +
+its final-review fixes; on top of `84c3b3d`/`d501e1f`/`875a148`/`2b1e6ac`/
+`cb360f8`/`dd0c7a4`; see §2.16 and §7 for that history; Phase 6 underway,
+four MVPs shipped; v1.0 at `07feea7`). **This edit syncs the Stage 2 trust
+Prologue commit** (`125667d`) — no data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -1494,6 +1493,14 @@ Immediately next, in order:
 3. Stage 2 features, one at a time, under the normal §11 discipline. The
    §2.1 "no backend" question (GROWTH-PLAN decision D) stays deferred until
    Stage 4 actually needs it — not asked yet, don't decide it early.
+   - ~~**Trust surfacing**~~ — **done, 2026-08-03** (`125667d`). Prologue
+     step 1 now states the active restaurant count (computed from data,
+     not hardcoded) and "researched one at a time — every claim sourced,
+     or marked honestly unknown." Deliberately not "verified"/a percentage
+     — §8 already established no single such figure is meaningful here.
+     Placed once, in Prologue, not as a persistent home-screen banner.
+   - Remaining Stage 2 items, in GROWTH-PLAN §4 order: sample passport,
+     empty-state improvements, Food Journey MVP, Offline MVP.
 
 The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide, Offline,
 Cross-Device Sync, UGC, Food Journey) stay frozen from Phase 6 planning and

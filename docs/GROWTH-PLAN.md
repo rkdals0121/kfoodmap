@@ -94,8 +94,13 @@
    테마 큐레이션이지 경로 계산이 아님. 이동은 Nearby Route 책임
 4. **Offline MVP** — 정적 데이터의 오프라인 이용 (기획 동결됨.
    지도 타일은 범위 밖)
-5. **신뢰의 전면화** — "20 verified, every claim sourced or honestly
-   unknown"을 Prologue/첫 화면에 명시 (미쉐린식 작은-N 자산화)
+5. ✅ **신뢰의 전면화 완료 (2026-08-03, `125667d`)** — Prologue 1단계에
+   활성 식당 수(데이터에서 계산, 하드코딩 아님) + "researched one at a
+   time — every claim sourced, or marked honestly unknown" 명시.
+   "verified"나 퍼센트 표현은 의도적으로 안 씀 — HANDOFF §8이 이미
+   "단일 % verified 수치는 무의미"라고 못 박아둠. 홈 화면 상단(매번
+   보이는 곳)이 아니라 Prologue 1회성 화면에만 배치 — 상시 배너로
+   화면을 어지럽히지 않기 위함
 
 ### Stage 3 — 도달
 - **Multilingual MVP** — UI + 안전 라벨만 (동결된 범위). 영어 우선.
