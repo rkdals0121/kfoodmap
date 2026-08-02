@@ -48,18 +48,30 @@ background and takes effect on the next navigation, no user-facing "update
 available" prompt. Matches the "waits for content to settle" caution: this
 is the conservative default, not a leading-edge freshness guarantee.
 
-**The 18 `dist/place/<id>/index.html` prerendered pages (crawler og:meta,
-already shipped) are excluded from the precache list** and handled instead
-by Workbox's `navigateFallback: '/index.html'`. This is the standard
-pattern for offline deep-linking in a client-routed SPA: any browser
-navigation request (address bar entry, reload, opening a bookmarked/shared
-link — not a client-side route change, which never leaves the loaded page)
-that the service worker intercepts and can't serve from the exact-URL cache
-falls back to the cached `index.html` shell. Because `react-router` and all
-20 restaurants' data are already inside that shell's JS bundle, the app
-boots, reads the URL, and renders the correct restaurant — no second
-network round-trip, and no dependency on that specific `/place/<id>` path
-ever having been visited before in this session.
+**Correction after checking `vite-plugin-pwa`'s and `workbox-build`'s actual
+type definitions (not assumed from memory — downloaded and read both
+packages' `.d.ts` files):** the 18 `dist/place/<id>/index.html` prerendered
+pages do **not** need to be excluded from precaching. Workbox's default
+`globPatterns` (`["**/*.{js,wasm,css,html}"]`, confirmed in
+`workbox-build`'s `GenerateSWOptions` type) already matches every `.html`
+file under `dist/`, recursively — so all 18 prerendered pages get precached
+automatically alongside the main shell, at negligible size cost (each is a
+near-copy of `index.html` with different `<head>` tags, a few KB). This is
+strictly simpler than the originally-drafted design (which planned to
+exclude them via `navigateFallbackDenylist` and lean entirely on fallback):
+a direct navigation to an already-precached `/place/<id>` gets an *exact*
+cache hit — no fallback logic even runs.
+
+`navigateFallback` (a real `workbox-build` option, confirmed in its
+`GenerateSWOptions` type — set under the plugin's `workbox: {...}` key, not
+at the top level) stays configured as a safety net for paths that
+*aren't* in the precache manifest at all: a restaurant added after the
+service worker last updated, a typo'd id, anything not foreseeable at
+build time. For those, Workbox falls back to the cached `index.html`
+shell, and since `react-router` and all 20 restaurants' data are already
+inside that shell's JS bundle, the app boots, reads the URL, and renders
+whatever it can (a known restaurant, or the existing bad-id redirect to
+home) — no second network round-trip either way.
 
 **No conflict with the crawler-prerendering feature:** link-preview
 crawlers (KakaoTalk, Facebook, Twitter) never install a service worker —
@@ -135,9 +147,16 @@ never-visited-this-session `/place/:id` work fully offline:
   until their next natural visit. Accepted per the "unstable content"
   caution — this project doesn't ship data corrections frequently or
   urgently enough to justify the added complexity of a prompt UI.
-- Exact `vite-plugin-pwa` config option names (`navigateFallback`,
-  `navigateFallbackDenylist`, `includeAssets`, etc.) should be confirmed
-  against the installed version's own type definitions/docs at
-  implementation time, not assumed from memory — the plan should verify,
-  not guess, the same discipline used for `react-router`'s import path
-  earlier this session.
+- **Resolved during design, not deferred:** `vite-plugin-pwa@1.3.0`'s and
+  `workbox-build@7.4.1`'s actual `.d.ts` files were downloaded (`npm pack`)
+  and read directly rather than assumed from memory — same discipline used
+  for `react-router`'s import path earlier this session. Confirmed:
+  `VitePWA(options): Plugin[]` is the named export; `registerType`,
+  `manifest`, `includeAssets` are top-level `VitePWAOptions`; `workbox:
+  Partial<GenerateSWOptions>` (from the `workbox-build` package) is where
+  `navigateFallback`/`navigateFallbackAllowlist`/`navigateFallbackDenylist`/
+  `globPatterns` actually live — a `DevOptions.navigateFallback` field also
+  exists but is unrelated (development-only, different strategy). The
+  original draft's plan to exclude prerendered pages via
+  `navigateFallbackDenylist` turned out to be unnecessary complexity once
+  the default `globPatterns` behavior was confirmed — see Architecture.
