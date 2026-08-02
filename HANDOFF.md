@@ -1,12 +1,12 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-03 · **Base commit:** `875a148` (adds the Stage 1
-routing design spec, on top of `2b1e6ac` — the Stage 0 housekeeping commit,
-on top of `cb360f8`/`dd0c7a4`; see §2.16 and §7 #13/#14/#20 for that history;
-Phase 6 underway, four MVPs shipped; v1.0 at `07feea7`). **This edit lands
-together with a standalone mobile z-index fix** (§7 #20) found while
-browser-verifying unrelated Stage 1 routing work — no data changed.
+**Last updated:** 2026-08-03 · **Base commit:** `d501e1f` (fixes the mobile
+detail-view z-index bug, §7 #20 — found while browser-verifying this very
+routing work — on top of `875a148`/`2b1e6ac`/`cb360f8`/`dd0c7a4`; see §2.16
+and §7 #13/#14/#20 for that history; Phase 6 underway, four MVPs shipped;
+v1.0 at `07feea7`). **This edit lands together with the Stage 1 routing
+commit** it describes (§2.1, §7, §12) — no data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -84,14 +84,47 @@ current phase. **Do not add features. Fill the data.**
 
 ### 2.1 Stack
 
-React 19 + Vite 7 + react-leaflet 5 + Leaflet 1.9. No backend, no router, no
-state library. State is `useState` in `src/App.jsx`. The journal persists to
-`localStorage` under `kfm-bookmarks` as `[{ id, savedAt, visitedAt }]` — see
-§2.15. Lint is `oxlint`.
+React 19 + Vite 7 + react-leaflet 5 + Leaflet 1.9 + react-router 8. No
+backend, no state library. Most state is still `useState` in `src/App.jsx`;
+which restaurant's detail is open is now derived from the URL instead (see
+**Routing**, below). The journal persists to `localStorage` under
+`kfm-bookmarks` as `[{ id, savedAt, visitedAt }]` — see §2.15. Lint is
+`oxlint`.
 
 **Why no backend:** it was a hard constraint from the outset, and it has been
 load-bearing rather than limiting. Everything — verification, evidence,
 validation — happens at authoring time in Node and ships as static data.
+
+**Routing (2026-08-03, GROWTH-PLAN decision C).** The "no router" half of
+this constraint was amended: `src/main.jsx` wraps `<App />` in
+`react-router`'s `<BrowserRouter>`; `src/App.jsx`'s former single component
+is now `AppShell` (the same shell as before, unchanged visually) plus a
+thin `App` that routes `/` and `/place/:id` to it. `AppShell` derives
+`selectedRestaurant` from `useParams().id` via `activeRestaurants.find` —
+`activeRestaurants` already excludes quarantined places (§2.14), so a
+quarantined or unknown id both resolve to `null` and a `useEffect` redirects
+home; there is exactly one place that decides "is this restaurant visible,"
+not two. `openDetail`/`openStory` now `navigate()` instead of setting state,
+so back/forward and reload are native browser behavior, not custom code.
+`focusStory` (the scroll-to-story-timeline flag) rides router `state`
+(`navigate(url, { state: { focusStory: true } })`), not the URL, since it's
+a transient in-app affordance, not something worth a shareable link.
+`activeTab`, filters, and search stay plain `useState` — untouched, out of
+scope for this change (see docs/GROWTH-PLAN.md §4 Stage 1).
+
+For non-JS link-preview crawlers (KakaoTalk, Facebook, Twitter — none
+execute JS), `scripts/prerender-places.mjs` runs after `vite build`
+(wired into the `build` npm script) and writes `dist/place/<id>/index.html`
+per active restaurant: a copy of the built `dist/index.html` with
+`<title>`/`og:*`/canonical swapped to that restaurant's data, no headless
+browser involved. Every `<script>` tag is untouched, so a human opening the
+link still gets the full interactive SPA. No `vercel.json` rewrite is
+needed — every valid `/place/:id` is a real file at build time, so an
+unknown id is a genuine 404, and no new id can silently drift out of sync
+with `restaurants.js` since the script reads it directly, the same way
+`scripts/check-data.mjs` already does. Full design rationale:
+`docs/superpowers/specs/2026-08-02-routing-design.md`; implementation plan
+and task-by-task review record: `docs/superpowers/plans/2026-08-02-stage1-routing.md`.
 
 ### 2.2 Restaurant data model — `src/data/restaurants.js` (928 lines)
 
@@ -999,23 +1032,30 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     - **Resolved (2026-08-02, Stage 0 housekeeping — user decision A).** The
       GH Pages workflow (`.github/workflows/deploy.yml`) is deleted. Vercel
       is the sole deploy target now; there is no dual-deploy question left.
-    - **Resolved (2026-08-03, found and fixed while browser-verifying
-      unrelated work on a real phone).** On mobile (`max-width: 767px`),
-      the §2.16 rework gave `.sidebar-region` (the bottom sheet)
-      `z-index: 100` and `.tab-bar` `z-index: 200`, but never raised
-      `.detail-backdrop`/`.detail-sheet` above their pre-rework values of
-      `20`/`21` — so opening a restaurant's detail on a phone rendered it
-      **behind** the bottom sheet and tab bar, with only a sliver visible
-      at the top of the screen (looks like "nothing happened" or "opened
-      behind the map," depending on sheet height). Root cause confirmed
-      via `src/index.css`: `.app-shell` has `position: relative` but no
+    - **Resolved (2026-08-03, found and fixed while browser-verifying Stage
+      1 routing on a real phone).** On mobile (`max-width: 767px`), the
+      §2.16 rework gave `.sidebar-region` (the bottom sheet) `z-index: 100`
+      and `.tab-bar` `z-index: 200`, but never raised `.detail-backdrop`/
+      `.detail-sheet` above their pre-rework values of `20`/`21` — so
+      opening a restaurant's detail on a phone rendered it **behind** the
+      bottom sheet and tab bar, with only a sliver visible at the top of
+      the screen (looks like "nothing happened" or "opened behind the
+      map," depending on sheet height). Root cause confirmed via
+      `src/index.css`: `.app-shell` has `position: relative` but no
       `z-index`, so it creates no stacking context, and `.detail-sheet`
       (`position: fixed`) competes directly against `.sidebar-region` in
       the *global* stacking context regardless of DOM order — 100 beats
-      21. Fix: raised `.detail-backdrop`/`.detail-sheet` to
-      `z-index: 210`/`211` — clears the mobile tab bar (200) with room to
-      spare, still well below the gallery lightbox (`9999`/`10000`),
-      which must stay above the detail sheet itself.
+      21. Not caused by the routing change (the JSX/CSS for
+      `RestaurantDetail` is untouched by Tasks 1-3 of that work; only how
+      `selectedRestaurant` gets its value changed) — it was there since
+      the shell rework, just never exercised on an actual narrow
+      viewport until this session's browser check. Fix: raised
+      `.detail-backdrop`/`.detail-sheet` to `z-index: 210`/`211` —
+      clears the mobile tab bar (200) with room to spare, still well
+      below the gallery lightbox (`9999`/`10000`), which must stay above
+      the detail sheet itself. Landed at `d501e1f`, its own commit
+      separate from the routing commit, since it's an unrelated
+      pre-existing bug.
     - The rework was **never gate-checked or browser-QA'd under §11 rule
       16** — still true for the shell as a whole (Prologue, sidebar/bottom
       sheet, layout) apart from the one detail-view stacking bug just
@@ -1024,6 +1064,24 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       running `npm run dev` session with the user confirming the result
       directly, since the browser-automation tool was unavailable in that
       session.
+21. **Two minor findings deferred from the Stage 1 routing review
+    (2026-08-03), parked rather than fixed — neither is a bug today:**
+    - `src/App.jsx`'s `AppShell` introduced an outer `const { id } =
+      useParams()`. Two pre-existing handlers, `handleToggleBookmark(id)`
+      and `handleToggleVisited(id)`, take a same-named local parameter
+      (a restaurant id, not the route id) — a shadow relationship that
+      didn't exist before this change. Both bodies only ever reference
+      their own local `id`, so it's inert today; a rename wasn't done
+      because it's outside those functions' actual change surface. Worth
+      renaming if either function is touched again for an unrelated reason.
+    - `scripts/prerender-places.mjs`'s tag replacement is regex-`.replace()`
+      against the built `index.html` template — if a future edit to
+      `index.html` ever removes one of the six `og:*`/`title`/`description`
+      tags, the affected prerendered pages would silently keep the generic
+      value with no build failure. Today this can't happen (Step 1 of the
+      routing plan guarantees all target tags exist), but there's no
+      assertion catching future drift. Worth an explicit check
+      (`if (html === before) throw ...`) if this script grows more tags.
 
 ---
 
@@ -1386,11 +1444,17 @@ Immediately next, in order:
    #14); GH Pages workflow deleted (§7 #20, decision A); Badges grid wired
    to real journal state, Spicy Master removed rather than faked
    (§7 #20, decision B). Both decisions were the user's, per GROWTH-PLAN §5.
-2. **The §2.1 routing decision (GROWTH-PLAN decision C)** — shareable
-   per-restaurant URLs require a router, which §2.1 currently forbids ("no
-   router"). This is an architecture amendment and needs explicit approval
-   before Stage 1 starts. Not yet asked.
-3. Then Stage 2 features, one at a time, under the normal §11 discipline.
+2. ~~**The §2.1 routing decision (GROWTH-PLAN decision C)**~~ — **done,
+   2026-08-03.** User approved amending "no router." Implemented via
+   `react-router` + build-time prerendering, brainstormed and planned
+   through `superpowers:brainstorming`/`writing-plans`/
+   `subagent-driven-development` (spec: `docs/superpowers/specs/2026-08-02-routing-design.md`;
+   plan + review record: `docs/superpowers/plans/2026-08-02-stage1-routing.md`).
+   See §2.1 for the resulting architecture. Two minor findings from the
+   review loop were parked, not fixed — §7 Low #21.
+3. Stage 2 features, one at a time, under the normal §11 discipline. The
+   §2.1 "no backend" question (GROWTH-PLAN decision D) stays deferred until
+   Stage 4 actually needs it — not asked yet, don't decide it early.
 
 The remaining Phase 6 MVP scopes (Multilingual, AI Food Guide, Offline,
 Cross-Device Sync, UGC, Food Journey) stay frozen from Phase 6 planning and

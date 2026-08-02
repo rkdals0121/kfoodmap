@@ -27,7 +27,7 @@
 3. **한 기능 = 한 검증 = 한 커밋.** 배치 금지. 커밋 전 게이트 전부 실행:
    ```
    npm run check-data      # "No violations." 필수
-   npm run lint            # 현재 기준선 15 경고 (하우스키핑 후 2로 복귀 예정)
+   npm run lint            # 현재 기준선 1 경고 (utils.js kakaoMapUrl origin, 의도적)
    npm run build
    grep -c retrievedBy dist/assets/*.js   # 0 필수
    node scripts/evidence-hash.mjs --check # 0 pending, 0 drifted 필수
@@ -70,12 +70,20 @@
     Spicy Master는 계산 불가능한 필드라 제거
   - 전문은 HANDOFF §7 #13·#14·#20, §12
 
-### Stage 1 — 공유 가능한 앱 (구조 결정 필요)
-- ⚠️ **미결정 C (아키텍처 수정):** URL 라우팅 도입 (`/place/gonghwachun`).
-  §2.1의 "no router" 원칙 수정이므로 **사용자 명시 승인 필수.**
-  이것 없이는 공유·SEO·다국어 딥링크 전부 불가 — 공공외교 제품의
-  도달에 직결되는 최우선 구조 결정.
-- 승인 시: 페이지별 title/meta, 식당별 URL, 신뢰 배지의 메타 노출.
+### Stage 1 — 공유 가능한 앱 ✅ 완료 (2026-08-03)
+- ✅ **결정 C (사용자):** URL 라우팅 도입 승인. `react-router` +
+  URL이 `selectedRestaurant`의 진실 소스가 되는 구조로 구현
+  (`/`, `/place/:id`). `superpowers:brainstorming` → `writing-plans` →
+  `subagent-driven-development`로 설계·계획·구현·리뷰를 거쳤다.
+- ✅ 페이지별 title/meta: 빌드 후 `scripts/prerender-places.mjs`가 활성
+  식당 18곳 각각에 `dist/place/<id>/index.html`(og:title/description/
+  image/url + canonical 포함)을 정적 생성 — 헤드리스 브라우저 없이,
+  크롤러(카카오톡/페이스북/트위터)가 실제로 보는 HTML까지 정확함.
+  quarantine 2곳(akiya, makan)은 발견 표면 제외 원칙에 따라 프리렌더도
+  라우트도 없음.
+- 설계 문서: `docs/superpowers/specs/2026-08-02-routing-design.md`
+- 계획·리뷰 기록: `docs/superpowers/plans/2026-08-02-stage1-routing.md`
+- 상세는 HANDOFF §2.1, §12
 
 ### Stage 2 — 활성화 (백엔드 불필요, 작은 단위 여러 개)
 1. **샘플 여권** — 로그아웃/빈 상태에서 데모 여권 표시 (eatpass 패턴)
@@ -113,7 +121,7 @@ esg_point 텍스트에서 카테고리 유도 · 게이트 밖 작업(§2.16 재
 |---|---|---|
 | A | ✅ GH Pages 워크플로 삭제 (2026-08-02 결정: 삭제) | — 완료 |
 | B | ✅ 배지 목업 처리 (2026-08-02 결정: 실연결) | — 완료 |
-| C | §2.1 "no router" 수정 (URL 라우팅)? | Stage 1 전체 |
+| C | ✅ §2.1 "no router" 수정 (2026-08-03 결정: 승인, URL 라우팅 구현) | — 완료 |
 | D | §2.1 "no backend" 수정 (관리형 백엔드)? | Stage 4 전체 |
 
 ## 6. 새 세션 시작 절차

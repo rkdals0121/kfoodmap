@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router';
 import { restaurants } from './data/restaurants';
 import MapComponent from './components/MapComponent';
 import FilterBar from './components/FilterBar';
@@ -57,14 +58,28 @@ function loadBookmarks() {
   }
 }
 
-export default function App() {
+function AppShell() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  // The URL is the source of truth for which restaurant is open — no
+  // separate state to keep in sync. activeRestaurants already excludes
+  // quarantined places, so an id that's quarantined or simply doesn't
+  // exist both resolve to null here, and the effect below sends it home.
+  const selectedRestaurant = useMemo(
+    () => (id ? activeRestaurants.find(r => r.id === id) ?? null : null),
+    [id],
+  );
+  const focusStory = Boolean(location.state?.focusStory);
+
+  useEffect(() => {
+    if (id && !selectedRestaurant) navigate('/', { replace: true });
+  }, [id, selectedRestaurant, navigate]);
   const [bookmarks, setBookmarks] = useState(loadBookmarks);
   const [activeTab, setActiveTab] = useState('map');
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
-  const [focusStory, setFocusStory] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
   const [prologueCompleted, setPrologueCompleted] = useState(
@@ -96,8 +111,8 @@ export default function App() {
   // Single choke point for every path that opens detail (map pin, card,
   // Journal stamp/next-stop) — a quarantined restaurant is a no-op here
   // rather than rendering unverified detail.
-  const openDetail = (r) => { if (isQuarantined(r)) return; setSelectedRestaurant(r); setFocusStory(false); };
-  const openStory = (r) => { if (isQuarantined(r)) return; setSelectedRestaurant(r); setFocusStory(true); };
+  const openDetail = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`); };
+  const openStory = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`, { state: { focusStory: true } }); };
 
   useEffect(() => {
     localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks));
@@ -114,10 +129,10 @@ export default function App() {
   );
 
   const handleToggleFilter = (filter) => {
-    setSelectedFilters(prev => 
+    setSelectedFilters(prev =>
       prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]
     );
-    setSelectedRestaurant(null);
+    if (id) navigate('/');
   };
 
   const handleToggleBookmark = (id) => {
@@ -255,7 +270,7 @@ export default function App() {
       {/* Layer 2: Full-Screen Detail Modal */}
       <RestaurantDetail
         restaurant={selectedRestaurant}
-        onClose={() => setSelectedRestaurant(null)}
+        onClose={() => navigate('/')}
         isBookmarked={selectedRestaurant ? bookmarkedIds.includes(selectedRestaurant.id) : false}
         onToggleBookmark={handleToggleBookmark}
         isVisited={selectedRestaurant ? visitedIds.includes(selectedRestaurant.id) : false}
@@ -265,5 +280,14 @@ export default function App() {
       />
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<AppShell />} />
+      <Route path="/place/:id" element={<AppShell />} />
+    </Routes>
   );
 }

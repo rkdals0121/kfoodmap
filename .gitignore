@@ -18,6 +18,7 @@ dist-ssr
 .idea
 .claude/
 temp.js
+.superpowers/sdd/
 .DS_Store
 *.suo
 *.ntvs*
