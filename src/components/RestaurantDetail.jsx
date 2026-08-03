@@ -325,14 +325,14 @@ export default function RestaurantDetail({
                 </button>
               </div>
 
-              <div style={{ marginTop: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div className="detail-directions">
                 <button className="btn-primary" onClick={() => window.open(directionsUrl(restaurant, mapCenter), '_blank')}>
                   Google Maps
                 </button>
-                <button className="btn-primary" onClick={() => window.open(naverMapUrl(restaurant, mapCenter), '_blank')} style={{ background: '#03c75a', border: 'none', color: '#fff' }}>
+                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(restaurant, mapCenter), '_blank')}>
                   Naver Map
                 </button>
-                <button className="btn-primary" onClick={() => window.open(kakaoMapUrl(restaurant, mapCenter), '_blank')} style={{ background: '#FEE500', border: 'none', color: '#191919' }}>
+                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(restaurant, mapCenter), '_blank')}>
                   Kakao Map
                 </button>
               </div>

@@ -35,6 +35,20 @@
   --orange-line: #FED7AA;
   --danger: #D92D20;        /* closed status */
 
+  /* Third-party brand colours — NOT part of our palette.
+     These are Naver's and Kakao's own brand values, used only on the
+     buttons that open their map apps, where matching the brand is the
+     point: a traveller scanning for "the green Naver one" recognises it
+     faster than any styling of ours would allow. They live here rather
+     than inline (§11 rule 19) so no hex sits outside :root, but unlike
+     every token above them they are **not ours to adjust** — do not
+     tweak them for visual harmony, and do not reuse them for anything
+     that isn't literally a Naver or Kakao affordance. */
+  --brand-naver: #03C75A;
+  --brand-naver-ink: #FFFFFF;
+  --brand-kakao: #FEE500;
+  --brand-kakao-ink: #191919;
+
   /* Radius scale — grows with the size of the element it wraps */
   --radius-sm: 8px;         /* tag chips */
   --radius: 12px;           /* fields, buttons, images, small roundels */
@@ -812,6 +826,34 @@ button {
 }
 .btn-primary:active {
   transform: scale(0.98);
+}
+/* Map-app buttons carry their provider's brand colour (see the
+   --brand-* note in :root). Each restates box-shadow because the base
+   .btn-primary shadow is tinted to --orange-strong; without this an
+   orange glow sat under the green and yellow buttons. */
+.btn-primary--naver {
+  background: var(--brand-naver);
+  color: var(--brand-naver-ink);
+  box-shadow: 0 4px 12px rgba(3, 199, 90, 0.25);
+}
+.btn-primary--naver:hover {
+  box-shadow: 0 6px 16px rgba(3, 199, 90, 0.3);
+}
+.btn-primary--kakao {
+  background: var(--brand-kakao);
+  color: var(--brand-kakao-ink);
+  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.35);
+}
+.btn-primary--kakao:hover {
+  box-shadow: 0 6px 16px rgba(254, 229, 0, 0.4);
+}
+
+/* The row of map-app buttons under the address. */
+.detail-directions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 .icon-btn--lg {
   width: 52px;

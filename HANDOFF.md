@@ -4,9 +4,9 @@
 **Last updated:** 2026-08-03 · **Base commit:** `56dbebf` (Multilingual
 infra + its final-review fixes; Stages 0–2 complete and Stage 3's infra
 slice shipped — see §12 for where that leaves things). **This edit lands
-together with the webfont runtime-caching commit** it describes (§7 #26,
-which closes the last open offline gap besides the documented
-new-restaurant edge case) — no data changed.
+together with the brand-colour tokenisation commit** it describes (§7
+#20's last open bullet — `RestaurantDetail.jsx` now has zero `style=`
+props, and §11 rule 19 holds again) — no data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -1138,12 +1138,29 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       level field anywhere in the data model, so there was nothing honest to
       compute. The earned count in the header (`"N Earned"`) is now derived
       from the same two badges, not a literal string.
-    - **Inline brand hexes** on the Naver/Kakao direction buttons
-      (`#03c75a`, `#FEE500`, `#191919` as `style=` props in
-      `RestaurantDetail.jsx`) — the first colours outside `:root` since the
-      token system landed (§11 rule 19). Brand colours may justify an
-      exception; decide, then either tokenise or record the exception here.
-      **Untouched by the Stage 0 housekeeping commit** — out of its scope.
+    - **Resolved (2026-08-04) — tokenised, not excepted.** The Naver/Kakao
+      direction buttons carried `#03c75a`/`#FEE500`/`#191919` as inline
+      `style=` props, the first colours outside `:root` since the token
+      system landed, violating §11 rule 19 twice over (hex outside
+      `:root`, and CSS-in-JS). The open question was whether brand colours
+      earn an exception; the answer taken was no — they're now
+      `--brand-naver`/`--brand-naver-ink`/`--brand-kakao`/`--brand-kakao-ink`
+      in `:root`, applied via `.btn-primary--naver`/`.btn-primary--kakao`
+      modifier classes, and the inline layout style on their container
+      became `.detail-directions`. `RestaurantDetail.jsx` now has zero
+      `style=` props. The tokens carry a comment marking them as
+      third-party values that are **not ours to adjust** — the point of a
+      brand colour is that it matches the brand, so "harmonising" them
+      would defeat their only purpose.
+      **One deliberate visual change came with it:** the base
+      `.btn-primary` box-shadow is tinted to `--orange-strong`, and
+      overriding only `background` inline had left an orange glow under
+      the green and yellow buttons (measured:
+      `rgba(194,65,12,0.25)` on all three). Each modifier now restates the
+      shadow in its own brand tint. Verified by measuring computed
+      `background`/`color`/`boxShadow` on all three buttons before and
+      after: backgrounds and text colours are pixel-identical, and only
+      the two shadows changed.
     - **Resolved (2026-08-02, Stage 0 housekeeping — user decision A).** The
       GH Pages workflow (`.github/workflows/deploy.yml`) is deleted. Vercel
       is the sole deploy target now; there is no dual-deploy question left.
