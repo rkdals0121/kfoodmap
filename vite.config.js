@@ -24,6 +24,37 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: '/index.html',
+        // The Inter webfont is a cross-origin @import (src/index.css:1), so
+        // it can't be precached by globPatterns the way local assets are --
+        // offline it silently fell back to system fonts (§7 #26). CacheFirst
+        // is right for fonts specifically: they're immutable, so serving a
+        // year-old cached copy is correct rather than stale. Option shapes
+        // (handler/urlPattern/expiration/cacheableResponse) verified against
+        // workbox-build@7.4.1's own type definitions, not assumed.
+        //
+        // statuses includes 0 to cover opaque (no-cors) responses -- gstatic
+        // can serve those, and a 0 without this would be treated as
+        // uncacheable, quietly defeating the whole rule.
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-stylesheets',
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
         // Default globPatterns only match js/wasm/css/html -- the SVG
         // illustrations under public/images/ are the app's only imagery
         // (every restaurant's photo/coverImage is null today) and would

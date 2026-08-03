@@ -4,9 +4,9 @@
 **Last updated:** 2026-08-03 · **Base commit:** `56dbebf` (Multilingual
 infra + its final-review fixes; Stages 0–2 complete and Stage 3's infra
 slice shipped — see §12 for where that leaves things). **This edit lands
-together with the `--ink-title` fix** it describes (§7 #25 — an invisible
-white-on-white contrast bug on the Journal passport, not the cosmetic
-cleanup it had been recorded as) — no data changed.
+together with the webfont runtime-caching commit** it describes (§7 #26,
+which closes the last open offline gap besides the documented
+new-restaurant edge case) — no data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -150,7 +150,10 @@ plan's Task 4 for the script). A small `useOnlineStatus()` hook
 (`src/hooks/useOnlineStatus.js`, plain `navigator.onLine` +
 `online`/`offline` window events) drives a banner over the map when
 offline — map tiles need network and stay uncached, per the frozen scope;
-everything else works offline regardless. `public/apple-touch-icon.png`
+everything else works offline regardless. The one other cross-origin
+dependency, the Inter webfont, *is* cached, but by a `runtimeCaching`
+rule rather than the precache — `globPatterns` only sees local build
+output (§7 #26). `public/apple-touch-icon.png`
 (180×180, rasterized once from `favicon.svg` via
 `scripts/rasterize-apple-touch-icon.mjs`, not part of the build) covers
 iOS home-screen install, since iOS doesn't reliably read Web App Manifest
@@ -1272,26 +1275,36 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     stays `--muted` because `.badge-item.locked .badge-name` sets it
     explicitly and wins on specificity — the muted locked-badge styling is
     intentional and survived the fix.
-26. **Two more offline gaps found by the final whole-branch review
-    (2026-08-03), not fixed in the same pass as #1 (illustration SVGs,
-    which WAS fixed):** (1) The Inter webfont (`src/index.css:1`, `@import`
-    from `fonts.googleapis.com`) is a cross-origin request the service
-    worker doesn't cache — offline, the app silently falls back to system
-    fonts. Fixing it needs a Workbox `runtimeCaching` rule for
-    `fonts.googleapis.com`/`fonts.gstatic.com` (the standard CacheFirst
-    recipe) or self-hosting the font; neither was done here to avoid
-    guessing at unverified Workbox runtime-caching config syntax, matching
-    this project's practice of not shipping unverified assumptions (see
-    the build-ordering and `navigateFallbackDenylist` corrections earlier
-    in this same feature). (2) A restaurant added to `restaurants.js`
-    after a user's service worker last updated won't appear if they open a
-    deep link to it while offline — the cached shell's JS bundle is the
-    version at last update, so it doesn't know about the new restaurant
-    and redirects home via the existing bad-id guard, same as a genuinely
-    nonexistent id. Neither gap is scheduled; both are edge cases (a
-    returning offline user hitting exactly these paths) rather than the
-    core scenario (browsing already-known restaurants offline), which
-    works correctly.
+26. **Two offline gaps found by the final whole-branch review
+    (2026-08-03). The first is now fixed; the second stands.**
+    (1) ~~The Inter webfont fell back to system fonts offline~~ —
+    **resolved 2026-08-04.** It's a cross-origin `@import`
+    (`src/index.css:1`), so `globPatterns` can't reach it; it needed a
+    Workbox `runtimeCaching` rule, which was deferred at the time
+    specifically to avoid guessing at config syntax. Now added to
+    `vite.config.js` with the option shapes (`handler`, `urlPattern`,
+    `expiration`, `cacheableResponse`) checked against
+    `workbox-build@7.4.1`'s own type definitions rather than recalled:
+    two `CacheFirst` routes, one per Google Fonts origin
+    (`fonts.googleapis.com` for the stylesheet, `fonts.gstatic.com` for
+    the font files). `CacheFirst` is right for fonts specifically —
+    they're immutable, so serving a year-old cached copy is correct, not
+    stale. `statuses: [0, 200]` covers opaque no-cors responses, which
+    `gstatic` can serve and which would otherwise be treated as
+    uncacheable, quietly defeating the rule. Verified end-to-end with the
+    HTTP cache cleared via CDP before going offline (the methodology that
+    caught the illustration-SVG gap): on a cold offline load,
+    `document.fonts.check('16px Inter')` is `true` and Cache Storage holds
+    `google-fonts-stylesheets`/`google-fonts-webfonts` — the real font
+    renders, not a system fallback.
+    (2) **Still open, unscheduled:** a restaurant added to
+    `restaurants.js` after a user's service worker last updated won't
+    appear if they open a deep link to it while offline — the cached
+    shell's JS bundle is the version at last update, so it doesn't know
+    about the new restaurant and redirects home via the existing bad-id
+    guard, same as a genuinely nonexistent id. An edge case (a returning
+    offline user hitting exactly that path) rather than the core scenario
+    (browsing already-known restaurants offline), which works correctly.
 27. **i18n is infrastructure-only; two things gate finishing it
     (2026-08-03).** (1) **A second language needs verified translation
     personnel** — someone who can translate dietary/safety labels

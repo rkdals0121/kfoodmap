@@ -123,6 +123,9 @@
    `/place/:id` 딥링크가 셸+라우터로 정상 렌더). 이번 세션에 한 번도 안
    열어본 `/place/:id`를 완전 오프라인 상태에서 콜드 오픈하는 시나리오로
    실제 검증함. 지도 타일은 원칙대로 범위 밖 — 오프라인 배너로 안내.
+   Inter 웹폰트(교차 출처 @import이라 precache 불가)는 2026-08-04에
+   Workbox `runtimeCaching`(CacheFirst)으로 추가 — HTTP 캐시를 비운
+   완전 오프라인 콜드 스타트에서 실제 폰트 로드 확인 (HANDOFF §7 #26).
    설계: `docs/superpowers/specs/2026-08-03-offline-mvp-design.md`,
    계획·리뷰: `docs/superpowers/plans/2026-08-03-offline-mvp.md`,
    상세는 HANDOFF §2.1
