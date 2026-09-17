@@ -13,7 +13,7 @@
 |---|---|
 | 로컬 폴더 | `바탕화면\KF 디지털 공공외교 아카데미\k-food-map` |
 | GitHub | `rkdals0121/kfoodmap` (master) — **이 저장소가 K-Food Map 소유** |
-| 배포 | `kfoodmap.vercel.app` (Vercel, master push 시 자동 배포). **주의:** 2026-08-02 `b21db67`부터 `12f1e79`까지 10회 연속 배포 실패 → 6주간 Stage 0 빌드가 서빙됨 (2026-09-17 발견, HANDOFF §7 #29). push 후 반드시 GitHub 배포 상태 `success` 확인 (§11 rule 23) |
+| 배포 | `kfoodmap.vercel.app` (Vercel, master push 시 자동 배포). **주의:** 2026-08-02 `b21db67`부터 `12f1e79`까지 11회 연속 배포 실패 → 6주간 Stage 0 빌드가 서빙됨 (2026-09-17 발견·수정, HANDOFF §7 #29 — 원인은 Vercel 프로젝트 설정의 Output Directory가 `build`였던 것, `vercel.json`으로 `dist` 고정). push 후 반드시 GitHub 배포 상태 `success` 확인 (§11 rule 23) |
 | 형제 프로젝트 | 밥친구/Eatple은 **별도** — `베이스` 폴더 → `rkdals0121/test` → `test-umber-phi-78.vercel.app`. 2026-08-02 사건(밥친구가 이 저장소를 덮음) 후 3중 잠금으로 분리 완료. 전말은 HANDOFF §2.16 |
 | 데이터 | 20곳 (18 active, 2 quarantined) — 전수 검증 완료 (Phase 3) |
 | v1.0 | `07feea7`에서 출하. 이후 Phase 6 MVP 4개 커밋됨: Passport Enhancement(`c01db9c`), ESG Explorer(`3a0ca9f`), Nearby Route(`8807bac`), Story Timeline(`31e4b2f`) |

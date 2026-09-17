@@ -1,14 +1,16 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-09-17 · **Base commit:** `12f1e79` (brand-colour
-tokenisation; Stages 0–2 complete, Stage 3's infra slice shipped — see §12).
-**This edit lands together with the deployment-repair commit** it
-describes: every Vercel production deploy from `b21db67` (2026-08-02) to
-`12f1e79` **failed**, so `kfoodmap.vercel.app` served the Stage 0 build
-(`2b1e6ac`) for six weeks — see §7 #29. `package.json` gains an `engines`
-field; no code or data changed. GROWTH-PLAN decision **D** was taken on
-2026-09-17 (minimal managed backend) — recorded there, not yet implemented.
+**Last updated:** 2026-09-17 · **Base commit:** `fddefc6` (first, wrong
+deployment-repair attempt; Stages 0–2 complete, Stage 3's infra slice
+shipped — see §12). **This edit lands together with the actual
+deployment repair**: every Vercel production deploy from `b21db67`
+(2026-08-02) to `fddefc6` **failed** — the project's Output Directory
+setting was `build`, Vite emits `dist/` — so `kfoodmap.vercel.app` served
+the Stage 0 build (`2b1e6ac`) for six weeks. `vercel.json` now pins the
+output directory; see §7 #29. No code or data changed. GROWTH-PLAN
+decision **D** was taken on 2026-09-17 (minimal managed backend) —
+recorded there, not yet implemented.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -128,11 +130,12 @@ with `restaurants.js` since the script reads it directly, the same way
 `docs/superpowers/specs/2026-08-02-routing-design.md`; implementation plan
 and task-by-task review record: `docs/superpowers/plans/2026-08-02-stage1-routing.md`.
 `react-router@8.3.0` requires Node ≥22.22.0 (local dev Node is v24.18.0,
-fine). The Vercel runtime was *not* confirmed before this deployed, and
-every production deploy from that push onward failed for six weeks — the
-full record is §7 #29. `package.json` now declares
-`"engines": { "node": ">=22.22.0" }`, which Vercel reads to select the
-build runtime; it is the repository's only statement of the floor.
+fine); `package.json` declares that floor in `engines`. Every production
+deploy from that push onward failed for six weeks, but not for this
+reason — the Vercel project's Output Directory setting was `build` while
+Vite emits `dist/`; the full record is §7 #29. `vercel.json` now pins
+`"outputDirectory": "dist"` so the repository, not the dashboard, states
+where the build lands. Still no rewrite rule in it, for the reason above.
 
 **Offline (2026-08-03, GROWTH-PLAN Stage 2 item 4, the last one).**
 `vite-plugin-pwa` (Workbox `generateSW` strategy) precaches the app shell
@@ -1372,7 +1375,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     API (`repos/rkdals0121/kfoodmap/deployments` + `/statuses`) showed the
     last **successful** production deploy was `2b1e6ac` (Stage 0
     housekeeping, 2026-08-02 14:35Z) and **all ten** deploys after it —
-    `b21db67` through `12f1e79` — `failure`. Vercel keeps serving the last
+    `b21db67` through `12f1e79` — `failure` (eleven, counting `fddefc6`). Vercel keeps serving the last
     good build on failure, so nothing looked wrong from the outside:
     Stage 1 routing/OG/sitemap, Stage 2 (sample passport, Food Journey,
     Offline PWA, trust surfacing) and Stage 3's i18n slice never reached
@@ -1384,17 +1387,25 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     failing push is the one that added `react-router@8.3.0`, whose
     `engines` floor is Node ≥22.22.0 — the §2.1 note above flagged
     exactly this risk on 2026-08-03 and it was never checked. The fix
-    committed with this entry is `"engines": { "node": ">=22.22.0" }` in
-    `package.json`, which Vercel honours when picking the build runtime.
-    **The actual Vercel error line was not read** — the build logs sit
-    behind a Vercel login that neither the browser nor the CLI had, so
-    this is the best-evidenced hypothesis, not a confirmed cause. If the
-    deploy for this commit also fails, the next step is the log itself
-    (`npx vercel inspect <dpl> --logs`, the id is in each GitHub
-    deployment status), not another guess. Process lesson, now a §11
-    rule: a push is not done until the GitHub deployment status for that
-    commit reads `success` — "push triggers a Vercel deploy" was true,
-    "deploy succeeded" was assumed.
+    first tried (`fddefc6`) was `"engines": { "node": ">=22.22.0" }` in
+    `package.json` — **and that deploy failed too**, because the Node
+    floor was never the cause. The dashboard's build log, read from a
+    screenshot on 2026-09-17 (the CLI cannot log in from a machine whose
+    hostname contains Hangul — it crashes converting the name to a header
+    ByteString), says: *"No Output Directory named "build" found after the
+    Build completed."* The build itself passed in 12s; the Vercel
+    project's **Output Directory setting is `build`**, while Vite emits
+    `dist/`. That setting is not in this repository — it most plausibly
+    dates from 2026-08-02, when the 밥친구 app was briefly wired to this
+    Vercel project (§2.16) and its settings were adjusted around it. The
+    fix is `vercel.json` with `"outputDirectory": "dist"`, committed with
+    this entry's correction: repository-side, so a dashboard setting can
+    never silently override the build output again. `engines` stays — it
+    is a true statement of react-router's floor, just not the fix.
+    Process lessons, now §11 rule 23: a push is not done until the GitHub
+    deployment status for that commit reads `success`; and when the log
+    is reachable, read it before changing anything — the Node guess cost
+    a commit that the log would have made unnecessary.
 
 ---
 
