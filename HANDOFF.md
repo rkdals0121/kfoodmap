@@ -1,12 +1,14 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-08-03 · **Base commit:** `56dbebf` (Multilingual
-infra + its final-review fixes; Stages 0–2 complete and Stage 3's infra
-slice shipped — see §12 for where that leaves things). **This edit lands
-together with the brand-colour tokenisation commit** it describes (§7
-#20's last open bullet — `RestaurantDetail.jsx` now has zero `style=`
-props, and §11 rule 19 holds again) — no data changed.
+**Last updated:** 2026-09-17 · **Base commit:** `12f1e79` (brand-colour
+tokenisation; Stages 0–2 complete, Stage 3's infra slice shipped — see §12).
+**This edit lands together with the deployment-repair commit** it
+describes: every Vercel production deploy from `b21db67` (2026-08-02) to
+`12f1e79` **failed**, so `kfoodmap.vercel.app` served the Stage 0 build
+(`2b1e6ac`) for six weeks — see §7 #29. `package.json` gains an `engines`
+field; no code or data changed. GROWTH-PLAN decision **D** was taken on
+2026-09-17 (minimal managed backend) — recorded there, not yet implemented.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -126,9 +128,11 @@ with `restaurants.js` since the script reads it directly, the same way
 `docs/superpowers/specs/2026-08-02-routing-design.md`; implementation plan
 and task-by-task review record: `docs/superpowers/plans/2026-08-02-stage1-routing.md`.
 `react-router@8.3.0` requires Node ≥22.22.0 (local dev Node is v24.18.0,
-fine) — worth confirming the Vercel project's Node runtime is on 22.x or
-newer before this deploys, since npm only warns on an engine mismatch
-rather than failing the build.
+fine). The Vercel runtime was *not* confirmed before this deployed, and
+every production deploy from that push onward failed for six weeks — the
+full record is §7 #29. `package.json` now declares
+`"engines": { "node": ">=22.22.0" }`, which Vercel reads to select the
+build runtime; it is the repository's only statement of the floor.
 
 **Offline (2026-08-03, GROWTH-PLAN Stage 2 item 4, the last one).**
 `vite-plugin-pwa` (Workbox `generateSW` strategy) precaches the app shell
@@ -1361,6 +1365,37 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     surprise in this codebase (see #20) and the next overlay added inside
     a tab panel will hit exactly the same wall.
 
+29. **Six-week silent deployment outage (2026-08-02 → 2026-09-17).**
+    Found 2026-09-17 by checking whether `kfoodmap.vercel.app` was alive:
+    the root loaded, but `/place/gonghwachun`, `sitemap.xml`, `robots.txt`,
+    `sw.js` and the PWA manifest were all Vercel 404s. GitHub's deployment
+    API (`repos/rkdals0121/kfoodmap/deployments` + `/statuses`) showed the
+    last **successful** production deploy was `2b1e6ac` (Stage 0
+    housekeeping, 2026-08-02 14:35Z) and **all ten** deploys after it —
+    `b21db67` through `12f1e79` — `failure`. Vercel keeps serving the last
+    good build on failure, so nothing looked wrong from the outside:
+    Stage 1 routing/OG/sitemap, Stage 2 (sample passport, Food Journey,
+    Offline PWA, trust surfacing) and Stage 3's i18n slice never reached
+    users. Ruled out locally, each by measurement: git in sync
+    (local = origin = `12f1e79`), lockfile in sync (`npm ci --dry-run`),
+    `npm run build` passes end to end (PWA + 18 prerendered pages +
+    sitemap), no gitignored build inputs, no case-mismatched relative
+    imports (a script walked every `src/`+`scripts/` import). The first
+    failing push is the one that added `react-router@8.3.0`, whose
+    `engines` floor is Node ≥22.22.0 — the §2.1 note above flagged
+    exactly this risk on 2026-08-03 and it was never checked. The fix
+    committed with this entry is `"engines": { "node": ">=22.22.0" }` in
+    `package.json`, which Vercel honours when picking the build runtime.
+    **The actual Vercel error line was not read** — the build logs sit
+    behind a Vercel login that neither the browser nor the CLI had, so
+    this is the best-evidenced hypothesis, not a confirmed cause. If the
+    deploy for this commit also fails, the next step is the log itself
+    (`npx vercel inspect <dpl> --logs`, the id is in each GitHub
+    deployment status), not another guess. Process lesson, now a §11
+    rule: a push is not done until the GitHub deployment status for that
+    commit reads `success` — "push triggers a Vercel deploy" was true,
+    "deploy succeeded" was assumed.
+
 ---
 
 ## 8. Quality Status
@@ -1665,6 +1700,12 @@ These are enforced by `check-data` where a machine can; the rest are on you.
 22. Bump `Last updated` and `HEAD` at the top of this document whenever you
     touch it. They are the reader's only signal of how far to trust the numbers
     below.
+23. A push is not finished until that commit's deployment reads `success`.
+    Check it — GitHub's deployment API (`repos/rkdals0121/kfoodmap/
+    deployments`, then `/statuses`) needs no login — before reporting the
+    push done. Vercel keeps serving the last good build when a deploy
+    fails, so a broken pipeline is invisible from the site itself; that is
+    how ten consecutive failures went unnoticed for six weeks (§7 #29).
 
 ---
 
@@ -1801,11 +1842,17 @@ Immediately next, in order:
    Design spec and plan: `docs/superpowers/specs/2026-08-03-multilingual-infra-design.md`,
    `docs/superpowers/plans/2026-08-03-multilingual-infra.md`.
 5. **Next: Stage 4** (GROWTH-PLAN §4) — community/scale features, all
-   gated on decision **D** (§2.1's "no backend" constraint). That decision
-   has not been asked yet and should not be made unilaterally: UGC intake,
-   Cross-Device Sync, and AI Food Guide all hang off it. The
-   verification-gated data-expansion pipeline (explicitly *not* a bulk
-   import) is the other Stage 4 item.
+   gated on decision **D** (§2.1's "no backend" constraint). **D was
+   decided by the user on 2026-09-17: amend §2.1 and adopt a minimal
+   managed backend (Supabase-class), with restaurant data staying static
+   in the bundle.** Nothing is implemented yet; the first Stage 4 step is a
+   design spec for which feature goes first (UGC intake, Cross-Device
+   Sync, AI Food Guide) and what the backend holds — go through the
+   brainstorming/plan discipline used for Stages 1–3 rather than coding
+   straight into it. The verification-gated data-expansion pipeline
+   (explicitly *not* a bulk import) is the other Stage 4 item.
+   **Precondition, first:** confirm the deployment repair landed — the
+   deploy for the commit carrying §7 #29 must read `success` (§11 rule 23).
 
 The remaining Phase 6 MVP scopes (AI Food Guide, Cross-Device Sync, UGC)
 stay frozen from Phase 6 planning (Offline, Food Journey, and
