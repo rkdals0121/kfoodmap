@@ -2389,3 +2389,106 @@ button {
   width: 80px;
   height: 80px;
 }
+
+/* ── Submission sheet (/submit) ───────────────────────────────────────── */
+.submit-content {
+  padding-top: 56px; /* clears .detail-close; this sheet has no hero image */
+}
+.submit-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink-title);
+  margin-bottom: 8px;
+}
+.submit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 32px;
+}
+.submit-note {
+  color: var(--ink-body);
+  line-height: 1.5;
+}
+.submit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.submit-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.submit-field input,
+.submit-field select,
+.submit-field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 16px; /* <16px makes iOS Safari zoom in on focus */
+  color: var(--ink);
+  background: var(--fill);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease;
+}
+.submit-field textarea {
+  resize: vertical;
+}
+.submit-field input:focus,
+.submit-field select:focus,
+.submit-field textarea:focus {
+  outline: none;
+  border-color: var(--green-strong);
+}
+.submit-field [aria-invalid="true"] {
+  border-color: var(--danger);
+}
+.submit-field__hint {
+  font-size: 13px;
+  color: var(--muted);
+}
+.submit-field__error,
+.submit-status--error {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--danger);
+}
+.submit-status {
+  color: var(--ink-body);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.submit-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.submit-form .btn-primary,
+.submit-close {
+  flex: none;
+  width: 100%;
+}
+.submit-form .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.detail-report {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.detail-report:hover {
+  color: var(--ink);
+}

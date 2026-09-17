@@ -1,4 +1,5 @@
-// English strings for the four "core screens" extracted so far (see
+// English strings for the four "core screens" extracted so far plus the
+// submission form (see
 // docs/superpowers/specs/2026-08-03-multilingual-infra-design.md for the
 // full extraction-scope rationale). This is the one file a future
 // session extends when a second language ships -- add a sibling file
@@ -57,5 +58,45 @@ export default {
   profile: {
     language: 'Language',
     languageEnglish: 'English',
+    suggestRestaurant: 'Suggest a restaurant',
+  },
+  submit: {
+    titleNew: 'Suggest a restaurant',
+    titleCorrection: 'Report incorrect info',
+    introNew: 'Know a place that belongs on the map? Tell us what you know — we research every suggestion ourselves before anything is added.',
+    introCorrection: 'Something wrong about {{name}}? Tell us what you saw.',
+    nameLabel: 'Restaurant name',
+    locationLabel: 'Where is it?',
+    locationHint: 'A neighbourhood or the nearest station is enough.',
+    topicLabel: 'What is it about?',
+    topicPlaceholder: 'Choose one',
+    topics: {
+      vegan: 'Vegan options',
+      halal: 'Halal',
+      hours: 'Opening hours',
+      closed: 'Closed or moved',
+      address: 'Address or location',
+      other: 'Something else',
+    },
+    messageLabel: 'What did you see?',
+    sourceLabel: 'Link (optional)',
+    sourceHint: "The restaurant's website, social page, or a listing.",
+    emailLabel: 'Email (optional)',
+    emailHint: 'Only used if we need to ask you a follow-up question. Never shown publicly.',
+    send: 'Send',
+    sending: 'Sending…',
+    sent: 'Thanks — we verify every submission before anything appears on the map.',
+    close: 'Close',
+    failed: "Couldn't send. Your text stays here while this page is open — please try again.",
+    offline: "You're offline. Your text stays here while this page is open — send it when you're back online.",
+    disabled: "Submissions aren't enabled in this build.",
+    reportLink: 'Report incorrect info',
+    errors: {
+      required: 'Required',
+      invalidTopic: 'Choose a topic',
+      tooLong: 'Too long — {{max}} characters at most',
+      invalidUrl: 'Use a link starting with http:// or https://',
+      invalidEmail: 'Enter a valid email address',
+    },
   },
 };

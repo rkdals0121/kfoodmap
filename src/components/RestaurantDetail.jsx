@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
@@ -45,6 +47,7 @@ export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited,
   mapCenter, focusStory,
 }) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
@@ -336,6 +339,9 @@ export default function RestaurantDetail({
                   Kakao Map
                 </button>
               </div>
+              <Link className="detail-report" to={`/submit?place=${restaurant.id}`}>
+                {t('submit.reportLink')}
+              </Link>
             </section>
             
             {/* Dining Tips */}

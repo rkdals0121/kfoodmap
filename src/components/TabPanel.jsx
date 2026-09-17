@@ -136,6 +136,7 @@ function LanguagePicker({ onClose }) {
 function ProfileTab({ onNavigate }) {
   const { t, i18n } = useTranslation();
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
+  const navigate = useNavigate();
   const currentLanguage = LANGUAGES.find(l => l.code === i18n.language) ?? LANGUAGES[0];
 
   const settings = [
@@ -143,6 +144,7 @@ function ProfileTab({ onNavigate }) {
     { label: 'Food Preferences', value: 'Not set', icon: '🍲' },
     { label: 'Dietary Preferences', value: 'Not set', icon: '🌱' },
     { label: 'Saved Places', value: 'View Journal', icon: '❤️', action: () => onNavigate('journal') },
+    { label: t('profile.suggestRestaurant'), value: '', icon: '📍', action: () => navigate('/submit') },
     { label: 'About K-Food Map', value: 'v1.0', icon: 'ℹ️' },
     { label: 'Privacy Policy', value: '', icon: '🔒' },
   ];

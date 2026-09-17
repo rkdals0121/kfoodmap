@@ -1,6 +1,6 @@
 # K-Food Map — 개발계획 인수인계 (Growth Plan Handoff)
 
-**작성일:** 2026-08-02 · **최종 갱신:** 2026-09-17 · **기준 커밋:** `12f1e79`
+**작성일:** 2026-08-02 · **최종 갱신:** 2026-09-18 · **기준 커밋:** `9fd9cae`
 **용도:** 원격/새 세션이 이 문서 하나로 개발을 이어받기 위한 인수인계.
 **주의:** 엔지니어링 상태의 유일한 정본은 `HANDOFF.md`다. 이 문서는 그 위에
 얹힌 *성장 계획*이며, 둘이 충돌하면 HANDOFF와 저장소 실측이 이긴다.
@@ -28,8 +28,10 @@
    ```
    npm run check-data      # "No violations." 필수
    npm run lint            # 현재 기준선 1 경고 (utils.js kakaoMapUrl origin, 의도적)
+   npm test                # 22개 전부 통과 필수 (UGC intake, leads 모듈 + 검수 스크립트 포맷터)
    npm run build
    grep -rc retrievedBy dist/   # 0 필수
+   grep -rliE "service_role|sb_secret_" dist/ | wc -l  # 0 필수
    node scripts/evidence-hash.mjs --check # 0 pending, 0 drifted 필수
    ```
    UI 변경은 브라우저 실검증 필수 (§11 rule 16).
@@ -167,8 +169,9 @@
   코딩이 아니라 **어떤 기능이 먼저인지 + 백엔드가 무엇을 담는지**의 설계
   스펙(Stage 1~3과 같은 brainstorming → plan 절차). 상세는 HANDOFF §12 5번
 - ⬜ **선행 조건:** 배포 복구 커밋의 Vercel 배포가 `success`인지 확인
-- **UGC 제보** — eatpass식 자동채움 폼(이름→Naver/Kakao에서 주소·좌표
-  자동) + 우리 검증 큐. **제보는 절대 직접 게시되지 않는다** (§2.11)
+- ✅ **UGC 제보 완료 (2026-09-18)** — 로그인 없음 · 새 식당 / 정보 수정
+  두 모드 · Supabase `leads`(공개 키는 INSERT만) · `scripts/leads.mjs`로
+  검수 · 자동채움은 다음 단계. **제보는 절대 직접 게시되지 않는다** (§2.11)
 - **Cross-Device Sync** — 여권을 계정에 (동결된 MVP)
 - **데이터 확장 파이프라인** — 공공데이터·제보는 *리드 큐*로만 받고,
   Phase 3 검증 워크플로 통과분만 게시. 확장 축: 할랄 클러스터 심화,

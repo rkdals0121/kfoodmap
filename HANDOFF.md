@@ -1,16 +1,11 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-09-17 · **Base commit:** `fddefc6` (first, wrong
-deployment-repair attempt; Stages 0–2 complete, Stage 3's infra slice
-shipped — see §12). **This edit lands together with the actual
-deployment repair**: every Vercel production deploy from `b21db67`
-(2026-08-02) to `fddefc6` **failed** — the project's Output Directory
-setting was `build`, Vite emits `dist/` — so `kfoodmap.vercel.app` served
-the Stage 0 build (`2b1e6ac`) for six weeks. `vercel.json` now pins the
-output directory; see §7 #29. No code or data changed. GROWTH-PLAN
-decision **D** was taken on 2026-09-17 (minimal managed backend) —
-recorded there, not yet implemented.
+**Last updated:** 2026-09-18 · **Base commit:** `9fd9cae` (branch head of
+`stage4-ugc-intake` before this doc commit). **This edit lands with the
+UGC intake squash commit onto master** — the first feature to use K-Food
+Map's first backend (GROWTH-PLAN decision D, §2.1). No restaurant data
+changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -98,6 +93,12 @@ which restaurant's detail is open is now derived from the URL instead (see
 **Why no backend:** it was a hard constraint from the outset, and it has been
 load-bearing rather than limiting. Everything — verification, evidence,
 validation — happens at authoring time in Node and ships as static data.
+
+**Amended 2026-09-17 (GROWTH-PLAN decision D):** one managed Supabase table,
+`leads`, that the app can only insert into (column grant + RLS in
+`supabase/leads.sql`, proven live by `scripts/leads.mjs verify-rls`).
+Restaurant data is still verified at authoring time and shipped static;
+there is still no server code in this repository.
 
 **Routing (2026-08-03, GROWTH-PLAN decision C).** The "no router" half of
 this constraint was amended: `src/main.jsx` wraps `<App />` in
@@ -228,6 +229,67 @@ Three implementation details worth knowing before touching this:
 Design spec: `docs/superpowers/specs/2026-08-03-multilingual-infra-design.md`;
 implementation plan and task-by-task review record:
 `docs/superpowers/plans/2026-08-03-multilingual-infra.md`.
+
+**UGC intake (2026-09-17, Stage 4).** `/submit` renders inside `AppShell`
+like `/place/:id`, in two modes: new-restaurant (name + location hint) and
+correction (`?place=<id>`, the restaurant's own name filled in — an unknown
+or quarantined id falls back to new mode, since a correction form for a
+quarantined place would itself be a discovery surface, §2.14). Two entry
+points: Profile's "Suggest a restaurant" row, and a "Report incorrect info"
+link at the end of a restaurant's practical section. `src/data/leads.js` is
+the one module shared by the browser (`SubmitSheet.jsx`) and Node
+(`scripts/leads.mjs`): `buildLead()` validates and shapes the row (and
+detects the honeypot), `supabaseConfig()`/`parseSupabaseUrl()` read and
+normalize the two `VITE_` env vars, `submitLead()`/`authHeaders()` do the
+insert. A single `fetch` `POST`s to `${VITE_SUPABASE_URL}/rest/v1/leads`
+with the anon key — no `@supabase/supabase-js` dependency. `SubmitSheet`
+follows `RestaurantDetail`'s existing focus/Escape dialog convention (focus
+moves into the sheet on open and onto the status line on send; Escape
+closes it). The build also writes `dist/submit/index.html`
+(`scripts/prerender-places.mjs`) so a direct load or reload is a real file,
+same reasoning as `/place/:id` (§2.1 Routing) — it carries generic meta,
+`noindex`, and is not in the sitemap, since a submission form is not a
+page worth a search engine indexing. Environment: Vercel holds the two
+public `VITE_` variables; the service role key lives only in the
+reviewer's local `.env.local`, never in Vercel, never in `src/` (§11 rule
+24). **The rule that makes the trust model hold: a lead is never a fact —
+nothing reads `leads` into the data.** `scripts/leads.mjs list`/`resolve`
+feed the existing §2.11 verification workflow, which still edits
+`restaurants.js` by hand. Spec: `docs/superpowers/specs/2026-09-17-ugc-intake-design.md`;
+plan: `docs/superpowers/plans/2026-09-17-ugc-intake.md`; this document:
+`docs/GROWTH-PLAN.md` §4 Stage 4.
+
+A few implementation details worth knowing before touching this:
+
+- **`supabaseConfig` normalizes `VITE_SUPABASE_URL` to its origin.**
+  Supabase's own dashboard shows the API URL as
+  `https://<ref>.supabase.co/rest/v1/`, and that is what gets pasted into
+  `.env.local` or Vercel — it happened live during this feature's setup.
+  `parseSupabaseUrl()` strips any path and keeps only the origin, so both
+  the app and `scripts/leads.mjs` can always append `/rest/v1/...`
+  themselves without doubling the path.
+- **`scripts/leads.mjs` sets `process.exitCode` instead of calling
+  `process.exit()` after any network I/O.** `process.exit()` called
+  synchronously right after a `fetch` crashed Node 24 on Windows with a
+  libuv assertion (`!(handle->flags & UV_HANDLE_CLOSING)`, exit 127) —
+  found live, running `resolve` against an unknown id. The next script
+  that talks to the network should set `process.exitCode` and `return`,
+  not call `process.exit()`, once any request has been made.
+- **`scripts/leads.mjs list` sanitizes the lead text it prints.** A
+  submission's `message`/`name`/`location_hint` are anonymous internet
+  input, printed raw to the reviewer's terminal; `leads-format.mjs` strips
+  control characters (including ESC and CR) before printing, so a
+  submission cannot repaint the terminal or forge what looks like another
+  lead's header.
+- The spec (`docs/superpowers/specs/2026-09-17-ugc-intake-design.md`) says
+  strings live in `src/i18n/locales/en.json`; the actual file, matching
+  every other locale reference in this document, is `src/i18n/locales/
+  en.js` — a spec typo, not an implementation gap (ruling recorded in the
+  feature's ledger).
+- Correction mode does not render the restaurant's name as a heading, as
+  the spec describes; it names the restaurant in the intro sentence under
+  the sheet's generic "Report incorrect info" title instead — accepted as
+  functionally equivalent (ruling recorded in the feature's ledger).
 
 ### 2.2 Restaurant data model — `src/data/restaurants.js` (928 lines)
 
@@ -1090,6 +1152,13 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 15. **No automated tests.** `check-data` is the only gate. The evidence rules
     were proven by a throwaway mutation harness that was not kept — worth
     formalising if this grows.
+    **Update (2026-09-17, UGC intake):** `npm test` now exists — Node's
+    built-in `node:test`, no new dependency, tests under `scripts/tests/`.
+    It covers only the lead module (`src/data/leads.js`) and the review
+    script's formatter (`scripts/lib/leads-format.mjs`), 22 tests total.
+    Data rules are still `check-data`'s job alone; this does not close the
+    gap this item names, only starts filling it for the one area that had
+    zero coverage of any kind.
 16. **Documentation rot.** ~15 quantitative claims across §1, §7, §8 and §9 are
     hand-maintained and go stale on the next data commit. Two were already
     wrong at drafting (street addresses stated as 12/20, actually 13/20;
@@ -1407,6 +1476,52 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     is reachable, read it before changing anything — the Node guess cost
     a commit that the log would have made unnecessary.
 
+30. **Deferred from UGC intake (2026-09-17), each with reason and revisit
+    trigger.**
+    - **Naver/Kakao autofill.** The MVP asks for a free-text location hint
+      instead of resolving an address/coordinates at submit time — that's
+      the next Stage 4 step (design spec §"Decisions", item 3), not
+      skipped by accident. Revisit as soon as that step is scoped.
+    - **Server-side rate limiting / a bot challenge (e.g. Turnstile).**
+      Only a client-side honeypot exists; anything posting to the REST
+      endpoint directly can add junk rows. The damage is bounded — nothing
+      is published without a person running Phase 3 verification, the same
+      reasoning that lets the project accept unverified leads at all.
+      Revisit when `scripts/leads.mjs list` actually shows junk, not
+      before.
+    - **Notifying a submitter of the outcome.** No code path reads
+      `contact_email` except a reviewer's own follow-up; `resolve` never
+      sends anything. Revisit if reviewers want to close the loop with
+      submitters.
+    - **Photo attachments.** Out of scope for the MVP form; would need
+      Supabase Storage plus a moderation/scan story of its own.
+    - **A `deferred` lead is visible and re-resolvable only from the
+      Supabase dashboard**, not from `scripts/leads.mjs` — `resolve` can
+      set a lead to `deferred` but `list` only ever shows `status = open`,
+      so a deferred lead falls out of the script's view. Not built now
+      (ruling recorded in the feature's ledger). Revisit when the first
+      deferred lead needs a second decision.
+    - **Privacy/retention note for `contact_email`.** The form now collects
+      an optional email while the Profile tab's "Privacy Policy" row is
+      still empty (§8 "Not started"). This is a precondition, not a nice-
+      to-have: promoting the submit form beyond QA use needs a real privacy/
+      retention statement first (ruling recorded in the feature's ledger).
+    - **Deferred minors, unfixed, low severity:** closing the sheet with
+      `navigate(..., { replace: true })` leaves a duplicate `/place/:id` (or
+      `/`) history entry, so the first Back tap after a submission looks
+      like a no-op; the cleanup check in `verify-rls` trusts the HTTP status
+      of its `DELETE` alone (a `204` with zero rows actually deleted would
+      still read as a pass — not vacuous today, since the self-test rows
+      are known to exist); a literal tab character inside submitted text
+      renders as `�` in the reviewer's terminal (`leads-format.mjs`
+      sanitizes control characters generally, tabs included, by design —
+      recorded here as a readability note, not a bug); a network exception
+      thrown inside `verifyRls`'s `try` propagates as an unhandled rejection
+      without printing the results gathered so far; and `.detail-report`
+      (the "Report incorrect info" link) stretches to the full width of its
+      flex-column row, giving it a larger tap target than its sibling rows
+      with only the link text underlined.
+
 ---
 
 ## 8. Quality Status
@@ -1439,7 +1554,8 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 - Real photography (contract ready, `photo`/`coverImage`/`gallery` all null)
 - Discover tab content; Profile settings
 - Entity layer (§10 Phase C)
-- Any backend, auth, or user-generated content
+- Authentication and Cross-Device Sync (a backend now exists for UGC
+  intake — §2.1)
 - i18n **content** — the infrastructure shipped 2026-08-03 (§2.1 i18n), but
   English is still the only language and only four core screens are
   extracted. A second language needs verified translation personnel first
@@ -1717,6 +1833,10 @@ These are enforced by `check-data` where a machine can; the rest are on you.
     push done. Vercel keeps serving the last good build when a deploy
     fails, so a broken pipeline is invisible from the site itself; that is
     how ten consecutive failures went unnoticed for six weeks (§7 #29).
+24. The service role key never goes in `src/`, in a `VITE_` variable, or in
+    the repository at all. `VITE_` means "shipped to every visitor" — a
+    `VITE_`-prefixed secret is not a secret. It lives only in the
+    reviewer's local, gitignored `.env.local` (§2.1 UGC intake).
 
 ---
 
@@ -1852,14 +1972,21 @@ Immediately next, in order:
    gating completion (verified translation personnel; further extraction).
    Design spec and plan: `docs/superpowers/specs/2026-08-03-multilingual-infra-design.md`,
    `docs/superpowers/plans/2026-08-03-multilingual-infra.md`.
-5. **Next: Stage 4** (GROWTH-PLAN §4) — community/scale features, all
-   gated on decision **D** (§2.1's "no backend" constraint). **D was
-   decided by the user on 2026-09-17: amend §2.1 and adopt a minimal
-   managed backend (Supabase-class), with restaurant data staying static
-   in the bundle.** Nothing is implemented yet; the first Stage 4 step is a
-   design spec for which feature goes first (UGC intake, Cross-Device
-   Sync, AI Food Guide) and what the backend holds — go through the
-   brainstorming/plan discipline used for Stages 1–3 rather than coding
+5. **Stage 4** (GROWTH-PLAN §4) — community/scale features, all gated on
+   decision **D** (§2.1's "no backend" constraint). **D was decided by the
+   user on 2026-09-17: amend §2.1 and adopt a minimal managed backend
+   (Supabase-class), with restaurant data staying static in the bundle.**
+   **UGC intake — done, this commit.** A Supabase `leads` table the app
+   can only insert into (RLS proven live, 9 rules, `scripts/leads.mjs
+   verify-rls`), a `/submit` form in new/correction modes with two entry
+   points, and a review script (`list`/`resolve`) feeding the existing
+   §2.11 verification workflow by hand — see §2.1 "UGC intake" for the
+   full architecture. Design spec:
+   `docs/superpowers/specs/2026-09-17-ugc-intake-design.md`; plan:
+   `docs/superpowers/plans/2026-09-17-ugc-intake.md`. Next, the user's
+   choice: Naver/Kakao autofill (the deferred next Stage 4 step, §7 #30)
+   or Cross-Device Sync — go through the brainstorming/plan discipline
+   used for Stages 1–3 rather than coding
    straight into it. The verification-gated data-expansion pipeline
    (explicitly *not* a bulk import) is the other Stage 4 item.
    **Precondition, first:** confirm the deployment repair landed — the
@@ -1887,10 +2014,17 @@ npm install
 npm run dev           # http://localhost:5173
 npm run check-data    # the gate — must print "No violations."
 npm run lint
+npm test              # 22 pass — leads module + review-script formatter only
 npm run build && grep -rc retrievedBy dist/   # must print 0
+grep -rliE "service_role|sb_secret_" dist/ | wc -l  # must print 0
 
 node scripts/evidence-hash.mjs --check            # evidence seal drift
 node scripts/migrate-dietary-v2.mjs --dry         # the dietary decision record
+
+# UGC intake review queue (needs .env.local — see .env.example):
+node --env-file=.env.local scripts/leads.mjs list
+node --env-file=.env.local scripts/leads.mjs resolve <id> <accepted|rejected|deferred> --note "<why>"
+node --env-file=.env.local scripts/leads.mjs verify-rls   # "All 9 rules hold."
 ```
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.

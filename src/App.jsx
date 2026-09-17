@@ -9,9 +9,11 @@ import TabBar from './components/TabBar';
 import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
 import Prologue from './components/Prologue';
+import SubmitSheet from './components/SubmitSheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import { MAP_CENTER } from './utils';
 import { matchesDietary, isQuarantined } from './data/verification';
+import { resolvePlace } from './data/leads';
 import './index.css';
 
 // Dietary chips are answered by the structured dietary record (never a tag
@@ -75,6 +77,11 @@ function AppShell() {
     [id],
   );
   const focusStory = Boolean(location.state?.focusStory);
+  const isSubmit = location.pathname === '/submit';
+  const submitPlace = useMemo(
+    () => (isSubmit ? resolvePlace(new URLSearchParams(location.search).get('place'), activeRestaurants) : null),
+    [isSubmit, location.search],
+  );
 
   useEffect(() => {
     if (id && !selectedRestaurant) navigate('/', { replace: true });
@@ -286,6 +293,14 @@ function AppShell() {
         focusStory={focusStory}
       />
 
+      {isSubmit && (
+        <SubmitSheet
+          key={location.search}
+          place={submitPlace}
+          onClose={() => navigate(submitPlace ? `/place/${submitPlace.id}` : '/', { replace: true })}
+        />
+      )}
+
     </div>
   );
 }
@@ -295,6 +310,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<AppShell />} />
       <Route path="/place/:id" element={<AppShell />} />
+      <Route path="/submit" element={<AppShell />} />
     </Routes>
   );
 }

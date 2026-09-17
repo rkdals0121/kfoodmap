@@ -77,6 +77,23 @@ for (const place of active) {
   writeFileSync(path.join(dir, 'index.html'), pageFor(place), 'utf8');
 }
 
+// /submit is a route too, so a direct load or reload must be a real file,
+// the same as /place/:id. Generic meta; noindex because a form has nothing
+// for a search engine, and deliberately absent from the sitemap.
+{
+  const url = `${SITE_URL}/submit`;
+  const title = 'Suggest a restaurant · K-Food Map';
+  const page = [
+    [/<title>.*<\/title>/, `<title>${title}</title>`],
+    [/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${title}" />`],
+    [/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`],
+    [/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`],
+    [/<\/head>/, `  <meta name="robots" content="noindex" />\n  </head>`],
+  ].reduce((html, [pattern, value]) => html.replace(pattern, () => value), template);
+  mkdirSync(path.join(distDir, 'submit'), { recursive: true });
+  writeFileSync(path.join(distDir, 'submit', 'index.html'), page, 'utf8');
+}
+
 // Generated here rather than kept as a static file in public/, for the same
 // reason the pages above are generated: the URL set IS the active-restaurant
 // set, so deriving both from `active` makes it impossible for the sitemap to
@@ -106,4 +123,4 @@ writeFileSync(
 );
 
 console.log(`Prerendered ${active.length} place page(s) into dist/place/ (of ${restaurants.length} total).`);
-console.log(`Wrote sitemap.xml (${active.length + 1} URLs) and robots.txt.`);
+console.log(`Wrote submit/index.html, sitemap.xml (${active.length + 1} URLs) and robots.txt.`);
