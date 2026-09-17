@@ -133,6 +133,12 @@ export default function SubmitSheet({ place, onClose }) {
                     aria-invalid={Boolean(errors.contact_email)} aria-describedby={describedBy('submit-contact_email', true)} />
                 </Field>
 
+                {/* A new tab, not an in-app route: navigating this sheet away
+                    would discard what the user has typed. */}
+                <a className="submit-privacy-link" href="/privacy" target="_blank" rel="noopener">
+                  {t('submit.privacyLink')}
+                </a>
+
                 <div className="submit-honeypot" aria-hidden="true">
                   <label htmlFor="submit-hp">Leave this empty</label>
                   <input id="submit-hp" name="hp" tabIndex={-1} autoComplete="new-password" value={form.website} onChange={set('website')} />

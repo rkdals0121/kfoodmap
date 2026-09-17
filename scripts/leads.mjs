@@ -3,12 +3,15 @@
 //   node --env-file=.env.local scripts/leads.mjs list
 //   node --env-file=.env.local scripts/leads.mjs resolve <id> <accepted|rejected|deferred> --note "<why>"
 //   node --env-file=.env.local scripts/leads.mjs verify-rls
+//   node --env-file=.env.local scripts/leads.mjs purge-emails [--dry]
 //
 // "accepted" means worth running the Phase 3 verification on — not
 // published. Leads are leads, not facts: nothing here writes to restaurants.js.
 import { authHeaders, buildLead, parseSupabaseUrl } from '../src/data/leads.js';
 import { restaurants } from '../src/data/restaurants.js';
 import { formatLead, parseResolveArgs } from './lib/leads-format.mjs';
+import { emailPurgeCutoff } from './lib/leads-retention.mjs';
+import { LEAD_EMAIL_RETENTION_DAYS } from '../src/data/privacy.js';
 
 function env(name) {
   const value = process.env[name]?.trim();
@@ -175,7 +178,32 @@ async function resolve(args) {
   console.log(`${parsed.id} → ${parsed.status}: ${parsed.note}`);
 }
 
-const commands = { list, resolve, 'verify-rls': verifyRls };
+// Keeps the privacy policy's promise: an email address is removed once the
+// lead is older than the retention period, whatever the lead's status. The
+// lead itself stays — it is the record of how a fact was checked.
+async function purgeEmails(args) {
+  const dry = args.includes('--dry');
+  const service = env('SUPABASE_SERVICE_ROLE_KEY');
+  const cutoff = emailPurgeCutoff(new Date(), LEAD_EMAIL_RETENTION_DAYS);
+  const filter = `leads?contact_email=not.is.null&created_at=lt.${encodeURIComponent(cutoff)}`;
+
+  const response = dry
+    ? await rest(`${filter}&select=id`, service)
+    : await rest(filter, service, {
+      method: 'PATCH',
+      headers: { Prefer: 'return=representation' },
+      body: JSON.stringify({ contact_email: null }),
+    });
+  if (!response.ok) {
+    console.error(`Could not ${dry ? 'count' : 'purge'} emails: HTTP ${response.status} ${await response.text()}`);
+    process.exitCode = 1;
+    return;
+  }
+  const rows = await response.json();
+  console.log(`${rows.length} email address(es) on leads created before ${cutoff} ${dry ? 'would be removed (dry run)' : 'removed'}.`);
+}
+
+const commands = { list, resolve, 'verify-rls': verifyRls, 'purge-emails': purgeEmails };
 
 const [command, ...args] = process.argv.slice(2);
 if (!commands[command]) {

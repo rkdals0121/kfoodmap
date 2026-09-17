@@ -3,8 +3,9 @@
 **Status:** working prototype, production-grade data architecture, incomplete data.
 **Last updated:** 2026-09-18 · **Base commit:** `1d291ee` (UGC intake,
 GROWTH-PLAN Stage 4's first feature on the project's first backend — §2.1).
-**This edit lands with the commit removing Prologue's fake location step**
-(§2.16 Prologue note). No restaurant data changed.
+**This edit lands with two commits:** removing Prologue's fake location step
+(§2.16 Prologue note), then the privacy policy page and email retention
+(§2.1 Privacy policy). No restaurant data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -289,6 +290,34 @@ A few implementation details worth knowing before touching this:
   the spec describes; it names the restaurant in the intro sentence under
   the sheet's generic "Report incorrect info" title instead — accepted as
   functionally equivalent (ruling recorded in the feature's ledger).
+
+**Privacy policy (2026-09-18).** `/privacy` renders `PrivacySheet.jsx` (same
+sheet and focus/Escape convention as `SubmitSheet`), reachable from
+Profile's "Privacy Policy" row and from a "How we handle what you send"
+link under the submit form's email field — that link opens a **new tab**,
+because navigating the sheet away would discard what the user typed. The
+text lives in `src/data/privacy.js` as parallel English and Korean
+statements shown together (visitors read English; the operator is in
+Korea), deliberately outside the i18n locale files: it is one legal text
+in two languages, not UI chrome that switches. **Every sentence in it was
+measured against the code, not assumed** — the three `localStorage` keys
+(`kfm-bookmarks`, `kfm-prologue`, `kfm-language`); the hosts the browser
+contacts (Vercel, Supabase on submit, Google Fonts, CARTO tiles); and the
+absence of analytics, cookies, and geolocation. Measuring that last one is
+how Prologue's fake "Allow location" step was found and removed (§2.16).
+**If the app ever starts storing or sending something new, `privacy.js`
+changes in the same commit** (§11 rule 25). Retention: a lead's content and
+decision are kept as the verification record; its `contact_email` is
+removed one year after submission by `node --env-file=.env.local
+scripts/leads.mjs purge-emails [--dry]` (cutoff = now −
+`LEAD_EMAIL_RETENTION_DAYS`, 365, in `privacy.js`; the policy text and a
+test both pin that number). Proven live: with a two-year-old and a
+ten-day-old test lead seeded, `--dry` counted 1 and changed nothing, the
+real run nulled only the old one's email, and the rows were then deleted.
+Nothing runs this on a schedule — it is a manual step, alongside `list`.
+`PRIVACY_CONTACT` is `null` until the user's dedicated mailbox exists; the
+page then says the address "will be published here" (§7 #30). The build
+writes `dist/privacy/index.html` — indexable, not in the sitemap.
 
 ### 2.2 Restaurant data model — `src/data/restaurants.js` (928 lines)
 
@@ -1160,6 +1189,8 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     built-in `node:test`, no new dependency, tests under `scripts/tests/`.
     It covers only the lead module (`src/data/leads.js`) and the review
     script's formatter (`scripts/lib/leads-format.mjs`), 22 tests total.
+    *(2026-09-18: 26 — `scripts/tests/privacy.test.mjs` adds the privacy
+    policy's EN/KO parity, the retention number, and the purge cutoff.)*
     Data rules are still `check-data`'s job alone; this does not close the
     gap this item names, only starts filling it for the one area that had
     zero coverage of any kind.
@@ -1505,11 +1536,13 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       so a deferred lead falls out of the script's view. Not built now
       (ruling recorded in the feature's ledger). Revisit when the first
       deferred lead needs a second decision.
-    - **Privacy/retention note for `contact_email`.** The form now collects
-      an optional email while the Profile tab's "Privacy Policy" row is
-      still empty (§8 "Not started"). This is a precondition, not a nice-
-      to-have: promoting the submit form beyond QA use needs a real privacy/
-      retention statement first (ruling recorded in the feature's ledger).
+    - ~~**Privacy/retention note for `contact_email`.**~~ **Built 2026-09-18**
+      (§2.1 "Privacy policy"): `/privacy`, email retention of one year
+      enforced by `scripts/leads.mjs purge-emails`. **Still open: the
+      contact address.** `PRIVACY_CONTACT` in `src/data/privacy.js` is
+      `null` — the user is creating a dedicated project mailbox — and the
+      page says the address "will be published here" rather than inventing
+      one. Do not promote the submit form publicly until it is set.
     - **Deferred minors, unfixed, low severity:** closing the sheet with
       `navigate(..., { replace: true })` leaves a duplicate `/place/:id` (or
       `/`) history entry, so the first Back tap after a submission looks
@@ -1841,6 +1874,11 @@ These are enforced by `check-data` where a machine can; the rest are on you.
     the repository at all. `VITE_` means "shipped to every visitor" — a
     `VITE_`-prefixed secret is not a secret. It lives only in the
     reviewer's local, gitignored `.env.local` (§2.1 UGC intake).
+25. `src/data/privacy.js` changes in the same commit as anything that
+    changes what the app stores on the device or sends off it — a new
+    `localStorage` key, a new third-party host, a new submitted field, any
+    analytics. The policy is a list of measured facts; a policy that lags
+    the code is a false claim to every visitor (§2.1 Privacy policy).
 
 ---
 
@@ -2029,6 +2067,7 @@ node scripts/migrate-dietary-v2.mjs --dry         # the dietary decision record
 node --env-file=.env.local scripts/leads.mjs list
 node --env-file=.env.local scripts/leads.mjs resolve <id> <accepted|rejected|deferred> --note "<why>"
 node --env-file=.env.local scripts/leads.mjs verify-rls   # "All 9 rules hold."
+node --env-file=.env.local scripts/leads.mjs purge-emails --dry   # emails past one year; drop --dry to remove
 ```
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.

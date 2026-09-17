@@ -10,6 +10,7 @@ import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
 import Prologue from './components/Prologue';
 import SubmitSheet from './components/SubmitSheet';
+import PrivacySheet from './components/PrivacySheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import { MAP_CENTER } from './utils';
 import { matchesDietary, isQuarantined } from './data/verification';
@@ -78,6 +79,7 @@ function AppShell() {
   );
   const focusStory = Boolean(location.state?.focusStory);
   const isSubmit = location.pathname === '/submit';
+  const isPrivacy = location.pathname === '/privacy';
   const submitPlace = useMemo(
     () => (isSubmit ? resolvePlace(new URLSearchParams(location.search).get('place'), activeRestaurants) : null),
     [isSubmit, location.search],
@@ -300,6 +302,7 @@ function AppShell() {
           onClose={() => navigate(submitPlace ? `/place/${submitPlace.id}` : '/', { replace: true })}
         />
       )}
+      {isPrivacy && <PrivacySheet onClose={() => navigate('/', { replace: true })} />}
 
     </div>
   );
@@ -311,6 +314,7 @@ export default function App() {
       <Route path="/" element={<AppShell />} />
       <Route path="/place/:id" element={<AppShell />} />
       <Route path="/submit" element={<AppShell />} />
+      <Route path="/privacy" element={<AppShell />} />
     </Routes>
   );
 }

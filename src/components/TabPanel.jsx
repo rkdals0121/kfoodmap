@@ -146,7 +146,7 @@ function ProfileTab({ onNavigate }) {
     { label: 'Saved Places', value: 'View Journal', icon: '❤️', action: () => onNavigate('journal') },
     { label: t('profile.suggestRestaurant'), value: '', icon: '📍', action: () => navigate('/submit') },
     { label: 'About K-Food Map', value: 'v1.0', icon: 'ℹ️' },
-    { label: 'Privacy Policy', value: '', icon: '🔒' },
+    { label: t('profile.privacyPolicy'), value: '', icon: '🔒', action: () => navigate('/privacy') },
   ];
 
   return (

@@ -55,6 +55,7 @@ export default {
     language: 'Language',
     languageEnglish: 'English',
     suggestRestaurant: 'Suggest a restaurant',
+    privacyPolicy: 'Privacy Policy',
   },
   submit: {
     titleNew: 'Suggest a restaurant',
@@ -87,6 +88,7 @@ export default {
     offline: "You're offline. Your text stays here while this page is open — send it when you're back online.",
     disabled: "Submissions aren't enabled in this build.",
     reportLink: 'Report incorrect info',
+    privacyLink: 'How we handle what you send',
     errors: {
       required: 'Required',
       invalidTopic: 'Choose a topic',

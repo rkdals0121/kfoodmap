@@ -94,6 +94,21 @@ for (const place of active) {
   writeFileSync(path.join(distDir, 'submit', 'index.html'), page, 'utf8');
 }
 
+// /privacy is a real file for the same reason. Indexable (people search for
+// a site's privacy policy), but not in the sitemap, which lists places.
+{
+  const url = `${SITE_URL}/privacy`;
+  const title = 'Privacy Policy · K-Food Map';
+  const page = [
+    [/<title>.*<\/title>/, `<title>${title}</title>`],
+    [/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${title}" />`],
+    [/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`],
+    [/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`],
+  ].reduce((html, [pattern, value]) => html.replace(pattern, () => value), template);
+  mkdirSync(path.join(distDir, 'privacy'), { recursive: true });
+  writeFileSync(path.join(distDir, 'privacy', 'index.html'), page, 'utf8');
+}
+
 // Generated here rather than kept as a static file in public/, for the same
 // reason the pages above are generated: the URL set IS the active-restaurant
 // set, so deriving both from `active` makes it impossible for the sitemap to
@@ -123,4 +138,4 @@ writeFileSync(
 );
 
 console.log(`Prerendered ${active.length} place page(s) into dist/place/ (of ${restaurants.length} total).`);
-console.log(`Wrote submit/index.html, sitemap.xml (${active.length + 1} URLs) and robots.txt.`);
+console.log(`Wrote submit/index.html, privacy/index.html, sitemap.xml (${active.length + 1} URLs) and robots.txt.`);

@@ -2492,3 +2492,56 @@ button {
 .detail-report:hover {
   color: var(--ink);
 }
+
+/* ── Privacy policy sheet (/privacy) ─────────────────────────────────── */
+.privacy-content {
+  padding-bottom: 40px;
+}
+.privacy-version + .privacy-version {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.privacy-effective {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.privacy-section {
+  margin-bottom: 20px;
+}
+.privacy-section h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-title);
+  margin-bottom: 6px;
+}
+.privacy-section p,
+.privacy-section li {
+  color: var(--ink-body);
+  line-height: 1.6;
+}
+.privacy-section ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.privacy-contact {
+  color: var(--ink-body);
+  font-weight: 600;
+}
+.privacy-contact a {
+  color: var(--green-strong);
+}
+.submit-privacy-link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: -10px;
+  font-size: 13px;
+  color: var(--muted-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
