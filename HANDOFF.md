@@ -1,11 +1,10 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-09-18 · **Base commit:** `9fd9cae` (branch head of
-`stage4-ugc-intake` before this doc commit). **This edit lands with the
-UGC intake squash commit onto master** — the first feature to use K-Food
-Map's first backend (GROWTH-PLAN decision D, §2.1). No restaurant data
-changed.
+**Last updated:** 2026-09-18 · **Base commit:** `1d291ee` (UGC intake,
+GROWTH-PLAN Stage 4's first feature on the project's first backend — §2.1).
+**This edit lands with the commit removing Prologue's fake location step**
+(§2.16 Prologue note). No restaurant data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -796,7 +795,12 @@ run, no one-unit-per-commit discipline. What it contains:
 
 - **Prologue** (`Prologue.jsx/.css`, new): a 4-step onboarding gate shown
   before the app until completed once; completion persists to `localStorage`
-  under `kfm-prologue`.
+  under `kfm-prologue`. *(2026-09-18: now 3 steps. Its "Allow location" step
+  was removed — the button never called the Geolocation API, and the app
+  requests location nowhere, so it was a permission prompt that granted
+  nothing; the closing "Finding restaurants near you…" became "Opening the
+  map…" for the same reason. Found while measuring what the app collects,
+  for the privacy policy.)*
 - **New layout shell** (`App.jsx`, `index.css` ±956 lines): desktop gets a
   collapsible sidebar (`isSidebarCollapsed`) holding filters/list/tabs beside
   a full-height map; mobile gets a three-state bottom sheet
@@ -1316,7 +1320,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     would still be better and remains the §2.2 image-contract goal — this
     makes the share layer honest and functional in the meantime.
 23. **A first-time visitor following a shared `/place/:id` link sees the
-    4-step Prologue onboarding before the shared restaurant, not the
+    Prologue onboarding (3 steps since 2026-09-18) before the shared restaurant, not the
     restaurant itself.** It's recoverable — the URL is untouched, so
     completing onboarding lands on the correct place — but Stage 1 exists
     specifically to make links reachable by strangers, and this onboarding

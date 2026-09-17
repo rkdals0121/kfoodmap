@@ -19,11 +19,7 @@ export default {
     storiesTitle: 'Explore Korean food stories.',
     storiesSubtitle: 'Every restaurant has a cultural story.',
     next: 'Next',
-    locationTitle: 'Allow location',
-    locationSubtitle: 'To find the best places near you.',
-    allowLocation: 'Allow While Using App',
-    skipForNow: 'Skip for now',
-    findingTitle: 'Finding restaurants near you...',
+    openingTitle: 'Opening the map…',
   },
   trust: {
     unknown: 'Unknown',

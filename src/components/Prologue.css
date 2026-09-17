@@ -87,33 +87,6 @@
   opacity: 0.9;
 }
 
-.prologue-btn--ghost {
-  background: transparent;
-  color: var(--muted-strong);
-  margin-top: -8px;
-}
-.prologue-btn--ghost:hover {
-  background: transparent;
-  color: var(--ink);
-}
-
-.prologue-icon-wrapper {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--green-tint);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  color: var(--green-strong);
-}
-
-.prologue-icon-wrapper svg {
-  width: 32px;
-  height: 32px;
-}
-
 .prologue-spinner {
   width: 48px;
   height: 48px;
