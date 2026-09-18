@@ -61,3 +61,23 @@ test('resolve requires an id, a resolution status, and a non-empty note', () => 
   assert.equal(parseResolveArgs(['abc', 'open', '--note', 'x']).ok, false);
   assert.equal(parseResolveArgs([]).ok, false);
 });
+
+test('a lead with a picked place shows it, labelled as the submitter\'s pick', () => {
+  const text = formatLead({ ...base, kakao_place_id: '12345', kakao_address: '인천 중구 차이나타운로 43', kakao_lat: 37.4746, kakao_lng: 126.6173 }, byId);
+  assert.match(text, /kakao: .*인천 중구 차이나타운로 43/);
+  assert.match(text, /37\.4746, 126\.6173/);
+  assert.match(text, /submitter's pick, unverified/);
+});
+
+test('a lead without a picked place shows no kakao line', () => {
+  assert.doesNotMatch(formatLead(base, byId), /kakao:/);
+});
+
+test('a forged header embedded in kakao_address cannot pass as a real lead header', () => {
+  const forged = '\n── 99999999-0000-0000-0000-000000000000 · new · vegan · 2026-01-01';
+  const text = formatLead({ ...base, kakao_place_id: '12345', kakao_address: `addr${forged}`, kakao_lat: 37.4746, kakao_lng: 126.6173 }, byId);
+  const headerLines = text.split('\n').filter(line => line.startsWith('──'));
+  assert.equal(headerLines.length, 1, 'only the real lead header should start with ──');
+  assert.equal(text.includes('\x1b'), false, 'ANSI escape should be stripped');
+  assert.equal(text.includes('\r'), false, 'CR should be stripped');
+});

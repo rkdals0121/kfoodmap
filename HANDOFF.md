@@ -1,11 +1,11 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-09-18 · **Base commit:** `1d291ee` (UGC intake,
-GROWTH-PLAN Stage 4's first feature on the project's first backend — §2.1).
-**This edit lands with two commits:** removing Prologue's fake location step
-(§2.16 Prologue note), then the privacy policy page and email retention
-(§2.1 Privacy policy). No restaurant data changed.
+**Last updated:** 2026-09-18 · **Base commit:** `805cb4d` (Autofill,
+GROWTH-PLAN Stage 4's second feature and the project's first server code —
+§2.1).
+**This edit lands with the autofill squash commit onto master.** No
+restaurant data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -280,7 +280,14 @@ A few implementation details worth knowing before touching this:
   input, printed raw to the reviewer's terminal; `leads-format.mjs` strips
   control characters (including ESC and CR) before printing, so a
   submission cannot repaint the terminal or forge what looks like another
-  lead's header.
+  lead's header. *(2026-09-18, Autofill review: `kakao_address` — sourced
+  from Kakao by way of the browser, so no more trustworthy than typed text —
+  initially used `sanitize()` instead of `indent()`, so an embedded newline
+  in it was stripped of control characters but never pushed off column 0,
+  letting a crafted address forge a fake `── <uuid> · ...` lead header in
+  the reviewer's terminal. Found in review, reproduced, fixed by routing it
+  through `indent()` like every other printed field, and now covered by a
+  regression test in `scripts/tests/leads-format.test.mjs`.)*
 - The spec (`docs/superpowers/specs/2026-09-17-ugc-intake-design.md`) says
   strings live in `src/i18n/locales/en.json`; the actual file, matching
   every other locale reference in this document, is `src/i18n/locales/
@@ -290,6 +297,87 @@ A few implementation details worth knowing before touching this:
   the spec describes; it names the restaurant in the intro sentence under
   the sheet's generic "Report incorrect info" title instead — accepted as
   functionally equivalent (ruling recorded in the feature's ledger).
+
+**Autofill (2026-09-18, Stage 4).** `/api/place-search.js` is **the
+repository's first server code**, and it is scoped as narrowly as the job
+allows: one query parameter (`q`), one secret (`KAKAO_REST_API_KEY`), no
+database access, no other route. It exists for exactly one reason — Kakao's
+key must never ship to the browser, so the lookup has to happen somewhere
+that isn't `src/`. A non-`GET` request is rejected `405 { code: 'method' }`
+before anything else — before the key check, so an unconfigured build
+answers `405` rather than its usual `503` for a wrong method too — which
+is checked first specifically so a wrong method can never burn quota. The
+handler then validates the query, calls Kakao's Local
+keyword-search API, and maps the response down to the six fields the form
+needs (`id`, `name`, `address`, `lat`, `lng`, `category`) via
+`api/_lib/kakao.mjs`'s pure `validateQuery`/`kakaoSearchUrl`/
+`mapKakaoDocuments` — kept dependency-free so they're testable without a
+server. **The CDN cache** (`Cache-Control:
+s-maxage=3600, stale-while-revalidate=86400` on success) protects *normal*
+traffic — the same person retyping a name, or two people searching the same
+restaurant — by answering repeat requests for the same URL without touching
+Kakao. It is not a quota guarantee: Vercel keys the edge cache on the full
+request URL and the handler reads only `q`, so `?q=X&n=1`, `?q=X&n=2`, … are
+each a cache miss that still reaches Kakao with the identical query. The
+in-memory `hits`/`rateLimited()` window (30 requests/IP/60s) is best-effort
+only — a serverless instance isn't shared and isn't long-lived, so it bounds
+one warm instance and nothing more, and it now reads
+`x-vercel-forwarded-for`/`x-real-ip` (set by Vercel's edge, not forgeable by
+the client) ahead of the client-suppliable `x-forwarded-for`, so a rotating
+fake header can no longer both dodge the limit and, via `hits.size > 500`,
+force `hits.clear()` to wipe out genuine IPs' windows. If real abuse ever
+shows up, the fix is a bot challenge, not a bigger counter.
+
+A **dev-only Vite plugin** (`apiDevServer()` in `vite.config.js`) mounts the
+same handler under `vite dev`, since Vite doesn't serve `api/` itself — and
+it exists because `vercel dev` cannot log in on this machine (the hostname
+contains Hangul, which crashes header-ByteString conversion; §7 #29). It hit
+the same env-loading trap twice: Vite auto-exposes only `VITE_`-prefixed
+variables to the app, so `process.env.KAKAO_REST_API_KEY` is undefined
+inside `configureServer` unless something loads it explicitly
+(`loadEnv(mode, dir, '')`, the empty-prefix form, loads every var). The
+first fix loaded it from `process.cwd()` and still failed live, because the
+real launch shape starts the dev server from a different directory with the
+project path passed as an argument — `cwd()` is not the project root in that
+shape. The working fix resolves the `.env.local` directory from
+`vite.config.js`'s own file location (`dirname(fileURLToPath(import.meta.url))`)
+instead, which is always the project root regardless of where the process
+was launched from.
+
+The `/submit` name field is a **combobox** (`usePlaceSuggestions.js` debounces
+300ms and aborts the previous fetch; `SubmitSheet.jsx` renders the listbox).
+Its Escape handling is the one genuinely subtle piece: `SubmitSheet`'s own
+Escape listener sits on `window` in the **capture** phase, so it always runs
+*before* any bubble-phase handler on the input — a child calling
+`stopPropagation()` can never preempt it. Making Escape close only the list
+(not the whole sheet) while the list is open therefore couldn't be done by
+listening on the input at all; instead `listOpenRef` mirrors `listOpen` into
+a ref, and the same window-level handler reads that ref at the moment
+Escape actually fires to decide which one to close.
+
+Four `kakao_*` columns (`kakao_place_id`, `kakao_address`, `kakao_lat`,
+`kakao_lng`, all nullable, `supabase/leads-autofill.sql`) hold what the
+submitter picked. The anon grant was **extended**, not replaced — the same
+`grant insert (...)` statement now names the four new columns alongside the
+existing ones, and nothing else (status, resolution fields) becomes
+reachable. `scripts/leads.mjs verify-rls` was re-run live afterward: **all 9
+rules hold**, so the wider grant widened nothing it shouldn't have.
+`src/data/leads.js`'s `normalizeSelection()`/`toCoord()` are the load-bearing
+check on the way in: `Number('')` and `Number(null)` both coerce to a
+finite `0`, which would let a missing coordinate through as a real-looking
+point in the Gulf of Guinea. `toCoord()` accepts only an actual `number` or
+a string that is *entirely* numeric (as Kakao's API sends coordinates) —
+anything else, including a partially-numeric string, is `NaN`, and a `NaN`
+or out-of-range value drops the whole selection rather than sending it
+half-valid.
+
+**The bold rule this feature exists inside: Kakao's answer is the
+submitter's pick, never our fact.** `scripts/lib/leads-format.mjs`'s
+`formatLead()` labels the line `submitter's pick, unverified` in the
+reviewer's terminal, and §2.11 verification still cross-checks it by hand
+before anything reaches `restaurants.js` — autofill changes what a
+submitter can attach to a lead, not what a lead is allowed to become.
+Spec: `docs/superpowers/specs/2026-09-18-submit-autofill-design.md`.
 
 **Privacy policy (2026-09-18).** `/privacy` renders `PrivacySheet.jsx` (same
 sheet and focus/Escape convention as `SubmitSheet`), reachable from
@@ -1513,10 +1601,42 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 
 30. **Deferred from UGC intake (2026-09-17), each with reason and revisit
     trigger.**
-    - **Naver/Kakao autofill.** The MVP asks for a free-text location hint
-      instead of resolving an address/coordinates at submit time — that's
-      the next Stage 4 step (design spec §"Decisions", item 3), not
-      skipped by accident. Revisit as soon as that step is scoped.
+    - ~~**Naver/Kakao autofill.**~~ **Built 2026-09-18** (§2.1 "Autofill").
+      `/api/place-search` + a combobox on the name field; Naver was excluded
+      (new key issuance is stopped) so this is Kakao only. Deferred minors
+      from *this* feature, each with reason and revisit trigger:
+      - **Best-effort rate limiting only.** `hits.clear()` wipes every IP's
+        window once the map passes 500 entries, so a burst right after a
+        clear briefly bypasses the limit; `x-forwarded-for` is
+        client-supplied and forgeable. The real protection is the CDN
+        cache (§2.1). Revisit only if `place-search` abuse is actually
+        observed — a bigger counter would still be forgeable.
+      - **The dev shim drops `Cache-Control`.** The Vite dev plugin's
+        `res.setHeader` stub is a no-op, so the dev server never actually
+        caches a response the way production does. Dev-only; production
+        sets the header correctly (verified live).
+      - **Clicking Clear re-arms the hook and refetches the same query.**
+        `usePlaceSuggestions` fires again as soon as `selection` becomes
+        `null`, since the name field still holds the picked text. Harmless
+        (one extra debounced call, same cached CDN result) but not
+        deduped.
+      - **The suggestion hint renders below the dropdown**, not above it,
+        when the list is open — a minor layout ordering, not a functional
+        gap.
+      - **A resolved fetch can call `setResults` after the component has
+        unmounted** (closing the sheet mid-request). No visible effect —
+        React discards the update — but it's an unguarded `useEffect`
+        cleanup gap worth closing if this hook grows.
+      - **Task 1 minors, still open:** three malformed Kakao response
+        shapes (a string payload, `documents: [null]`, a numeric
+        `place_name`) are handled by `mapKakaoDocuments`'s inline guards
+        but have no named test; `address` is the one mapped field without
+        a `typeof` guard (it falls through to `''` via `||`, so this is
+        inert, not a bug); `Number.parseFloat` accepts a string like
+        `"37.5abc"` as `37.5` (Kakao has never been observed to send that
+        shape); `validateQuery`'s length check counts UTF-16 code units,
+        so an astral-plane emoji counts as 2 characters toward the 50-char
+        cap.
     - **Server-side rate limiting / a bot challenge (e.g. Turnstile).**
       Only a client-side honeypot exists; anything posting to the REST
       endpoint directly can add junk rows. The damage is bounded — nothing
@@ -1874,6 +1994,10 @@ These are enforced by `check-data` where a machine can; the rest are on you.
     the repository at all. `VITE_` means "shipped to every visitor" — a
     `VITE_`-prefixed secret is not a secret. It lives only in the
     reviewer's local, gitignored `.env.local` (§2.1 UGC intake).
+    **Extended 2026-09-18:** the same rule covers `KAKAO_REST_API_KEY` — it
+    is read only inside `api/place-search.js` (server code, never bundled)
+    and must never be renamed to a `VITE_`-prefixed variable, which would
+    ship it to every visitor (§2.1 Autofill).
 25. `src/data/privacy.js` changes in the same commit as anything that
     changes what the app stores on the device or sends off it — a new
     `localStorage` key, a new third-party host, a new submitted field, any
@@ -2056,9 +2180,9 @@ npm install
 npm run dev           # http://localhost:5173
 npm run check-data    # the gate — must print "No violations."
 npm run lint
-npm test              # 22 pass — leads module + review-script formatter only
+npm test              # 42 pass — leads/kakao/privacy modules + review-script formatter
 npm run build && grep -rc retrievedBy dist/   # must print 0
-grep -rliE "service_role|sb_secret_" dist/ | wc -l  # must print 0
+grep -rliE "service_role|sb_secret_|KakaoAK" dist/ | wc -l  # must print 0
 
 node scripts/evidence-hash.mjs --check            # evidence seal drift
 node scripts/migrate-dietary-v2.mjs --dry         # the dietary decision record

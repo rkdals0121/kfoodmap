@@ -1,6 +1,6 @@
 # K-Food Map — 개발계획 인수인계 (Growth Plan Handoff)
 
-**작성일:** 2026-08-02 · **최종 갱신:** 2026-09-18 · **기준 커밋:** `9fd9cae`
+**작성일:** 2026-08-02 · **최종 갱신:** 2026-09-18 · **기준 커밋:** `805cb4d`
 **용도:** 원격/새 세션이 이 문서 하나로 개발을 이어받기 위한 인수인계.
 **주의:** 엔지니어링 상태의 유일한 정본은 `HANDOFF.md`다. 이 문서는 그 위에
 얹힌 *성장 계획*이며, 둘이 충돌하면 HANDOFF와 저장소 실측이 이긴다.
@@ -28,10 +28,10 @@
    ```
    npm run check-data      # "No violations." 필수
    npm run lint            # 현재 기준선 1 경고 (utils.js kakaoMapUrl origin, 의도적)
-   npm test                # 26개 전부 통과 필수 (leads 모듈 + 검수 포맷터 + 개인정보방침/보유기간)
+   npm test                # 42개 전부 통과 필수 (leads/kakao/privacy 모듈 + 검수 포맷터)
    npm run build
    grep -rc retrievedBy dist/   # 0 필수
-   grep -rliE "service_role|sb_secret_" dist/ | wc -l  # 0 필수
+   grep -rliE "service_role|sb_secret_|KakaoAK" dist/ | wc -l  # 0 필수
    node scripts/evidence-hash.mjs --check # 0 pending, 0 drifted 필수
    ```
    UI 변경은 브라우저 실검증 필수 (§11 rule 16).
@@ -177,8 +177,14 @@
   제보 이메일은 1년 후 `scripts/leads.mjs purge-emails`로 삭제. 이 과정에서
   Prologue의 가짜 "위치 허용" 단계를 발견·제거. ⬜ **남은 것: 문의 이메일**
   (사용자가 프로젝트 전용 메일 생성 중 — 정해지기 전엔 제보 폼 홍보 금지)
-- ⬜ **자동채움** — 제보 폼에서 식당 이름 → Naver/Kakao 검색으로 주소 채움
-  (서버 함수 + API 키 필요, 스펙의 접근법 B)
+- ✅ **자동채움 완료 (2026-09-18)** — 제보 폼 이름 필드에서 카카오 로컬
+  검색으로 장소를 찾아 자동완성. 신규 서버 함수(`/api/place-search`,
+  이 저장소의 첫 서버 코드)가 카카오 키를 보관해 브라우저에 노출하지
+  않음. 선택한 장소(주소·좌표)는 제보에 **참고 정보로만** 첨부되고,
+  검수 화면(`scripts/leads.mjs list`)에는 "submitter's pick,
+  unverified"로 표시돼 사실로 취급되지 않음 — §2.11 검증은 그대로 수동
+  대조. 네이버는 신규 API 키 발급이 중단돼 이번 범위에서 제외, 카카오만
+  구현. 상세는 HANDOFF §2.1 "Autofill".
 - **Cross-Device Sync** — 여권을 계정에 (동결된 MVP)
 - **데이터 확장 파이프라인** — 공공데이터·제보는 *리드 큐*로만 받고,
   Phase 3 검증 워크플로 통과분만 게시. 확장 축: 할랄 클러스터 심화,

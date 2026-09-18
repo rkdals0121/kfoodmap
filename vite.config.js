@@ -1,10 +1,77 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
+
+// This file always sits at the project root, so its own location -- not
+// process.cwd() -- is the reliable way to find .env.local. cwd() only
+// happens to equal the project root when Vite is launched from inside the
+// project; the controller launches it with the project path as an
+// argument from an unrelated directory, where cwd()-based lookup silently
+// finds nothing.
+const projectRoot = dirname(fileURLToPath(import.meta.url))
+
+// Dev only: Vite does not serve api/, so mount the same handler at the
+// same path. apply: 'serve' keeps it out of every build.
+function apiDevServer() {
+  return {
+    name: 'kfm-api-dev',
+    apply: 'serve',
+    configResolved(config) {
+      // The dev-server process itself is started without --env-file, so
+      // process.env.KAKAO_REST_API_KEY is undefined here even though
+      // .env.local has it -- Vite only auto-exposes VITE_-prefixed vars to
+      // the client. loadEnv's third argument ('') loads every var, not just
+      // VITE_-prefixed ones, so the handler (which reads process.env
+      // directly, same as it will in production) can find its key. Only
+      // fill in what's missing: a variable the real environment already
+      // set must win, never be overwritten by a .env file value.
+      //
+      // Narrowed to exactly the one var the handler reads: loadEnv's
+      // empty-prefix form returns *everything* in .env.local, and copying
+      // all of it into process.env would also pull SUPABASE_SERVICE_ROLE_KEY
+      // into this dev process for no reason this plugin needs.
+      const env = loadEnv(config.mode, projectRoot, '');
+      const key = 'KAKAO_REST_API_KEY';
+      if (!(key in process.env) && key in env) process.env[key] = env[key];
+    },
+    configureServer(server) {
+      server.middlewares.use('/api/place-search', async (req, res, next) => {
+        try {
+          const { default: handler } = await server.ssrLoadModule('/api/place-search.js');
+          const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
+          // This object is a hand-built stand-in for Vercel's real request
+          // object, so it must mirror everything the handler actually
+          // reads -- not just what it read when this shim was written.
+          // `method` was missing until the handler grew a method check
+          // (405 guard) and every request here read as `undefined`,
+          // rejecting valid GETs only in dev. Whatever the handler starts
+          // reading next (a new header, a body, ...) must be added here
+          // too, or dev and production silently diverge again.
+          await handler(
+            { method: req.method, url: req.url, headers: req.headers },
+            { status: (code) => ({ json: (body) => send(code, body) }), setHeader: () => {} },
+          );
+        } catch (error) {
+          // ssrLoadModule (or the handler itself) throwing must not hang
+          // the request forever -- dev-only, so a bare 500 with a code is
+          // enough; next(error) also hands it to Vite's own error overlay.
+          console.error('kfm-api-dev: /api/place-search failed', error);
+          if (res.headersSent) return next(error);
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ code: 'devServerError' }));
+        }
+      });
+    },
+  };
+}
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    apiDevServer(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',

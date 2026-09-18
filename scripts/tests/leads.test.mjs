@@ -19,6 +19,7 @@ test('a new-restaurant lead builds a row, empty optionals become null', () => {
   assert.deepEqual(result.row, {
     kind: 'new', place_id: null, name: 'Test Kitchen', location_hint: 'near Itaewon station',
     topic: 'vegan', message: 'The whole menu is vegan', source_url: null, contact_email: null, lang: 'en',
+    kakao_place_id: null, kakao_address: null, kakao_lat: null, kakao_lng: null,
   });
 });
 
@@ -137,4 +138,74 @@ test('submitLead posts the row and reports the outcome', async () => {
     await submitLead(row, config, async () => { throw new TypeError('network'); }),
     { ok: false, status: 0 },
   );
+});
+
+const selection = { id: '12345', name: '공화춘', address: '인천 중구 차이나타운로 43', lat: 37.4746, lng: 126.6173, category: '음식점 > 중식' };
+
+test('a lead without a selection carries null kakao fields', () => {
+  const { row } = buildLead(form);
+  assert.equal(row.kakao_place_id, null);
+  assert.equal(row.kakao_address, null);
+  assert.equal(row.kakao_lat, null);
+  assert.equal(row.kakao_lng, null);
+});
+
+test('a selection is copied onto the row, and fills the location hint', () => {
+  const { row } = buildLead({ ...form, locationHint: '' }, { selection });
+  assert.equal(row.kakao_place_id, '12345');
+  assert.equal(row.kakao_address, '인천 중구 차이나타운로 43');
+  assert.equal(row.kakao_lat, 37.4746);
+  assert.equal(row.kakao_lng, 126.6173);
+  assert.equal(row.location_hint, '인천 중구 차이나타운로 43');
+});
+
+test('a location hint the user typed wins over the selection address', () => {
+  const { row } = buildLead({ ...form, locationHint: 'behind the station' }, { selection });
+  assert.equal(row.location_hint, 'behind the station');
+});
+
+test('a correction never carries a selection — the place is already ours', () => {
+  const { row } = buildLead(form, { place: active, selection });
+  assert.equal(row.kakao_place_id, null);
+  assert.equal(row.kakao_lat, null);
+});
+
+test('an out-of-range or malformed selection is dropped, not sent', () => {
+  for (const bad of [
+    { ...selection, lat: 999 }, { ...selection, lng: -181 },
+    { ...selection, lat: 'x' }, { ...selection, id: '' },
+    { ...selection, id: 'x'.repeat(41) }, { ...selection, address: 'x'.repeat(201) },
+  ]) {
+    const { row } = buildLead(form, { selection: bad });
+    assert.equal(row.kakao_place_id, null, JSON.stringify(bad).slice(0, 60));
+    assert.equal(row.kakao_lat, null);
+  }
+});
+
+test('a coordinate that only looks numeric is rejected, not coerced to 0', () => {
+  for (const bad of [
+    { ...selection, lat: '' }, { ...selection, lat: null }, { ...selection, lat: ' ' },
+    { ...selection, lat: true }, { ...selection, lat: [] }, { ...selection, lng: '127.0abc' },
+  ]) {
+    assert.doesNotThrow(() => buildLead(form, { selection: bad }), JSON.stringify(bad).slice(0, 60));
+    const { row } = buildLead(form, { selection: bad });
+    assert.equal(row.kakao_place_id, null, JSON.stringify(bad).slice(0, 60));
+    assert.equal(row.kakao_address, null);
+    assert.equal(row.kakao_lat, null);
+    assert.equal(row.kakao_lng, null);
+  }
+});
+
+test('a non-string id is dropped, not thrown on', () => {
+  assert.doesNotThrow(() => buildLead(form, { selection: { ...selection, id: 12345 } }));
+  const { row } = buildLead(form, { selection: { ...selection, id: 12345 } });
+  assert.equal(row.kakao_place_id, null);
+  assert.equal(row.kakao_lat, null);
+});
+
+test('a string coordinate as Kakao sends it is still accepted, and arrives as a number', () => {
+  const { row } = buildLead(form, { selection: { ...selection, lat: '37.4746', lng: '126.6173' } });
+  assert.equal(row.kakao_lat, 37.4746);
+  assert.equal(row.kakao_lng, 126.6173);
+  assert.equal(row.kakao_place_id, '12345');
 });

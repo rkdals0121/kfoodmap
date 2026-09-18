@@ -16,6 +16,8 @@ export const LEAD_LIMITS = {
   contact_email: 200,
 };
 
+export const SELECTION_LIMITS = { kakao_place_id: 40, kakao_address: 200 };
+
 const URL_PATTERN = /^https?:\/\/\S+$/i;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -32,19 +34,64 @@ export function resolvePlace(placeId, restaurants) {
   return place && !isQuarantined(place) ? place : null;
 }
 
-export function buildLead(form, { place = null, lang = 'en' } = {}) {
+// Number(...) coerces '', ' ', null, [] and true to a "valid" finite number
+// (0, 0, 0, 0, 1) — that would let a missing coordinate through as a
+// real-looking point in the Gulf of Guinea. This function only guards the
+// two shapes worth distinguishing: a value already typed as a number (our
+// own JSON parse, or a caller passing one through) is returned as-is —
+// toCoord does not itself re-check that it's finite or in range, that's
+// normalizeSelection's Number.isFinite() + lat/lng bounds check below — and
+// a string counts only if it is *entirely* numeric, the shape Kakao's API
+// actually sends. Everything else, including a partially-numeric string
+// (a shape Kakao has never sent; this field is always the submitter's pick,
+// labelled unverified either way), is NaN and gets dropped downstream.
+function toCoord(value) {
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    return trimmed !== '' && /^-?\d+(\.\d+)?$/.test(trimmed) ? Number(trimmed) : NaN;
+  }
+  return NaN;
+}
+
+// A picked suggestion is data from Kakao by way of the browser, so it is
+// checked the same way a typed field is: anything malformed or out of
+// range is dropped entirely rather than sent half-valid. Dropping it costs
+// the reviewer a lookup; sending a bad coordinate costs them trust in the
+// whole column.
+function normalizeSelection(selection) {
+  const empty = { kakao_place_id: null, kakao_address: null, kakao_lat: null, kakao_lng: null };
+  if (!selection) return empty;
+  // clean() assumes a string-ish input and throws on a number/array/object;
+  // a suggestion is never allowed to crash the form, so non-strings are
+  // simply treated as missing rather than passed to clean().
+  const id = typeof selection.id === 'string' ? clean(selection.id) : null;
+  const address = typeof selection.address === 'string' ? clean(selection.address) : null;
+  const lat = toCoord(selection.lat);
+  const lng = toCoord(selection.lng);
+  const ok = id && id.length <= SELECTION_LIMITS.kakao_place_id
+    && (!address || address.length <= SELECTION_LIMITS.kakao_address)
+    && Number.isFinite(lat) && lat >= -90 && lat <= 90
+    && Number.isFinite(lng) && lng >= -180 && lng <= 180;
+  return ok ? { kakao_place_id: id, kakao_address: address, kakao_lat: lat, kakao_lng: lng } : empty;
+}
+
+export function buildLead(form, { place = null, lang = 'en', selection = null } = {}) {
   if (clean(form.website)) return { ok: false, spam: true, errors: {} };
+
+  const picked = place ? normalizeSelection(null) : normalizeSelection(selection);
 
   const row = {
     kind: place ? 'correction' : 'new',
     place_id: place ? place.id : null,
     name: place ? place.name : clean(form.name),
-    location_hint: place ? null : clean(form.locationHint),
+    location_hint: place ? null : (clean(form.locationHint) ?? picked.kakao_address),
     topic: form.topic,
     message: clean(form.message),
     source_url: clean(form.sourceUrl),
     contact_email: clean(form.contactEmail),
     lang,
+    ...picked,
   };
 
   const errors = {};

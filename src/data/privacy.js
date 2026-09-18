@@ -43,7 +43,7 @@ export const privacyPolicy = {
       },
       {
         heading: 'When you send a report',
-        text: 'If you suggest a restaurant or report incorrect information, we receive what you type: the restaurant and roughly where it is, what the report is about, your message, an optional link, and an optional email address, together with the app language and the time of sending. We use it only to check and correct restaurant information. Reports are never published as they are — a person verifies every one before anything on the map changes. Your email address is used only to ask you a follow-up question, is never shown publicly, and is never sold or shared for marketing.',
+        text: 'If you suggest a restaurant or report incorrect information, we receive what you type: the restaurant and roughly where it is, what the report is about, your message, an optional link, and an optional email address, together with the app language and the time of sending. While you type a restaurant name, from two characters on, the text you have typed so far is sent to Kakao Map to fetch matching places — whether or not you pick one. If you do pick a suggestion, the report also carries that place’s address and coordinates as Kakao Map has them. We use it only to check and correct restaurant information. Reports are never published as they are — a person verifies every one before anything on the map changes. Your email address is used only to ask you a follow-up question, is never shown publicly, and is never sold or shared for marketing.',
       },
       {
         heading: 'How long we keep it',
@@ -53,6 +53,7 @@ export const privacyPolicy = {
         heading: 'Services involved',
         items: [
           'Vercel Inc. (United States) hosts the app. Like any web host, it receives technical request data such as your IP address when you open the site.',
+          'Kakao Corp. (Republic of Korea) provides the restaurant search shown while you type a name in the report form. The text you have typed is relayed to Kakao by our server, not sent directly from your browser, so Kakao does not receive your IP address.',
           'Supabase Inc. (United States) stores the reports you send.',
           'Google Fonts (Google LLC, United States) provides the typeface, and CARTO provides the map images. Your browser requests these directly, which sends them your IP address.',
           'Links to Google Maps, Naver Map, Kakao Map, and restaurant websites take you to those services; their own privacy policies apply there.',
@@ -88,7 +89,7 @@ export const privacyPolicy = {
       },
       {
         heading: '제보를 보낼 때 받는 정보',
-        text: '식당을 추천하거나 잘못된 정보를 제보하면, 입력한 내용(식당과 대략의 위치, 제보 주제, 내용, 선택 입력한 링크, 선택 입력한 이메일 주소)과 앱 언어, 전송 시각을 받습니다. 이 정보는 식당 정보를 확인하고 바로잡는 목적으로만 이용합니다. 제보는 그대로 게시되지 않으며, 지도 정보가 바뀌기 전에 사람이 모든 제보를 검증합니다. 이메일 주소는 추가 확인이 필요할 때 연락하는 용도로만 쓰이고, 공개되지 않으며, 판매하거나 마케팅 목적으로 제공하지 않습니다.',
+        text: '식당을 추천하거나 잘못된 정보를 제보하면, 입력한 내용(식당과 대략의 위치, 제보 주제, 내용, 선택 입력한 링크, 선택 입력한 이메일 주소)과 앱 언어, 전송 시각을 받습니다. 식당 이름을 두 글자 이상 입력하는 동안, 그때까지 입력한 글자는 일치하는 장소를 찾기 위해 카카오맵으로 전송됩니다 — 항목을 선택하지 않더라도 마찬가지입니다. 추천 항목을 선택하면, 제보에 해당 장소의 주소와 좌표(카카오맵 기준)가 함께 포함됩니다. 이 정보는 식당 정보를 확인하고 바로잡는 목적으로만 이용합니다. 제보는 그대로 게시되지 않으며, 지도 정보가 바뀌기 전에 사람이 모든 제보를 검증합니다. 이메일 주소는 추가 확인이 필요할 때 연락하는 용도로만 쓰이고, 공개되지 않으며, 판매하거나 마케팅 목적으로 제공하지 않습니다.',
       },
       {
         heading: '보유 기간',
@@ -98,6 +99,7 @@ export const privacyPolicy = {
         heading: '관련 서비스 (처리 위탁 및 국외 이전)',
         items: [
           'Vercel Inc.(미국)가 앱을 호스팅합니다. 사이트에 접속하면 일반적인 웹 호스팅과 마찬가지로 IP 주소 등 접속 기술 정보를 받습니다.',
+          '카카오 주식회사(대한민국)가 제보 양식에서 식당 이름을 입력하는 동안 보여지는 장소 검색을 제공합니다. 입력한 글자는 이용자의 브라우저가 아니라 저희 서버를 통해 카카오로 전달되므로, 카카오는 이용자의 IP 주소를 받지 않습니다.',
           'Supabase Inc.(미국)가 이용자가 보낸 제보를 저장합니다.',
           'Google Fonts(Google LLC, 미국)가 글꼴을, CARTO가 지도 이미지를 제공합니다. 브라우저가 이를 직접 불러오므로 해당 서비스에 IP 주소가 전달됩니다.',
           'Google 지도, 네이버 지도, 카카오맵, 식당 웹사이트로 연결되는 링크를 누르면 해당 서비스로 이동하며, 그곳에서는 각 서비스의 개인정보처리방침이 적용됩니다.',
