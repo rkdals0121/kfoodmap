@@ -1,15 +1,10 @@
 import React from 'react';
-
-// Grouped so sustainability reads as an axis rather than two chips lost in a
-// flat row. `Sustainability` matches either member (see TRAIT_GROUPS in
-// App.jsx); the members stay, to narrow within the axis.
-const CHIP_GROUPS = [
-  { label: 'Dietary filters', chips: ['Vegan', 'Halal'] },
-  { label: 'Sustainability filters', chips: ['Sustainability', 'Zero-waste', 'Local Sourcing'] },
-  { label: 'Dining filters', chips: ['Mild Taste', 'Fermented'] },
-];
+import { useTranslation } from 'react-i18next';
+import { CHIP_GROUPS } from '../i18n/labels';
 
 export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange }) {
+  const { t } = useTranslation();
+
   return (
     <header className="home-header">
       <div className="search-field">
@@ -19,8 +14,8 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
         </svg>
         <input
           type="search"
-          placeholder="Search restaurants or neighborhoods"
-          aria-label="Search restaurants or neighborhoods"
+          placeholder={t('filters.searchPlaceholder')}
+          aria-label={t('filters.searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
         />
@@ -28,17 +23,17 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
 
       <div className="chip-row no-scrollbar">
         {CHIP_GROUPS.map(group => (
-          <div key={group.label} className="chip-group" role="group" aria-label={group.label}>
-            {group.chips.map(f => {
-              const isActive = selectedFilters.includes(f);
+          <div key={group.labelKey} className="chip-group" role="group" aria-label={t(group.labelKey)}>
+            {group.chips.map(chip => {
+              const isActive = selectedFilters.includes(chip.id);
               return (
                 <button
-                  key={f}
+                  key={chip.id}
                   className={`chip${isActive ? ' active' : ''}`}
                   aria-pressed={isActive}
-                  onClick={() => onToggleFilter(f)}
+                  onClick={() => onToggleFilter(chip.id)}
                 >
-                  {f}
+                  {t(chip.labelKey)}
                 </button>
               );
             })}

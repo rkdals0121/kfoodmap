@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { restaurants } from './data/restaurants';
 import MapComponent from './components/MapComponent';
 import FilterBar from './components/FilterBar';
@@ -15,19 +16,8 @@ import { useOnlineStatus } from './hooks/useOnlineStatus';
 import { MAP_CENTER } from './utils';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
+import { DIETARY_CHIPS, TRAIT_GROUPS } from './filters';
 import './index.css';
-
-// Dietary chips are answered by the structured dietary record (never a tag
-// string); the rest are descriptive traits.
-const DIETARY_CHIPS = ['Vegan', 'Halal'];
-
-// A group chip matches *any* trait in its set, which is the one place chips
-// are not AND-ed. Sustainability exists because its two members are narrow
-// enough that selecting both returns nothing — the group is the way to browse
-// the axis, the members are still there to narrow within it.
-const TRAIT_GROUPS = {
-  Sustainability: ['Zero-waste', 'Local Sourcing'],
-};
 
 // Selecting anything on the sustainability axis — the group chip or either
 // member — turns the list into a lens: each card states, in the restaurant's
@@ -63,6 +53,7 @@ function loadBookmarks() {
 }
 
 function AppShell() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -204,7 +195,7 @@ function AppShell() {
       <div className="map-region">
         {!isOnline && (
           <div className="offline-banner" role="status">
-            Offline — showing saved data
+            {t('app.offline')}
           </div>
         )}
         <MapComponent
@@ -240,7 +231,7 @@ function AppShell() {
             </div>
 
             {/* Restaurant list */}
-            <section className="list-region" aria-label="Restaurant list">
+            <section className="list-region" aria-label={t('app.restaurantList')}>
               <BottomSheetList
                 restaurants={filteredRestaurants}
                 mapCenter={mapCenter}

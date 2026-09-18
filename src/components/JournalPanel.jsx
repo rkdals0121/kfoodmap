@@ -50,28 +50,28 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
   const earnedCount = badges.filter(b => b.earned).length;
 
   return (
-    <section className="journal-panel" aria-label="Journal">
+    <section className="journal-panel" aria-label={t('journal.ariaLabel')}>
       <div className="passport-cover">
-        <h2 className="passport-cover__title">Your Food Passport</h2>
+        <h2 className="passport-cover__title">{t('journal.title')}</h2>
         <div className="passport-stats">
           <div className="stat-box">
             <span className="stat-num">{visitedList.length}</span>
-            <span className="stat-label">Visited</span>
+            <span className="stat-label">{t('journal.visited')}</span>
           </div>
           <div className="stat-box">
             <span className="stat-num">{savedList.length}</span>
-            <span className="stat-label">Saved</span>
+            <span className="stat-label">{t('journal.saved')}</span>
           </div>
           <div className="stat-box">
             <span className="stat-num">{neighborhoods.length}</span>
-            <span className="stat-label">Areas</span>
+            <span className="stat-label">{t('journal.areas')}</span>
           </div>
         </div>
       </div>
 
       <div className="journal-section">
         <div className="journal-section-header">
-          <h3>Badges</h3>
+          <h3>{t('journal.badges')}</h3>
           <span className="journal-badge-count">{earnedCount} Earned</span>
         </div>
         <div className="badges-grid">
@@ -87,7 +87,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
       {visitedList.length > 0 && (
         <div className="journal-section">
           <div className="journal-section-header">
-            <h3>Visited Places</h3>
+            <h3>{t('journal.visitedPlaces')}</h3>
           </div>
           <div className="journal-grid">
             {visitedList.map(({ place, visitedAt }) => (
@@ -111,7 +111,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
       {savedList.length > 0 && (
         <div className="journal-section">
           <div className="journal-section-header">
-            <h3>Saved for Later</h3>
+            <h3>{t('journal.savedForLater')}</h3>
           </div>
           <div className="journal-grid">
             {savedList.map(({ place, savedAt }) => (
@@ -135,9 +135,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
       {stamped.length === 0 && (
         <div className="journal-empty">
           <div className="journal-empty__icon" aria-hidden="true">📕</div>
-          <p className="journal-empty__title">Your passport is empty</p>
+          <p className="journal-empty__title">{t('journal.emptyTitle')}</p>
           <p className="journal-empty__body">
-            Save places to your passport and track your Korean food journey.
+            {t('journal.emptyBody')}
           </p>
 
           {samples.length > 0 && (

@@ -1,13 +1,16 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
 import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf } from '../utils';
 import { dietaryBadges } from '../data/verification';
+import { TRAIT_GROUPS } from '../filters';
 
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
-const SUSTAINABILITY_TRAITS = ['Zero-waste', 'Local Sourcing'];
+const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 
 function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, lens, mapCenter }) {
+  const { t } = useTranslation();
   const name = place.name.split('(')[0].trim();
   const status = getOpenStatus(place.hours);
   // Dietary badges say exactly what we know ("Vegan options" ≠ "Fully vegan");
@@ -67,7 +70,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
           aria-label={`Read the story of ${name}`}
           onClick={() => onReadStory(place)}
         >
-          Read Story
+          {t('discover.readStory')}
         </button>
 
         <div className="place-card__actions">
@@ -96,6 +99,7 @@ export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens,
 }) {
+  const { t } = useTranslation();
   const sorted = useMemo(() =>
     restaurants
       .map(r => {
@@ -109,7 +113,7 @@ export default function BottomSheetList({
     <div className="place-list">
       <div className="place-list__header">
         <h3>{sorted.length} {sorted.length === 1 ? 'place' : 'places'}</h3>
-        {sorted.length > 1 && <span className="place-list__hint">Nearest first</span>}
+        {sorted.length > 1 && <span className="place-list__hint">{t('list.nearestFirst')}</span>}
       </div>
 
       {/* Said once for the whole list rather than on every card: the same
@@ -117,7 +121,7 @@ export default function BottomSheetList({
           audited. */}
       {sustainabilityLens && sorted.length > 0 && (
         <p className="section-note place-list__note">
-          Described by the restaurant and our research; not independently audited.
+          {t('list.esgCaveat')}
         </p>
       )}
 
@@ -137,8 +141,8 @@ export default function BottomSheetList({
       {sorted.length === 0 && (
         <div className="place-list__empty">
           <MapPinIcon size={26} />
-          <p><strong>No places match</strong></p>
-          <p>Try removing a filter or searching a different name or area.</p>
+          <p><strong>{t('list.noMatch')}</strong></p>
+          <p>{t('list.noMatchHint')}</p>
         </div>
       )}
     </div>

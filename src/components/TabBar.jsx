@@ -35,7 +35,7 @@ export default function TabBar({ activeTab, onSelect, isCollapsed }) {
   const { t } = useTranslation();
 
   return (
-    <nav className="tab-bar" aria-label="Primary">
+    <nav className="tab-bar" aria-label={t('app.primaryNav')}>
       {tabIds.map(id => (
         <button
           key={id}

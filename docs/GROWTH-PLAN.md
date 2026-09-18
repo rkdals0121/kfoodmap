@@ -1,6 +1,6 @@
 # K-Food Map — 개발계획 인수인계 (Growth Plan Handoff)
 
-**작성일:** 2026-08-02 · **최종 갱신:** 2026-09-18 · **기준 커밋:** `805cb4d`
+**작성일:** 2026-08-02 · **최종 갱신:** 2026-09-18 · **기준 커밋:** `fa59e2e`
 **용도:** 원격/새 세션이 이 문서 하나로 개발을 이어받기 위한 인수인계.
 **주의:** 엔지니어링 상태의 유일한 정본은 `HANDOFF.md`다. 이 문서는 그 위에
 얹힌 *성장 계획*이며, 둘이 충돌하면 HANDOFF와 저장소 실측이 이긴다.
@@ -28,7 +28,7 @@
    ```
    npm run check-data      # "No violations." 필수
    npm run lint            # 현재 기준선 1 경고 (utils.js kakaoMapUrl origin, 의도적)
-   npm test                # 42개 전부 통과 필수 (leads/kakao/privacy 모듈 + 검수 포맷터)
+   npm test                # 48개 전부 통과 필수 (leads/kakao/privacy 모듈 + 검수 포맷터 + i18n 라벨)
    npm run build
    grep -rc retrievedBy dist/   # 0 필수
    grep -rliE "service_role|sb_secret_|KakaoAK" dist/ | wc -l  # 0 필수
@@ -151,17 +151,19 @@
 - ⬜ **번역 콘텐츠는 여전히 0** — 검증 가능 인력이 전제라는 원칙 그대로.
   "Halal-friendly"/"Fully vegan" 오역은 검증 안 된 할랄 표시와 같은
   범주의 실패라, 인력 확보 전엔 영어 단일 유지 (HANDOFF §7 #27)
-- ⬜ **나머지 화면 문자열 추출** — FilterBar·BottomSheetList·
-  RestaurantDetail·JournalPanel/TabPanel 잔여·Food Journeys는 아직
-  하드코딩 영어. 첫 i18n diff를 리뷰 가능한 크기로 유지하려 의도적으로
-  미룬 것. **대부분은 키 추가 + t() 치환의 기계적 작업이지만 두 곳은
-  아님:** FilterBar의 칩 라벨은 곧 필터 식별자(App.jsx의
-  `DIETARY_CHIPS`/`TRAIT_GROUPS`/`r.traits`와 문자열 비교)라 그냥
-  번역하면 모든 칩이 조용히 0건 매칭됨. `verification.js`의
-  `SOURCE`/`METHOD` 값도 화면에 그대로 노출되면서 동시에
-  `restaurants.js`에 저장되는 데이터라 같은 문제 + 데이터 마이그레이션
-  필요. 둘 다 `{ id, labelKey }` 분리가 선행돼야 함 — 아키텍처 작업이지
-  치환이 아님 (HANDOFF §7 #27)
+- ✅ **나머지 화면 문자열 추출 완료 (2026-09-18)** — FilterBar·
+  BottomSheetList·RestaurantDetail·JournalPanel/TabPanel 잔여까지 전부
+  `t()`로 전환. 핵심은 `{ id, labelKey }` 분리: FilterBar의 칩 라벨은
+  곧 필터 식별자(App.jsx가 `r.traits`와 문자열 비교)이고
+  `verification.js`의 `source`/`method` 값은 동시에 `restaurants.js`에
+  저장되는 데이터라, 라벨을 그 자리에서 그냥 번역하면 매칭이 **조용히**
+  깨짐 — 그래서 식별자(id)는 그대로 두고 라벨만 키 뒤로 옮겼다. 칩
+  어휘는 `src/filters.js` 하나로 모으고(App·리스트 컴포넌트·테스트가
+  모두 거기서 import), 필터별 개수를 브라우저 실측과 데이터 재계산
+  두 방식으로 교차검증해 동일함을 확인(HANDOFF §2.1 "i18n"). **번역
+  콘텐츠는 여전히 0** — 검증 가능한 번역 인력이 전제라는 원칙 그대로,
+  이번 작업은 추출(구조)만 끝냈고 두 번째 언어는 여전히 인력 대기 중
+  (HANDOFF §7 #27)
 
 ### Stage 4 — 커뮤니티/규모 (⬜ 결정 D 완료, 구현 시작 전)
 - ✅ **결정 D (2026-09-17, 사용자):** §2.1 no-backend 수정 승인 — 최소

@@ -1,10 +1,9 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-09-18 · **Base commit:** `805cb4d` (Autofill,
-GROWTH-PLAN Stage 4's second feature and the project's first server code —
-§2.1).
-**This edit lands with the autofill squash commit onto master.** No
+**Last updated:** 2026-09-18 · **Base commit:** `fa59e2e` (i18n
+extraction, GROWTH-PLAN Stage 3's remaining-screens pass — §2.1 "i18n").
+**This edit lands with the i18n squash commit onto master.** No
 restaurant data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
@@ -191,15 +190,84 @@ rather than a guess. English is the only registered language; the Profile
 tab's Language row opens a picker containing exactly one option, which is
 the honest representation of that state.
 
-Extraction is deliberately partial — four "core screens" only: `TabBar`'s
-nav labels, all of `Prologue`, every label produced by `verification.js`'s
-`trustBadge()`/`VEGAN_LABEL`/`HALAL_LABEL` (its `SOURCE`/`METHOD` enum
-values are also user-facing prose but are *not* extracted — see §7 #27b
-for why they're harder), and `JournalPanel`'s badge names/sample
-tag/empty-state steps. `FilterBar`, `BottomSheetList`, `RestaurantDetail`, the rest of
-`JournalPanel`/`TabPanel`, and Food Journeys stay hardcoded English —
-future incremental rounds. `story`/`vibe`/`esg_point`, restaurant names
-and zone names are **permanently** out of scope: data, not UI chrome.
+Extraction shipped in two passes. The first (2026-08-03) covered four "core
+screens" only: `TabBar`'s nav labels, all of `Prologue`, every label
+produced by `verification.js`'s `trustBadge()`/`VEGAN_LABEL`/`HALAL_LABEL`,
+and `JournalPanel`'s badge names/sample tag/empty-state steps —
+`FilterBar`, `BottomSheetList`, `RestaurantDetail`, the rest of
+`JournalPanel`/`TabPanel`, and Food Journeys were left hardcoded English on
+purpose, to keep the first i18n diff reviewable.
+
+**Extraction, continued (2026-09-18, GROWTH-PLAN Stage 3's
+remaining-screens pass).** The rest of those screens — `FilterBar`,
+`BottomSheetList`, the rest of `RestaurantDetail`/`JournalPanel`/`TabPanel`
+— are now extracted too. The two pieces §7 #27 flagged as architectural
+rather than mechanical are done:
+
+- **The `{ id, labelKey }` split, and why it has to exist.** `FilterBar`'s
+  chip labels are also the filter identity: they flow into
+  `selectedFilters` and are compared in `App.jsx` against `r.traits` (the
+  raw values in `restaurants.js`) via `matchesDietary()`/`TRAIT_GROUPS`.
+  `verification.js`'s `source`/`method` values are the same shape of
+  problem one level down — they're stored on every fact in
+  `restaurants.js` *and* rendered as prose in the provenance block.
+  Translating either value in place, rather than its label, matches
+  nothing at runtime, and does so **silently** — no error, no broken
+  build, just a chip or a badge that quietly stops working the moment a
+  second language ships. The fix in both cases is the same: the id (the
+  thing compared) stays byte-identical to the data; only the label (the
+  thing rendered) moves behind a key.
+- **`src/filters.js` is now the single source of the chip vocabulary**
+  (`DIETARY_CHIPS`, `TRAIT_GROUPS`) — `App.jsx`, `BottomSheetList.jsx` (via
+  the shared `SUSTAINABILITY_TRAITS`) and `scripts/tests/labels.test.mjs`
+  all import from it, so a chip id added, renamed or removed on any one
+  side is caught by the test rather than silently drifting. It is
+  deliberately **not** in `src/data/`: that directory means verified
+  restaurant data and the trust model (see `verification.js`'s own
+  header), and a UI vocabulary module sitting next to it would misread as
+  data. (It started life at `src/data/filters.js` during this task and was
+  moved out in the final review round for exactly that reason.)
+- **`src/i18n/labels.js`** maps the 8 stored `source` values and 7 stored
+  `method` values (measured against `restaurants.js` on 2026-09-18) to
+  label keys, and **falls back to the stored string** for any value with
+  no entry — so a fact added before its source/method is mapped shows the
+  English it already showed, never a blank or a raw key name. It
+  **self-imports `src/i18n/index.js`**, the same pattern `verification.js`
+  already relies on (see the bullet below) — without it, a mapped value
+  resolves to `undefined` rather than its label. This was a real defect
+  found in review: reproduced (a mapped provenance value went `undefined`
+  → rendered as "The restaurant" with the wrong meaning), then fixed by
+  adding the import, landed in the final fix wave (`d63c12c`).
+- **Three guards now live in `scripts/tests/labels.test.mjs`**, beyond the
+  four from the first pass: (1) every chip id is answerable by real data —
+  a renamed or dead id fails the test, not silently at runtime; (2)
+  vocabulary parity in **both directions** — every `DIETARY_CHIPS`/
+  `TRAIT_GROUPS` entry has a matching chip in `CHIP_GROUPS`, and vice
+  versa, so a chip dropped from either `App.jsx` or `labels.js` is caught;
+  (3) every distinct `source`/`method` value actually present in
+  `restaurants.js` has a label entry. A fourth guard, not specific to
+  chips, scans every statically-referenced `t('key.path')` call site
+  across `src/**/*.{js,jsx}` (~130 sites) and asserts each one resolves to
+  a real string rather than its own key name — it would have caught the
+  `labels.js` import defect above by itself, and now catches the same
+  class of mistake anywhere in the app.
+- **What stays deliberately un-extracted**, unchanged from the first pass:
+  editorial content (`story`, `vibe`, `esg_point`, `culture.js`'s cultural
+  tips, `journeys.js`'s journey titles) — that's the Stage 3 *content*
+  problem, not chrome; the map tile `attribution` (legally required
+  OSM/CARTO credit markup); the `SubmitSheet` honeypot label ("Leave this
+  empty" — bot bait, `aria-hidden`, no human ever sees it); and brand
+  names (Google Maps / Naver Map / Kakao Map are not translated).
+- **The verification that matters:** per-chip counts measured live in the
+  browser after the split — `{Vegan 14, Halal 4, Sustainability 4,
+  Zero-waste 3, Local Sourcing 1, Mild Taste 8, Fermented 3}`, clearing all
+  chips restoring the 18-place baseline — and independently recomputed
+  straight from `restaurants.js` without touching the UI. Both match
+  exactly, so the `{ id, labelKey }` split did not move filter behaviour
+  by a single restaurant.
+
+`story`/`vibe`/`esg_point`, restaurant names and zone names remain
+**permanently** out of scope: data, not UI chrome.
 
 Three implementation details worth knowing before touching this:
 
@@ -225,10 +293,37 @@ Three implementation details worth knowing before touching this:
   as a *value* into an already-translated template
   (`trust.reportedDetail`/`trust.inferredDetail`), so it stays in its
   original language whatever the UI language is.
+- **`restaurants.js`'s `source`/`method` values are now two-way
+  identifiers**, not just data. `src/i18n/labels.js` maps them for
+  display, and `src/data/verification.js` separately branches on the same
+  strings (`SOURCE.OFFICIAL`, `SOURCE.COMMUNITY`, …) to decide the trust
+  badge. Editing one of those literal strings in `restaurants.js` — or
+  adding a new one — means touching both files: `labels.js` so the new
+  value has a label instead of falling back to raw English, and
+  `verification.js` so the trust badge logic still recognizes it. Neither
+  file will error if the other is forgotten; `labels.js` falls back
+  silently and `verification.js`'s badge branches just don't match. The
+  `scripts/tests/labels.test.mjs` guard above ("every distinct
+  `source`/`method` value ... has a label entry") catches the `labels.js`
+  half; there is no equivalent test for the `verification.js` half yet.
+
+The dead `hello@kfoodmap.com` address that used to appear on the detail
+screen's provenance footer is gone — it was fixed in Task 3 of this same
+piece of work (2026-09-18), not deferred, because it was a live false claim
+to visitors: the app told people to email a mailbox that does not exist.
+The screen already had a working "Report incorrect info" link
+(`SubmitSheet`'s correction mode), and the footer now points there instead
+(`t('detail.suggestEdit', { link: t('submit.reportLink') })` in
+`RestaurantDetail.jsx`) — confirmed in a live browser pass with no new
+address introduced in its place.
 
 Design spec: `docs/superpowers/specs/2026-08-03-multilingual-infra-design.md`;
 implementation plan and task-by-task review record:
-`docs/superpowers/plans/2026-08-03-multilingual-infra.md`.
+`docs/superpowers/plans/2026-08-03-multilingual-infra.md`. The
+remaining-screens pass has its own design spec:
+`docs/superpowers/specs/2026-09-18-i18n-extraction-design.md`, and its own
+implementation plan/ledger:
+`docs/superpowers/plans/2026-09-18-i18n-extraction.md`.
 
 **UGC intake (2026-09-17, Stage 4).** `/submit` renders inside `AppShell`
 like `/place/:id`, in two modes: new-restaurant (name + location hint) and
@@ -1521,32 +1616,62 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     guard, same as a genuinely nonexistent id. An edge case (a returning
     offline user hitting exactly that path) rather than the core scenario
     (browsing already-known restaurants offline), which works correctly.
-27. **i18n is infrastructure-only; two things gate finishing it
-    (2026-08-03).** (1) **A second language needs verified translation
-    personnel** — someone who can translate dietary/safety labels
-    responsibly. This is a hard precondition from GROWTH-PLAN Stage 3, not
-    a scheduling preference: "Halal-friendly" or "Fully vegan" mistranslated
-    is the same category of failure as an unverified halal claim, which is
-    what this whole project exists to avoid. Until then, `en.js` stays the
-    only locale. (2) **String extraction is only ~4 screens deep.**
-    `FilterBar`, `BottomSheetList`, `RestaurantDetail`, the rest of
-    `JournalPanel`/`TabPanel`, and the Food Journeys section are still
-    hardcoded English — deliberately deferred to keep the first i18n diff
-    reviewable, not overlooked. Most of them extract mechanically (add
-    keys to `en.js`, swap literals for `t()`), but **two do not, and
-    getting this wrong fails silently**: (a) `FilterBar`'s chip labels
-    *are* the filter identity — they flow into `selectedFilters` and are
-    compared in `App.jsx` against `DIETARY_CHIPS`, `TRAIT_GROUPS` keys,
-    and `r.traits` (raw values in `restaurants.js`), and in
-    `matchesDietary()` against literal `'Vegan'`/`'Halal'`. Translate them
-    without first splitting id from label and every chip matches zero
-    restaurants, with no error. (b) `SOURCE` and `METHOD` enum *values* in
-    `verification.js` are user-facing English prose (rendered in
-    `RestaurantDetail.jsx`) that is simultaneously stored data —
-    `source: SOURCE.OFFICIAL` serializes that prose into every restaurant
-    record. Same split needed, plus a data migration. Both need an
-    `{ id, labelKey }` refactor before extraction, which is architectural
-    work, not a swap. Neither is scheduled.
+27. **i18n: the extraction half is done (2026-09-18); the content half is
+    still blocked.** Originally two things gated finishing Stage 3; as of
+    this update, one of them is closed. (1) **A second language still
+    needs verified translation personnel** — someone who can translate
+    dietary/safety labels responsibly. This is a hard precondition from
+    GROWTH-PLAN Stage 3, not a scheduling preference: "Halal-friendly" or
+    "Fully vegan" mistranslated is the same category of failure as an
+    unverified halal claim, which is what this whole project exists to
+    avoid. Until then, `en.js` stays the only locale — **this has not
+    changed.** (2) **String extraction was ~4 screens deep as of
+    2026-08-03; it is now complete for every screen**, via the
+    `{ id, labelKey }` split described in §2.1 "i18n" — `FilterBar`'s chip
+    labels and `verification.js`'s `SOURCE`/`METHOD` values both got the
+    architectural refactor this item used to say was needed before either
+    could be touched (id stays byte-identical to the data; only the label
+    moves behind a key; see §2.1 for the full account and the filter-count
+    verification that proves it changed no behaviour).
+
+    A whole-branch review on 2026-09-18 found the "remaining screens" claim
+    itself was stale — an earlier grep only matched `>text<` between tags,
+    so interpolated and attribute copy never showed up in it. The corrected,
+    reviewed list of what is still genuinely hardcoded (each with its own
+    file and line so the next session can find it directly, rather than
+    re-deriving the list):
+    - `src/components/JournalPanel.jsx:75` — `{earnedCount} Earned`
+    - `src/components/BottomSheetList.jsx:114` — `{n} place`/`{n} places`,
+      the canonical pluralization case
+    - `src/components/RestaurantDetail.jsx:230` — `(today …)`; `:332` —
+      ` — area only`; `:381` — ` · address is area-level`; `:401` —
+      `Last verified: `; `:418` — `alt="Gallery item"`
+    - `src/components/RestaurantDetail.jsx` — `Price not listed`, and the
+      transit `exit`/`min walk` fragments
+    - `src/App.jsx:277` — the sidebar toggle `aria-label`, plus the
+      name-interpolated `aria-label`s in `BottomSheetList`/
+      `RestaurantDetail` — recorded together as one future aria pass
+    - `'en-GB'` date formatting hardcoded in
+      `src/components/RestaurantDetail.jsx:401` and
+      `src/components/JournalPanel.jsx:8`
+
+    Confirmed deliberate, not misses (unchanged from the first pass): the
+    `MapComponent` tile `attribution` (legally required OSM/CARTO credit),
+    the `SubmitSheet` honeypot label (bot bait, `aria-hidden`), and the map
+    brand button names (Google Maps / Naver Map / Kakao Map — brand names
+    are not translated).
+
+    **First item for the next i18n pass, deliberately deferred out of this
+    one:** the dietary-caveat/provenance paragraph on the detail screen
+    (the Official/Reported/Inferred explainer) is currently six
+    sentence-fragment keys that a translator cannot reorder — a language
+    whose grammar puts the clauses in a different order has no way to
+    produce a correct sentence from them. The right end state is
+    `<Trans>` or whole-sentence keys. Not done now because English output
+    is currently byte-identical to before the split, and rewriting the
+    key shape of the screen's single most safety-relevant paragraph is a
+    wording-risk refactor, not a mechanical one — recorded here rather
+    than attempted under this task's review scope.
 28. **A language switcher rendered inside `.tab-panel` needs a portal.**
     Found while building the Profile language picker: `.tab-panel` is
     `position: fixed; z-index: 12`, which establishes a stacking context —
@@ -1713,10 +1838,11 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 - Entity layer (§10 Phase C)
 - Authentication and Cross-Device Sync (a backend now exists for UGC
   intake — §2.1)
-- i18n **content** — the infrastructure shipped 2026-08-03 (§2.1 i18n), but
-  English is still the only language and only four core screens are
-  extracted. A second language needs verified translation personnel first
-  (§7 #27); the remaining screens need further incremental extraction.
+- i18n **content** — the infrastructure shipped 2026-08-03 and extraction
+  is now complete for every screen (2026-09-18, §2.1 i18n), but English is
+  still the only language. A second language needs verified translation
+  personnel first (§7 #27); the provenance paragraph's six sentence-
+  fragment keys are also deliberately deferred to the next pass (§7 #27).
   Korean accents in the UI are still hand-placed, not translated.
 
 ---
@@ -2130,12 +2256,15 @@ Immediately next, in order:
      `docs/superpowers/specs/2026-08-03-offline-mvp-design.md`; plan +
      review record: `docs/superpowers/plans/2026-08-03-offline-mvp.md`.
    - **Stage 2 is fully shipped (all 5 items).**
-4. **Stage 3 (Multilingual) — infrastructure slice shipped 2026-08-03**
-   (pending commit). `react-i18next`/`i18next` wired, four core screens
-   extracted, Profile language picker built. **Stage 3 is not finished:**
-   English remains the only language and most screens are still hardcoded.
-   See §2.1 "i18n" for the architecture and §7 #27 for the two things
-   gating completion (verified translation personnel; further extraction).
+4. **Stage 3 (Multilingual) — infrastructure shipped 2026-08-03, extraction
+   completed 2026-09-18.** `react-i18next`/`i18next` wired, Profile language
+   picker built, and — as of this update — every screen extracted behind
+   `t()`/`{ id, labelKey }`, not just the original four core screens.
+   **Stage 3 is still not finished:** English remains the only language,
+   and the provenance paragraph's six sentence-fragment keys are
+   deliberately left for the next pass. See §2.1 "i18n" for the
+   architecture and §7 #27 for what's still open (verified translation
+   personnel; the `<Trans>` refactor).
    Design spec and plan: `docs/superpowers/specs/2026-08-03-multilingual-infra-design.md`,
    `docs/superpowers/plans/2026-08-03-multilingual-infra.md`.
 5. **Stage 4** (GROWTH-PLAN §4) — community/scale features, all gated on

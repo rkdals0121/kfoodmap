@@ -47,6 +47,8 @@ export default function MapComponent({ restaurants, onMarkerClick, selectedId, o
       <MapContainer center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false}>
         {onCenterChange && <CenterReporter onCenterChange={onCenterChange} />}
         <ResizeSync />
+        {/* This attribution is legally required credit markup for OpenStreetMap/CARTO,
+            not UI copy, so it stays hardcoded rather than moving to i18n. */}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"

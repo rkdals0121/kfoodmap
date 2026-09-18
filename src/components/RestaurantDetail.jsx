@@ -12,12 +12,16 @@ import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl,
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
 } from '../data/verification';
+import { sourceLabel } from '../i18n/labels';
 
+// Keyed by the identifier as stored in restaurant.traits / compared in
+// App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
+// source/method values) — only labelKey is translated, the id stays.
 const TRAIT_META = {
-  'Mild Taste': { Icon: MildIcon, label: 'Mild taste' },
-  'Fermented': { Icon: FermentIcon, label: 'Fermented' },
-  'Zero-waste': { Icon: RecycleIcon, label: 'Zero waste' },
-  'Local Sourcing': { Icon: SproutIcon, label: 'Locally sourced' },
+  'Mild Taste': { Icon: MildIcon, labelKey: 'detail.traitMildTaste' },
+  'Fermented': { Icon: FermentIcon, labelKey: 'detail.traitFermented' },
+  'Zero-waste': { Icon: RecycleIcon, labelKey: 'detail.traitZeroWaste' },
+  'Local Sourcing': { Icon: SproutIcon, labelKey: 'detail.traitLocallySourced' },
 };
 
 const DIETARY_ICON = { vegan: LeafIcon, halal: CrescentIcon };
@@ -36,11 +40,14 @@ function Trust({ fact }) {
   return <span className={`trust trust--${tone}`} title={detail}>{label}</span>;
 }
 
-const DIET_CAVEAT = {
-  [CONFIDENCE.CONFIRMED]: { title: 'Confirmed with the restaurant.', body: 'The kitchen states this itself. Menus still change, so ask if you have a strict requirement.' },
-  [CONFIDENCE.SUPPORTED]: { title: 'Reported, not confirmed.', body: `These details come from what the restaurant and our research describe. We haven't checked them in person — confirm with staff before ordering.` },
-  [CONFIDENCE.INFERRED]: { title: 'Partly our own reading.', body: 'Some of this we read from the kind of kitchen it is, or from how the venue describes itself — not from a stated fact. Treat it as a lead and ask staff before ordering.' },
-  [CONFIDENCE.UNKNOWN]: { title: 'No dietary information yet.', body: `We haven't established what this kitchen serves, so we don't make a claim either way.` },
+// Keyed by confidence level; titleKey/bodyKey are resolved with t() inside
+// the component (module scope can't call useTranslation's t and still react
+// to a language change — see the coordinator note in the fix-round report).
+const DIET_CAVEAT_KEYS = {
+  [CONFIDENCE.CONFIRMED]: { titleKey: 'detail.caveatConfirmedTitle', bodyKey: 'detail.caveatConfirmedBody' },
+  [CONFIDENCE.SUPPORTED]: { titleKey: 'detail.caveatSupportedTitle', bodyKey: 'detail.caveatSupportedBody' },
+  [CONFIDENCE.INFERRED]: { titleKey: 'detail.caveatInferredTitle', bodyKey: 'detail.caveatInferredBody' },
+  [CONFIDENCE.UNKNOWN]: { titleKey: 'detail.caveatUnknownTitle', bodyKey: 'detail.caveatUnknownBody' },
 };
 
 export default function RestaurantDetail({
@@ -92,11 +99,13 @@ export default function RestaurantDetail({
     ? formatDistance(haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng))
     : null;
 
-  const dietFacts = dietaryBadges(restaurant).map(b => ({ Icon: DIETARY_ICON[b.key], label: b.label, fact: b.fact }));
-  const traitFacts = restaurant.traits.map(t => TRAIT_META[t]).filter(Boolean).map(t => ({ ...t, fact: null }));
+  const dietFacts = dietaryBadges(restaurant).map(b => ({ id: b.key, Icon: DIETARY_ICON[b.key], label: b.label, fact: b.fact }));
+  const traitFacts = restaurant.traits.filter(id => TRAIT_META[id])
+    .map(id => ({ id, Icon: TRAIT_META[id].Icon, label: t(TRAIT_META[id].labelKey), fact: null }));
   const facts = [...dietFacts, ...traitFacts];
   const certClaim = restaurant.dietary.halalCertClaim;
-  const caveat = DIET_CAVEAT[dietaryConfidence(restaurant)] ?? DIET_CAVEAT[CONFIDENCE.UNKNOWN];
+  const caveatKeys = DIET_CAVEAT_KEYS[dietaryConfidence(restaurant)] ?? DIET_CAVEAT_KEYS[CONFIDENCE.UNKNOWN];
+  const caveat = { title: t(caveatKeys.titleKey), body: t(caveatKeys.bodyKey) };
   const lastChecked = [
     restaurant.coordinates, restaurant.address, restaurant.hours, restaurant.menus,
     restaurant.phone, restaurant.officialUrl, restaurant.instagram, restaurant.transit,
@@ -157,7 +166,7 @@ export default function RestaurantDetail({
     <>
       <div className="detail-backdrop" onClick={onClose} />
       <div className="detail-sheet" role="dialog" aria-modal="true" aria-label={name} ref={sheetRef} tabIndex={-1}>
-        <button className="detail-close" aria-label="Close" onClick={onClose}>
+        <button className="detail-close" aria-label={t('detail.close')} onClick={onClose}>
           <XIcon size={18} />
         </button>
 
@@ -177,9 +186,9 @@ export default function RestaurantDetail({
 
             {/* 3. Diet Tags */}
             {facts.length > 0 && (
-              <ul className="fact-row" aria-label="Dietary and dining facts">
-                {facts.map(({ Icon, label, fact: f }) => (
-                  <li key={label} className="fact">
+              <ul className="fact-row" aria-label={t('detail.dietaryFactsLabel')}>
+                {facts.map(({ id, Icon, label, fact: f }) => (
+                  <li key={id} className="fact">
                     <Icon size={16} aria-hidden="true" /> {label}
                     {f && <Trust fact={f} />}
                   </li>
@@ -189,13 +198,13 @@ export default function RestaurantDetail({
 
             <div className="diet-note">
               <p><strong>{caveat.title}</strong> {caveat.body}</p>
-              {certClaim && <p className="diet-note__cert">Certification claimed: {certClaim.body} — we have not sighted the certificate.</p>}
+              {certClaim && <p className="diet-note__cert">{t('detail.certificationClaimed', { body: certClaim.body })}</p>}
             </div>
 
             {/* 4. Representative Menu */}
             {isKnown(restaurant.menus) && (
               <section className="detail-section">
-                <SectionHead Icon={MenuIcon} title="Signature Menu" />
+                <SectionHead Icon={MenuIcon} title={t('detail.signatureMenu')} />
                 <div className="menu-rows">
                   {restaurant.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
@@ -205,7 +214,7 @@ export default function RestaurantDetail({
                   ))}
                 </div>
                 {needsCheck(restaurant.menus) && (
-                  <p className="section-note">Dishes and prices are unverified and may have changed.</p>
+                  <p className="section-note">{t('detail.menuUnverified')}</p>
                 )}
               </section>
             )}
@@ -221,7 +230,7 @@ export default function RestaurantDetail({
                     {today && <span className="practical-muted">(today {today})</span>}
                   </span>
                 ) : (
-                  <span className="practical-muted">Opening hours unknown — check before you go</span>
+                  <span className="practical-muted">{t('detail.hoursUnknown')}</span>
                 )}
               </div>
 
@@ -250,10 +259,10 @@ export default function RestaurantDetail({
                   <LinkIcon size={17} />
                   <span className="practical-links">
                     {isKnown(restaurant.officialUrl) && (
-                      <a className="practical-link" href={restaurant.officialUrl.value} target="_blank" rel="noreferrer noopener">Website</a>
+                      <a className="practical-link" href={restaurant.officialUrl.value} target="_blank" rel="noreferrer noopener">{t('detail.website')}</a>
                     )}
                     {isKnown(restaurant.instagram) && (
-                      <a className="practical-link" href={restaurant.instagram.value} target="_blank" rel="noreferrer noopener">Instagram</a>
+                      <a className="practical-link" href={restaurant.instagram.value} target="_blank" rel="noreferrer noopener">{t('detail.instagram')}</a>
                     )}
                   </span>
                 </div>
@@ -279,7 +288,7 @@ export default function RestaurantDetail({
                   className="icon-btn icon-btn--lg"
                   aria-label={`Share ${name}`}
                   onClick={handleShare}
-                  title={shared ? 'Shared!' : 'Share'}
+                  title={shared ? t('detail.shared') : t('detail.share')}
                 >
                   <ShareIcon size={21} />
                 </button>
@@ -288,12 +297,12 @@ export default function RestaurantDetail({
 
             {/* 6. Story & Hook */}
             <section className="detail-hook">
-              <p className="detail-hook__label">Why it's special</p>
+              <p className="detail-hook__label">{t('detail.whyItsSpecial')}</p>
               <p className="detail-hook__quote">&ldquo;{restaurant.vibe}&rdquo;</p>
             </section>
             
             <section className="detail-section" ref={storyRef}>
-              <SectionHead Icon={BookIcon} title="The Food Story" kr="이야기" />
+              <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
               <p className="detail-body">{restaurant.story}</p>
               {restaurant.timeline?.length > 0 && (
                 <ol className="timeline">
@@ -306,14 +315,14 @@ export default function RestaurantDetail({
                 </ol>
               )}
               <div className="callout">
-                <p className="callout__label">Did you know?</p>
+                <p className="callout__label">{t('detail.didYouKnow')}</p>
                 <p>{culture.didYouKnow}</p>
               </div>
             </section>
 
             {/* 7. Directions / Address */}
             <section className="detail-section">
-              <SectionHead Icon={CompassIcon} title="Location & Directions" />
+              <SectionHead Icon={CompassIcon} title={t('detail.locationDirections')} />
               
               <div className="practical-row">
                 <MapPinIcon size={17} />
@@ -324,7 +333,7 @@ export default function RestaurantDetail({
                   )}
                 </span>
                 <button className="practical-copy" onClick={handleCopy}>
-                  {copied ? 'Copied!' : 'Copy'}
+                  {copied ? t('detail.copied') : t('detail.copy')}
                 </button>
               </div>
 
@@ -346,7 +355,7 @@ export default function RestaurantDetail({
             
             {/* Dining Tips */}
             <section className="detail-section">
-              <SectionHead Icon={BowlIcon} title="Dining Tips" />
+              <SectionHead Icon={BowlIcon} title={t('detail.diningTips')} />
               <ul className="tips-list">
                 {culture.diningTips.map(tip => (
                   <li key={tip} className="tip">
@@ -359,32 +368,30 @@ export default function RestaurantDetail({
 
             {/* Footer */}
             <footer className="provenance">
-              <p className="provenance__title">About this information</p>
+              <p className="provenance__title">{t('detail.aboutThisInformation')}</p>
               <p>
-                <strong>Official</strong> means we checked it against a map service or registry;
-                <strong> Reported</strong> means a source states it; <strong>Inferred</strong> means
-                we read it from context. Hours, prices and dietary details change — treat this as
-                a starting point.
+                <strong>{t('detail.provenanceOfficial')}</strong> {t('detail.officialMeans')}
+                <strong> {t('detail.provenanceReported')}</strong> {t('detail.reportedMeans')} <strong>{t('detail.provenanceInferred')}</strong> {t('detail.inferredMeans')}
               </p>
               <dl className="provenance__list">
                 <div>
-                  <dt>Location</dt>
+                  <dt>{t('detail.location')}</dt>
                   <dd>
-                    {restaurant.coordinates.source}
+                    {sourceLabel(restaurant.coordinates.source)}
                     {restaurant.address.precision === 'area' && ' · address is area-level'}
                   </dd>
                 </div>
                 <div>
-                  <dt>Dietary</dt>
+                  <dt>{t('detail.dietary')}</dt>
                   <dd>
                     {dietFacts.length > 0
-                      ? [...new Set(dietFacts.map(f => f.fact.source))].join(' · ')
-                      : 'Not recorded'}
+                      ? [...new Set(dietFacts.map(f => sourceLabel(f.fact.source)))].join(' · ')
+                      : t('detail.notRecorded')}
                   </dd>
                 </div>
                 <div>
-                  <dt>Last checked</dt>
-                  <dd>{lastChecked ?? 'Never'}</dd>
+                  <dt>{t('detail.lastChecked')}</dt>
+                  <dd>{lastChecked ?? t('detail.never')}</dd>
                 </div>
               </dl>
             </footer>
@@ -393,7 +400,7 @@ export default function RestaurantDetail({
               {lastChecked && (
                 <p>Last verified: {new Date(lastChecked).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
               )}
-              <p>To suggest an edit, email <a href="mailto:hello@kfoodmap.com">hello@kfoodmap.com</a></p>
+              <p>{t('detail.suggestEdit', { link: t('submit.reportLink') })}</p>
             </div>
 
           </div>

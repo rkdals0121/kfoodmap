@@ -27,6 +27,7 @@ const resolvedJourneys = journeys
   .filter(j => j.stops.every(place => place && !isQuarantined(place)));
 
 function DiscoverTab({ onNavigate }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -35,8 +36,8 @@ function DiscoverTab({ onNavigate }) {
         <>
           <div className="tab-panel-header">
             <span className="panel-icon" aria-hidden="true"><CompassIcon size={24} /></span>
-            <h2>Food Journeys</h2>
-            <p>Themed half-days through already-verified restaurants.</p>
+            <h2>{t('discover.journeysTitle')}</h2>
+            <p>{t('discover.journeysSubtitle')}</p>
           </div>
 
           <div className="journey-list">
@@ -70,8 +71,8 @@ function DiscoverTab({ onNavigate }) {
 
       <div className="tab-panel-header">
         <span className="panel-icon" aria-hidden="true"><SparkleIcon size={24} /></span>
-        <h2>Culture Hub</h2>
-        <p>Explore the history and traditions behind Korean food.</p>
+        <h2>{t('discover.cultureTitle')}</h2>
+        <p>{t('discover.cultureSubtitle')}</p>
       </div>
 
       <div className="story-grid">
@@ -81,7 +82,7 @@ function DiscoverTab({ onNavigate }) {
             <div className="story-card-content">
               <h3>{place.name.split('(')[0].trim()}</h3>
               <p>{place.story.split('.')[0] + '.'}</p>
-              <button className="story-card-btn">Read Story <ChevronRightIcon size={14} /></button>
+              <button className="story-card-btn">{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
             </div>
           </article>
         ))}
@@ -141,11 +142,11 @@ function ProfileTab({ onNavigate }) {
 
   const settings = [
     { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: '🌐', action: () => setLanguagePickerOpen(true) },
-    { label: 'Food Preferences', value: 'Not set', icon: '🍲' },
-    { label: 'Dietary Preferences', value: 'Not set', icon: '🌱' },
-    { label: 'Saved Places', value: 'View Journal', icon: '❤️', action: () => onNavigate('journal') },
+    { label: t('profile.foodPreferences'), value: t('profile.notSet'), icon: '🍲' },
+    { label: t('profile.dietaryPreferences'), value: t('profile.notSet'), icon: '🌱' },
+    { label: t('profile.savedPlaces'), value: t('profile.viewJournal'), icon: '❤️', action: () => onNavigate('journal') },
     { label: t('profile.suggestRestaurant'), value: '', icon: '📍', action: () => navigate('/submit') },
-    { label: 'About K-Food Map', value: 'v1.0', icon: 'ℹ️' },
+    { label: t('profile.aboutApp'), value: t('profile.version'), icon: 'ℹ️' },
     { label: t('profile.privacyPolicy'), value: '', icon: '🔒', action: () => navigate('/privacy') },
   ];
 
@@ -153,8 +154,8 @@ function ProfileTab({ onNavigate }) {
     <section className="tab-panel profile-panel">
       <div className="tab-panel-header">
         <span className="panel-icon" aria-hidden="true"><UserIcon size={24} /></span>
-        <h2>Settings</h2>
-        <p>Manage your preferences and app settings.</p>
+        <h2>{t('profile.settingsTitle')}</h2>
+        <p>{t('profile.settingsSubtitle')}</p>
       </div>
 
       <div className="settings-list">
