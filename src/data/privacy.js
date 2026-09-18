@@ -11,9 +11,10 @@
 // not as a translation pipeline, which is why this lives beside the other
 // editorial content rather than in the i18n locale files.
 
-// Filled in before the page is deployed; while null, the page says the
-// contact address is not yet published instead of inventing one.
-export const PRIVACY_CONTACT = null;
+// The address privacy requests reach. Set 2026-09-18 by the operator; while
+// it was null the page said the address was not yet published rather than
+// inventing one. It is shown publicly on /privacy, which is the point.
+export const PRIVACY_CONTACT = 'rkdalsinha@gmail.com';
 
 export const PRIVACY_EFFECTIVE_DATE = '2026-09-18';
 
