@@ -307,6 +307,32 @@ Three implementation details worth knowing before touching this:
   `source`/`method` value ... has a label entry") catches the `labels.js`
   half; there is no equivalent test for the `verification.js` half yet.
 
+**i18n second pass (2026-09-18).** Closes both follow-ups the
+2026-09-18 extraction pass and its whole-branch review left open. The
+detail screen's dietary-caveat/provenance paragraph — previously six
+sentence-fragment keys a translator could not reorder — is now three
+whole sentences (`detail.provenanceOfficialSentence`/
+`provenanceReportedSentence`/`provenanceInferredSentence`) rendered with
+`<Trans>`, because a translator needs a full, reorderable sentence per
+key rather than clause fragments stitched together in English word
+order; rendered English stays byte-identical, including the middle
+sentence's load-bearing leading space. Dates (`formatLongDate`/
+`formatShortDate` in `src/utils.js`) now follow the active UI language
+through the `DATE_LOCALES` map (`'en' → 'en-GB'`, the same tag the two
+former hardcoded call sites used, so today's output is unchanged; a
+malformed or unmapped language tag now falls back to `'en-GB'` instead of
+throwing `RangeError` out of a render). The all-keys resolution scan in
+`scripts/tests/labels.test.mjs` now covers both call shapes that name a
+key — `t('key.path')` and `<Trans i18nKey="key.path">` — where before it
+only matched `t()`, missing that a `<Trans>` with no matching key renders
+the literal key name on screen rather than degrading; and it resolves
+every key at both `count: 1` and `count: 2`, where before it only probed
+`count: 1` and could not see a plural key missing its `_other` sibling.
+48 `node --test` cases still pass (fewer, more thorough assertions inside
+the existing test bodies, not new `test()` blocks); `npm run lint` holds
+at its one pre-existing warning (`src/utils.js:157`); `npm run check-data`
+reports 0 violations across 20 places.
+
 The dead `hello@kfoodmap.com` address that used to appear on the detail
 screen's provenance footer is gone — it was fixed in Task 3 of this same
 piece of work (2026-09-18), not deferred, because it was a live false claim
@@ -1636,42 +1662,45 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 
     A whole-branch review on 2026-09-18 found the "remaining screens" claim
     itself was stale — an earlier grep only matched `>text<` between tags,
-    so interpolated and attribute copy never showed up in it. The corrected,
-    reviewed list of what is still genuinely hardcoded (each with its own
-    file and line so the next session can find it directly, rather than
-    re-deriving the list):
-    - `src/components/JournalPanel.jsx:75` — `{earnedCount} Earned`
-    - `src/components/BottomSheetList.jsx:114` — `{n} place`/`{n} places`,
-      the canonical pluralization case
-    - `src/components/RestaurantDetail.jsx:230` — `(today …)`; `:332` —
-      ` — area only`; `:381` — ` · address is area-level`; `:401` —
-      `Last verified: `; `:418` — `alt="Gallery item"`
-    - `src/components/RestaurantDetail.jsx` — `Price not listed`, and the
-      transit `exit`/`min walk` fragments
-    - `src/App.jsx:277` — the sidebar toggle `aria-label`, plus the
-      name-interpolated `aria-label`s in `BottomSheetList`/
-      `RestaurantDetail` — recorded together as one future aria pass
-    - `'en-GB'` date formatting hardcoded in
-      `src/components/RestaurantDetail.jsx:401` and
-      `src/components/JournalPanel.jsx:8`
+    so interpolated and attribute copy never showed up in it. A follow-up
+    pass the same day (the "i18n second pass") closed every item that
+    review found genuinely hardcoded — `JournalPanel`'s `{earnedCount}
+    Earned`, `BottomSheetList`'s `{n} place`/`{n} places` plural, the
+    `RestaurantDetail` fragments (today-hours, area-only, address-area-level,
+    last-verified, gallery alt, price-not-listed, transit exit/min-walk),
+    the sidebar toggle and name-interpolated `aria-label`s, and the
+    hardcoded `'en-GB'` date formatting — all now route through `t()`/
+    `<Trans>` and, for dates, through the `DATE_LOCALES` map in
+    `src/utils.js` (see §2.1 "i18n" for the full account). The genuinely
+    remaining stragglers, confirmed deliberate rather than misses: the
+    `MapComponent` tile `attribution` (legally required OSM/CARTO credit)
+    and the `SubmitSheet` honeypot label (bot bait, `aria-hidden`) — both
+    stay hardcoded English on purpose and are not extraction candidates.
+    The map brand button names (Google Maps / Naver Map / Kakao Map) are
+    also unextracted, but that's a naming decision, not a miss: brand
+    names are not translated.
 
-    Confirmed deliberate, not misses (unchanged from the first pass): the
-    `MapComponent` tile `attribution` (legally required OSM/CARTO credit),
-    the `SubmitSheet` honeypot label (bot bait, `aria-hidden`), and the map
-    brand button names (Google Maps / Naver Map / Kakao Map — brand names
-    are not translated).
-
-    **First item for the next i18n pass, deliberately deferred out of this
-    one:** the dietary-caveat/provenance paragraph on the detail screen
-    (the Official/Reported/Inferred explainer) is currently six
-    sentence-fragment keys that a translator cannot reorder — a language
-    whose grammar puts the clauses in a different order has no way to
-    produce a correct sentence from them. The right end state is
-    `<Trans>` or whole-sentence keys. Not done now because English output
-    is currently byte-identical to before the split, and rewriting the
-    key shape of the screen's single most safety-relevant paragraph is a
-    wording-risk refactor, not a mechanical one — recorded here rather
-    than attempted under this task's review scope.
+    **The provenance paragraph, previously deferred, is now `<Trans>`
+    (2026-09-18, i18n second pass).** The dietary-caveat/provenance
+    paragraph on the detail screen (the Official/Reported/Inferred
+    explainer) was six sentence-fragment keys that a translator could not
+    reorder — a language whose grammar puts the clauses in a different
+    order had no way to produce a correct sentence from them. It is now
+    three whole-sentence keys (`detail.provenanceOfficialSentence`/
+    `provenanceReportedSentence`/`provenanceInferredSentence`) rendered
+    with `<Trans>`, so a translator gets a full, reorderable sentence per
+    key with the bold emphasis travelling inside it — six fragments could
+    not have been reordered this way. Rendered English is byte-identical
+    to before, including the load-bearing leading space in the middle
+    sentence. Because `<Trans>` doesn't fall back to the raw string the
+    way `t()` does — a `<Trans>` with no matching key renders the literal
+    key name on screen — the same whole-branch review found the all-keys
+    resolution scan in `scripts/tests/labels.test.mjs` didn't cover
+    `i18nKey="..."` usages, only `t('...')` calls, and separately that it
+    only probed the singular (`count: 1`) plural form, leaving a missing
+    `_other` sibling undetected. Both gaps are now closed: the scan
+    collects `t('key.path')` and `i18nKey="key.path"` sites alike, and
+    resolves every key at both `count: 1` and `count: 2`.
 28. **A language switcher rendered inside `.tab-panel` needs a portal.**
     Found while building the Profile language picker: `.tab-panel` is
     `position: fixed; z-index: 12`, which establishes a stacking context —
@@ -1841,9 +1870,11 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 - i18n **content** — the infrastructure shipped 2026-08-03 and extraction
   is now complete for every screen (2026-09-18, §2.1 i18n), but English is
   still the only language. A second language needs verified translation
-  personnel first (§7 #27); the provenance paragraph's six sentence-
-  fragment keys are also deliberately deferred to the next pass (§7 #27).
-  Korean accents in the UI are still hand-placed, not translated.
+  personnel first (§7 #27). The provenance paragraph's former six
+  sentence-fragment keys were replaced with three whole-sentence
+  `<Trans>` keys in the i18n second pass (2026-09-18, §2.1 i18n) — that
+  item is done, not deferred. Korean accents in the UI are still
+  hand-placed, not translated.
 
 ---
 
@@ -2260,11 +2291,12 @@ Immediately next, in order:
    completed 2026-09-18.** `react-i18next`/`i18next` wired, Profile language
    picker built, and — as of this update — every screen extracted behind
    `t()`/`{ id, labelKey }`, not just the original four core screens.
-   **Stage 3 is still not finished:** English remains the only language,
-   and the provenance paragraph's six sentence-fragment keys are
-   deliberately left for the next pass. See §2.1 "i18n" for the
+   **Stage 3 is still not finished:** English remains the only language.
+   The provenance paragraph's former six sentence-fragment keys were
+   replaced with three whole-sentence `<Trans>` keys in the i18n second
+   pass (2026-09-18) — that piece is done. See §2.1 "i18n" for the
    architecture and §7 #27 for what's still open (verified translation
-   personnel; the `<Trans>` refactor).
+   personnel).
    Design spec and plan: `docs/superpowers/specs/2026-08-03-multilingual-infra-design.md`,
    `docs/superpowers/plans/2026-08-03-multilingual-infra.md`.
 5. **Stage 4** (GROWTH-PLAN §4) — community/scale features, all gated on

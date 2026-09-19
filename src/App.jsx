@@ -263,7 +263,7 @@ function AppShell() {
       <div className="border-region">
         <button 
           className="sidebar-toggle"
-          aria-label={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-label={isSidebarCollapsed ? t('app.sidebarExpand') : t('app.sidebarCollapse')}
           onClick={() => setIsSidebarCollapsed(prev => !prev)}
         >
           {isSidebarCollapsed ? (

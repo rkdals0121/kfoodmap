@@ -49,6 +49,7 @@ export default {
     saved: 'Saved',
     areas: 'Areas',
     badges: 'Badges',
+    badgesEarned: '{{count}} Earned',
     visitedPlaces: 'Visited Places',
     savedForLater: 'Saved for Later',
     emptyTitle: 'Your passport is empty',
@@ -62,10 +63,19 @@ export default {
     step3: 'Mark it visited after your trip',
   },
   list: {
+    placeCount_one: '{{count}} place',
+    placeCount_other: '{{count}} places',
     nearestFirst: 'Nearest first',
     noMatch: 'No places match',
     noMatchHint: 'Try removing a filter or searching a different name or area.',
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',
+    readStoryAria: 'Read the story of {{name}}',
+    directionsAria: 'Get directions to {{name}}',
+    // saveAria/removeAria are shared with RestaurantDetail's bookmark button,
+    // not only the list — kept under `list` rather than duplicated or moved,
+    // since a key move would churn every future locale file for naming only.
+    saveAria: 'Save {{name}} to journal',
+    removeAria: 'Remove {{name}} from journal',
   },
   discover: {
     journeysTitle: 'Food Journeys',
@@ -182,12 +192,9 @@ export default {
     shared: 'Shared!',
     diningTips: 'Dining Tips',
     aboutThisInformation: 'About this information',
-    provenanceOfficial: 'Official',
-    officialMeans: 'means we checked it against a map service or registry;',
-    provenanceReported: 'Reported',
-    reportedMeans: 'means a source states it;',
-    provenanceInferred: 'Inferred',
-    inferredMeans: 'means we read it from context. Hours, prices and dietary details change — treat this as a starting point.',
+    provenanceOfficialSentence: '<0>Official</0> means we checked it against a map service or registry;',
+    provenanceReportedSentence: '<0> Reported</0> means a source states it;',
+    provenanceInferredSentence: '<0>Inferred</0> means we read it from context. Hours, prices and dietary details change — treat this as a starting point.',
     location: 'Location',
     dietary: 'Dietary',
     lastChecked: 'Last checked',
@@ -206,10 +213,30 @@ export default {
     caveatInferredBody: 'Some of this we read from the kind of kitchen it is, or from how the venue describes itself — not from a stated fact. Treat it as a lead and ask staff before ordering.',
     caveatUnknownTitle: 'No dietary information yet.',
     caveatUnknownBody: "We haven't established what this kitchen serves, so we don't make a claim either way.",
+    priceNotListed: 'Price not listed',
+    // Leading space is load-bearing: the JSX renders this immediately after
+    // the address with no separator of its own, so a translation must keep
+    // a leading space (or its language's equivalent) or the words will run together.
+    areaOnly: ' — area only',
+    // Leading space is load-bearing — see areaOnly above; rendered right
+    // after the source label with no separator supplied by the JSX.
+    addressAreaLevel: ' · address is area-level',
+    todayHours: '(today {{hours}})',
+    transitExit: ', exit {{exit}}',
+    // Leading space is load-bearing — see areaOnly above; rendered right
+    // after transitExit (or the station/line text) with no separator supplied by the JSX.
+    transitWalk: ' · {{minutes}} min walk',
+    lastVerified: 'Last verified: {{date}}',
+    shareAria: 'Share {{name}}',
+    visitedMark: 'Mark {{name}} as visited',
+    visitedUnmark: 'Mark {{name}} as not visited',
+    galleryItem: 'Gallery item',
   },
   app: {
     primaryNav: 'Primary',
     restaurantList: 'Restaurant list',
     offline: 'Offline — showing saved data',
+    sidebarExpand: 'Expand sidebar',
+    sidebarCollapse: 'Collapse sidebar',
   },
 };

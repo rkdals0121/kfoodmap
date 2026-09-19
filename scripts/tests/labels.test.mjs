@@ -66,13 +66,17 @@ test('an unmapped source or method degrades to the stored text, never to a key n
   assert.equal(methodLabel(null), '');
 });
 
-// --- Static t('key.path') resolution scan --------------------------------
+// --- Static t('key.path') / <Trans i18nKey="key.path"> resolution scan ---
 //
 // Walks src/**/*.{js,jsx} and collects every literal t('key.path') call site
-// (regex on the file text, not a real parse — dynamic keys built from
-// template literals or concatenation are invisible to this scan and skipped
-// on purpose). Each key found must resolve to a real string, not its own
-// name, catching a typo'd or deleted key before it ships as a blank label.
+// AND every literal <Trans i18nKey="key.path"> usage (regex on the file
+// text, not a real parse — dynamic keys built from template literals or
+// concatenation are invisible to this scan and skipped on purpose). Each
+// key found must resolve to a real string, not its own name, catching a
+// typo'd or deleted key before it ships as a blank label — or, for a
+// <Trans> key specifically, before it ships as the literal key name
+// rendered into the page (a <Trans> with a missing key does not fall back
+// to raw text the way t() does).
 const rootDir = fileURLToPath(new URL('../../src', import.meta.url));
 
 function collectSourceFiles(dir) {
@@ -89,23 +93,34 @@ function collectSourceFiles(dir) {
 }
 
 function staticTKeys() {
-  const keyPattern = /\bt\(\s*'([\w.]+)'/g;
+  // t('key.path') calls and <Trans i18nKey="key.path"> usages both name a
+  // key that must resolve; a <Trans> renders the raw key name on stage
+  // rather than degrading quietly, which is why it gets the same guard.
+  const patterns = [/\bt\(\s*'([\w.]+)'/g, /i18nKey="([\w.]+)"/g];
   const keys = new Map(); // key -> Set of files
   for (const file of collectSourceFiles(rootDir)) {
     const text = fs.readFileSync(file, 'utf8');
-    for (const match of text.matchAll(keyPattern)) {
-      const key = match[1];
-      if (!keys.has(key)) keys.set(key, new Set());
-      keys.get(key).add(path.relative(rootDir, file));
+    for (const keyPattern of patterns) {
+      for (const match of text.matchAll(keyPattern)) {
+        const key = match[1];
+        if (!keys.has(key)) keys.set(key, new Set());
+        keys.get(key).add(path.relative(rootDir, file));
+      }
     }
   }
   return keys;
 }
 
-test('every statically-referenced t(\'key.path\') resolves to a real string', () => {
+test('every statically-referenced t(\'key.path\') / <Trans i18nKey="key.path"> resolves to a real string', () => {
   const keys = staticTKeys();
-  assert.ok(keys.size > 0, 'the scan found no t(\'...\') call sites — the regex or the scan path is broken');
+  assert.ok(keys.size > 0, 'the scan found no t(\'...\')/i18nKey="..." call sites — the regex or the scan path is broken');
   for (const [key, files] of keys) {
-    assert.notEqual(i18next.t(key), key, `key ${key} does not resolve (referenced in ${[...files].join(', ')})`);
+    // A plural key (e.g. list.placeCount) has no bare form — i18next only
+    // resolves it once a count is supplied. Probe both count: 1 (the "_one"
+    // form) and count: 2 (the "_other" form) so a plural key missing its
+    // "_other" sibling — which a bare count:1 probe can't see — fails here
+    // instead of surfacing as a raw key name on the real list heading.
+    assert.notEqual(i18next.t(key, { count: 1 }), key, `key ${key} does not resolve for count: 1 (referenced in ${[...files].join(', ')})`);
+    assert.notEqual(i18next.t(key, { count: 2 }), key, `key ${key} does not resolve for count: 2 — check for a missing "_other" plural form (referenced in ${[...files].join(', ')})`);
   }
 });

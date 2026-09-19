@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
@@ -8,7 +8,7 @@ import {
   BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
 } from '../data/verification';
@@ -54,7 +54,7 @@ export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited,
   mapCenter, focusStory,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
@@ -209,7 +209,7 @@ export default function RestaurantDetail({
                   {restaurant.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
                       <span>{m.name}</span>
-                      <span className="menu-row__price">{m.price ?? 'Price not listed'}</span>
+                      <span className="menu-row__price">{m.price ?? t('detail.priceNotListed')}</span>
                     </div>
                   ))}
                 </div>
@@ -227,7 +227,7 @@ export default function RestaurantDetail({
                   <span>
                     <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
                     {' '}· {status.detail}{' '}
-                    {today && <span className="practical-muted">(today {today})</span>}
+                    {today && <span className="practical-muted">{t('detail.todayHours', { hours: today })}</span>}
                   </span>
                 ) : (
                   <span className="practical-muted">{t('detail.hoursUnknown')}</span>
@@ -239,8 +239,8 @@ export default function RestaurantDetail({
                   <TrainIcon size={17} />
                   <span>
                     {restaurant.transit.value.station} {restaurant.transit.value.line}
-                    {restaurant.transit.value.exit && `, exit ${restaurant.transit.value.exit}`}
-                    {' '}· {restaurant.transit.value.walkingMinutes} min walk
+                    {restaurant.transit.value.exit && t('detail.transitExit', { exit: restaurant.transit.value.exit })}
+                    {t('detail.transitWalk', { minutes: restaurant.transit.value.walkingMinutes })}
                   </span>
                 </div>
               )}
@@ -271,14 +271,14 @@ export default function RestaurantDetail({
               <div className="practical-actions">
                 <button
                   className={`icon-btn icon-btn--lg${isBookmarked ? ' icon-btn--saved' : ''}`}
-                  aria-label={isBookmarked ? `Remove ${name} from journal` : `Save ${name} to journal`}
+                  aria-label={isBookmarked ? t('list.removeAria', { name }) : t('list.saveAria', { name })}
                   onClick={() => onToggleBookmark(restaurant.id)}
                 >
                   <HeartIcon size={21} filled={isBookmarked} />
                 </button>
                 <button
                   className={`icon-btn icon-btn--lg${isVisited ? ' icon-btn--visited' : ''}`}
-                  aria-label={isVisited ? `Mark ${name} as not visited` : `Mark ${name} as visited`}
+                  aria-label={isVisited ? t('detail.visitedUnmark', { name }) : t('detail.visitedMark', { name })}
                   disabled={!isBookmarked}
                   onClick={() => onToggleVisited(restaurant.id)}
                 >
@@ -286,7 +286,7 @@ export default function RestaurantDetail({
                 </button>
                 <button
                   className="icon-btn icon-btn--lg"
-                  aria-label={`Share ${name}`}
+                  aria-label={t('detail.shareAria', { name })}
                   onClick={handleShare}
                   title={shared ? t('detail.shared') : t('detail.share')}
                 >
@@ -329,7 +329,7 @@ export default function RestaurantDetail({
                 <span>
                   {restaurant.address.value}
                   {restaurant.address.precision === 'area' && (
-                    <span className="practical-muted"> — area only</span>
+                    <span className="practical-muted">{t('detail.areaOnly')}</span>
                   )}
                 </span>
                 <button className="practical-copy" onClick={handleCopy}>
@@ -370,15 +370,15 @@ export default function RestaurantDetail({
             <footer className="provenance">
               <p className="provenance__title">{t('detail.aboutThisInformation')}</p>
               <p>
-                <strong>{t('detail.provenanceOfficial')}</strong> {t('detail.officialMeans')}
-                <strong> {t('detail.provenanceReported')}</strong> {t('detail.reportedMeans')} <strong>{t('detail.provenanceInferred')}</strong> {t('detail.inferredMeans')}
+                <Trans i18nKey="detail.provenanceOfficialSentence" components={[<strong key="0" />]} />
+                <Trans i18nKey="detail.provenanceReportedSentence" components={[<strong key="0" />]} /> <Trans i18nKey="detail.provenanceInferredSentence" components={[<strong key="0" />]} />
               </p>
               <dl className="provenance__list">
                 <div>
                   <dt>{t('detail.location')}</dt>
                   <dd>
                     {sourceLabel(restaurant.coordinates.source)}
-                    {restaurant.address.precision === 'area' && ' · address is area-level'}
+                    {restaurant.address.precision === 'area' && t('detail.addressAreaLevel')}
                   </dd>
                 </div>
                 <div>
@@ -398,7 +398,7 @@ export default function RestaurantDetail({
             
             <div className="transparency-log">
               {lastChecked && (
-                <p>Last verified: {new Date(lastChecked).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                <p>{t('detail.lastVerified', { date: formatLongDate(lastChecked, i18n.language) })}</p>
               )}
               <p>{t('detail.suggestEdit', { link: t('submit.reportLink') })}</p>
             </div>
@@ -415,7 +415,7 @@ export default function RestaurantDetail({
           
           <div className="gallery-slider" onClick={e => e.stopPropagation()}>
             {galleryImages.map((img, i) => (
-              <img key={i} src={img} className="gallery-slide" alt="Gallery item" />
+              <img key={i} src={img} className="gallery-slide" alt={t('detail.galleryItem')} />
             ))}
           </div>
         </div>

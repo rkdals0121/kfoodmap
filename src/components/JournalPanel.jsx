@@ -2,11 +2,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN } from '../data/verification';
-
-function formatStampDate(ts) {
-  if (!ts) return null;
-  return new Date(ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-}
+import { formatShortDate } from '../utils';
 
 // A small, fixed sample for the empty-passport preview — not the user's own
 // data, so every stamp below carries a "Sample" label instead of a date and
@@ -15,7 +11,7 @@ function formatStampDate(ts) {
 const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 
 export default function JournalPanel({ bookmarks, onRestaurantClick }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
 
   const samples = useMemo(
@@ -72,7 +68,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
       <div className="journal-section">
         <div className="journal-section-header">
           <h3>{t('journal.badges')}</h3>
-          <span className="journal-badge-count">{earnedCount} Earned</span>
+          <span className="journal-badge-count">{t('journal.badgesEarned', { count: earnedCount })}</span>
         </div>
         <div className="badges-grid">
           {badges.map(badge => (
@@ -101,7 +97,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
                 </span>
                 <span className="stamp-name">{place.name.split('(')[0].trim()}</span>
                 <span className="stamp-zone">{place.zone}</span>
-                {visitedAt && <span className="stamp-date">{formatStampDate(visitedAt)}</span>}
+                {visitedAt && <span className="stamp-date">{formatShortDate(visitedAt, i18n.language)}</span>}
               </button>
             ))}
           </div>
@@ -125,7 +121,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
                 </span>
                 <span className="stamp-name">{place.name.split('(')[0].trim()}</span>
                 <span className="stamp-zone">{place.zone}</span>
-                {savedAt && <span className="stamp-date">{formatStampDate(savedAt)}</span>}
+                {savedAt && <span className="stamp-date">{formatShortDate(savedAt, i18n.language)}</span>}
               </button>
             ))}
           </div>

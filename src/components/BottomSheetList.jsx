@@ -67,7 +67,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
       <div className="place-card__foot">
         <button
           className="place-card__story-btn"
-          aria-label={`Read the story of ${name}`}
+          aria-label={t('list.readStoryAria', { name })}
           onClick={() => onReadStory(place)}
         >
           {t('discover.readStory')}
@@ -76,7 +76,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
         <div className="place-card__actions">
           <button
             className={`icon-btn${bookmarked ? ' icon-btn--saved' : ''}`}
-            aria-label={bookmarked ? `Remove ${name} from journal` : `Save ${name} to journal`}
+            aria-label={bookmarked ? t('list.removeAria', { name }) : t('list.saveAria', { name })}
             aria-pressed={bookmarked}
             onClick={() => onToggleBookmark(place.id)}
           >
@@ -84,7 +84,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
           </button>
           <button
             className="icon-btn"
-            aria-label={`Get directions to ${name}`}
+            aria-label={t('list.directionsAria', { name })}
             onClick={() => window.open(directionsUrl(place, mapCenter), '_blank')}
           >
             <CompassIcon size={20} />
@@ -112,7 +112,7 @@ export default function BottomSheetList({
   return (
     <div className="place-list">
       <div className="place-list__header">
-        <h3>{sorted.length} {sorted.length === 1 ? 'place' : 'places'}</h3>
+        <h3>{t('list.placeCount', { count: sorted.length })}</h3>
         {sorted.length > 1 && <span className="place-list__hint">{t('list.nearestFirst')}</span>}
       </div>
 

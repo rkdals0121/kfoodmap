@@ -159,3 +159,37 @@ export function kakaoMapUrl(place, origin = null) {
   const name = encodeURIComponent(place.name);
   return `https://map.kakao.com/link/to/${name},${lat},${lng}`;
 }
+
+// Locale-aware date formatting. i18next's language codes ('en') aren't
+// always the right Intl locale tag for date formatting (bare 'en' resolves
+// to US month-day-year order) -- this maps each app language to the locale
+// tag its dates should actually use. English keeps mapping to 'en-GB', the
+// same tag the two former hardcoded call sites used, so today's rendered
+// output is unchanged; a future language can add its own entry here (or, if
+// its i18next code is already a correct locale tag, needs no entry at all).
+const DATE_LOCALES = { en: 'en-GB' };
+
+const localeForDates = (lang) => DATE_LOCALES[lang] ?? lang;
+
+// A malformed/unmapped language tag (e.g. 'en_US' instead of 'en-US') makes
+// Intl's locale matching throw RangeError rather than degrade — letting that
+// escape from a render path would take down the whole detail page over a bad
+// tag. Fall back to 'en-GB', the same tag English already resolves to, so
+// today's output is unchanged in every case this can actually be reached.
+function toLocaleDateStringSafe(date, locale, options) {
+  try {
+    return date.toLocaleDateString(locale, options);
+  } catch {
+    return date.toLocaleDateString('en-GB', options);
+  }
+}
+
+export function formatLongDate(ts, lang) {
+  if (!ts) return null;
+  return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+export function formatShortDate(ts, lang) {
+  if (!ts) return null;
+  return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'short', year: 'numeric' });
+}
