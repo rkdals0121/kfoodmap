@@ -1,6 +1,7 @@
 # K-Food Map — 개발계획 인수인계 (Growth Plan Handoff)
 
-**작성일:** 2026-08-02 · **최종 갱신:** 2026-09-18 · **기준 커밋:** `fa59e2e`
+**작성일:** 2026-08-02 · **최종 갱신:** 2026-09-19 · **기준 커밋:** `7a879fd`
+(`passport-sync` 브랜치, 아직 master 미병합)
 **용도:** 원격/새 세션이 이 문서 하나로 개발을 이어받기 위한 인수인계.
 **주의:** 엔지니어링 상태의 유일한 정본은 `HANDOFF.md`다. 이 문서는 그 위에
 얹힌 *성장 계획*이며, 둘이 충돌하면 HANDOFF와 저장소 실측이 이긴다.
@@ -195,7 +196,17 @@
   unverified"로 표시돼 사실로 취급되지 않음 — §2.11 검증은 그대로 수동
   대조. 네이버는 신규 API 키 발급이 중단돼 이번 범위에서 제외, 카카오만
   구현. 상세는 HANDOFF §2.1 "Autofill".
-- **Cross-Device Sync** — 여권을 계정에 (동결된 MVP)
+- ✅ **Cross-Device Sync 완료 (2026-09-19)** — 여권(`kfm-bookmarks`)을
+  Google 계정(Supabase Auth)에 선택적으로 연결. tombstone 기반
+  `mergePassport`(삭제가 병합에서 살아남도록), `public.passports`
+  RLS(사용자별 행), 로그아웃/세션 종료 시 기기 초기화, 소유자 키
+  (`kfm-passport-owner`)로 계정 전환 시 여권 오염 방지. 게이트 실측:
+  `npm test` 76개 통과, `npm run check-data` 위반 0건. **막힌 것:**
+  운영자가 `supabase/passports.sql`을 아직 실행하지 않아
+  `scripts/passport.mjs verify-rls`·`sync-e2e`(라이브 왕복 증명)를 돌릴 수
+  없고, Google OAuth 설정 전까지 로그인 버튼이 뜨지 않아 2-창 실기기
+  동기화 확인도 남아 있음(HANDOFF §7 #31). 상세는 HANDOFF §2.1
+  "Passport sync".
 - **데이터 확장 파이프라인** — 공공데이터·제보는 *리드 큐*로만 받고,
   Phase 3 검증 워크플로 통과분만 게시. 확장 축: 할랄 클러스터 심화,
   전통시장·다회용기 식당 (창립 제안서 항목, 현재 0곳)

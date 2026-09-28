@@ -16,6 +16,8 @@ import { useOnlineStatus } from './hooks/useOnlineStatus';
 import { MAP_CENTER } from './utils';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
+import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
+import usePassportSync from './hooks/usePassportSync';
 import { DIETARY_CHIPS, TRAIT_GROUPS } from './filters';
 import './index.css';
 
@@ -28,29 +30,6 @@ const SUSTAINABILITY_AXIS = ['Sustainability', ...TRAIT_GROUPS.Sustainability];
 // Quarantined records (existence itself unconfirmed) are excluded from every
 // discovery surface — map, search, cards, Journal — at this single point.
 const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
-
-const BOOKMARKS_KEY = 'kfm-bookmarks';
-
-// Stored as [{ id, savedAt, visitedAt }]. Two earlier shapes migrate on read:
-// { id, savedAt } (saved, never marked visited) and plain id strings (saved,
-// no timestamp). savedAt is the wishlist; visitedAt is the visit record, and a
-// visit only exists on a saved entry: visitedAt != null implies savedAt != null.
-//
-// Legacy string entries normalise to savedAt: 0, "saved at an unknown time",
-// rather than null: that keeps "is it saved" a plain savedAt test with no
-// legacy special case, and 0 is falsy so date rendering is unchanged.
-function loadBookmarks() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(BOOKMARKS_KEY));
-    if (!Array.isArray(saved)) return [];
-    return saved
-      .map(entry => (typeof entry === 'string' ? { id: entry, savedAt: 0 } : entry))
-      .filter(entry => entry && typeof entry.id === 'string')
-      .map(entry => ({ ...entry, savedAt: entry.savedAt ?? 0, visitedAt: entry.visitedAt ?? null }));
-  } catch {
-    return [];
-  }
-}
 
 function AppShell() {
   const { t } = useTranslation();
@@ -79,7 +58,10 @@ function AppShell() {
   useEffect(() => {
     if (id && !selectedRestaurant) navigate('/', { replace: true });
   }, [id, selectedRestaurant, navigate]);
-  const [bookmarks, setBookmarks] = useState(loadBookmarks);
+  // State is the whole passport, tombstones included — a tombstone is the
+  // only record that an unsave happened, and dropping it here would let the
+  // next sync resurrect the place. Children still receive only saved entries.
+  const [entries, setEntries] = useState(loadLocalPassport);
   const [activeTab, setActiveTab] = useState('map');
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -116,15 +98,21 @@ function AppShell() {
   const openDetail = (r) => { if (isQuarantined(r)) return; if (r.id !== id) navigate(`/place/${r.id}`); };
   const openStory = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`, { state: { focusStory: true } }); };
 
+  // Local first, always: the device is written before any request goes out
+  // and is never rolled back by one that fails.
   useEffect(() => {
-    localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(bookmarks));
-  }, [bookmarks]);
+    saveLocalPassport(entries);
+  }, [entries]);
 
+  const bookmarks = useMemo(() => savedOnly(entries), [entries]);
   const bookmarkedIds = useMemo(() => bookmarks.map(b => b.id), [bookmarks]);
   const visitedIds = useMemo(
     () => bookmarks.filter(b => b.visitedAt !== null).map(b => b.id),
     [bookmarks],
   );
+
+  const { session, googleReady, signIn, signOut, deleteRecords, lastSyncFailed, sessionEnded } =
+    usePassportSync({ entries, setEntries, isOnline });
   const sustainabilityLens = useMemo(
     () => selectedFilters.some(f => SUSTAINABILITY_AXIS.includes(f)),
     [selectedFilters],
@@ -137,22 +125,29 @@ function AppShell() {
     if (id) navigate('/', { replace: true });
   };
 
-  const handleToggleBookmark = (id) => {
-    setBookmarks(prev =>
-      prev.some(b => b.id === id)
-        ? prev.filter(b => b.id !== id)   // drops visitedAt with the entry
-        : [...prev, { id, savedAt: Date.now(), visitedAt: null }]
-    );
+  const handleToggleBookmark = (placeId) => {
+    const now = Date.now();
+    setEntries(prev => {
+      const held = prev.find(e => e.id === placeId);
+      if (!held || held.savedAt === null) {
+        const fresh = { id: placeId, savedAt: now, visitedAt: null, updatedAt: now };
+        return held ? prev.map(e => (e.id === placeId ? fresh : e)) : [...prev, fresh];
+      }
+      // Unsave: keep the row as a tombstone. The visit goes with the save,
+      // exactly as it did when the entry was dropped outright.
+      return prev.map(e => (e.id === placeId ? { ...e, savedAt: null, visitedAt: null, updatedAt: now } : e));
+    });
   };
 
   // Marking a visit only ever edits an entry that is already saved, so the
   // invariant (visitedAt implies savedAt) holds by construction — this can
-  // never create a record. Unsaving drops the entry, taking the visit with it.
-  const handleToggleVisited = (id) => {
-    setBookmarks(prev => prev.map(b =>
-      b.id === id && b.savedAt !== null
-        ? { ...b, visitedAt: b.visitedAt === null ? Date.now() : null }
-        : b
+  // never create a record, and a tombstone is never revived into one.
+  const handleToggleVisited = (placeId) => {
+    const now = Date.now();
+    setEntries(prev => prev.map(e =>
+      e.id === placeId && e.savedAt !== null
+        ? { ...e, visitedAt: e.visitedAt === null ? now : null, updatedAt: now }
+        : e,
     ));
   };
 
@@ -247,10 +242,22 @@ function AppShell() {
 
         {/* Tab panels rendered inside the sidebar */}
         {activeTab === 'journal' && (
-          <JournalPanel bookmarks={bookmarks} onRestaurantClick={openDetail} />
+          <JournalPanel bookmarks={bookmarks} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} />
         )}
         {activeTab !== 'map' && activeTab !== 'journal' && (
-          <TabPanel tab={activeTab} onNavigate={setActiveTab} />
+          <TabPanel
+            tab={activeTab}
+            onNavigate={setActiveTab}
+            session={session}
+            googleReady={googleReady}
+            onSignIn={signIn}
+            onSignOut={signOut}
+            onDeleteRecords={deleteRecords}
+            lastSyncFailed={lastSyncFailed}
+            sessionEnded={sessionEnded}
+            savedCount={bookmarks.length}
+            visitedCount={visitedIds.length}
+          />
         )}
 
         <TabBar 

@@ -1,10 +1,11 @@
 # K-Food Map — Engineering Handoff
 
 **Status:** working prototype, production-grade data architecture, incomplete data.
-**Last updated:** 2026-09-18 · **Base commit:** `fa59e2e` (i18n
-extraction, GROWTH-PLAN Stage 3's remaining-screens pass — §2.1 "i18n").
-**This edit lands with the i18n squash commit onto master.** No
-restaurant data changed.
+**Last updated:** 2026-09-19 · **Base commit:** `7a879fd` (passport-sync
+branch, Task 6: privacy policy rewrite, gates, docs — §2.1 "Passport sync").
+**This edit lands on `passport-sync`, not yet merged to master; the
+squash-merge, push, and deploy check are a separate, later step, pending
+operator approval.** No restaurant data changed.
 **Places:** 20 (18 active, 2 quarantined)
 
 This document is the canonical handoff. It should be enough to continue work
@@ -527,6 +528,58 @@ Nothing runs this on a schedule — it is a manual step, alongside `list`.
 `PRIVACY_CONTACT` is `null` until the user's dedicated mailbox exists; the
 page then says the address "will be published here" (§7 #30). The build
 writes `dist/privacy/index.html` — indexable, not in the sitemap.
+
+**Passport sync (2026-09-19, Stage 4).** Optional Google sign-in (Supabase
+Auth, `@supabase/auth-js`'s `GoTrueClient`, `src/data/auth.js`) lets the
+`kfm-bookmarks` passport follow a person across devices through
+`public.passports` (`user_id`, `place_id`, `saved_at`, `visited_at`,
+`updated_at`, `supabase/passports.sql`). **The tombstone rule:** an unsaved
+place is not deleted from the merge's point of view, it is written back with
+`savedAt: null` and a fresh `updatedAt` (`src/data/passport.js`
+`normalizeEntry`/`mergePassport`). A plain union merge of two devices'
+entries cannot represent a delete — the device that still remembers a place
+as saved would just re-add it on the next sync — so the tombstone is the
+record that a delete happened, and it is compared by `updated_at` exactly
+like a save is. **The merge itself is one pure function,** `mergePassport(local,
+remote)`, called from exactly one place in `src/hooks/usePassportSync.js`
+(`reconcile`, via `reconcilePassport`) — the design's three triggers (first
+sign-in, app start while already signed in, and reconnect) all route through
+that one call site rather than three copies of the merge logic, which is why
+there is no first-login special case to get wrong. **The signed-out
+guarantee:** with no session, the hook makes no request to `/rest/v1/passports`
+at all — the only anonymous request it makes, ever, is a `GET
+/auth/v1/settings` to learn whether Google sign-in is configured
+(`googleEnabled`), which carries no personal data and only decides whether
+the sign-in button renders. **The ownership key**, `kfm-passport-owner`
+(`PASSPORT_OWNER_KEY`), is stored beside `kfm-bookmarks` rather than inside
+it, and answers one question — "does the passport on this device belong to
+whoever is signed in now?" (`passportBelongsTo`) — asked at exactly one site
+so a reload (session gone, only the persisted owner left) and an in-session
+account switch get the same answer. An absent owner is anonymous and merges
+(pre-sync devices, and a passport built while signed out); a different
+account's owner clears the device before the new account's remote reconciles
+onto an empty local, which is deliberate for a shared or borrowed device.
+Signing out — on this device, or a session simply ending elsewhere (expired
+or revoked token, sign-out in another tab) — clears both keys the same way:
+the account keeps the rows, the device does not. Profile's "Delete my saved
+places" (`deleteRecords`) additionally deletes the account's rows via
+`DELETE /rest/v1/passports?user_id=eq...`; deleting the Google sign-in itself
+is an operator action, `node --env-file=.env.local scripts/passport.mjs
+delete-user <email>`, which the privacy policy now points at
+`PRIVACY_CONTACT` for. **Not covered by any automated test:** the
+effect-layer behaviour in `usePassportSync.js` — the write-generation
+invalidation (`invalidate()`), the sync-gate reopen after a clear
+(`syncEpoch`), the pre-DELETE invalidate that stops a debounced push from
+racing a delete, and the session-ended device clear. All four are proven
+today only by the reasoning in the hook's own comments and by manual browser
+runs (Task 5), not by a regression test — React effect timing is exactly
+what a future refactor can silently break, and nothing here would catch it
+(§11 rule 26 is the standing response for the *data* side of this; the
+effect layer itself remains untested). `scripts/passport.mjs sync-e2e` is a
+script (not a committed test — it needs the service key) that pushes,
+pulls, and merges against the live table with a throwaway user; as of this
+handoff it has not been run because `public.passports` does not exist yet
+(§7 #31).
 
 ### 2.2 Restaurant data model — `src/data/restaurants.js` (928 lines)
 
@@ -1832,6 +1885,54 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       (the "Report incorrect info" link) stretches to the full width of its
       flex-column row, giving it a larger tap target than its sibling rows
       with only the link text underlined.
+31. **Passport sync (2026-09-19, Stage 4) is code-complete but blocked on two
+    pieces of operator setup, and neither is a code fix — and once it is
+    deployed, the deploy is not cleanly reversible.**
+    - **`public.passports` has not been created.** `supabase/passports.sql`
+      is written but not run — probed live, the table 404s. Until it exists,
+      `scripts/passport.mjs verify-rls` and `scripts/passport.mjs sync-e2e`
+      (§2.1 Passport sync) cannot run, and no adversarial RLS proof or live
+      round-trip proof exists for this table yet. Do not fabricate their
+      output; run both the moment the SQL is applied, before promoting
+      sign-in.
+    - **Google OAuth is not configured in Supabase**, so `googleEnabled()`
+      answers `false` and no sign-in button renders. Operator steps are
+      recorded in the Task 6 report
+      (`.superpowers/sdd/2026-09-19-passport-sync/task-6-report.md`); the
+      spec's two-window, two-device browser check (confirming a save on one
+      device reaches another signed into the same account) cannot run until
+      this is done, and is the first thing to do once it is.
+    - Everything upstream of these two gaps — the merge, the wire
+      round-trip against PostgREST's actual shapes, the tombstone rule, the
+      ownership-key guard — is covered by the 76-test suite (§2.1 Passport
+      sync); what remains unproved is specifically the live table's access
+      control and the OAuth-gated UI path.
+    - **The rollback is not data-safe.** Master's `loadBookmarks`
+      (`src/App.jsx`, verified on `master` 2026-09-19) reads
+      `savedAt: entry.savedAt ?? 0`, so a tombstone this branch writes
+      (`savedAt: null`) reads back on master as a place saved at the epoch.
+      A Vercel instant rollback would therefore silently re-add every place
+      every user has unsaved since the deploy, on those users' own devices,
+      with no action by them and nothing on screen to explain it. Rolling
+      forward with a fix is the safe direction; rolling back is not, and if
+      it is ever unavoidable the loader has to be taught the tombstone
+      shape first (`savedAt === null` stays null). This is a property of
+      the local storage format, not of Supabase — it bites signed-out
+      users too, and applying or not applying `supabase/passports.sql`
+      makes no difference to it.
+    - **`supabase/passports.sql` now also carries the
+      `passports_keep_latest` trigger**, which is the server-side half of
+      `mergePassport`: PostgREST's upsert is last-writer-wins on the whole
+      row and never consults `updated_at`, so without the trigger a device
+      with a stale list can overwrite a newer tombstone. The file is one
+      paste either way — but a project that had the table created before
+      2026-09-19 needs the tail of that file re-run. `verify-rls` rule 13
+      is the regression test for it.
+    - **Google's redirect allow-list must cover the whole site, not just
+      the root.** Sign-in now returns to the page it was started from
+      (`/place/:id`, `/journal`), so Supabase Auth → URL Configuration
+      needs a wildcard redirect (`https://<site>/**`) or the provider
+      quietly returns everyone to the map.
 
 ---
 
@@ -2160,6 +2261,18 @@ These are enforced by `check-data` where a machine can; the rest are on you.
     `localStorage` key, a new third-party host, a new submitted field, any
     analytics. The policy is a list of measured facts; a policy that lags
     the code is a false claim to every visitor (§2.1 Privacy policy).
+26. **Any new user-scoped table ships only with an adversarial `verify-rls`.**
+    RLS is the only thing standing between "your own rows" and "everyone's
+    rows" once a table is reachable with a user JWT — a row-count assertion
+    that only ever checks the happy path proves nothing about the policy
+    that matters. `scripts/passport.mjs verify-rls` (§2.1 Passport sync) is
+    the standard: two throwaway users, and for every access pattern the
+    table should refuse (insert as another user, forge `user_id`, update or
+    delete another user's row, move a row's ownership, read/write with the
+    anon key and no JWT, violate a table CHECK), assert the specific
+    SQLSTATE/HTTP pair PostgREST returns for that refusal — not just a bare
+    4xx, which would also match an unrelated auth failure and prove
+    nothing. Clean up every test user it creates, in a `finally`.
 
 ---
 

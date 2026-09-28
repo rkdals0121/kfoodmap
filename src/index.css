@@ -1446,6 +1446,19 @@ button {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
 }
+.journal-empty__notice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--orange-strong);
+  background: var(--orange-tint);
+  border: 1px solid var(--orange-line);
+  border-radius: var(--radius-lg);
+  padding: 8px 12px;
+  max-width: 300px;
+}
 .journal-empty__icon {
   font-size: 40px;
   line-height: 1;
@@ -2593,4 +2606,147 @@ button {
   font-weight: 600;
   color: var(--green-strong);
   cursor: pointer;
+}
+
+/* ----- Profile: passport custody -----
+   The screen's thesis. Everything else on Profile is a setting; this is the
+   answer to "if I lose this phone, do I lose my stamps?", so it is the first
+   thing under the header and the only block on the screen that carries the
+   passport's dark green. It reuses the Journal's cover colour (#10402F) on
+   purpose: the same object, asked a different question. It stays shorter and
+   quieter than the Journal's cover — no progress bar, no badges — so the two
+   read as one thing seen twice rather than two competing headers. */
+.profile-custody {
+  margin: 16px 20px 4px;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: #10402F;
+  color: #fff;
+}
+.profile-custody__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8FD8B8;
+}
+.profile-custody__title {
+  margin-top: 6px;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+}
+/* The email sits here rather than in a label/value row: at 16px in a 96px
+   label column it wrapped to "Signed / in as" and pushed the address out of
+   the row. A line of its own cannot wrap into nonsense, and it breaks on
+   any width because addresses are unbounded. */
+.profile-custody__line {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  overflow-wrap: anywhere;
+}
+.profile-custody__stats {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.profile-custody__stats:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+.profile-custody__stats svg {
+  margin-left: auto;
+  opacity: 0.7;
+}
+.profile-custody__stat strong {
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 5px;
+}
+.profile-custody__cta {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: #fff;
+  color: #10402F;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.profile-custody__cta:hover {
+  background: #F0FAF5;
+}
+
+.profile-notice {
+  margin: 12px 20px 0;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.profile-notice--warn {
+  background: var(--orange-tint);
+  border: 1px solid var(--orange-line);
+  color: var(--ink-body);
+}
+
+/* Sign out and delete are not settings — they end a session and destroy
+   records — so they sit under their own label rather than in the same
+   undifferentiated stack as the language picker. */
+.settings-list--account {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
+}
+.settings-section-label {
+  display: block;
+  padding: 12px 0 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* The one irreversible control on the screen looks like it. */
+.settings-item--danger .settings-label {
+  color: var(--danger);
+}
+.settings-item--danger svg {
+  color: var(--danger);
+}
+
+/* ----- Basemap: quiet the tiles, not the pins -----
+   OpenStreetMap's standard style is a general-purpose map: full-saturation
+   road classes, landuse greens, and dense labels. This app puts ~20 green
+   pins on it and asks you to find them, and on the CARTO basemap it replaced
+   (withdrawn 2026-09-28, see MapComponent) that was easy because the
+   background was near-monochrome.
+
+   The filter is on .leaflet-tile-pane alone. Marker, popup, shadow and
+   overlay panes are siblings, so the pins keep their exact brand green while
+   the map behind them steps back. Saturation is cut rather than removed:
+   at 0 the parks and water lose the meaning a traveller actually uses, and
+   what is wanted is a quieter map, not a grey one.
+
+   The cost is honest — labels sit on a slightly lower-contrast ground than
+   OSM designed them for, so this stops well short of the 0.2 that looked
+   best in isolation. */
+.leaflet-tile-pane {
+  filter: saturate(0.45) brightness(1.03) contrast(0.96);
 }

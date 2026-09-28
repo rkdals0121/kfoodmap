@@ -12,6 +12,58 @@ import { dirname } from 'node:path'
 // finds nothing.
 const projectRoot = dirname(fileURLToPath(import.meta.url))
 
+// The on-demand auth chunk: src/data/auth-client.js and, through it, all of
+// @supabase/auth-js. Both service-worker rules below key off this one name --
+// one to keep it OUT of the precache, one to cache it at runtime once it has
+// actually been fetched -- so the name is written once here rather than twice
+// where they are used.
+//
+// The name is not a convention, it is load-bearing: rename
+// src/data/auth-client.js, or let rolldown change how it names async chunks,
+// and BOTH rules stop matching silently -- the chunk rejoins the precache
+// (undoing the whole point of loading it on demand) and stops being cached at
+// runtime. assertAuthChunkName() below turns that into a build failure.
+const AUTH_CHUNK_SOURCE = 'src/data/auth-client.js'
+const AUTH_CHUNK_GLOB = 'assets/auth-client-*.js'
+const AUTH_CHUNK_URL = /\/assets\/auth-client-[^/]*\.js$/
+
+// Fails the build if the emitted auth chunk is not where the two
+// service-worker rules above are looking. Deliberately a build-time
+// assertion rather than a test: a test over dist/sw.js would need a build to
+// have already happened and would pass vacuously on a fresh clone, and
+// deriving the name from a manualChunks entry would move the coupling rather
+// than guard it. This runs on every `npm run build` and catches a rename, a
+// rolldown chunk-naming change, and a refactor that splits or inlines the
+// module.
+function assertAuthChunkName() {
+  return {
+    name: 'kfm-assert-auth-chunk',
+    apply: 'build',
+    generateBundle(_options, bundle) {
+      const chunks = Object.values(bundle).filter(
+        item => item.type === 'chunk'
+          && Object.keys(item.modules ?? {}).some(id => id.replaceAll('\\', '/').endsWith(AUTH_CHUNK_SOURCE)),
+      );
+      if (chunks.length !== 1) {
+        this.error(
+          `expected exactly one chunk containing ${AUTH_CHUNK_SOURCE}, found ${chunks.length}. `
+          + 'The service-worker rules in vite.config.js (globIgnores + runtimeCaching) key off that '
+          + 'one chunk; if it is inlined into the entry the library is back on the first-paint path.',
+        );
+      }
+      const [chunk] = chunks;
+      if (!AUTH_CHUNK_URL.test(`/${chunk.fileName}`)) {
+        this.error(
+          `the auth chunk is emitted as "${chunk.fileName}", which ${AUTH_CHUNK_URL} does not match. `
+          + 'globIgnores would stop excluding it from the precache and runtimeCaching would stop '
+          + `caching it, both silently. Update AUTH_CHUNK_SOURCE / AUTH_CHUNK_GLOB / AUTH_CHUNK_URL `
+          + 'together, or rename the module back.',
+        );
+      }
+    },
+  };
+}
+
 // Dev only: Vite does not serve api/, so mount the same handler at the
 // same path. apply: 'serve' keeps it out of every build.
 function apiDevServer() {
@@ -72,6 +124,7 @@ function apiDevServer() {
 export default defineConfig({
   plugins: [
     apiDevServer(),
+    assertAuthChunkName(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',
@@ -91,18 +144,88 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: '/index.html',
-        // The Inter webfont is a cross-origin @import (src/index.css:1), so
-        // it can't be precached by globPatterns the way local assets are --
-        // offline it silently fell back to system fonts (§7 #26). CacheFirst
-        // is right for fonts specifically: they're immutable, so serving a
-        // year-old cached copy is correct rather than stale. Option shapes
-        // (handler/urlPattern/expiration/cacheableResponse) verified against
-        // workbox-build@7.4.1's own type definitions, not assumed.
+        // Default globPatterns only match js/wasm/css/html -- the SVG
+        // illustrations under public/images/ are the app's only imagery
+        // (every restaurant's photo/coverImage is null today) and would
+        // otherwise render as broken images on a cold offline start.
+        // NOTE: this also matches dist/place/**/*.html if that directory
+        // exists at build time -- it doesn't today (prerender-places.mjs
+        // runs after this manifest is finalized, see HANDOFF §2.1), but
+        // if the build script's ordering ever changes, re-check this.
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest}'],
+        // The auth chunk (src/data/auth-client.js + @supabase/auth-js, ~100
+        // kB raw / ~23 kB gzip) is deliberately NOT precached. Precaching it
+        // would hand the bytes straight back: the whole point of loading it
+        // on demand is that a visitor who never signs in never pays for it,
+        // and a precache downloads it for everyone the moment the service
+        // worker installs — off the first-paint path, but on the same
+        // metered connection.
         //
-        // statuses includes 0 to cover opaque (no-cors) responses -- gstatic
-        // can serve those, and a 0 without this would be treated as
-        // uncacheable, quietly defeating the whole rule.
+        // Not precaching it is only half the rule, though. With nothing else,
+        // the chunk would fall back to whatever Cache-Control the host sends
+        // and be unavailable offline even to someone who had already
+        // downloaded it — so a signed-in visitor would re-fail on every
+        // offline start, not just the first. The CacheFirst route below is
+        // the other half.
+        //
+        // These two options are a pair and both key off the same filename,
+        // which is why they sit together. Rename src/data/auth-client.js and
+        // both stop matching: the chunk silently returns to the precache and
+        // the runtime route silently stops caching it.
+        globIgnores: [AUTH_CHUNK_GLOB],
+        // Ordered auth chunk first, then the fonts, so this rule stays next
+        // to the globIgnores it completes.
+        //
+        // StaleWhileRevalidate, NOT CacheFirst, and the reason is the captive
+        // portal this file's sibling comments keep naming. A portal does not
+        // answer 0 — it answers 200 with its own splash HTML. Any
+        // cacheableResponse setting that admits 200 admits that, and under
+        // CacheFirst the splash page would be written into this cache under
+        // the hashed URL and served from it for up to a year, online or off.
+        // The dynamic import would then fail on MIME forever and the hook's
+        // retry could never recover it: not on reconnect, not on reload, only
+        // on a deploy that changes the hash. That is worse than having no rule
+        // at all, because portal responses usually carry no-store and the HTTP
+        // cache declines them, while a service worker ignores Cache-Control
+        // entirely.
+        //
+        // StaleWhileRevalidate gives up nothing here. The only thing
+        // CacheFirst buys is not revalidating a copy that cannot be stale —
+        // and the filename is content hashed, so a new build is a new name and
+        // a new request anyway. It still serves from cache offline, which is
+        // the whole point of the rule, and it repairs a poisoned entry on the
+        // next online load.
+        //
+        // Matching on content type via cacheableResponse.headers was
+        // considered and rejected: hosts serve `application/javascript` or
+        // `text/javascript; charset=utf-8` and workbox compares header values
+        // exactly, so the rule would silently stop caching on a host change.
+        //
+        // maxEntries is 2 rather than 1 so one superseded chunk survives a
+        // deploy; a page still running the old entry chunk asks for the old
+        // name, and evicting it the moment the new one lands would break
+        // exactly the stale-asset case the hook's retry is there for.
         runtimeCaching: [
+          {
+            urlPattern: AUTH_CHUNK_URL,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'kfm-auth-chunk',
+              expiration: { maxEntries: 2, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+          // The Inter webfont is a cross-origin @import (src/index.css:1), so
+          // it can't be precached by globPatterns the way local assets are --
+          // offline it silently fell back to system fonts (§7 #26). CacheFirst
+          // is right for fonts specifically: they're immutable, so serving a
+          // year-old cached copy is correct rather than stale. Option shapes
+          // (handler/urlPattern/expiration/cacheableResponse) verified against
+          // workbox-build@7.4.1's own type definitions, not assumed.
+          //
+          // statuses includes 0 to cover opaque (no-cors) responses -- gstatic
+          // can serve those, and a 0 without this would be treated as
+          // uncacheable, quietly defeating the whole rule.
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
@@ -122,15 +245,6 @@ export default defineConfig({
             },
           },
         ],
-        // Default globPatterns only match js/wasm/css/html -- the SVG
-        // illustrations under public/images/ are the app's only imagery
-        // (every restaurant's photo/coverImage is null today) and would
-        // otherwise render as broken images on a cold offline start.
-        // NOTE: this also matches dist/place/**/*.html if that directory
-        // exists at build time -- it doesn't today (prerender-places.mjs
-        // runs after this manifest is finalized, see HANDOFF §2.1), but
-        // if the build script's ordering ever changes, re-check this.
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest}'],
       },
     }),
   ],

@@ -10,7 +10,7 @@ import { formatShortDate } from '../utils';
 // shown, in case one of these three is ever quarantined later.
 const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 
-export default function JournalPanel({ bookmarks, onRestaurantClick }) {
+export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded }) {
   const { t, i18n } = useTranslation();
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
 
@@ -130,6 +130,19 @@ export default function JournalPanel({ bookmarks, onRestaurantClick }) {
 
       {stamped.length === 0 && (
         <div className="journal-empty">
+          {/* This is the one place a person whose session just ended on its
+              own -- an expired or revoked token, or a sign-out in another
+              tab -- actually sees the empty Journal it caused. The same
+              explanation already exists in ProfileTab (src/components/
+              TabPanel.jsx), reached via the Profile tab, but nothing sends
+              someone there: they land here first. Reusing profile.sessionEnded
+              rather than adding a second wording of the same sentence --
+              the situation is identical, only the surface differs. */}
+          {sessionEnded && (
+            <p className="journal-empty__notice" role="status">
+              <span aria-hidden="true">⚠️</span> {t('profile.sessionEnded')}
+            </p>
+          )}
           <div className="journal-empty__icon" aria-hidden="true">📕</div>
           <p className="journal-empty__title">{t('journal.emptyTitle')}</p>
           <p className="journal-empty__body">

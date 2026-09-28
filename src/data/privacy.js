@@ -1,11 +1,13 @@
 // The privacy policy, in English and Korean, shown together on /privacy.
 //
-// Every statement here was measured against the code on 2026-09-18, not
-// assumed: localStorage keys (App.jsx, i18n/index.js, Prologue.jsx), the
-// hosts the browser contacts (index.css @import, MapComponent TileLayer — OpenStreetMap since 2026-09-28, CARTO before that,
-// SubmitSheet), and the absence of analytics, cookies and geolocation. If
-// the app starts storing or sending something new, this file must change in
-// the same commit — a policy that lags the code is a false claim.
+// Every statement here was measured against the code on 2026-09-28, not
+// assumed: localStorage keys (App.jsx, i18n/index.js, Prologue.jsx,
+// data/auth.js, data/passport.js), the hosts the browser contacts (index.css
+// @import, MapComponent TileLayer — OpenStreetMap since 2026-09-28, CARTO
+// before that, SubmitSheet, Supabase Auth for sign-in and passport sync),
+// and the absence of analytics, cookies and geolocation. If the app starts
+// storing or sending something new, this file must change in the same
+// commit — a policy that lags the code is a false claim.
 //
 // The two languages are written as parallel statements of the same facts,
 // not as a translation pipeline, which is why this lives beside the other
@@ -31,15 +33,19 @@ export const privacyPolicy = {
       {
         heading: 'In short',
         items: [
-          'You can use K-Food Map without an account.',
+          'You can use K-Food Map without an account. If you don’t sign in, nothing below about accounts or signing in applies — the rest of this page still does, because sending a report, hosting, fonts and map images do not wait for an account.',
           'We do not use your location, run analytics, show ads, or set cookies.',
-          'Your saved and visited places stay on your own device.',
-          'We only receive personal information if you choose to send a report and include your email address.',
+          'If you sign in with Google, Supabase (our authentication provider) stores your email address and account ID, and your account holds which places you saved or marked visited, and when — never your name, coordinates, photos, or location.',
+          'We also receive personal information if you choose to send a report and include your email address.',
         ],
       },
       {
         heading: 'Stored on your device',
-        text: 'The app keeps three things in your browser’s local storage: the places you saved or marked as visited, with the dates you did so; whether you finished the welcome screens; and your language choice. They are never sent to us. Clearing this site’s data in your browser deletes them. For offline use, the browser also stores the app’s own files — these contain no information about you.',
+        text: 'Signed out, the app keeps four things in your browser’s local storage: the places you saved or marked as visited, with the dates you did so — unsaving a place does not delete this entry, it keeps it marked as unsaved so the place does not quietly reappear later; whether you finished the welcome screens; your language choice; and, if a sign-in on this device has ended on its own — an expired or revoked sign-in, or a sign-out in another tab — a flag recording that, kept only so the app can explain why your saved places are gone, and removed the next time you sign in. None of it is sent to us. Pressing “Sign in” writes a fifth before any account session exists: a short-lived code the sign-in exchange needs (`kfm-auth-code-verifier`), removed when the sign-in completes and left behind until the next attempt if you abandon it. Once you are signed in, two more things are added: your Supabase session, and which account’s places are on this device — and the places, visits, and unsaved-place records you have are then kept in sync with your account, so signing out erases them from that device while your account keeps them. Clearing this site’s data in your browser deletes everything local storage holds, whether or not you are signed in. For offline use, the browser also stores the app’s own files — these contain no information about you.',
+      },
+      {
+        heading: 'Signing in',
+        text: 'Signing in is optional and uses your Google account, through Supabase Auth. Supabase stores the email address and account ID Google gives us. While you are signed in, your account holds which places you saved or marked visited, and when — nothing else: no name, no coordinates, no photos, no location. If you saved places on this device before signing in, they join your account the first time you sign in — which is also why signing out clears the device: on a shared or borrowed device, without that, the next person to sign in would inherit them too. Unsaving a place does not remove it from your account: it keeps a row recording that you unsaved it, and when, so the place cannot quietly reappear later — that row is kept until you delete it. Signing out, on this device or by a session simply ending (an expired or revoked sign-in, or signing out on another tab or device), erases those places from this device; your account keeps them until you delete them. Profile’s “Delete my saved places” deletes every saved, visited, and unsaved-place record your account holds, and clears this device. It cannot reach another device: one where you are still signed in keeps its own copy and will upload it to your account on its next sync, so sign out there first if you want the account to stay empty. This does not delete your Google account — only the sign-in record this app holds for it — and doing that is a request to the operator: write to the address below.',
       },
       {
         heading: 'When you send a report',
@@ -54,14 +60,15 @@ export const privacyPolicy = {
         items: [
           'Vercel Inc. (United States) hosts the app. Like any web host, it receives technical request data such as your IP address when you open the site.',
           'Kakao Corp. (Republic of Korea) provides the restaurant search shown while you type a name in the report form. The text you have typed is relayed to Kakao by our server, not sent directly from your browser, so Kakao does not receive your IP address.',
-          'Supabase Inc. (United States) stores the reports you send.',
+          'Supabase Inc. (United States) stores the reports you send, and — if you sign in — your account (email address, account ID) and the places you saved or marked visited. Your browser also asks Supabase directly, even signed out, whether Google sign-in is turned on, which sends Supabase your IP address but no other information about you.',
+          'Google LLC (United States), through Supabase, is who you sign in with if you choose to. Google gives Supabase your email address and account ID; we never see your Google password.',
           'Google Fonts (Google LLC, United States) provides the typeface, and OpenStreetMap provides the map images. Your browser requests these directly, which sends them your IP address.',
           'Links to Google Maps, Naver Map, Kakao Map, and restaurant websites take you to those services; their own privacy policies apply there.',
         ],
       },
       {
         heading: 'Your choices',
-        text: 'You can ask us to show, correct, or delete a report you sent or the email address attached to it. You can delete everything stored on your device yourself at any time.',
+        text: 'You can ask us to show, correct, or delete a report you sent or the email address attached to it. You can delete everything stored on your device yourself at any time. If you are signed in, Profile’s “Delete my saved places” deletes your saved, visited, and unsaved-place records from your account and this device — but another device where you are still signed in can upload what it still holds, so sign out there first. That does not delete your Google account — only the sign-in record this app holds for it — and removing that is a request to the operator: write to the address below.',
       },
       {
         heading: 'Changes',
@@ -77,15 +84,19 @@ export const privacyPolicy = {
       {
         heading: '요약',
         items: [
-          'K-Food Map은 회원가입 없이 이용할 수 있습니다.',
+          'K-Food Map은 회원가입 없이 이용할 수 있습니다. 로그인하지 않으면 계정·로그인에 관한 아래 내용은 해당하지 않지만, 그 밖의 내용은 그대로 적용됩니다 — 제보 전송, 호스팅, 글꼴과 지도 이미지는 계정과 무관하게 이루어집니다.',
           '위치 정보를 사용하지 않으며, 이용 분석 도구·광고·쿠키를 사용하지 않습니다.',
-          '저장하거나 방문 표시한 장소는 이용자의 기기에만 보관됩니다.',
-          '이용자가 제보를 보내면서 이메일 주소를 적은 경우에만 개인정보를 받습니다.',
+          'Google 계정으로 로그인하면 인증을 담당하는 Supabase가 이메일 주소와 계정 ID를 저장하며, 계정에는 이용자가 저장하거나 방문 표시한 장소와 그 시각이 함께 보관됩니다 — 이름·좌표·사진·위치 정보는 포함되지 않습니다.',
+          '이용자가 제보를 보내면서 이메일 주소를 적은 경우에도 개인정보를 받습니다.',
         ],
       },
       {
         heading: '이용자 기기에 저장되는 정보',
-        text: '앱은 브라우저의 로컬 저장소에 세 가지를 보관합니다: 저장하거나 방문 표시한 장소와 그 날짜, 첫 안내 화면 완료 여부, 선택한 언어. 이 정보는 운영자에게 전송되지 않으며, 브라우저에서 이 사이트의 데이터를 삭제하면 지워집니다. 오프라인 이용을 위해 브라우저가 앱 파일도 저장하지만, 여기에는 이용자에 관한 정보가 없습니다.',
+        text: '로그인하지 않은 상태에서 앱은 브라우저의 로컬 저장소에 네 가지를 보관합니다: 저장하거나 방문 표시한 장소와 그 날짜 — 저장 해제한 장소는 삭제되지 않고 "저장 해제됨"으로 표시된 채 남아, 나중에 조용히 다시 나타나지 않도록 합니다; 첫 안내 화면 완료 여부; 선택한 언어; 그리고 이 기기의 로그인이 스스로 종료된 적이 있다면(로그인 만료·해지, 또는 다른 탭에서의 로그아웃) 저장된 장소가 사라진 이유를 설명하기 위한 표시로, 다음 로그인 시 삭제됩니다. 이 정보는 운영자에게 전송되지 않습니다. “로그인”을 누르면 아직 세션이 생기기 전에 다섯 번째 항목이 기록됩니다: 로그인 교환에 필요한 임시 코드(`kfm-auth-code-verifier`)로, 로그인이 끝나면 삭제되고 중간에 그만두면 다음 시도 때까지 남습니다. 로그인하면 두 가지가 더해집니다: Supabase 로그인 세션, 그리고 이 기기가 어느 계정의 장소를 보관하고 있는지를 나타내는 값 — 이후 저장·방문 표시한 장소와 저장 해제 기록은 계정과 동기화되며, 로그인을 해제하면 이 기기에서는 지워지고 계정에는 남습니다. 브라우저에서 이 사이트의 데이터를 삭제하면 로그인 여부와 관계없이 로컬 저장소의 내용이 모두 지워집니다. 오프라인 이용을 위해 브라우저가 앱 파일도 저장하지만, 여기에는 이용자에 관한 정보가 없습니다.',
+      },
+      {
+        heading: '로그인',
+        text: '로그인은 선택 사항이며, Supabase Auth를 통한 Google 계정 로그인만 지원합니다. Supabase는 Google이 제공하는 이메일 주소와 계정 ID를 저장합니다. 로그인한 동안 계정에는 저장하거나 방문 표시한 장소와 그 시각만 보관됩니다 — 이름, 좌표, 사진, 위치 정보는 없습니다. 로그인하기 전 이 기기에서 저장한 장소가 있다면, 처음 로그인할 때 그 장소들이 계정에 합쳐집니다 — 로그아웃하면 기기가 비워지는 것도 같은 이유입니다: 그렇지 않으면 공용이거나 남에게 빌린 기기에서 다음 사람이 로그인할 때 그 장소들을 그대로 물려받게 됩니다. 장소를 저장 해제해도 계정에서 곧바로 삭제되지는 않습니다 — 언제 저장 해제했는지를 기록한 행이 남아, 그 장소가 조용히 다시 나타나지 않도록 합니다. 그 기록은 삭제하기 전까지 계속 남아 있습니다. 이 기기에서 로그아웃하거나 세션이 스스로 종료되면(로그인 만료·해지, 또는 다른 탭·기기에서의 로그아웃) 그 장소들은 이 기기에서 지워지며, 삭제하기 전까지는 계정에 남아 있습니다. 프로필의 "내 저장 장소 삭제"는 저장·방문·저장 해제 기록을 포함해 계정이 가진 모든 장소 기록을 삭제하고 이 기기도 함께 비웁니다. 다만 다른 기기에는 미치지 않습니다: 그쪽에서 여전히 로그인되어 있으면 그 기기가 보관한 기록이 다음 동기화 때 계정으로 다시 올라갑니다. 계정을 비운 상태로 두려면 그 기기에서 먼저 로그아웃해 주세요. 이는 이용자의 Google 계정 자체를 삭제하지 않으며, 이 앱이 보관 중인 로그인 기록만 삭제합니다 — 이는 운영자에게 요청해야 하며, 아래 주소로 연락하면 됩니다.',
       },
       {
         heading: '제보를 보낼 때 받는 정보',
@@ -100,14 +111,15 @@ export const privacyPolicy = {
         items: [
           'Vercel Inc.(미국)가 앱을 호스팅합니다. 사이트에 접속하면 일반적인 웹 호스팅과 마찬가지로 IP 주소 등 접속 기술 정보를 받습니다.',
           '카카오 주식회사(대한민국)가 제보 양식에서 식당 이름을 입력하는 동안 보여지는 장소 검색을 제공합니다. 입력한 글자는 이용자의 브라우저가 아니라 저희 서버를 통해 카카오로 전달되므로, 카카오는 이용자의 IP 주소를 받지 않습니다.',
-          'Supabase Inc.(미국)가 이용자가 보낸 제보를 저장합니다.',
+          'Supabase Inc.(미국)가 이용자가 보낸 제보를 저장하며, 로그인한 경우에는 계정 정보(이메일 주소, 계정 ID)와 저장·방문 표시한 장소도 저장합니다. 로그인하지 않은 상태에서도 브라우저는 Google 로그인이 켜져 있는지 확인하기 위해 Supabase에 직접 요청을 보내며, 이때 IP 주소가 전달되지만 그 밖의 정보는 전달되지 않습니다.',
+          'Google LLC(미국)는 Supabase를 통해 이용자가 로그인을 선택할 경우의 로그인 제공자입니다. Google은 Supabase에 이메일 주소와 계정 ID를 전달하며, 저희는 이용자의 Google 비밀번호를 알 수 없습니다.',
           'Google Fonts(Google LLC, 미국)가 글꼴을, OpenStreetMap이 지도 이미지를 제공합니다. 브라우저가 이를 직접 불러오므로 해당 서비스에 IP 주소가 전달됩니다.',
           'Google 지도, 네이버 지도, 카카오맵, 식당 웹사이트로 연결되는 링크를 누르면 해당 서비스로 이동하며, 그곳에서는 각 서비스의 개인정보처리방침이 적용됩니다.',
         ],
       },
       {
         heading: '이용자의 권리',
-        text: '보낸 제보나 함께 적은 이메일 주소의 열람, 정정, 삭제를 요청할 수 있습니다. 기기에 저장된 정보는 언제든 직접 삭제할 수 있습니다.',
+        text: '보낸 제보나 함께 적은 이메일 주소의 열람, 정정, 삭제를 요청할 수 있습니다. 기기에 저장된 정보는 언제든 직접 삭제할 수 있습니다. 로그인한 경우, 프로필의 "내 저장 장소 삭제"는 저장·방문·저장 해제 기록을 포함해 계정과 이 기기의 장소 기록을 모두 삭제합니다 — 다만 여전히 로그인된 다른 기기가 보관한 기록을 다시 올릴 수 있으므로, 그 기기에서 먼저 로그아웃해 주세요. 이용자의 Google 계정 자체는 삭제되지 않습니다 — 이 앱이 보관 중인 로그인 기록만 삭제하려면 아래 주소로 연락해 주세요.',
       },
       {
         heading: '방침의 변경',

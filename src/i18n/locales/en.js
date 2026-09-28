@@ -91,13 +91,25 @@ export default {
     privacyPolicy: 'Privacy Policy',
     settingsTitle: 'Settings',
     settingsSubtitle: 'Manage your preferences and app settings.',
-    foodPreferences: 'Food Preferences',
-    dietaryPreferences: 'Dietary Preferences',
-    savedPlaces: 'Saved Places',
-    notSet: 'Not set',
-    viewJournal: 'View Journal',
     aboutApp: 'About K-Food Map',
     version: 'v1.0',
+    signInGoogle: 'Sign in with Google',
+    passport: 'Passport',
+    custodyDevice: 'On this device only',
+    custodyDeviceHint: 'Sign in to carry these to your other devices.',
+    custodyAccount: 'Carried to your account',
+    accountSection: 'Account',
+    signOut: 'Sign out',
+    signOutHint: 'Clears this device',
+    deleteRecords: 'Delete my saved places',
+    // Honest about what a delete can and cannot reach. The DELETE is real —
+    // the rows leave the account — but another device that is still signed
+    // in holds its own copy and will upload it on its next sync, so
+    // "cannot be undone" was a promise this app is not in a position to
+    // make. src/data/privacy.js says the same thing in both languages.
+    deleteRecordsConfirm: 'This deletes your saved, visited and unsaved-place records from your account, and clears this device. Another device where you are still signed in can upload what it still holds — sign out there first.',
+    syncFailed: "Couldn't sync — your records are safe on this device",
+    sessionEnded: 'Your sign-in ended — sign in again to restore your saved places',
   },
   submit: {
     titleNew: 'Suggest a restaurant',

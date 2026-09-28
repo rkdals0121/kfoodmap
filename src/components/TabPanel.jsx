@@ -134,17 +134,43 @@ function LanguagePicker({ onClose }) {
   );
 }
 
-function ProfileTab({ onNavigate }) {
+// Everything about accounts arrives as props — this file stays free of
+// Supabase imports, so the Profile tab renders identically in a build where
+// sync does not exist.
+function ProfileTab({
+  onNavigate, session, googleReady, onSignIn, onSignOut, onDeleteRecords,
+  lastSyncFailed, sessionEnded, savedCount, visitedCount,
+}) {
   const { t, i18n } = useTranslation();
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
   const navigate = useNavigate();
   const currentLanguage = LANGUAGES.find(l => l.code === i18n.language) ?? LANGUAGES[0];
 
+  const confirmThenDelete = () => {
+    if (window.confirm(t('profile.deleteRecordsConfirm'))) onDeleteRecords();
+  };
+
+  // googleReady gates the sign-in control and nothing else: a button that
+  // cannot work is worse than no button. It must NOT gate the signed-in
+  // state — googleEnabled answers false on any error, and a restored session
+  // plus one flaky readiness probe would otherwise leave someone signed in
+  // and syncing with no email shown, no sign-out and no way to stop it.
+  //
+  // `sessionEnded` opens the control even when googleReady is false. That is
+  // not a weakening of the gate: a session existed on this device a moment
+  // ago, which is proof the provider IS configured, so a false probe there is
+  // the answer googleEnabled gives on any error — and without this the person
+  // is left with an emptied Journal, the sentence explaining it, and no way
+  // to act on either.
+  const canSignIn = (googleReady || sessionEnded) && !session;
+
+  // Only rows that do something. "Food Preferences" and "Dietary Preferences"
+  // used to sit here reading "Not set" and doing nothing on tap, and a saved-
+  // places row duplicated both the Journal tab and the counts above it. In an
+  // app that refuses to show a dietary claim it cannot back, a control that
+  // does nothing is the same class of untruth.
   const settings = [
     { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: '🌐', action: () => setLanguagePickerOpen(true) },
-    { label: t('profile.foodPreferences'), value: t('profile.notSet'), icon: '🍲' },
-    { label: t('profile.dietaryPreferences'), value: t('profile.notSet'), icon: '🌱' },
-    { label: t('profile.savedPlaces'), value: t('profile.viewJournal'), icon: '❤️', action: () => onNavigate('journal') },
     { label: t('profile.suggestRestaurant'), value: '', icon: '📍', action: () => navigate('/submit') },
     { label: t('profile.aboutApp'), value: t('profile.version'), icon: 'ℹ️' },
     { label: t('profile.privacyPolicy'), value: '', icon: '🔒', action: () => navigate('/privacy') },
@@ -157,6 +183,53 @@ function ProfileTab({ onNavigate }) {
         <h2>{t('profile.settingsTitle')}</h2>
         <p>{t('profile.settingsSubtitle')}</p>
       </div>
+
+      {/* The question this screen exists to answer — where the saved places
+          live, and whether losing this phone loses them. It borrows the
+          Journal's passport cover deliberately: same object, different
+          question, so the two screens read as one thing seen twice. */}
+      <div className="profile-custody">
+        <span className="profile-custody__eyebrow">{t('profile.passport')}</span>
+        <h3 className="profile-custody__title">
+          {session ? t('profile.custodyAccount') : t('profile.custodyDevice')}
+        </h3>
+        {session
+          ? <p className="profile-custody__line">{session.user?.email}</p>
+          : <p className="profile-custody__line">{t('profile.custodyDeviceHint')}</p>}
+
+        <button
+          type="button"
+          className="profile-custody__stats"
+          onClick={() => onNavigate('journal')}
+        >
+          <span className="profile-custody__stat">
+            <strong>{savedCount}</strong> {t('journal.saved')}
+          </span>
+          <span className="profile-custody__stat">
+            <strong>{visitedCount}</strong> {t('journal.visited')}
+          </span>
+          <ChevronRightIcon size={16} />
+        </button>
+
+        {canSignIn && (
+          <button type="button" className="profile-custody__cta" onClick={onSignIn}>
+            {t('profile.signInGoogle')}
+          </button>
+        )}
+      </div>
+
+      {/* Said before anything else on this screen, because it is the reason
+          the Journal is empty and the reason to press sign in. Shown only
+          while signed out; signing in again clears it. */}
+      {sessionEnded && !session && (
+        <p className="profile-notice profile-notice--warn" role="status">{t('profile.sessionEnded')}</p>
+      )}
+      {/* Said plainly, and never instead of the places: they are still here,
+          it is the sync that failed. Only a signed-in device syncs, so only a
+          signed-in device can say this. */}
+      {session && lastSyncFailed && (
+        <p className="profile-notice profile-notice--warn" role="status">{t('profile.syncFailed')}</p>
+      )}
 
       <div className="settings-list">
         {settings.map((item, idx) => (
@@ -171,13 +244,52 @@ function ProfileTab({ onNavigate }) {
         ))}
       </div>
 
+      {session && (
+        <div className="settings-list settings-list--account">
+          <span className="settings-section-label">{t('profile.accountSection')}</span>
+          <div className="settings-item" onClick={onSignOut}>
+            <span className="settings-icon">🚪</span>
+            <div className="settings-text">
+              <span className="settings-label">{t('profile.signOut')}</span>
+            </div>
+            <span className="settings-value">{t('profile.signOutHint')}</span>
+            <ChevronRightIcon size={18} />
+          </div>
+          <div className="settings-item settings-item--danger" onClick={confirmThenDelete}>
+            <span className="settings-icon">🗑️</span>
+            <div className="settings-text">
+              <span className="settings-label">{t('profile.deleteRecords')}</span>
+            </div>
+            <ChevronRightIcon size={18} />
+          </div>
+        </div>
+      )}
+
       {languagePickerOpen && <LanguagePicker onClose={() => setLanguagePickerOpen(false)} />}
     </section>
   );
 }
 
-export default function TabPanel({ tab, onNavigate }) {
+export default function TabPanel({
+  tab, onNavigate, session, googleReady, onSignIn, onSignOut, onDeleteRecords,
+  lastSyncFailed, sessionEnded, savedCount, visitedCount,
+}) {
   if (tab === 'discover') return <DiscoverTab onNavigate={onNavigate} />;
-  if (tab === 'profile') return <ProfileTab onNavigate={onNavigate} />;
+  if (tab === 'profile') {
+    return (
+      <ProfileTab
+        onNavigate={onNavigate}
+        session={session}
+        googleReady={googleReady}
+        onSignIn={onSignIn}
+        onSignOut={onSignOut}
+        onDeleteRecords={onDeleteRecords}
+        lastSyncFailed={lastSyncFailed}
+        sessionEnded={sessionEnded}
+        savedCount={savedCount}
+        visitedCount={visitedCount}
+      />
+    );
+  }
   return null;
 }
