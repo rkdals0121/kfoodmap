@@ -90,7 +90,9 @@ The full dataset (52 rows) was re-downloaded and every row for the ten cities be
 - Pyeongtaek: 스파이스빌리지 (쇼핑로 17-1)
 - Osan: 이타지마할인디안레스토랑 (대원로 8-8)
 - Hwaseong: 갠지스 동탄점 (동탄공원로2길 33-11)
-The DiningCode probe 404'd on the first try; the Kakao place page's review dates may be an easier route.
+**Why it stalled, so the next round does not repeat it:** both DiningCode's search results and Kakao's place pages are rendered client-side. WebFetch and curl return the page shell — the title, or a generic "popular nearby" JSON block — never the reviews, so no review date can be read that way. Researchers in batch 3 got past this by driving the **built-in browser** (it runs the page's JavaScript) for DiningCode; do that. A guessed Kakao review endpoint (`place.map.kakao.com/main/v/<id>`) returns 404.
+
+A second note: the researcher first reported stopping at its 12-minute limit after 2 minutes 45 seconds. Check a subagent's reported elapsed time against the harness's duration before accepting "out of time" as the reason nothing shipped.
 
 NOT PROPOSED: Paju 더히말라얀 금촌점 (dataset 새꽃로 194 vs Kakao 196 — a disagreement); Anyang 긴자인도레스토랑 (the Anyang address is not on Kakao; the name resolves only to a Gunpo location).
 UNTRIED: Bucheon 안나푸르나, Uijeongbu 두르가, and Gimpo's four rows (KB케밥&닭강정, FORTUNE, 말리오보로, 할랄 인디안 레스토랑).
