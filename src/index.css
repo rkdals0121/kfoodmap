@@ -2844,3 +2844,24 @@ button {
 .k-cluster-popup button:focus-visible {
   color: var(--green);
 }
+
+/* "Show more" at the end of the place list; also the scroll sentinel that
+   loads the next page automatically (BottomSheetList). */
+.place-list__more {
+  display: block;
+  width: 100%;
+  margin: 4px 0 16px;
+  padding: 12px;
+  border: 1px solid #EAECF0;
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green);
+  cursor: pointer;
+}
+.place-list__more:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}

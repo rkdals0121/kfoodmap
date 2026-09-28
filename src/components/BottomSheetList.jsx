@@ -1,10 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
 import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import { TRAIT_GROUPS } from '../filters';
+
+// How many cards the list draws at a time (see BottomSheetList).
+const PAGE = 40;
 
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
@@ -109,6 +112,25 @@ export default function BottomSheetList({
       .sort((a, b) => a.distanceKm - b.distanceKm),
   [restaurants, mapCenter]);
 
+  // Draw the nearest PAGE cards and add more as the end of the list scrolls
+  // into view. With 385 places, re-rendering every card on each map move
+  // (the list re-sorts by the map's centre) was the main cost of panning.
+  // A new search or filter starts from the top again; a map move keeps what
+  // has been opened so far.
+  const [shown, setShown] = useState(PAGE);
+  useEffect(() => { setShown(PAGE); }, [restaurants]);
+  const sentinelRef = useRef(null);
+  const hasMore = shown < sorted.length;
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el || !hasMore || typeof IntersectionObserver === 'undefined') return undefined;
+    const io = new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) setShown(s => s + PAGE);
+    }, { rootMargin: '400px 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [hasMore, shown]);
+
   return (
     <div className="place-list">
       <div className="place-list__header">
@@ -125,7 +147,7 @@ export default function BottomSheetList({
         </p>
       )}
 
-      {sorted.map(r => (
+      {sorted.slice(0, shown).map(r => (
         <PlaceCard
           key={r.id}
           place={r}
@@ -137,6 +159,12 @@ export default function BottomSheetList({
           mapCenter={mapCenter}
         />
       ))}
+
+      {hasMore && (
+        <button type="button" ref={sentinelRef} className="place-list__more" onClick={() => setShown(s => s + PAGE)}>
+          {t('list.showMore', { count: Math.min(PAGE, sorted.length - shown) })}
+        </button>
+      )}
 
       {sorted.length === 0 && (
         <div className="place-list__empty">

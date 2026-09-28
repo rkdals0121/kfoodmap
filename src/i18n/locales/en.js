@@ -76,6 +76,7 @@ export default {
     // since a key move would churn every future locale file for naming only.
     saveAria: 'Save {{name}} to journal',
     removeAria: 'Remove {{name}} from journal',
+    showMore: 'Show {{count}} more',
   },
   discover: {
     journeysTitle: 'Food Journeys',
