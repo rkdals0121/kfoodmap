@@ -1998,9 +1998,11 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     Kakao Map agree) could not run, and coordinates rest on Kakao alone. The
     first job when Naver is reachable again is to cross-check those places and
     promote the ones that agree. The research log for every round — what was
-    accepted, held and rejected, and why — is `.superpowers/data-expansion/
-    RULINGS.md` (gitignored scratch; the reasons also live in each commit
-    message). The session's WebSearch quota (200 calls) ran out during the
+    accepted, held and rejected, and why — is `docs/data-expansion/RULINGS.md`,
+    and the brief every researcher worked from is
+    `docs/data-expansion/BRIEF.md`; reuse it for the next round rather than
+    rewriting it, because each of its rules is there because a researcher broke
+    it. The session's WebSearch quota (200 calls) ran out during the
     third batch; later researchers worked from WebFetch, Kakao and government
     datasets instead.
     - Held for a later round, each with a stated reason: Nimat at Terminal 1
