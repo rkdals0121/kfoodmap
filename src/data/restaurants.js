@@ -68738,4 +68738,3450 @@ export const restaurants = [
     "story": "New York Lots O' Bagels bakes New York-style bagels with organic flour and a long rise. The owner says the bagels contain no butter, milk or eggs; the plain and rice bagels are on the current menu, and HappyCow also names whole-wheat, fig, oat and cranberry bagels. Sandwiches and spreads include egg, bacon, cheese and salmon, so ask about fillings. It is an eight-minute walk from Apgujeong Rodeo Station.",
     "image": "/images/vegan_cafe.svg"
   },
+  // Seoul Metropolitan Government vegetarian register — northern and central districts (dish-level vegan marks → options).
+  {
+    "id": "jaedong-maetdol-sundubu",
+    "name": "Jaedong Maetdol Sundubu (재동맷돌순두부)",
+    "zone": "Jae-dong, Jongno-gu, Seoul (near Bukchon)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.57784087712004,
+        "lng": 126.98607550910071
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '재동맷돌순두부' to 37.577841, 126.986076 (destination point of the route from 안국역 2번출구 (Line 3)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 6 Bukchon-ro 2-gil, Jongno-gu, Seoul (Jae-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8064601",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 8064601): '서울 종로구 북촌로2길 6 1층 (재동)' (jibun 재동 84-11). Seoul's vegetarian register gives '서울 종로구 북촌로2길 6'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chodang-style soft tofu stew (초당순두부)",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8064601",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 15 items, last edited 2025-02-17. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-747-0011",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8064601",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Anguk",
+        "line": "Line 3",
+        "exit": "2",
+        "walkingMinutes": 2,
+        "distanceM": 119
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안국역 2번출구 (Line 3) to 재동맷돌순두부: 119 m / 109 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 종로구, fetched twice with identical rows) lists: '재동순두부 | 한식 | 02-747-0011 | 서울 종로구 북촌로2길 6 | 초당순두부(비건), 해물순두부(페스코), 돌솥비빔밥(비건), 돌솥비빔밥(오보), 비빔밥(오보), 콩국수(오보)'. Its vegan-marked dishes (초당순두부, 돌솥비빔밥) are all on the current Kakao Map menu (초당순두부, item edited 2025-02-17; menu last edited 2025-02-17). The register rates 돌솥비빔밥 twice, once '(비건)' and once '(오보)', so that dish is not named as vegan here. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2025-08-25; blog reviews listed on its Kakao page dated 2025-10-02 and 2024-08-11."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/8064601",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 생삼겹살 and 생목살 (fresh pork belly and pork neck). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A soft-tofu house on a Bukchon side street with one tofu stew the city lists as vegan.",
+    "story": "Jaedong Maetdol Sundubu is a tofu restaurant on a small street off Bukchon-ro, two minutes from Anguk Station. Seoul's vegetarian register lists its Chodang-style soft tofu stew as vegan. The rest of the menu includes seafood tofu stew, tofu with kimchi, pancakes and grilled pork.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "onmaeul-samcheong",
+    "name": "Onmaeul (온마을)",
+    "zone": "Samcheong-dong, Jongno-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.58667179667836,
+        "lng": 126.98155975833916
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '온마을' to 37.586672, 126.981560 (destination point of the route from 안국역 1번출구 (Line 3)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F–3F, 127 Samcheong-ro, Jongno-gu, Seoul (Samcheong-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16533244",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 16533244): '서울 종로구 삼청로 127 2-3층 (삼청동)' (jibun 삼청동 123). Seoul's vegetarian register gives '서울 종로구 삼청로 127'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Perilla-seed vegetable hot pot (들깨야채전골)",
+          "price": "15,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16533244",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 14 items, last edited 2026-05-08. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-738-4231",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16533244",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Anguk",
+        "line": "Line 3",
+        "exit": "1",
+        "walkingMinutes": 27,
+        "distanceM": 1726
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안국역 1번출구 (Line 3) to 온마을: 1726 m / 1625 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 종로구, fetched twice with identical rows) lists: '온마을 | 한식 | 02-738-4231 | 서울 종로구 삼청로 127 | 들깨야채 전골(비건)'. Its vegan-marked dishes (들깨야채 전골) are all on the current Kakao Map menu (들깨야채전골, item edited 2026-05-07; menu last edited 2026-05-08). A Kakao review dated 2026-09-06 describes a visit with a vegetarian friend and says staff explained that one of the other hot pots uses a meat-based broth. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-09-06; blog reviews listed on its Kakao page dated 2025-07-06 and 2025-06-02."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/16533244",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육김치볶음 (stir-fried pork with kimchi) and 두부오삼김치볶음 (squid and pork belly). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A tofu restaurant at the top of Samcheong-dong with a perilla-seed vegetable hot pot the city lists as vegan.",
+    "story": "Onmaeul is a tofu restaurant on the upper floors of a building on Samcheong-ro. Seoul's vegetarian register lists its perilla-seed vegetable hot pot as vegan. Other hot pots, a pork stir-fry, grilled pollock and a seafood pancake are also on the menu, so ask which broth a dish uses. It is about a 27-minute walk from Anguk Station.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "mokwon-seochon-garak",
+    "name": "Mokwon Seochon Garak (목원의서촌가락)",
+    "zone": "Nuha-dong, Jongno-gu, Seoul (Seochon)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5798775302347,
+        "lng": 126.969197734622
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '목원의서촌가락' to 37.579878, 126.969198 (destination point of the route from 경복궁역 2번출구 (Line 3)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 59 Jahamun-ro 7-gil, Jongno-gu, Seoul (Nuha-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1393558314",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 1393558314): '서울 종로구 자하문로7길 59 1층 (누하동)' (jibun 누하동 31). Seoul's vegetarian register gives '서울 종로구 자하문로7길 59'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Gondre (thistle) rice (곤드레나물밥)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "Mountain-vegetable dumplings (산채만두)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "Spicy young-radish noodles (열무비빔국수)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "Potato pancake (감자전)",
+          "price": "20,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1393558314",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 19 items, last edited 2026-04-29. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-739-5559",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1393558314",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Gyeongbokgung",
+        "line": "Line 3",
+        "exit": "2",
+        "walkingMinutes": 9,
+        "distanceM": 577
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 경복궁역 2번출구 (Line 3) to 목원의서촌가락: 577 m / 558 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 종로구, fetched twice with identical rows) lists: '서촌가락 | 술집 | 02-739-5559 | 서울 종로구 자하문로7길 59 | 곤드레나물밥(비건), 산채만두(비건), 열무비빔국수(비건), 감자전(비건)'. Its vegan-marked dishes (곤드레나물밥, 산채만두, 열무비빔국수, 감자전) are all on the current Kakao Map menu (곤드레나물밥, item edited 2026-03-17; 산채만두, item edited 2026-03-17; 열무비빔국수, item edited 2026-03-17; 감자전, item edited 2026-03-17; menu last edited 2026-04-29). The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-05-20; blog reviews listed on its Kakao page dated 2025-09-24 and 2024-05-20."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found. The menu also has 편육 (pressed boiled meat, animal not stated) and seafood dishes."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Seochon noodle and makgeolli house with four dishes the city lists as vegan.",
+    "story": "Mokwon Seochon Garak is a small noodle house and drinking spot in Seochon, west of Gyeongbokgung. Seoul's vegetarian register lists four of its dishes as vegan: gondre rice, mountain-vegetable dumplings, spicy young-radish noodles and a potato pancake. The rest of the menu includes seafood, dried fish and boiled meat. It is a nine-minute walk from Gyeongbokgung Station.",
+    "esg_point": null,
+    "image": "/images/noodles.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "midang-sundubu-jongno",
+    "name": "Midang Sundubu (미당순두부)",
+    "zone": "Gwancheol-dong, Jongno-gu, Seoul (near Jonggak)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.56865455700842,
+        "lng": 126.98812601879465
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '미당순두부' to 37.568655, 126.988126 (destination point of the route from 을지로3가역 1번출구 (Line 2)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F–2F, 97-12 Cheonggyecheon-ro, Jongno-gu, Seoul (Gwancheol-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/15698210",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 15698210): '서울 종로구 청계천로 97-12 1-2층 (관철동)' (jibun 관철동 33-13). Seoul's vegetarian register gives '서울 종로구 청계천로 97-12'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Plain soft tofu stew (토속순두부)",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/15698210",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 18 items, last edited 2026-01-09. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-2277-8090",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/15698210",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Euljiro 3-ga",
+        "line": "Line 2 / Line 3",
+        "exit": "1",
+        "walkingMinutes": 7,
+        "distanceM": 424
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 을지로3가역 1번출구 (Line 2) to 미당순두부: 424 m / 434 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 종로구, fetched twice with identical rows) lists: '미당순두부 | 한식 | 02-2277-8090 | 서울 종로구 청계천로 97-12 | 토속순두부(비건), 콩국수(오보,비건가능), 해물순두부(페스코), 청국장(페스코), 된장찌개(페스코), 두부버섯전골(페스코)'. Its vegan-marked dishes (토속순두부) are all on the current Kakao Map menu (토속순두부, item edited 2025-07-21; menu last edited 2026-01-09). The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2025-07-07; blog reviews listed on its Kakao page dated 2026-09-15 and 2026-08-03."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/15698210",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육순두부 and 두부김치수육 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A tofu house by the Cheonggyecheon stream with a plain soft tofu stew the city lists as vegan.",
+    "story": "Midang Sundubu is a tofu restaurant on Cheonggyecheon-ro near Jonggak. Seoul's vegetarian register lists its plain soft tofu stew, 토속순두부, as vegan. The other stews and hot pots use seafood, pork or fermented-soybean broths. It is a seven-minute walk from Euljiro 3-ga Station.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "gangnam-gyoja-ttukseom",
+    "name": "Gangnam Gyoja, Ttukseom Station (강남교자 뚝섬역점)",
+    "zone": "Seongsu-dong 1-ga, Seongdong-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.545954516854344,
+        "lng": 127.04840150029595
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '강남교자 뚝섬역점' to 37.545955, 127.048402 (destination point of the route from 뚝섬역 5번출구 (Line 2)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "Unit 110, 1F, 26 Sangwon 1-gil, Seongdong-gu, Seoul (Seongsu-dong 1-ga)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1386254788",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 1386254788): '서울 성동구 상원1길 26 1층 110호 (성수동1가)' (jibun 성수동1가 656-591). Seoul's vegetarian register gives '서울 성동구 상원1길 26  서울숲A타워 1층'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Cold soybean-milk noodles (seasonal) (콩국수 (계절메뉴))",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1386254788",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 14 items, last edited 2026-04-15. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-6077-7040",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1386254788",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Ttukseom",
+        "line": "Line 2",
+        "exit": "5",
+        "walkingMinutes": 2,
+        "distanceM": 118
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 뚝섬역 5번출구 (Line 2) to 강남교자 뚝섬역점: 118 m / 108 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 성동구, fetched twice with identical rows) lists: '강남교자 (뚝섬) | 한식 | 02-6077-7040 | 서울 성동구 상원1길 26  서울숲A타워 1층 | 비빔국수(일반식,비건가능), 콩국수(비건)'. Its vegan-marked dishes (콩국수) are all on the current Kakao Map menu (콩국수 (계절메뉴), item edited 2026-04-15; menu last edited 2026-04-15). Kakao marks the soybean noodles as a seasonal dish (계절메뉴). The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2025-04-08; blog reviews listed on its Kakao page dated 2026-09-20 and 2026-09-18."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/1386254788",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 알뜰보쌈 (boiled pork). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A kalguksu shop by Ttukseom Station whose seasonal soybean noodles the city lists as vegan.",
+    "story": "This branch of Gangnam Gyoja, a kalguksu (knife-cut noodle) restaurant, is two minutes from Ttukseom Station. Seoul's vegetarian register lists its cold soybean-milk noodles as vegan. The shop marks them as a seasonal dish, so they may not be served all year. The rest of the menu includes dumplings, chicken soup, beef-bone soup and boiled pork.",
+    "esg_point": null,
+    "image": "/images/noodles.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "okrumong-sinchon",
+    "name": "Okrumong, Sinchon (옥루몽 신촌본점)",
+    "zone": "Daesin-dong, Seodaemun-gu, Seoul (near Yonsei University)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.563383440636,
+        "lng": 126.943538615883
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '옥루몽 신촌본점' to 37.563383, 126.943539 (destination point of the route from 신촌역 (Gyeongui–Jungang Line)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "LOFT 1F, 18 Yeondaedongmun-gil, Seodaemun-gu, Seoul (Daesin-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/19645541",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 19645541): '서울 서대문구 연대동문길 18 LOFT 1층 (대신동)' (jibun 대신동 50-3). Seoul's vegetarian register gives '서울 서대문구 연대동문길 18'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Traditional red bean porridge (가마솥 전통팥죽)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (가마솥 단호박죽)",
+          "price": "13,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/19645541",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 20 items, last edited 2026-06-30. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-312-0015",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/19645541",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Sinchon",
+        "line": "Gyeongui–Jungang Line",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 701
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 신촌역 (Gyeongui–Jungang Line) to 옥루몽 신촌본점: 701 m / 677 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 서대문구, fetched twice with identical rows) lists: '옥루몽 (신촌본점) | 한식 | 02-312-0015 | 서울 서대문구 연대동문길 18 | 팥죽(비건),단호박죽 (비건)'. Its vegan-marked dishes (팥죽, 단호박죽) are all on the current Kakao Map menu (가마솥 전통팥죽, item edited 2025-08-25; 가마솥 단호박죽, item edited 2026-06-30; menu last edited 2026-06-30). The register says '팥죽'; the menu has both 가마솥 전통팥죽 (red bean porridge) and 가마솥 단팥죽 (sweet red bean porridge), and only the first is matched to it. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-06-29; blog reviews listed on its Kakao page dated 2026-09-12 and 2026-09-03."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Korean bingsu and porridge café near Yonsei with red bean and pumpkin porridge the city lists as vegan.",
+    "story": "Okrumong in Sinchon is a Korean dessert café that makes bingsu with red beans cooked in an iron cauldron. Seoul's vegetarian register lists its red bean porridge and sweet pumpkin porridge as vegan. The menu also has bingsu, rice cakes, red-bean breads and coffee. It is an 11-minute walk from Sinchon Station on the Gyeongui–Jungang Line.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "jayeon-bapsang-imun",
+    "name": "Jayeon Bapsang (자연밥상)",
+    "zone": "Imun-dong, Dongdaemun-gu, Seoul (near HUFS)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5993830717664,
+        "lng": 127.0574307326
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '자연밥상' to 37.599383, 127.057431 (destination point of the route from 외대앞역 (Line 1)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 39 Cheonjangsan-ro, Dongdaemun-gu, Seoul (Imun-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2139343456",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 2139343456): '서울 동대문구 천장산로 39 1층 (이문동)' (jibun 이문동 264-205). Seoul's vegetarian register gives '서울 동대문구 천장산로 39'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Perilla-seed sauce bibimbap (들깨장 비빔밥)",
+          "price": "9,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2139343456",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 8 items, last edited 2026-07-10. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-960-4369",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2139343456",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Hankuk Univ. of Foreign Studies",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 15,
+        "distanceM": 924
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 외대앞역 (Line 1) to 자연밥상: 924 m / 894 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 동대문구, fetched twice with identical rows) lists: '자연밥상 | 한식 | 02-960-4369 | 서울 동대문구 천장산로 39 | 들깨장비빔밥(비건),두부비빔밥(일반식,비건가능)'. Its vegan-marked dishes (들깨장비빔밥) are all on the current Kakao Map menu (들깨장 비빔밥, item edited 2026-07-10; menu last edited 2026-07-10). The register rates its tofu bibimbap '(일반식,비건가능)' (vegan on request); only the perilla-seed bibimbap is named here. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-06-04; blog reviews listed on its Kakao page dated 2026-01-23 and 2025-07-05."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/2139343456",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 순살 제육 (stir-fried pork) and 순살 김치찌개. No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A home-cooking restaurant near HUFS with a perilla-seed bibimbap the city lists as vegan.",
+    "story": "Jayeon Bapsang is a small Korean home-cooking restaurant behind Hankuk University of Foreign Studies. Seoul's vegetarian register lists its perilla-seed sauce bibimbap as vegan. The rest of the menu includes chicken-breast steaks, stir-fried pork and chicken soup. It is a 15-minute walk from the university's Line 1 station.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "kkotjebi-kalguksu-wolgye",
+    "name": "Kkotjebi Kalguksu (꽃제비칼국수)",
+    "zone": "Wolgye-dong, Nowon-gu, Seoul (near Kwangwoon University)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.6213083069597,
+        "lng": 127.05991694832
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '꽃제비칼국수' to 37.621308, 127.059917 (destination point of the route from 광운대역 (Line 1)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 13 Gwangun-ro 12-gil, Nowon-gu, Seoul (Wolgye-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16297377",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 16297377): '서울 노원구 광운로12길 13 1층 (월계동)' (jibun 월계동 407-16). Seoul's vegetarian register gives '서울 노원구 광운로12길 13'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Cold black-soybean noodles (서리태 냉콩국수)",
+          "price": "9,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16297377",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 24 items, last edited 2025-11-24. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-911-8371",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16297377",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Kwangwoon Univ.",
+        "line": "Line 1 / Gyeongchun Line",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 508
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 광운대역 (Line 1) to 꽃제비칼국수: 508 m / 521 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 노원구, fetched twice with identical rows) lists: '꽃제비칼국수 | 한식 | 02-911-8371 | 서울 노원구 광운로12길 13 | 바지락칼국수(페스코), 어묵칼국수(페스코), 들깨칼국수(페스코), 바지락수제비(페스코), 서리태냉콩국수(비건)'. Its vegan-marked dishes (서리태냉콩국수) are all on the current Kakao Map menu (서리태 냉콩국수, item edited 2025-09-24; menu last edited 2025-11-24). The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2025-04-18; blog reviews listed on its Kakao page dated 2025-04-19 and 2025-02-26."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found. The menu has chicken, clam and fish-cake dishes; the dumplings' filling is not stated."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A neighbourhood kalguksu shop near Kwangwoon University with cold black-soybean noodles the city lists as vegan.",
+    "story": "Kkotjebi Kalguksu is a neighbourhood noodle shop near Kwangwoon University. Seoul's vegetarian register lists its cold black-soybean noodles as vegan. The other noodle soups use clam, fish cake or chicken. It is a nine-minute walk from Kwangwoon Univ. Station.",
+    "esg_point": null,
+    "image": "/images/noodles.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "patdongdong-eunpyeong",
+    "name": "Patdongdong (팥동동)",
+    "zone": "Jingwan-dong, Eunpyeong-gu, Seoul (Eunpyeong Hanok Village)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.6380441151013,
+        "lng": 126.938315753669
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '팥동동' to 37.638044, 126.938316 (destination point of the route from 구파발역 (Line 3)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 31 Yeonseo-ro 48-gil, Eunpyeong-gu, Seoul (Jingwan-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/966115628",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 966115628): '서울 은평구 연서로48길 31 1층 (진관동)' (jibun 진관동 167-1). Seoul's vegetarian register gives '서울 은평구 연서로48길 31 1층'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge (팥죽)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Red bean noodle soup (팥칼국수)",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/966115628",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 8 items, last edited 2026-09-09. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 02-359-2223 and Seoul's vegetarian register gives 0507-1365-2223; they disagree, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Gupabal",
+        "line": "Line 3",
+        "exit": null,
+        "walkingMinutes": 35,
+        "distanceM": 2092
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 구파발역 (Line 3) to 팥동동: 2092 m / 2113 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 은평구, fetched twice with identical rows) lists: '팥동동 | 한식 | 0507-1365-2223 | 서울 은평구 연서로48길 31 1층 | 팥죽(비건),팥칼국수(비건),보리밥비빔밥(오보,비건가능)'. Its vegan-marked dishes (팥죽, 팥칼국수) are all on the current Kakao Map menu (팥죽, item edited 2025-02-10; 팥칼국수, item edited 2025-02-10; menu last edited 2026-09-09). The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2025-05-14; blog reviews listed on its Kakao page dated 2026-09-26 and 2026-09-13."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A red-bean porridge shop by Eunpyeong Hanok Village whose porridge and noodle soup the city lists as vegan.",
+    "story": "Patdongdong is a small red-bean restaurant near Eunpyeong Hanok Village. Seoul's vegetarian register lists its red bean porridge and red bean noodle soup as vegan. It also serves barley-rice bibimbap, soybean noodles, bingsu and traditional teas. It is about a 35-minute walk from Gupabal Station, so a bus or taxi for the last stretch is easier.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "hongdokkaebi-ewha",
+    "name": "Hongdokkaebi 2 (홍도깨비 2호점)",
+    "zone": "Daehyeon-dong, Seodaemun-gu, Seoul (near Ewha Womans University)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5575486093355,
+        "lng": 126.943588289345
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '홍도깨비 2호점' to 37.557549, 126.943588 (destination point of the route from 이대역 1번출구 (Line 2)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 42-8 Ewhayeodae 1-gil, Seodaemun-gu, Seoul (Daehyeon-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/15680461",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 15680461): '서울 서대문구 이화여대1길 42-8 1층 (대현동)' (jibun 대현동 90-54). Seoul's vegetarian register gives '서울 서대문구 이화여대1길 42-8'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Acorn jelly salad (도토리묵무침)",
+          "price": "16,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/15680461",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 21 items, last edited 2026-06-30. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only Seoul's undated vegetarian register gives a number (02-363-5060); Kakao Map lists none, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Ewha Womans Univ.",
+        "line": "Line 2",
+        "exit": "1",
+        "walkingMinutes": 4,
+        "distanceM": 280
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이대역 1번출구 (Line 2) to 홍도깨비 2호점: 280 m / 228 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 서대문구, fetched twice with identical rows) lists: '홍도깨비 | 술집 | 02-363-5060 | 서울 서대문구 이화여대1길 42-8 | 도토리묵무침(비건), 묵사발(페스코,비건가능), 솥뚜껑녹두전(일반식,비건가능)'. Its vegan-marked dishes (도토리묵무침) are all on the current Kakao Map menu (도토리묵무침, item edited 2024-06-11; menu last edited 2026-06-30). The register rates 묵사발 '(페스코,비건가능)' and 솥뚜껑녹두전 '(일반식,비건가능)'; neither is named as vegan here. The acorn jelly salad's own menu entry dates from 2024-06-11, within a menu last edited in 2026. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-06-05; blog reviews listed on its Kakao page dated 2025-10-18 and 2025-05-11."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found. This is a pub serving makgeolli, and the menu does not state the meat in its meatball and mixed pancakes."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Korean pancake-and-makgeolli pub near Ewha with an acorn jelly salad the city lists as vegan.",
+    "story": "Hongdokkaebi 2 is a jeon (Korean pancake) pub on a side street near Ewha Womans University, a four-minute walk from Ewha Womans Univ. Station. Seoul's vegetarian register lists its acorn jelly salad as vegan. Most of the menu is pancakes with fish, meat or seafood, stews and noodles to go with makgeolli.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "miltonia-mangwon",
+    "name": "Miltonia (밀토니아)",
+    "zone": "Hapjeong-dong, Mapo-gu, Seoul (near Mangwon)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.552437597962,
+        "lng": 126.90824274094
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '밀토니아' to 37.552438, 126.908243 (destination point of the route from 망원역 2번출구 (Line 6)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "Unit 2, 1F, 73 World Cup-ro 7-gil, Mapo-gu, Seoul (Hapjeong-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/299726194",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 299726194): '서울 마포구 월드컵로7길 73 1층 2호 (합정동)' (jibun 합정동 434-36). Seoul's vegetarian register gives '서울 마포구 월드컵로7길 73'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chestnut rye bread (마롱세이글)",
+          "price": "7,200 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/299726194",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 1 items, last edited 2025-08-27. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "010-2690-0683",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/299726194",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Mangwon",
+        "line": "Line 6",
+        "exit": "2",
+        "walkingMinutes": 10,
+        "distanceM": 642
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 망원역 2번출구 (Line 6) to 밀토니아: 642 m / 604 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 마포구, fetched twice with identical rows) lists: '밀토니아 | 카페 | 010-2690-0683 | 서울 마포구 월드컵로7길 73 | 마롱세이글(비건)'. Its vegan-marked dishes (마롱세이글) are all on the current Kakao Map menu (마롱세이글, item edited 2025-08-27; menu last edited 2025-08-27). Kakao's owner-registered menu lists only this one bread; reviews and blogs on the same page name other bakes (orange chocolate, chocolate baguette, kouign-amann, pumpkin pie) that the register does not rate. The register rates only this one item, and no source says the whole bakery is plant-based, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-06-13; blog reviews listed on its Kakao page dated 2026-08-25 and 2026-07-23."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small bakery between Mangwon and Hapjeong whose chestnut rye bread the city lists as vegan.",
+    "story": "Miltonia is a small bakery on a side street between Mangwon and Hapjeong. Seoul's vegetarian register lists one of its breads, a chestnut rye loaf (마롱세이글), as vegan. Its other breads and pastries are not rated, so ask before choosing anything else. It is a ten-minute walk from Mangwon Station.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bonjuk-bibimbap-konkuk",
+    "name": "Bonjuk & Bibimbap Cafe, Konkuk Univ. (본죽&비빔밥cafe 건대점)",
+    "zone": "Jayang-dong, Gwangjin-gu, Seoul (Konkuk Univ.)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.539509592676815,
+        "lng": 127.07009936014329
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '본죽&비빔밥cafe 건대점' to 37.539510, 127.070099 (destination point of the route from 건대입구역 5번출구 (Line 2)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 95 Neungdong-ro, Gwangjin-gu, Seoul (Jayang-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/10459946",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 10459946): '서울 광진구 능동로 95 2층 (자양동)' (jibun 자양동 1-2). Seoul's vegetarian register gives '서울 광진구 능동로 95'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge with rice balls (동지팥죽)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (단호박죽)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Mung bean porridge (녹두죽)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/10459946",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 64 items, last edited 2026-08-26. The same menu and edit time appear on other Bonjuk branches, so it is the chain's menu. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-469-6288",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/10459946",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only the chain's own site exists, not a branch page."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Konkuk Univ.",
+        "line": "Line 2 / Line 7",
+        "exit": "5",
+        "walkingMinutes": 1,
+        "distanceM": 72
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 건대입구역 5번출구 (Line 2) to 본죽&비빔밥cafe 건대점: 72 m / 64 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 광진구, fetched twice with identical rows) lists: '본죽&비빔밥cafe (건대) | 한식 | 02-469-6288 | 서울 광진구 능동로 95 | 특전복내장죽(페스코), 특전복죽(페스코), 진전복죽(페스코), 전복죽(페스코), 매생이굴죽(페스코), 낙지김치죽(페스코), 해물죽(페스코), 버섯굴죽(페스코), 새우죽(페스코), 참치야채죽(페스코), 6가지야채죽(일반식,비건가능), 동지팥죽(비건), 단호박죽(비건), 녹두죽(비건)'. Its vegan-marked dishes (동지팥죽, 단호박죽, 녹두죽) are all on the current Kakao Map menu (동지팥죽, item edited 2026-08-26; 단호박죽, item edited 2026-08-26; 녹두죽, item edited 2026-08-26; menu last edited 2026-08-26). The menu and its edit time are the same across Bonjuk branches, so it is the chain's menu. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2025-11-08; blog reviews listed on its Kakao page dated 2026-05-26 and 2026-03-28."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/10459946",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육볶음 and 열무돈불백비빔밥 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Bonjuk rice-porridge chain, with red bean, pumpkin and mung bean porridge the city lists as vegan.",
+    "story": "This branch of Bonjuk & Bibimbap Cafe, a Korean rice-porridge and bibimbap chain, is a minute from Konkuk Univ. Station. Seoul's vegetarian register lists three of its porridges as vegan: red bean porridge with rice balls, sweet pumpkin porridge and mung bean porridge. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bonjuk-bibimbap-taereung",
+    "name": "Bonjuk & Bibimbap Cafe, Taereung Station (본죽&비빔밥cafe 태릉입구역점)",
+    "zone": "Gongneung-dong, Nowon-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.6187981016413,
+        "lng": 127.075691081136
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '본죽&비빔밥cafe 태릉입구역점' to 37.618798, 127.075691 (destination point of the route from 태릉입구역 4번출구 (Line 7)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, Daehwa Building, 992 Dongil-ro, Nowon-gu, Seoul (Gongneung-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/755354039",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 755354039): '서울 노원구 동일로 992 대화빌딩 1층 (공릉동)' (jibun 공릉동 617-7). Seoul's vegetarian register gives '서울 노원구 동일로 992'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge with rice balls (동지팥죽)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (단호박죽)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Mung bean porridge (녹두죽)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/755354039",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 64 items, last edited 2026-08-26. The same menu and edit time appear on other Bonjuk branches, so it is the chain's menu. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-974-0101",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/755354039",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only the chain's own site exists, not a branch page."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Taereung",
+        "line": "Line 6 / Line 7",
+        "exit": "4",
+        "walkingMinutes": 1,
+        "distanceM": 56
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 태릉입구역 4번출구 (Line 7) to 본죽&비빔밥cafe 태릉입구역점: 56 m / 47 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 노원구, fetched twice with identical rows) lists: '본죽&비빔밥cafe (태릉입구역) | 한식 | 02-974-0101 | 서울 노원구 동일로 992 | 특전복내장죽(페스코), 특전복죽(페스코), 진전복죽(페스코), 전복죽(페스코), 매생이굴죽(페스코), 낙지김치죽(페스코), 해물죽(페스코), 버섯굴죽(페스코), 새우죽(페스코), 참치야채죽(페스코), 6가지야채죽(일반식,비건가능), 동지팥죽(비건), 단호박죽(비건), 녹두죽(비건)'. Its vegan-marked dishes (동지팥죽, 단호박죽, 녹두죽) are all on the current Kakao Map menu (동지팥죽, item edited 2026-08-26; 단호박죽, item edited 2026-08-26; 녹두죽, item edited 2026-08-26; menu last edited 2026-08-26). The menu and its edit time are the same across Bonjuk branches, so it is the chain's menu. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2025-11-16; blog reviews listed on its Kakao page dated 2025-10-27 and 2025-09-29."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/755354039",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육볶음 and 열무돈불백비빔밥 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Bonjuk rice-porridge chain, with red bean, pumpkin and mung bean porridge the city lists as vegan.",
+    "story": "This branch of Bonjuk & Bibimbap Cafe, a Korean rice-porridge and bibimbap chain, is a minute from Taereung Station. Seoul's vegetarian register lists three of its porridges as vegan: red bean porridge with rice balls, sweet pumpkin porridge and mung bean porridge. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bonjuk-bibimbap-janghanpyeong",
+    "name": "Bonjuk & Bibimbap Cafe, Janghanpyeong Station (본죽&비빔밥cafe 장한평역점)",
+    "zone": "Jangan-dong, Dongdaemun-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5617382786546,
+        "lng": 127.06671450944
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '본죽&비빔밥cafe 장한평역점' to 37.561738, 127.066715 (destination point of the route from 장한평역 4번출구 (Line 5)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 427-4 Cheonho-daero, Dongdaemun-gu, Seoul (Jangan-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21394867",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 21394867): '서울 동대문구 천호대로 427-4 1층 (장안동)' (jibun 장안동 465-1). Seoul's vegetarian register gives '서울 동대문구 천호대로 427-4'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge with rice balls (동지팥죽)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (단호박죽)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Mung bean porridge (녹두죽)",
+          "price": "9,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21394867",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 59 items, last edited 2026-06-30. The same menu and edit time appear on other Bonjuk branches, so it is the chain's menu. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-2244-6211",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21394867",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only the chain's own site exists, not a branch page."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Janghanpyeong",
+        "line": "Line 5",
+        "exit": "4",
+        "walkingMinutes": 2,
+        "distanceM": 163
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 장한평역 4번출구 (Line 5) to 본죽&비빔밥cafe 장한평역점: 163 m / 145 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 동대문구, fetched twice with identical rows) lists: '본죽&비빔밥cafe (장한평역) | 한식 | 02-2244-6211 | 서울 동대문구 천호대로 427-4 | 특전복내장죽(페스코), 특전복죽(페스코), 진전복죽(페스코), 전복죽(페스코), 매생이굴죽(페스코), 낙지김치죽(페스코), 해물죽(페스코), 버섯굴죽(페스코), 새우죽(페스코), 참치야채죽(페스코), 6가지야채죽(일반식,비건가능), 동지팥죽(비건), 단호박죽(비건), 녹두죽(비건)'. Its vegan-marked dishes (동지팥죽, 단호박죽, 녹두죽) are all on the current Kakao Map menu (동지팥죽, item edited 2025-09-22; 단호박죽, item edited 2026-06-30; 녹두죽, item edited 2025-09-22; menu last edited 2026-06-30). The menu and its edit time are the same across Bonjuk branches, so it is the chain's menu. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: blog reviews listed on its Kakao page dated 2026-08-10 and 2026-05-06."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/21394867",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육볶음 and 열무돈불백비빔밥 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Bonjuk rice-porridge chain, with red bean, pumpkin and mung bean porridge the city lists as vegan.",
+    "story": "This branch of Bonjuk & Bibimbap Cafe, a Korean rice-porridge and bibimbap chain, is a 2-minute walk from Janghanpyeong Station. Seoul's vegetarian register lists three of its porridges as vegan: red bean porridge with rice balls, sweet pumpkin porridge and mung bean porridge. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bonjuk-bibimbap-sinchon",
+    "name": "Bonjuk & Bibimbap Cafe, Sinchon (본죽&비빔밥cafe 신촌점)",
+    "zone": "Changcheon-dong, Seodaemun-gu, Seoul (Sinchon)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5575922653485,
+        "lng": 126.937254894627
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '본죽&비빔밥cafe 신촌점' to 37.557592, 126.937255 (destination point of the route from 신촌역 2번출구 (Line 2)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 20 Yonsei-ro, Seodaemun-gu, Seoul (Changcheon-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26556621",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 26556621): '서울 서대문구 연세로 20 2층 (창천동)' (jibun 창천동 9-20). Seoul's vegetarian register gives '서울 서대문구 연세로 20'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge with rice balls (동지팥죽)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (단호박죽)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Mung bean porridge (녹두죽)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26556621",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 64 items, last edited 2026-08-26. The same menu and edit time appear on other Bonjuk branches, so it is the chain's menu. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-312-6288",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26556621",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only the chain's own site exists, not a branch page."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Sinchon",
+        "line": "Line 2",
+        "exit": "2",
+        "walkingMinutes": 4,
+        "distanceM": 250
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 신촌역 2번출구 (Line 2) to 본죽&비빔밥cafe 신촌점: 250 m / 246 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 서대문구, fetched twice with identical rows) lists: '본죽&비빔밥cafe (신촌) | 한식 | 02-312-6288 | 서울 서대문구 연세로 20 | 특전복내장죽(페스코), 특전복죽(페스코), 진전복죽(페스코), 전복죽(페스코), 매생이굴죽(페스코), 낙지김치죽(페스코), 해물죽(페스코), 버섯굴죽(페스코), 새우죽(페스코), 참치야채죽(페스코), 6가지야채죽(일반식,비건가능), 동지팥죽(비건), 단호박죽(비건), 녹두죽(비건)'. Its vegan-marked dishes (동지팥죽, 단호박죽, 녹두죽) are all on the current Kakao Map menu (동지팥죽, item edited 2026-08-26; 단호박죽, item edited 2026-08-26; 녹두죽, item edited 2026-08-26; menu last edited 2026-08-26). The menu and its edit time are the same across Bonjuk branches, so it is the chain's menu. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-06-06; blog reviews listed on its Kakao page dated 2026-08-04 and 2026-06-14."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/26556621",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육볶음 and 열무돈불백비빔밥 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Bonjuk rice-porridge chain, with red bean, pumpkin and mung bean porridge the city lists as vegan.",
+    "story": "This branch of Bonjuk & Bibimbap Cafe, a Korean rice-porridge and bibimbap chain, is a 4-minute walk from Sinchon Station. Seoul's vegetarian register lists three of its porridges as vegan: red bean porridge with rice balls, sweet pumpkin porridge and mung bean porridge. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bonjuk-bibimbap-yeonhui",
+    "name": "Bonjuk & Bibimbap Cafe, Yeonhui (본죽&비빔밥cafe 연희점)",
+    "zone": "Yeonhui-dong, Seodaemun-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5667530225172,
+        "lng": 126.929830973809
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '본죽&비빔밥cafe 연희점' to 37.566753, 126.929831 (destination point of the route from 홍대입구역 3번출구 (AREX)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 18 Yeonhui-mat-ro, Seodaemun-gu, Seoul (Yeonhui-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/18299379",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 18299379): '서울 서대문구 연희맛로 18 1층 (연희동)' (jibun 연희동 188-65). Seoul's vegetarian register gives '서울 서대문구 연희맛로 18'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge with rice balls (동지팥죽)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (단호박죽)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Mung bean porridge (녹두죽)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/18299379",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 64 items, last edited 2026-08-26. The same menu and edit time appear on other Bonjuk branches, so it is the chain's menu. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-324-8866",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/18299379",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only the chain's own site exists, not a branch page."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Hongik Univ.",
+        "line": "Line 2 / Gyeongui–Jungang / AREX",
+        "exit": "3",
+        "walkingMinutes": 18,
+        "distanceM": 1148
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 홍대입구역 3번출구 (AREX) to 본죽&비빔밥cafe 연희점: 1148 m / 1099 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 서대문구, fetched twice with identical rows) lists: '본죽&비빔밥cafe (연희) | 한식 | 02-324-8866 | 서울 서대문구 연희맛로 18 | 특전복내장죽(페스코), 특전복죽(페스코), 진전복죽(페스코), 전복죽(페스코), 매생이굴죽(페스코), 낙지김치죽(페스코), 해물죽(페스코), 버섯굴죽(페스코), 새우죽(페스코), 참치야채죽(페스코), 6가지야채죽(일반식,비건가능), 동지팥죽(비건), 단호박죽(비건), 녹두죽(비건)'. Its vegan-marked dishes (동지팥죽, 단호박죽, 녹두죽) are all on the current Kakao Map menu (동지팥죽, item edited 2026-08-26; 단호박죽, item edited 2026-08-26; 녹두죽, item edited 2026-08-26; menu last edited 2026-08-26). The menu and its edit time are the same across Bonjuk branches, so it is the chain's menu. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-09-02; blog reviews listed on its Kakao page dated 2026-04-08 and 2025-10-31."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/18299379",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육볶음 and 열무돈불백비빔밥 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Bonjuk rice-porridge chain, with red bean, pumpkin and mung bean porridge the city lists as vegan.",
+    "story": "This branch of Bonjuk & Bibimbap Cafe, a Korean rice-porridge and bibimbap chain, is a 18-minute walk from Hongik Univ. Station. Seoul's vegetarian register lists three of its porridges as vegan: red bean porridge with rice balls, sweet pumpkin porridge and mung bean porridge. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bonjuk-bibimbap-sungshin",
+    "name": "Bonjuk & Bibimbap Cafe, Sungshin Women's Univ. (본죽&비빔밥cafe 성신여대점)",
+    "zone": "Dongseon-dong 1-ga, Seongbuk-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.59090830816109,
+        "lng": 127.0181525579406
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '본죽&비빔밥cafe 성신여대점' to 37.590908, 127.018153 (destination point of the route from 성신여대입구역 1번출구 (Line 4)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 51 Bomun-ro 34-gil, Seongbuk-gu, Seoul (Dongseon-dong 1-ga)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1717720309",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 1717720309): '서울 성북구 보문로34길 51 1층 (동선동1가)' (jibun 동선동1가 56). Seoul's vegetarian register gives '서울 성북구 보문로34길 51'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge with rice balls (동지팥죽)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (단호박죽)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Mung bean porridge (녹두죽)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1717720309",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 64 items, last edited 2026-08-26. The same menu and edit time appear on other Bonjuk branches, so it is the chain's menu. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-953-3500",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1717720309",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only the chain's own site exists, not a branch page."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Sungshin Women's Univ.",
+        "line": "Line 4 / Ui LRT",
+        "exit": "1",
+        "walkingMinutes": 6,
+        "distanceM": 397
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 성신여대입구역 1번출구 (Line 4) to 본죽&비빔밥cafe 성신여대점: 397 m / 347 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 성북구, fetched twice with identical rows) lists: '본죽&비빔밥cafe (성신여대) | 한식 | 02-953-3500 | 서울 성북구 보문로34길 51 | 특전복내장죽(페스코), 특전복죽(페스코), 진전복죽(페스코), 전복죽(페스코), 매생이굴죽(페스코), 낙지김치죽(페스코), 해물죽(페스코), 버섯굴죽(페스코), 새우죽(페스코), 참치야채죽(페스코), 6가지야채죽(일반식,비건가능), 동지팥죽(비건), 단호박죽(비건), 녹두죽(비건)'. Its vegan-marked dishes (동지팥죽, 단호박죽, 녹두죽) are all on the current Kakao Map menu (동지팥죽, item edited 2026-08-26; 단호박죽, item edited 2026-08-26; 녹두죽, item edited 2026-08-26; menu last edited 2026-08-26). The menu and its edit time are the same across Bonjuk branches, so it is the chain's menu. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2025-10-02; blog reviews listed on its Kakao page dated 2026-01-22 and 2025-11-17."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/1717720309",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육볶음 and 열무돈불백비빔밥 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Bonjuk rice-porridge chain, with red bean, pumpkin and mung bean porridge the city lists as vegan.",
+    "story": "This branch of Bonjuk & Bibimbap Cafe, a Korean rice-porridge and bibimbap chain, is a 6-minute walk from Sungshin Women's Univ. Station. Seoul's vegetarian register lists three of its porridges as vegan: red bean porridge with rice balls, sweet pumpkin porridge and mung bean porridge. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bonjuk-bibimbap-donam",
+    "name": "Bonjuk & Bibimbap Cafe, Donam-dong (본죽&비빔밥cafe 돈암동점)",
+    "zone": "Dongseon-dong 4-ga, Seongbuk-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.59344304238254,
+        "lng": 127.01649207671096
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '본죽&비빔밥cafe 돈암동점' to 37.593443, 127.016492 (destination point of the route from 성신여대입구역 6번출구 (Line 4)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 6-1 Arirang-ro, Seongbuk-gu, Seoul (Dongseon-dong 4-ga)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/23825103",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 23825103): '서울 성북구 아리랑로 6-1 1층 (동선동4가)' (jibun 동선동4가 12). Seoul's vegetarian register gives '서울 성북구 아리랑로 6-1'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge with rice balls (동지팥죽)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (단호박죽)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Mung bean porridge (녹두죽)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/23825103",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 64 items, last edited 2026-08-26. The same menu and edit time appear on other Bonjuk branches, so it is the chain's menu. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-928-8477",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/23825103",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only the chain's own site exists, not a branch page."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Sungshin Women's Univ.",
+        "line": "Line 4 / Ui LRT",
+        "exit": "6",
+        "walkingMinutes": 1,
+        "distanceM": 64
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 성신여대입구역 6번출구 (Line 4) to 본죽&비빔밥cafe 돈암동점: 64 m / 62 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 성북구, fetched twice with identical rows) lists: '본죽&비빔밥cafe (돈암동) | 한식 | 02-928-8477 | 서울 성북구 아리랑로 6-1 | 특전복내장죽(페스코), 특전복죽(페스코), 진전복죽(페스코), 전복죽(페스코), 매생이굴죽(페스코), 낙지김치죽(페스코), 해물죽(페스코), 버섯굴죽(페스코), 새우죽(페스코), 참치야채죽(페스코), 6가지야채죽(일반식,비건가능), 동지팥죽(비건), 단호박죽(비건), 녹두죽(비건)'. Its vegan-marked dishes (동지팥죽, 단호박죽, 녹두죽) are all on the current Kakao Map menu (동지팥죽, item edited 2026-08-26; 단호박죽, item edited 2026-08-26; 녹두죽, item edited 2026-08-26; menu last edited 2026-08-26). The menu and its edit time are the same across Bonjuk branches, so it is the chain's menu. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-08-14; blog reviews listed on its Kakao page dated 2026-04-08 and 2026-04-08."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/23825103",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육볶음 and 열무돈불백비빔밥 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Bonjuk rice-porridge chain, with red bean, pumpkin and mung bean porridge the city lists as vegan.",
+    "story": "This branch of Bonjuk & Bibimbap Cafe, a Korean rice-porridge and bibimbap chain, is a minute from Sungshin Women's Univ. Station. Seoul's vegetarian register lists three of its porridges as vegan: red bean porridge with rice balls, sweet pumpkin porridge and mung bean porridge. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bonjuk-bibimbap-myeongdong-2",
+    "name": "Bonjuk & Bibimbap Cafe, Myeong-dong 2 (본죽&비빔밥cafe 명동2호점)",
+    "zone": "Myeong-dong 1-ga, Jung-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5643438401169,
+        "lng": 126.98502764802
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '본죽&비빔밥cafe 명동2호점' to 37.564344, 126.985028 (destination point of the route from 을지로입구역 5번출구 (Line 2)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 10 Myeongdong 9-gil, Jung-gu, Seoul (Myeong-dong 1-ga)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17693865",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map (place 17693865): '서울 중구 명동9길 10 2층 (명동1가)' (jibun 명동1가 10-5). Seoul's vegetarian register gives '서울 중구 명동9길 10'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red bean porridge with rice balls (동지팥죽)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Sweet pumpkin porridge (단호박죽)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Mung bean porridge (녹두죽)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17693865",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu of 64 items, last edited 2026-08-26. The same menu and edit time appear on other Bonjuk branches, so it is the chain's menu. Only dishes covered by the vegan evidence are listed."
+    },
+    "phone": {
+      "value": "02-778-3562",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17693865",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only the chain's own site exists, not a branch page."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened."
+    },
+    "transit": {
+      "value": {
+        "station": "Euljiro 1-ga",
+        "line": "Line 2",
+        "exit": "5",
+        "walkingMinutes": 5,
+        "distanceM": 302
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 을지로입구역 5번출구 (Line 2) to 본죽&비빔밥cafe 명동2호점: 302 m / 277 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://func.seoul.go.kr/user/vegetarian/restaurantList.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul Metropolitan Government's vegetarian-restaurant register (list page filtered by 중구, fetched twice with identical rows) lists: '본죽&비빔밥cafe (명동2호) | 한식 | 02-778-3562 | 서울 중구 명동9길 10 | 특전복내장죽(페스코), 특전복죽(페스코), 진전복죽(페스코), 전복죽(페스코), 매생이굴죽(페스코), 낙지김치죽(페스코), 해물죽(페스코), 버섯굴죽(페스코), 새우죽(페스코), 참치야채죽(페스코), 6가지야채죽(일반식,비건가능), 동지팥죽(비건), 단호박죽(비건), 녹두죽(비건)'. Its vegan-marked dishes (동지팥죽, 단호박죽, 녹두죽) are all on the current Kakao Map menu (동지팥죽, item edited 2026-08-26; 단호박죽, item edited 2026-08-26; 녹두죽, item edited 2026-08-26; menu last edited 2026-08-26). The menu and its edit time are the same across Bonjuk branches, so it is the chain's menu. The register rates individual dishes and carries no date, and the menu also has meat or seafood dishes, so this is OPTIONS, not full. Still trading: Kakao review dated 2026-06-09; blog reviews listed on its Kakao page dated 2026-06-23 and 2026-06-08."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/17693865",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's menu includes 제육볶음 and 열무돈불백비빔밥 (pork dishes). No halal information found."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Bonjuk rice-porridge chain, with red bean, pumpkin and mung bean porridge the city lists as vegan.",
+    "story": "This branch of Bonjuk & Bibimbap Cafe, a Korean rice-porridge and bibimbap chain, is a 5-minute walk from Euljiro 1-ga Station. Seoul's vegetarian register lists three of its porridges as vegan: red bean porridge with rice balls, sweet pumpkin porridge and mung bean porridge. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  // Suwon city's vegan-menu register (data.go.kr 15129222, 2026-05-14) — the only dish-level government vegan register found outside Seoul.
+  {
+    "id": "memil-jeongwon-homaesil",
+    "name": "Memil Jeongwon (메밀정원)",
+    "zone": "Homaesil-dong, Gwonseon-gu, Suwon (near Chilbosan)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.26380166131556,
+        "lng": 126.94333013228454
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (26931440) gives 37.263802/126.943330; Kakao's walking-route API could not route to it from 수원역 (TOO_FAR_AWAY), so the point is the place panel's own. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 122 Chilbo-ro 88beon-gil, Gwonseon-gu, Suwon, Gyeonggi-do (Homaesil-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26931440",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row: '경기도 수원시 권선구 칠보로88번길 122, 1층(호매실동)', jibun 호매실동 840-3. Kakao Map (place 26931440): '경기 수원시 권선구 칠보로88번길 122 1층 (호매실동)', jibun 호매실동 840-3 — the same. Phone 031-298-2858 is the same in both.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Perilla-seed potato dumpling soup (들깨옹심이)",
+          "price": 10000
+        },
+        {
+          "name": "Buckwheat pancake (메밀전)",
+          "price": 6000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26931440",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu (listing not owner-claimed; items last edited 2024-03-06) lists 들깨옹심이 10,000원 and 메밀전 6,000원. Only 들깨옹심이 is named vegan by the Suwon register; the pancake is listed as a menu item, not as vegan."
+    },
+    "phone": {
+      "value": "031-298-2858",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26931440",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The Suwon register and Kakao Map give the same number."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No rail station nearby: Homaesil has no subway, and Kakao's walking route from 수원역 fails as too far. Take a bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건레스토랑(일부메뉴),메밀정원,일반음식점,권선구,호매실동,\"경기도 수원시 권선구 칠보로88번길 122, 1층(호매실동)\",…,031-298-2858,한식,들깨옹심이 등,2026-05-14'. '일부메뉴' (some dishes) → OPTIONS. 들깨옹심이 is on the current Kakao menu (10,000원). The rest of the menu includes boiled pork (수육) and stir-fried webfoot octopus. Still trading: blog reviews listed on Kakao dated 2026-04-16, 2026-05-07 and 2026-05-12."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A buckwheat-noodle house at the foot of Chilbosan in western Suwon.",
+    "story": "Memil Jeongwon is a buckwheat restaurant in Homaesil-dong, near the Chilbosan trails on Suwon's western edge. Suwon City's vegan-menu register lists its perilla-seed soup with potato dumplings (들깨옹심이) as a vegan dish. The rest of the menu includes boiled pork and spicy webfoot octopus, so it is not a vegan kitchen. There is no subway nearby; come by bus or taxi.",
+    "esg_point": null,
+    "image": "/images/noodles.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "gangwon-chik-naengmyeon-maetan",
+    "name": "Gangwon Chik Naengmyeon (강원칡냉면)",
+    "zone": "Maetan-dong, Yeongtong-gu, Suwon (near Maetan-Gwonseon Station)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.25607136156817,
+        "lng": 127.03676153642726
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (9693987) gives 37.256071/127.036762; Kakao's walking route from 매탄권선역 ends at 37.256072/127.036759 (648 m, 632 s). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 298-1 Dongsuwon-ro, Yeongtong-gu, Suwon, Gyeonggi-do (Maetan-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/9693987",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row: '경기도 수원시 영통구 동수원로 298-1(매탄동)', jibun 매탄동 1180-19. Kakao Map (place 9693987): '경기 수원시 영통구 동수원로 298-1 1층 (매탄동)', jibun 매탄동 1180-19 — the same. Phone 031-239-8998 is the same in both.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Spicy cold arrowroot noodles (비빔냉면)",
+          "price": 9000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/9693987",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu (listing not owner-claimed; items last edited 2024-06-04) lists 비빔냉면 (중) 9,000원; the Suwon register names 비빔냉면 as its vegan dish."
+    },
+    "phone": {
+      "value": "031-239-8998",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/9693987",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The Suwon register and Kakao Map give the same number."
+    },
+    "transit": {
+      "value": {
+        "station": "Maetan-Gwonseon Station",
+        "line": "Suin–Bundang Line",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 648
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 매탄권선역 (Suin–Bundang Line) to 강원칡냉면: 648 m / 632 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건레스토랑(일부메뉴),강원칡냉면,일반음식점,영통구,매탄동,경기도 수원시 영통구 동수원로 298-1(매탄동),…,031-239-8998,한식,비빔냉면,2026-05-14'. '일부메뉴' → OPTIONS. 비빔냉면 is on the current Kakao menu. The menu also has meat dumplings, kimchi stew and pollack stew. Still trading: Kakao reviews dated 2025-06-15 and 2026-06-29; blog reviews listed on Kakao dated 2026-07 to 2026-09-15."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A busy cold-noodle shop on Dongsuwon-ro, ten minutes from Maetan-Gwonseon Station.",
+    "story": "Gangwon Chik Naengmyeon serves arrowroot cold noodles in Maetan-dong, a short walk from Maetan-Gwonseon Station. Suwon City's vegan-menu register lists its spicy mixed cold noodles (비빔냉면) as a vegan dish. It is not a vegan kitchen: the rest of the menu includes meat dumplings and pollack stew.",
+    "esg_point": null,
+    "image": "/images/noodles.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "meokgo-bori-gwanggyo",
+    "name": "Meokgo Bori (먹고보리)",
+    "zone": "Iui-dong, Yeongtong-gu, Suwon (Gwanggyo Wellbeing Town)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.308996414935244,
+        "lng": 127.05173592955613
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (25147888) gives 37.308996/127.051736; Kakao's walking route from 광교중앙역 ends at the same point (2,909 m, 2,886 s). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 46-107 Welbingtaun-ro 36beon-gil, Yeongtong-gu, Suwon, Gyeonggi-do (Iui-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/25147888",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row: road address '경기도 수원시 영통구 웰빙타운로36번길 46-107(이의동)'. Kakao Map (owner-registered listing 25147888): '경기 수원시 영통구 웰빙타운로36번길 46-107 1층 (이의동)', jibun 이의동 1216-5 — the road address agrees and phone 031-214-9952 is the same in both. The register's own jibun ('영통구 하동 964-2번지') and its coordinates are copied from the 봉평메밀촌 row above it (three rows share them), a copying error inside the register; its road address and phone are this restaurant's.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Barley bibimbap (보리비빔밥)",
+          "price": 11000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/25147888",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map owner-registered menu (items last edited 2025-04-21) lists 보리비빔밥 11,000원; the Suwon register names '보리비빔밥 등 2종' as its vegan dishes."
+    },
+    "phone": {
+      "value": "031-214-9952",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/25147888",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The Suwon register and Kakao Map give the same number."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No station within easy walking distance: Kakao's walking route from 광교중앙역 (Shinbundang Line) is 2,909 m / about 48 minutes. Take a bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건레스토랑(일부메뉴),먹고보리,일반음식점,영통구,이의동,경기도 수원시 영통구 웰빙타운로36번길 46-107(이의동),…,031-214-9952,한식,보리비빔밥 등 2종,2026-05-14'. '일부메뉴' → OPTIONS. 보리비빔밥 is on the current owner-registered Kakao menu; the set meals add stir-fried webfoot octopus or brisket, and pork bulgogi (제육볶음) is also sold. Still trading: blog reviews listed on Kakao dated 2025-08-26, 2025-08-27 and 2026-08-04."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "Barley rice bibimbap in a quiet lane of Gwanggyo Wellbeing Town.",
+    "story": "Meokgo Bori is a small Korean restaurant in Gwanggyo's Wellbeing Town area, built around barley rice. Suwon City's vegan-menu register lists its barley bibimbap (보리비빔밥) among its vegan dishes. The set meals pair the bibimbap with spicy webfoot octopus or brisket, and pork is also on the menu, so order the bibimbap on its own. It is a long walk from the subway; a bus or taxi is easier.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "sodamgol-maetan",
+    "name": "Sodamgol Maetan (소담골 매탄점)",
+    "zone": "Maetan-dong, Yeongtong-gu, Suwon",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.26362092548813,
+        "lng": 127.04982896061728
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (989349005) gives 37.263621/127.049829; Kakao's walking route from 매탄권선역 ends at 37.263621/127.049827 (1,832 m, 1,727 s). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 10 Ingye-ro 291beon-gil, Yeongtong-gu, Suwon, Gyeonggi-do (Maetan-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/989349005",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row: road address '경기도 수원시 영통구 인계로 291번길 10, 1층(매탄동)'. Kakao Map (place 989349005, '소담골 매탄점'): '경기 수원시 영통구 인계로291번길 10 1층 (매탄동)', jibun 매탄동 815-1 — the road address agrees and phone 031-212-9630 is the same in both. The register's jibun ('영통구 하동 964-2번지') and coordinates are copied from another row, a copying error inside the register.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Red-bean noodle soup (팥칼국수)",
+          "price": 11000
+        },
+        {
+          "name": "Red-bean porridge with rice dumplings (팥찹쌀옹심이)",
+          "price": 13000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/989349005",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu (listing not owner-claimed; items last edited 2026-08-28) lists 팥칼국수 11,000원 and 팥찹쌀옹심이 13,000원. Only 팥칼국수 is named vegan by the Suwon register."
+    },
+    "phone": {
+      "value": "031-212-9630",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/989349005",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The Suwon register and Kakao Map give the same number."
+    },
+    "transit": {
+      "value": {
+        "station": "Maetan-Gwonseon Station",
+        "line": "Suin–Bundang Line",
+        "exit": null,
+        "walkingMinutes": 29,
+        "distanceM": 1832
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 매탄권선역 (Suin–Bundang Line) to 소담골 매탄점: 1,832 m / 1,727 s — a long walk; a bus or taxi is quicker."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건레스토랑(일부메뉴),소담골,일반음식점,영통구,매탄동,\"경기도 수원시 영통구 인계로 291번길 10, 1층(매탄동)\",…,031-212-9630,한식,팥칼국수,2026-05-14'. '일부메뉴' → OPTIONS. 팥칼국수 is on the current Kakao menu. The menu also has clam noodle soup, boiled pork (보쌈) and meat or octopus dumplings. Still trading: Kakao review dated 2026-05-25; blog reviews listed on Kakao dated 2026-09-22 to 2026-09-28."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A noodle-and-dumpling house in Maetan-dong known for red-bean and perilla soups.",
+    "story": "Sodamgol is a Korean noodle restaurant in residential Maetan-dong, serving hand-cut noodles, potato dumplings in perilla or red-bean soup, and boiled pork. Suwon City's vegan-menu register lists its red-bean noodle soup (팥칼국수) as a vegan dish. Other soups here use clams, and pork and meat dumplings are on the menu, so order the red-bean noodles by name.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "sondubuga-ajou",
+    "name": "Sondubuga (손두부가)",
+    "zone": "Woncheon-dong, Yeongtong-gu, Suwon (Ajou University)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.27845014209325,
+        "lng": 127.045648672539
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (26317600) gives 37.278450/127.045649; Kakao's walking route from 광교중앙역 ends at the same point (1,894 m, 1,809 s). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 6 World Cup-ro 179beon-gil, Yeongtong-gu, Suwon, Gyeonggi-do (Woncheon-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26317600",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row ('손두부가 아주대점'): '경기도 수원시 영통구 월드컵로179번길 6, 1층(원천동)', jibun 원천동 37-7. Kakao Map (place 26317600, '손두부가'): '경기 수원시 영통구 월드컵로179번길 6 1층 (원천동)', jibun 원천동 37-7 — the same. Phone 031-215-2089 is the same in both.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Perilla-seed soft tofu stew (들깨순두부)",
+          "price": 11000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26317600",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu (listing not owner-claimed; items last edited 2026-06-30) lists 들깨순두부 11,000원; the Suwon register names 들깨순두부 as its vegan dish."
+    },
+    "phone": {
+      "value": "031-215-2089",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26317600",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The Suwon register and Kakao Map give the same number."
+    },
+    "transit": {
+      "value": {
+        "station": "Gwanggyo Jungang Station",
+        "line": "Shinbundang Line",
+        "exit": null,
+        "walkingMinutes": 30,
+        "distanceM": 1894
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 광교중앙역 (Shinbundang Line) to 손두부가: 1,894 m / 1,809 s — a long walk; it is in front of Ajou University, which many buses serve."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건레스토랑(일부메뉴),손두부가 아주대점,일반음식점,영통구,원천동,\"경기도 수원시 영통구 월드컵로179번길 6, 1층(원천동)\",…,031-215-2089,한식,들깨순두부 ,2026-05-14'. '일부메뉴' → OPTIONS. 들깨순두부 is on the current Kakao menu. The menu also has seafood and abalone stews, pork cutlet and bulgogi. Still trading: Kakao reviews dated 2025-11-14 and 2026-07-03; blog reviews listed on Kakao dated 2025-11 to 2026-04-27."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A tofu house across the road from Ajou University.",
+    "story": "Sondubuga is a tofu restaurant in front of Ajou University that serves soft-tofu stews, soybean-noodle soup and fresh tofu. Suwon City's vegan-menu register lists its perilla-seed soft tofu stew (들깨순두부) as a vegan dish. Several other stews here contain seafood or meat, so order the perilla one by name.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "gung-janggijitteok-gwanggyo",
+    "name": "Gung Jan-gijitteok Gwanggyo (궁 잔기지떡 광교본점)",
+    "zone": "Iui-dong, Yeongtong-gu, Suwon (Gwanggyo Avenue France)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.290222491980536,
+        "lng": 127.05156067627965
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (1691651399) gives 37.290222/127.051561; Kakao's walking route from 광교중앙역 ends at the same point (315 m, 302 s). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "B1 (unit CB02), Bldg 203, Gwanggyo Avenue France, 85 Centraltown-ro, Yeongtong-gu, Suwon, Gyeonggi-do (Iui-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1691651399",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row ('궁 잔기지떡 본점'): '경기도 수원시 영통구 센트럴타운로 85, 지하1층(이의동)', jibun 이의동 1332. Kakao Map (owner-registered listing 1691651399, '궁 잔기지떡 광교본점'): '경기 수원시 영통구 센트럴타운로 85 광교 아비뉴프랑 203동 지하1층 cb02호 (이의동)', jibun 이의동 1332 — the same building and floor; Kakao adds the unit. The owner's Kakao notice gives the location as '광교아브뉴프랑'.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Gung jan-gijitteok, rice-wine rice cakes, 50 pieces (궁 잔기지떡 50알)",
+          "price": 16000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1691651399",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map owner-registered menu (items last edited 2026-08-24) lists 궁 잔기지떡 50알 16,000원 alongside mugwort, corn and barley versions; the register names '궁 잔기지떡' as the vegan item."
+    },
+    "phone": {
+      "value": "010-5190-7507",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1691651399",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's owner-registered listing. The Suwon register gives no number ('0')."
+    },
+    "transit": {
+      "value": {
+        "station": "Gwanggyo Jungang Station",
+        "line": "Shinbundang Line",
+        "exit": null,
+        "walkingMinutes": 5,
+        "distanceM": 315
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 광교중앙역 (Shinbundang Line) to 궁 잔기지떡 광교본점: 315 m / 302 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건베이커리(일부메뉴),궁 잔기지떡 본점,즉석판매제조가공업,영통구,이의동,\"경기도 수원시 영통구 센트럴타운로 85, 지하1층(이의동)\",경기도 수원시 영통구 이의동 1332번지,…,제과제빵,궁 잔기지떡,2026-05-14'. '일부메뉴' → OPTIONS. 궁 잔기지떡 is on the current owner-registered Kakao menu. Still trading: owner menu edited 2026-08-24; blog reviews listed on Kakao dated 2025-12-27, 2026-02-11 and 2026-02-22. (On the day checked Kakao showed a temporary closure 9/25–9/29, reopening 9/30.)"
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A takeaway rice-cake counter in the basement of Gwanggyo Avenue France.",
+    "story": "Gung Jan-gijitteok sells bite-size steamed rice cakes leavened with rice wine, a traditional Korean sweet sold by the box. Suwon City's vegan-menu register lists its plain Gung jan-gijitteok as vegan; other flavours such as mugwort, corn and barley are sold too but are not named in the register. It is a takeaway counter a few minutes' walk from Gwanggyo Jungang Station.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "gung-janggijitteok-suwon-station",
+    "name": "Gung Jan-gijitteok Suwon Station (궁 잔기지떡 수원역)",
+    "zone": "Maesanno 2-ga, Paldal-gu, Suwon (near Suwon Station)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.268114903282985,
+        "lng": 127.00467653435064
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (1562226604) gives 37.268115/127.004677; Kakao's walking route from 수원역 ends at 37.268114/127.004678 (593 m, 634 s). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 29 Maesan-ro, Paldal-gu, Suwon, Gyeonggi-do (Maesanno 2-ga)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1562226604",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row: '경기도 수원시 팔달구 매산로 29, 1층(매산로2가)', jibun 매산로2가 35-6. Kakao Map (owner-registered listing 1562226604): '경기 수원시 팔달구 매산로 29 1층 (매산로2가)', jibun 매산로2가 35-6 — the same.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Gung jan-gijitteok, rice-wine rice cakes, 50 pieces (일반포장 궁 잔기지떡 50알)",
+          "price": 16000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1562226604",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map owner-registered menu (items last edited 2025-08-14) lists 일반포장 궁 잔기지떡 (50알) 16,000원 and 개별포장 궁 잔기지떡 (40알) 16,000원; the register names '궁 잔기지떡' as the vegan item."
+    },
+    "phone": {
+      "value": "010-8987-1200",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1562226604",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's owner-registered listing. The Suwon register gives no number ('0')."
+    },
+    "transit": {
+      "value": {
+        "station": "Suwon Station",
+        "line": "Line 1 / Suin–Bundang Line",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 593
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 수원역 to 궁 잔기지떡 수원역: 593 m / 634 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건베이커리(일부메뉴),궁 잔기지떡 수원역,즉석판매제조가공업,팔달구,매산로2가,\"경기도 수원시 팔달구 매산로 29, 1층(매산로2가)\",경기도 수원시 팔달구 매산로2가 35-6번지,…,제과제빵,궁 잔기지떡,2026-05-14'. '일부메뉴' → OPTIONS. 궁 잔기지떡 is on the current owner-registered Kakao menu. Still trading: Kakao reviews dated 2025-09-01 and 2026-09-11; blog reviews listed on Kakao dated 2026-07-06 to 2026-09-12."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A rice-cake counter a short walk from Suwon Station, handy for a boxed snack.",
+    "story": "This branch of Gung Jan-gijitteok, near Suwon Station, sells bite-size steamed rice cakes leavened with rice wine, packed in boxes of various sizes. Suwon City's vegan-menu register lists its plain Gung jan-gijitteok as vegan; the mugwort, corn and black-sesame versions are sold too but are not named in the register.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "yellow-forest-gwanggyo",
+    "name": "Yellow Forest (옐로우포레스트)",
+    "zone": "Woncheon-dong, Yeongtong-gu, Suwon (Gwanggyo Lake Park)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.283847636881575,
+        "lng": 127.05744718922037
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (1929590002) gives 37.283848/127.057447; Kakao's walking route from 광교중앙역 ends at the same point (1,087 m, 1,025 s). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "B1 #140, Amuse Square Bldg 1, 277 Gwanggyohosugongwon-ro, Yeongtong-gu, Suwon, Gyeonggi-do (Woncheon-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1929590002",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row: '경기도 수원시 영통구 광교호수공원로 277, 지1층 140호(원천동, 광교중흥에스클래스)', jibun 원천동 589. Kakao Map (owner-registered listing 1929590002): '경기 수원시 영통구 광교호수공원로 277 어뮤즈스퀘어 1동 지하1층 140호 (원천동)', jibun 원천동 589 — the same number, floor and unit (Kakao names the Amuse Square mall inside the complex). Phone 031-212-9763 is the same in both.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chickpea crumble bars, several flavours (병아리콩 크럼블바)",
+          "price": 4300
+        },
+        {
+          "name": "Chickpea pound cakes (병아리콩 파운드)",
+          "price": 3700
+        },
+        {
+          "name": "Soy-milk café latte (포레스트 카페라떼)",
+          "price": 5000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1929590002",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's delivery menu for this listing (Yogiyo feed, updated 2026-08-31; 23 items, below the 30-item cap, so complete) lists the crumble bars at 4,300원, the pound cakes at 3,700원 and the latte at 5,000원."
+    },
+    "phone": {
+      "value": "031-212-9763",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1929590002",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The Suwon register and Kakao Map give the same number."
+    },
+    "transit": {
+      "value": {
+        "station": "Gwanggyo Jungang Station",
+        "line": "Shinbundang Line",
+        "exit": null,
+        "walkingMinutes": 17,
+        "distanceM": 1087
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 광교중앙역 (Shinbundang Line) to 옐로우포레스트: 1,087 m / 1,025 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건베이커리(전부메뉴),옐로우포레스트(Yellow forest),일반음식점,영통구,원천동,…,031-212-9763,제과제빵,비건 스모어 쿠키 등 5종,2026-05-14'. '전부메뉴' (the whole menu) → FULL. The owner's own intro on the owner-registered Kakao listing agrees: \"'병아리콩 식물성 디저트 전문점'\", and the menu notes say the bars are made '유제품과 계란이 들어가지 않고' and '옐로우 포레스트의 라떼 음료는 모두 무가당 두유로 만든 식물성 제품입니다'. The s'more cookie the register names is not on the current menu. Still trading: Kakao reviews dated 2025-08-30 and 2026-07-28; blog review listed on Kakao dated 2026-05-31; delivery menu updated 2026-08-31."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A plant-based dessert café by Gwanggyo Lake Park, with chickpea bakes and soy lattes.",
+    "story": "Yellow Forest is a small dessert café in a mall basement near Gwanggyo Lake Park that bakes with chickpeas instead of dairy and eggs: crumble bars, pound cakes and a cake with its own chickpea-based cream. Suwon City's vegan-menu register lists its whole menu as vegan, and the owner describes it as a plant-based dessert shop. Its lattes are made with unsweetened soy milk.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "vegan-begins-gwanggyo",
+    "name": "Vegan Begins (비건비긴즈)",
+    "zone": "Iui-dong, Yeongtong-gu, Suwon (Gwanggyo Central Plaza)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.29273518961868,
+        "lng": 127.05015491378238
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (114136833) gives 37.292735/127.050155; Kakao's walking route from 광교중앙역 ends at 37.292735/127.050153 (717 m, 684 s). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "#135, 1F, Gwanggyo Central Plaza, 106 Centraltown-ro, Yeongtong-gu, Suwon, Gyeonggi-do (Iui-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/114136833",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row ('비건 비긴즈'): road address '경기도 수원시 영통구 센트럴타운로 106, 1층 135호(이의동, 센트럴프라자)'. Kakao Map (place 114136833): '경기 수원시 영통구 센트럴타운로 106 광교 센트럴프라자건물 1층 135호 (이의동)', jibun 이의동 1322-5 — the same building, floor and unit. The register's jibun ('영통구 하동 964-2번지') and coordinates are copied from another row, a copying error inside the register.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Vegan sweet-pumpkin pound cake (비건 단호박파운드)",
+          "price": 3800
+        },
+        {
+          "name": "Vegan sweet-potato walnut pound cake (비건 고구마호두파운드)",
+          "price": 3800
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/114136833",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's delivery menu for this listing (Yogiyo feed, updated 2026-09-07) lists 비건 단호박파운드 3,800원 and 비건 고구마호두파운드 3,800원; the Suwon register names '단호박파운드+ 고구만호두파운드' as its vegan items."
+    },
+    "phone": {
+      "value": "031-217-3033",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15129222/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Only the Suwon register gives a number; Kakao Map lists none."
+    },
+    "transit": {
+      "value": {
+        "station": "Gwanggyo Jungang Station",
+        "line": "Shinbundang Line",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 717
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 광교중앙역 (Shinbundang Line) to 비건비긴즈: 717 m / 684 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건베이커리(일부메뉴),비건 비긴즈,휴게음식점,영통구,이의동,\"경기도 수원시 영통구 센트럴타운로 106, 1층 135호(이의동, 센트럴프라자)\",…,031-217-3033,제과제빵,단호박파운드+ 고구만호두파운드,2026-05-14'. '일부메뉴' → OPTIONS. Both are on the current menu, labelled 비건. The menu also lists café lattes and a plain scone and chocolate pound cake without a vegan label. Still trading: Kakao reviews dated 2025-07-11 and 2025-11-14; blog reviews listed on Kakao dated 2026-09-17 to 2026-09-27."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A small bakery in Gwanggyo whose menu labels its vegan breads and cakes.",
+    "story": "Vegan Begins is a bakery café in the Gwanggyo Central Plaza building, ten minutes' walk from Gwanggyo Jungang Station. Suwon City's vegan-menu register lists its sweet-pumpkin and sweet-potato walnut pound cakes as vegan, and its menu marks many more items as vegan, from cookies to salt bread. Not everything is labelled: the café lattes, plain scone and chocolate pound cake are not, and soy or oat milk is offered for drinks.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bakery-ilsang-songjuk",
+    "name": "Bakery Ilsang (베이커리 일상)",
+    "zone": "Songjuk-dong, Jangan-gu, Suwon",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.303240953390784,
+        "lng": 127.00578409290304
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place panel (1753688641) gives 37.303241/127.005784; Kakao's walking route from 화서역 ends at 37.303241/127.005784 (3,805 m). Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "#104, 6 Gyeongsu-daero 955beon-gil, Jangan-gu, Suwon, Gyeonggi-do (Songjuk-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1753688641",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Suwon register row: '경기도 수원시 장안구 경수대로955번길 6, 104호(송죽동)', jibun 송죽동 495-18 올림픽빌라 104호. Kakao Map (place 1753688641): '경기 수원시 장안구 경수대로955번길 6 104호 (송죽동)', jibun 송죽동 495-18 — the same.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Walnut-berry whole-wheat loaf (호두 베리 통밀 식빵)",
+          "price": 5000
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1753688641",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu (listing not owner-claimed; items last edited 2025-08-14) lists 호두 베리 통밀 식빵 5,000원; the Suwon register names '호두베리통밀 등' as its vegan items."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The Suwon register gives 031-241-5989 and Kakao Map gives 031-241-5988; they disagree."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No station within easy walking distance: Kakao's walking routes from 화서역 and 성균관대역 (Line 1) are both about 3.8 km. Take a bus."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15129222/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Suwon City's open-data register '경기도 수원시_비건메뉴취급업소' (data.go.kr 15129222; file 경기도 수원시_비건메뉴취급업소_20260514, data reference date 2026-05-14; the CSV was downloaded twice, byte-identical, MD5 6a727d6c…). The register defines a vegan menu as '동물성 식재료(육류, 어류, 유제품, 계란, 벌꿀 등)를 포함하지 않은 식단'. Row: '비건베이커리(일부메뉴),베이커리 일상,제과점영업,장안구,송죽동,\"경기도 수원시 경기도 수원시 장안구 경수대로955번길 6, 104호(송죽동)\",…,031-241-5989,제과제빵,호두베리통밀 등,2026-05-14'. '일부메뉴' → OPTIONS. 호두 베리 통밀 식빵 is on the current Kakao menu. Still trading: Kakao reviews dated 2025-01-14 and 2025-01-24; blog review listed on Kakao dated 2025-03-22; menu edited 2025-08-14."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A neighbourhood loaf bakery in northern Suwon.",
+    "story": "Bakery Ilsang is a small neighbourhood bakery in Songjuk-dong, northern Suwon, that mostly sells sandwich loaves, including whole-wheat ones. Suwon City's vegan-menu register lists its walnut-berry whole-wheat loaf among its vegan breads; other loaves are not named, so ask which ones are vegan. It is well away from the subway; come by bus.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
 ];
