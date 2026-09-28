@@ -6,7 +6,7 @@ branch, Task 6: privacy policy rewrite, gates, docs — §2.1 "Passport sync").
 **This edit lands on `passport-sync`, not yet merged to master; the
 squash-merge, push, and deploy check are a separate, later step, pending
 operator approval.** No restaurant data changed.
-**Places:** 271 (269 active, 2 quarantined) — was 20 until the 2026-09-28 expansion (§7 #35); batch 6 on 2026-09-29 took it to 205 after removing 12 whose only halal evidence was a DiningCode search tag (RULINGS.md); batch 7 (regions) under way
+**Places:** 284 (282 active, 2 quarantined) — was 20 until the 2026-09-28 expansion (§7 #35); batch 6 on 2026-09-29 took it to 205 after removing 12 whose only halal evidence was a DiningCode search tag (RULINGS.md); batch 7 (regions) under way
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -70,7 +70,7 @@ hero → quick facts ("can I eat here?") → practical (directions/hours/address
 | UI / UX | **Done.** Five approved steps; responsive mobile/tablet/desktop; AA contrast; no known regressions. |
 | Trust & evidence architecture | **Done.** Production-grade, validated, documented. |
 | Lifecycle (existence/publication state) | **MVP, uncommitted.** `ACTIVE`/`QUARANTINE` implemented and enforced by `check-data`; `ARCHIVED`/`DELETED` are named only, no logic. See §2.14. |
-| Data | **271 places (269 active, 2 quarantined) as of 2026-09-29.** Phase A had brought the original 20 to one confirmed field each. The 2026-09-28/29 expansion added 133 from written sources while Naver was unreachable, so **96 of 269 active places have a confirmed field and 173 do not** — their coordinates are Kakao-only and SUPPORTED until the Naver cross-check runs (§7 #35). Vegan filter 131, Halal filter 137; halal `certified` 0. Rulings per batch: docs/data-expansion/RULINGS.md. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown; many honestly unknown fields remain by design, not by omission.) |
+| Data | **284 places (282 active, 2 quarantined) as of 2026-09-29.** Phase A had brought the original 20 to one confirmed field each. The 2026-09-28/29 expansion added 133 from written sources while Naver was unreachable, so **97 of 282 active places have a confirmed field and 185 do not** — their coordinates are Kakao-only and SUPPORTED until the Naver cross-check runs (§7 #35). Vegan filter 144, Halal filter 137; halal `certified` 0. Rulings per batch: docs/data-expansion/RULINGS.md. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown; many honestly unknown fields remain by design, not by omission.) |
 | Evidence migration | **1 of 20** restaurants migrated (demonstration only). |
 | Content (stories) | **Draft quality.** Marketing tone in 13/20; one story corrected so far. |
 
@@ -2049,6 +2049,20 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     keeps its own pin. Re-measured on 375x812 at the default zoom: 17 marks
     visible, 2 pairs touching by 4–7 px at a corner, none covering another's
     centre.
+
+38. **Evidence text is no longer in the main bundle (2026-09-29).** At 269
+    places the main chunk was 1.79 MB raw / 405 kB gzip, a third of it the
+    `evidence` paragraphs that only the detail view's trust-badge tooltip
+    reads. The `kfm-client-data` plugin in vite.config.js now serves
+    restaurants.js to the browser without them (scripts/lib/client-data.mjs)
+    and emits each active place's full record as `/place-data/<id>.json`;
+    `usePlaceEvidence` fetches it when a detail opens and joins it back onto
+    the bundled facts by object identity (src/data/evidence-pairing.js).
+    Measured after: 282 places, 296 kB gzip. The service worker keeps viewed
+    records (StaleWhileRevalidate, `kfm-place-data`); a place never opened
+    online shows the generic badge text offline. Guard:
+    scripts/tests/client-data.test.mjs fails if any other file starts
+    reading `.evidence` — such a reader must fetch the record first.
 
 
 ---

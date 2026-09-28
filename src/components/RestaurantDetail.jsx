@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { Link } from 'react-router';
 import { useTranslation, Trans } from 'react-i18next';
 import PlaceImage from './PlaceImage';
@@ -13,6 +13,7 @@ import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
+import usePlaceEvidence from '../hooks/usePlaceEvidence';
 
 // Keyed by the identifier as stored in restaurant.traits / compared in
 // App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
@@ -35,8 +36,13 @@ function SectionHead({ Icon, title, kr }) {
   );
 }
 
+// The bundled facts carry no evidence text; it is fetched per place when the
+// detail opens (hooks/usePlaceEvidence.js) and joined back on here.
+const EvidenceContext = createContext(null);
+
 function Trust({ fact }) {
-  const { label, tone, detail } = trustBadge(fact);
+  const evidence = useContext(EvidenceContext)?.get(fact);
+  const { label, tone, detail } = trustBadge(evidence === undefined ? fact : { ...fact, evidence });
   return <span className={`trust trust--${tone}`} title={detail}>{label}</span>;
 }
 
@@ -60,6 +66,7 @@ export default function RestaurantDetail({
   const [galleryOpen, setGalleryOpen] = useState(false);
   const storyRef = useRef(null);
   const sheetRef = useRef(null);
+  const evidence = usePlaceEvidence(restaurant);
 
   useEffect(() => {
     setCopied(false);
@@ -163,7 +170,7 @@ export default function RestaurantDetail({
   };
 
   return (
-    <>
+    <EvidenceContext.Provider value={evidence}>
       <div className="detail-backdrop" onClick={onClose} />
       <div className="detail-sheet" role="dialog" aria-modal="true" aria-label={name} ref={sheetRef} tabIndex={-1}>
         <button className="detail-close" aria-label={t('detail.close')} onClick={onClose}>
@@ -420,6 +427,6 @@ export default function RestaurantDetail({
           </div>
         </div>
       )}
-    </>
+    </EvidenceContext.Provider>
   );
 }

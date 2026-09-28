@@ -2,7 +2,10 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path'
+import { dirname, join } from 'node:path'
+import { statSync } from 'node:fs'
+import { pathToFileURL } from 'node:url'
+import { clientModule, placeDataFile } from './scripts/lib/client-data.mjs'
 
 // This file always sits at the project root, so its own location -- not
 // process.cwd() -- is the reliable way to find .env.local. cwd() only
@@ -66,6 +69,52 @@ function assertAuthChunkName() {
 
 // Dev only: Vite does not serve api/, so mount the same handler at the
 // same path. apply: 'serve' keeps it out of every build.
+// Ships src/data/restaurants.js to the browser without its `evidence` text
+// and serves each place's full record at /place-data/<id>.json — see
+// scripts/lib/client-data.mjs for why. The data file is plain ESM (the QA
+// scripts import it the same way), so it is loaded in Node and re-emitted.
+// Runs in dev too, so dev shows exactly what production ships.
+const RESTAURANTS_FILE = join(projectRoot, 'src', 'data', 'restaurants.js')
+function clientData() {
+  let cached = null
+  // Re-import only when the file changes; a fresh query string defeats
+  // Node's module cache for that one reload.
+  const loadRestaurants = async () => {
+    const mtime = statSync(RESTAURANTS_FILE).mtimeMs
+    if (cached?.mtime !== mtime) {
+      const mod = await import(`${pathToFileURL(RESTAURANTS_FILE).href}?t=${mtime}`)
+      const { isQuarantined } = await import('./src/data/verification.js')
+      cached = { mtime, all: mod.restaurants, active: mod.restaurants.filter(r => !isQuarantined(r)) }
+    }
+    return cached
+  }
+  const isRestaurantsModule = (id) => id.split('?')[0].replaceAll('\\', '/') === RESTAURANTS_FILE.replaceAll('\\', '/')
+  return {
+    name: 'kfm-client-data',
+    enforce: 'pre',
+    async load(id, options) {
+      if (options?.ssr || !isRestaurantsModule(id)) return null
+      this.addWatchFile(RESTAURANTS_FILE)
+      return clientModule((await loadRestaurants()).all)
+    },
+    async generateBundle() {
+      for (const r of (await loadRestaurants()).active) {
+        this.emitFile({ type: 'asset', ...placeDataFile(r) })
+      }
+    },
+    configureServer(server) {
+      server.middlewares.use('/place-data', async (req, res, next) => {
+        const m = /^\/([a-z0-9-]+)\.json$/.exec(req.url ?? '')
+        if (!m) return next()
+        const r = (await loadRestaurants()).active.find(x => x.id === m[1])
+        if (!r) { res.statusCode = 404; return res.end() }
+        res.setHeader('Content-Type', 'application/json; charset=utf-8')
+        res.end(placeDataFile(r).source)
+      })
+    },
+  }
+}
+
 function apiDevServer() {
   return {
     name: 'kfm-api-dev',
@@ -123,6 +172,7 @@ function apiDevServer() {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    clientData(),
     apiDevServer(),
     assertAuthChunkName(),
     react(),
@@ -206,6 +256,21 @@ export default defineConfig({
         // name, and evicting it the moment the new one lands would break
         // exactly the stale-asset case the hook's retry is there for.
         runtimeCaching: [
+          // Per-place full records (evidence text), fetched when a detail
+          // opens. Not precached — 270+ files nobody may open — but kept once
+          // fetched so a place viewed online shows its evidence offline too.
+          // StaleWhileRevalidate for the same captive-portal reason as the
+          // auth chunk below: a poisoned entry is repaired on the next online
+          // load, and the hook already treats unparseable JSON as "no evidence".
+          {
+            urlPattern: /\/place-data\/[a-z0-9-]+\.json$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'kfm-place-data',
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
           {
             urlPattern: AUTH_CHUNK_URL,
             handler: 'StaleWhileRevalidate',
