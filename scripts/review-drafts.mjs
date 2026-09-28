@@ -37,8 +37,10 @@ const UNTRACEABLE = /research aggregation|aggregat(ion|or)s?|websearch|search (r
 const PROMOTIONAL = /\b(popular|beloved|loved by|much-loved|long-standing following|famous|renowned|must-visit|best in|hidden gem|followers?|a following of|following of)\b/i;
 const PROCESS_TALK = /\b(recorded as|we (did|chose|treated|recorded)|was not treated as|this entry (does not|claims)|rather than guess(ed)?|left (it )?off the map|per the (brief|rule))\b/i;
 // A superlative is fine only when a named source is credited for it in the same sentence.
-const SUPERLATIVE = /\b(first|only|oldest|largest|biggest)\b/i;
-const ATTRIBUTION = /\b(called|calls|describes|described|says|said|told|tells|reports|reported|claims|claimed|according to|billed|bills)\b/i;
+// "only" on its own is usually a plain fact ("only a lunch and a dinner
+// course"); "the only" is the claim worth checking.
+const SUPERLATIVE = /\b(first|the only|oldest|largest|biggest)\b/i;
+const ATTRIBUTION = /\b(called|calls|describes|described|says|said|told|tells|reports|reported|claims|claimed|notes|noted|states|stated|lists|listed|names|according to|billed|bills)\b/i;
 const URL_RE = /https?:\/\/|\b[\w-]+\.(com|net|kr|org|ee|co)\b/i;
 
 function review(paths) {
@@ -150,12 +152,45 @@ function review(paths) {
       if (h?.value === HALAL.CERTIFIED) issues.push('halal CERTIFIED — needs a human to see the certificate reference');
       // A claim is the word used affirmatively — not "no certificate sighted".
       const claimsCertified = /\bcertified\b/i.test(h?.evidence ?? '')
-        && !/\b(not|never|nor|no)\b[^.]{0,30}\bcertified\b/i.test(h?.evidence ?? '');
+        && !/\b(not|never|neither|nor|no|rather than|instead of|short of)\b[^.]{0,30}\bcertified\b/i.test(h?.evidence ?? '');
       if (h && isKnown(h) && claimsCertified && !r.dietary.halalCertClaim && h.value !== HALAL.CERTIFIED) {
         issues.push('halal evidence mentions certification but no halalCertClaim is recorded');
       }
-      if (h && isKnown(h) && /\b(one|a single|at least one)\b[^.]*\b(item|dish|menu)\b/i.test(h.evidence ?? '')) {
+      if (h && isKnown(h) && /\b(one|a single|at least one)\b[^.]*\b(item|dish|menu)\b/i.test(h.evidence ?? '')
+        && !/\b(not|rather than)\s+(just\s+)?(one|a single)\b/i.test(h.evidence ?? '')) {
         issues.push('halal rests on individual items — friendly means the whole restaurant');
+      }
+      // Round 3: a Korean restaurant marked halal-friendly on "no pork, no
+      // alcohol". Pork-free is its own level and says nothing about slaughter
+      // or cross-contamination; it does not appear under the Halal filter.
+      // Only the quoted source text counts: evidence strings mix the source's
+      // words with the researcher's commentary, and "held at FRIENDLY, not
+      // CERTIFIED" says halal without any source having said it.
+      if (h && (h.value === HALAL.FRIENDLY || h.value === HALAL.CERTIFIED)) {
+        // Each quote style is read on its own, so a double-quoted passage that
+        // itself contains 'single-quoted' names is still read whole.
+        const ev = String(h.evidence ?? '');
+        const quotes = [/"([^"]{4,})"/g, /“([^”]{4,})”/g, /(?<![A-Za-z])'((?:[^']|'(?=[A-Za-z])){4,}?)'(?![A-Za-z])/g, /‘([^’]{4,})’/g]
+          .flatMap(re => [...ev.matchAll(re)].map(m => m[1]));
+        const HALAL_WORDS = /halal|할랄|muslim|무슬림/i;
+        if (quotes.length === 0) warn('halal evidence quotes no source text — what did the source actually say?');
+        else if (!quotes.some(q => HALAL_WORDS.test(q))) {
+          issues.push(`halal ${h.value} but no quoted source says halal — if it only says no pork, the level is porkFree`);
+        }
+      }
+      // Round 3: "모든 메뉴는 채식" taken as fully vegan. 채식 is vegetarian —
+      // eggs and dairy are often in — and a vegan level must rest on a source
+      // that says vegan or plant-based.
+      const v = r.dietary?.vegan;
+      if (v && v.value === 'full') {
+        const ev = String(v.evidence ?? '');
+        const vq = [/"([^"]{4,})"/g, /“([^”]{4,})”/g, /(?<![A-Za-z])'((?:[^']|'(?=[A-Za-z])){4,}?)'(?![A-Za-z])/g, /‘([^’]{4,})’/g]
+          .flatMap(re => [...ev.matchAll(re)].map(m => m[1]));
+        const saysVegan = vq.some(q => /비건|vegan|식물성|plant-based|plant based|동물성/i.test(q));
+        const saysVegetarian = vq.some(q => /채식|vegetarian/i.test(q));
+        if (vq.length && saysVegetarian && !saysVegan) {
+          issues.push('vegan full but the quoted source says 채식/vegetarian, not vegan — eggs and dairy may be in');
+        }
       }
       for (const p of validateDietary(r)) issues.push(`validateDietary: ${p}`);
 
@@ -168,7 +203,7 @@ function review(paths) {
         if (PROCESS_TALK.test(t)) issues.push(`${label} narrates our process: "${t.match(PROCESS_TALK)[0]}"`);
         for (const sentence of t.split(/(?<=[.!?])\s+/)) {
           // "first floor" is a location, not a superlative.
-          const bare = sentence.replace(/\bfirst (floor|basement|level)\b|\bon the first\b|\b1st\b/gi, '');
+          const bare = sentence.replace(/\w+-only\b|\bby reservation only\b/gi, '').replace(/\bfirst (floor|basement|level)\b|\bon the first\b|\b1st\b/gi, '');
           if (SUPERLATIVE.test(bare) && !ATTRIBUTION.test(bare)) {
             issues.push(`${label} unattributed superlative: "${sentence.slice(0, 90)}"`);
           }
