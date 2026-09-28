@@ -185,3 +185,7 @@ hc-seoul-korean-a — 16 accepted, all Korean `options` (Bonjuk branches, gimbap
 hc-seoul-korean-b — 10 accepted, Korean `options` (Korea House, tea houses, tteok shops, home cooking). Five rest on HappyCow's "vegan on request"/"ask" with no named dish, `menus` unknown (urikong precedent) — the weakest `options` tier; a later pass may prefer named dishes. ~55–100 KOR-tagged Seoul listings in hc-seoul's triage.txt were never named in its .md and are being swept separately.
 
 hc-leftovers — 48 accepted, all vegan `options` (6 Korean). HappyCow was reachable again; every quote rests on two raw reads (identical to the copies saved earlier). Seven trade only on Kakao-listed 2025–26 blog posts (the 08:0x trading ruling). Many single-lot-number conflicts → not proposed (rule 3).
+
+hc-leftovers-south — 12 accepted, all Korean `options` (makguksu, sundubu, kalguksu). sulgodang-nampo's vegan level is `confirmed`: the operator's own site has a vegan menu section and its address matches Kakao exactly. HELD sagyejeol-sigolbapsang-alpensia: matching HappyCow's "vegetarian bibimbap" to the menu's only bibimbap (산채비빔밥) is inference, and "vegetarian" is not vegan.
+
+hc-seoul-korean-c — 10 accepted (Korean `options`). HELD yeonhui-danpatjuk: HappyCow names no vegan dish and the Kakao menu was last edited in 2023 — nothing current to match against.
