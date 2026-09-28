@@ -19,7 +19,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch } from './filters';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -164,14 +164,8 @@ function AppShell() {
         return group ? r.traits.some(t => group.includes(t)) : r.traits.includes(f);
       });
 
-      // 2. Search Query Filtering (Match name, vibe or area)
-      const query = searchQuery.toLowerCase().trim();
-      const matchesSearch = query === '' ||
-                            r.name.toLowerCase().includes(query) ||
-                            r.vibe.toLowerCase().includes(query) ||
-                            r.zone.toLowerCase().includes(query);
-
-      return matchesChips && matchesSearch;
+      // 2. Free-text search: name, vibe, area and street address.
+      return matchesChips && matchesSearch(r, searchQuery);
     });
   }, [selectedFilters, searchQuery]);
 

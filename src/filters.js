@@ -18,3 +18,18 @@ export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 export const TRAIT_GROUPS = {
   Sustainability: ['Zero-waste', 'Local Sourcing'],
 };
+
+// Free-text search over what a traveller would type: the place's name
+// (English and the Korean in brackets), its vibe line, its neighbourhood,
+// and its street address — so "Gangnam", "Mapo-gu" or "Busan" find the
+// places there even when the neighbourhood label names a smaller area.
+// Hyphens and spaces are ignored on both sides, so "mapo gu", "mapogu" and
+// "Mapo-gu" all match.
+const squash = (s) => s.toLowerCase().replace(/[\s-]+/g, '');
+
+export function matchesSearch(r, query) {
+  const q = squash(query ?? '');
+  if (q === '') return true;
+  const fields = [r.name, r.vibe, r.zone, r.address?.value];
+  return fields.some(f => typeof f === 'string' && squash(f).includes(q));
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useTranslation } from 'react-i18next';
@@ -63,6 +63,33 @@ function sheetOverlap(map) {
   if (!spansMap || s.top >= m.bottom) return 0;
   // Leave at least a strip to fit into, even with the sheet pulled up high.
   return Math.max(0, Math.min(m.bottom - Math.max(s.top, m.top), m.height - 240));
+}
+
+// When a search or filter leaves nothing on screen — someone types "Busan"
+// while the map shows Seoul — move the map to what was found. Only then: if
+// any result is already visible, the map stays where the person put it.
+function FollowResults({ restaurants }) {
+  const map = useMap();
+  const key = restaurants.map(r => r.id).join(',');
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) { first.current = false; return; }
+    if (restaurants.length === 0) return;
+    const latlngs = restaurants.map(r => { const c = coordsOf(r); return L.latLng(c.lat, c.lng); });
+    const size = map.getSize();
+    const overlap = sheetOverlap(map);
+    const visible = L.bounds([0, 0], [size.x, Math.max(1, size.y - overlap)]);
+    if (latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
+    map.flyToBounds(L.latLngBounds(latlngs), {
+      paddingTopLeft: [56, 56],
+      paddingBottomRight: [56, 56 + overlap],
+      maxZoom: 15,
+      duration: 0.6,
+    });
+    // key stands in for restaurants: same places, same key, no move.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, map]);
+  return null;
 }
 
 function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
@@ -186,6 +213,7 @@ export default function MapComponent({ restaurants, onMarkerClick, selectedId, o
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <FollowResults restaurants={restaurants} />
         <ClusteredMarkers
           restaurants={restaurants}
           selectedId={selectedId}
