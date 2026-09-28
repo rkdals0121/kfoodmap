@@ -6,7 +6,7 @@ branch, Task 6: privacy policy rewrite, gates, docs — §2.1 "Passport sync").
 **This edit lands on `passport-sync`, not yet merged to master; the
 squash-merge, push, and deploy check are a separate, later step, pending
 operator approval.** No restaurant data changed.
-**Places:** 20 (18 active, 2 quarantined)
+**Places:** 83 (81 active, 2 quarantined) — was 20 until the 2026-09-28 expansion (§7 #35)
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -70,7 +70,7 @@ hero → quick facts ("can I eat here?") → practical (directions/hours/address
 | UI / UX | **Done.** Five approved steps; responsive mobile/tablet/desktop; AA contrast; no known regressions. |
 | Trust & evidence architecture | **Done.** Production-grade, validated, documented. |
 | Lifecycle (existence/publication state) | **MVP, uncommitted.** `ACTIVE`/`QUARANTINE` implemented and enforced by `check-data`; `ARCHIVED`/`DELETED` are named only, no logic. See §2.14. |
-| Data | **Phase A verification complete.** 20 places (18 active, 2 quarantined); 18 have ≥1 confirmed field; 2 have zero — both are `akiya` and `makan`, both quarantined, not pending verification. **Every active restaurant now has at least one confirmed field and a street-precision address.** (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown; many honestly unknown fields remain by design, not by omission.) |
+| Data | **83 places (81 active, 2 quarantined) as of 2026-09-28.** Phase A had brought the original 20 to one confirmed field each. The 2026-09-28 expansion added 63 from written sources while Naver was unreachable, so **36 of 81 active places have a confirmed field and 45 do not** — their coordinates are Kakao-only and SUPPORTED until the Naver cross-check runs (§7 #35). Vegan filter 44, Halal filter 39; halal `certified` 0. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown; many honestly unknown fields remain by design, not by omission.) |
 | Evidence migration | **1 of 20** restaurants migrated (demonstration only). |
 | Content (stories) | **Draft quality.** Marketing tone in 13/20; one story corrected so far. |
 
@@ -1158,7 +1158,7 @@ k-food-map/
 │   │   ├── PlaceImage.jsx      photo ?? illustration placeholder
 │   │   └── Icons.jsx           every icon, hand-drawn SVG (no emoji)
 │   └── data/
-│       ├── restaurants.js  the 20 places (928 lines)
+│       ├── restaurants.js  the 83 places (10260 lines)
 │       ├── verification.js fact(), CONFIDENCE/SOURCE/METHOD/VEGAN/HALAL,
 │       │                   trustBadge, validateDietary, imageLead (278 lines)
 │       ├── evidence.js     evidenceRef(), vocabularies, IMMUTABLE_VERSION_FIELDS
@@ -1339,14 +1339,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 
 ### High
 
-1. **19 of 20 restaurants are not on the evidence layer.** They still carry
+1. **82 of 83 restaurants are not on the evidence layer** (19 of 20 before the 2026-09-28 expansion). They still carry
    inline `url`/`method`/`evidence`. Both shapes validate, so nothing is broken —
    but the audit trail is one restaurant deep. *Rationale for the debt:*
    migrating in bulk would defeat the purpose; the value is in re-reading each
    claim while moving it. That is how Gonghwachun's false story surfaced.
-2. **2 of 20 restaurants have zero confirmed fields — `akiya` and `makan`,
-   and both are `QUARANTINE`d (§2.14).** No active restaurant has zero
-   confirmed fields any longer. (`chaeyuk-songdo`, `iryonghal`, `rim`,
+2. **47 of 83 restaurants have zero confirmed fields: `akiya` and `makan`
+   (both `QUARANTINE`d, §2.14), and 45 active places added on 2026-09-28**,
+   whose coordinates are Kakao-only because Naver was unreachable (§7 #35).
+   Until 2026-09-28 no active restaurant had zero confirmed fields; that is no
+   longer true, and the Naver cross-check is what restores it. (`chaeyuk-songdo`, `iryonghal`, `rim`,
    `meat-morning`, `bombay-brau`, `arabesque`, `kampungku` and `nono-shop`
    all left this list on 2026-07-17 — **Phase A is complete**; see §10 and
    §12.) Their gap is no longer "unverified," it is "not currently
@@ -1987,6 +1989,42 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     the next successful sign-in. Three unit tests cover it, one of which
     fails if the hash form is ignored.
 
+35. **The dataset grew from 18 to 81 active places in one day
+    (2026-09-28), from written sources only, and every one of the new
+    places has SUPPORTED coordinates at best.** No operator was called. Naver
+    was unreachable from every tool that day — its search API was down, and
+    naver.com is blocked by safety policy in both the Chrome extension and the
+    built-in browser — so the pipeline's confirmation rule (Naver Place and
+    Kakao Map agree) could not run, and coordinates rest on Kakao alone. The
+    first job when Naver is reachable again is to cross-check those places and
+    promote the ones that agree. The research log for every round — what was
+    accepted, held and rejected, and why — is `.superpowers/data-expansion/
+    RULINGS.md` (gitignored scratch; the reasons also live in each commit
+    message). The session's WebSearch quota (200 calls) ran out during the
+    third batch; later researchers worked from WebFetch, Kakao and government
+    datasets instead.
+    - Held for a later round, each with a stated reason: Nimat at Terminal 1
+      (no current halal source), Sinchon Burger (halal on one receipt item),
+      Bihani (one expat blog), Bappulkkot (채식, not vegan), Veganature (one
+      customer review), and several halal leads whose Kakao listing could not
+      be found.
+    - `scripts/review-drafts.mjs` is the mechanical first pass (see
+      `docs/DATA.md`, "Adding or updating a place").
+
+36. **Returning visitors saw every deploy one visit late, and on
+    2026-09-28 that meant not seeing the new places at all.** The service
+    worker installs a new version and takes control, but the open page keeps
+    running the JavaScript it loaded. Measured on the live site: a browser
+    that had opened it that morning ran a bundle three deploys old (18 pins)
+    while the server served 73. `src/hooks/useAppUpdate.js` now reloads an
+    untouched page as soon as the new version takes control, and offers a
+    refresh button instead when the page is in use — a half-typed report must
+    never be thrown away. Proved against a real service worker across three
+    local production builds (reload, offer, and the button). **It only helps
+    from the deploy after it:** anyone still holding a bundle from before
+    commit `b16621e` needs one more visit to pick up the code that does this.
+
+
 ---
 
 ## 8. Quality Status
@@ -1997,7 +2035,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 |---|---|
 | UI/UX, 5 approved steps | responsive 375/768/1280/1440 verified in-browser |
 | Accessibility | 44px touch targets, aria, keyboard focus, AA contrast (measured: 4.59–15.8:1) |
-| Trust model | `check-data` 0 violations, 20 places |
+| Trust model | `check-data` 0 violations, 83 places |
 | Evidence architecture | ten rules each proven to fire against a mutated store |
 | Immutability | SHA-256 drift detected in a live test |
 | Bundle hygiene | `retrievedBy`/`capturedAt`/`supersedes` = 0 occurrences in `dist/` |
@@ -2513,6 +2551,7 @@ npm run build && grep -rc retrievedBy dist/   # must print 0
 grep -rliE "service_role|sb_secret_|KakaoAK" dist/ | wc -l  # must print 0
 
 node scripts/evidence-hash.mjs --check            # evidence seal drift
+node scripts/review-drafts.mjs <draft.json>...    # machine-check researcher drafts before a person reads them
 node scripts/migrate-dietary-v2.mjs --dry         # the dietary decision record
 
 # UGC intake review queue (needs .env.local — see .env.example):

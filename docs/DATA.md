@@ -307,6 +307,27 @@ Bookmarks are keyed by `id` and are unaffected; no localStorage migration.
    Stop — that's `unknown`.
 4. Run `npm run check-data`.
 
+When a place is drafted by a researcher rather than written by hand, run the
+draft through `node scripts/review-drafts.mjs <draft.json>` first. It flags
+what earlier rounds got wrong — duplicates under another romanisation,
+provenance strings that are near-misses of the canonical ones, dietary levels
+resting on evidence nobody can reopen, a halal level no quoted source states,
+"채식" read as vegan, promotional copy and process talk in text travellers
+read. A clean run means nothing mechanical was found, not that the draft is
+right: a person still reads every flagged and every halal entry.
+
+Three rulings from the 2026-09-28 expansion, which the reviewer now enforces
+or which a person must apply:
+
+- **A level shown under a filter needs at least a directory's own listing.**
+  One personal blog, or one customer review quoted on a directory page, is not
+  enough to put a place under Halal or Vegan.
+- **"No pork, no alcohol" is `porkFree`, not `friendly`.** Pork-free says
+  nothing about slaughter or cross-contamination, and the Halal filter does not
+  match it — which is the point.
+- **채식 is vegetarian.** It does not support `vegan: full`; eggs and dairy are
+  often in.
+
 ### Promoting to `confirmed` (P1)
 
 Check against a primary source, then set `confidence: CONFIDENCE.CONFIRMED`, a

@@ -6,9 +6,12 @@
 // (where it came from) — two axes, because "official" and "estimated" answer
 // different questions. See src/data/verification.js and docs/DATA.md.
 //
-// Nothing here is CONFIRMED: no field has been checked against a registry, the
-// operator, or an on-site visit. SUPPORTED means a source states it; INFERRED
-// means we read it from context and said so.
+// CONFIRMED means checked against a primary source and repeatable (dated, with
+// a method and quoted evidence) — for coordinates, Naver Place and Kakao Map
+// agreeing. SUPPORTED means a source states it; INFERRED means we read it from
+// context and said so. The places added on 2026-09-28 are SUPPORTED at most:
+// Naver was unreachable from every tool that day, so their coordinates rest on
+// Kakao alone until someone runs the cross-check.
 //
 // Removed in v2 and still absent, because they could not be justified:
 //   • rating / reviews  — invented figures presented as real scores
@@ -9454,6 +9457,802 @@ export const restaurants = [
     "story": "Room Temperature is a Nordic-styled brunch café beside Seoul Forest. Seoul's official tourism site describes it as centered on organic and vegan dishes, without stating that the whole kitchen is plant-based.",
     "esg_point": "Framed by Seoul's tourism site as an organic, vegan-focused kitchen.",
     "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  // ---- Data expansion, batch 4 (2026-09-28): Gyeonggi beyond Ansan ----
+  // Rows of the Gyeonggi Tourism Organization’s Muslim-friendly restaurant
+  // dataset, each address agreeing with Kakao and each still trading per a
+  // dated 2025–2026 review.
+  {
+    "id": "great-himalaya-suwon",
+    "name": "Great Himalaya (그레이트히말라야)",
+    "zone": "Paldal-gu, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.267372515680414,
+        "lng": 127.00226609010775
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map's walking-route endpoint from Suwon Station (수원역) resolves the destination to 37.267373/127.002266. Naver's search MCP was unavailable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "7-1 Maesan-ro, Paldal-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' lists this restaurant's row as: 지역 수원시, 종류 네팔인도식, 상호 그레이트 히말라야, 주소 수원시 팔달구 매산로 7-1. Kakao Map independently resolves the place '그레이트히말라야' to the same road address, 매산로 7-1."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No source strong enough to quote gave hours."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-243-1187; DiningCode's own listing gives 0507-1319-1441. The two disagree, so the field is left unknown rather than picking one."
+    },
+    "transit": {
+      "value": {
+        "station": "Suwon",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 382
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map walking route from 수원역: 382 m / 439 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source reviewed."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-28",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, published on data.go.kr) lists this restaurant's row as: 지역 수원시, 종류 네팔인도식, 상호 그레이트 히말라야, 주소 수원시 팔달구 매산로 7-1. The dataset names no certifying body, so this stays at friendly rather than certified — the publisher itself cautions the data 'does not guarantee restaurant service levels or halal certification status.'"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Nepali-Indian kitchen a few minutes' walk from Suwon Station's south side, on Maesan-ro.",
+    "story": "Great Himalaya serves Nepali and Indian food near Suwon Station. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "nan-suwon",
+    "name": "Nan (난)",
+    "zone": "Paldal-gu, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.2643470508661,
+        "lng": 127.035070004879
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map's walking-route endpoint from Suwon City Hall Station (수원시청역) resolves the destination to 37.264347/127.035070. Naver's search MCP was unavailable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "2F, 45 Ingye-ro166beon-gil, Paldal-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset lists this restaurant's row as: 지역 수원시, 종류 인도식, 상호 난, 주소 수원시 팔달구 인계로166번길 45 2층. Kakao Map independently resolves the place '난' to the same road address, 인계로166번길 45."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No source strong enough to quote gave hours."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-237-1090; DiningCode's own listing gives 0507-1311-1136. The two disagree, so the field is left unknown rather than picking one."
+    },
+    "transit": {
+      "value": {
+        "station": "Suwon City Hall",
+        "line": "Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 10,
+        "distanceM": 650
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map walking route from 수원시청역: 650 m / 593 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source reviewed."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-28",
+        "evidence": "Gyeonggi Tourism Organization's public dataset (surveyed May 2024, published on data.go.kr) lists this restaurant's row as: 지역 수원시, 종류 인도식, 상호 난, 주소 수원시 팔달구 인계로166번길 45 2층. The dataset names no certifying body, so this stays at friendly rather than certified — the publisher itself cautions the data 'does not guarantee restaurant service levels or halal certification status.'"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian kitchen on the second floor of a building on Ingye-ro166beon-gil, in Suwon's Ingye-dong.",
+    "story": "Nan serves Indian food from a second-floor unit in Suwon's Ingye-dong. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "suembu-suwon",
+    "name": "Suembu Suwon (수엠부 수원점)",
+    "zone": "Paldal-gu, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.2669507948894,
+        "lng": 127.003607685525
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map's walking-route endpoint from Suwon Station (수원역) resolves the destination to 37.266951/127.003608. Naver's search MCP was unavailable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "9 Maesan-ro20beon-gil, Paldal-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset lists this restaurant's row as: 지역 수원시, 종류 인도식, 상호 수엠부 인도요리, 주소 수원시 팔달구 매산로20번길 9. Kakao Map independently resolves the place '수엠부 수원점' to the same road address, 매산로20번길 9 (a second Kakao result, '수엠부 동탄점' in Hwaseong, is a separate branch at a different address and not this entry)."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No source strong enough to quote gave hours."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-258-3305; DiningCode's own listing gives 0507-1458-3422. The two disagree, so the field is left unknown rather than picking one."
+    },
+    "transit": {
+      "value": {
+        "station": "Suwon",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 511
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map walking route from 수원역: 511 m / 527 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source reviewed."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-28",
+        "evidence": "Gyeonggi Tourism Organization's public dataset (surveyed May 2024, published on data.go.kr) lists this restaurant's row as: 지역 수원시, 종류 인도식, 상호 수엠부 인도요리, 주소 수원시 팔달구 매산로20번길 9. The dataset names no certifying body, so this stays at friendly rather than certified — the publisher itself cautions the data 'does not guarantee restaurant service levels or halal certification status.'"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian kitchen near Suwon Station, a short walk from Great Himalaya on the same side of the station.",
+    "story": "Suembu serves Indian food from its Suwon Station branch. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "himalaya-garden-suwon",
+    "name": "Himalaya Garden (히말라야정원)",
+    "zone": "Paldal-gu, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.2635256484852,
+        "lng": 127.033874632349
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map's walking-route endpoint from Suwon City Hall Station (수원시청역) resolves the destination to 37.263526/127.033875. Naver's search MCP was unavailable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "19 Gwongwang-ro180beon-gil, Paldal-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset lists this restaurant's row as: 지역 수원시, 종류 네팔인도식, 상호 히말라야 정원, 주소 수원시 팔달구 권광로180번길 19. Kakao Map independently resolves the place '히말라야정원' to the same road address, 권광로180번길 19."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No source strong enough to quote gave hours."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-254-0977; DiningCode's own listing gives 0507-1440-1680. The two disagree, so the field is left unknown rather than picking one."
+    },
+    "transit": {
+      "value": {
+        "station": "Suwon City Hall",
+        "line": "Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 457
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map walking route from 수원시청역: 457 m / 421 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source reviewed."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-28",
+        "evidence": "Gyeonggi Tourism Organization's public dataset (surveyed May 2024, published on data.go.kr) lists this restaurant's row as: 지역 수원시, 종류 네팔인도식, 상호 히말라야 정원, 주소 수원시 팔달구 권광로180번길 19. The dataset names no certifying body, so this stays at friendly rather than certified — the publisher itself cautions the data 'does not guarantee restaurant service levels or halal certification status.'"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Nepali-Indian kitchen near Suwon City Hall Station, close to Nan on the same stretch of Ingye-dong.",
+    "story": "Himalaya Garden serves Nepali and Indian food in Suwon's Ingye-dong. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "diwali-seongnam",
+    "name": "Diwali (디왈리)",
+    "zone": "Sujeong-gu, Seongnam",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.4487891791303,
+        "lng": 127.12713449899
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map's walking-route endpoint from Gachon University Station (가천대역) resolves the destination to 37.448789/127.127134. Naver's search MCP was unavailable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "1334 Seongnam-daero, Sujeong-gu, Seongnam, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset lists this restaurant's row as: 지역 성남시, 종류 인도식, 상호 디왈리, 주소 성남시 수정구 성남대로 1334. Kakao Map independently resolves the place '디왈리' to the same road address, 성남대로 1334."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No source strong enough to quote gave hours."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+    },
+    "phone": {
+      "value": "031-722-0782",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-722-0782; DiningCode's own listing gives the same number, no conflict."
+    },
+    "transit": {
+      "value": {
+        "station": "Gachon University",
+        "line": "Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 3,
+        "distanceM": 179
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map walking route from 가천대역: 179 m / 158 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source reviewed."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-28",
+        "evidence": "Gyeonggi Tourism Organization's public dataset (surveyed May 2024, published on data.go.kr) lists this restaurant's row as: 지역 성남시, 종류 인도식, 상호 디왈리, 주소 성남시 수정구 성남대로 1334. The dataset names no certifying body, so this stays at friendly rather than certified — the publisher itself cautions the data 'does not guarantee restaurant service levels or halal certification status.'"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian kitchen right by Gachon University Station's exit, in Seongnam's Sujeong-gu.",
+    "story": "Diwali serves Indian food a short walk from Gachon University Station. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "indian-curry-seongnam",
+    "name": "Indian Curry (인디안커리)",
+    "zone": "Bundang-gu, Seongnam",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.385763577527435,
+        "lng": 127.12571138628678
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map's walking-route endpoint from Seohyeon Station (서현역) resolves the destination to 37.385764/127.125711. Naver's search MCP was unavailable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "21 Hwangsaeul-ro360beon-gil, Bundang-gu, Seongnam, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset lists this restaurant's row as: 지역 성남시, 종류 인도식, 상호 인디안 커리, 주소 성남시 분당구 황새울로360번길 21. Kakao Map's '인디안커리' (Seohyeon branch) resolves to the same road address, 황새울로360번길 21; DiningCode's own listing for the Seohyeon branch (rid 4t76QqlHsImK) gives the identical road address. A second Kakao/DiningCode result, '인디안커리 미금점' at 성남대로 165, is a different branch and not this entry."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No source strong enough to quote gave hours."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-781-2177; DiningCode's own listing for the Seohyeon branch gives 0507-1325-2177. The two disagree, so the field is left unknown rather than picking one."
+    },
+    "transit": {
+      "value": {
+        "station": "Seohyeon",
+        "line": "Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 5,
+        "distanceM": 278
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map walking route from 서현역: 278 m / 285 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source reviewed."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-28",
+        "evidence": "Gyeonggi Tourism Organization's public dataset (surveyed May 2024, published on data.go.kr) lists this restaurant's row as: 지역 성남시, 종류 인도식, 상호 인디안 커리, 주소 성남시 분당구 황새울로360번길 21. The dataset names no certifying body, so this stays at friendly rather than certified — the publisher itself cautions the data 'does not guarantee restaurant service levels or halal certification status.'"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian kitchen near Seohyeon Station's exit, in Bundang's Hwangsaeul-ro strip.",
+    "story": "Indian Curry serves Indian food near Seohyeon Station. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "inditable-seongnam",
+    "name": "Indi Table (인디테이블)",
+    "zone": "Bundang-gu, Seongnam",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.39778647641105,
+        "lng": 127.11358070288522
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map's walking-route endpoint from Pangyo Station (판교역) resolves the destination to 37.397786/127.113581. Naver's search MCP was unavailable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "25 Dongpangyo-ro177beon-gil, Bundang-gu, Seongnam, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset lists this restaurant's row as: 지역 성남시, 종류 인도식, 상호 인디테이블, 주소 성남시 분당구 동판교로177번길 25. Kakao Map independently resolves the place '인디테이블' to the same road address, 동판교로177번길 25."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No source strong enough to quote gave hours."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-708-7022; DiningCode's own listing gives 0507-1411-7034. The two disagree, so the field is left unknown rather than picking one."
+    },
+    "transit": {
+      "value": {
+        "station": "Pangyo",
+        "line": "Sinbundang Line",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 562
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map walking route from 판교역: 562 m / 557 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source reviewed."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-28",
+        "evidence": "Gyeonggi Tourism Organization's public dataset (surveyed May 2024, published on data.go.kr) lists this restaurant's row as: 지역 성남시, 종류 인도식, 상호 인디테이블, 주소 성남시 분당구 동판교로177번길 25. The dataset names no certifying body, so this stays at friendly rather than certified — the publisher itself cautions the data 'does not guarantee restaurant service levels or halal certification status.'"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian kitchen a short walk from Pangyo Station, in Seongnam's tech-district end of Bundang.",
+    "story": "Indi Table serves Indian food near Pangyo Station. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "newdelhi-goyang",
+    "name": "New Delhi (뉴델리)",
+    "zone": "Deogyang-gu, Goyang",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.632375063937936,
+        "lng": 126.83123886844804
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map's walking-route endpoint from Hwajeong Station (화정역) resolves the destination to 37.632375/126.831239. Naver's search MCP was unavailable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "29 Hwasin-ro272beon-gil, Deogyang-gu, Goyang, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-28",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset lists this restaurant's row as: 지역 고양시, 종류 인도식, 상호 뉴델리, 주소 고양시 덕양구 화신로272번길 29. Kakao Map independently resolves the place '뉴델리' to the same road address, 화신로272번길 29."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No source strong enough to quote gave hours."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Gyeonggi Tourism Organization's dataset gives 070-4105-1010; DiningCode's own listing gives 0507-1470-1636. The two disagree, so the field is left unknown rather than picking one."
+    },
+    "transit": {
+      "value": {
+        "station": "Hwajeong",
+        "line": "Line 3",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 364
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-28",
+      "evidence": "Kakao Map walking route from 화정역: 364 m / 333 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source reviewed."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-28",
+        "evidence": "Gyeonggi Tourism Organization's public dataset (surveyed May 2024, published on data.go.kr) lists this restaurant's row as: 지역 고양시, 종류 인도식, 상호 뉴델리, 주소 고양시 덕양구 화신로272번길 29. The dataset names no certifying body, so this stays at friendly rather than certified — the publisher itself cautions the data 'does not guarantee restaurant service levels or halal certification status.'"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian kitchen near Hwajeong Station, in Goyang's Deogyang-gu.",
+    "story": "New Delhi serves Indian food near Hwajeong Station. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
     "gallery": []
