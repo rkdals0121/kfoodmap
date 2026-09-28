@@ -101,7 +101,14 @@ async function errorBody(response) {
 // Proves the "own rows only" table works by trying every way to break it,
 // against the live table — the same standard as leads.mjs's verify-rls.
 // Leaves no rows and no test users behind.
-async function verifyRls() {
+// `--prove-can-fail` runs the same rules with an over-privileged key in
+// place of user A's token. A suite that still passes under a wrong
+// identity proves nothing, and until now the only way to establish that
+// was to edit this file by hand — which the next person will not do.
+// Under the flag the verdict inverts: failures are the expected result,
+// and a clean run is the alarm.
+async function verifyRls(args = []) {
+  const proving = args.includes('--prove-can-fail');
   // Read every env var up front so a missing one exits before the
   // try/finally even opens — process.exit() skips finally, so failing
   // inside it could otherwise leave a self-test user behind unnoticed.
@@ -127,6 +134,11 @@ async function verifyRls() {
   try {
     userA = await makeTestUser(base, service, anon, emailA, password);
     userB = await makeTestUser(base, service, anon, emailB, password);
+
+    // Substituted after the users exist, so every rule below still runs
+    // against a real row and a real account — only the identity
+    // presented to PostgREST is wrong.
+    if (proving) userA.accessToken = service;
 
     // Seed B's own row first, as B, so the "A can't see/touch B" rules
     // below have something real to fail against.
@@ -178,7 +190,14 @@ async function verifyRls() {
     const rereadB = await restAsUser(`passports?user_id=eq.${userB.id}&place_id=eq.${placeB}&select=saved_at`, userB.accessToken, anon);
     const rereadBBody = rereadB.ok ? await rereadB.json() : [];
     const bUnchanged = rereadBBody.length === 1 && rereadBBody[0].saved_at !== null;
-    check('A updating B\'s row affects 0 rows and B\'s row is unchanged', updateBBody.length === 0 && bUnchanged,
+    // The status check is what makes this rule mean something. Without it a
+    // PATCH that failed for an unrelated reason — an expired token, a 404
+    // because the table is missing — leaves updateBBody empty, reads as
+    // "0 rows affected", and passes while proving nothing about RLS. An
+    // executed-but-filtered UPDATE is a 200 with an empty representation;
+    // that, and only that, is the shape RLS produces here.
+    check('A updating B\'s row is executed, affects 0 rows, and B\'s row is unchanged',
+      updateB.status === 200 && updateBBody.length === 0 && bUnchanged,
       `PATCH HTTP ${updateB.status} affected ${updateBBody.length}, B's saved_at now ${rereadBBody[0]?.saved_at ?? 'missing'}`);
 
     // Rule 6: A deleting B's row affects 0 rows; B's row still exists.
@@ -188,7 +207,11 @@ async function verifyRls() {
     const deleteBBody = deleteB.ok ? await deleteB.json() : [];
     const stillThere = await restAsUser(`passports?user_id=eq.${userB.id}&place_id=eq.${placeB}&select=place_id`, userB.accessToken, anon);
     const stillThereBody = stillThere.ok ? await stillThere.json() : [];
-    check('A deleting B\'s row affects 0 rows and B\'s row still exists', deleteBBody.length === 0 && stillThereBody.length === 1,
+    // Same discriminator as rule 5: a 200 with an empty representation is an
+    // executed DELETE that matched nothing, which is RLS filtering the row
+    // out. A 401 also produces an empty body and would otherwise pass.
+    check('A deleting B\'s row is executed, affects 0 rows, and B\'s row still exists',
+      deleteB.status === 200 && deleteBBody.length === 0 && stillThereBody.length === 1,
       `DELETE HTTP ${deleteB.status} affected ${deleteBBody.length}, B still has ${stillThereBody.length} row(s)`);
 
     // Rule 7: A moving its own row to user_id = B is denied.
@@ -214,8 +237,13 @@ async function verifyRls() {
       anonReadPass = Array.isArray(anonReadBody) && anonReadBody.length === 0;
       anonReadDetail = `HTTP ${anonRead.status}, ${anonReadBody.length} row(s)`;
     } else {
-      anonReadPass = anonRead.status === 401 || anonRead.status === 403;
-      anonReadDetail = `HTTP ${anonRead.status}`;
+      // `revoke all ... from anon` makes this a permission denial — SQLSTATE
+      // 42501, which PostgREST reports as 401 with that code in the body.
+      // Asserting the code stops a 401 from an unrelated cause, such as a
+      // missing table or a malformed request, from reading as proof.
+      const anonReadError = await errorBody(anonRead);
+      anonReadPass = (anonRead.status === 401 || anonRead.status === 403) && anonReadError.code === '42501';
+      anonReadDetail = `HTTP ${anonRead.status} code=${anonReadError.code ?? 'none'} ${anonReadError.message}`;
     }
     check('anon key with no user JWT reads zero rows', anonReadPass, anonReadDetail);
 
@@ -224,7 +252,10 @@ async function verifyRls() {
       method: 'POST', headers: { Prefer: 'return=minimal' },
       body: JSON.stringify({ user_id: userA.id, place_id: `rls-test-anon-${suffix}`, saved_at: new Date().toISOString() }),
     });
-    check('anon key with no user JWT cannot insert', anonInsert.status === 401 || anonInsert.status === 403, `HTTP ${anonInsert.status}`);
+    const anonInsertError = await errorBody(anonInsert);
+    check('anon key with no user JWT cannot insert',
+      (anonInsert.status === 401 || anonInsert.status === 403) && anonInsertError.code === '42501',
+      `HTTP ${anonInsert.status} code=${anonInsertError.code ?? 'none'} ${anonInsertError.message}`);
 
     // Rule 10: visited_at set with saved_at null is rejected by the table constraint.
     const badInsert = await restAsUser('passports', userA.accessToken, anon, {
@@ -323,6 +354,16 @@ async function verifyRls() {
 
   for (const { rule, pass, detail } of results) console.log(`${pass ? 'PASS' : 'FAIL'}  ${rule}  (${detail})`);
   const failed = results.filter(r => !r.pass).length;
+  if (proving) {
+    console.log(
+      failed
+        ? `\nCHECK IS FALSIFIABLE: ${failed} of ${results.length} rule(s) failed under a substituted key, as they must.`
+        : `\nALARM: every rule passed while presenting the wrong identity. `
+          + `The suite cannot fail, so a green run proves nothing about RLS.`,
+    );
+    process.exitCode = failed ? 0 : 1;
+    return;
+  }
   console.log(failed ? `\n${failed} rule(s) failed.` : `\nAll ${results.length} rules hold.`);
   // Not process.exit(): fetch/undici keep-alive handles are still closing at
   // this point, and calling process.exit() synchronously right after
@@ -460,6 +501,7 @@ const commands = { 'verify-rls': verifyRls, 'sync-e2e': syncE2e, 'delete-user': 
 const [command, ...args] = process.argv.slice(2);
 if (!commands[command]) {
   console.error(`Usage: node --env-file=.env.local scripts/passport.mjs <${Object.keys(commands).join('|')}>`);
+  console.error('       verify-rls [--prove-can-fail]   run the rules with a wrong identity; failures are then the expected result');
   process.exit(2);
 }
 await commands[command](args);
