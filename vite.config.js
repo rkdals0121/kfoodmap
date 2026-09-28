@@ -132,7 +132,7 @@ export default defineConfig({
       manifest: {
         name: 'K-Food Map',
         short_name: 'K-Food Map',
-        description: 'A curated map of sustainable Korean dining in Seoul & Incheon.',
+        description: 'A curated map of sustainable Korean dining in Seoul, Incheon & Gyeonggi.',
         theme_color: '#FFFFFF',
         background_color: '#FFFFFF',
         display: 'standalone',
