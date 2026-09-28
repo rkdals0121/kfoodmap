@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
+import React, { useEffect, useMemo, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
+import { useTranslation } from 'react-i18next';
 import { MAP_CENTER, coordsOf } from '../utils';
+import { clusterPoints, isSameSpot } from '../data/cluster';
 
 // Reports the map center upward after each pan/zoom so the list can re-sort by distance
 function CenterReporter({ onCenterChange }) {
@@ -41,6 +43,125 @@ const pinIcon = (selected) => L.divIcon({
   iconAnchor: [17, 42],
 });
 
+// Count badge for pins that would overlap at this zoom (see data/cluster.js).
+const clusterIcon = (count) => L.divIcon({
+  className: 'k-cluster',
+  html: `<span>${count}</span>`,
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
+});
+
+// On a phone the list sheet slides up over the lower part of the map, which
+// stays full height underneath it. Zooming to a group has to fit the places
+// into the part still showing, or half of them land under the sheet.
+function sheetOverlap(map) {
+  const sheet = document.querySelector('.sidebar-region');
+  if (!sheet) return 0;
+  const m = map.getContainer().getBoundingClientRect();
+  const s = sheet.getBoundingClientRect();
+  const spansMap = s.left <= m.left + 1 && s.right >= m.right - 1;
+  if (!spansMap || s.top >= m.bottom) return 0;
+  // Leave at least a strip to fit into, even with the sheet pulled up high.
+  return Math.max(0, Math.min(m.bottom - Math.max(s.top, m.top), m.height - 240));
+}
+
+function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
+  const map = useMap();
+  const { t } = useTranslation();
+  const [zoom, setZoom] = useState(() => map.getZoom());
+  useMapEvents({ zoomend: () => setZoom(map.getZoom()) });
+
+  // The open place always keeps its own pin, so it never disappears into a
+  // count while its detail is on screen.
+  const selected = restaurants.find(r => r.id === selectedId);
+  const groups = useMemo(() => {
+    const points = restaurants
+      .filter(r => r.id !== selectedId)
+      .map(r => {
+        const c = coordsOf(r);
+        const p = map.project([c.lat, c.lng], zoom);
+        return { x: p.x, y: p.y, r, latlng: c };
+      });
+    return clusterPoints(points);
+  }, [restaurants, selectedId, zoom, map]);
+
+  const atMaxZoom = zoom >= map.getMaxZoom();
+
+  return (
+    <>
+      {groups.map(members => {
+        if (members.length === 1) {
+          const { r, latlng } = members[0];
+          return (
+            <Marker
+              key={r.id}
+              position={[latlng.lat, latlng.lng]}
+              icon={pinIcon(false)}
+              title={r.name}
+              alt={r.name}
+              eventHandlers={{ click: () => onMarkerClick(r) }}
+            />
+          );
+        }
+        const latlngs = members.map(m => m.latlng);
+        const lat = latlngs.reduce((a, c) => a + c.lat, 0) / latlngs.length;
+        const lng = latlngs.reduce((a, c) => a + c.lng, 0) / latlngs.length;
+        const key = 'c:' + members.map(m => m.r.id).join(',');
+        // Zooming cannot separate places that share a building, so list
+        // them instead.
+        if (atMaxZoom || isSameSpot(latlngs)) {
+          const label = t('map.clusterList', { count: members.length });
+          return (
+            <Marker key={key} position={[lat, lng]} icon={clusterIcon(members.length)} title={label} alt={label}>
+              <Popup className="k-cluster-popup" closeButton={false}>
+                <p className="k-cluster-popup__title">{label}</p>
+                <ul>
+                  {members.map(({ r }) => (
+                    <li key={r.id}>
+                      <button type="button" onClick={() => { map.closePopup(); onMarkerClick(r); }}>
+                        {r.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </Popup>
+            </Marker>
+          );
+        }
+        const label = t('map.clusterZoom', { count: members.length });
+        return (
+          <Marker
+            key={key}
+            position={[lat, lng]}
+            icon={clusterIcon(members.length)}
+            title={label}
+            alt={label}
+            eventHandlers={{
+              click: () => map.flyToBounds(L.latLngBounds(latlngs.map(c => [c.lat, c.lng])), {
+                paddingTopLeft: [56, 56],
+                paddingBottomRight: [56, 56 + sheetOverlap(map)],
+                maxZoom: map.getMaxZoom(),
+                duration: 0.5,
+              }),
+            }}
+          />
+        );
+      })}
+      {selected && (
+        <Marker
+          key={selected.id}
+          position={[coordsOf(selected).lat, coordsOf(selected).lng]}
+          icon={pinIcon(true)}
+          title={selected.name}
+          alt={selected.name}
+          zIndexOffset={1000}
+          eventHandlers={{ click: () => onMarkerClick(selected) }}
+        />
+      )}
+    </>
+  );
+}
+
 export default function MapComponent({ restaurants, onMarkerClick, selectedId, onCenterChange }) {
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
@@ -65,16 +186,11 @@ export default function MapComponent({ restaurants, onMarkerClick, selectedId, o
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {restaurants.map(r => (
-          <Marker
-            key={r.id}
-            position={[coordsOf(r).lat, coordsOf(r).lng]}
-            icon={pinIcon(selectedId === r.id)}
-            eventHandlers={{
-              click: () => onMarkerClick(r),
-            }}
-          />
-        ))}
+        <ClusteredMarkers
+          restaurants={restaurants}
+          selectedId={selectedId}
+          onMarkerClick={onMarkerClick}
+        />
       </MapContainer>
     </div>
   );

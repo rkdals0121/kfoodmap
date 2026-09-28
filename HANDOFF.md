@@ -2038,6 +2038,18 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     not rushed in at the end of the day. Measure again after any batch: the
     number only goes up.
 
+    **Fixed 2026-09-29** without a dependency: `src/data/cluster.js` groups
+    pins whose anchors are within 40 px at the current zoom (greedy,
+    deterministic, unit-tested in `scripts/tests/cluster.test.mjs`), and
+    `MapComponent` draws each group as a count badge. Tapping a badge flies
+    to its members, fitted into the part of the map the phone's list sheet
+    leaves showing; a group whose members share one building (within ~20 m,
+    e.g. Kervan and Dubai at 192 Itaewon-ro) or that is still grouped at the
+    maximum zoom opens a list of its places instead. The open place always
+    keeps its own pin. Re-measured on 375x812 at the default zoom: 17 marks
+    visible, 2 pairs touching by 4–7 px at a corner, none covering another's
+    centre.
+
 
 ---
 

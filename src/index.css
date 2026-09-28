@@ -2781,3 +2781,66 @@ button {
   outline: 3px solid var(--green-tint);
   outline-offset: 2px;
 }
+
+/* ----- Pin clusters -----
+   Pins that would overlap at the current zoom collapse into one count badge
+   (src/data/cluster.js). Same brand green as the pins; tapping zooms in, or
+   lists the places when they share one building. */
+.k-cluster {
+  background: none;
+  border: none;
+}
+.k-cluster span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(16, 24, 40, 0.3);
+  box-sizing: border-box;
+  transition: transform 0.15s ease;
+}
+.k-cluster:hover span {
+  transform: scale(1.08);
+}
+.k-cluster-popup .leaflet-popup-content {
+  margin: 12px 14px;
+  min-width: 200px;
+}
+.k-cluster-popup__title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667085;
+}
+.k-cluster-popup ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.k-cluster-popup button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 4px;
+  border: none;
+  border-top: 1px solid #EAECF0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  color: #101828;
+  cursor: pointer;
+}
+.k-cluster-popup li:first-child button {
+  border-top: none;
+}
+.k-cluster-popup button:hover,
+.k-cluster-popup button:focus-visible {
+  color: var(--green);
+}

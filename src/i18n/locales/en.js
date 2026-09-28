@@ -253,4 +253,8 @@ export default {
     sidebarExpand: 'Expand sidebar',
     sidebarCollapse: 'Collapse sidebar',
   },
+  map: {
+    clusterZoom: '{{count}} places here — tap to zoom in',
+    clusterList: '{{count}} places at this spot',
+  },
 };
