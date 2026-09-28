@@ -111,7 +111,7 @@ function AppShell() {
     [bookmarks],
   );
 
-  const { session, googleReady, signIn, signOut, deleteRecords, lastSyncFailed, sessionEnded } =
+  const { session, googleReady, signIn, signOut, deleteRecords, lastSyncFailed, sessionEnded, signInFailed } =
     usePassportSync({ entries, setEntries, isOnline });
   const sustainabilityLens = useMemo(
     () => selectedFilters.some(f => SUSTAINABILITY_AXIS.includes(f)),
@@ -255,6 +255,7 @@ function AppShell() {
             onDeleteRecords={deleteRecords}
             lastSyncFailed={lastSyncFailed}
             sessionEnded={sessionEnded}
+            signInFailed={signInFailed}
             savedCount={bookmarks.length}
             visitedCount={visitedIds.length}
           />

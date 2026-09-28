@@ -139,7 +139,7 @@ function LanguagePicker({ onClose }) {
 // sync does not exist.
 function ProfileTab({
   onNavigate, session, googleReady, onSignIn, onSignOut, onDeleteRecords,
-  lastSyncFailed, sessionEnded, savedCount, visitedCount,
+  lastSyncFailed, sessionEnded, signInFailed, savedCount, visitedCount,
 }) {
   const { t, i18n } = useTranslation();
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
@@ -224,6 +224,13 @@ function ProfileTab({
       {sessionEnded && !session && (
         <p className="profile-notice profile-notice--warn" role="status">{t('profile.sessionEnded')}</p>
       )}
+      {/* Shown when a sign-in was started and did not arrive — a refusal at
+          Google's consent screen, an unreachable provider, a chunk that
+          would not load. Without it the app simply looks signed out, which
+          is what it looked like before the button was pressed. */}
+      {signInFailed && !session && (
+        <p className="profile-notice profile-notice--warn" role="status">{t('profile.signInFailed')}</p>
+      )}
       {/* Said plainly, and never instead of the places: they are still here,
           it is the sync that failed. Only a signed-in device syncs, so only a
           signed-in device can say this. */}
@@ -272,7 +279,7 @@ function ProfileTab({
 
 export default function TabPanel({
   tab, onNavigate, session, googleReady, onSignIn, onSignOut, onDeleteRecords,
-  lastSyncFailed, sessionEnded, savedCount, visitedCount,
+  lastSyncFailed, sessionEnded, signInFailed, savedCount, visitedCount,
 }) {
   if (tab === 'discover') return <DiscoverTab onNavigate={onNavigate} />;
   if (tab === 'profile') {
@@ -286,6 +293,7 @@ export default function TabPanel({
         onDeleteRecords={onDeleteRecords}
         lastSyncFailed={lastSyncFailed}
         sessionEnded={sessionEnded}
+        signInFailed={signInFailed}
         savedCount={savedCount}
         visitedCount={visitedCount}
       />

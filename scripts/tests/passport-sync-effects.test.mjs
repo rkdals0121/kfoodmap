@@ -86,6 +86,9 @@ before(async () => {
       authClientNeededNow: () => true,
       storedSessionExists: () => false,
       authReturnInUrl: () => false,
+      // No refusal in the URL: these sequences are about what happens after
+      // a session exists, not about how one was started.
+      authRefusedInUrl: () => false,
       // Answered without a request: the sign-in row is not what this file
       // is about, and a real call would be one more thing to stub.
       googleEnabled: async () => false,

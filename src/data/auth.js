@@ -99,6 +99,20 @@ export function storedSessionExists(storage) {
   }
 }
 
+// A sign-in that came back refused. Google sends the person back to our own
+// URL carrying `error=access_denied` when they close the consent screen, and
+// auth-js returns early on that shape without restoring a session — so
+// without this the app just looks signed out, having said nothing, which is
+// indistinguishable from a sign-in that was never pressed.
+export function authRefusedInUrl(location) {
+  try {
+    const params = paramsFromUrl(location ?? window.location);
+    return Boolean(params.error || params.error_code || params.error_description);
+  } catch {
+    return false;
+  }
+}
+
 export function authReturnInUrl(location, storage) {
   let params;
   try {

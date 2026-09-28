@@ -94,6 +94,7 @@ export default {
     aboutApp: 'About K-Food Map',
     version: 'v1.0',
     signInGoogle: 'Sign in with Google',
+    signInFailed: "Sign-in didn't finish. Your saved places are still on this device — try again when you're ready.",
     passport: 'Passport',
     custodyDevice: 'On this device only',
     custodyDeviceHint: 'Sign in to carry these to your other devices.',

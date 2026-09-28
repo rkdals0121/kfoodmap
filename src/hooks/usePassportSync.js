@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { authClientNeededNow, createAuthClient, googleEnabled } from '../data/auth.js';
+import { authClientNeededNow, authRefusedInUrl, createAuthClient, googleEnabled } from '../data/auth.js';
 import { supabaseConfig } from '../data/leads.js';
 import {
   clearLocalPassport,
@@ -222,6 +222,12 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
   const [session, setSession] = useState(null);
   const [googleReady, setGoogleReady] = useState(false);
   const [lastSyncFailed, setLastSyncFailed] = useState(false);
+  // A sign-in that was started and did not arrive: the chunk would not
+  // load, the provider could not be reached, or the person refused at
+  // Google's consent screen and was sent back with `error=` in the URL.
+  // Seeded from the URL so a refusal is caught on the load it returns on,
+  // not only when the button is pressed.
+  const [signInFailed, setSignInFailed] = useState(authRefusedInUrl);
   // True from the moment a session ends on its own — an expired or revoked
   // token, or a sign-out in another tab — until the next successful sign-in.
   // The device is cleared on that path (see below), and without this the
@@ -374,9 +380,10 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
       // anonymous passport must still carry into its owner's first account.
       return;
     }
-    // A session exists again, so the notice has done its job.
+    // A session exists again, so both notices have done their job.
     deliberateSignOutRef.current = false;
     setSessionEnded(false);
+    setSignInFailed(false);
     const owner = loadPassportOwner() ?? previous;
     ownerRef.current = owner;
     if (!passportBelongsTo(owner, userId)) {
@@ -499,13 +506,27 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
   // The returned promise never rejects: the caller is a click handler, and a
   // failure to load the chunk or to reach the provider must leave the button
   // doing nothing, which is what a user with no connectivity already expects.
-  const signIn = useCallback(() => ensureClient().then(next => {
-    if (!next) return undefined;
-    return next.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: signInReturnTo() },
-    });
-  }).catch(() => {}), [ensureClient]);
+  const signIn = useCallback(() => {
+    setSignInFailed(false);
+    return ensureClient().then(next => {
+      // The chunk did not load. Saying so is the whole point: a button that
+      // silently does nothing is indistinguishable from one that was never
+      // pressed, and the retry that would fix it is a press away.
+      if (!next) {
+        setSignInFailed(true);
+        return undefined;
+      }
+      return next.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: signInReturnTo() },
+      }).then(result => {
+        // On success the browser leaves for Google and nothing here renders
+        // again; an error means we are still on the page, saying nothing.
+        if (result?.error) setSignInFailed(true);
+        return result;
+      });
+    }).catch(() => { setSignInFailed(true); });
+  }, [ensureClient]);
 
   // Leaves this device clean; the account keeps the records (operator's
   // decision, 2026-09-19). Deleting the records is a separate, explicit act.
@@ -562,5 +583,5 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
     clearDevice();
   }, [config, invalidate, clearDevice]);
 
-  return { session, googleReady, signIn, signOut, deleteRecords, lastSyncFailed, sessionEnded };
+  return { session, googleReady, signIn, signOut, deleteRecords, lastSyncFailed, sessionEnded, signInFailed };
 }

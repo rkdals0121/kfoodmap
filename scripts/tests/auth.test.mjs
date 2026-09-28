@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   AUTH_STORAGE_KEY,
   authClientNeededNow,
+  authRefusedInUrl,
   authReturnInUrl,
   createAuthClient,
   googleEnabled,
@@ -156,4 +157,27 @@ test('storage whose very accessor throws does not take the render down', () => {
     if (realWindow) Object.defineProperty(globalThis, 'window', realWindow);
     else delete globalThis.window;
   }
+});
+
+test('a refusal at the consent screen is detected from the URL it returns on', () => {
+  // What Google actually sends back when the person closes the consent
+  // screen. auth-js returns early on this shape without restoring a
+  // session, so nothing else in the app would ever notice it.
+  assert.equal(authRefusedInUrl(at('https://kfoodmap.test/?error=access_denied')), true);
+  assert.equal(authRefusedInUrl(at('https://kfoodmap.test/?error_code=400&error_description=bad')), true);
+  // The hash form, which is what an implicit-grant error uses.
+  assert.equal(authRefusedInUrl(at('https://kfoodmap.test/#error=access_denied')), true);
+});
+
+test('an ordinary URL, and a successful return, are not refusals', () => {
+  assert.equal(authRefusedInUrl(at('https://kfoodmap.test/')), false);
+  assert.equal(authRefusedInUrl(at('https://kfoodmap.test/place/maji')), false);
+  // A code in hand is the success leg — the opposite of a refusal.
+  assert.equal(authRefusedInUrl(at('https://kfoodmap.test/?code=xyz')), false);
+  // A restaurant whose own query string happens to carry the word.
+  assert.equal(authRefusedInUrl(at('https://kfoodmap.test/submit?place=error-cafe')), false);
+});
+
+test('an unreadable location reads as "no refusal", never as an exception', () => {
+  assert.equal(authRefusedInUrl({ get href() { throw new Error('access denied'); } }), false);
 });
