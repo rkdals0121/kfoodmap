@@ -10257,4 +10257,8203 @@ export const restaurants = [
     "coverImage": null,
     "gallery": []
   },
+  // ---- Data expansion, batch 6 (2026-09-29): capital region, second pass ----
+  // Same brief (.superpowers/data-expansion/BRIEF.md + B6-ADDENDUM.md); every draft
+  // machine-reviewed, then read. Coordinates Kakao-only (SUPPORTED) unless the
+  // operator's own page gives the same address. Holds and why: docs/data-expansion/RULINGS.md.
+  {
+    "id": "everest-starfield-hanam",
+    "name": "Everest Starfield Hanam (에베레스트 스타필드 하남점)",
+    "zone": "Starfield Hanam, Hanam",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.544959975042524,
+        "lng": 127.22306044986789
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 하남풍산역 5호선 to '에베레스트 하남스타필드점' gives the destination as 37.544960/127.223060. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, Starfield Hanam, 750 Misa-daero, Hanam, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 하남시 미사대로 750; Kakao Map (https://place.map.kakao.com/190917502) independently resolves the place to 경기 하남시 미사대로 750 1층. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-8072-8289",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/190917502",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset, Kakao Map and DiningCode's listing all give 031-8072-8289."
+    },
+    "transit": {
+      "value": {
+        "station": "Hanam Pungsan",
+        "line": "Line 5",
+        "exit": null,
+        "walkingMinutes": 37,
+        "distanceM": 2357
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 하남풍산역 5호선: 2357 m / 2206 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 하남시, 종류 인도식, 상호 에베레스트(스타필드 하남점), 주소 하남시 미사대로 750, 연락처 031-8072-8289. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian and Nepali kitchen on the ground floor of the Starfield Hanam mall, a long walk (about 37 minutes) from Hanam Pungsan Station.",
+    "story": "Everest serves Indian and Nepali food inside Starfield Hanam. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "masala-bucheon",
+    "name": "Masala Indian Restaurant (마살라 인디안레스토랑)",
+    "zone": "Jung-dong, Bucheon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.50299772656616,
+        "lng": 126.76129463532115
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 부천시청역 7호선 to '마살라 인디안레스토랑' gives the destination as 37.502998/126.761295. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "3F, 30 Seokcheon-ro169beon-gil, Wonmi-gu, Bucheon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 부천시 석천로 169번길 30; Kakao Map (https://place.map.kakao.com/14575628) independently resolves the place to 경기 부천시 원미구 석천로169번길 30 새롬프라자 3층. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "032-326-2244",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/14575628",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset, Kakao Map and DiningCode's listing all give 032-326-2244."
+    },
+    "transit": {
+      "value": {
+        "station": "Bucheon City Hall",
+        "line": "Line 7",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 483
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 부천시청역 7호선: 483 m / 435 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 부천시, 종류 인도식, 상호 마살라인디안레스토랑, 주소 부천시 석천로 169번길 30, 연락처 032-326-2244. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian restaurant on the third floor of a building in Bucheon's Jung-dong, about seven minutes' walk from Bucheon City Hall Station.",
+    "story": "Masala is an Indian restaurant in Bucheon's Jung-dong district. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "spice-village-pyeongtaek",
+    "name": "Spice Village (스파이스빌리지)",
+    "zone": "Songtan, Pyeongtaek",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.0809906160344,
+        "lng": 127.051382647656
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 송탄역 1호선 to '스파이스빌리지' gives the destination as 37.080991/127.051383. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "17-1 Shopping-ro, Pyeongtaek, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 평택시 쇼핑로 17-1; Kakao Map (https://place.map.kakao.com/20599133) independently resolves the place to 경기 평택시 쇼핑로 17-1. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-668-4444",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/20599133",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset, Kakao Map and DiningCode's listing all give 031-668-4444."
+    },
+    "transit": {
+      "value": {
+        "station": "Songtan",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 14,
+        "distanceM": 872
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 송탄역 1호선: 872 m / 855 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 평택시, 종류 인도식, 상호 스파이스빌리지, 주소 평택시 쇼핑로 17-1, 연락처 031-668-4444. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian restaurant on Shopping-ro in Songtan, about a quarter-hour walk from Songtan Station.",
+    "story": "Spice Village is an Indian restaurant in Pyeongtaek's Songtan area. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bella-tunisie-suwon",
+    "name": "Bella Tunisie (벨라튀니지)",
+    "zone": "Yuljeon-dong, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.2972187041031,
+        "lng": 126.97135703778
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 성균관대역 1호선 to '벨라튀니지' gives the destination as 37.297219/126.971357. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "B1, 21 Seobu-ro2106beon-gil, Jangan-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 수원시 장안구 서부로2106번길 21; Kakao Map (https://place.map.kakao.com/1194567292) independently resolves the place to 경기 수원시 장안구 서부로2106번길 21 지하1층. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-296-8327",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1194567292",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset, Kakao Map and DiningCode's listing all give 031-296-8327."
+    },
+    "transit": {
+      "value": {
+        "station": "Sungkyunkwan University",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 540
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 성균관대역 1호선: 540 m / 556 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 수원시, 종류 지중해식, 상호 벨라튀니지, 주소 수원시 장안구 서부로2106번길 21, 연락처 031-296-8327. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small Tunisian restaurant in a basement near Sungkyunkwan University Station, about nine minutes' walk away.",
+    "story": "Bella Tunisie serves Tunisian food near Sungkyunkwan University's Suwon campus. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "agra-starfield-suwon",
+    "name": "Agra Starfield Suwon (아그라 스타필드 수원점)",
+    "zone": "Starfield Suwon, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.287604160381676,
+        "lng": 126.99113845648922
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 화서역 1호선 to '아그라 스타필드 수원점' gives the destination as 37.287604/126.991138. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "7F, Starfield Suwon, 175 Suseong-ro, Jangan-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 수원시 장안구 수성로 175 스타필드 수원점 7층; Kakao Map (https://place.map.kakao.com/942350327) independently resolves the place to 경기 수원시 장안구 수성로 175 7층. DiningCode's listing gives the same road address and floor."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The dataset gives 0507-1413-1704; Kakao Map gives 031-690-1703. The two disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Hwaseo",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 631
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 화서역 1호선: 631 m / 667 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 수원시, 종류 인도식, 상호 아그라 스타필드 수원점, 주소 수원시 장안구 수성로 175 스타필드 수원점 7층, 연락처 0507-1413-1704. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Agra Indian restaurant chain on the seventh floor of Starfield Suwon, about eleven minutes' walk from Hwaseo Station.",
+    "story": "Agra is an Indian restaurant chain; this branch is inside the Starfield Suwon mall. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "agra-starfield-anseong",
+    "name": "Agra Starfield Anseong (아그라 스타필드 안성점)",
+    "zone": "Starfield Anseong, Anseong",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 36.99486168114427,
+        "lng": 127.14831434291843
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 스타필드 안성 to '아그라 안성스타필드' gives the destination as 36.994862/127.148314. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "#1337, 1F, Starfield Anseong, 3930-39 Seodong-daero, Gongdo-eup, Anseong, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안성시 공도읍 서동대로 3930-39 1층 1337호; Kakao Map (https://place.map.kakao.com/32292147) independently resolves the place to 경기 안성시 공도읍 서동대로 3930-39 스타필드 1층 1337호. DiningCode's listing gives the same road address and unit."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The dataset gives 0507-1361-1695; Kakao Map gives 031-8092-1695. The two disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No rail station lies within walking distance of Starfield Anseong; the mall is reached by bus or car."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 안성시, 종류 인도식, 상호 아그라 스타필드안성점, 주소 안성시 공도읍 서동대로 3930-39 1층 1337호, 연락처 0507-1361-1695. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A branch of the Agra Indian restaurant chain on the ground floor of Starfield Anseong; there is no rail station within walking distance.",
+    "story": "Agra is an Indian restaurant chain; this branch is inside the Starfield Anseong mall. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "suembu-dongtan",
+    "name": "Suembu Dongtan (수엠부 동탄점)",
+    "zone": "Bansong-dong, Dongtan, Hwaseong",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.1981285443031,
+        "lng": 127.07783267588
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 동탄역 to '수엠부 동탄점' gives the destination as 37.198129/127.077833. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 18-15 Nojak-ro4-gil, Dongtan-gu, Hwaseong, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 화성시 노작로4길 18-15; Kakao Map (https://place.map.kakao.com/13127748) independently resolves the place to 경기 화성시 동탄구 노작로4길 18-15 1층. DiningCode's listing gives the same road address. This is a different branch at a different address from the existing suembu-suwon entry."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-8015-2494",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/13127748",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset, Kakao Map and DiningCode's listing all give 031-8015-2494."
+    },
+    "transit": {
+      "value": {
+        "station": "Dongtan",
+        "line": "SRT / GTX-A",
+        "exit": null,
+        "walkingMinutes": 42,
+        "distanceM": 2634
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 동탄역: 2634 m / 2514 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 화성시, 종류 네팔인도식, 상호 수엠부(동탄점), 주소 화성시 노작로4길 18-15, 연락처 031-8015-2494. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Nepali-Indian restaurant on a side street near Nojak Park in Dongtan; the nearest station, Dongtan, is a long walk (about 42 minutes).",
+    "story": "Suembu's Dongtan branch serves Nepali and Indian food in Hwaseong's Dongtan new town. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "partune-namyang",
+    "name": "Partune Restaurant Namyang (파르투내레스토랑 남양점)",
+    "zone": "Namyang-eup, Hwaseong",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.209997951779,
+        "lng": 126.81896287651
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 남양시장 to '파르투내레스토랑 남양점' gives the destination as 37.209998/126.818963. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 88 Namyangsijang-ro, Namyang-eup, Hwaseong, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 화성시 남양읍 남양시장로 88; Kakao Map (https://place.map.kakao.com/1031433145) independently resolves the place to 경기 화성시 만세구 남양읍 남양시장로 88 2층. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-356-9777",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1031433145",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset and Kakao Map both give 031-356-9777."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No rail station lies within walking distance of Namyang-eup; the area is served by bus."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 화성시, 종류 우즈베키스탄식, 상호 파르투내레스토랑, 주소 화성시 남양읍 남양시장로 88, 연락처 031-356-9777. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Uzbek restaurant upstairs by Namyang market in western Hwaseong, reached by bus.",
+    "story": "Partune serves Uzbek food in Hwaseong's Namyang-eup. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "royal-restaurant-ansan",
+    "name": "Royal Restaurant (로얄레스토랑)",
+    "zone": "Wongok-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.32950540970831,
+        "lng": 126.79199142655592
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 안산역 4호선 to '로얄레스토랑' gives the destination as 37.329505/126.791991. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 23 Wongok-ro, Danwon-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안산시 단원구 원곡로23 2층; Kakao Map (https://place.map.kakao.com/948611148) independently resolves the place to 경기 안산시 단원구 원곡로 23 2,3층. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The dataset gives 031-5127-3674; DiningCode's listing gives 0507-1369-2248; Kakao Map lists no number. The sources disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Ansan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 578
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안산역 4호선: 578 m / 558 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 안산시, 종류 인도네시아식, 상호 로얄레스토랑, 주소 안산시 단원구 원곡로23 2층, 연락처 031-5127-3674. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indonesian restaurant upstairs on Wongok-ro in Ansan's multicultural district, about nine minutes' walk from Ansan Station.",
+    "story": "Royal Restaurant serves Indonesian food in Ansan's multicultural special district of Wongok-dong. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "salty-ansan",
+    "name": "Salty Indian-Nepali Restaurant (솔티 인도네팔 레스토랑)",
+    "zone": "Wongok-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.3283624637279,
+        "lng": 126.789704094622
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 안산역 4호선 to '솔티인도네팔음식점' gives the destination as 37.328362/126.789704. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "3F, 453 Jungang-daero, Danwon-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안산시 단원구 중앙대로 453; Kakao Map (https://place.map.kakao.com/1033281933) independently resolves the place to 경기 안산시 단원구 중앙대로 453 3층. DiningCode's listing gives the same road address and floor."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-492-7723",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1033281933",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset, Kakao Map and DiningCode's listing all give 031-492-7723."
+    },
+    "transit": {
+      "value": {
+        "station": "Ansan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 5,
+        "distanceM": 328
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안산역 4호선: 328 m / 321 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 안산시, 종류 네팔인도식, 상호 솔티 인도네팔 레스토랑, 주소 안산시 단원구 중앙대로 453, 연락처 031-492-7723. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Nepali-Indian restaurant on the third floor of a building across from Ansan Station, about five minutes' walk away.",
+    "story": "Salty serves Nepali and Indian food at the edge of Ansan's multicultural district of Wongok-dong. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "asiana-restaurant-ansan",
+    "name": "Asiana Restaurant (아시아나레스토랑)",
+    "zone": "Wongok-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.3288172301324,
+        "lng": 126.790068403934
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 안산역 4호선 to '아시아나레스토랑' gives the destination as 37.328817/126.790068. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 51 Damunhwa2-gil, Danwon-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안산시 단원구 다문화2길 51; Kakao Map (https://place.map.kakao.com/15854118) independently resolves the place to 경기 안산시 단원구 다문화2길 51 2층. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-494-6167",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/15854118",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset, Kakao Map and DiningCode's listing all give 031-494-6167."
+    },
+    "transit": {
+      "value": {
+        "station": "Ansan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 420
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안산역 4호선: 420 m / 409 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 안산시, 종류 인도식, 상호 아시아나 레스토랑, 주소 안산시 단원구 다문화2길 51, 연락처 031-494-6167. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian restaurant upstairs on Damunhwa 2-gil, about seven minutes' walk from Ansan Station.",
+    "story": "Asiana Restaurant serves Indian food on one of the main lanes of Ansan's multicultural district of Wongok-dong. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "rayhon-ansan",
+    "name": "Rayhon (라이혼)",
+    "zone": "Sa-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.300621457829855,
+        "lng": 126.84044673925902
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 한대앞역 4호선 to '라이혼' gives the destination as 37.300621/126.840447. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 2 Haksa1-gil, Sangnok-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안산시 상록구 학사1길 2; Kakao Map (https://place.map.kakao.com/139078998) independently resolves the place to 경기 안산시 상록구 학사1길 2 2층. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-406-1914",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/139078998",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset and Kakao Map both give 031-406-1914."
+    },
+    "transit": {
+      "value": {
+        "station": "Hanyang Univ. at Ansan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 34,
+        "distanceM": 2014
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 한대앞역 4호선: 2014 m / 2016 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 안산시, 종류 우즈베키스탄식, 상호 RAYHON, 주소 안산시 상록구 학사1길 2, 연락처 031-406-1914. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Uzbek restaurant upstairs in Sa-dong, Ansan, a long walk (about 34 minutes) from Hanyang Univ. at Ansan Station.",
+    "story": "Rayhon serves Uzbek and Central Asian food in Ansan's Sa-dong. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "warung-kita-ansan",
+    "name": "Warung Kita (와룽키타)",
+    "zone": "Wongok-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.3316905089868,
+        "lng": 126.790516269105
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 안산역 4호선 to '와룽키타' gives the destination as 37.331691/126.790516. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "3 Wonbon-ro, Danwon-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안산시 원곡본동 원본로 3; Kakao Map (https://place.map.kakao.com/11614889) independently resolves the place to 경기 안산시 단원구 원본로 3. DiningCode's listing gives the same road address."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The dataset gives 031-508-1103; DiningCode's listing gives 0507-1398-1629; Kakao Map lists no number. The sources disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Ansan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 12,
+        "distanceM": 757
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안산역 4호선: 757 m / 700 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 안산시, 종류 인도네시아식, 상호 와룽키타, 주소 안산시 원곡본동 원본로 3, 연락처 031-508-1103. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indonesian eatery on Wonbon-ro at the north end of Wongok-dong, about twelve minutes' walk from Ansan Station.",
+    "story": "Warung Kita serves Indonesian food in Ansan's multicultural district of Wongok-dong. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "kantipur-ansan",
+    "name": "Kantipur Restaurant (칸티푸르레스토랑)",
+    "zone": "Wongok-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.3302281925726,
+        "lng": 126.791057421292
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 안산역 4호선 to '칸티푸르레스토랑' gives the destination as 37.330228/126.791057. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 28 Damunhwa2-gil, Danwon-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안산시 단원구 다문화2길 28; Kakao Map (https://place.map.kakao.com/14100981) independently resolves the place to 경기 안산시 단원구 다문화2길 28 2층. DiningCode's listing gives the same road address and floor."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The dataset and Kakao Map give 031-493-9563; DiningCode's listing gives 0507-1362-9563. The sources disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Ansan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 592
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안산역 4호선: 592 m / 563 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 안산시, 종류 네팔인도식, 상호 칸티푸르, 주소 안산시 단원구 다문화2길 28, 연락처 031-493-9563. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Nepali-Indian restaurant upstairs on Damunhwa 2-gil, about nine minutes' walk from Ansan Station.",
+    "story": "Kantipur serves Nepali and Indian food in Ansan's multicultural district of Wongok-dong. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "ginza-ansan",
+    "name": "Ginza Indian Restaurant (긴자인도레스토랑)",
+    "zone": "Gojan-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.3100555546415,
+        "lng": 126.829020027032
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 고잔역 4호선 to '긴자인도레스토랑' gives the destination as 37.310056/126.829020. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "#304, 3F, Samyoung Town, 151 Gwangdeok-daero, Danwon-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안산시 단원구 광덕대로151 304호; Kakao Map (https://place.map.kakao.com/1562813267) independently resolves the place to 경기 안산시 단원구 광덕대로 151 삼영타운 3층 304호. DiningCode's listing gives the same road address and unit. The dataset's same-named Anyang row is a separate listing and not this entry."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-405-3368",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1562813267",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The dataset, Kakao Map and DiningCode's listing all give 031-405-3368."
+    },
+    "transit": {
+      "value": {
+        "station": "Gojan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 22,
+        "distanceM": 1381
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 고잔역 4호선: 1381 m / 1341 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (surveyed May 2024, data.go.kr; downloaded as raw CSV) lists this restaurant's row as: 지역 안산시, 종류 인도식, 상호 긴자인도레스토랑, 주소 안산시 단원구 광덕대로151 304호, 연락처 031-405-3368. The dataset names no certifying body, so this stays at friendly — the publisher itself cautions the data does not guarantee halal certification status."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian restaurant on the third floor of the Samyoung Town building in Gojan-dong, about 22 minutes' walk from Gojan Station.",
+    "story": "Ginza serves Indian food in Ansan's Gojan-dong near the city centre. It appears in the Gyeonggi Tourism Organization's own listing of Muslim-friendly restaurants in the province, though no certificate has been sighted for it.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "sarai-doner-kebab-ansan",
+    "name": "Sarai Doner Kebab (사라이도네르케밥)",
+    "zone": "Wongok-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.3287692097443,
+        "lng": 126.791958478121
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 안산역 4호선 to '사라이도네르케밥' gives the destination as 37.328769/126.791958. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 16-1 Wongok-ro, Danwon-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1276420660",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives 경기 안산시 단원구 원곡로 16-1 1층; DiningCode's own listing independently gives the same road address (\"경기도 안산시 단원구 원곡로 16-1 1층\")."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode's listing gives 0507-1406-0788; Kakao Map gives 031-495-0788. The two disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Ansan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 497
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안산역 4호선: 497 m / 521 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%95%88%EC%82%B0%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Fetched twice with the same result: DiningCode's own search for '안산 할랄' returns this listing (profile rid=I1Ds8hkPkrgU) under the category terms '랩샌드위치, 할랄'. Kakao Map's listing (https://place.map.kakao.com/1276420660) separately carries the tag '할랄푸드'. No certifying body or certificate was sighted, so this stays at friendly."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Turkish kebab shop on Wongok-ro, about nine minutes' walk from Ansan Station.",
+    "story": "Sarai Doner Kebab serves Turkish kebabs in Ansan's multicultural district of Wongok-dong. A restaurant directory files it under halal and its Kakao Map listing is tagged halal food, though no certificate has been sighted. A second branch near Hanyang University's Ansan campus is a separate place.",
+    "esg_point": "Tagged halal by both a restaurant directory and its own map listing",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bat-kebab-ansan",
+    "name": "Bat Kebab (바트케밥)",
+    "zone": "Wongok-dong, Ansan",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.3289622477122,
+        "lng": 126.788523322721
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 안산역 4호선 to '바트케밥' gives the destination as 37.328962/126.788523. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 441 Jungang-daero, Danwon-gu, Ansan, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/746938146",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives 경기 안산시 단원구 중앙대로 441 1층; DiningCode's own listing independently gives the same road address (\"경기도 안산시 단원구 중앙대로 441 상가동 1층 6호\")."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode's listing gives 010-4362-1970; Kakao Map gives 031-495-1970. The two disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Ansan",
+        "line": "Line 4 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 375
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안산역 4호선: 375 m / 359 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%95%88%EC%82%B0%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Fetched twice with the same result: DiningCode's own search for '안산 할랄' returns this listing (profile rid=rIN7eoDvDrsz) under the category terms '케밥, 할랄'. No certifying body or certificate was sighted, so this stays at friendly."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small kebab counter on Jungang-daero, about six minutes' walk from Ansan Station.",
+    "story": "Bat Kebab is a kebab shop at the edge of Ansan's multicultural district of Wongok-dong. A restaurant directory files it under halal, though no certificate has been sighted.",
+    "esg_point": "Filed under halal by a restaurant directory's own search",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "dastarkhan-hyangnam",
+    "name": "Dastarkhan (다스타르한)",
+    "zone": "Hyangnam-eup, Hwaseong",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.1307215239641,
+        "lng": 126.910881355101
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 발안만세시장 to '다스타르한' gives the destination as 37.130722/126.910881. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "#101, 1F, 6 Baran-ro, Hyangnam-eup, Hwaseong, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1729816261",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives 경기 화성시 만세구 향남읍 발안로 6 1층 101호; DiningCode's own listing independently gives the same road address (\"경기 화성시 만세구 향남읍 발안로 6 1층 101호\")."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "0507-1496-2832",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1729816261",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and DiningCode's listing both give 0507-1496-2832."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No rail station lies within walking distance of Hyangnam-eup; the area is served by bus."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%ED%99%94%EC%84%B1%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Fetched twice with the same result: DiningCode's own search for '화성 할랄' returns this listing (profile rid=N3n82eDKTzrQ) under the category terms '러시아음식, 할랄'. No certifying body or certificate was sighted, so this stays at friendly."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Uzbek and Russian restaurant near Baran Manse market in Hyangnam, Hwaseong, reached by bus.",
+    "story": "Dastarkhan serves Uzbek and Russian food in Hwaseong's Hyangnam-eup. A restaurant directory files it under halal, though no certificate has been sighted. A same-named restaurant in Anseong is a separate place.",
+    "esg_point": "Filed under halal by a restaurant directory's own search",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "welcome-to-dubai-suwon",
+    "name": "Welcome to Dubai (웰컴투두바이)",
+    "zone": "Maesan-dong, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.267611277659725,
+        "lng": 127.00290872185924
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 수원역 to '웰컴투두바이' gives the destination as 37.267611/127.002909. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "#102, 1F, Maesan-dong Eoullim Center, 13-4 Maesan-ro, Paldal-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2023124784",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives 경기 수원시 팔달구 매산로 13-4 매산동어울림센터 1층 102호; DiningCode's own listing independently gives the same road address (\"경기도 수원시 팔달구 매산로 13-4 매산동어울림센터 1층 102호\")."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode's listing gives 0507-1424-0538; Kakao Map gives 010-4424-0504. The two disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Suwon",
+        "line": "Line 1 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 8,
+        "distanceM": 445
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 수원역: 445 m / 499 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%88%98%EC%9B%90%20%EB%B9%84%EA%B1%B4",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Fetched twice with the same result: DiningCode's own search for '수원 비건' returns this listing under the category terms '중동음식, 비건'; Kakao Map's listing (https://place.map.kakao.com/2023124784) carries the tags '비건' and '비건푸드'. Neither says the whole menu is plant-based, so this is options, not full."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%88%98%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Fetched twice with the same result: DiningCode's own search for '수원 할랄' returns this listing (profile rid=YTPE3MAZsAum) under the category terms '중동음식, 할랄'. Kakao Map's listing (https://place.map.kakao.com/2023124784) separately carries the tag '할랄푸드'. No certifying body or certificate was sighted, so this stays at friendly."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small Middle Eastern counter in a community centre building on Maesan-ro, about eight minutes' walk from Suwon Station.",
+    "story": "Welcome to Dubai serves Middle Eastern food near Suwon Station. A restaurant directory files it under both halal and vegan, and its Kakao Map listing is tagged halal food and vegan food, though no certificate has been sighted.",
+    "esg_point": "Tagged halal and vegan by both a restaurant directory and its own map listing",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "yd-kebab-house-suwon",
+    "name": "YD Kebab House (YD케밥하우스)",
+    "zone": "Maesan-dong, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.269183431719554,
+        "lng": 127.00686607922565
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 수원역 to 'YD케밥하우스' gives the destination as 37.269183/127.006866. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "#107, 1F, 51 Maesan-ro, Paldal-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/987353432",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives 경기 수원시 팔달구 매산로 51 1층 107호; DiningCode's own listing independently gives the same road address (\"경기도 수원시 팔달구 매산로 51 동일트루빌 107호\")."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "031-257-9292",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/987353432",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and DiningCode's listing both give 031-257-9292."
+    },
+    "transit": {
+      "value": {
+        "station": "Suwon",
+        "line": "Line 1 / Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 15,
+        "distanceM": 840
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 수원역: 840 m / 896 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%88%98%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Fetched twice with the same result: DiningCode's own search for '수원 할랄' returns this listing (profile rid=x0CaOOnum0mW) under the category terms '케밥, 할랄'. No certifying body or certificate was sighted, so this stays at friendly."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Turkish kebab shop on Maesan-ro, about fifteen minutes' walk from Suwon Station.",
+    "story": "YD Kebab House serves Turkish kebabs near Suwon Station. A restaurant directory files it under halal, though no certificate has been sighted.",
+    "esg_point": "Filed under halal by a restaurant directory's own search",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "troy-kebab-suwon",
+    "name": "Troy Kebab Suwon (트로이케밥 수원점)",
+    "zone": "Yeongtong, Suwon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.24797570523985,
+        "lng": 127.07602416885938
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 영통역 수인분당선 to '트로이케밥 수원점' gives the destination as 37.247976/127.076024. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "1689 Deogyeong-daero, Yeongtong-gu, Suwon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/251958364",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives 경기 수원시 영통구 덕영대로 1689; DiningCode's own listing independently gives the same road address (\"경기도 수원시 영통구 덕영대로 1689 102호\")."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": "010-3714-9508",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/251958364",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and DiningCode's listing both give 010-3714-9508."
+    },
+    "transit": {
+      "value": {
+        "station": "Yeongtong",
+        "line": "Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 13,
+        "distanceM": 693
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 영통역 수인분당선: 693 m / 763 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source opened."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%88%98%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Fetched twice with the same result: DiningCode's own search for '수원 할랄' returns this listing (profile rid=wcj6TskMST7b) under the category terms '케밥, 할랄'. No certifying body or certificate was sighted, so this stays at friendly."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A kebab shop on Deogyeong-daero in Yeongtong, about thirteen minutes' walk from Yeongtong Station.",
+    "story": "Troy Kebab serves Turkish-style kebabs in Suwon's Yeongtong district. A restaurant directory files it under halal, though no certificate has been sighted.",
+    "esg_point": "Filed under halal by a restaurant directory's own search",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "retro33-yongin",
+    "name": "Retro 33 (레트로33)",
+    "zone": "Yeongdeok-dong, Yongin",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.27367296362574,
+        "lng": 127.07246680069768
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route link from 영통역 수인분당선 to '레트로33' gives the destination as 37.273673/127.072467. Naver was unreachable, so this is Kakao-only and not cross-checked — held at SUPPORTED."
+    },
+    "address": {
+      "value": "#102, 16-8 Heungdeok 2-ro 65beon-gil, Giheung-gu, Yongin, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/24984567",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives 경기 용인시 기흥구 흥덕2로65번길 16-8 건물 뒤편 102호; DiningCode's own listing independently gives the same road address (\"경기도 용인시 기흥구 흥덕2로65번길 16-8 미니마리 뒷편 1층\")."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The operator's Instagram gives 11:30–22:00, closed Monday and Tuesday; DiningCode lists Sunday as 10:00–18:00. The sources disagree, so hours are left unknown."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 010-8008-8358; DiningCode's listing gives 0507-1420-3326. The two disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The nearest station found, Yeongtong on the Suin-Bundang Line, is 3,277 m / 3,257 s away on Kakao's walking route — too far to record as a walk; the area is served by bus."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://www.instagram.com/retro33_/",
+        "method": "Read from the operator’s own website",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The restaurant's own Instagram profile (retro33_, linked from its Kakao Map listing) states in its bio, identically on two fetches: \"All menus are vegan.\" and \"benefit the world with veganism!\". DiningCode files it under '비건레스토랑' and its Kakao Map listing is tagged '비건식당'."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source opened."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A vintage-styled vegan restaurant in Yongin's Yeongdeok-dong, set behind its building; there is no station within walking distance.",
+    "story": "Retro 33 is a vegan restaurant in Yongin whose own profile states that its whole menu is vegan.",
+    "esg_point": "An all-vegan kitchen by its own statement",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "loving-hut-real-love-wolgok",
+    "name": "Loving Hut Real Love (러빙헛 리얼러브점)",
+    "zone": "Sangwolgok, Seongbuk-gu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.607820903687674,
+        "lng": 127.04712783059622
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '러빙헛 리얼러브점' to 37.607821, 127.047128 (destination point of the route from 상월곡역 6호선). Naver Place cross-check was not available (naver.com unreachable)."
+    },
+    "address": {
+      "value": "B1F Unit 106, Donga Danu Plaza, 1 Jangwol-ro 3-gil, Seongbuk-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1556976169",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives '서울 성북구 장월로3길 1 동아다누프라자 지하1층 106호' (jibun 상월곡동 101-2). DiningCode's listing gives '서울특별시 성북구 장월로3길 1 (상월곡동)' with jibun '상월곡동 101-2 B106호', and HappyCow's Seoul directory gives 'B106 1 Jangwol-ro 3-gil, Seongbuk District'. All three agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree. Kakao Map: Wed–Sun 11:30–21:00 with a 15:30–17:00 break, closed Mon–Tue. HappyCow: 'Wed-Fri 11:30am-3:30pm, Wed-Sun 5:00pm-9:00pm, Sat-Sun 11:30am-4:00pm'. DiningCode: '일 11:00-21:00', '수,목,토 11:30-21:00'. Call ahead."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Vegan sundae gukbap (비건 순대 국밥)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Vegan gimbap (비건 김밥)",
+          "price": "5,000 KRW"
+        },
+        {
+          "name": "Vegan spicy soft-tofu set (비건 매콤순두부 정식)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "Vegan mild soft-tofu set (비건 순한순두부 정식)",
+          "price": "8,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1556976169",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's operator-entered menu lists '비건 순대 국밥 12000', '비건 김밥 5000', '비건 매콤순두부 정식 9000', '비건 순한순두부 정식 8000'; DiningCode's menu gives the same four items at the same prices ('비건 순대국밥 - 12,000원', '비건김밥 (단체주문가능) - 5,000원', '비건 매콤 순두부 정식 - 9,000원', '비건 순한 순두부 정식 - 8,000원')."
+    },
+    "phone": {
+      "value": "+82-2-2088-4098",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1556976169",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map lists 02-2088-4098 and HappyCow's directory lists '+82-220884098' — the same number. DiningCode shows 0507-1336-4098, a 0507 call-forwarding number rather than a different landline."
+    },
+    "transit": {
+      "value": {
+        "station": "Sangwolgok",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 489
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 상월곡역 6호선 to 러빙헛 리얼러브점: 489 m / 527 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/seoul/print?",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Seoul directory classifies it 'Vegan' and describes it: \"Loving Hut Real Love is a 100% vegan restaurant offering Korean and modern fusion dishes.\" DiningCode's own category for it is '비건', and the operator-entered item descriptions on Kakao Map read '100% 식물성으로 만든…' (made 100% from plants). Still trading: Kakao Map shows a blog review dated 2026-05-27 describing visits on 17 and 24 May 2026."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted."
+      }
+    },
+    "traits": [],
+    "vibe": "A plant-based Korean kitchen in a basement arcade near Sangwolgok Station, with vegan versions of gukbap, soft-tofu stew and gimbap.",
+    "story": "Loving Hut Real Love is a vegan restaurant in the basement of a small shopping building a short walk from Sangwolgok Station. HappyCow lists it as 100% vegan, serving Korean and modern fusion dishes. Its Kakao Map menu includes a vegan sundae gukbap, vegan gimbap and soft-tofu set meals. Opening hours differ between listings, so it is worth calling before a trip.",
+    "esg_point": "An entirely plant-based menu of Korean everyday dishes, per a vegan restaurant directory.",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "epikore-seongsu",
+    "name": "Epikore (에피코어)",
+    "zone": "Seongsu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.54229876839744,
+        "lng": 127.04935415217605
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '에피코어' to 37.542299, 127.049354 (destination point of the route from 뚝섬역 2호선). Naver Place cross-check was not available (naver.com unreachable)."
+    },
+    "address": {
+      "value": "1F, 22 Ttukseom-ro 3-gil, Seongdong-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1080034632",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives '서울 성동구 뚝섬로3길 22 1층 (성수동1가)'; DiningCode gives '서울특별시 성동구 뚝섬로3길 22 1층'; HappyCow's directory gives '22 Ttukseom-ro 3-gil'. All agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree. Kakao Map and DiningCode: Mon–Fri 10:30–20:00, Sat–Sun 10:30–16:00. HappyCow: 'Mon-Sat 10:30am-8:00pm'. A 2026-08 blog excerpt shown on Kakao Map says it closes on Sundays. Call ahead."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Apple doenjang & kabocha bowl (사과된장 단호박, autumn 2026 seasonal)",
+          "price": "12,900 KRW"
+        },
+        {
+          "name": "Home-style doenjang aglio bowl (집된장 알리오)",
+          "price": "11,900 KRW"
+        },
+        {
+          "name": "Perilla leaf & garlic scape bowl (깻잎 마늘쫑)",
+          "price": "11,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1080034632",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's operator-entered menu (updated 2026-09-08) lists '사과된장 단호박 (2026 가을 시즌) 12900', '집된장알리오 11900', '깻잎마늘쫑 11900'; DiningCode's menu lists the same three at the same prices."
+    },
+    "phone": {
+      "value": "+82-507-1415-0410",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1080034632",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and DiningCode both list 0507-1415-0410; HappyCow lists '+82-50714150410'."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/epikore.official",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1080034632",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Listed as a homepage on the Kakao Map place page, alongside the operator's Linktree (linktr.ee/Epikore), which is titled '@EPIKORE'. The Instagram bio itself was not read."
+    },
+    "transit": {
+      "value": {
+        "station": "Ttukseom",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 13,
+        "distanceM": 792
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 뚝섬역 2호선 to 에피코어: 792 m / 756 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/seoul/print?",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Seoul directory classifies it 'Vegan' and describes it as a \"Fully vegan restaurant and cafe offering Korean-style poke bowls, main dishes, sides, and beverages.\" DiningCode's own category for it is '비건, 한식'. The operator's own intro on Kakao Map ('도시미식가를 위한 라이프 푸드 … 한식 보울을 제안합니다') describes Korean bowls but does not itself use the word vegan, so this rests on the two directory classifications. Still trading: Kakao Map shows blog reviews dated 2026-09-21 and 2026-09-23."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted."
+      }
+    },
+    "traits": [],
+    "vibe": "Korean rice bowls built around doenjang and seasonal vegetables, between Seoul Forest and Seongsu.",
+    "story": "Epikore serves Korean-style rice bowls on a quiet side street between Seoul Forest and Seongsu. HappyCow lists it as fully vegan, and DiningCode files it under both vegan and Korean food. Several bowls are built on doenjang, including an autumn 2026 bowl of apple doenjang and kabocha squash.",
+    "esg_point": "A fully plant-based Korean bowl kitchen, per two restaurant directories.",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "pureun-deli-seongsu",
+    "name": "Pureun Deli (푸른델리)",
+    "zone": "Seongsu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.54228297025912,
+        "lng": 127.04833915534857
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '푸른델리' to 37.542283, 127.048339 (destination point of the route from 서울숲역 수인분당선). Naver Place cross-check was not available (naver.com unreachable)."
+    },
+    "address": {
+      "value": "B1F, 4-6 Seongsu-il-ro 3-gil, Seongdong-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/631002199",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives '서울 성동구 성수일로3길 4-6 지하 1층 (성수동1가)'; DiningCode gives '서울특별시 성동구 성수일로3길 4-6 지하1층'; HappyCow gives '4-6, Seongsu-il-ro 3-gil, Seongdong-gu'. All agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree on Saturdays: Kakao Map lists Mon–Sat 11:00–18:00 (closed Sun); HappyCow lists 'Mon-Fri 11:00am-6:00pm, Sat 11:00am-5:00pm' and says Saturdays are by reservation only."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Mushroom avocado bagel sandwich (버섯 아보카도 베이글 샌드위치)",
+          "price": "13,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/631002199",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's operator-entered menu (updated 2025-08-03) lists '버섯 아보카도 베이글 샌드위치 13900'. No second source for prices was checked."
+    },
+    "phone": {
+      "value": "+82-2-468-1612",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/631002199",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map lists 02-468-1612; HappyCow lists '+82-24681612'."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/pureundeli",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/631002199",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Listed as the homepage on the Kakao Map place page. The account itself was not read."
+    },
+    "transit": {
+      "value": {
+        "station": "Seoul Forest",
+        "line": "Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 12,
+        "distanceM": 777
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 서울숲역 수인분당선 to 푸른델리: 777 m / 697 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/seoul/print?",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Seoul directory classifies it 'Vegan' and describes \"A fully vegan bagel deli in Seongsu. Vegan bagels and sandwiches, plant-based drinks that use oat milk\". The operator's own intro on Kakao Map reads '푸른 델리는 수제 비건 베이글 샌드위치를 만듭니다' (Pureun Deli makes handmade vegan bagel sandwiches). Still trading: Kakao Map shows blog reviews dated 2025-12 through 2026-05-17."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted."
+      }
+    },
+    "traits": [],
+    "vibe": "A small basement deli in Seongsu making vegan bagel sandwiches, with oat-milk drinks.",
+    "story": "Pureun Deli is a basement-level bagel shop on a Seongsu side street. HappyCow lists it as fully vegan, and the shop describes itself on Kakao Map as making handmade vegan bagel sandwiches. Drinks use oat milk. Saturday hours differ between listings.",
+    "esg_point": "Handmade vegan bagels and oat-milk drinks, per the shop and a vegan directory.",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "chorokddeul-hoegi",
+    "name": "Chorokddeul (초록뜰식당)",
+    "zone": "Hoegi / Hwigyeong-dong, Dongdaemun-gu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.58853869256472,
+        "lng": 127.06282315682712
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '초록뜰' to 37.588539, 127.062823 (destination point of the route from 회기역 1호선). Naver Place cross-check was not available (naver.com unreachable)."
+    },
+    "address": {
+      "value": "1F, 36 Mangu-ro 18-gil, Dongdaemun-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12394377",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives '서울 동대문구 망우로18길 36 1층 (휘경동)'; DiningCode gives '서울특별시 동대문구 망우로18길 36'; HappyCow gives '1st floor, 36 Mangu-ro 18-gil, Dongdaemun-gu' and notes it 'Relocated from Dondaemun-gu, Huigyeong-dong 276-57'. All current listings agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree. Kakao Map: 11:00–20:00 with a 15:30–17:00 break, closed Fri–Sat. HappyCow: 'Mon-Fri 11:00am-8:00pm, Sun 11:00am-8:00pm'. Call ahead."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's menu entries date mainly from January 2024, and a September 2025 blog excerpt shown on Kakao Map says the menu has since been reduced ('지금 메뉴는 이렇게 간소화 되었어요'). No current itemised menu was sighted."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree: Kakao Map lists 02-2213-1878; HappyCow lists '+82-222437733'."
+    },
+    "transit": {
+      "value": {
+        "station": "Hoegi",
+        "line": "Line 1 / Gyeongui–Jungang Line",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 708
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 회기역 1호선 to 초록뜰: 708 m / 676 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/seoul/print?",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Seoul directory classifies it 'Lacto, Ovo, Korean' (a vegetarian listing, not a vegan one) and describes a \"Restaurant offering vegan noodle dishes and stews, lotus-wrapped rice, fritters and sweet rice cake.\" Kakao Map lists a '채식 메뉴' (vegetarian menu) facility. Because the directory category is vegetarian, the whole kitchen is not established as plant-based. Still trading: Kakao Map shows a blog review dated 2025-09-18."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted."
+      }
+    },
+    "traits": [],
+    "vibe": "A vegetarian Korean restaurant near Hoegi Station and Sahmyook Seoul Hospital, with vegan dishes.",
+    "story": "Chorokddeul is a Korean restaurant near Hoegi Station and Sahmyook Seoul Hospital. HappyCow lists it as a vegetarian restaurant with vegan dishes; ask which ones when ordering. It moved to its current address within Hwigyeong-dong, and listings disagree on opening days, so call ahead.",
+    "esg_point": "Vegetarian Korean cooking with vegan dishes, per a vegan restaurant directory.",
+    "image": "/images/temple_food.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "kongppadu-oksu",
+    "name": "Kongppadu (콩물에빠진두부 옥수본점)",
+    "zone": "Oksu, Seongdong-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.54195744241895,
+        "lng": 127.01648638694921
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '콩물에빠진두부 옥수본점' to 37.541957, 127.016486 (destination point of the route from 옥수역 3호선). Naver Place cross-check was not available (naver.com unreachable)."
+    },
+    "address": {
+      "value": "1F, 8 Hallimmal 1-gil, Seongdong-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/13228501",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives '서울 성동구 한림말1길 8 1층 (옥수동)' under the name '콩물에빠진두부 옥수본점'; DiningCode lists '콩빠두' at '서울특별시 성동구 한림말1길 8 1층'; HappyCow lists 'Kongppadu - 콩빠두' at '8 Hallimmal 1-gil, Seongdong-gu'. All agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree. Kakao Map: daily 10:30–20:30 with a 15:00–16:30 break. HappyCow: 'Mon-Sun 10:30am-9:30pm'."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "White soft tofu stew (하얀순두부, with rice)",
+          "price": "11,000 KRW"
+        },
+        {
+          "name": "Kongppadu (콩빠두, tofu in soybean broth; rice not included)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Soybean-pulp stew (콩비지찌개, with rice)",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/13228501",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's operator-entered menu lists '하얀순두부 11000 (밥과 같이 제공됩니다.)', '콩빠두 12000 (밥은 제공되지 않습니다.)', '콩비지찌개 11000'. Listing these is not a claim that they are vegan."
+    },
+    "phone": {
+      "value": "+82-507-1329-1464",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/13228501",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "HappyCow lists '+82-50713291464'; Kakao Map lists the same 0507-1329-1464 among its three numbers (also 02-2282-1464)."
+    },
+    "transit": {
+      "value": {
+        "station": "Oksu",
+        "line": "Line 3",
+        "exit": null,
+        "walkingMinutes": 3,
+        "distanceM": 149
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 옥수역 3호선 to 콩물에빠진두부 옥수본점: 149 m / 156 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/seoul/print?",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Seoul directory lists it as 'Serves meat, vegan options available. Korean tofu restaurant offering vegan-friendly choices including white tofu jjigae, cold noodles in soy bean soup, rice in soy bean broth and sides.' Kakao Map's menu also carries pork (제육) and webfoot-octopus dishes. Still trading: Kakao Map shows reviews dated 2026-07-19 and a menu update dated 2026-07-20."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Naver Place / Kakao Map",
+        "url": "https://place.map.kakao.com/13228501",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Kakao Map's operator-entered menu includes pork dishes: '제육덮밥', '간장제육덮밥', '제육볶음과 두부김치'."
+      }
+    },
+    "traits": [],
+    "vibe": "A tofu house by Oksu Station serving soft tofu stews and tofu in soybean broth.",
+    "story": "Kongppadu is a tofu restaurant a few minutes from Oksu Station. Its menu is built around soft tofu stew, soybean-pulp stew and tofu served in soybean broth, alongside meat dishes. HappyCow lists it as a mixed-menu restaurant with vegan-friendly choices, including white tofu stew and rice in soybean broth. Ask which dishes are vegan when ordering.",
+    "esg_point": "Tofu and soybean dishes with vegan-friendly choices, per a vegan restaurant directory.",
+    "image": "/images/fallback.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "achemi-hansung",
+    "name": "AcheMi (아케미)",
+    "zone": "Hansung University Station, Seongbuk-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5877345043789,
+        "lng": 127.00491158015167
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '아케미' to 37.587735, 127.004912 (destination point of the route from 한성대입구역 4호선). Naver Place cross-check was not available (naver.com unreachable)."
+    },
+    "address": {
+      "value": "Unit 101, 318 Changgyeonggung-ro, Seongbuk-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/410758680",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives '서울 성북구 창경궁로 318 제이에스원혜화 101호 (삼선동1가)'; DiningCode gives '서울특별시 성북구 창경궁로 318 101호'; HappyCow gives '318, Cheonggyeongung-ro, Seongbukgu'. All agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree. Kakao Map: Tue–Sun 11:30–21:30, closed Mon. HappyCow (business info last updated 28 May 2023): 'Open Tue-Sun 12:00pm-9:00pm'."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Ice cream, single scoop (cup/cone)",
+          "price": "4,500 KRW"
+        },
+        {
+          "name": "Ice cream, double scoop (cup/cone)",
+          "price": "8,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/410758680",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's operator-entered menu (updated 2025-04-15) lists '아이스크림 싱글 컵/콘 4500' and '아이스크림 더블 컵/콘 8000'."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree: Kakao Map lists 02-3675-0010; HappyCow lists '+82-264090011'; a 2026 blog excerpt on Kakao Map gives a 0507 number."
+    },
+    "instagram": {
+      "value": "http://instagram.com/achemice",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/410758680",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Listed as a homepage on the Kakao Map place page, alongside www.achemi.com. The account itself was not read."
+    },
+    "transit": {
+      "value": {
+        "station": "Hansung University",
+        "line": "Line 4",
+        "exit": null,
+        "walkingMinutes": 2,
+        "distanceM": 143
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 한성대입구역 4호선 to 아케미: 143 m / 144 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/reviews/achemi-seoul-190670",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's listing is categorised 'Ice Cream | Vegan' and describes an \"Artisan ice cream cafe using rice milk to make the ice creams. The rice milk is made in-house\". Kakao Map tags it '비건카페'. Still trading: HappyCow shows a review dated 03 Sep 2026, and Kakao Map shows a blog review dated 2026-09-07."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted."
+      }
+    },
+    "traits": [],
+    "vibe": "A rice-milk ice cream shop two minutes from Hansung University Station.",
+    "story": "AcheMi makes its ice cream from rice milk it prepares in-house, a couple of minutes' walk from Hansung University Station on Line 4. HappyCow lists it as a vegan ice cream café. Scoops are served in a cup or cone, and it also sells ice cream cakes.",
+    "esg_point": "Dairy-free ice cream made from house rice milk, per a vegan directory.",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bina-anam",
+    "name": "Bina Indian Restaurant (비나레스토랑)",
+    "zone": "Anam / Korea University, Dongdaemun-gu, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.58840597276414,
+        "lng": 127.03530300654543
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '비나레스토랑' to 37.588406, 127.035303 (destination point of the route from 안암역 6호선). Naver Place cross-check was not available (naver.com unreachable). The operator's own website gives '서울특별시 동대문구 안암로24길 4 비나레스토랑 1층', and Kakao Map lists the place at '서울 동대문구 안암로24길 4' (jibun 제기동 137-41, which the operator's page also quotes) — an exact match."
+    },
+    "address": {
+      "value": "1F, 4 Anam-ro 24-gil, Dongdaemun-gu, Seoul",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://binacurry.co.kr/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "The operator's own website: '서울특별시 동대문구 안암로24길 4 비나레스토랑 1층 제기동 (137-41 )' / '4 Anam-ro 24-gil, Jegi-dong, Dongdaemun-gu, Seoul'. Kakao Map gives '서울 동대문구 안암로24길 4 (제기동)', jibun 제기동 137-41 — identical."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree. Kakao Map: daily 11:00–21:00. Halalfoodle: daily 11:00 AM – 9:30 PM. The operator's website does not list hours."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Dal Fried (vegan)",
+          "price": "9,900 KRW"
+        },
+        {
+          "name": "Chana Masala (vegan)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Aloo Gobi (vegan)",
+          "price": "12,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://binacurry.co.kr/menu/%ec%99%84%ec%a0%84-%ec%b1%84%ec%8b%9d-%eb%a9%94%eb%89%b4-vegan/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own 'Vegan Menu' page: '달 후라이드 Dal Fried | ₩9,900.0', '차나 마살라 Chhana Masala | ₩12,000.0', '알루 고비 Aloo Govi | ₩12,900.0'."
+    },
+    "phone": {
+      "value": "+82-2-926-5860",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://binacurry.co.kr/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's website lists '02.926.5860' for the main branch; Kakao Map lists the same 02-926-5860."
+    },
+    "transit": {
+      "value": {
+        "station": "Anam",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 684
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안암역 6호선 to 비나레스토랑: 684 m / 640 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://binacurry.co.kr/menu/%ec%99%84%ec%a0%84-%ec%b1%84%ec%8b%9d-%eb%a9%94%eb%89%b4-vegan/",
+        "method": "Read from the operator’s own website",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The operator's own website has a menu section titled '완전 채식 메뉴 Vegan Menu' with the note '(Other dishes can also be made Vegan on request)', alongside chicken, lamb and seafood curries. Still trading: Kakao Map shows menu updates dated 2026-05-19 and blog reviews through 2026-09-16."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://halalfoodle.com/restaurants/south-korea/seoul/seoul/bina-restaurant-4-anam-ro-24-gil",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Halalfoodle's listing for this address shows 'Halal status | Halal Meat' together with 'Serves Alcohol'. The Korea Tourism Organization's guidebook 'Muslim-Friendly Restaurants in Korea' (english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf, information 'valid as of December 2021') lists '137 Bina (Branch No.1)' at '4 ,Anam-ro 24-gil,Dongdaemun-gu, Seoul' under its Muslim-friendly category. The government listing is nearly five years old, so the current directory listing carries this. The operator's own website says nothing about halal, and its menu includes beer and wine sections. No certificate has been sighted."
+      }
+    },
+    "traits": [],
+    "vibe": "An Indian curry house at the Korea University main gate, with a labelled vegan section and halal meat.",
+    "story": "Bina is an Indian restaurant by the main gate of Korea University, run by a chef trained in India, according to its website. The menu has a labelled vegan section with dal, chana masala and aloo gobi, and the restaurant says other dishes can be made vegan on request. A halal restaurant directory lists it as serving halal meat, and Korea's national tourism organisation listed it as Muslim-friendly in its 2021 guide. It also serves beer and wine, and no halal certificate has been sighted.",
+    "esg_point": "A labelled vegan menu section, per the restaurant; halal meat, per a halal directory.",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "hasan-baba-beondong",
+    "name": "1996 Hasan Baba Kebab House (1996핫산바바케밥하우스)",
+    "zone": "Beon-dong / Suyu, Gangbuk-gu, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.636632103358,
+        "lng": 127.035963669849
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '1996핫산바바케밥하우스 강북본점' to 37.636632, 127.035964 (destination point of the route from 수유역 4호선). Naver Place cross-check was not available (naver.com unreachable)."
+    },
+    "address": {
+      "value": "1F, 203 Deogneung-ro, Gangbuk-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/554574608",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map gives '서울 강북구 덕릉로 203 1층 (번동)', jibun 번동 454-1; DiningCode gives '서울특별시 강북구 덕릉로 203', jibun '번동 454-1'. They agree."
+    },
+    "hours": {
+      "value": {
+        "raw": "Tue–Sun 11:00–21:30, closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "21:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "21:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "21:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "21:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/554574608",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's week view shows 11:00 ~ 21:30 Tuesday to Sunday and '휴무일' on Monday; DiningCode's week view shows '영업시간: 11:00 - 21:30' for six days and '휴무일' on the Monday."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and DiningCode give different prices for the same dishes (e.g. 아다나케밥 25,000 on Kakao Map vs '아다나 케밥 (양고기) 31,000 원' on DiningCode)."
+    },
+    "phone": {
+      "value": "+82-2-990-9232",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/554574608",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and DiningCode both list 02-990-9232."
+    },
+    "transit": {
+      "value": {
+        "station": "Suyu",
+        "line": "Line 4",
+        "exit": null,
+        "walkingMinutes": 19,
+        "distanceM": 1247
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 수유역 4호선 to 1996핫산바바케밥하우스 강북본점: 1247 m / 1152 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan information found in any source consulted."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/profile.php?rid=ZwKfGLZ0ffDN",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode files it under its own '할랄' category (its search for '강북구 할랄' returns it with the category '케밥, 할랄'), and Kakao Map's place keywords are '터키요리' and '할랄푸드'. A May 2026 blog excerpt shown on Kakao Map says it has been certified halal ('할랄 인증을 받고'), and an older visitor post quoted on DiningCode says it uses halal-certified products ('할랄인증된 제품을 사용해서 만든다'). No certifying body is named and no certificate has been sighted."
+      },
+      "halalCertClaim": {
+        "body": "Unnamed — no certifying body, certificate number or expiry is given by any source.",
+        "statedBy": "A May 2026 Naver blog post excerpted in Kakao Map’s review panel, and a visitor blog post excerpted on DiningCode — not the operator or a government source",
+        "quote": "이 동네에서 할랄 인증을 받고 튀르키예, 터키요리 전문점으로 자리를 지키고 있다 (blog, 2026-05-10); 여기는 할랄인증된 제품을 사용해서 만든다 (blog quoted on DiningCode)",
+        "status": "stated only by personal blogs; certifying body, certificate number and expiry not sighted"
+      }
+    },
+    "traits": [],
+    "vibe": "A Turkish kebab house on the Beon-dong side of Suyu, Gangbuk-gu.",
+    "story": "1996 Hasan Baba is a Turkish restaurant on Deogneung-ro in Beon-dong, about a 20-minute walk from Suyu Station. DiningCode and Kakao Map both classify it as halal. Visitor blogs say it uses halal-certified meat, but no certificate has been sighted.",
+    "esg_point": "Listed as halal by a restaurant directory and a map service.",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "le-vegiwang-seongsu",
+    "name": "Le Vegiwang Seongsu (르베지왕 성수공간)",
+    "zone": "Seongsu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.5444901331421,
+        "lng": 127.05115592117069
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '르베지왕 성수공간' to 37.544490, 127.051156 (destination point of the route from 성수역 2호선). Naver Place cross-check was not available (naver.com unreachable). The operator's own website footer gives '서울특별시 성동구 연무장1길 15-1, 1층' and Kakao Map lists '서울 성동구 연무장1길 15-1 1층' — an exact match."
+    },
+    "address": {
+      "value": "1F, 15-1 Yeonmujang 1-gil, Seongdong-gu, Seoul",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.levegiwang.com",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "The operator's own website footer: '서울특별시 성동구 연무장1길 15-1, 1층'. Kakao Map gives '서울 성동구 연무장1길 15-1 1층 (성수동2가)'; HappyCow gives '15 Yeonmujang 1-gil'; DiningCode gives '서울특별시 성동구 연무장1길 15-1 1층'."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree. Kakao Map: daily 11:00–20:00 with a 15:00–16:00 break. HappyCow: 'Mon-Fri 11:00am-8:00pm, Sat-Sun 11:00am-4:00pm'."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's menu entries date from 2024 and name bowls without saying which are vegan; no current itemised menu was confirmed against a second source."
+    },
+    "phone": {
+      "value": "+82-70-4130-0984",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.levegiwang.com",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's website lists '070-4130-0984'; Kakao Map lists 070-4130-0984; HappyCow lists '+82-7041300984'."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/levegiwang",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1164647137",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Listed as a homepage on the Kakao Map place page, alongside www.levegiwang.com. The account itself was not read."
+    },
+    "transit": {
+      "value": {
+        "station": "Seongsu",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 595
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 성수역 2호선 to 르베지왕 성수공간: 595 m / 532 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/seoul/print?",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Seoul directory: 'Serves meat, vegan options available. Offers vegan salads, rice dishes, wraps, and bowls with toppings such as tofu nuggets and tempeh.' Kakao Map's menu includes a sirloin bowl ('살치볼'), so the kitchen is mixed. Still trading: Kakao Map shows blog reviews dated 2026-09-20 to 2026-09-28."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted."
+      }
+    },
+    "traits": [],
+    "vibe": "The Seongsu shop of a salad-bowl and curry brand that began here, with vegan options on a mixed menu.",
+    "story": "Le Vegiwang is a salad-bowl and curry brand that began in Seongsu, according to its website, and this is its Seongsu shop on Yeonmujang 1-gil. HappyCow lists it as a mixed-menu restaurant with vegan options, so ask for the vegan versions when ordering.",
+    "esg_point": "Vegan options on a mixed menu, per a vegan directory.",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  // Seoul southwest (Yeongdeungpo to Gangseo): few survivors — most KTO 2022 listings there no longer trade.
+  {
+    "id": "ooh-breado-sangdo",
+    "name": "Ooh Breado & Veggie Chan (우부래도 베지찬)",
+    "zone": "Sangdo-dong, Dongjak-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.50317188366616,
+        "lng": 126.94865514173433
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Sangdo Station (상도역) resolves the destination to 37.503172/126.948655. Naver was unreachable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "3 Sangdo-ro 37-gil, Dongjak-gu, Seoul (bakery 1F, Veggie Chan 2F)",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=IUO2ghSqHq6K",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode gives 서울특별시 동작구 상도로37길 3 (지번 상도1동 666-3); HappyCow gives \"3, Sangdo-ro 37-gil, Dongjak-gu (at Yangnyeong-ro)\" for the bakery and \"3, Sangdo-ro 37-Gil, 2nd Floor, Dongjak-gu\" for Veggie Chan; Seoul's vegetarian-restaurant list gives 서울특별시 동작구 상도로37길 3; Kakao Map independently gives 서울 동작구 상도로37길 3 under the name 우부래도 베지찬."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree: DiningCode shows 10:00–22:00 every day, while HappyCow's bakery listing says \"Open Mon-Sun 10:00am-10:00pm. Closed every other Mon.\" and its Veggie Chan listing (the 2F restaurant) says \"Open Mon-Sun 11:30am-8:00pm.\" Left unknown rather than choosing one."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "쌀바게트 (rice-flour baguette)",
+          "price": "4,500 KRW"
+        },
+        {
+          "name": "홍국단팥빵 (red-yeast-rice red-bean bun)",
+          "price": "4,000 KRW"
+        },
+        {
+          "name": "코코넛크림단팥빵 (coconut-cream red-bean bun)",
+          "price": "3,500 KRW"
+        },
+        {
+          "name": "흑임자크림빵 (black-sesame cream bun)",
+          "price": "3,500 KRW"
+        },
+        {
+          "name": "단호박 머핀 (pumpkin muffin)",
+          "price": "4,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=IUO2ghSqHq6K",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists 단호박 머핀 4,000원, 쌀바게트 4,500원, 홍국단팥빵 4,000원, 코코넛크림단팥빵 3,500원, 흑임자크림빵 3,500원. Bakery items rotate, so this is a sample."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode gives 0507-1428-0599 while Seoul's vegetarian-restaurant list gives 070-7543-0599 for the same address. The two disagree, so the field is left unknown."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator-run Instagram account was found and confirmed this session."
+    },
+    "transit": {
+      "value": {
+        "station": "Sangdo",
+        "line": "Line 7",
+        "exit": null,
+        "walkingMinutes": 3,
+        "distanceM": 215
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 상도역 (Line 7): 215 m / 199 s. Exit not given by the routing API; Naver cross-check unavailable this session."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/reviews/ooh-breado-seoul-158907",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow lists the bakery under its \"Vegan\" category with the description \"Vegan bakery and cafe offering various breads, cakes, and pastries for take out or dine in.\" Its separate listing for the 2F restaurant, Veggie Chan (https://www.happycow.net/reviews/veggie-chan-seoul-363690), is also in the \"Vegan\" category: \"A vegan restaurant located on the second floor of Ooh Breado bakery and owned by the same proprietor.\" DiningCode files the bakery under \"빵, 비건\", and Seoul's vegetarian-restaurant list (https://func.seoul.go.kr/user/vegetarian/restaurantList.do) marks every item it records for 우부래도 as \"(비건)\", from 소이 라떼 and 가지덮밥 to 비건 베이커리. No operator statement was read directly, so this stays SUPPORTED."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source reviewed."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A vegan bakery by Sangdo Station, with a small plant-based restaurant upstairs under the same owner.",
+    "story": "Ooh Breado bakes Korean-style breads without animal ingredients, much of it from rice flour: rice baguettes, red-bean buns, black-sesame cream buns and pumpkin muffins. Upstairs, Veggie Chan, run by the same owner, serves Western-style plates meant to go with the bread. HappyCow lists both floors as vegan, and Seoul's own vegetarian-restaurant list records the menu items it covers as vegan. It is a three-minute walk from Sangdo Station on Line 7.",
+    "esg_point": "A rice-flour, plant-only bakery and kitchen in one building",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "rudys-vegan-dangsan",
+    "name": "Rudy's Vegan (루디스비건)",
+    "zone": "Dangsan, Yeongdeungpo-gu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.523716920875,
+        "lng": 126.895811511509
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Yeongdeungpo-gu Office Station (영등포구청역) resolves the destination to 37.523717/126.895812. Naver was unreachable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "Unit 129, B1, Hyundai Apartment Shopping Arcade, 95 Dangsan-ro, Yeongdeungpo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=o3NTg26bBpTX",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode gives 서울특별시 영등포구 당산로 95 현대아파트상가 지하1층 129호 (지번 당산동2가 164); Kakao Map independently gives the same road address, 서울 영등포구 당산로 95."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode's week view for 29 Sep–5 Oct 2026 shows an irregular pattern (open Wed and Thu 11:00–19:00 with a 14:30–17:30 break, Sat 11:00–17:00, closed the other days), and that week includes the 3 October public holiday, so it cannot be generalised into regular hours. No second source was found."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "럭셔리 트러플 우엉밥 (truffle burdock rice)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "들깨 곤드레 소보로 랩 (perilla and gondre wrap, limited daily)",
+          "price": "21,900 KRW"
+        },
+        {
+          "name": "Salad with hummus, tempeh and plant-based meat",
+          "price": "22,900 KRW"
+        },
+        {
+          "name": "모짜두부 샐러드 (tofu salad)",
+          "price": "23,900 KRW"
+        },
+        {
+          "name": "트러플 두부마요 (truffle tofu-mayo, pre-order)",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=o3NTg26bBpTX",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices, with descriptions such as \"모듬채소, 후무스, 템페, 비건고기, 당근라페, 다양한 잡곡,콩 등과 된장 소스가 들어가요\" and \"루디스 샐러드에서 대체육(직화불고기) 대신 꼬동한 모짜두부가 들어가는 샐러드입니다.\""
+    },
+    "phone": {
+      "value": "0507-1436-1563",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=o3NTg26bBpTX",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode listing; a 0507 forwarding number."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator-run Instagram account was found and confirmed this session."
+    },
+    "transit": {
+      "value": {
+        "station": "Yeongdeungpo-gu Office",
+        "line": "Line 2 (Sinjeong branch) / Line 5",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 467
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 영등포구청역: 467 m / 449 s. Exit not given by the routing API; Naver cross-check unavailable this session."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/profile.php?rid=o3NTg26bBpTX",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode files the restaurant itself under \"비건, 샌드위치\" (vegan, sandwiches) — vegan is the listing's primary category, not a has-vegan-options tag. Every menu item it describes uses plant ingredients only, e.g. \"비건 불고기와 직화로 볶아낸 브로콜리, 콜리플라워, 방울 양배추, 갖가지 채소들과 우엉\" and \"모듬채소, 후무스, 템페, 비건고기, 당근라페…\", plus a \"비건 콜라\". No operator statement of \"100% plant-based\" was read directly, and a coleslaw item has no description, so this rests on the directory's classification and stays SUPPORTED."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source reviewed."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small vegan salad-and-sandwich counter in a basement shopping arcade near Dangsan Park.",
+    "story": "Rudy's Vegan makes salads, wraps and sandwiches from vegetables, grains, beans, tofu, tempeh and plant-based bulgogi, with Korean touches such as perilla, gondre (a mountain green) and a doenjang dressing, and a truffle burdock rice on the side. It sits in the basement arcade of the Hyundai apartments on Dangsan-ro, about an eight-minute walk from Yeongdeungpo-gu Office Station. Opening days vary, so check before going.",
+    "esg_point": "Plant proteins (tofu, tempeh, beans) in place of meat across the menu",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "vegan-mama-seoul-univ",
+    "name": "Vegan Mama (비건마마)",
+    "zone": "Seoul Nat'l Univ. Station, Gwanak-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.4825722331349,
+        "lng": 126.950953120686
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Seoul Nat'l Univ. Station (서울대입구역) resolves the destination to 37.482572/126.950953. Naver was unreachable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "1F, 457-1 Bongcheon-ro, Gwanak-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=ccc18oLd3Mky",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode gives 서울특별시 관악구 봉천로 457-1 1층 (지번 봉천동 871-74); HappyCow gives \"457-1 Bongcheon-ro, Gwanak-gu\"; Kakao Map independently gives 서울 관악구 봉천로 457-1."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Sources disagree: HappyCow says \"Open Mon-Sat 11:00am-10:00pm. Closed Sun.\", while DiningCode's week view shows it open on Sunday and closed on Saturday 3 October (a public holiday). Left unknown rather than choosing one."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "비건숯불고기 오픈샌드위치 (plant-based charcoal bulgogi open sandwich on a rice bagel)",
+          "price": "11,800 KRW"
+        },
+        {
+          "name": "피자 바게트 (with vegan cheese)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "초코 블루베리 컵케이크 (chocolate blueberry cupcake)",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "구황마마 (mini) — rice bread with chestnut, sweet potato, chickpea and pumpkin",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "단호박 깜빠뉴 (pumpkin campagne)",
+          "price": "7,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=ccc18oLd3Mky",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists these items at these prices; its brunch sets are marked as ending at 5 PM."
+    },
+    "phone": {
+      "value": "0507-1496-2218",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=ccc18oLd3Mky",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode listing; a 0507 forwarding number."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator-run Instagram account was found and confirmed this session."
+    },
+    "transit": {
+      "value": {
+        "station": "Seoul Nat'l Univ.",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 342
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 서울대입구역 (Line 2): 342 m / 341 s. Exit not given by the routing API; Naver cross-check unavailable this session."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/reviews/vegan-mama-seoul-268828",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow lists it as \"Vegan-friendly\" (not its all-vegan category) with the description \"Bakery cafe that offers all vegan desserts with organic, eco-friendly, non-GMO ingredients where possible. Drinks can be made with either dairy or soy milk.\" DiningCode files it under \"비건베이커리\". Because dairy milk is offered for drinks, this is held at options rather than full."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source reviewed."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A bakery café near Seoul National University Station where the desserts are vegan.",
+    "story": "Vegan Mama bakes vegan desserts and breads, many of them rice-based or gluten-free, and serves open sandwiches on rice bagels topped with plant-based bulgogi or chili. HappyCow describes all the desserts as vegan; drinks can be made with soy or dairy milk, so ask for soy. It is about a six-minute walk from Seoul National University Station on Line 2.",
+    "esg_point": "Organic and non-GMO ingredients where possible, per its HappyCow listing",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "godeuni-magok",
+    "name": "Godeuni Magok (고드니 마곡본점)",
+    "zone": "Magok, Gangseo-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5678659302083,
+        "lng": 126.827453357092
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Magongnaru Station (마곡나루역) resolves the destination to 37.567866/126.827453. Naver was unreachable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "Units 220 & 230, 2F, Castle Park, 161-1 Magokjungang-ro, Gangseo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jAKoEpclpIOj",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode gives 서울특별시 강서구 마곡중앙로 161-1 캐슬파크 2층 220, 230호 (지번 마곡동 760-2); Kakao Map independently gives 서울 강서구 마곡중앙로 161-1 for 고드니 마곡본점."
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon–Wed 10:00 AM–10:30 PM; Thu–Sat 11:00 AM–11:00 PM; Sun 11:00 AM–10:30 PM",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jAKoEpclpIOj",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's week view: Mon–Wed 10:00–22:30 (last order 21:30), Thu–Sat 11:00–23:00, Sun 11:00–22:30. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "글루텐프리 & 비건 휘낭시에 (12 kinds of gluten-free, vegan financiers)",
+          "price": null
+        },
+        {
+          "name": "godny bianco (signature coffee with vegan cream)",
+          "price": "6,900 KRW"
+        },
+        {
+          "name": "Latte (made with Oatly oat milk; dairy on request)",
+          "price": "6,300 KRW"
+        },
+        {
+          "name": "Season cake (not vegan — contains cream)",
+          "price": null
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jAKoEpclpIOj",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section, in the café's own wording: \"글루텐프리&비건 휘낭시에 12종\"; \"오렌지청의 싱그러움과 비건크림이 어우러진 고드니의 시그니쳐 커피\" (6,900원); \"귀리유 오틀리로 만든 고소한 라떼 (일반우유 변경 가능)\" (6,300원); season cakes \"크림을 포함한 동물성 재료들과 신선한 제철 재료들로 만드는 논비건 글루텐프리 케이크입니다.\""
+    },
+    "phone": {
+      "value": "0507-1315-1053",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jAKoEpclpIOj",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode listing; a 0507 forwarding number."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator-run Instagram account was found and confirmed this session."
+    },
+    "transit": {
+      "value": {
+        "station": "Magongnaru",
+        "line": "Line 9 / AREX",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 242
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 마곡나루역: 242 m / 217 s. Exit not given by the routing API; Naver cross-check unavailable this session."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/profile.php?rid=jAKoEpclpIOj",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's menu lists \"글루텐프리&비건 휘낭시에 12종\" (12 kinds of gluten-free and vegan financiers) and a signature coffee made with vegan cream, and says its latte is made with oat milk (dairy on request). The same menu states the season cakes are \"논비건\" — made with cream and other animal ingredients — so this is vegan options, not a fully vegan café."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source reviewed."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A roastery café by Magongnaru Station with a counter of gluten-free, vegan financiers.",
+    "story": "Godeuni is a coffee roastery and dessert café in Magok whose baked goods are gluten-free, and whose financiers — twelve flavours — are also vegan. Lattes are made with oat milk unless you ask for dairy. Its season cakes contain cream and are not vegan, so choose from the financiers. It is a four-minute walk from Magongnaru Station, one stop from Gimpo Airport on the Airport Railroad.",
+    "esg_point": "Oat milk as the default in its lattes",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "otsal-seoul-univ",
+    "name": "Otsal (옷살) Seoul Nat'l Univ. Station",
+    "zone": "Seoul Nat'l Univ. Station, Gwanak-gu, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.4797637188979,
+        "lng": 126.952999065048
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Seoul Nat'l Univ. Station (서울대입구역) resolves the destination to 37.479764/126.952999. Naver was unreachable this session, so this is Kakao-only and not cross-checked against Naver Place — held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "Units 104–105, B1, Daewoo Superium, 164 Gwanak-ro, Gwanak-gu, Seoul",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Korea Tourism Organization's Muslim-friendly restaurant guidebook gives \"164, Gwanak-ro, Gwanak-gu, Seoul\" (GPS 37.479571, 126.952892); DiningCode (https://www.diningcode.com/profile.php?rid=1oLBKIY4ttVk) gives 서울특별시 관악구 관악로 164 대우슈페리움 지하1층 104호~105호; Kakao Map independently gives 서울 관악구 관악로 164 for 옷살 서울대입구본점."
+    },
+    "hours": {
+      "value": {
+        "raw": "11:00 AM–10:00 PM daily (last order 9:30 PM)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=1oLBKIY4ttVk",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows 11:00–22:00 on every day of its week view (last order 21:30) and tags it 연중무휴 (open all year); the KTO guidebook also gives 11:00-22:00."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "버터 마살라 (butter masala curry)",
+          "price": "14,900 KRW"
+        },
+        {
+          "name": "티카 마살라 (tikka masala curry)",
+          "price": "14,900 KRW"
+        },
+        {
+          "name": "빈달루 (vindaloo)",
+          "price": "14,900 KRW"
+        },
+        {
+          "name": "달 마카니 (lentil and bean curry with cream)",
+          "price": "14,900 KRW"
+        },
+        {
+          "name": "비리야니 라이스 (biryani rice)",
+          "price": "16,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=1oLBKIY4ttVk",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists these items at these prices; the dal makhani is described as made with \"녹두, 콩, 크림\" (mung beans, beans, cream)."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode gives 0507-1350-6527 and the KTO guidebook gives 02-882-6527. They disagree, so the field is left unknown."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator-run Instagram account was found and confirmed this session."
+    },
+    "transit": {
+      "value": {
+        "station": "Seoul Nat'l Univ.",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 3,
+        "distanceM": 209
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 서울대입구역 (Line 2): 209 m / 206 s. Exit not given by the routing API; Naver cross-check unavailable this session."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed says which dishes are vegan; the one vegetarian curry DiningCode describes (dal makhani) contains cream."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Korea Tourism Organization's guidebook \"Muslim-Friendly Restaurants\" (PDF on english.visitkorea.or.kr, created November 2022) lists restaurant no. 187, \"Otsal\", 164 Gwanak-ro, Gwanak-gu, under its \"Muslim-friendly\" category — defined in the guide as a restaurant that \"partially or entirely offers halal dishes\" — and not under Halal Certified or Self Certified. The Seoul National University Indonesian students' association (https://snusisa.com/food, © 2026) also names \"Otsal (옷살) - SNU Station\" among the recommended restaurants in its Halal Food section. No certifying body is named and no certificate has been sighted; the KTO classification is from the 2022 edition."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian curry house in a basement arcade two minutes from Seoul National University Station.",
+    "story": "Otsal serves North and South Indian curries, biryani and breads from a basement unit on Gwanak-ro, a short walk from Seoul National University Station. Korea Tourism Organization's guide to Muslim-friendly restaurants lists it as Muslim-friendly, meaning some or all of its dishes are halal; no certificate has been sighted, so ask staff which dishes are halal. The Indonesian students' association at the nearby university also recommends it.",
+    "esg_point": "Listed in Korea Tourism Organization’s guide to Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  // Northern and western Gyeonggi.
+  {
+    "id": "durga-uijeongbu",
+    "name": "Durga Uijeongbu (두르가 의정부점)",
+    "zone": "Uijeongbu-dong, Uijeongbu",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.739129002665095,
+        "lng": 127.04873461535452
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16097816",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's own place record for this listing (place.map.kakao.com/16097816) gives 37.739129/127.048735. Naver was unreachable, so this is Kakao-only and not cross-checked; held at supported. The walking-route endpoint from Uijeongbu Station resolves to the same point (37.739129/127.048735)."
+    },
+    "address": {
+      "value": "2F, 50 Taepyeong-ro 73beon-gil, Uijeongbu, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV: '의정부시, 네팔인도식, 두르가(의정부점), 의정부시 태평로73번길 50'. Kakao Map (place 16097816): '경기 의정부시 태평로73번길 50 2층'. DiningCode (rid vTZTmRccyWfq) list page: '경기도 의정부시 태평로73번길 50 2층'. All three agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and DiningCode both give 10:00-22:00 daily, but the Korea Tourism Organization guide (valid as of December 2021) gives 10:00-21:00. The sources disagree, so hours are left unknown."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and DiningCode list different prices for the same dishes (치킨커리 12,000 KRW on Kakao, 14,000 KRW on DiningCode), so no menu is stated."
+    },
+    "phone": {
+      "value": "031-848-4785",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://www.durga.co.kr",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own site lists '의정부점. 031-848-4785'. Kakao Map, DiningCode and the Gyeonggi Tourism Organization dataset give the same number."
+    },
+    "transit": {
+      "value": {
+        "station": "Uijeongbu",
+        "line": "Line 1",
+        "exit": 5,
+        "walkingMinutes": 5,
+        "distanceM": 259
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16097816",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's listing shows '의정부역 5번 출구에서 259m 도보 5분'."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV, lists this row: '의정부시, 네팔인도식, 두르가(의정부점), 의정부시 태평로73번길 50, 031-848-4785'. The Korea Tourism Organization's 'Muslim-Friendly Restaurants in Korea' guide (information valid as of December 2021, https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf) lists 'Gyeonggi-do / Uijeongbu-si Durga (Uijeongbu Branch) 031-848-4785' in its Muslim-friendly category, not Halal-certified or Self-certified. The publisher cautions its data 'does not guarantee restaurant service levels or halal certification status'. No certificate is claimed or sighted."
+      }
+    },
+    "officialUrl": {
+      "value": "http://www.durga.co.kr",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16097816",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map links this as the venue's site; the site lists the Uijeongbu branch and its phone number."
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Nepali-Indian kitchen five minutes' walk from Uijeongbu Station.",
+    "story": "Durga's Uijeongbu branch serves Nepali and Indian food on the second floor of a building near Uijeongbu Station; the Durga name also has branches in Seoul. Both the Gyeonggi Tourism Organization and the Korea Tourism Organization list it as Muslim-friendly. No halal certificate has been sighted.",
+    "esg_point": "Listed as Muslim-friendly by both the provincial and national tourism organizations",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "grey-paju",
+    "name": "Grey (인도레스토랑 그레이)",
+    "zone": "Yadang-dong, Paju",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.71662718721328,
+        "lng": 126.76038858941511
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1803970712",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's own place record for this listing (place.map.kakao.com/1803970712) gives 37.716627/126.760389. Naver was unreachable, so this is Kakao-only and not cross-checked; held at supported. The walking-route endpoint from Yadang Station resolves to the same point (37.716627/126.760389)."
+    },
+    "address": {
+      "value": "10F, 1114 Gyeongui-ro, Paju, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV: '파주시, 인도식, 인도레스토랑 그레이, 파주시 경의로 1114 10층'. Kakao Map (place 1803970712): '경기 파주시 경의로 1114 에펠타워 10층'. DiningCode (rid ifkyMoQiH20C): '경기도 파주시 경의로 1114 에펠타워 10층'. All agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 11:00-22:00 every day with a 15:30-17:30 break; DiningCode gives Mon-Sat 11:00-22:00 and Sunday 10:00-21:00. They disagree on Sunday, so hours are left unknown."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and DiningCode list different items and prices with no overlap to cross-check, so no menu is stated."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The Gyeonggi Tourism Organization dataset and Kakao Map give 031-949-9135; DiningCode gives 0507-1311-9135. The sources disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Yadang",
+        "line": "Gyeongui-Jungang Line",
+        "exit": 2,
+        "walkingMinutes": 8,
+        "distanceM": 480
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1803970712",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's listing shows '야당역 2번 출구에서 480m 도보 8분'."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV, lists this row: '파주시, 인도식, 인도레스토랑 그레이, 파주시 경의로 1114 10층, 031-949-9135'. The dataset names no certifying body. The publisher cautions its data 'does not guarantee restaurant service levels or halal certification status'. No certificate is claimed or sighted."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian restaurant on the tenth floor of a tower near Yadang Station in Paju.",
+    "story": "Grey is an Indian restaurant on the top floor of the Eiffel Tower building near Yadang Station. Diners can use the building's underground car park. The Gyeonggi Tourism Organization lists it among the province's Muslim-friendly restaurants. No halal certificate has been sighted.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "asia-asia-ilsan",
+    "name": "Asia Asia (아시아아시아)",
+    "zone": "Janghang-dong, Goyang",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.65503085763287,
+        "lng": 126.77209585819809
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21326012",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's own place record for this listing (place.map.kakao.com/21326012) gives 37.655031/126.772096. Naver was unreachable, so this is Kakao-only and not cross-checked; held at supported. The walking-route endpoint from Jeongbalsan Station resolves to the same point (37.655029/126.772094)."
+    },
+    "address": {
+      "value": "2F, Western Dom B-dong, 24 Jeongbalsan-ro, Ilsandong-gu, Goyang, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21326012",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map (place 21326012) gives road address '경기 고양시 일산동구 정발산로 24 웨스턴돔 B동 2층' and lot address '장항동 868'. Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV gives '고양시 일산동구 장항동 868 웨스턴돔 2층': the same lot number and building, written as a lot address."
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 11:30 AM–10:00 PM",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21326012",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the coming week read '11:30 ~ 22:00' each day, with '연중무휴' (open all year)."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Tandoori chicken",
+          "price": "23,000 KRW"
+        },
+        {
+          "name": "Chicken makhani",
+          "price": "16,000 KRW"
+        },
+        {
+          "name": "Butter naan",
+          "price": "3,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21326012",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's menu lists '탄두리 치킨 23,000원', '치킨 마크니 16,000원', '버터 난 3,000원'."
+    },
+    "phone": {
+      "value": "031-901-0086",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21326012",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map gives 031-901-0086; the Gyeonggi Tourism Organization dataset gives the same number."
+    },
+    "transit": {
+      "value": {
+        "station": "Jeongbalsan",
+        "line": "Line 3",
+        "exit": 1,
+        "walkingMinutes": 11,
+        "distanceM": 626
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21326012",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's listing shows '정발산역 1번 출구에서 626m 도보 11분'."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV, lists this row: '고양시, 인도식, 아시아아시아, 고양시 일산동구 장항동 868 웨스턴돔 2층, 031-901-0086'. The dataset names no certifying body. The publisher cautions its data 'does not guarantee restaurant service levels or halal certification status'. No certificate is claimed or sighted."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian kitchen on the second floor of Ilsan's Western Dom shopping street.",
+    "story": "Asia Asia serves Indian food on the second floor of Western Dom, the open-air shopping street near Jeongbalsan Station and Ilsan Lake Park. The Gyeonggi Tourism Organization lists it among the province's Muslim-friendly restaurants. No halal certificate has been sighted.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "annapurna-bucheon",
+    "name": "Annapurna (안나푸르나레스토랑)",
+    "zone": "Simgok-dong, Bucheon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.48811091303044,
+        "lng": 126.78451714005918
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7993084",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's own place record for this listing (place.map.kakao.com/7993084) gives 37.488111/126.784517. Naver was unreachable, so this is Kakao-only and not cross-checked; held at supported."
+    },
+    "address": {
+      "value": "2F, 45 Buheung-ro 402beon-gil, Wonmi-gu, Bucheon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV: '부천시, 인도식, 안나푸르나 레스토랑, 부천시 부흥로 402번길 45'. Kakao Map (place 7993084): '경기 부천시 원미구 부흥로402번길 45 2층', lot '심곡동 162-27'. DiningCode (rid 7VWqmINK5hVr): '경기도 부천시 원미구 부흥로402번길 45', lot '심곡동 162-27'. All agree."
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 11:00 AM–10:30 PM",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7993084",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map gives '11:00 ~ 22:30' each day (last order 21:30); DiningCode gives '매일 11:00-22:30'."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Mutton tikka",
+          "price": "20,000 KRW"
+        },
+        {
+          "name": "Lunch set for two",
+          "price": "29,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7993084",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map lists '머턴 티카 20,000원' and '스페셜런치세트 2인기준 29,000원'; DiningCode lists '머턴 티카 - 20,000원' and '런치세트(2인분) - 29,000원'."
+    },
+    "phone": {
+      "value": "032-662-5075",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=7VWqmINK5hVr",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode gives 032-662-5075; the Gyeonggi Tourism Organization dataset and the Korea Tourism Organization guide give the same number. Kakao Map shows no number."
+    },
+    "transit": {
+      "value": {
+        "station": "Bucheon",
+        "line": "Line 1",
+        "exit": 4,
+        "walkingMinutes": 9,
+        "distanceM": 562
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7993084",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's listing shows '부천역 4번 출구에서 562m 도보 9분'."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV, lists this row: '부천시, 인도식, 안나푸르나 레스토랑, 부천시 부흥로 402번길 45, 032-662-5075'. The Korea Tourism Organization's 'Muslim-Friendly Restaurants in Korea' guide (valid as of December 2021, https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf) lists 'Gyeonggi-do / Bucheon-si Annapurna Restaurant 032-662-5075' in its Muslim-friendly category. The publisher cautions its data 'does not guarantee restaurant service levels or halal certification status'. No certificate is claimed or sighted."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian restaurant up one flight of stairs, a short walk from Bucheon Station.",
+    "story": "Annapurna serves Indian food on the second floor of a building in Simgok-dong, about nine minutes' walk from Bucheon Station. Both the Gyeonggi Tourism Organization and the Korea Tourism Organization list it as Muslim-friendly. No halal certificate has been sighted.",
+    "esg_point": "Listed as Muslim-friendly by both the provincial and national tourism organizations",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "has-kebab-dongducheon",
+    "name": "Has Kebab (하스케밥)",
+    "zone": "Bosan-dong, Dongducheon",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.91580628603639,
+        "lng": 127.05712090097565
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17079100",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's own place record for this listing (place.map.kakao.com/17079100) gives 37.915806/127.057121. Naver was unreachable, so this is Kakao-only and not cross-checked; held at supported."
+    },
+    "address": {
+      "value": "2553 Pyeonghwa-ro, Dongducheon, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://www.data.go.kr/data/15099378/fileData.do",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV: '동두천시, 터키식, 하스케밥, 동두천시 평화로 2553'. Kakao Map (place 17079100, listed as '하스'): '경기 동두천시 평화로 2553', lot '보산동 414-26'. DiningCode (rid RoUAg80pK2nd): '경기도 동두천시 평화로 2553', lot '보산동 414-26'. All agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 11:00-22:00 every day; DiningCode gives 11:00-22:00 but lists only Tuesday to Sunday. They disagree on Monday, so hours are left unknown."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and DiningCode give different prices for the same kebabs, so no menu is stated."
+    },
+    "phone": {
+      "value": "031-862-3869",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17079100",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map, DiningCode and the Gyeonggi Tourism Organization dataset all give 031-862-3869."
+    },
+    "transit": {
+      "value": {
+        "station": "Bosan",
+        "line": "Line 1",
+        "exit": 2,
+        "walkingMinutes": 3,
+        "distanceM": 203
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17079100",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's listing shows '보산역 2번 출구에서 203m 도보 3분'."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://www.data.go.kr/data/15099378/fileData.do",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV, lists this row: '동두천시, 터키식, 하스케밥, 동두천시 평화로 2553, 031-862-3869'. The dataset names no certifying body. The publisher cautions its data 'does not guarantee restaurant service levels or halal certification status'. No certificate is claimed or sighted."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small Turkish kebab shop three minutes from Bosan Station in Dongducheon.",
+    "story": "Has Kebab is a small Turkish kebab shop on Dongducheon's main road, a few minutes' walk from Bosan Station on Line 1. The Gyeonggi Tourism Organization lists it among the province's Muslim-friendly restaurants. No halal certificate has been sighted.",
+    "esg_point": "Listed in Gyeonggi province's own survey of Muslim-friendly restaurants",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "sarbon-gimpo",
+    "name": "Sarbon Uzbek Restaurant (사르번밀리타엄라르)",
+    "zone": "Tongjin-eup, Gimpo",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.689110678263155,
+        "lng": 126.60156521642438
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/183769521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's own place record for this listing (place.map.kakao.com/183769521) gives 37.689111/126.601565. Naver was unreachable, so this is Kakao-only and not cross-checked; held at supported."
+    },
+    "address": {
+      "value": "1F, 29 Jogang-ro, Tongjin-eup, Gimpo, Gyeonggi-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/183769521",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map (place 183769521, listed as '우즈베키스탄 레스토랑'): '경기 김포시 통진읍 조강로 29 1층', lot '통진읍 마송리 63-10'. DiningCode (rid yyKfcI9LYLln, listed as '사르번밀리타엄라르'): lot '경기도 김포시 통진읍 마송리 63-10', road address '경기 김포시 통진읍 조강로 29 1층' on its search listing. Visitor blog posts attached to the Kakao listing name it '사르번밀리타엄라르'. Both agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only DiningCode gives hours, and its day list ('월,수,목,금,토/일 11:00-22:00') is too ambiguous to state."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Osh (rice pilaf; the listing says it contains beef and horse meat)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Non (Uzbek bread)",
+          "price": "3,000 KRW"
+        },
+        {
+          "name": "Samsa (beef-and-onion pastry)",
+          "price": "4,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/183769521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's owner-marked menu lists 'Osh 10,000원 소고기.말고기가 들어간 볶음밥', 'Non(논) 3,000원', 'Samsa(삼사) 4,000원 소고기와 양파등으로 속재료를 만든'. DiningCode also lists '삼사(SAMSA) - 4,000원'."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 010-7772-2334; DiningCode gives 0507-1422-2363. The sources disagree, so the field is left unknown."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No rail station is within walking distance of Tongjin-eup; the area is reached by bus or car. Kakao Map shows no station exit for this listing."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/183769521",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on the business-verified Kakao Map listing ('사업자 정보가 확인된 장소입니다') reads: '우즈베키스탄 할랄음식점이며 매일 논과 삼사를 2개의 화덕에서 현지인이 직접 구워내는 식당입'. Read twice, from the rendered page and from its panel data; the text was identical. DiningCode's own listing also tags it '할랄'. No certificate is claimed or sighted."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Uzbek kitchen in Gimpo's Tongjin-eup, baking bread in its own ovens.",
+    "story": "This Uzbek restaurant in Tongjin-eup describes itself on its own map listing as a halal restaurant that bakes non bread and samsa pastries every day in two ovens. The osh (pilaf) on its listed menu contains beef and horse meat. No halal certificate has been sighted.",
+    "esg_point": "The owner describes the kitchen as halal and bakes its bread on site daily",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  // Mapo-gu: Hongdae, Yeonnam, Mangwon, Sangam.
+  {
+    "id": "seoul-iya-yeonnam",
+    "name": "Seoul-iya (서울이야)",
+    "zone": "Yeonnam, Seoul",
+    "category": "halal-korean",
+    "coordinates": {
+      "value": {
+        "lat": 37.5592650658436,
+        "lng": 126.924356732159
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Hongik University Station exit 3 (홍대입구역 공항철도 3번출구) resolves '서울이야(Seoul iya)' to 37.559265/126.924357. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "2F, 212-22 Donggyo-ro, Mapo-gu, Seoul 03994",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/SEOUL-IYA/ENP0x9x1n",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Seoul's official tourism site gives \"03994 212-22, Donggyo-ro, Mapo-gu, Seoul 2F\" (identical on two fetches). Kakao Map independently lists 서울이야(Seoul iya) at 서울 마포구 동교로 212-22, category 한식."
+    },
+    "hours": {
+      "value": {
+        "raw": "12:00–21:00 (last order 20:30); closed Fridays",
+        "weekly": {
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/SEOUL-IYA/ENP0x9x1n",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "english.visitseoul.net: \"12:00-21:00 (Last Order 20:30)\" and \"Holidays Closed on Fridays\"."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken Stir-Fry Noodle",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Chicken Kimchi Jjim",
+          "price": "15,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/SEOUL-IYA/ENP0x9x1n",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "english.visitseoul.net lists these as signature dishes with these prices: \"Chicken Stir-Fry Noodle ₩13,000 Chicken Kimchi Jjim ₩15,000\"."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No phone number is given on the government page, and no other source opened lists one."
+    },
+    "transit": {
+      "value": {
+        "station": "Hongik University",
+        "line": "Line 2 / Airport Railroad",
+        "exit": "3",
+        "walkingMinutes": 3,
+        "distanceM": 210
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 홍대입구역 공항철도 3번출구: 210 m / 182 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses vegan dishes."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://english.visitseoul.net/restaurants/SEOUL-IYA/ENP0x9x1n",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "english.visitseoul.net (fetched twice, identical): \"This casual Korean restaurant reinterprets Korean cuisine through Halal food\", with the structured fields \"Alcohol for Sale Ⓧ\" and \"Muslim Cooks Availability Ⓞ\". No certificate or certifying body is named, so this stays at FRIENDLY."
+      }
+    },
+    "vibe": "A casual Korean kitchen by Yeonnam that cooks Korean dishes as halal food, with Malaysian touches.",
+    "story": "Seoul-iya reinterprets Korean home-style cooking as halal food, mixing Malaysian and Korean flavours; Seoul's official tourism site names chicken kimchi jjim, chicken braised with kimchi in a spicy sauce, as its signature. The same site lists Muslim cooks in the kitchen and no alcohol for sale. No halal certificate has been sighted. It is a few minutes' walk from Hongik University Station and closes on Fridays.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "nusantaraku-hongdae",
+    "name": "Nusantaraku (누산타라쿠)",
+    "zone": "Hongdae, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5558679658365,
+        "lng": 126.925236132639
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Hongik University Station exit 8 (홍대입구역 2호선 8번출구) resolves '누산타라쿠' to 37.555868/126.925236. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "2F, 136-6 Eoulmadang-ro, Mapo-gu, Seoul 04053",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/nusantaraku/ENPxp2u2j",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Seoul's official tourism site: \"04053 136-6, Eoulmadang-ro, Mapo-gu, Seoul 2nd Floor\" (identical on two fetches). DiningCode gives \"서울특별시 마포구 어울마당로 136-6 2층\" and Kakao Map lists 누산타라쿠 at 서울 마포구 어울마당로 136-6."
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 11:00–23:00 (last order 22:00)",
+        "weekly": {
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/nusantaraku/ENPxp2u2j",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "english.visitseoul.net: \"11:00-23:00 (Last Order 22:00)\"; DiningCode gives the same hours and last order for every day of the week."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Nasi Padang",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Ayam Bakar",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/nusantaraku/ENPxp2u2j",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "english.visitseoul.net signature dishes: \"Nasi Padang ₩15,000 Ayam Bakar ₩11,000\". (DiningCode lists Nasi Padang at 16,000 KRW, so treat prices as approximate.)"
+    },
+    "phone": {
+      "value": "+82-2-332-4207",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/nusantaraku/ENPxp2u2j",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "english.visitseoul.net gives \"+82-2-332-4207\"; DiningCode gives 02-332-4207."
+    },
+    "transit": {
+      "value": {
+        "station": "Hongik University",
+        "line": "Line 2",
+        "exit": "8",
+        "walkingMinutes": 3,
+        "distanceM": 217
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 홍대입구역 2호선 8번출구: 217 m / 199 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses vegan dishes; the menus seen are built around meat and fish."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://english.visitseoul.net/restaurants/nusantaraku/ENPxp2u2j",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "english.visitseoul.net (fetched twice, identical): \"authentic flavors recreated with ingredients sourced directly from Southeast Asia and halal-certified meats\", with the structured fields \"Alcohol for Sale Ⓧ\" and \"Muslim Cooks Availability Ⓞ\". DiningCode also files it under 할랄. The certificate claim concerns the meat, not the kitchen, and names no body — FRIENDLY, with the claim recorded in halalCertClaim."
+      },
+      "halalCertClaim": {
+        "body": "Unnamed — the claim is that the meats used are halal-certified; no certifying body, certificate number or supplier is named.",
+        "statedBy": "Seoul Tourism Organization (english.visitseoul.net), a government tourism site — not the operator",
+        "quote": "ingredients sourced directly from Southeast Asia and halal-certified meats",
+        "status": "claimed by a government listing; no certificate sighted"
+      }
+    },
+    "vibe": "An Indonesian bistro near Hongik University Station serving nasi goreng, nasi padang and bakso.",
+    "story": "Nusantaraku cooks Indonesian food a short walk from Hongik University Station. Seoul's official tourism site describes ingredients brought in from Southeast Asia and halal-certified meats, with nasi goreng in chicken, lamb or beef as the signature. The same listing records Muslim cooks and no alcohol for sale. No certificate has been sighted.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "eid-bbq-hongdae",
+    "name": "EID BBQ Hongdae (이드바베큐 홍대점)",
+    "zone": "Hongdae, Seoul",
+    "category": "halal-korean",
+    "coordinates": {
+      "value": {
+        "lat": 37.5527232362854,
+        "lng": 126.922066009417
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Hongik University Station exit 9 (홍대입구역 2호선 9번출구) resolves '이드바베큐 홍대점' to 37.552723/126.922066. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "1F, 36-8 Wausan-ro 21-gil, Mapo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=Y1u04Va6ghqN",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode: \"서울특별시 마포구 와우산로21길 36-8 1층\" (identical on two fetches). Kakao Map lists 이드바베큐 홍대점 at 서울 마포구 와우산로21길 36-8, category 한식 > 육류,고기; EatingSeoul gives the same street address."
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 12:00–22:00 (last order 21:30)",
+        "weekly": {
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=Y1u04Va6ghqN",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode: 12:00 - 22:00, last order 21:30, every day; EatingSeoul: \"Mon–Sun 12:00–22:00\"."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Lamb ribs, 1 serving (230 g) (양갈비)",
+          "price": "25,000 KRW"
+        },
+        {
+          "name": "Marinated-galbi-style sirloin, 1 serving (230 g) (양념갈비 등심)",
+          "price": "25,000 KRW"
+        },
+        {
+          "name": "Charcoal chicken galbi, 1 serving (250 g) (숯불 닭갈비)",
+          "price": "14,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=Y1u04Va6ghqN",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these items with these exact prices."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode gives 0507-1428-8318; EatingSeoul gives +82 10-5599-9946. The sources disagree."
+    },
+    "transit": {
+      "value": {
+        "station": "Hongik University",
+        "line": "Line 2",
+        "exit": "9",
+        "walkingMinutes": 8,
+        "distanceM": 484
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 홍대입구역 2호선 9번출구: 484 m / 496 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses vegan dishes."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/profile.php?rid=Y1u04Va6ghqN",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode files the restaurant under the category \"양갈비, 할랄\" (its own classification, identical on two fetches). The menu seen there lists beef, lamb, chicken, webfoot octopus and tuna dishes and no pork dish. No certificate, certifying body or operator statement has been sighted; EatingSeoul and Corner list it as \"Eid Halal korean BBQ Hongdae\", which is a trading name, not evidence."
+      }
+    },
+    "vibe": "A charcoal Korean BBQ restaurant in Hongdae grilling lamb, beef and chicken.",
+    "story": "EID BBQ grills Korean-style barbecue over charcoal a few minutes from Hongik University Station. The menu listed on DiningCode covers lamb ribs, galbi-marinated sirloin and charcoal chicken galbi, with kimchi stew and tteokbokki on the side. DiningCode classifies it as halal; no certificate has been sighted.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "the-halal-fitzza-hongdae",
+    "name": "The Halal Fitzza (더 할랄 핏짜)",
+    "zone": "Sangsu, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5504120780113,
+        "lng": 126.92329173730629
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Sangsu Station (상수역 6호선) resolves '더핏짜' to 37.550412/126.923292. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "2F, 66 Wausan-ro, Mapo-gu, Seoul 04067",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=1XRQ0bFna85w",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode: \"서울특별시 마포구 와우산로 66 2층\"; Halalfoodle: \"2층, 66 Wausan-ro, Mapo-gu\"; EatingSeoul: \"2F, 66 Wausan-ro, Mapo-gu, Seoul, South Korea, 04067\". Kakao Map lists a pizza restaurant named 더핏짜 at 서울 마포구 와우산로 66 (a shorter form of the same name)."
+    },
+    "hours": {
+      "value": {
+        "raw": "Sun–Thu 11:00–02:00 (last order 01:30); Fri–Sat 11:00–05:00 (last order 04:30)",
+        "weekly": {
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "02:00",
+              "lastOrder": "01:30"
+            }
+          ],
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "02:00",
+              "lastOrder": "01:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "02:00",
+              "lastOrder": "01:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "02:00",
+              "lastOrder": "01:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "02:00",
+              "lastOrder": "01:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "05:00",
+              "lastOrder": "04:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "05:00",
+              "lastOrder": "04:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=1XRQ0bFna85w",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode: 11:00 - 02:00 (last order 01:30), Friday and Saturday 11:00 - 05:00 (last order 04:30); EatingSeoul: Mon–Thu 11:00–02:00, Fri–Sat 11:00–05:00, Sun 11:00–02:00."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Thin-dough square pizza (씬도우 사각피자)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Meat lover slice (미트러버 조각피자)",
+          "price": "8,500 KRW"
+        },
+        {
+          "name": "Pepperoni cream pasta (페퍼로니 크림파스타)",
+          "price": "14,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=1XRQ0bFna85w",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these items with these exact prices; it marks the beef on the meat lover slice and the pepperoni on the pasta as halal (\"할랄\")."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode gives 0507-1360-5246; EatingSeoul gives +82 2-324-2111. The sources disagree."
+    },
+    "transit": {
+      "value": {
+        "station": "Sangsu",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 372
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 상수역 6호선: 372 m / 373 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No vegan dishes are labelled in the menu seen; the cheese pizzas are not vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/profile.php?rid=1XRQ0bFna85w",
+        "method": "Independent sources agree",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Three directory listings agree: DiningCode files it under \"피자, 할랄\" and its menu labels the beef and pepperoni as \"할랄\"; Halalfoodle lists its halal status as \"Halal Meat\"; EatingSeoul states \"All the food is halal, which means it is safe for Muslim visitors to eat.\" No certificate, certifying body or operator statement has been sighted, and whether alcohol is sold is not established."
+      }
+    },
+    "vibe": "A late-night pizza and pasta spot near Sangsu Station that serves halal meat.",
+    "story": "The Halal Fitzza sells thin square pizzas, big slices, wings and pasta on the second floor of a building between Sangsu and Hongdae, open until 2 a.m. and until 5 a.m. at weekends. Restaurant directories list its meat as halal, and its menu marks the beef and pepperoni as halal. No certificate has been sighted, and whether alcohol is served is not known.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "jumjumjum-sangam",
+    "name": "jumjumjumjumjumjum (점점점점점점)",
+    "zone": "Sangam, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.577235653384,
+        "lng": 126.89621018989
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Digital Media City Station (디지털미디어시티역 6호선) resolves '점점점점점점' to 37.577236/126.896210. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "1F, 36 Seongam-ro 15-gil, Mapo-gu, Seoul 03930",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/jumjumjumjumjumjum/ENPb30c47",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Seoul's official tourism site: \"03930 1st Floor, 36, Seongam-ro 15-gil, Mapo-gu, Seoul\" (identical on two fetches). HappyCow (\"1F, 36 Seongam-ro 15-gil\"), DiningCode (\"서울특별시 마포구 성암로15길 36 1층\") and Kakao Map (서울 마포구 성암로15길 36) agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The sources disagree: Seoul's tourism site gives Wed–Thu 11:30–16:00 and Fri–Sun 11:30–22:00, closed Mon–Tue; HappyCow gives Wed–Sun 11:30–15:00 and 17:00–21:00; DiningCode gives 11:30–22:00 with a 15:00–17:00 break. Lunch is reservation-only per the tourism site."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Eight-course vegan menu",
+          "price": "40,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/restaurants/jumjumjumjumjumjum/ENPb30c47",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "english.visitseoul.net signature dish: \"Eight-Course Vegan Meny ₩40,000\" (sic)."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Seoul's tourism site gives +82-507-1318-5971; DiningCode gives 070-4240-5971. The sources disagree."
+    },
+    "transit": {
+      "value": {
+        "station": "Digital Media City",
+        "line": "Line 6 / Airport Railroad / Gyeongui–Jungang Line",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 730
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 디지털미디어시티역 6호선: 730 m / 655 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://english.visitseoul.net/restaurants/jumjumjumjumjumjum/ENPb30c47",
+        "method": "Independent sources agree",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Seoul's official tourism site (fetched twice, identical): \"More than just a vegan restaurant, this space also serves as a hub for vegan culture and an exhibition venue\", signature \"Eight-Course Vegan Meny\". HappyCow lists it in its \"Vegan\" category: \"Plant-based restaurant with modern Korean fusion cuisine.\""
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses halal. The tourism site records alcohol for sale."
+      }
+    },
+    "vibe": "A plant-based Korean fusion course restaurant in Sangam that doubles as a vegan culture space.",
+    "story": "jumjumjumjumjumjum serves an eight-course vegan meal built on house-made sauces and pestos, in a room finished with recycled aluminium near Digital Media City. Seoul's official tourism site describes it as a vegan restaurant, culture hub and exhibition space, and HappyCow lists it as plant-based modern Korean fusion. Lunch is by reservation; opening hours differ between listings, so check before going.",
+    "esg_point": "Fully plant-based kitchen; the interior is built from recycled aluminium (per Seoul's tourism site).",
+    "imageLeads": [],
+    "traits": [],
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "pul-mangwon",
+    "name": "Pul Fermentation Kitchen (풀 발효부엌)",
+    "zone": "Mangwon, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.5550218235044,
+        "lng": 126.905032258862
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Mangwon Station (망원역 6호선) resolves '풀 발효부엌' to 37.555022/126.905032. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "2F, 89 Poeun-ro, Mapo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=6wEwNPQangy2",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode: \"서울특별시 마포구 포은로 89 2F\" (identical on two fetches); hey! travel (Nov 2024): \"서울시 마포구 포은로 89 2층\"; Kakao Map lists 풀 발효부엌 at 서울 마포구 포은로 89, category 채식뷔페."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The sources disagree: DiningCode gives 11:00–20:30 with a 15:00–17:00 break; hey! travel (Nov 2024) gives 11:00–20:00, closed Mondays."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Pul fermented-bean brown rice (풀 발효 콩 현미밥)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Jeju soybean-noodle soup (제주 콩국수), summer",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Fermented curry with eggplant cutlet (발효 커리와 가지 커틀릿)",
+          "price": "19,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=6wEwNPQangy2",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these items with these exact prices. The same menu offers goat cheese as an add-on for one pasta, so not every dish is plant-based as served."
+    },
+    "phone": {
+      "value": "0507-1330-3780",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=6wEwNPQangy2",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode listing; a 0507 forwarding number."
+    },
+    "transit": {
+      "value": {
+        "station": "Mangwon",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 8,
+        "distanceM": 517
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 망원역 6호선: 517 m / 469 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Project research",
+        "url": "https://www.maisonkorea.com/food/2025/12/a-flavor-crafted-by-time/",
+        "method": "Independent sources agree",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Maison Korea (Dec 2025): \"비건 메뉴 중심으로 운영되는 곳\" (a place run around vegan menus); hey! travel (Nov 2024): \"건강에 좋고 맛있기까지 한 비건 음식과 디저트를 맛볼 수 있기 때문\" (you can taste vegan food and desserts); DiningCode files it under 비건 and marks its cashew-brown-rice yogurt \"순식물성\" (purely plant-based). Held at OPTIONS, not FULL: no source says the whole menu is plant-based, and DiningCode's menu offers goat cheese as an add-on."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses halal."
+      }
+    },
+    "imageLeads": [],
+    "vibe": "A bright second-floor kitchen on Mangridan-gil cooking Korean fermented and bean dishes around a vegan menu.",
+    "story": "Pul, on Mangwon-dong's Mangridan-gil, cooks with fermentation and Jeju beans: fermented-bean brown rice, soybean-noodle soup in summer and home-style bean soup in winter. Maison Korea describes it as run around vegan menus, and hey! travel says the soybean recipes were handed down from the owner's mother, a chef who cooked for Korea's foreign ministry abroad. One pasta can take goat cheese, so ask which dishes are fully plant-based.",
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bomulseom-kimbap-mangwon",
+    "name": "Bomulseom Kimbap (보물섬김밥)",
+    "zone": "Mangwon, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.55544004603256,
+        "lng": 126.90750343319085
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Mangwon Station (망원역 6호선) resolves '보물섬김밥' to 37.555440/126.907503. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "50 World Cup-ro 13-gil, Mapo-gu, Seoul 04012",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.happycow.net/reviews/bomulseom-kimbap-seoul-265982",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "HappyCow: \"50 World Cup-ro 13-gil Mangwon 1-dong Mapo-gu, Seoul, South Korea, 04012\"; DiningCode: \"서울특별시 마포구 월드컵로13길 50\"; Kakao Map: 보물섬김밥, 서울 마포구 월드컵로13길 50."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The sources disagree: HappyCow gives Mon–Sat 7:00–20:00; DiningCode gives 07:00–20:00 on most days and 07:00–16:00 on Sunday."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Bomulseom kimbap, vegan (보물섬김밥(비건))",
+          "price": "4,500 KRW"
+        },
+        {
+          "name": "Pickled-vegetable kimbap, vegan (장아찌김밥(비건))",
+          "price": "3,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=zRVow7jVNUa3",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these two vegan-labelled items with these exact prices, alongside tuna, beef, cheese and anchovy kimbap."
+    },
+    "phone": {
+      "value": "02-323-0918",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=zRVow7jVNUa3",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "HappyCow gives +82-23230918; DiningCode gives 02-323-0918."
+    },
+    "transit": {
+      "value": {
+        "station": "Mangwon",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 291
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 망원역 6호선: 291 m / 266 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/reviews/bomulseom-kimbap-seoul-265982",
+        "method": "Independent sources agree",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow (\"Veg Options\"): \"Serves meat, vegan options available. Made-to-order Kimbap shop with vegan choices. Menu is clearly labeled\" (read on two fetches). DiningCode's menu lists \"보물섬김밥(비건)\" and \"장아찌김밥(비건)\" among non-vegan kimbap."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses halal."
+      }
+    },
+    "vibe": "A made-to-order takeaway kimbap shop by Mangwon Market with two kimbap labelled vegan.",
+    "story": "Bomulseom Kimbap rolls kimbap to order a few minutes from Mangwon Station, handy for a picnic by the Han River. Its menu labels two rolls as vegan, the house Bomulseom kimbap and a pickled-vegetable kimbap, alongside tuna, beef and cheese rolls. Ask for the vegan versions by name.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "palgyejip-yeonnam",
+    "name": "Palgyejip Yeonnam (팔계집 연남)",
+    "zone": "Yeonnam, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.562634197624824,
+        "lng": 126.92626387527702
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Hongik University Station exit 3 (홍대입구역 공항철도 3번출구) resolves '팔계집 연남' to 37.562634/126.926264. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "1F, 194-4 Seongmisan-ro, Mapo-gu, Seoul 03982",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/area/houseof8grill/ENPh7v6i1",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Seoul's official tourism site: \"03982 1st Floor, 194-4 Seongmisan-ro, Mapo-gu, Seoul\" (identical on two fetches). Kakao Map lists 팔계집 연남 at 서울 마포구 성미산로 194-4, category 한식 > 육류,고기."
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 11:00–24:00",
+        "weekly": {
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/area/houseof8grill/ENPh7v6i1",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "english.visitseoul.net: \"Hours of Operation 11:00-24:00 Days of Operation Daily\"."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The tourism site names dish types (flash-frozen pork belly, hot-pot rice, stews) but no item names or prices."
+    },
+    "phone": {
+      "value": "+82-507-1430-2136",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/area/houseof8grill/ENPh7v6i1",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "english.visitseoul.net listing; a 0507 forwarding number."
+    },
+    "transit": {
+      "value": {
+        "station": "Hongik University",
+        "line": "Line 2 / Airport Railroad / Gyeongui–Jungang Line",
+        "exit": "3",
+        "walkingMinutes": 9,
+        "distanceM": 611
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 홍대입구역 공항철도 3번출구: 611 m / 553 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://english.visitseoul.net/area/houseof8grill/ENPh7v6i1",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "english.visitseoul.net (fetched twice, identical) lists under \"Important\": \"Vegan menus available\". The same page describes a Korean BBQ kitchen serving pork belly, so OPTIONS, not FULL."
+      },
+      "halal": {
+        "value": "none",
+        "confidence": "supported",
+        "source": "Government tourism site",
+        "url": "https://english.visitseoul.net/area/houseof8grill/ENPh7v6i1",
+        "method": "Read from a government listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "english.visitseoul.net: \"Palgyejip is a Korean cuisine specialty restaurant offering flash-frozen pork belly\"."
+      }
+    },
+    "vibe": "A hanok-style Korean BBQ and hot-pot-rice restaurant in Yeonnam that keeps vegan menus.",
+    "story": "Palgyejip serves Korean barbecue, hot-pot rice and stews in a hanok-style room with an outdoor seating area in Yeonnam-dong. Seoul's official tourism site notes that vegan menus are available, so a vegan and a meat-eater can share a table here. It serves pork.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "salermari-mangwon",
+    "name": "Salermari (샐러마리)",
+    "zone": "Mangwon, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.557163566839925,
+        "lng": 126.90290636071056
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Mangwon Station (망원역 6호선) resolves '샐러마리' to 37.557164/126.902906. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "55-3 Mangwon-ro, Mapo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=E3SJ7u8Lph1t",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode: \"서울특별시 마포구 망원로 55-3\" (identical on two fetches); hey! travel (Nov 2024): \"서울시 마포구 망원로 55-3\"; Kakao Map: 샐러마리, 서울 마포구 망원로 55-3, category 분식."
+    },
+    "hours": {
+      "value": {
+        "raw": "11:00–19:00; closed Wednesdays and Sundays",
+        "weekly": {
+          "sun": [],
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=E3SJ7u8Lph1t",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode: 11:00 - 19:00 with Wednesday and Sunday marked 휴무일; hey! travel (Nov 2024): \"11:00~19:00 (수·일 휴무)\"."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Napa cabbage salad & vegan dumplings (알배추무침&비건만두)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "Spinach pesto tteokbokki (시금치페스토떡볶이)",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Basil udon, cold (바질우동)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=E3SJ7u8Lph1t",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these items with these exact prices. Only the first is labelled vegan there."
+    },
+    "phone": {
+      "value": "02-6104-9105",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=E3SJ7u8Lph1t",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode listing."
+    },
+    "transit": {
+      "value": {
+        "station": "Mangwon",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 13,
+        "distanceM": 806
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 망원역 6호선: 806 m / 756 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Project research",
+        "url": "https://v.daum.net/v/HOG4y8tsaW",
+        "method": "Independent sources agree",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "hey! travel (Nov 2024) quotes the owner: vegan menus were added at customers' request, \"지금 인기 메뉴가 된 참나물김밥, 시금치된장김밥\" (the chamnamul kimbap and spinach-doenjang kimbap). DiningCode files it under \"김밥, 비건\" and lists \"알배추무침&비건만두\". The menu also carries bulgogi and anchovy kimbap, so OPTIONS."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses halal."
+      }
+    },
+    "vibe": "A family-run kimbap and udon shop in Mangwon that added vegan kimbap at its customers' request.",
+    "story": "Salermari is a small bunsik shop in Mangwon-dong selling salads, kimbap and udon made with produce from a family farm. Its owner told hey! travel that so many vegetarian customers asked for changes that the shop created vegan kimbap, chamnamul and spinach-doenjang rolls, and its current menu also lists vegan dumplings. Other rolls contain bulgogi or anchovy, so ask for the vegan ones.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "camels-kitchen-hapjeong",
+    "name": "Camel's Kitchen (카멜스키친)",
+    "zone": "Hapjeong, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.552168924454946,
+        "lng": 126.90686694303204
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Mangwon Station (망원역 6호선) resolves '카멜스키친' to 37.552169/126.906867. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "52-1 Poeun-ro, Mapo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=DXX6nslWrCkH",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "HappyCow: \"52-1 Poeun-ro, Mapo-gu, Seoul\"; DiningCode: \"서울특별시 마포구 포은로 52-1 2호\"; hey! travel (Nov 2024): \"서울시 마포구 포은로 52-1 2호\"; Kakao Map: 카멜스키친, 서울 마포구 포은로 52-1."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The sources disagree: HappyCow (last updated Nov 2023) gives split lunch/dinner hours closed Monday; DiningCode gives 11:30–21:00 with a 16:00–17:00 break; hey! travel (Nov 2024) gives 11:30–20:30 closed Sundays and Mondays."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Spicy tofu rice bowl (매콤두부덮밥)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Tofu-and-cauliflower fried set (두부플라워후라이드정식)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Red curry (레드커리)",
+          "price": "15,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=DXX6nslWrCkH",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these items with these exact prices. DiningCode does not mark which dishes are vegan."
+    },
+    "phone": {
+      "value": "02-6326-3200",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=DXX6nslWrCkH",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "HappyCow gives +82-263263200; DiningCode gives 02-6326-3200."
+    },
+    "transit": {
+      "value": {
+        "station": "Mangwon",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 12,
+        "distanceM": 778
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 망원역 6호선: 778 m / 732 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/reviews/camels-kitchen-seoul-378589",
+        "method": "Independent sources agree",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow (\"Veg Options\", read on two fetches): \"Serves meat, vegan options available. Pescatarian restaurant with vegan dishes including mushroom stir fry, spicy tofu over rice, red curry, pad thai and more.\" hey! travel (Nov 2024) calls it a Thai-focused \"채식 레스토랑\" run by a pescatarian owner. DiningCode's menu includes egg and seafood dishes, so OPTIONS."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses halal."
+      }
+    },
+    "vibe": "A Thai-leaning pescatarian kitchen between Mangwon and Hapjeong with vegan dishes on the menu.",
+    "story": "Camel's Kitchen cooks Thai-inspired dishes without meat; the owner, who eats fish but not meat, previously ran a Thai restaurant in Mangwon for four years, according to hey! travel. HappyCow lists vegan dishes such as spicy tofu over rice and red curry alongside seafood and egg dishes. Opening hours differ between listings, so check before going.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "hwanggeumlyong-mangwon",
+    "name": "Hwanggeumlyong (황금룡)",
+    "zone": "Mangwon, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.5551886878695,
+        "lng": 126.905256129506
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Mangwon Station (망원역 6호선) resolves '황금룡' to 37.555189/126.905256. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "90 Poeun-ro, Mapo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=DhlFq2zK4pHS",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "HappyCow: \"90, Poeun-ro, Mangwon 1-dong, Seoul\"; DiningCode: \"서울특별시 마포구 포은로 90\" (identical on two fetches); Kakao Map: 황금룡, 서울 마포구 포은로 90, category 중식."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The sources agree it closes on Wednesdays but disagree on hours: HappyCow (last updated 2022) gives 11:00–21:30; DiningCode gives 11:00–21:00 with a 15:00–16:00 break and last order 20:20."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Jjajangmyeon (짜장면)",
+          "price": "7,000 KRW"
+        },
+        {
+          "name": "Mushroom tangsu (버섯탕수), medium",
+          "price": "25,000 KRW"
+        },
+        {
+          "name": "Kkanpung eggplant (깐풍가지), medium",
+          "price": "25,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=DhlFq2zK4pHS",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these items with these exact prices. DiningCode does not mark which are vegan; HappyCow says the vegan dishes are on a separate list."
+    },
+    "phone": {
+      "value": "02-324-0442",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=DhlFq2zK4pHS",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "HappyCow gives +82-23240442; DiningCode gives 02-324-0442."
+    },
+    "transit": {
+      "value": {
+        "station": "Mangwon",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 8,
+        "distanceM": 540
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 망원역 6호선: 540 m / 489 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/reviews/hwang-geumlyong-seoul-228516",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow (\"Veg Options\", read on two fetches): \"Serves meat, vegan options available. Chinese restaurant with a couple of vegan dishes, which are listed separately.\" Reviews on the same page dated 2026 mention a separate vegan menu."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened addresses halal."
+      }
+    },
+    "vibe": "A neighbourhood Korean-Chinese restaurant in Mangwon with a separate vegan list.",
+    "story": "Hwanggeumlyong is a family Korean-Chinese restaurant on Poeun-ro in Mangwon serving jjajangmyeon, jjamppong and sweet-and-sour dishes. HappyCow says its vegan dishes are listed separately from the main menu, so ask for the vegan list. It closes on Wednesdays.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/noodles.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "istanbul-grill-gongdeok",
+    "name": "Istanbul Grill (이스탄불그릴)",
+    "zone": "Gongdeok, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.54509688369288,
+        "lng": 126.94765098208924
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Gongdeok Station (공덕역 5호선) resolves '이스탄불그릴' to 37.545097/126.947651. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "152 Baekbeom-ro, Mapo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=i66S0tXiHb5K",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode: \"서울특별시 마포구 백범로 152\" (identical on two fetches). Kakao Map lists 이스탄불그릴 at 서울 마포구 백범로 152, category 튀르키예음식. Neither gives a floor or unit."
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 11:00–23:00 (break 15:00–17:00, last order 22:00)",
+        "weekly": {
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "23:00",
+              "lastOrder": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=i66S0tXiHb5K",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode: 11:00 - 23:00, break 15:00 - 17:00, last order 22:00, shown for every day of the week."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Köfte, 1 serving (KOFTE)",
+          "price": "25,000 KRW"
+        },
+        {
+          "name": "Tavuk pirzola, 1 serving",
+          "price": "24,000 KRW"
+        },
+        {
+          "name": "Hummus",
+          "price": "7,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=i66S0tXiHb5K",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these items with these exact prices."
+    },
+    "phone": {
+      "value": "02-711-1132",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=i66S0tXiHb5K",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode listing."
+    },
+    "transit": {
+      "value": {
+        "station": "Gongdeok",
+        "line": "Line 5 / Line 6 / Airport Railroad / Gyeongui–Jungang Line",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 426
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 공덕역 5호선: 426 m / 418 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened labels any dish vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/profile.php?rid=i66S0tXiHb5K",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode files the restaurant under the category \"터키, 할랄\" — its own classification, identical on two fetches; the trading name does not contain the word halal. No certificate, certifying body or operator statement has been sighted, and whether alcohol is served is not established."
+      }
+    },
+    "vibe": "A Turkish charcoal-grill restaurant near Gongdeok Station serving lamb köfte and grilled chicken.",
+    "story": "Istanbul Grill cooks Turkish charcoal barbecue a short walk from Gongdeok Station: minced-lamb köfte, grilled chicken thigh, pilaf, hummus and Turkish bread, according to its DiningCode menu. DiningCode classifies it as halal; no certificate has been sighted, and whether alcohol is served is not known.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "afc-kebab-sangsu",
+    "name": "AFC Kebab (AFC케밥)",
+    "zone": "Sangsu, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5496315523648,
+        "lng": 126.922890803092
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint from Sangsu Station (상수역 6호선) resolves 'AFC케밥' to 37.549632/126.922891. Naver is unreachable, so this is Kakao-only and held at SUPPORTED, not CONFIRMED."
+    },
+    "address": {
+      "value": "1F, 57 Wausan-ro, Mapo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=qXEFGMxBJ9ys",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode (listed as 에이에프씨): \"서울특별시 마포구 와우산로 57 1층\" (identical on two fetches). Kakao Map lists AFC케밥 at 서울 마포구 와우산로 57."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode shows 11:00–23:00 on some days and 00:00–24:00 on others without a clear pattern; no second source was found."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken kebab, M (닭고기 케밥)",
+          "price": "6,900 KRW"
+        },
+        {
+          "name": "Lamb kebab, M (양고기 케밥)",
+          "price": "7,900 KRW"
+        },
+        {
+          "name": "Lamb kebab rice, BIG (양고기 케밥 라이스)",
+          "price": "11,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=qXEFGMxBJ9ys",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode menu lists these items with these exact prices."
+    },
+    "phone": {
+      "value": "010-8403-5703",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=qXEFGMxBJ9ys",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode listing (a mobile number)."
+    },
+    "transit": {
+      "value": {
+        "station": "Sangsu",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 266
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 상수역 6호선: 266 m / 242 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened labels any dish vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/profile.php?rid=qXEFGMxBJ9ys",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode files the restaurant under the category \"케밥, 할랄\" — its own classification, identical on two fetches; the trading name does not contain the word halal. No certificate, certifying body or operator statement has been sighted."
+      }
+    },
+    "vibe": "A small late-opening kebab counter near Sangsu Station with chicken and lamb kebabs.",
+    "story": "AFC Kebab sells chicken, lamb and mixed kebab wraps, kebab rice and burgers a few minutes from Sangsu Station. DiningCode classifies it as halal; no certificate has been sighted. Opening hours vary by day, so check before going.",
+    "imageLeads": [],
+    "traits": [],
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  // Yongsan-gu: Itaewon, the mosque slope, Haebangchon, Gyeongnidan. mr-kebab-itaewon shares 192 Itaewon-ro with Kervan and Dubai — a separate business (own Kakao id, phone, cuisine).
+  {
+    "id": "mr-kebab-itaewon",
+    "name": "Mr. Kebab (미스터케밥) Itaewon",
+    "zone": "Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5344027135795,
+        "lng": 126.995356670795
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '미스터케밥 이태원점' to 37.534403, 126.995357. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "1F, 192 Itaewon-ro, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Government tourism site",
+      "url": "https://english.visitseoul.net/tours/seoul-travel-guide-for-muslim-visitors/ENN021382",
+      "method": "Read from a government listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Seoul's official tourism site's Muslim visitor guide (edited Nov 10, 2022; fetched twice) gives 'Address : 192 Itaewon-ro, Yongsan-gu, Seoul' for Mr. Kebab. Kakao Map lists '미스터케밥 이태원점' at 서울 용산구 이태원로 192 (place.map.kakao.com/11520662). DiningCode gives '서울특별시 용산구 이태원로 192 1층' / 지번 이태원동 127-2, and Zabihah gives '127-2 Itaewon-dong, Yongsan-gu, Seoul' — the same parcel. Same street number as kervan-itaewon and dubai-restaurant-itaewon; a separate business in the same building."
+    },
+    "hours": {
+      "value": {
+        "raw": "Open 24 hours daily (연중무휴), per DiningCode",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=iIXUo7IOL8IP",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '영업시간: 00:00 - 24:00' for every day of the week and tags the listing '연중무휴' (open year-round). `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken kebab (치킨 케밥)",
+          "price": "7,800 KRW"
+        },
+        {
+          "name": "Jumbo chicken kebab (점보 치킨 케밥)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Lamb kebab (양고기 케밥)",
+          "price": "8,800 KRW"
+        },
+        {
+          "name": "Pilaf lamb kebab (필라프 양고기 케밥)",
+          "price": "12,500 KRW"
+        },
+        {
+          "name": "Rice wrap chicken kebab (라이스 랩 치킨)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Hummus garlic kebab (후무스 갈릭칩 케밥)",
+          "price": "10,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=iIXUo7IOL8IP",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode lists '0507-1393-2005'; Seoul's 2022 Muslim visitor guide lists '+82- 70-7758-1997'. The two disagree, so the phone is left unknown."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 2,
+        "distanceM": 100
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 미스터케밥 이태원점: 100 m / 95 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "DiningCode's menu lists a 'Falafel Wrap (Veggy Menu)' / '팔라펠 랩 (채식)'. 채식/veggy means vegetarian, not vegan, so no vegan level is set."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.zabihah.com/restaurants/ca3100b0-7767-11ef-95ae-6045bdeb9f57/mr-kebab-yongsan-gu-seoul",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Zabihah (page read directly) states: 'The owners are Muslim and have confirmed its halal status. All food at this restaurant is certified halal.' and labels it 'Fully halal', with the note 'Score reflects a halal certificate on file.' Seoul's official tourism site's Muslim visitor guide (edited Nov 10, 2022; fetched twice) lists Mr. Kebab under 'Halal Certified'. Neither names a certifying body or number, and no certificate was sighted, so this is friendly, not certified. Still trading: DiningCode reviews dated 2025년 5–6월 and visitor posts dated 8월 of this year."
+      },
+      "halalCertClaim": {
+        "body": "an unnamed halal certifier (neither source names an authority)",
+        "statedBy": "Zabihah (halal directory) and Seoul's official tourism site's Muslim visitor guide (2022 edit) — not the operator and not a certifying body",
+        "quote": "All food at this restaurant is certified halal.",
+        "status": "claimed by a directory and listed as 'Halal Certified' by a 2022 government guide; no certifying body, certificate number or expiry sighted"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Turkish kebab counter a minute's walk from Itaewon Station Exit 3, on the same block of Itaewon-ro as several other halal kitchens.",
+    "story": "Mr. Kebab serves Turkish kebabs, wraps and rice plates from the ground floor of 192 Itaewon-ro. Zabihah describes it as run by Muslim owners from Turkey who confirm its halal status, and Seoul's tourism office has listed it among the neighbourhood's halal-certified restaurants. No certificate has been sighted.",
+    "esg_point": "A halal-friendly Turkish kebab counter on Itaewon-ro, one minute from the station",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "ankara-picnic-itaewon",
+    "name": "Ankara Picnic (앙카라피크닉)",
+    "zone": "Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.53435581487457,
+        "lng": 126.9942920123866
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '앙카라피크닉' to 37.534356, 126.994292. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "182 Itaewon-ro, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=yGHfyTx6RJ4M",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 이태원로 182'. Kakao Map independently lists '앙카라피크닉' at the same road address (place.map.kakao.com/17001472)."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode lists 10:00–02:00, and 10:00–06:00 on two nights of the week; a visitor post shown on the same DiningCode page gives '매일 10:00 ~ 익일 03:00 (금·토 10:00 ~ 익일 05:00)'. They disagree, so hours stay unknown."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken kebab (치킨 케밥)",
+          "price": "7,900 KRW"
+        },
+        {
+          "name": "Lamb kebab (양고기 케밥)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Lamb box kebab (양고기 박스 케밥)",
+          "price": "9,900 KRW"
+        },
+        {
+          "name": "Chicken rice wrap (치킨 라이스 랩)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Falafel wrap (팔라펠 랩)",
+          "price": "8,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=yGHfyTx6RJ4M",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "phone": {
+      "value": "02-793-2550",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=yGHfyTx6RJ4M",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '02-793-2550'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 1,
+        "distanceM": 9
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 앙카라피크닉: 9 m / 8 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "A falafel wrap is on the menu, but no source opened says whether it is vegan (sauces and bread are not described)."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '앙카라 피크닉' (rid=yGHfyTx6RJ4M) in its '이태원 할랄' listing reads \"케밥, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. A visitor post shown on the same DiningCode page says '할랄 인증 마크가 유리창에 붙어 있어요' (a halal certification mark is on the window); that is a personal post and only context. Still trading: a DiningCode review dated 2025년 11월 8일."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small Turkish kebab shop right beside Itaewon Station Exit 3, with a handful of tables and a takeaway counter.",
+    "story": "Ankara Picnic makes Turkish chicken, lamb and falafel kebabs, wraps and box meals at 182 Itaewon-ro, steps from Itaewon Station. DiningCode classifies it as a halal restaurant. No certificate has been sighted.",
+    "esg_point": "A halal-friendly Turkish kebab shop at Itaewon Station",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "siti-sarah-itaewon",
+    "name": "Siti Sarah (시티사라)",
+    "zone": "Usadan-ro, Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5331557505412,
+        "lng": 126.995963176714
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '시티사라' to 37.533156, 126.995963. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "7 Usadan-ro 10-gil, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=PgFvFzerfwrF",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 우사단로10길 7'. Kakao Map independently lists '시티사라' at the same road address (place.map.kakao.com/18956294)."
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon–Thu 18:30–23:00; Fri 18:30–01:00; Sat 10:30–01:00; Sun 10:30–23:00 (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=PgFvFzerfwrF",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's day-by-day schedule: Mon, Tue, Wed, Thu '18:30 - 23:00'; Fri '18:30 - 01:00'; Sat '10:30 - 01:00'; Sun '10:30 - 23:00'. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode has no menu section for this listing and no other source opened names dishes with prices."
+    },
+    "phone": {
+      "value": "02-796-8515",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=PgFvFzerfwrF",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '02-796-8515'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 7,
+        "distanceM": 329
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 시티사라: 329 m / 389 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about vegan dishes here."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '시티사라' (rid=PgFvFzerfwrF) in its '이태원 할랄' listing reads \"인도네시아음식, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. A visitor post on the same DiningCode page (dated 2025년 12월 10일) calls it '할랄인증 맛집' and says '할랄푸드 인증마크가 붙어있어요' — personal-post context only."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indonesian restaurant on the lane that climbs from Itaewon Station toward Seoul Central Mosque, with a few outdoor tables.",
+    "story": "Siti Sarah is an Indonesian restaurant on Usadan-ro 10-gil, the street leading up to Seoul Central Mosque. DiningCode classifies it as halal. It opens in the evening on weekdays and from late morning at weekends. No certificate has been sighted.",
+    "esg_point": "A halal-friendly Indonesian kitchen on the road to Seoul Central Mosque",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "hojibobo-itaewon",
+    "name": "Hojibobo (호지보보)",
+    "zone": "Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5339788632703,
+        "lng": 126.989450741609
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '호지보보' to 37.533979, 126.989451. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "3F, 140-1 Itaewon-ro, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=RoK4Y6uJtp2c",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 이태원로 140-1 3층'. Kakao Map independently lists '호지보보' at the same road address (place.map.kakao.com/1719328462)."
+    },
+    "hours": {
+      "value": {
+        "raw": "11:00–23:00 daily, last order 22:30 (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=RoK4Y6uJtp2c",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '영업시간: 11:00 - 23:00 라스트오더: 22:30' for every day of the week. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Shashlik lamb skewers (Shosi Yangkochi / 샤슬릭)",
+          "price": "64,900 KRW"
+        },
+        {
+          "name": "Adana kebab (for 2)",
+          "price": "39,000 KRW"
+        },
+        {
+          "name": "Whole lamb set (up to 25 servings)",
+          "price": "820,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=RoK4Y6uJtp2c",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists 'Shosi Yangkochi(샤슬릭) 64,900원', 'Adana Kebab 39,000원 … 2인 기준' and 'Whole Lamb Set 820,000원 … 할랄 양 한마리 통구이 세트 최대 25인분'."
+    },
+    "phone": {
+      "value": "0507-1405-2037",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=RoK4Y6uJtp2c",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '0507-1405-2037'."
+    },
+    "transit": {
+      "value": {
+        "station": "Noksapyeong",
+        "line": "Line 6",
+        "exit": "1",
+        "walkingMinutes": 8,
+        "distanceM": 377
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 녹사평역 6호선 1번출구 to 호지보보: 377 m / 447 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about vegan dishes here."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '호지보보' (rid=RoK4Y6uJtp2c) in its '이태원 할랄' listing reads \"러시아음식, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Still trading: visitor posts on the page dated 2025년 10–12월."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A third-floor Uzbek grill on Itaewon-ro between Noksapyeong and Itaewon, built around charcoal-grilled lamb.",
+    "story": "Hojibobo cooks Uzbek and Russian dishes, including charcoal-grilled shashlik and Adana kebab, from the third floor of 140-1 Itaewon-ro. DiningCode classifies it as halal. No certificate has been sighted.",
+    "esg_point": "A halal-friendly Uzbek grill between Noksapyeong and Itaewon",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "arabesque-itaewon",
+    "name": "Arabesque (아라베스크) Itaewon",
+    "zone": "Hannam-dong, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5356353683227,
+        "lng": 126.998850462933
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '아라베스크 이태원점' to 37.535635, 126.998850. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "227 Itaewon-ro, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=UPOPrfEYZsbN",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 이태원로 227'. Kakao Map independently lists '아라베스크 이태원점' at the same road address (place.map.kakao.com/308908078). Not the same restaurant as the existing `arabesque` entry, which is in Yeonsu-gu, Incheon."
+    },
+    "hours": {
+      "value": {
+        "raw": "11:30–22:00 daily (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=UPOPrfEYZsbN",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '영업시간: 11:30 - 22:00' for every day and tags it '연중무휴'. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Lamb mansaf (양고기 만사프)",
+          "price": "26,000 KRW"
+        },
+        {
+          "name": "Lamb curry (양고기커리)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Chicken curry (치킨커리)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "Shrimp curry (새우커리)",
+          "price": "17,000 KRW"
+        },
+        {
+          "name": "Salmon curry (연어 커리)",
+          "price": "16,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=UPOPrfEYZsbN",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "phone": {
+      "value": "02-790-6910",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=UPOPrfEYZsbN",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '02-790-6910'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 8,
+        "distanceM": 461
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 아라베스크 이태원점: 461 m / 450 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about vegan dishes here."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '아라베스크' (rid=UPOPrfEYZsbN) in its '이태원 할랄' listing reads \"인도음식, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Still trading: a visitor post on the page records a visit on 2026년 6월 14일."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Middle Eastern and Indian restaurant at the Hannam end of Itaewon-ro, with outdoor tables.",
+    "story": "Arabesque serves Middle Eastern dishes such as lamb mansaf alongside Indian-style curries at 227 Itaewon-ro, toward Hannam-dong. DiningCode classifies it as halal. No certificate has been sighted.",
+    "esg_point": "A halal-friendly Middle Eastern and Indian kitchen on Itaewon-ro",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "abi-kebab-itaewon",
+    "name": "Abi Kebab (아비케밥)",
+    "zone": "Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.534085518349,
+        "lng": 126.994370100326
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '아비케밥' to 37.534086, 126.994370. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "1F, 3 Bogwang-ro 60-gil, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=un68DlFmoYtl",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울 용산구 보광로60길3 1층'. Kakao Map independently lists '아비케밥' at the same road address (place.map.kakao.com/520258988)."
+    },
+    "hours": {
+      "value": {
+        "raw": "Sun–Thu 10:00–02:00 (last order 01:30); Fri–Sat 10:00–06:00 (last order 05:30), per DiningCode",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=un68DlFmoYtl",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '10:00 - 02:00 라스트오더: 01:30' on five days and '10:00 - 06:00 라스트오더: 05:30' on Friday and Saturday. A visitor post on the same page gives the same '금,토 10:00 - 06:00'. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken kebab (치킨케밥)",
+          "price": "7,600 KRW"
+        },
+        {
+          "name": "Lamb kebab (양고기 케밥)",
+          "price": "8,600 KRW"
+        },
+        {
+          "name": "Crispy chicken rice bowl (크리스피치킨라이스볼)",
+          "price": "9,600 KRW"
+        },
+        {
+          "name": "Chicken escalope (치킨에스칼로프)",
+          "price": "15,500 KRW"
+        },
+        {
+          "name": "Lamb kofta (양고기 코프타)",
+          "price": "17,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=un68DlFmoYtl",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "phone": {
+      "value": "02-790-9952",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=un68DlFmoYtl",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '02-790-9952'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 2,
+        "distanceM": 117
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 아비케밥: 117 m / 103 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "A visitor post says the falafel is a vegan item, but that is a personal post; no directory or operator source opened states it."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '아비케밥' (rid=un68DlFmoYtl) in its '이태원 할랄' listing reads \"케밥, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Still trading: a DiningCode review dated 2026년 9월 12일."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Turkish kebab shop just off Itaewon-ro, two minutes from Itaewon Station, open until the early hours.",
+    "story": "Abi Kebab makes Turkish kebabs, rice plates, chicken escalope and lamb kofta on Bogwang-ro 60-gil, just behind Itaewon Station. DiningCode classifies it as halal. No certificate has been sighted.",
+    "esg_point": "A halal-friendly late-night Turkish kitchen by Itaewon Station",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "troy-kebab-itaewon",
+    "name": "Troy (트로이) Kebab",
+    "zone": "Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5338908836518,
+        "lng": 126.993994487579
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '트로이' to 37.533891, 126.993994. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "125 Bogwang-ro, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=gAPtzYq1BBRF",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 보광로 125'. Kakao Map independently lists '트로이' at the same road address (place.map.kakao.com/1552783005). Across the road from the existing sultan-kebab-itaewon (126 Bogwang-ro); a different business."
+    },
+    "hours": {
+      "value": {
+        "raw": "10:00–02:00 Mon–Fri; 10:00–06:00 Sat and Sun (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=gAPtzYq1BBRF",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's day-by-day schedule shows '10:00 - 02:00' Monday to Friday and '10:00 - 06:00' on Saturday and Sunday. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken kebab (치킨 케밥)",
+          "price": "6,900 KRW"
+        },
+        {
+          "name": "Lamb kebab (양 케밥)",
+          "price": "7,900 KRW"
+        },
+        {
+          "name": "Mixed kebab (믹스 케밥)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Chicken rice plate (치킨라이스 플레이트)",
+          "price": "9,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=gAPtzYq1BBRF",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "phone": {
+      "value": "0507-1444-2599",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=gAPtzYq1BBRF",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '0507-1444-2599'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 3,
+        "distanceM": 110
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 트로이: 110 m / 121 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about vegan dishes here."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '트로이' (rid=gAPtzYq1BBRF) in its '이태원 할랄' listing reads \"케밥, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Still trading: a DiningCode review dated 2025년 4월 23일."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A narrow kebab bar on Bogwang-ro, two minutes from Itaewon Station, open late.",
+    "story": "Troy sells Turkish chicken, lamb and mixed kebabs and rice plates from a small counter at 125 Bogwang-ro. DiningCode classifies it as halal. No certificate has been sighted.",
+    "esg_point": "A halal-friendly kebab counter on Bogwang-ro",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "alpedo-kebab-itaewon",
+    "name": "Alpedo Kebab (알페도케밥)",
+    "zone": "Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5342638671491,
+        "lng": 126.99341517401
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '알페도케밥' to 37.534264, 126.993415. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "1F, 176 Itaewon-ro, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=VPDjeleEWAgL",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 이태원로 176 1층'. Kakao Map independently lists '알페도케밥' at the same road address (place.map.kakao.com/76119460). Taksim Kebab at 176-1 Itaewon-ro is a separate business."
+    },
+    "hours": {
+      "value": {
+        "raw": "Open 24 hours daily (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=VPDjeleEWAgL",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '영업시간: 00:00 - 24:00' for every day and tags it '연중무휴'. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken Alpedo set (치킨 케밥 알페도 세트)",
+          "price": "15,300 KRW"
+        },
+        {
+          "name": "Mixed kebab rice set (믹스 케밥 라이스 세트)",
+          "price": "19,300 KRW"
+        },
+        {
+          "name": "Adana kebab set (아다나 케밥 세트)",
+          "price": "24,800 KRW"
+        },
+        {
+          "name": "Rice kofte set (라이스 쾨프테 세트)",
+          "price": "24,800 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=VPDjeleEWAgL",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "phone": {
+      "value": "02-794-1132",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=VPDjeleEWAgL",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '02-794-1132'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 2,
+        "distanceM": 102
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 알페도케밥: 102 m / 120 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about vegan dishes here."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '알페도케밥' (rid=VPDjeleEWAgL) in its '이태원 할랄' listing reads \"케밥, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Still trading: a DiningCode review dated 2025년 12월 12일."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A round-the-clock Turkish grill on the main Itaewon-ro strip, two minutes from the station.",
+    "story": "Alpedo Kebab serves Turkish set meals — oven-bread kebabs, Adana kebab and kofte with rice — on the ground floor of 176 Itaewon-ro. DiningCode classifies it as halal. No certificate has been sighted.",
+    "esg_point": "A halal-friendly 24-hour Turkish grill on Itaewon-ro",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "king-kebab-gyeongridan",
+    "name": "King Kebab (킹케밥) Gyeongridan-gil",
+    "zone": "Gyeongridan-gil, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.53913786359335,
+        "lng": 126.98809675634362
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '킹케밥 경리단길점' to 37.539138, 126.988097. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "1F, 16 Noksapyeong-daero 54-gil, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=pxBmhSWXWQKI",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 녹사평대로54길 16 1층'. Kakao Map independently lists '킹케밥 경리단길점' at the same road address (place.map.kakao.com/914239977). Kakao also lists a separate '킹케밥 이태원점' at 185 Itaewon-ro; this entry is only the Gyeongridan-gil branch."
+    },
+    "hours": {
+      "value": {
+        "raw": "Open 24 hours daily (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=pxBmhSWXWQKI",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '영업시간: 00:00 - 24:00' for every day of the week. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken kebab",
+          "price": "6,900 KRW"
+        },
+        {
+          "name": "Lamb kebab",
+          "price": "7,900 KRW"
+        },
+        {
+          "name": "Mix kebab",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Adana beef",
+          "price": "9,900 KRW"
+        },
+        {
+          "name": "Falafel wrap",
+          "price": "7,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=pxBmhSWXWQKI",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists '1. Chicken 6,900원', '2. Lamb Kebab 7,900원', '3. Mix Kebab 8,900원', '4. Adana Beef 9,900원', '5. Falafel Wrap 7,500원'."
+    },
+    "phone": {
+      "value": "0502-0302-5666",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=pxBmhSWXWQKI",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '0502-0302-5666'."
+    },
+    "transit": {
+      "value": {
+        "station": "Noksapyeong",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 12,
+        "distanceM": 718
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 녹사평역 6호선 3번출구 to 킹케밥 경리단길점: 718 m / 704 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "A falafel wrap is on the menu, but no source opened says whether it is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '킹케밥' (rid=pxBmhSWXWQKI) in its '이태원 할랄' listing reads \"케밥, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Still trading: a DiningCode review dated 2025년 12월 3일."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A takeaway kebab shop on a side street of Gyeongridan-gil, about a 12-minute walk from Noksapyeong Station.",
+    "story": "This Gyeongridan-gil branch of King Kebab makes Turkish chicken, lamb, beef Adana and falafel wraps. DiningCode classifies it as halal. No certificate has been sighted. The nearest station exit is about 700 m away.",
+    "esg_point": "A halal-friendly kebab shop in Gyeongridan-gil",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "pak-india-itaewon",
+    "name": "Pak India Restaurant (팍인디아레스토랑)",
+    "zone": "Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5337250092498,
+        "lng": 126.992425241786
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves 'Pak India Restaurant' to 37.533725, 126.992425. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "7-5 Itaewon-ro 20ga-gil, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=FU6mOKK2goOx",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing data gives road address '서울특별시 용산구 이태원로20가길 7-5' (지번 이태원동 74-34). Kakao Map lists 'Pak India Restaurant' at 서울 용산구 이태원로20가길 7-5 (place.map.kakao.com/2294505). A 2025 visitor post on the DiningCode page says it moved here from near the mosque, consistent with both current listings."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode marks its hours '영업시간 확인 필요' (needs checking); no other source opened gives hours."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Pakistani set (파키스탄세트)",
+          "price": "18,000 KRW"
+        },
+        {
+          "name": "Couple set (커플세트)",
+          "price": "36,000 KRW"
+        },
+        {
+          "name": "Group set for 3 (단체세트 3인)",
+          "price": "55,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=FU6mOKK2goOx",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these three sets at these prices."
+    },
+    "phone": {
+      "value": "02-790-1509",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=FU6mOKK2goOx",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '02-790-1509'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "4",
+        "walkingMinutes": 4,
+        "distanceM": 203
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 4번출구 to Pak India Restaurant: 203 m / 203 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about vegan dishes here."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '팍인디아레스토랑' (rid=FU6mOKK2goOx) in its '이태원 할랄' listing reads \"탄두리치킨, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Its DiningCode page title also carries the category '이슬람' (Islamic). Still trading: visitor posts dated 2025년 5월–12월."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small Pakistani restaurant in the lanes behind Itaewon Station Exit 4.",
+    "story": "Pak India serves Pakistani set meals from a side street off Itaewon-ro, having moved from its earlier spot near the mosque. DiningCode classifies it as halal. No certificate has been sighted.",
+    "esg_point": "A halal-friendly Pakistani kitchen off Itaewon-ro",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "little-india-itaewon",
+    "name": "Little India (리틀인디아)",
+    "zone": "Usadan-ro, Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5332747065964,
+        "lng": 126.996737046847
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '리틀인디아서울' to 37.533275, 126.996737. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "21 Usadan-ro 10-gil, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=qTo2uhSed93m",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 우사단로10길 21'. Kakao Map independently lists '리틀인디아서울' at the same road address (place.map.kakao.com/21856006)."
+    },
+    "hours": {
+      "value": {
+        "raw": "11:00–22:00 daily, break 15:00–16:30 (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=qTo2uhSed93m",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '영업시간: 11:00 - 22:00 브레이크타임: 15:00 - 16:30' for every day. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken tikka masala (치킨티카마살라)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "Balti garlic chicken (발티갈릭치킨)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "Kadai chicken (카다이치킨)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Saag chicken (사그치킨)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "Vegetable pulao (야채 플라우)",
+          "price": "5,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=qTo2uhSed93m",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "phone": {
+      "value": "02-793-5416",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=qTo2uhSed93m",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '02-793-5416'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 9,
+        "distanceM": 410
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 리틀인디아서울: 410 m / 485 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about vegan dishes here."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '리틀인디아' (rid=qTo2uhSed93m) in its '이태원 할랄' listing reads \"인도음식, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Still trading: visitor posts on the page dated 9월 13일 and 8월 26일 of this year (2026)."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian curry house on the lane up to Seoul Central Mosque.",
+    "story": "Little India cooks North Indian curries such as chicken tikka masala, kadai and saag chicken on Usadan-ro 10-gil, near Seoul Central Mosque. DiningCode classifies it as halal. No certificate has been sighted.",
+    "esg_point": "A halal-friendly Indian curry house near Seoul Central Mosque",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "taj-palace-itaewon",
+    "name": "Taj Palace (타지펠리스) Itaewon",
+    "zone": "Usadan-ro, Itaewon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5336999389871,
+        "lng": 126.99551511105
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '타지펠리스' to 37.533700, 126.995515. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "2F, 39 Usadan-ro, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jCaz20NWXqDm",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode gives '서울특별시 용산구 우사단로 39' with 지번 '이태원동 132-2 2층'. Kakao Map lists '타지펠리스' at 서울 용산구 우사단로 39 (place.map.kakao.com/11520635)."
+    },
+    "hours": {
+      "value": {
+        "raw": "11:00–21:30 daily (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jCaz20NWXqDm",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '영업시간: 11:00 - 21:30' for every day. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Lamb biryani (양고기 비리야니)",
+          "price": "16,500 KRW"
+        },
+        {
+          "name": "Lamb masala (램마살라)",
+          "price": "16,500 KRW"
+        },
+        {
+          "name": "Butter chicken curry (버터치킨카레)",
+          "price": "16,500 KRW"
+        },
+        {
+          "name": "Tandoori chicken (탄두리 치킨)",
+          "price": "21,900 KRW"
+        },
+        {
+          "name": "Weekend & holiday buffet (주말과 공휴일 뷔페)",
+          "price": "22,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jCaz20NWXqDm",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "phone": {
+      "value": "0507-1369-5786",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jCaz20NWXqDm",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode lists the phone as '0507-1369-5786'."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": "3",
+        "walkingMinutes": 4,
+        "distanceM": 205
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 6호선 3번출구 to 타지펠리스: 205 m / 214 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "A single 2021 DiningCode review mentions ordering a '비건 세트'; one four-year-old customer review is not enough to set a vegan level."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/list.dc?query=%EC%9D%B4%ED%83%9C%EC%9B%90%20%ED%95%A0%EB%9E%84",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's own category field for '타지펠리스' (rid=jCaz20NWXqDm) in its '이태원 할랄' listing reads \"인도음식, 할랄\" — 할랄 (halal) is one of DiningCode's category tags for this restaurant, not a customer review. No certificate, certifying body or number was sighted, so this is friendly, not certified. Still trading: a DiningCode review dated 2025년 2월 1일."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A second-floor Indian restaurant on Usadan-ro with a weekend buffet.",
+    "story": "Taj Palace serves Indian curries, biryani and tandoori chicken on the second floor of 39 Usadan-ro, with a buffet on weekends and holidays. DiningCode classifies it as halal. No certificate has been sighted.",
+    "esg_point": "A halal-friendly Indian restaurant on Usadan-ro",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bytofu-haebangchon",
+    "name": "byTOFU (바이두부)",
+    "zone": "Haebangchon, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.54608424143066,
+        "lng": 126.9851874604416
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '바이두부' to 37.546084, 126.985187. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "10 Sowol-ro 20-gil, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map lists '바이두부' at 서울 용산구 소월로20길 10 (place.map.kakao.com/183174330). DiningCode gives '서울특별시 용산구 소월로20길 10'; HappyCow gives '10 sowolro 20 gil, Seoul' (fetched twice); The Korea Times (Aug 2024, fetched twice) gives '10 Sowol-ro 20-gil, Yongsan District, Seoul'. All four agree."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "HappyCow lists split hours (e.g. 'Mon 9:00am-3:00pm, 5:00pm-7:30pm'); DiningCode lists '09:00 - 16:00' with a last order at 15:30 on the days shown. They disagree, so hours stay unknown."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Sunrise Bowl (broccoli and tofu gangjeong salad bowl)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "byTOFU Wrap",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "Eggless Egg Sandwich (계란없는 계란 샌드위치)",
+          "price": "13,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=SvRBrH6GnTXg",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "transit": {
+      "value": {
+        "station": "Noksapyeong",
+        "line": "Line 6",
+        "exit": "2",
+        "walkingMinutes": 23,
+        "distanceM": 1284
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 녹사평역 6호선 2번출구 to 바이두부: 1284 m / 1377 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/reviews/bytofu-seoul-222918",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's listing (fetched twice, same label both times) categorises it as 'Vegan' — HappyCow's fully-vegan category, not 'Vegetarian' or 'Veg-options'. The Korea Times (Aug 23, 2024; fetched twice, identical) independently calls it 'a unique vegan restaurant in Haebangchon' whose 'menu features a variety of plant-based salads, sandwiches, drinks and desserts.' Still trading: HappyCow shows a review dated September 27, 2026."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about halal status; it is not inferred from the vegan claim."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A plant-based café on the slopes of Namsan in Haebangchon, with outdoor seats looking toward N Seoul Tower.",
+    "story": "byTOFU makes plant-based salad bowls, wraps and sandwiches — including a tofu 'eggless egg' sandwich — in Haebangchon. The Korea Times described it in 2024 as a vegan restaurant that avoids plastic and gives a discount to customers who bring their own tumblers or containers. It is a long uphill walk (about 1.3 km) from the nearest subway exit.",
+    "esg_point": "A fully plant-based café that discounts reusable containers",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "plantude-yongsan",
+    "name": "Plantude (플랜튜드) I'Park Mall Yongsan",
+    "zone": "Yongsan Station, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.529969784422725,
+        "lng": 126.96395523623349
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '플랜튜드 아이파크몰 용산점' to 37.529970, 126.963955. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "7F Taste Park, I'Park Mall, 55 Hangang-daero 23-gil, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map lists '플랜튜드 아이파크몰 용산점' at 서울 용산구 한강대로23길 55 (place.map.kakao.com/1361877073). DiningCode gives '서울특별시 용산구 한강대로23길 55 용산역 아이파크몰 테이스트파크 7층'. The operator's own newsroom (Pulmuone, Mar 2023) places it at '용산역 아이파크몰 테이스트파크 7층' (Taste Park, 7th floor, I'Park Mall at Yongsan Station). A different branch from the existing plantude-coex."
+    },
+    "hours": {
+      "value": {
+        "raw": "11:00–22:00 daily, last order 21:00 (per DiningCode)",
+        "weekly": null
+      },
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=nRY8t2bQ9DhV",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode shows '영업시간: 11:00 - 22:00 라스트오더: 21:00' for the days listed. `weekly` is left null because the listing is not itemised into slots this schema can hold without guessing."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Assorted mushroom and tofu gangjeong (모둠 버섯 두부 강정)",
+          "price": "13,500 KRW"
+        },
+        {
+          "name": "Gosari (bracken) oil-stock pasta (고사리 오일 스톡 파스타)",
+          "price": "16,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=nRY8t2bQ9DhV",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices."
+    },
+    "transit": {
+      "value": {
+        "station": "Yongsan",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 3,
+        "distanceM": 143
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 용산역 1호선 to 플랜튜드 아이파크몰 용산점: 143 m / 129 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://news.pulmuone.co.kr/pulmuone/newsroom/viewNewsroom.do?id=2823",
+        "method": "Read from the operator’s own website",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Pulmuone's own newsroom (Pulmuone Food&Culture operates Plantude), dated 2023년 3월 05일, announces the second Plantude at I'Park Mall Yongsan with '100% 식물성 메뉴 14종' (14 menu items, 100% plant-based) and states '플랜튜드 2호점은 1호점과 동일하게 비건표준인증원 비건인증을 완료했다' (like the first branch, it has completed vegan certification from the Vegan Standard Certification Institute). The statement is from 2023; DiningCode's current listing still categorises it '채식, 비건식당' and carries a review dated 2025년 8월 2일."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about halal status; it is not inferred from the vegan claim."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A plant-based restaurant on the dining floor of the mall above Yongsan Station, with an open kitchen.",
+    "story": "Plantude is Pulmuone's plant-based restaurant; this second branch opened in 2023 on the Taste Park floor of I'Park Mall at Yongsan Station. Pulmuone says the whole menu is plant-based and certified by the Vegan Standard Certification Institute. Dishes include a mushroom-and-tofu gangjeong and a pasta made with gosari (bracken).",
+    "esg_point": "A fully plant-based kitchen with third-party vegan certification, inside Yongsan Station's mall",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "daom-guksujip",
+    "name": "Daom Guksujip (다옴국수집)",
+    "zone": "Seogye-dong, Yongsan-gu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.5518187048482,
+        "lng": 126.969169677056
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-routing API resolves '다옴국수집' to 37.551819, 126.969170. Naver cross-check unavailable (Naver unreachable this session), so this stays supported, not confirmed."
+    },
+    "address": {
+      "value": "359-4 Cheongpa-ro, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=kqi6u9LC0Kbr",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "DiningCode's listing gives '서울특별시 용산구 청파로 359-4'. Kakao Map independently lists '다옴국수집' at the same road address (place.map.kakao.com/1043670907)."
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode shows '10:00 - 22:00' with a 14:30–17:00 break and several closed days; a 2026 visitor post on the same page gives '월 - 금 10:00 ~ 20:00 … 토 - 일 10:00 ~ 14:00'. They disagree, so hours stay unknown."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Janchi guksu, banquet noodles — vegan option offered (잔치국수)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "Bibim guksu, spicy mixed noodles (비빔국수)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "Kong guksu, cold soy-milk noodles, seasonal (콩국수)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "Mul mandu, boiled dumplings (물만두)",
+          "price": "3,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=kqi6u9LC0Kbr",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu section lists these items at these prices; 잔치국수 carries the note '*비건 옵션*'."
+    },
+    "transit": {
+      "value": {
+        "station": "Seoul Station",
+        "line": "Gyeongui–Jungang Line",
+        "exit": null,
+        "walkingMinutes": 16,
+        "distanceM": 963
+      },
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 서울역 경의중앙선 to 다옴국수집: 963 m / 941 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com/profile.php?rid=kqi6u9LC0Kbr",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "DiningCode's menu lists '잔치국수 6,000원 *비건 옵션*' — the standard version is described as using '국산 햇멸치로 만든 육수' (anchovy stock), and a vegan option is offered. A visitor post on the same page (2026) is titled '비건부터 일반메뉴까지 가능한 다옴국수집' (from vegan to regular menu). A mixed menu with a vegan option is options, not full."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this project states anything about halal status; it is not inferred from the vegan claim."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A plain neighbourhood noodle shop behind Seoul Station's west side, serving Korean guksu.",
+    "story": "Daom Guksujip is a small Korean noodle shop on Cheongpa-ro serving janchi guksu, bibim guksu and seasonal kong guksu. Its standard janchi guksu uses anchovy stock, and the menu offers a vegan version. It is about a 16-minute walk from Seoul Station.",
+    "esg_point": "Everyday Korean noodles with a vegan option, near Seoul Station",
+    "image": "/images/noodles.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
 ];

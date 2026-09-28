@@ -213,6 +213,13 @@ function review(paths) {
         warn('story lists dishes while menus is unknown — check each is sourced');
       }
 
+      // check-data rejects any other shape after the entry is appended; catch
+      // it here, before (batch 6 shipped two plain strings).
+      const hv = r.hours?.value;
+      if (hv != null && (typeof hv !== 'object' || !hv.raw || (hv.weekly && typeof hv.weekly !== 'object'))) {
+        issues.push('hours.value must be { raw, weekly } (see an existing entry), not a plain string');
+      }
+
       const errors = issues.filter(i => !i.startsWith('WARN'));
       if (errors.length) flagged += 1;
       console.log(`${errors.length ? 'FLAG' : issues.length ? 'LOOK' : 'PASS'}  ${r.id}  ${han}  vegan=${r.dietary?.vegan?.value ?? '-'}/${r.dietary?.vegan?.confidence ?? '-'}  halal=${h?.value ?? '-'}/${h?.confidence ?? '-'}`);
