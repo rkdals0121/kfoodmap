@@ -172,7 +172,7 @@ function review(paths) {
         const ev = String(h.evidence ?? '');
         const quotes = [/"([^"]{4,})"/g, /“([^”]{4,})”/g, /(?<![A-Za-z])'((?:[^']|'(?=[A-Za-z])){4,}?)'(?![A-Za-z])/g, /‘([^’]{4,})’/g]
           .flatMap(re => [...ev.matchAll(re)].map(m => m[1]));
-        const HALAL_WORDS = /halal|할랄|muslim|무슬림/i;
+        const HALAL_WORDS = /halal|할랄|muslim|무슬림|islamic|이슬람|zabiha|dhabiha/i;
         if (quotes.length === 0) warn('halal evidence quotes no source text — what did the source actually say?');
         else if (!quotes.some(q => HALAL_WORDS.test(q))) {
           issues.push(`halal ${h.value} but no quoted source says halal — if it only says no pork, the level is porkFree`);
