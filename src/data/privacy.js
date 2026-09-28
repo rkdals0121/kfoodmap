@@ -2,7 +2,7 @@
 //
 // Every statement here was measured against the code on 2026-09-18, not
 // assumed: localStorage keys (App.jsx, i18n/index.js, Prologue.jsx), the
-// hosts the browser contacts (index.css @import, MapComponent TileLayer,
+// hosts the browser contacts (index.css @import, MapComponent TileLayer — OpenStreetMap since 2026-09-28, CARTO before that,
 // SubmitSheet), and the absence of analytics, cookies and geolocation. If
 // the app starts storing or sending something new, this file must change in
 // the same commit — a policy that lags the code is a false claim.
@@ -16,7 +16,7 @@
 // inventing one. It is shown publicly on /privacy, which is the point.
 export const PRIVACY_CONTACT = 'rkdalsinha@gmail.com';
 
-export const PRIVACY_EFFECTIVE_DATE = '2026-09-18';
+export const PRIVACY_EFFECTIVE_DATE = '2026-09-28';
 
 // scripts/leads.mjs purge-emails removes contact_email from leads older
 // than this. The policy text below states the same number.
@@ -55,7 +55,7 @@ export const privacyPolicy = {
           'Vercel Inc. (United States) hosts the app. Like any web host, it receives technical request data such as your IP address when you open the site.',
           'Kakao Corp. (Republic of Korea) provides the restaurant search shown while you type a name in the report form. The text you have typed is relayed to Kakao by our server, not sent directly from your browser, so Kakao does not receive your IP address.',
           'Supabase Inc. (United States) stores the reports you send.',
-          'Google Fonts (Google LLC, United States) provides the typeface, and CARTO provides the map images. Your browser requests these directly, which sends them your IP address.',
+          'Google Fonts (Google LLC, United States) provides the typeface, and OpenStreetMap provides the map images. Your browser requests these directly, which sends them your IP address.',
           'Links to Google Maps, Naver Map, Kakao Map, and restaurant websites take you to those services; their own privacy policies apply there.',
         ],
       },
@@ -101,7 +101,7 @@ export const privacyPolicy = {
           'Vercel Inc.(미국)가 앱을 호스팅합니다. 사이트에 접속하면 일반적인 웹 호스팅과 마찬가지로 IP 주소 등 접속 기술 정보를 받습니다.',
           '카카오 주식회사(대한민국)가 제보 양식에서 식당 이름을 입력하는 동안 보여지는 장소 검색을 제공합니다. 입력한 글자는 이용자의 브라우저가 아니라 저희 서버를 통해 카카오로 전달되므로, 카카오는 이용자의 IP 주소를 받지 않습니다.',
           'Supabase Inc.(미국)가 이용자가 보낸 제보를 저장합니다.',
-          'Google Fonts(Google LLC, 미국)가 글꼴을, CARTO가 지도 이미지를 제공합니다. 브라우저가 이를 직접 불러오므로 해당 서비스에 IP 주소가 전달됩니다.',
+          'Google Fonts(Google LLC, 미국)가 글꼴을, OpenStreetMap이 지도 이미지를 제공합니다. 브라우저가 이를 직접 불러오므로 해당 서비스에 IP 주소가 전달됩니다.',
           'Google 지도, 네이버 지도, 카카오맵, 식당 웹사이트로 연결되는 링크를 누르면 해당 서비스로 이동하며, 그곳에서는 각 서비스의 개인정보처리방침이 적용됩니다.',
         ],
       },
