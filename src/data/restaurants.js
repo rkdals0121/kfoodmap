@@ -50194,4 +50194,2392 @@ export const restaurants = [
     "story": "Love It Box is a small vegan bake shop near Amsa Station. Its own listing and HappyCow both say its bakes contain no dairy, eggs, refined flour, white sugar or artificial colouring. It makes cookies, butter bars and bottle cakes. HappyCow has no hours for it, so check its Instagram before going. It is a four-minute walk from Amsa Station on Line 8.",
     "image": "/images/vegan_cafe.svg"
   },
+  // Ready leads and HappyCow sweep of Daegu, Gyeongbuk, Ulsan and Gyeongnam (incl. Gyeongju temple food at Yeonhwa Baru).
+  {
+    "id": "yeonhwa-baru-gyeongju",
+    "name": "Yeonhwa Baru (연화바루)",
+    "zone": "Seoak-dong, Gyeongju",
+    "category": "temple",
+    "coordinates": {
+      "value": {
+        "lat": 35.8229036458546,
+        "lng": 129.186580002187
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 경주시외버스터미널 to 연화바루) gives the destination point 35.822904, 129.186580, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "4827 Daegyeong-ro, Gyeongju-si, Gyeongsangbuk-do (Seoak-dong 874-3)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21460483",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '경북 경주시 대경로 4827 (서악동)', jibun 서악동 874-3. HappyCow's Gyeongju list gives '874-3 Seoak-dong' for 'Baru', the same lot. HappyCow names it 'Baru'; Kakao's listing at that lot is '연화바루'. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Baru special set (바루특정식)",
+          "price": "25,000 KRW"
+        },
+        {
+          "name": "Mountain-vegetable bibimbap (산채비빔밥)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Mung-bean pancake (녹두빈대떡)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Potato pancake (감자빈대떡)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Mushroom sweet-and-sour (탕수이(버섯))",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Braised soy meat (소이찜(콩고기))",
+          "price": "25,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21460483",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu, items edited 2025-11-13 and 2026-07-13. These six items are the whole menu shown."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 054-774-5378 and HappyCow gives +82-547745376. The sources differ by one digit, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao's walking route from 경주시외버스터미널 (Gyeongju intercity bus terminal) is 2,555 m / about 40 minutes; a taxi or bus is easier."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/gyeongju/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Gyeongju list (raw page read once; accepted per the hc-jeolla-chungcheong ruling) files 'Baru, 874-3 Seoak-dong' under 'Vegan, Korean': 'Buddhist temple cuisine. Offers a multi-course set menu for lunch and dinner, plus several other options on the menu. Food is all vegan.' That is a directory's own vegan classification of the whole menu, so this is FULL. The current Kakao menu (edited 2025-11-13 and 2026-07-13) lists only plant dishes, incl. 소이찜(콩고기), and contradicts nothing. Still trading: Kakao reviews dated 2025-04-03 and 2026-05-09."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "Korean Buddhist temple cuisine in western Gyeongju, served as a set course or à la carte.",
+    "story": "Yeonhwa Baru serves Korean Buddhist temple cuisine in Seoak-dong, on the western side of Gyeongju. HappyCow lists it as vegan and says all of its food is vegan. The menu has a multi-course set meal, mountain-vegetable bibimbap, mung-bean and potato pancakes, a mushroom sweet-and-sour dish and a braised soy-meat dish. It is about 2.5 km from the intercity bus terminal, so take a taxi or bus.",
+    "esg_point": "Temple cuisine made without animal ingredients",
+    "image": "/images/temple_food.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "daereungwon-bonga-gyeongju",
+    "name": "Daereungwon Bonga (대릉원본가)",
+    "zone": "Hwangnam-dong, Gyeongju",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 35.8351268592659,
+        "lng": 129.214835609855
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 경주시외버스터미널 to 대릉원본가) gives the destination point 35.835127, 129.214836, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 39-21 Poseok-ro 1050beon-gil, Gyeongju-si, Gyeongsangbuk-do (Hwangnam-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/81792570",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '경북 경주시 포석로1050번길 39-21 1층 (황남동)'. HappyCow's Gyeongju list gives '39-21 Poseok-ro 1050beon-gil, Hwangnam-dong'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Soft tofu stew set (순두부정식)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Cheonggukjang bibimbap (청국장비빔밥)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Cold noodles, seasonal (물냉면)",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/81792570",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map operator menu on an owner-registered listing, edited 2026-07-21. It also lists pollack, seafood pancake and pork cutlet dishes. The menu does not say which dishes are vegan."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 054-777-7896 and 010-3828-6860; HappyCow gives +82-1066856860. The sources disagree, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao's walking route from 경주시외버스터미널 (Gyeongju intercity bus terminal) is 2,083 m / about 32 minutes; a taxi or bus is easier."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/gyeongju/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Gyeongju list (raw page read once): 'Daereungwon Bonga - 대릉원본가 … Serves meat, vegan options available. Korean restaurant with some vegan-friendly options such as tofu stew, bean stew, and cold noodles.' A mixed menu with vegan options is OPTIONS. The current Kakao menu still has a soft tofu stew set, a cheonggukjang (fermented bean) dish and cold noodles. Still trading: Kakao menu edited 2026-07-21 on the owner-registered listing."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A Korean home-cooking restaurant near Hwangnidan-gil with tofu and fermented-bean dishes.",
+    "story": "Daereungwon Bonga is a Korean restaurant in Hwangnam-dong, the old-town area near Hwangnidan-gil. HappyCow lists vegan-friendly options here, such as tofu stew, fermented-bean stew and cold noodles. The menu also has fish, seafood and pork dishes, and Korean stews and noodle broths are often made with anchovy, seafood or beef stock, so tell the staff you eat no meat, fish or egg and ask which dishes can be made that way.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "wonmajung-gyeongju",
+    "name": "Wonmajung (원마중)",
+    "zone": "Hwangnam-dong, Gyeongju",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 35.8330122837004,
+        "lng": 129.21335938301695
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 경주시외버스터미널 to 원마중) gives the destination point 35.833012, 129.213359; Kakao's place record gives 35.833013, 129.213361, under a metre away. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 3 Notjeon 2-gil, Gyeongju-si, Gyeongsangbuk-do (Hwangnam-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1904524839",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '경북 경주시 놋전2길 3 1층 (황남동)'. HappyCow's Gyeongju list gives '3, Notjeon 2-gil' and 'Address in Hangul: 경상북도 경주시 놋전2길 3 원마중'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Tofu and mushroom hotpot set, per person (두부버섯전골정식)",
+          "price": "17,000 KRW"
+        },
+        {
+          "name": "Neungi mushroom hotpot set, per person (능이버섯전골정식)",
+          "price": "20,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1904524839",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu, edited 2026-04-10. Kakao reviews (2024–25) also mention set meals with black-pork stir-fry, which the menu list does not show."
+    },
+    "phone": {
+      "value": "054-771-7171",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1904524839",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-547717171) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao's walking route from 경주시외버스터미널 (Gyeongju intercity bus terminal) is 1,842 m / about 29 minutes; a taxi or bus is easier."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/gyeongju/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Gyeongju list (raw page read once): 'Wonmajung - 원마중 … Serves meat, vegan options available. Korean restaurant offering two mushroom stews (버섯전골/능이버섯전골) that can be made vegan on request with extra tofu and mushrooms. Be sure to mention no fish when ordering the side dishes.' Both hotpots are on the current Kakao menu (edited 2026-04-10). Still trading: Kakao review dated 2025-12-22 and the 2026 menu edit."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "Mushroom and tofu hotpots near Hwangnidan-gil that the kitchen will make vegan on request.",
+    "story": "Wonmajung is a Korean restaurant in Gyeongju's Hwangnam-dong serving mushroom hotpot set meals. HappyCow says both hotpots, the tofu-and-mushroom one and the neungi-mushroom one, can be made vegan on request with extra tofu and mushrooms, and that you should ask for side dishes without fish. The restaurant also serves pork dishes, so say clearly when ordering that you eat no meat, fish or egg.",
+    "esg_point": null,
+    "image": "/images/mild_soup.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "cheongram-daegu",
+    "name": "Cheongram (청람)",
+    "zone": "Su-dong, Jung-gu, Daegu",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 35.8691657220383,
+        "lng": 128.589697597898
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 반월당역 to 청람) gives the destination point 35.869166, 128.589698, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "66-1 Yangnyeong-gil, Jung-gu, Daegu (Su-dong 81-1)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/390472764",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 중구 약령길 66-1 (수동)', jibun 수동 81-1. HappyCow's Daegu list gives '81-1 Su-dong, 1st floor, Jung-gu', the same lot. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's menu was last edited in 2023 and lists only a home-style set (가정식한상) and a few meat and fish dishes, so it is not quoted."
+    },
+    "phone": {
+      "value": "053-421-9796",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/390472764",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-534219796) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Banwoldang",
+        "line": "Daegu Line 1 / Line 2",
+        "exit": null,
+        "walkingMinutes": 14,
+        "distanceM": 895
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 반월당역 to 청람: 895 m / 811 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): 'Cheonglam 청람식당, 81-1 Su-dong … Serves meat, vegan options available. Korean buffet with a range of vegetable sides, rice and noodles to make a fully vegan plate.' A buffet that also serves meat is OPTIONS. Still trading: Kakao reviews dated 2026-01-20 and 2026-01-31, the latter praising its namul side dishes."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A home-style Korean buffet near Daegu's herbal-medicine market, with many vegetable side dishes.",
+    "story": "Cheongram is a Korean home-style buffet in central Daegu, near the Yangnyeongsi herbal-medicine market. HappyCow says its range of vegetable side dishes, rice and noodles lets you make a fully vegan plate. The buffet also has meat and fish dishes, and seasoned vegetables and kimchi can contain fish sauce or anchovy, so ask the staff which dishes are plant-only. It is about a 15-minute walk from Banwoldang station.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "yonghwaru-daemyeong-daegu",
+    "name": "Yonghwaru Son-jjajang (용화루손짜장)",
+    "zone": "Daemyeong-dong, Nam-gu, Daegu",
+    "category": "korean-chinese",
+    "coordinates": {
+      "value": {
+        "lat": 35.85611720457897,
+        "lng": 128.58778542162258
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 명덕역 to 용화루손짜장) gives the destination point 35.856117, 128.587785, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 51 Jungang-daero 51-gil, Nam-gu, Daegu (Daemyeong-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16872999",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 남구 중앙대로51길 51 1층 (대명동)'. HappyCow's Daegu list gives 'Yonghwaru, 51, Jungang-daero 51-gil, Nam-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's menu (jjajangmyeon, jjamppong, udon, tangsuyuk) was last edited in 2021, so it is not quoted."
+    },
+    "phone": {
+      "value": "053-625-2267",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16872999",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-536252267) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Myeongdeok",
+        "line": "Daegu Line 1 / Line 3",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 471
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 명덕역 to 용화루손짜장: 471 m / 446 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): 'Yonghwaru … Serves meat, vegan options available. Chinese restaurant serving vegan noodle dishes including jjamppong and jjajangmyeon. Also serves vegan mushroom sweet and sour stew.' A Kakao review dated 2026-08-08 agrees: '비건 옵션이 가능한 중식당. 비건이 가능한 메뉴는 짜장면(얘만 2인부터 가능), 짬뽕, 짜장밥, 짬뽕밥, 간짜장, 표고탕수 총 6개가 있다 … 전화로 미리 메뉴를 말씀드려야하고'. Still trading: Kakao reviews dated 2026-07-04 and 2026-08-08."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "An old-school Korean-Chinese noodle shop in Daegu that makes vegan jjajangmyeon and jjamppong.",
+    "story": "Yonghwaru is a Korean-Chinese noodle restaurant near Myeongdeok station in Daegu. HappyCow lists vegan jjajangmyeon (black-bean noodles), jjamppong (spicy noodle soup) and a mushroom sweet-and-sour dish. A 2026 visitor review on Kakao says the vegan versions must be prepared in advance, so phone ahead with your order, and that the vegan jjajangmyeon is for two or more. The regular menu uses meat and seafood.",
+    "esg_point": null,
+    "image": "/images/noodles.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "banhal-gimbap-daegu",
+    "name": "Banhal Gimbap (반할김밥)",
+    "zone": "Namseong-ro, Jung-gu, Daegu",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 35.8672864379997,
+        "lng": 128.591156863073
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 반월당역 to 반할김밥) gives the destination point 35.867286, 128.591157, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 40-1 Namseong-ro, Jung-gu, Daegu",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26395565",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 중구 남성로 40-1 1층'. HappyCow's Daegu list gives '40-1 Namseong-ro, Jung-gu' and 'Address in Hangul: 대구 중구 남성로 40-1'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Vegan gimbap (비건김밥)",
+          "price": "5,000 KRW"
+        },
+        {
+          "name": "Vegetable gimbap (야채김밥)",
+          "price": "3,500 KRW"
+        },
+        {
+          "name": "Fried-tofu gimbap (유부김밥)",
+          "price": "5,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26395565",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu, all items edited 2026-07-16. It also lists tuna, cheese and beef gimbap, noodles and pork cutlets. Only the 비건김밥 is labelled vegan."
+    },
+    "phone": {
+      "value": "053-201-0071",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26395565",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-532010071) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Banwoldang",
+        "line": "Daegu Line 1 / Line 2",
+        "exit": null,
+        "walkingMinutes": 8,
+        "distanceM": 497
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 반월당역 to 반할김밥: 497 m / 464 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): '반할김밥 Banhal Kimbab, 40-1 Namseong-ro … Serves meat, vegan options available. Korean restaurant offering a clearly labeled vegan kimbab.' The current Kakao menu (edited 2026-07-16) lists '비건김밥 5000'. Still trading: Kakao reviews dated 2025-10-01 and 2025-10-17, and the 2026 menu edit."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A central-Daegu gimbap shop with a vegan gimbap on its menu.",
+    "story": "Banhal Gimbap is a small gimbap and noodle shop near Banwoldang in central Daegu. HappyCow notes a clearly labelled vegan gimbap, and it is on the current menu as 비건김밥. The rest of the menu includes tuna, cheese and beef gimbap and pork cutlets, so order the vegan roll by name. It is about an 8-minute walk from Banwoldang station.",
+    "esg_point": null,
+    "image": "/images/fallback.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "zero-table-suseong-daegu",
+    "name": "Zero Table (제로테이블)",
+    "zone": "Suseong-dong, Suseong-gu, Daegu",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 35.8553401586946,
+        "lng": 128.615917159907
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 수성시장역 to 제로테이블) gives the destination point 35.855340, 128.615917, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 35-8 Suseong-ro 68-gil, Suseong-gu, Daegu (Suseong-dong 2-ga 49-3)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1308035379",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 수성구 수성로68길 35-8 1층 (수성동2가)', jibun 수성동2가 49-3. HappyCow's Daegu list gives '49-3 Suseongdong 2(i)-ga, Suseong-gu', the same lot. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's menu lists drinks only (soy and almond lattes, ades); no bread prices were found."
+    },
+    "phone": {
+      "value": "010-6581-4860",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1308035379",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-1065814860) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Suseong Market",
+        "line": "Daegu Line 3",
+        "exit": null,
+        "walkingMinutes": 3,
+        "distanceM": 202
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 수성시장역 (Line 3) to 제로테이블: 202 m / 190 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): 'Zero Table, 49-3 Suseongdong 2(i)-ga … Bakery, Korean -- Additional Info: Bakery making traditional Korean bread. All vegan, mostly gluten-free. Open until sold out.' HappyCow's print view shows no category token for this bakery; FULL rests on its own words 'All vegan' (mimigotgan precedent). Kakao's drinks menu offers only soy and almond lattes (두유라떼 edited 2026-07-15), which agrees. Still trading: the 2026-07-15 menu edit; Kakao also lists blog posts dated 2025-11 and 2025-12."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A small all-vegan bakery by Suseong Market making traditional Korean breads.",
+    "story": "Zero Table is a small bakery beside Suseong Market in Daegu. HappyCow says everything it bakes is vegan and most of it is gluten-free, and that it closes when the day's bread sells out, so go early. Its lattes are made with soy or almond milk. It is a 3-minute walk from Suseong Market station on Line 3.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "oli-bread-hwanggeum-daegu",
+    "name": "Oli Bread (올리브레드)",
+    "zone": "Hwanggeum-dong, Suseong-gu, Daegu",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 35.8370205947636,
+        "lng": 128.630009793482
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 황금역 to 올리브레드) gives the destination point 35.837021, 128.630010, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 53 Cheongsu-ro 40-gil, Suseong-gu, Daegu (Hwanggeum-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/570800954",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 수성구 청수로40길 53 1층 (황금동)'. HappyCow's Daegu list gives '53 Cheongsu-ro 40-gil, Suseong-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's menu has only two items, last edited in 2023, so it is not quoted."
+    },
+    "phone": {
+      "value": "010-8249-7631",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/570800954",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map only; HappyCow gives no phone for this listing."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Hwanggeum",
+        "line": "Daegu Line 3",
+        "exit": null,
+        "walkingMinutes": 14,
+        "distanceM": 891
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 황금역 (Line 3) to 올리브레드: 891 m / 858 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): 'Oli Bread - 올리브레드, 53 Cheongsu-ro 40-gil … Take-out, Bakery, Korean -- Additional Info: Vegan bakery with many rice-based breads. Offers sweet bakery items (cream-filled buns/cookies) as well as plain or savory bread (ciabatta/toasts).' HappyCow's own description 'Vegan bakery' (mimigotgan precedent). Kakao's two menu items (2023) are described '비건 쌀소금빵입니다' and '비건 순수쌀식빵입니다', which agrees. Still trading: Kakao review dated 2025-06-11."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A vegan rice-flour bakery in Daegu’s Hwanggeum-dong.",
+    "story": "Oli Bread is a vegan bakery in Daegu's Suseong district that bakes mostly with rice flour. HappyCow lists cream-filled buns and cookies as well as plainer breads such as ciabatta and toast loaves. It is about a 15-minute walk from Hwanggeum station on Line 3.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "vegeloun-sincheon-daegu",
+    "name": "Vegeloun (베지로운)",
+    "zone": "Sincheon-dong, Dong-gu, Daegu",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 35.87569291859323,
+        "lng": 128.61775436676655
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 동대구역 to 베지로운) gives the destination point 35.875693, 128.617754, the same point as Kakao's place record to within a metre. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "#101, 1F, Shopping Arcade, Bldg 301, 11 Songra-ro 16-gil, Dong-gu, Daegu (Sincheon-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1319521237",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 동구 송라로16길 11 301동 상가 1층 101호 (신천동)'. HappyCow's Daegu list gives '동구 송라로 16길 11, 301동 1층 101호'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map shows no menu."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 010-8852-3039 and HappyCow gives +82-1086780172. The sources disagree, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Dongdaegu",
+        "line": "Korail / Daegu Line 1",
+        "exit": null,
+        "walkingMinutes": 22,
+        "distanceM": 1332
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 동대구역 to 베지로운: 1,332 m / 1309 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): 'Vegeloun, 동구 송라로 16길 11, 301동 1층 101호 … Take-out, Bakery -- Additional Info: Vegan bakery offering a selection of bread buns and sweet cakes.' HappyCow's own description 'Vegan bakery' (mimigotgan precedent). A Kakao review dated 2025-11-19 agrees: '비건만 있어서 헷갈릴 일도 없는 점이 좋지만'. Still trading: that review; Kakao also lists blog posts dated 2026-03 to 2026-09."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A vegan bakery near Dongdaegu station baking bread and cakes without egg or dairy.",
+    "story": "Vegeloun is a small vegan bakery in an apartment-complex shopping arcade in Daegu's Sincheon-dong. HappyCow lists bread buns and sweet cakes. It is about 20 minutes on foot from Dongdaegu station, Daegu's KTX stop.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "mushimushi-dongseongro-daegu",
+    "name": "Mushimushi Dongseong-ro (무시무시 동성로본점)",
+    "zone": "Gongpyeong-dong, Jung-gu, Daegu",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 35.868802950827,
+        "lng": 128.599780708235
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 중앙로역 to 무시무시 동성로본점) gives the destination point 35.868803, 128.599781, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 53 Gongpyeong-ro, Jung-gu, Daegu (Gongpyeong-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/363032241",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 중구 공평로 53 1층 (공평동)'. HappyCow's Daegu list gives 'Mushimushi, 대구 중구 공평로 53'. They agree. (HappyCow also has an older 'Mushi Mushi' listing at 72-2 Gongpyeong-dong, which is not this lot and is not used.) Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Tofu poke (두부포케)",
+          "price": "10,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/363032241",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu: 두부포케 edited 2026-08-31. The menu also lists chicken, tuna and eel poke. It does not say which bowls are vegan."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 053-257-8555 and HappyCow gives +82-50714638556. The sources disagree, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Jungangno",
+        "line": "Daegu Line 1",
+        "exit": null,
+        "walkingMinutes": 14,
+        "distanceM": 889
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 중앙로역 (Line 1) to 무시무시 동성로본점: 889 m / 813 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): 'Mushimushi, 대구 중구 공평로 53 … Serves meat, vegan options available. Sushi restaurant that also has bowls. Vegan sushi and vegan bowls are available.' A tofu poke is on the current Kakao menu (edited 2026-08-31). Still trading: Kakao review dated 2026-03-02 and the 2026 menu edit."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A poke and sushi-roll shop in downtown Dongseong-ro with vegan bowls.",
+    "story": "Mushimushi is a poke-bowl and sushi-roll shop in Daegu's Dongseong-ro shopping district. HappyCow says vegan sushi and vegan bowls are available, and the current menu has a tofu poke. Most bowls use fish or meat, and sauces can contain fish or egg, so ask for the vegan version. It shares a building with other restaurants, about 15 minutes on foot from Jungangno station.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "slb-salad-gamsam-daegu",
+    "name": "SLB Salad Gamsam (샐러드SLB 감삼점)",
+    "zone": "Naedang-dong, Seo-gu, Daegu",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 35.85488619501826,
+        "lng": 128.54816016111715
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 감삼역 to 샐러드SLB 감삼점) gives the destination point 35.854886, 128.548160, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, Daejin Apartment Shopping Arcade, 206 Dangsan-ro, Seo-gu, Daegu (Naedang-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1664457686",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 서구 당산로 206 대진아파트 상가 1층 (내당동)'. HappyCow's Daegu list gives '1F, Daejin Apartment, 206 Dangsan-ro, Seo-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's operator menu was last edited in 2024-10, so it is not quoted; it does list 단호박 샐러드 (pumpkin salad)."
+    },
+    "phone": {
+      "value": "053-565-7782",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1664457686",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-535657782) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Gamsam",
+        "line": "Daegu Line 2",
+        "exit": null,
+        "walkingMinutes": 2,
+        "distanceM": 128
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 감삼역 (Line 2) to 샐러드SLB 감삼점: 128 m / 144 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): 'SLB Salad - Gamsam, 1F, Daejin Apartment, 206 Dangsan-ro … Serves meat, vegan options available. Shop specializing in salad. Menu includes vegan pumpkin salad with choice of dressing. Additional vegetarian salads can be made vegan upon request.' Kakao's menu (owner-registered listing, edited 2024-10) lists 단호박 샐러드. Still trading: Kakao review dated 2025-01-15; Kakao also lists blog posts dated 2026."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A salad shop by Gamsam station with a vegan pumpkin salad.",
+    "story": "SLB Salad's Gamsam branch is a salad and bowl shop right by Gamsam station on Daegu's Line 2. HappyCow names a vegan pumpkin salad and says other vegetarian salads can be made vegan on request. Most salads come with meat, fish or cheese, so ask for the vegan version and check the dressing.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bakery-yul-sindang-daegu",
+    "name": "Bakery Yul (율베이커리)",
+    "zone": "Sindang-dong, Dalseo-gu, Daegu",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 35.853748086788194,
+        "lng": 128.4986261773218
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place record gives 35.853748, 128.498626. Kakao's walking-route API resolved the name to a different place, so the place record is used. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "#108, Shopping Arcade, Seongseo Jugong Apartments, 59 Sindang-ro, Dalseo-gu, Daegu (Sindang-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1159874598",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '대구 달서구 신당로 59 성서주공임대아파트 복합상가동 108호 (신당동)'. HappyCow's Daegu list gives '59 Sindang-ro, Dalseo-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists only one bread and a note that there are too many breads to list."
+    },
+    "phone": {
+      "value": "053-581-6832",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1159874598",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map only; HappyCow gives no phone for this listing."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No walking route to this place could be computed from a named station in this pass; Sindang station (Line 2) is the nearest subway stop by name. Check a map before going."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/daegu/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Daegu list (raw page read once): 'Bakery Yul 율베이커리, 59 Sindang-ro, Dalseo-gu … A local bakery that offers a couple of vegan options. Uses natural fermentation, no colourants, preservatives, or additives. Vegan choices may include sourdough, baguette, fig champagne bread, chocolate champagne bread, and cranberry bread.' A bakery with some vegan breads is OPTIONS. Still trading: Kakao review dated 2026-03-22 and an owner notice dated 2025-10-27 on the owner-registered listing."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A neighbourhood natural-leaven bakery in western Daegu with a few vegan loaves.",
+    "story": "Bakery Yul is a neighbourhood bakery in an apartment-complex arcade in Daegu's Seongseo area that bakes with natural leaven. HappyCow says a couple of its breads are vegan, such as sourdough, baguette and fruit breads. Most of its range uses dairy or egg, so ask which loaves are vegan that day.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "yaraehyang-pyeonggeo-jinju",
+    "name": "Yaraehyang (야래향)",
+    "zone": "Pyeonggeo-dong, Jinju",
+    "category": "korean-chinese",
+    "coordinates": {
+      "value": {
+        "lat": 35.1724772853731,
+        "lng": 128.064767837034
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 진주시외버스터미널 to 야래향) gives the destination point 35.172477, 128.064768, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 9 Pyeonggeo-ro 26beon-gil, Jinju, Gyeongsangnam-do (Pyeonggeo-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/792221607",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '경남 진주시 평거로26번길 9 1층 (평거동)'. HappyCow's Jinju list gives 'F1, 9 Pyeonggeo-ro 26beon-gil, Pyeonggeo-dong'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's menu was last edited in 2022 (it lists a 채식 자장면, vegetarian black-bean noodles), so no prices are quoted."
+    },
+    "phone": {
+      "value": "055-745-1100",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/792221607",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-557451100) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao's walking route from 진주시외버스터미널 (Jinju intercity bus terminal) is 3,934 m / about an hour; take a bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/jinju/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Jinju list (raw page read once): 'Yaraehyang, F1, 9 Pyeonggeo-ro 26beon-gil … Serves meat, vegan options available. Chinese restaurant with vegan menu that includes red pepper japchae, sweet & sour mushrooms, vegetable soup and spring rolls.' Kakao's menu lists '채식 자장면'. Still trading: Kakao review dated 2026-04-11; Kakao also lists blog posts dated 2026-07 to 2026-09."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A Korean-Chinese restaurant in Jinju with a separate vegan menu.",
+    "story": "Yaraehyang is a Korean-Chinese restaurant in Jinju's Pyeonggeo-dong. HappyCow says it has a vegan menu, including pepper japchae, sweet-and-sour mushrooms, vegetable soup and spring rolls, and the map listing shows a vegetarian jjajangmyeon. The main menu uses meat and seafood, so ask for the vegan menu. It is about 4 km from the intercity bus terminal.",
+    "esg_point": null,
+    "image": "/images/noodles.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "sugis-kitchen-geoje",
+    "name": "Sugi's Kitchen (수기의키친)",
+    "zone": "Wahyeon, Irun-myeon, Geoje",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 34.8138349757699,
+        "lng": 128.707326475062
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 와현모래숲해수욕장 to 수기의키친) gives the destination point 34.813835, 128.707326, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 8 Wahyeon Haebyeon-gil, Irun-myeon, Geoje, Gyeongsangnam-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1338258830",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '경남 거제시 일운면 와현해변길 8 1층 (일운면 와현리)'. HappyCow's Geoje list gives 'Wahyeon Haebyeon Gil, 8 Irun-myeon, Geoje-si'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's operator menu was last edited in 2024-07, so no prices are quoted. It lists 비빔밥, 비빔면 and a seafood soft-tofu stew among Korean and Western dishes."
+    },
+    "phone": {
+      "value": "010-5293-3775",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1338258830",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-1052933775) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "There is no rail on Geoje. The restaurant is about 250 m from Wahyeon beach by Kakao's walking route; reach the area by bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/geoje/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Geoje list (raw page read once): \"Sugi's Kitchen, Wahyeon Haebyeon Gil, 8 Irun-myeon … Serves meat, vegan options available. Restaurant serving Korean dishes and Western dishes. Vegan options include bibimbap, bibimguksu, and tofu stew - specify vegan and no egg when ordering. Owner can explain ingredients and vegan options in English.\" Kakao's menu (owner-registered listing, 2024-07) still has 비빔밥 and 비빔면; its tofu stew is now listed as a seafood version. Still trading: Kakao reviews dated 2026-05-03."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A beach-side Korean and Western kitchen at Wahyeon, Geoje, that will make bibimbap vegan.",
+    "story": "Sugi's Kitchen is a casual Korean and Western restaurant by Wahyeon beach on Geoje island. HappyCow says bibimbap and bibim-guksu (spicy mixed noodles) can be made vegan if you ask for vegan and no egg, and that the owner can explain ingredients in English. The tofu stew on the current menu is a seafood version, and most other dishes contain meat or fish.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "hello-india-al-waha-jangpyeong",
+    "name": "Hello India Al-Waha Jangpyeong (헬로인디아알와하 장평점)",
+    "zone": "Jangpyeong-dong, Geoje",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 34.89420889341797,
+        "lng": 128.61441036418952
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place record gives 34.894209, 128.614410. Kakao's walking-route API resolved the name to the chain's Okpo listing, so the place record is used. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 11 Jangpyeong 1-ro 7-gil, Geoje, Gyeongsangnam-do (Jangpyeong-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/130628480",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '경남 거제시 장평1로7길 11 1층 (장평동)'. HappyCow's Geoje list gives 'Hello India - Al Waha, 11 Jangpyeong 1-ro 7-gil'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map's menu was last edited in 2022 (it lists 칠리포테토, chilli potatoes), so no prices are quoted."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 0503-5293-1354 and HappyCow gives +82-556882016. The sources disagree, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "There is no rail on Geoje; reach Jangpyeong-dong by bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/geoje/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Geoje list (raw page read once): 'Hello India - Al Waha, 11 Jangpyeong 1-ro 7-gil … Serves meat, vegan options available. Indian and Lebanese food on Geoje island. Menu is not clearly labelled, but there are veg options, such as chilli barbecue potatoes, baba ganoush, hummus, and lentil dal. Staff will help and inform you of the ingredients.' Kakao's menu lists 칠리포테토. Still trading: Kakao review dated 2026-08-02."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal source was found. The Kakao listing carries a '할랄푸드' keyword tag, whose origin is unknown and which is not evidence. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "Indian and Lebanese cooking in Geoje’s Jangpyeong-dong, with hummus, baba ganoush and dal.",
+    "story": "Hello India Al-Waha in Jangpyeong-dong serves Indian and Lebanese food on Geoje island. HappyCow says the menu is not labelled, but vegan choices include chilli potatoes, baba ganoush, hummus and lentil dal, and staff will explain ingredients. Indian dishes often use ghee or cream, so ask for them without dairy. It is one of several branches on the island; this entry covers the Jangpyeong one.",
+    "esg_point": null,
+    "image": "/images/fallback.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "polani-poke-sinjeong-ulsan",
+    "name": "Polani Poke Ulsan (폴라니포케)",
+    "zone": "Sinjeong-dong, Nam-gu, Ulsan",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 35.5394333087245,
+        "lng": 129.30845467391
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 태화강역 to 폴라니포케) gives the destination point 35.539433, 129.308455, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 25-1 Dotjil-ro 31beon-gil, Nam-gu, Ulsan (Sinjeong-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1648132935",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '울산 남구 돋질로31번길 25-1 1층 (신정동)'. HappyCow's Ulsan list gives '1st floor, 25-1, Dotjil-ro 31beon-gil, Nam-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Fried soft-tofu poke (프라이드연두부포케)",
+          "price": "10,900 KRW"
+        },
+        {
+          "name": "Fried falafel poke (프라이드팔라팰포케)",
+          "price": "10,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1648132935",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu: the tofu poke edited 2026-08-31, the falafel poke 2024-07-12. The menu also lists salmon, tuna, chicken, pork, beef, duck and crab bowls. It does not say which bowls are vegan."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only HappyCow gives a phone (+82-50714482201); Kakao has none, so it is not cross-checked."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao's walking route from 태화강역 (Taehwagang station) is 5,026 m; take a bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/ulsan/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Ulsan list (raw page read once): 'Polani Poke - 폴라니포케, 1st floor, 25-1, Dotjil-ro 31beon-gil … Serves meat, vegan options available. Hawaiian poke bowl restaurant offering vegan poke bowls with tofu or falafel.' Both a tofu and a falafel poke are on the current Kakao menu. Still trading: Kakao review dated 2025-06-15 and a menu edit dated 2026-08-31."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A poke-bowl shop in Ulsan with tofu and falafel bowls.",
+    "story": "Polani Poke is a poke-bowl shop in Ulsan's Sinjeong-dong, part of a chain. HappyCow says it makes vegan poke bowls with tofu or falafel, and both bowls are on the current menu. Sauces and toppings may contain egg or fish, so ask for the vegan version. It is well away from the rail station; take a bus or taxi.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bakery-bobo-okdong-ulsan",
+    "name": "Bakery Bobo (빵집보보)",
+    "zone": "Ok-dong, Nam-gu, Ulsan",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 35.53521294395266,
+        "lng": 129.2923901261404
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 울산대공원 정문 to 빵집보보) gives the destination point 35.535213, 129.292390, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 27 Geoma-ro 5beon-gil, Nam-gu, Ulsan (Ok-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/689729286",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '울산 남구 거마로5번길 27 1층 (옥동)'. HappyCow's Ulsan list gives '27 Geoma-ro 5beon-gil (at next to the military base)'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map shows no menu."
+    },
+    "phone": {
+      "value": "052-273-4368",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/689729286",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-522734368) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "There is no rail station nearby; Kakao's walking route from the main gate of Ulsan Grand Park (울산대공원 정문) is 636 m, about 11 minutes."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/ulsan/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Ulsan list (raw page read once): 'Bbo Bbo Bakery - 빵집 보보, 27 Geoma-ro 5beon-gil … Independent bakery with labeled vegan options (labeled in English and Korean), including sourdough, blueberry bagels, and ciabatta. Owner speaks English.' A bakery with labelled vegan items is OPTIONS. Still trading: Kakao reviews dated 2025-07-21 and 2025-09-27."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "An independent Ulsan bakery near Ulsan Grand Park that labels its vegan breads.",
+    "story": "Bakery Bobo is an independent bakery in Ulsan's Ok-dong, a short walk from the main gate of Ulsan Grand Park. HappyCow says its vegan items are labelled in English and Korean, among them sourdough, blueberry bagels and ciabatta, and that the owner speaks English. Other pastries use butter and egg, so look for the labels.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "namaskar-samsan-ulsan",
+    "name": "Namaskar Samsan (나마스까르 삼산점)",
+    "zone": "Samsan-dong, Nam-gu, Ulsan",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 35.538185556385,
+        "lng": 129.337059374178
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 울산시외버스터미널 to 나마스까르 삼산점) gives the destination point 35.538186, 129.337059, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "2F, 11 Samsanjung-ro 48beon-gil, Nam-gu, Ulsan (Samsan-dong 1478-7)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12515651",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '울산 남구 삼산중로48번길 11 2층 (삼산동)', jibun 삼산동 1478-7. HappyCow's Ulsan list gives '1478-7 Samsan-dong, Nam-gu' and 'At 울산 남구 삼산동 1478-7', the same lot. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Mixed vegetable curry (믹스야채커리)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Chana masala (차나마살라)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Dal fry (달후라이)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Mushroom curry (머쉬룸커리)",
+          "price": "13,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12515651",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu, items edited 2025-11-07. It does not say which curries contain dairy or ghee."
+    },
+    "phone": {
+      "value": "052-261-3362",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12515651",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-522613362) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": {
+        "station": "Ulsan Intercity Bus Terminal",
+        "line": "Intercity bus",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 458
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 울산시외버스터미널 to 나마스까르 삼산점: 458 m / 439 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/ulsan/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Ulsan list (raw page read once): 'Namaskar, 1478-7 Samsan-dong, Nam-gu … Serves meat, vegan options available. Indian and Nepali food with many vegtarian items. Ask about dairy use.' The current Kakao menu (2025-11-07) lists vegetable, chickpea, lentil and mushroom curries. Still trading: Kakao review dated 2026-04-05."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No qualifying halal source was found. The Kakao listing carries a '할랄푸드' keyword tag, whose origin is unknown and which is not evidence. A vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "An Indian and Nepali restaurant by Ulsan’s bus terminal with many vegetable curries.",
+    "story": "Namaskar is an Indian and Nepali restaurant on a second floor in Ulsan's Samsan-dong, a 7-minute walk from the intercity bus terminal. HappyCow notes many vegetarian dishes and says to ask about dairy; the menu has vegetable, chickpea, lentil and mushroom curries. Ask for them without ghee, butter or cream, and check whether the naan contains milk.",
+    "esg_point": null,
+    "image": "/images/fallback.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "oatplat-mulgeum-yangsan",
+    "name": "OATPLAT (오트플랫)",
+    "zone": "Mulgeum-eup, Yangsan",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 35.30633064407247,
+        "lng": 128.98804736941236
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 부산대양산캠퍼스역 to 오트플랫) gives the destination point 35.306331, 128.988047, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "Bldg 101, 23 Beodeul 2-gil, Mulgeum-eup, Yangsan, Gyeongsangnam-do",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/271512818",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '경남 양산시 물금읍 버들2길 23 101동 (물금읍 물금리)'. HappyCow's Yangsan list gives 'OATPLAT, 23, Beodeul 2-gil'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Real fudge brownie (리얼퍼지브라우니)",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "Chocolate madeleine (진한초코마들렌)",
+          "price": "2,000 KRW"
+        },
+        {
+          "name": "Earl Grey madeleine (얼그레이마들렌)",
+          "price": "3,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/271512818",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu, items edited 2025-06-19 to 2025-08-28. It does not say which items are vegan."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Only HappyCow gives a phone (+82-1037874092); Kakao has none, so it is not cross-checked."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao's walking route from 부산대양산캠퍼스역 (Pusan Nat'l Univ. Yangsan Campus, Busan Line 2) is 3,471 m; take a bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/yangsan/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Yangsan list (raw page read once): 'OATPLAT, 23, Beodeul 2-gil … Bakery, Gluten-free -- Additional Info: Bake shop with vegan options, including cookies, madeleines, fudgy brownies and more. Check Instagram for an updated menu and order ahead. Reservations required.' Madeleines and a fudge brownie are on the Kakao menu. Still trading: Kakao menu edits dated 2025-06-19 to 2025-08-28."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A small order-ahead bake shop in Yangsan with vegan madeleines and brownies.",
+    "story": "OATPLAT is a small bake shop in Yangsan's Mulgeum-eup. HappyCow says it has vegan options, including cookies, madeleines and fudgy brownies, and that you should order ahead. Not every item is vegan, so ask when you order. It is about 3.5 km from the nearest subway station.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "tteulanchae-suwon",
+    "name": "Tteulanchae Vegetarian Buffet (뜰안채 채식뷔페)",
+    "zone": "Homaesil-dong, Suwon",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.2632935341085,
+        "lng": 126.943456775884
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API (route from 호매실도서관 to 뜰안채 채식뷔페) gives the destination point 37.263294, 126.943457, the same point as Kakao's place record. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 125 Chilbo-ro 88beon-gil, Gwonseon-gu, Suwon, Gyeonggi-do (Homaesil-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7858537",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '경기 수원시 권선구 칠보로88번길 125 1층 (호매실동)'. HappyCow's Suwon list gives '125, Chilbo-ro 88beon-gil Gwonseon-gu' and 'Address in Hangul: 경기 수원시 권선구 칠보로88번길 125'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 11:30–20:30 with a 15:00–17:30 break and no Sunday hours; HappyCow gives Mon–Sun 11:00–21:00. The sources disagree, so hours are left unknown."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Lunch buffet, adult (점심 중학생~성인)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "Dinner buffet, adult (저녁 중학생~성인)",
+          "price": "13,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7858537",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map menu, edited 2024-03-05; prices may have changed."
+    },
+    "phone": {
+      "value": "031-291-5879",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7858537",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map and HappyCow (+82-312915879) give the same number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator Instagram account was opened in this pass."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No subway station lies within walking distance of Homaesil-dong; Kakao's walking route from 호매실도서관 (Homaesil library) is 1,518 m. Take a bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.happycow.net/asia/south_korea/suwon/print",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "HappyCow's Suwon list (raw page read once; the hc-capital-rest researcher also read it twice, identical) files 'Tteul Ahn Chae, 125, Chilbo-ro 88beon-gil' under 'Vegan, Organic, Buffet, Beer/Wine, Korean': 'Vegan buffet restaurant offering all-you-can-eat and drink. Variety of dishes include rice, noodles, salads, side dishes, and mock meats. Fixed priced per person, Korean buffet. Features around 20 dishes including faux meat dishes.' This is the directory classification the b6 hold asked for, so this is FULL. Still trading: Kakao reviews dated 2025-04-08, 2025-05-13 ('맛있는 비건식당') and 2025-09-26."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. Kakao keyword tags are not used as evidence, and a vegan level is not treated as evidence for halal."
+      }
+    },
+    "vibe": "A fixed-price Korean vegan buffet on the western edge of Suwon, reached by bus.",
+    "story": "Tteulanchae is a Korean vegan buffet in western Suwon. For a fixed price you get around 20 dishes, including rice, noodles, salads, side dishes and mock-meat dishes, per HappyCow, which lists it as vegan. HappyCow also notes that beer or wine is served. There is no subway nearby, so take a bus or taxi, and check the opening hours before you go.",
+    "esg_point": "A meat-free Korean buffet",
+    "image": "/images/vegan_cafe.svg",
+    "imageLeads": [],
+    "traits": [],
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
 ];
