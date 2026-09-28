@@ -256,7 +256,7 @@ rather than mechanical are done:
   editorial content (`story`, `vibe`, `esg_point`, `culture.js`'s cultural
   tips, `journeys.js`'s journey titles) — that's the Stage 3 *content*
   problem, not chrome; the map tile `attribution` (legally required
-  OSM/CARTO credit markup); the `SubmitSheet` honeypot label ("Leave this
+  OpenStreetMap credit markup); the `SubmitSheet` honeypot label ("Leave this
   empty" — bot bait, `aria-hidden`, no human ever sees it); and brand
   names (Google Maps / Naver Map / Kakao Map are not translated).
 - **The verification that matters:** per-chip counts measured live in the
@@ -512,7 +512,8 @@ Korea), deliberately outside the i18n locale files: it is one legal text
 in two languages, not UI chrome that switches. **Every sentence in it was
 measured against the code, not assumed** — the three `localStorage` keys
 (`kfm-bookmarks`, `kfm-prologue`, `kfm-language`); the hosts the browser
-contacts (Vercel, Supabase on submit, Google Fonts, CARTO tiles); and the
+contacts (Vercel, Supabase on submit, Google Fonts, OpenStreetMap tiles —
+CARTO until 2026-09-28, see §7 #32); and the
 absence of analytics, cookies, and geolocation. Measuring that last one is
 how Prologue's fake "Allow location" step was found and removed (§2.16).
 **If the app ever starts storing or sending something new, `privacy.js`
@@ -1726,7 +1727,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     `<Trans>` and, for dates, through the `DATE_LOCALES` map in
     `src/utils.js` (see §2.1 "i18n" for the full account). The genuinely
     remaining stragglers, confirmed deliberate rather than misses: the
-    `MapComponent` tile `attribution` (legally required OSM/CARTO credit)
+    `MapComponent` tile `attribution` (legally required OpenStreetMap credit)
     and the `SubmitSheet` honeypot label (bot bait, `aria-hidden`) — both
     stay hardcoded English on purpose and are not extraction candidates.
     The map brand button names (Google Maps / Naver Map / Kakao Map) are
@@ -1885,28 +1886,35 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       (the "Report incorrect info" link) stretches to the full width of its
       flex-column row, giving it a larger tap target than its sibling rows
       with only the link text underlined.
-31. **Passport sync (2026-09-19, Stage 4) is code-complete but blocked on two
-    pieces of operator setup, and neither is a code fix — and once it is
-    deployed, the deploy is not cleanly reversible.**
-    - **`public.passports` has not been created.** `supabase/passports.sql`
-      is written but not run — probed live, the table 404s. Until it exists,
-      `scripts/passport.mjs verify-rls` and `scripts/passport.mjs sync-e2e`
-      (§2.1 Passport sync) cannot run, and no adversarial RLS proof or live
-      round-trip proof exists for this table yet. Do not fabricate their
-      output; run both the moment the SQL is applied, before promoting
-      sign-in.
-    - **Google OAuth is not configured in Supabase**, so `googleEnabled()`
-      answers `false` and no sign-in button renders. Operator steps are
-      recorded in the Task 6 report
-      (`.superpowers/sdd/2026-09-19-passport-sync/task-6-report.md`); the
-      spec's two-window, two-device browser check (confirming a save on one
-      device reaches another signed into the same account) cannot run until
-      this is done, and is the first thing to do once it is.
-    - Everything upstream of these two gaps — the merge, the wire
-      round-trip against PostgREST's actual shapes, the tombstone rule, the
-      ownership-key guard — is covered by the 76-test suite (§2.1 Passport
-      sync); what remains unproved is specifically the live table's access
-      control and the OAuth-gated UI path.
+31. **Passport sync (Stage 4) shipped on 2026-09-28. Both pieces of operator
+    setup are done and proved live; what remains unproved is narrower than
+    it was, and the deploy is still not cleanly reversible.**
+    - **`public.passports` exists** — the operator applied
+      `supabase/passports.sql` on 2026-09-28. `scripts/passport.mjs
+      verify-rls` then reported **all 15 checks holding** (13 adversarial
+      rules plus 2 cleanups), with `42501` observed on every RLS denial and
+      `23514` on the `visit_implies_save` constraint. Rule 13 confirms
+      `passports_keep_latest` rejects a stale-`updated_at` upsert.
+      `sync-e2e` passed all 9 steps against the live table.
+    - **The check was proved falsifiable**, which matters more than the
+      green run: `verify-rls --prove-can-fail` substitutes an
+      over-privileged key for user A's token and **11 of 15 rules fail**.
+      Two of those eleven only started failing on 2026-09-28 — rules 5 and
+      6 read `body.length === 0` off a response they never required to have
+      succeeded, so a 401 passed them. They now require HTTP 200, an
+      executed-but-filtered write. Rules 8 and 9 likewise now assert
+      `42501` rather than accepting any 401/403.
+    - **Google OAuth is configured and the consent screen is published.**
+      Note for anyone repeating it: Google rejects `vercel.app` as an
+      authorized domain (public suffix) and requires the full
+      `<site>.vercel.app`. Sign-in was confirmed end to end on 2026-09-28 —
+      the operator signed in and their pre-existing anonymous passport
+      (two places saved 2026-07-23, both with visit stamps) merged into the
+      account, read back from the table with the service key.
+    - **Still unproved:** the two-device check (a save on one device
+      appearing on another signed into the same account) has not been run
+      by a human, and the OAuth *return* leg has no automated coverage —
+      only the refusal branch does, via `authRefusedInUrl` (§7 #33).
     - **The rollback is not data-safe.** Master's `loadBookmarks`
       (`src/App.jsx`, verified on `master` 2026-09-19) reads
       `savedAt: entry.savedAt ?? 0`, so a tombstone this branch writes
@@ -1933,6 +1941,51 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       (`/place/:id`, `/journal`), so Supabase Auth → URL Configuration
       needs a wildcard redirect (`https://<site>/**`) or the provider
       quietly returns everyone to the map.
+
+32. **CARTO withdrew keyless basemap tiles, and the failure was silent
+    (2026-09-28).** `https://{s}.basemaps.cartocdn.com/light_all/...` kept
+    answering **200**, so nothing errored and nothing reached the console —
+    but the body became a ~2 KB "API KEY REQUIRED" watermark where a ~38 KB
+    tile used to be, and the live map had been quietly replaced by it.
+    Measured on `light_all/12/3494/1585.png`: 2049 bytes from CARTO, 38509
+    from OpenStreetMap. Fixed by moving to OSM's own tile server
+    (`tile.openstreetmap.org`, no `{s}` subdomain — OSM deprecated the
+    a/b/c prefixes — and no `{r}` retina suffix, which OSM does not serve,
+    so high-DPI screens now get a 1x tile). `.leaflet-tile-pane` carries
+    `saturate(0.45) brightness(1.03) contrast(0.96)` so the busier OSM
+    style steps back behind the pins; the marker pane is a sibling and is
+    deliberately outside the filter. **The lesson worth keeping: a
+    third-party tile host can fail with a 200.** Nothing in the app would
+    have noticed. If the basemap ever looks wrong, compare a tile's byte
+    size against a known-good host before looking anywhere else. OSM's
+    standard tiles come with a usage policy aimed at modest traffic; if
+    this app's traffic grows, move to a keyed provider (Stadia Maps
+    reproduces the old near-monochrome look) rather than leaning harder on
+    a donated service.
+
+33. **`no-undef` was off, and it cost a blank page (2026-09-28).** While
+    wiring the sign-in failure notice, `App.jsx` passed `signInFailed` to
+    `TabPanel` without destructuring it from the hook. The 108-test suite
+    passed and `npm run lint` was clean; the app rendered nothing, and only
+    the browser check caught it. The rule had been disabled because with no
+    environment configured it reported `localStorage` and `URLSearchParams`
+    as undefined — a configuration gap that had been resolved by turning
+    the rule off. `.oxlintrc.json` now sets a browser env with a `node`
+    override for `scripts/`, `api/` and the `.cjs` helpers, and the rule is
+    an error. Reproduced both ways: restoring the bug yields
+    `src/App.jsx:258: 'signInFailed' is not defined`.
+
+34. **Sign-in failures are now visible, including the one nothing could
+    see (2026-09-28).** `signIn` used to swallow everything into
+    `.catch(() => {})`. Three failures now reach the screen: the auth chunk
+    failing to load, the provider returning an error, and a refusal at
+    Google's consent screen — which sends the person back to the app's own
+    URL carrying `error=access_denied`, where auth-js returns early without
+    restoring a session, so the app looked signed out having said nothing.
+    `authRefusedInUrl` (`src/data/auth.js`) reads both the query and the
+    hash and seeds the flag on the load it returns on; the notice clears on
+    the next successful sign-in. Three unit tests cover it, one of which
+    fails if the hash form is ignored.
 
 ---
 
@@ -2454,7 +2507,8 @@ npm install
 npm run dev           # http://localhost:5173
 npm run check-data    # the gate — must print "No violations."
 npm run lint
-npm test              # 42 pass — leads/kakao/privacy modules + review-script formatter
+npm test              # 108 pass (98 unit + 10 React-effect) — data, leads, kakao, privacy,
+                      # i18n labels, passport merge/transport/ownership, auth, sync effects
 npm run build && grep -rc retrievedBy dist/   # must print 0
 grep -rliE "service_role|sb_secret_|KakaoAK" dist/ | wc -l  # must print 0
 
@@ -2466,7 +2520,18 @@ node --env-file=.env.local scripts/leads.mjs list
 node --env-file=.env.local scripts/leads.mjs resolve <id> <accepted|rejected|deferred> --note "<why>"
 node --env-file=.env.local scripts/leads.mjs verify-rls   # "All 9 rules hold."
 node --env-file=.env.local scripts/leads.mjs purge-emails --dry   # emails past one year; drop --dry to remove
+
+# Passport sync (needs .env.local):
+node --env-file=.env.local scripts/passport.mjs verify-rls   # "All 15 rules hold."
+node --env-file=.env.local scripts/passport.mjs verify-rls --prove-can-fail   # must report failures
+node --env-file=.env.local scripts/passport.mjs sync-e2e     # live push/pull/merge/delete round trip
+node --env-file=.env.local scripts/passport.mjs delete-user <email>   # account + its rows, on request
 ```
+
+Run `--prove-can-fail` before trusting a green `verify-rls`: it substitutes
+an over-privileged key for the test user's token, and failures are then the
+expected result. A suite that still passes under a wrong identity is proving
+nothing. As of 2026-09-28 it reports 11 of 15 failing.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

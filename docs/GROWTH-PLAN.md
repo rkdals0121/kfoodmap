@@ -196,7 +196,11 @@
   unverified"로 표시돼 사실로 취급되지 않음 — §2.11 검증은 그대로 수동
   대조. 네이버는 신규 API 키 발급이 중단돼 이번 범위에서 제외, 카카오만
   구현. 상세는 HANDOFF §2.1 "Autofill".
-- ✅ **Cross-Device Sync 완료 (2026-09-19)** — 여권(`kfm-bookmarks`)을
+- ✅ **Cross-Device Sync 배포 완료 (2026-09-28)** — 2026-09-19 구현, 2026-09-28
+  운영 반영. 테이블·RLS·구글 OAuth 모두 실제 적용되어 검증까지 끝났다
+  (verify-rls 15/15, `--prove-can-fail` 11/15 실패, sync-e2e 9/9, 실계정
+  로그인 시 기존 익명 여권이 계정으로 병합되는 것까지 확인). 남은 미검증은
+  2기기 동시 확인과 OAuth 복귀 경로의 자동 커버리지뿐이다. 여권(`kfm-bookmarks`)을
   Google 계정(Supabase Auth)에 선택적으로 연결. tombstone 기반
   `mergePassport`(삭제가 병합에서 살아남도록), `public.passports`
   RLS(사용자별 행), 로그아웃/세션 종료 시 기기 초기화, 소유자 키
