@@ -79,3 +79,23 @@ NOT YET INVESTIGATED: the dataset's rows for Gimpo, Bucheon, Dongducheon, Anseon
 ## End of day, 2026-09-28
 Active 18 → 81. Vegan 14 → 44. Halal 4 → 39. Halal certified 0.
 45 active places have Kakao-only coordinates (SUPPORTED): run the Naver cross-check first when Naver is reachable.
+
+## Batch 5 — Gyeonggi remaining cities (stopped at the time limit, nothing shipped)
+The full dataset (52 rows) was re-downloaded and every row for the ten cities below checked against Kakao Map. Nothing was proposed, because none reached the "still trades" check in the time allowed — and the survey is from May 2024, so a row without a 2025–2026 sighting is not shippable.
+
+**Resume here — address already agrees with Kakao; only the trading check is left:**
+- Yongin: 갠지스 보정점 (죽전로15번길 7-15)
+- Hanam: 에베레스트 하남스타필드점 (미사대로 750)
+- Bucheon: 마살라 인디안레스토랑 (석천로169번길 30)
+- Pyeongtaek: 스파이스빌리지 (쇼핑로 17-1)
+- Osan: 이타지마할인디안레스토랑 (대원로 8-8)
+- Hwaseong: 갠지스 동탄점 (동탄공원로2길 33-11)
+The DiningCode probe 404'd on the first try; the Kakao place page's review dates may be an easier route.
+
+NOT PROPOSED: Paju 더히말라얀 금촌점 (dataset 새꽃로 194 vs Kakao 196 — a disagreement); Anyang 긴자인도레스토랑 (the Anyang address is not on Kakao; the name resolves only to a Gunpo location).
+UNTRIED: Bucheon 안나푸르나, Uijeongbu 두르가, and Gimpo's four rows (KB케밥&닭강정, FORTUNE, 말리오보로, 할랄 인디안 레스토랑).
+
+## Open items for the next session (2026-09-28, 22:4x)
+1. **Naver is still unreachable.** The error from the Naver search tool points at https://playmcp.kakao.com — the tool is routed through the operator's Kakao PlayMCP account, so it may simply need re-enabling there. Once it answers, cross-check the 45 Kakao-only places first.
+2. **Quality pass without Naver:** an address stated by the operator (Instagram bio, own site) that agrees exactly with Kakao can be CONFIRMED — the sinchon-burger research did exactly that. This raises existing places, which is what Phase 3 of the roadmap is actually for.
+3. **Pin density:** with 81 pins, the default map view needs measuring (overlap at default zoom). Not measured tonight — the browser pane was hidden, so any number would have been made up.
