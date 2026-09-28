@@ -32,7 +32,7 @@ function ResizeSync() {
 }
 
 // Teardrop pin: white body with green outline, solid green when selected
-const pinIcon = (selected) => L.divIcon({
+const makePinIcon = (selected) => L.divIcon({
   className: `k-pin${selected ? ' k-pin--active' : ''}`,
   html: `<svg width="34" height="44" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg">
     <path d="M17 42.5C17 42.5 31.5 26.4 31.5 15.6C31.5 7.6 25 1.5 17 1.5C9 1.5 2.5 7.6 2.5 15.6C2.5 26.4 17 42.5 17 42.5Z"
@@ -43,13 +43,27 @@ const pinIcon = (selected) => L.divIcon({
   iconAnchor: [17, 42],
 });
 
+// Built once. react-leaflet calls setIcon whenever the icon prop is a new
+// object, and the map re-renders on every pan (the list's sort centre lives
+// in App state), so a fresh divIcon per render meant redrawing every pin in
+// the country after each drag.
+const PIN = makePinIcon(false);
+const PIN_ACTIVE = makePinIcon(true);
+const pinIcon = (selected) => (selected ? PIN_ACTIVE : PIN);
+
 // Count badge for pins that would overlap at this zoom (see data/cluster.js).
-const clusterIcon = (count) => L.divIcon({
-  className: 'k-cluster',
-  html: `<span>${count}</span>`,
-  iconSize: [40, 40],
-  iconAnchor: [20, 20],
-});
+const clusterIcons = new Map();
+const clusterIcon = (count) => {
+  if (!clusterIcons.has(count)) {
+    clusterIcons.set(count, L.divIcon({
+      className: 'k-cluster',
+      html: `<span>${count}</span>`,
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+    }));
+  }
+  return clusterIcons.get(count);
+};
 
 // On a phone the list sheet slides up over the lower part of the map, which
 // stays full height underneath it. Zooming to a group has to fit the places
