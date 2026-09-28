@@ -203,6 +203,15 @@ export default defineConfig({
         // runs after this manifest is finalized, see HANDOFF §2.1), but
         // if the build script's ordering ever changes, re-check this.
         globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest}'],
+        // The main chunk carries the place data and crossed workbox's 2 MiB
+        // default at 566 places (2.11 MB raw, ~390 kB gzip — 2026-09-29).
+        // Past the limit workbox silently leaves it out of the precache and
+        // the app no longer opens offline, and vite-plugin-pwa fails the
+        // build instead. The limit is on raw bytes; what travels is gzip.
+        // 4 MiB leaves room for roughly twice today's data; when it is hit
+        // again, split the data out of the entry chunk rather than raising
+        // it further.
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         // The auth chunk (src/data/auth-client.js + @supabase/auth-js, ~100
         // kB raw / ~23 kB gzip) is deliberately NOT precached. Precaching it
         // would hand the bytes straight back: the whole point of loading it
