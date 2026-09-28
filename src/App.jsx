@@ -13,6 +13,7 @@ import Prologue from './components/Prologue';
 import SubmitSheet from './components/SubmitSheet';
 import PrivacySheet from './components/PrivacySheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
+import useAppUpdate from './hooks/useAppUpdate';
 import { MAP_CENTER } from './utils';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
@@ -37,6 +38,7 @@ function AppShell() {
   const navigate = useNavigate();
   const location = useLocation();
   const isOnline = useOnlineStatus();
+  const { updateReady, reload } = useAppUpdate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilters, setSelectedFilters] = useState([]);
   // The URL is the source of truth for which restaurant is open — no
@@ -192,6 +194,13 @@ function AppShell() {
           <div className="offline-banner" role="status">
             {t('app.offline')}
           </div>
+        )}
+        {/* Only offered when the page was already in use as the new version
+            arrived; an untouched page reloads itself (useAppUpdate). */}
+        {updateReady && (
+          <button type="button" className="update-banner" onClick={reload}>
+            {t('app.updateReady')}
+          </button>
         )}
         <MapComponent
           restaurants={filteredRestaurants}

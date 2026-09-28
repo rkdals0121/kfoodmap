@@ -2750,3 +2750,34 @@ button {
 .leaflet-tile-pane {
   filter: saturate(0.45) brightness(1.03) contrast(0.96);
 }
+
+/* Offered only when a new version arrived while the page was in use — an
+   untouched page reloads itself instead (src/hooks/useAppUpdate.js). A button,
+   not a status line: the action is the whole point, and it must be reachable
+   by keyboard. Sits where the offline banner sits; the two cannot both be
+   needed, since an update only arrives over the network. */
+.update-banner {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 450;
+  border: none;
+  background: var(--green-strong);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-2);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.update-banner:hover {
+  filter: brightness(1.08);
+}
+.update-banner:focus-visible {
+  outline: 3px solid var(--green-tint);
+  outline-offset: 2px;
+}

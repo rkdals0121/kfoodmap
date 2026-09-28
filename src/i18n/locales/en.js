@@ -249,6 +249,7 @@ export default {
     primaryNav: 'Primary',
     restaurantList: 'Restaurant list',
     offline: 'Offline — showing saved data',
+    updateReady: 'New places are available — tap to refresh',
     sidebarExpand: 'Expand sidebar',
     sidebarCollapse: 'Collapse sidebar',
   },
