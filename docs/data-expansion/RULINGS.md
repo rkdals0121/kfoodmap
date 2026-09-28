@@ -100,4 +100,4 @@ UNTRIED: Bucheon 안나푸르나, Uijeongbu 두르가, and Gimpo's four rows (KB
 ## Open items for the next session (2026-09-28, 22:4x)
 1. **Naver is still unreachable.** The error from the Naver search tool points at https://playmcp.kakao.com — the tool is routed through the operator's Kakao PlayMCP account, so it may simply need re-enabling there. Once it answers, cross-check the 45 Kakao-only places first.
 2. **Quality pass without Naver:** an address stated by the operator (Instagram bio, own site) that agrees exactly with Kakao can be CONFIRMED — the sinchon-burger research did exactly that. This raises existing places, which is what Phase 3 of the roadmap is actually for.
-3. **Pin density:** with 81 pins, the default map view needs measuring (overlap at default zoom). Not measured tonight — the browser pane was hidden, so any number would have been made up.
+3. **Pin density — measured later that night:** at the default zoom on a 375x812 phone viewport, 30 of the 38 pins inside the map have their tap target covered by another pin (it was 10 with 18 pins that morning). Marker clustering is the fix; see HANDOFF §7 #37. Re-measure after every batch.

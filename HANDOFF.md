@@ -2026,6 +2026,18 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     from the deploy after it:** anyone still holding a bundle from before
     commit `b16621e` needs one more visit to pick up the code that does this.
 
+37. **Most pins can no longer be tapped on their own at the default zoom
+    (measured 2026-09-28, 22:4x, live site, 375x812 mobile viewport).** Of
+    81 pins, 38 fall inside the map at the default zoom, and **30 of those 38
+    have their centre inside another pin's 34x44 box**, so tapping picks
+    whichever is on top. With 18 pins that morning the figure was 10. The
+    expansion caused it; the list sheet still reaches every place, and
+    zooming in separates them, but choosing a place from the map — the app's
+    first interaction — mostly does not work at a glance. The fix is marker
+    clustering; it needs a dependency and a real test on a phone, so it was
+    not rushed in at the end of the day. Measure again after any batch: the
+    number only goes up.
+
 
 ---
 
