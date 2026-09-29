@@ -1,8 +1,49 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
-import { isQuarantined, isKnown, VEGAN } from '../data/verification';
-import { formatShortDate, displayName } from '../utils';
+import { isQuarantined, isKnown, VEGAN, dietaryBadges, trustBadge } from '../data/verification';
+import { formatShortDate, displayName, getOpenStatus } from '../utils';
+import { CLAIM_CLASS } from './claim';
+import { ChevronRightIcon } from './Icons';
+
+// A saved place is somewhere you still mean to go, so it is a practical row
+// (where, open now, what it offers and how sure we are), not a keepsake.
+// Visited places stay stamps.
+function SavedRow({ place, savedAt, onOpen }) {
+  const { t, i18n } = useTranslation();
+  const status = getOpenStatus(place.hours);
+  return (
+    <li>
+      <button type="button" className="saved-row" onClick={() => onOpen(place)}>
+        <span className="saved-row__main">
+          <span className="saved-row__name">{displayName(place.name)}</span>
+          <span className="saved-row__where">
+            {place.zone}
+            {savedAt && <> · {t('journal.savedOn', { date: formatShortDate(savedAt, i18n.language) })}</>}
+          </span>
+          <span className="saved-row__status">
+            {status ? (
+              <><span className={status.open ? 'is-open' : 'is-closed'}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
+            ) : (
+              <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
+            )}
+          </span>
+          <span className="saved-row__claims">
+            {dietaryBadges(place).map(b => {
+              const { label: level, tone } = trustBadge(b.fact);
+              return (
+                <span key={b.key} className={`tag-chip claim claim--${CLAIM_CLASS[tone]}`}>
+                  {b.label}<span className="claim__level">{level}</span>
+                </span>
+              );
+            })}
+          </span>
+        </span>
+        <ChevronRightIcon size={18} />
+      </button>
+    </li>
+  );
+}
 
 // A small, fixed sample for the empty-passport preview — not the user's own
 // data, so every stamp below carries a "Sample" label instead of a date and
@@ -109,22 +150,11 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           <div className="journal-section-header">
             <h3>{t('journal.savedForLater')}</h3>
           </div>
-          <div className="journal-grid">
+          <ul className="saved-list">
             {savedList.map(({ place, savedAt }) => (
-              <button
-                key={place.id}
-                className="stamp stamp--saved"
-                onClick={() => onRestaurantClick(place)}
-              >
-                <span className="stamp-ring">
-                  <img src={place.image} alt="" />
-                </span>
-                <span className="stamp-name">{displayName(place.name)}</span>
-                <span className="stamp-zone">{place.zone}</span>
-                {savedAt && <span className="stamp-date">{formatShortDate(savedAt, i18n.language)}</span>}
-              </button>
+              <SavedRow key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
             ))}
-          </div>
+          </ul>
         </div>
       )}
 

@@ -1713,6 +1713,68 @@ button {
   border-radius: var(--radius-lg);
   padding: 20px 16px;
 }
+.saved-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.saved-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  font: inherit;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.saved-row:hover {
+  border-color: var(--line-hover);
+}
+.saved-row:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+}
+.saved-row > svg {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.saved-row__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.saved-row__name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.saved-row__where,
+.saved-row__status {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.saved-row__where {
+  color: var(--ink-body);
+}
+.saved-row__claims {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.saved-row__claims:empty {
+  display: none;
+}
 .journal-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));

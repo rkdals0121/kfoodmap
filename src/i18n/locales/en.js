@@ -48,6 +48,7 @@ export default {
     porkFree: 'Pork-free',
   },
   journal: {
+    savedOn: 'saved {{date}}',
     ariaLabel: 'Journal',
     title: 'Your Food Passport',
     visited: 'Visited',
