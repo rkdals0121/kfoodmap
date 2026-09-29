@@ -85655,4 +85655,394 @@ export const restaurants = [
     "coverImage": null,
     "gallery": []
   },
+  // Kakao halal discovery outside the capital, on the operators' own words.
+  {
+    "id": "gyeongdae-kebab-jinju",
+    "name": "Gyeongdae Kebab (경대케밥)",
+    "zone": "Gajwa-dong, Jinju, Gyeongsangnam-do",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 35.159622460579435,
+        "lng": 128.10654896007006
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/538177395",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (place 538177395) gives 35.159622, 128.106549. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 12 Gajwa-gil 74beon-gil, Jinju-si, Gyeongsangnam-do (Gajwa-dong)",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://gnukebab.co.kr/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own site (gnukebab.co.kr, read twice as raw page text, identical) gives '경상남도 진주시 가좌길74번길 12, 1층 (가좌동 639-15)'; the owner-registered Kakao listing (place 538177395, read twice, identical) gives '경남 진주시 가좌길74번길 12 1층 (가좌동)', lot 가좌동 639-15. They agree on road, number, floor and lot. The site adds that the sign outside is still the previous cake shop's sign until the new one goes up.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 09:00–22:00; closed Tuesdays (per the operator's site)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://gnukebab.co.kr/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own site: '영업시간 매일 오전 9시 ~ 밤 10시 화요일 정기휴무'. Kakao Map publishes no hours for this listing. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Handmade kebab — halal-certified beef, 110 g (수제 케밥, 비프)",
+          "price": "10,900 KRW"
+        },
+        {
+          "name": "Handmade kebab — halal-certified chicken, 110 g (수제 케밥, 치킨)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Halal rice bowl, beef (할랄 라이스보울, 비프)",
+          "price": "10,900 KRW"
+        },
+        {
+          "name": "Halal snack pack, beef (할랄스낵팩, 비프)",
+          "price": "9,500 KRW"
+        },
+        {
+          "name": "Handmade beef lunch box (수제 비프 도시락)",
+          "price": "13,500 KRW"
+        },
+        {
+          "name": "Handmade hot dog — halal-certified sausage (수제 핫도그)",
+          "price": "5,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://gnukebab.co.kr/menu.html",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own menu page (gnukebab.co.kr/menu.html, read twice as raw text, identical; in-store prices). The owner-entered Kakao menu (38 items, every item edited 2026-09-28) gives the same kebab, rice-bowl, snack-pack and lunch-box prices; it does not list the hot dog."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The operator's site gives 0507-1480-1695; the Kakao listing gives 010-7612-1359. The sources disagree, so the field is left unknown."
+    },
+    "officialUrl": {
+      "value": "https://gnukebab.co.kr/",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/538177395",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing; the site names this venue and gives the same street address."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/gnu_kebab/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/538177395",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the Kakao listing and from the operator's site; the profile name is '경대 케밥'."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Not measured by a routing API. The operator's site says the shop is directly in front of the Gaeyang intercity bus stop (개양터미널) and 519 m from the north gate of Gyeongsang National University's Gajwa campus."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://gnukebab.co.kr/",
+        "method": "Read from the operator’s own website",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '할랄인증 사용한 소고기와 닭고기로 만드는 세계 길거리 음식, 경상대 후문 앞 케밥집'; the linked Kakao Talk channel's status line says the same. The operator's own site (gnukebab.co.kr, every page read twice as raw text, identical) repeats it on every page ('할랄인증 사용한 소고기와 닭고기'), and its FAQ answers '진주에서 할랄 음식은 어디서 먹나요?' with '경대케밥은 할랄인증 사용한 소고기와 닭고기를 씁니다. 무슬림 유학생과 외국인 손님도 편히 드실 수 있습니다.' The owner's story page says the kitchen's cook is from Uzbekistan and that he wanted a shop where Muslim students could eat. Pork check: the owner-entered Kakao menu (38 items, all edited 2026-09-28) and the site's full menu list beef, chicken, a mix of the two, fries, cheese fries, sodas and coffee; the site's hot dog uses '할랄인증 사용한 소시지' (a halal-certified sausage). No pork, ham or pepperoni appears. Alcohol: none on either menu. The claim is about the meat (beef and chicken from Indonesia, Australia and Brazil, per the FAQ), not a certificate for the kitchen; no certifying body is named and no certificate was sighted. Still trading: the shop traded as 러시안케이키 until it renamed in September 2026 (the site's own notice, 2026-09-25; blog reviews of 2026-07-28 and 2026-08-13 on the listing describe kebabs at this address under the old name); Kakao reviews dated 2026-09-03, 2026-09-04 and 2026-09-05; owner menu edits 2026-09-28. Kakao keyword tags are not used as evidence."
+      },
+      "halalCertClaim": {
+        "body": "Unnamed — the operator says its beef and chicken are halal-certified; no certifying body, certificate number or importer is named.",
+        "statedBy": "The operator: its owner-registered Kakao listing and its own site (gnukebab.co.kr)",
+        "quote": "할랄인증 사용한 소고기와 닭고기",
+        "status": "claim about the meat, stated by the operator; no certificate sighted; the kitchen itself is not claimed to be certified"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A kebab and street-food counter by the Gaeyang bus stop in Jinju, near Gyeongsang National University.",
+    "story": "Gyeongdae Kebab makes Turkish-style kebabs, New York-style rice bowls and Australian snack packs, and says on its own site that all of them use halal-certified beef and chicken. The owner, a former international student at Gyeongsang National University, writes that he opened it so that Muslim students and people new to kebab could eat at the same table, and that an Uzbek-born cook grills the meat. Until September 2026 it traded as Russian Cakey (러시안케이키), and the shop's own site says the old cake-shop sign is still up until the new one arrives. No certificate has been sighted, and the menu lists no alcohol.",
+    "esg_point": "An owner-run shop near a university that states its meat is halal-certified",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "raj-indian-jeondae-gwangju",
+    "name": "Raj Indian Restaurant, Chonnam Nat'l Univ. back gate (라즈인도요리 전대후문)",
+    "zone": "Yongbong-dong, Buk-gu, Gwangju",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 35.17501065044976,
+        "lng": 126.91314407981176
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27432446",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (place 27432446) gives 35.175011, 126.913144. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "9-7 Hodong-ro, Buk-gu, Gwangju (Yongbong-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27432446",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical; listing owner-registered, my-store status REGISTERED): '전남광주통합특별시 북구 호동로 9-7 (용봉동)', lot 용봉동 161-45. Single source. Kakao now prints Gwangju addresses as 전남광주통합특별시; the English address keeps the familiar form.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 11:30–14:30, 17:00–21:00 (per Kakao Map)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27432446",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map regular hours ('기본 영업시간') set by the owner: '매일 11:30 ~ 21:00', break '14:30 ~ 17:00 브레이크타임'. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Butter chicken (버터치킨)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Palak paneer (팔락 파니르)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Vegetable biryani (야채 비리야니)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Tandoori chicken, half (탄두리치킨 반마리)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Thali (탈리)",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27432446",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao Map menu, 7 items in all, last edited 2023-07-10; a selection is listed here. Prices may have changed since. Single source."
+    },
+    "phone": {
+      "value": "062-252-2200",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27432446",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 062-252-2200. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website is linked from the Kakao listing."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account is linked from the Kakao listing."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Not measured: no walking route was computed in this pass. Check a map app before going."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "The owner's introduction mentions vegan food, but no dish is identified as vegan on the menu, so no level is set."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/27432446",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '할랄,비건,사찰음식 포함 인도요리 전문점' (an Indian restaurant including halal, vegan and temple-style food); the linked Kakao Talk channel's status line carries the same words. Pork check: the owner-entered menu (7 items, edited 2022–2023) lists butter chicken, palak paneer, paneer butter masala, vegetable biryani, tandoori chicken, thali and chicken tikka — no pork, ham, sausage or pepperoni. It is short and not recent, so it cannot show the whole current menu. Alcohol: none on the owner-entered menu. No certificate is claimed or sighted. Still trading: Kakao reviews dated 2026-03-23, 2026-04-24 and 2026-08-20; a blog review dated 2026-08-24 on the listing. Kakao keyword tags are not used as evidence."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian restaurant by the back gate of Chonnam National University in Gwangju.",
+    "story": "Raj describes itself on its own map listing as an Indian restaurant that includes halal, vegan and temple-style food. Its listed menu includes butter chicken, palak paneer, vegetable biryani, tandoori chicken and a thali set. It sits by the back gate of Chonnam National University and closes for a break between lunch and dinner. No halal certificate has been sighted.",
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
 ];
