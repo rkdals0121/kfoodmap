@@ -41,7 +41,8 @@ function toMinutes(str) {
   return h24 ? parseInt(h24[1], 10) * 60 + parseInt(h24[2], 10) : null;
 }
 
-const fromMinutes = (mins) => {
+const fromMinutes = (total) => {
+  const mins = ((total % 1440) + 1440) % 1440;
   const h = Math.floor(mins / 60);
   const m = String(mins % 60).padStart(2, '0');
   const suffix = h < 12 ? 'AM' : 'PM';
@@ -56,7 +57,9 @@ function statusFromRaw(raw, cur) {
   const opens = toMinutes(parts[0]);
   const closes = toMinutes(parts[1]);
   if (opens == null || closes == null) return null;
-  return cur >= opens && cur < closes
+  // A close at or before the opening time runs past midnight ("6:00 PM – 2:00 AM").
+  const isOpen = closes > opens ? cur >= opens && cur < closes : cur >= opens || cur < closes;
+  return isOpen
     ? { open: true, label: 'Open', detail: `until ${parts[1]}` }
     : { open: false, label: 'Closed', detail: `opens ${parts[0]}` };
 }
@@ -74,30 +77,44 @@ export function getOpenStatus(hoursFact, now = new Date()) {
 
   if (!weekly) return raw ? statusFromRaw(raw, cur) : null;
 
+  // A slot whose close is at or before its opening ("10:00"–"01:00") runs past
+  // midnight. Until 2026-09-29 such slots never matched, so 25 slots at late
+  // kebab and pub kitchens showed "Closed" through their whole evening.
+  const span = (slot) => {
+    const from = toMinutes(slot.from);
+    let to = toMinutes(slot.to);
+    if (from == null || to == null) return null;
+    if (to <= from) to += 1440;
+    let lo = slot.lastOrder ? toMinutes(slot.lastOrder) : null;
+    if (lo != null && lo < from) lo += 1440;
+    return { from, to, lo };
+  };
+  const openResult = (t, lo, at) => {
+    if (lo != null && at >= lo) {
+      return { open: true, label: 'Open', detail: `last order passed, closes ${fromMinutes(t)}` };
+    }
+    return {
+      open: true,
+      label: 'Open',
+      detail: lo != null ? `until ${fromMinutes(t)} · last order ${fromMinutes(lo)}` : `until ${fromMinutes(t)}`,
+    };
+  };
+
+  // Just after midnight, yesterday's late slot may still be running.
+  const yesterday = weekly[DAY_KEYS[(now.getDay() + 6) % 7]];
+  for (const slot of Array.isArray(yesterday) ? yesterday : []) {
+    const sp = span(slot);
+    if (sp && sp.to > 1440 && cur + 1440 < sp.to) return openResult(sp.to, sp.lo, cur + 1440);
+  }
+
   const today = weekly[DAY_KEYS[now.getDay()]];
   if (!today) return null; // day not recorded — say nothing
 
   if (today.length === 0) return { open: false, label: 'Closed', detail: 'closed today' };
 
   for (const slot of today) {
-    const from = toMinutes(slot.from);
-    const to = toMinutes(slot.to);
-    if (from == null || to == null) continue;
-    if (cur >= from && cur < to) {
-      const lo = slot.lastOrder ? toMinutes(slot.lastOrder) : null;
-      // Once last order has passed, "open until close" would mislead someone
-      // deciding whether it's worth the trip.
-      if (lo != null && cur >= lo) {
-        return { open: true, label: 'Open', detail: `last order passed, closes ${fromMinutes(to)}` };
-      }
-      return {
-        open: true,
-        label: 'Open',
-        detail: slot.lastOrder
-          ? `until ${fromMinutes(to)} · last order ${fromMinutes(lo)}`
-          : `until ${fromMinutes(to)}`,
-      };
-    }
+    const sp = span(slot);
+    if (sp && cur >= sp.from && cur < sp.to) return openResult(sp.to, sp.lo, cur);
   }
 
   const next = today
