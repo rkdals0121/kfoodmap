@@ -51,7 +51,10 @@
      tweak them for visual harmony, and do not reuse them for anything
      that isn't literally a Naver or Kakao affordance. */
   --brand-naver: #03C75A;
-  --brand-naver-ink: #FFFFFF;
+  /* The one exception: white on Naver green is 2.25:1 and fails WCAG AA
+     for the button's text. Dark ink on the same green is about 9:1; the
+     green itself, the recognisable part, is untouched. */
+  --brand-naver-ink: #1F2328;
   --brand-kakao: #FEE500;
   --brand-kakao-ink: #191919;
 
@@ -665,6 +668,23 @@ button {
   flex-direction: column;
   gap: 32px;
 }
+/* No hero: leave room for the close button, which sits over the corner. */
+.detail-content--no-hero {
+  padding-top: 64px;
+}
+.detail-traits {
+  margin-top: -20px;
+  font-size: 13px;
+  color: var(--muted-strong);
+  line-height: 1.6;
+}
+.detail-traits svg {
+  vertical-align: -2px;
+  margin-right: 2px;
+}
+.practical-today {
+  display: block;
+}
 
 /* ---------- Gallery Overlay ---------- */
 .gallery-overlay {
@@ -816,6 +836,11 @@ button {
   color: var(--green-strong);
   font-weight: 500;
   text-decoration: none;
+  /* A 44px tap target around a 15px line, without moving the text. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: -12px 0;
 }
 .practical-link:hover {
   text-decoration: underline;
@@ -843,6 +868,40 @@ button {
   display: flex;
   gap: 8px;
   margin-top: 12px;
+}
+.action-btn {
+  flex: 1;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.action-btn:hover {
+  border-color: var(--line-hover);
+}
+.action-btn:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+}
+.action-btn--saved {
+  color: var(--orange-strong);
+  border-color: var(--orange-line);
+  background: var(--orange-tint);
+}
+.action-btn--visited {
+  color: var(--green-strong);
+  border-color: var(--green);
+  background: var(--green-tint);
 }
 .btn-primary {
   flex: 1;
@@ -982,31 +1041,6 @@ button {
   color: var(--ink-body);
 }
 
-/* The emotional hook — deliberately lighter than a full section: a label
-   and one pull-quote line, no icon header, so it reads fast and stands
-   apart from the structured sections below it. */
-.detail-hook {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 8px 0;
-}
-.detail-hook__label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--green-strong);
-}
-.detail-hook__quote {
-  padding-left: 16px;
-  border-left: 4px solid var(--green);
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--ink);
-}
-
 /* ---------- Honest disclosure ----------
    The dataset is unverified research. These blocks say so where it matters,
    sized to inform without shouting over the content. */
@@ -1068,6 +1102,11 @@ button {
 }
 .claim-fact[aria-expanded='true'] {
   box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--muted);
+}
+.claim-fact__why {
+  display: inline-flex;
+  margin-left: 2px;
+  opacity: 0.7;
 }
 .claim-fact:focus-visible {
   outline: 2px solid var(--green-strong);

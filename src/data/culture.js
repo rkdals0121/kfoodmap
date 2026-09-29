@@ -34,7 +34,7 @@ export const cultureByCategory = {
     didYouKnow:
       "Seoul's halal Korean food scene grew up on Usadan-ro, the sloped street beside the Seoul Central Mosque — a neighborhood that has welcomed Muslim traders and travelers since the 1970s. Outside it, halal Korean food is still rare, which is why this map also marks Korean places that are pork-free.",
     diningTips: [
-      'Read the badge: "pork-free" means no pork on the menu, not halal-slaughtered meat or a halal kitchen.',
+      'Read the label: "pork-free" means no pork on the menu, not halal-slaughtered meat or a halal kitchen.',
       'Bulgogi and samgyetang are the gentlest introductions to Korean flavors — deeply savory, no spice shock.',
       'Korean dining is communal: dishes land in the middle of the table and everyone shares.',
       'If formal certification matters to you, ask to see the certificate and check who issued it and when it expires — certificates lapse, and a sign on the wall can outlive one.',

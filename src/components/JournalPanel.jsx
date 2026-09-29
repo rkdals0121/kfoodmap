@@ -100,7 +100,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           </div>
           <div className="stat-box">
             <span className="stat-num">{savedList.length}</span>
-            <span className="stat-label">{t('journal.saved')}</span>
+            {/* Saved-but-not-visited. Profile's "Saved" counts every saved
+                place, visited or not, so this one needs its own name. */}
+            <span className="stat-label">{t('journal.toVisit')}</span>
           </div>
           <div className="stat-box">
             <span className="stat-num">{neighborhoods.length}</span>

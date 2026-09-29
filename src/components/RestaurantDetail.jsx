@@ -5,7 +5,7 @@ import PlaceImage from './PlaceImage';
 import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
-  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon,
+  BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, SealIcon, ShareIcon, InfoIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName } from '../utils';
@@ -32,7 +32,7 @@ function SectionHead({ Icon, title, kr }) {
   return (
     <div className="section-head">
       <span className="section-head__icon" aria-hidden="true"><Icon size={17} /></span>
-      <h3>{title}{kr && <span className="section-head__kr"> · {kr}</span>}</h3>
+      <h3>{title}{kr && <span className="section-head__kr" lang="ko"> · {kr}</span>}</h3>
     </div>
   );
 }
@@ -53,6 +53,7 @@ function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
       >
         <Icon size={16} aria-hidden="true" /> {label}
         <span className="claim-fact__level">{level}</span>
+        <span className="claim-fact__why" aria-hidden="true"><InfoIcon size={14} /></span>
       </button>
     </li>
   );
@@ -213,13 +214,21 @@ export default function RestaurantDetail({
         </button>
 
         <div className="detail-scroll">
-          {/* 1. Hero Image */}
-          <PlaceImage place={place} variant="hero" onClick={galleryImages.length > 0 ? () => setGalleryOpen(true) : undefined} />
+          {/* 1. Hero image — only when there is a photo. No place has one yet,
+              and a placeholder band pushed the decision facts down. */}
+          {galleryImages.length > 0 && (
+            <PlaceImage place={place} variant="hero" onClick={() => setGalleryOpen(true)} />
+          )}
 
-          <div className="detail-content">
+          <div className={`detail-content${galleryImages.length > 0 ? '' : ' detail-content--no-hero'}`}>
             {/* 2. Restaurant Name */}
             <header className="detail-header">
-              <h2>{place.name}</h2>
+              <h2>
+                {/* Hangul parts carry lang="ko" so a screen reader switches voice. */}
+                {String(place.name).split(/(\([^)]*[가-힣][^)]*\))/).map((part, i) => (
+                  /[가-힣]/.test(part) ? <span key={i} lang="ko">{part}</span> : part
+                ))}
+              </h2>
               <p className="detail-meta">
                 {place.zone}
                 {distance && <><span aria-hidden="true"> · </span>{distance}</>}
@@ -232,9 +241,9 @@ export default function RestaurantDetail({
             </header>
 
             {/* 3. Diet Tags */}
-            {facts.length > 0 && (
+            {dietFacts.length > 0 && (
               <ul className="fact-row" aria-label={t('detail.dietaryFactsLabel')}>
-                {facts.map(({ id, Icon, label, fact: f }) => (f ? (
+                {dietFacts.map(({ id, Icon, label, fact: f }) => (
                   <ClaimFact
                     key={id}
                     id={id}
@@ -244,12 +253,20 @@ export default function RestaurantDetail({
                     open={openClaim === id}
                     onToggle={() => setOpenClaim(o => (o === id ? null : id))}
                   />
-                ) : (
-                  <li key={id} className="fact">
-                    <Icon size={16} aria-hidden="true" /> {label}
-                  </li>
-                )))}
+                ))}
               </ul>
+            )}
+            {/* Traits describe the place; they are not claims with a
+                confidence, so they are plain text, not chips. */}
+            {traitFacts.length > 0 && (
+              <p className="detail-traits">
+                {traitFacts.map(({ id, Icon, label }, i) => (
+                  <span key={id}>
+                    {i > 0 && <span aria-hidden="true"> · </span>}
+                    <Icon size={14} aria-hidden="true" /> {label}
+                  </span>
+                ))}
+              </p>
             )}
             {facts.filter(x => x.fact).map(({ id, label, fact: f }) => {
               const { label: level, detail } = trustBadge(f);
@@ -290,7 +307,7 @@ export default function RestaurantDetail({
                   <span>
                     <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
                     {' '}· {status.detail}{' '}
-                    {today && <span className="practical-muted">{t('detail.todayHours', { hours: today })}</span>}
+                    {today && <span className="practical-muted practical-today">{t('detail.todayHours', { hours: today })}</span>}
                   </span>
                 ) : (
                   <span className="practical-muted">{t('detail.hoursUnknown')}</span>
@@ -331,29 +348,31 @@ export default function RestaurantDetail({
                 </div>
               )}
 
+              {/* Worded, not icon-only, and no checkmark: a check under the
+                  dietary claims read as "verified". A visit is a seal, as the
+                  Journal stamps it. Toggles say their state with aria-pressed. */}
               <div className="practical-actions">
                 <button
-                  className={`icon-btn icon-btn--lg${isBookmarked ? ' icon-btn--saved' : ''}`}
-                  aria-label={isBookmarked ? t('list.removeAria', { name }) : t('list.saveAria', { name })}
+                  type="button"
+                  className={`action-btn${isBookmarked ? ' action-btn--saved' : ''}`}
+                  aria-pressed={isBookmarked}
                   onClick={() => onToggleBookmark(place.id)}
                 >
-                  <HeartIcon size={21} filled={isBookmarked} />
+                  <HeartIcon size={20} filled={isBookmarked} />
+                  <span>{t('detail.actionSave')}</span>
                 </button>
                 <button
-                  className={`icon-btn icon-btn--lg${isVisited ? ' icon-btn--visited' : ''}`}
-                  aria-label={isVisited ? t('detail.visitedUnmark', { name }) : t('detail.visitedMark', { name })}
-                  disabled={!isBookmarked}
+                  type="button"
+                  className={`action-btn${isVisited ? ' action-btn--visited' : ''}`}
+                  aria-pressed={isVisited}
                   onClick={() => onToggleVisited(place.id)}
                 >
-                  <CheckIcon size={21} />
+                  <SealIcon size={20} />
+                  <span>{t('detail.actionBeenHere')}</span>
                 </button>
-                <button
-                  className="icon-btn icon-btn--lg"
-                  aria-label={t('detail.shareAria', { name })}
-                  onClick={handleShare}
-                  title={shared ? t('detail.shared') : t('detail.share')}
-                >
-                  <ShareIcon size={21} />
+                <button type="button" className="action-btn" onClick={handleShare}>
+                  <ShareIcon size={20} />
+                  <span>{shared ? t('detail.shared') : t('detail.share')}</span>
                 </button>
               </div>
             </div>
@@ -411,10 +430,6 @@ export default function RestaurantDetail({
             )}
 
             {/* 7. Story & Hook */}
-            <section className="detail-hook">
-              <p className="detail-hook__label">{t('detail.whyItsSpecial')}</p>
-              <p className="detail-hook__quote">&ldquo;{place.vibe}&rdquo;</p>
-            </section>
             
             <section className="detail-section" ref={storyRef}>
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />

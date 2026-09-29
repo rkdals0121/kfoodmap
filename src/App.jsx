@@ -165,13 +165,21 @@ function AppShell() {
   // Marking a visit only ever edits an entry that is already saved, so the
   // invariant (visitedAt implies savedAt) holds by construction — this can
   // never create a record, and a tombstone is never revived into one.
+  // "Been here" on a place not yet saved saves it and marks the visit in one
+  // tap (a visit lives on a saved entry), rather than a disabled button
+  // that never said why.
   const handleToggleVisited = (placeId) => {
     const now = Date.now();
-    setEntries(prev => prev.map(e =>
-      e.id === placeId && e.savedAt !== null
+    setEntries(prev => {
+      const held = prev.find(e => e.id === placeId);
+      if (!held || held.savedAt === null) {
+        const fresh = { id: placeId, savedAt: now, visitedAt: now, updatedAt: now };
+        return held ? prev.map(e => (e.id === placeId ? fresh : e)) : [...prev, fresh];
+      }
+      return prev.map(e => (e.id === placeId
         ? { ...e, visitedAt: e.visitedAt === null ? now : null, updatedAt: now }
-        : e,
-    ));
+        : e));
+    });
   };
 
   const filteredRestaurants = useMemo(() => {

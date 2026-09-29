@@ -390,7 +390,7 @@ export const restaurants = [
     // Reworded: both lines used to assert KMF certification as fact while the
     // dietary record deliberately declines to confirm it — the page contradicted
     // itself. The claim is now attributed to the source that makes it.
-    story: "Run by a dedicated Korean Muslim family beside the Seoul Central Mosque, EID is described by Seoul's tourism office as the only Korean restaurant certified by the Korea Muslim Federation. They offer the comfort of home-cooked Korean meals, like mild Bulgogi and Samgyetang, in a warm space that bridges Korean heritage and Islamic dietary law.",
+    story: "Run by a dedicated Korean Muslim family beside the Seoul Central Mosque, EID has been described by Seoul's tourism office as the only Korean restaurant certified by the Korea Muslim Federation, though KMF's own certificate list for 2023–2026 has no entry for it. They offer the comfort of home-cooked Korean meals, like mild Bulgogi and Samgyetang, in a warm space that bridges Korean heritage and Islamic dietary law.",
     esg_point: "Family-run kitchen serving inclusive Korean home cooking by the Central Mosque",
 
     image: "/images/halal_meat.svg",
@@ -6002,7 +6002,7 @@ export const restaurants = [
     },
     "imageLeads": [],
     "traits": [],
-    "vibe": "A lamb steakhouse near Hapjeong Station that uses halal-certified young lamb.",
+    "vibe": "A lamb steakhouse near Hapjeong Station that says it uses halal-certified young lamb.",
     "story": "Daddy's Lamb Steakhouse serves fresh lamb ribs and lamb soup a short walk from Hapjeong Station. Seoul's official tourism site notes that the kitchen uses only halal-certified young lamb — a claim about the meat's sourcing rather than a certified kitchen, and no certificate has been sighted for this project's records.",
     "esg_point": null,
     "image": "/images/halal_meat.svg",
@@ -7441,7 +7441,7 @@ export const restaurants = [
     },
     "imageLeads": [],
     "traits": [],
-    "vibe": "A halal Korean-style lamb barbecue near Yeoksam Station, grilling halal-certified Australian lamb and marinated chicken.",
+    "vibe": "A halal Korean-style lamb barbecue near Yeoksam Station, grilling Australian lamb it says is halal-certified, and marinated chicken.",
     "story": "Yang Good grills Korean-style lamb and chicken in Yeoksam-dong, using lamb it sources as halal-certified from Australia. Halal-restaurant directories list it as Muslim-friendly and pork-free — one inspector's own visit found the kitchen halal and halal paperwork on display — but none could name the certifying body, so no certificate has been sighted for the restaurant itself. It grills into the evening Monday through Saturday and is closed Sundays.",
     "esg_point": "Sources its lamb specifically as halal-certified Australian meat rather than a generic import.",
     "image": "/images/halal_meat.svg",
@@ -32474,7 +32474,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "Nami Island's Asian restaurant in the Baplex building, where the island itself says halal food is available.",
-    "story": "Dongmoon is the Asian-fusion restaurant on the first floor of Baplex, in the middle of Nami Island. The island's own site says halal food is available here for Muslim visitors and calls it a certified halal restaurant; no certificate has been sighted, and the certifying body is not named. According to the island's FAQ, its prayer room is in the same Baplex building. Nami Island is reached by ferry from the Gapyeong-side wharf, so allow time for the crossing.",
+    "story": "Dongmoon is the Asian-fusion restaurant on the first floor of Baplex, in the middle of Nami Island. The island's own site says halal food is available here for Muslim visitors and calls it a certified halal restaurant. KMF's certificate list shows a current restaurant certificate held by NAMMOON, Inc., a company registered at the island's address, but the certificate does not name Dongmoon itself. According to the island's FAQ, its prayer room is in the same Baplex building. Nami Island is reached by ferry from the Gapyeong-side wharf, so allow time for the crossing.",
     "esg_point": null,
     "image": "/images/halal_meat.svg",
     "photo": null,

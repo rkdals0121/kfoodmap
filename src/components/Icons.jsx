@@ -211,3 +211,11 @@ export const TrashIcon = ({ size = 18 }) => (
     <path d="M10.5 10.5v6M13.5 10.5v6" />
   </svg>
 );
+
+// A seal (dojang), for "been here": the Journal stamps a visit as a seal.
+export const SealIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <rect x="4" y="4" width="16" height="16" rx="3" />
+    <rect x="7.5" y="7.5" width="9" height="9" rx="1.5" />
+  </svg>
+);
