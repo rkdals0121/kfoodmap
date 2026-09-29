@@ -375,7 +375,8 @@ export const restaurants = [
         body: "KMF / 한국이슬람중앙회",
         statedBy: "Seoul Metropolitan Government tourism site (visitseoul.net)",
         quote: "한국이슬람중앙회에서 할랄 인증을 받은 유일한 한식당입니다",
-        status: "stated by a government source; certificate number and expiry not sighted, KMF register not consulted",
+        status: "stated by a government source; KMF's public certificate list (2023–2026, checked 2026-09-29) has no EID row",
+        note: "KMF's public certificate list for 2023–2026 has no entry for EID, so no current KMF certificate could be sighted.",
       },
     },
 
@@ -7729,7 +7730,8 @@ export const restaurants = [
         "body": "Korea Muslim Federation (KMF)",
         "statedBy": "Seoul's official tourism site (english.visitseoul.net) — a government source, not the operator, and not a sighted certificate",
         "quote": "Restaurants are categorized as halal certified when they are officially certified by the Korea Muslim Federation(KMF). ... Kervan (COEX Mall Branch) [listed under] Halal Certified",
-        "status": "named by a government tourism source as KMF-certified; no certificate number or expiry sighted directly"
+        "status": "named by a government tourism source as KMF-certified; KMF's public certificate list (2023–2026, checked 2026-09-29) has no Kervan row",
+        "note": "KMF's public certificate list for 2023–2026 has no entry for Kervan, so no current KMF certificate could be sighted."
       }
     },
     "imageLeads": [],
