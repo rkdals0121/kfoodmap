@@ -66,7 +66,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "Minimalist wood and hush — dining as meditation.",
-    story: "Rooted in the ancient mindfulness of Korean Buddhist monks, Balwoo Gongyang treats every ingredient with profound reverence. Their artisanal fermentation techniques, honed over centuries, transform locally harvested mountain greens into deep, restorative flavors. The kitchen operates on a strict zero-waste philosophy, ensuring that nothing returned to the earth is without purpose.",
+    story: "Balwoo Gongyang serves Korean Buddhist temple food on the fifth floor of the Templestay Information Center on Ujeongguk-ro in Jongno. Temple cooking uses no meat or fish, and the menu is built around set courses and fermented flavours.",
     esg_point: "Uses traditional fermentation without artificial additives",
 
     image: "/images/temple_food.svg",
@@ -113,7 +113,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A lantern-lit Hanok hidden in Insadong's alleys.",
-    story: "Sanchon embodies the purest form of agrarian Korean heritage. Founded by a former monk, the restaurant's daily offerings are dictated by what the earth yields. Ingredients are sustainably foraged from the pristine highlands of Gangwon-do. Every dish is a testament to artisanal patience, bringing the quiet, unadulterated essence of the forest straight to the table.",
+    story: "Sanchon serves Korean temple food in a hanok on Insadong-gil: set meals of seasonal mountain greens, temple-style banchan and lotus-root pancakes, with no meat or fish.",
     esg_point: "Locally sourced ingredients directly foraged from Gangwon-do mountains",
 
     image: "/images/temple_food.svg",
@@ -160,7 +160,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A humble Korean-Chinese spot in an Insadong alley.",
-    story: "Osegyehyang is a pioneer in bringing plant-based alternatives to beloved comfort foods. Famous for their brilliant soy meat dishes, they seamlessly convert rich Korean-Chinese classics into 100% vegan meals. This is the perfect spot to enjoy guilt-free, sustainable versions of everyday favorites.",
+    story: "Osegyehyang cooks Korean-Chinese dishes — jajangmyeon, jjamppong, sweet-and-sour — in fully vegan versions made with soy meat, in an alley off Insadong. DiningCode lists it as a vegan restaurant.",
     esg_point: "100% plant-based takes on Korean-Chinese comfort classics",
 
     image: "/images/noodles.svg",
@@ -215,7 +215,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A sunlit Itaewon hub with its own vegan bakery.",
-    story: "A trailblazer for the plant-based community in Itaewon, Plant Cafe combines hearty western-style vegan dining with in-house bakery delights. Their lentil bowls and burgers prove that veganism can be incredibly indulgent. The vibrant space acts as a hub for eco-conscious expats and locals alike.",
+    story: "Plant Cafe & Kitchen is a vegan restaurant and bakery café on Bogwang-ro in Itaewon; its own site calls it 100% vegan. The menu runs from lentil burrito bowls and burgers to cakes from its own bakery.",
     esg_point: "In-house vegan bakery cutting dairy and egg supply chains",
 
     image: "/images/vegan_cafe.svg",
@@ -272,7 +272,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "Plant-based fare, served like fine dining.",
-    story: "Elevating the concept of a 'fake meat' eatery, Monk's Butcher brings modern, upscale vegan dining to the heart of Itaewon. Their sophisticated plant-based twists on classic butcher shop fare challenge culinary boundaries. Enjoy an elegant evening where sustainability meets high-end gastronomy.",
+    story: "Monk's Butcher serves plant-based versions of butcher-shop dishes — burgers, steak, risotto — on the third and fourth floors of a building on Itaewon-ro. DiningCode lists only vegan dishes on its menu.",
     esg_point: "High-end plant proteins replacing butcher-shop staples",
 
     image: "/images/temple_food.svg",
@@ -324,7 +324,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "Bold Chinese-American flavors that happen to be vegan.",
-    story: "Camouflage creatively 'hides' the fact that its bold Chinese-American menu is completely free of animal products. By mastering textures and savory sauces, dishes like their vegan Kung Pao Chick'n fool the senses. It is a brilliant example of how playful and satisfying sustainable cuisine can be.",
+    story: "Camouflage serves American-Chinese dishes made without animal products — kung pao chick'n, chow mein, crispy mushroom bites — on the second floor of a building off Itaewon-ro.",
     esg_point: "Bold sauces and textures that make plant-based eating effortless",
 
     image: "/images/vegan_cafe.svg",
@@ -768,7 +768,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A Blue Ribbon brunch cafe where vegetables star.",
-    story: "Awarded the prestigious Blue Ribbon, this vegetable-forward brunch cafe elevates simple ingredients to art. Their signature ratatouille emphasizes the mild, intrinsic sweetness of slow-cooked local produce. It stands as a testament to the fact that healthy, meatless meals can achieve culinary excellence in Incheon.",
+    story: "Iryonghal Yangsik is a vegetable-led brunch café in Guwol-dong, Incheon, which the Blue Ribbon Survey lists as 채식 위주 (mainly vegetarian). Its ratatouille is the dish visitors report as fully vegan; the rest of the menu includes fish and dairy.",
     esg_point: "Vegetable-forward menu built on slow-cooked local produce",
 
     image: "/images/mild_soup.svg",
