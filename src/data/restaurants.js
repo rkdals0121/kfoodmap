@@ -823,7 +823,7 @@ export const restaurants = [
     // and contradicted the corrected dietary badge — rule 16's defect class.
     // The history it rests on (2019 동인천, 2023 Cheongna, the vegan years) is
     // corroborated and kept.
-    vibe: "A weekly-changing brunch buffet, in the room that was Incheon's best-known vegan restaurant.",
+    vibe: "A weekly-changing brunch buffet in Cheongna, until June 2026 a fully vegan kitchen.",
     story: "Rim opened in 2019 on Dongincheon's Gaehang-ro as 더 비기닝 (The Beginning), moved to Cheongna in 2023, and spent years as a Blue Ribbon-listed vegan kitchen where nothing on the plate came from an animal and the sauces were made in-house. In June 2026 it renovated into a brunch buffet with a menu that changes every week. Plant-based dishes are still the heart of it, but the buffet is no longer vegan-only: a chicken stew may sit on the same counter as the tofu salad. Worth knowing before you go, whichever way you eat.",
     // Timeline events are drawn straight from the story above — all confirmed
     // during the 2026-07-17 verification (d24144c), none newly researched.
@@ -1077,7 +1077,7 @@ export const restaurants = [
     // contested commercial claim as heritage fact — the opposite of this
     // project's purpose. The real story is more interesting anyway.
     vibe: "Jajangmyeon's birthplace is next door — now a museum.",
-    story: "Korea's most famous noodle was born on this street: the original Gonghwachun opened here in 1905 and served jajangmyeon for three generations before closing in 1983. Its building still stands about 150 metres away as the Jajangmyeon Museum, a registered national heritage site, and the plot is marked on maps as Gonghwachun-teo — the Gonghwachun site. The restaurant trading under the name today is a separate business that registered the trademark in 2002 and opened in 2004; the founding family contested its claim to be the original. Come for the noodles, then walk to the museum for the history.",
+    story: "Jajangmyeon was born on this street: the original Gonghwachun opened here in 1905 and served jajangmyeon for three generations before closing in 1983. Its building still stands about 150 metres away as the Jajangmyeon Museum, a registered national heritage site, and the plot is marked on maps as Gonghwachun-teo — the Gonghwachun site. The restaurant trading under the name today is a separate business that registered the trademark in 2002 and opened in 2004; the founding family contested its claim to be the original. Come for the noodles, then walk to the museum for the history.",
     // The two entities the story is careful to separate stay separated here:
     // the 1905 original (closed 1983) and the separate business trading under
     // the name today. All confirmed during the 2026-07-17 verification
@@ -43884,7 +43884,7 @@ export const restaurants = [
       }
     },
     "vibe": "The original branch of a spicy bibim-guksu noodle shop, five minutes from Indeogwon station.",
-    "story": "This is the Anyang main branch of Indeogwon Bibimguksu, a noodle shop known for bibim-guksu, thin wheat noodles tossed in a sweet, spicy chilli sauce. HappyCow says that dish is the vegan choice and that the other dishes are not vegan. Ask for it without egg or other toppings. It is a five-minute walk from Indeogwon station, and weekend lunch can mean a short queue.",
+    "story": "This is the Anyang main branch of Indeogwon Bibimguksu, a noodle shop known for bibim-guksu, thin wheat noodles tossed in a sweet, spicy chilli sauce. HappyCow says that dish is the vegan choice and that the other dishes are not vegan. Ask for it without egg or other toppings. It is a five-minute walk from Indeogwon station.",
     "image": "/images/noodles.svg"
   },
   {
@@ -48249,7 +48249,7 @@ export const restaurants = [
       }
     },
     "vibe": "A bibimbap house by Jeondong Cathedral at the edge of Jeonju Hanok Village.",
-    "story": "Jongno Hoegwan serves Jeonju-style bibimbap a short walk from Jeondong Cathedral, at the edge of the Hanok Village. HappyCow says the bibimbap can be made vegan on request, so tell the staff when you order; the standard bowls and much of the menu contain beef. Expect queues at weekends.",
+    "story": "Jongno Hoegwan serves Jeonju-style bibimbap a short walk from Jeondong Cathedral, at the edge of the Hanok Village. HappyCow says the bibimbap can be made vegan on request, so tell the staff when you order; the standard bowls and much of the menu contain beef.",
     "image": "/images/fermented_dish.svg"
   },
   {
