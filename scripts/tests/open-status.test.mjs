@@ -31,7 +31,7 @@ test("yesterday's late slot counts even if today is a closing day", () => {
   const w = every([{ from: '17:00', to: '02:00' }]);
   w.tue = [];
   assert.equal(getOpenStatus(hours(w), at(1, 0)).open, true);
-  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'closed today');
+  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'closed today · opens tomorrow 5:00 PM');
 });
 
 test('last order after midnight is read against the late slot', () => {
@@ -45,4 +45,24 @@ test('free-text hours across midnight', () => {
   assert.equal(getOpenStatus(h, at(23, 0)).open, true);
   assert.equal(getOpenStatus(h, at(1, 0)).open, true);
   assert.equal(getOpenStatus(h, at(15, 0)).open, false);
+});
+
+test('after the last slot, it says when it next opens', () => {
+  const h = hours(every([{ from: '11:00', to: '21:00' }]));
+  assert.equal(getOpenStatus(h, at(22, 0)).detail, 'opens tomorrow 11:00 AM');
+});
+
+test('closing days are skipped to the next opening day', () => {
+  const w = every([{ from: '11:30', to: '21:00' }]);
+  w.wed = []; // 2026-09-29 is a Tuesday
+  w.thu = [];
+  assert.equal(getOpenStatus(hours(w), at(22, 0)).detail, 'opens Fri 11:30 AM');
+});
+
+test('an unrecorded day stops the look-ahead rather than being skipped', () => {
+  const w = every([{ from: '11:00', to: '21:00' }]);
+  delete w.wed;
+  assert.equal(getOpenStatus(hours(w), at(22, 0)).detail, 'closed for today');
+  w.tue = [];
+  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'closed today');
 });

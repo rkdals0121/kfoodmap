@@ -37,7 +37,7 @@ export const cultureByCategory = {
       'Read the badge: "pork-free" means no pork on the menu, not halal-slaughtered meat or a halal kitchen.',
       'Bulgogi and samgyetang are the gentlest introductions to Korean flavors — deeply savory, no spice shock.',
       'Korean dining is communal: dishes land in the middle of the table and everyone shares.',
-      'Look for the KMF (Korea Muslim Federation) certificate near the counter for formal halal assurance.',
+      'If formal certification matters to you, ask to see the certificate and check who issued it and when it expires — certificates lapse, and a sign on the wall can outlive one.',
     ],
   },
   'world-halal': {

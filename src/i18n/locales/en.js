@@ -242,7 +242,6 @@ export default {
     // Leading space is load-bearing — see areaOnly above; rendered right
     // after transitExit (or the station/line text) with no separator supplied by the JSX.
     transitWalk: ' · {{minutes}} min walk',
-    lastVerified: 'Last verified: {{date}}',
     shareAria: 'Share {{name}}',
     visitedMark: 'Mark {{name}} as visited',
     visitedUnmark: 'Mark {{name}} as not visited',

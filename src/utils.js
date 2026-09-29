@@ -28,6 +28,7 @@ export function formatDistance(km) {
 }
 
 export const DAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+const WEEKDAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 // "11:30 AM" or "11:30" → minutes since midnight, null if unparseable
 function toMinutes(str) {
@@ -110,7 +111,25 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   const today = weekly[DAY_KEYS[now.getDay()]];
   if (!today) return null; // day not recorded — say nothing
 
-  if (today.length === 0) return { open: false, label: 'Closed', detail: 'closed today' };
+  // When it next opens, looking ahead day by day. Stops at the first day
+  // whose hours aren't recorded: past that we don't know, so we say nothing
+  // rather than skip over it to a later day.
+  const nextOpening = () => {
+    for (let d = 1; d <= 7; d++) {
+      const day = weekly[DAY_KEYS[(now.getDay() + d) % 7]];
+      if (!Array.isArray(day)) return null;
+      const first = day.map(s => toMinutes(s.from)).filter(m => m != null).sort((a, b) => a - b)[0];
+      if (first == null) continue;
+      const when = d === 1 ? 'tomorrow' : WEEKDAY_SHORT[(now.getDay() + d) % 7];
+      return `opens ${when} ${fromMinutes(first)}`;
+    }
+    return null;
+  };
+
+  if (today.length === 0) {
+    const next = nextOpening();
+    return { open: false, label: 'Closed', detail: next ? `closed today · ${next}` : 'closed today' };
+  }
 
   for (const slot of today) {
     const sp = span(slot);
@@ -121,9 +140,8 @@ export function getOpenStatus(hoursFact, now = new Date()) {
     .map(s => toMinutes(s.from))
     .filter(m => m != null && m > cur)
     .sort((a, b) => a - b)[0];
-  return next != null
-    ? { open: false, label: 'Closed', detail: `opens ${fromMinutes(next)}` }
-    : { open: false, label: 'Closed', detail: 'closed for today' };
+  if (next != null) return { open: false, label: 'Closed', detail: `opens ${fromMinutes(next)}` };
+  return { open: false, label: 'Closed', detail: nextOpening() ?? 'closed for today' };
 }
 
 /** Today's printed hours, e.g. "11:30 AM – 3:00 PM, 6:00 PM – 8:20 PM". */

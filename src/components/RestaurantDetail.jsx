@@ -417,15 +417,15 @@ export default function RestaurantDetail({
                 </div>
                 <div>
                   <dt>{t('detail.lastChecked')}</dt>
-                  <dd>{lastChecked ?? t('detail.never')}</dd>
+                  <dd>{lastChecked ? formatLongDate(lastChecked, i18n.language) : t('detail.never')}</dd>
                 </div>
               </dl>
             </footer>
             
             <div className="transparency-log">
-              {lastChecked && (
-                <p>{t('detail.lastVerified', { date: formatLongDate(lastChecked, i18n.language) })}</p>
-              )}
+              {/* The date is in the list above, as "last checked". A second line
+                  calling it "last verified" overstated it: a check can end in
+                  "unknown". */}
               <p>{t('detail.suggestEdit', { link: t('submit.reportLink') })}</p>
             </div>
 
