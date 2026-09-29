@@ -32,7 +32,7 @@ export const journeys = [
     id: 'myeongdong-halal-korean',
     title: 'Myeongdong: Korean Food, Halal-Friendly',
     description:
-      'Korean barbecue, set-course hanjeongsik and Korean fried chicken within a few streets of each other, each recorded on this map as halal-friendly. No halal certificate has been sighted for any of them — ask staff about the meat before ordering.',
+      'Korean barbecue, set-course hanjeongsik and Korean fried chicken within a few streets of each other, each recorded on this map as halal-friendly. None has a current halal certificate on record — Busan Jib's KMF certificates expired in April 2026 — so ask staff about the meat before ordering.',
     stopIds: ['halal-busan-jib', 'myeongdongjeong', 'myeongdong-chaeum', 'bsj-chicken-wok-myeongdong'],
   },
   {
