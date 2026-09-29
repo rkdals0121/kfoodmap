@@ -2170,6 +2170,24 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     journey titles like "Busan: Fully Vegan…" rest on Reported claims (the
     per-stop marks and tally say so); keyboard path through hundreds of
     map pins (skip link added, pins still focusable).
+45. **Persona walkthrough, 2026-09-30 ~02:00** (`WALKTHROUGH-1.md`: a halal
+    family in Myeongdong, a vegan in Busan/Jeju). Fixed: **directions no
+    longer start from the map centre** (Google/Naver/Kakao links name only
+    the destination; Naver uses an empty start + Web Mercator coords as its
+    own links do — not testable in the pane, which blocks naver.com);
+    **a filter could blank the whole app** (flyToBounds NaN with padding
+    larger than the map) — guarded, and `MapErrorBoundary` keeps the list
+    alive if the map fails; multi-word search; Halal-filter note (no
+    sighted certificate; pork-free is not in the filter, search
+    "pork-free"); distances > 50 km hidden; **tabs are routes**
+    (/discover, /journal, /profile, prerendered; sheets close back to the
+    tab); `vercel.json` rewrites unknown `/place/:id` to the app, which says
+    the place is gone (was Vercel's NOT_FOUND); card directions open the
+    detail at the map-app buttons; save/remove status line; one definition
+    of Confirmed (DATA.md's: primary source). Loading splash in index.html.
+    **Data follow-up (not done):** some operators' own words are recorded
+    as Reported (e.g. Soban Vegan) although DATA.md would call a
+    primary-source read Confirmed — a levels audit is data work, not UI.
 
 
 ---
