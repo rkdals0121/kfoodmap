@@ -142,9 +142,10 @@ export default function RestaurantDetail({
   const today = todaysHours(place.hours);
   const culture = getCulture(place);
   const coords = coordsOf(place);
-  const distance = mapCenter
-    ? formatDistance(haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng))
-    : null;
+  // Past 50 km, a distance from the map centre is noise (a shared link
+  // opens the map over Seoul), so it is not shown.
+  const km = mapCenter ? haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng) : null;
+  const distance = km != null && km <= 50 ? formatDistance(km) : null;
 
   // Pork-free is not halal, so it never carries the crescent.
   const dietFacts = dietaryBadges(place).map(b => ({
@@ -437,13 +438,13 @@ export default function RestaurantDetail({
               </div>
 
               <div className="detail-directions">
-                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place, mapCenter), '_blank')}>
+                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place), '_blank')}>
                   Naver Map
                 </button>
-                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place, mapCenter), '_blank')}>
+                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place), '_blank')}>
                   Kakao Map
                 </button>
-                <button className="btn-primary btn-primary--google" onClick={() => window.open(directionsUrl(place, mapCenter), '_blank')}>
+                <button className="btn-primary btn-primary--google" onClick={() => window.open(directionsUrl(place), '_blank')}>
                   Google Maps
                 </button>
               </div>

@@ -32,3 +32,10 @@ test('an unknown address does not break search', () => {
   assert.equal(matchesSearch({ ...place, address: { value: null } }, 'Samseong'), true);
   assert.equal(matchesSearch({ ...place, address: { value: null } }, 'Busan'), false);
 });
+
+test('several words match across fields, each somewhere', () => {
+  const busan = { name: 'Soban', zone: 'Seo-gu, Busan', story: 'Korean home cooking, fully vegan.', address: { value: '1 Road' } };
+  assert.equal(matchesSearch(busan, 'Busan korean'), true);
+  assert.equal(matchesSearch(busan, 'Busan halal'), false);
+  assert.equal(matchesSearch(place, 'Turkish Samseong'), true);
+});

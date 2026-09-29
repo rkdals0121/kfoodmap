@@ -3,6 +3,7 @@ import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router
 import { useTranslation } from 'react-i18next';
 import { restaurants } from './data/restaurants';
 import MapComponent from './components/MapComponent';
+import MapErrorBoundary from './components/MapErrorBoundary';
 import { prefetchPlaceRecords } from './hooks/usePlaceRecord';
 import FilterBar from './components/FilterBar';
 import BottomSheetList from './components/BottomSheetList';
@@ -237,12 +238,14 @@ function AppShell() {
             {t('app.updateReady')}
           </button>
         )}
-        <MapComponent
-          restaurants={filteredRestaurants}
-          onMarkerClick={openDetail}
-          selectedId={selectedRestaurant?.id}
-          onCenterChange={setMapCenter}
-        />
+        <MapErrorBoundary>
+          <MapComponent
+            restaurants={filteredRestaurants}
+            onMarkerClick={openDetail}
+            selectedId={selectedRestaurant?.id}
+            onCenterChange={setMapCenter}
+          />
+        </MapErrorBoundary>
       </div>
 
       <div className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || undefined}>

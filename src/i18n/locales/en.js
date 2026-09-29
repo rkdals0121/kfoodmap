@@ -47,7 +47,7 @@ export default {
     halalFriendly: 'Halal-friendly',
     porkFree: 'Pork-free',
     veganNotKnown: 'Vegan: not known',
-    halalNotKnown: 'Halal status: not known',
+    halalNotKnown: 'Halal: not known',
     veganNone: 'No vegan dishes',
     halalNone: 'Not halal',
   },
@@ -85,6 +85,7 @@ export default {
     noMatch: 'No places match',
     noMatchHint: 'Try removing a filter or searching a different name or area.',
     clearAll: 'Clear search and filters',
+    halalCaveat: "None of these places has a halal certificate we could sight. 'Halal-friendly' is what a source reports — open a place to see which source, and ask staff.",
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',
     readStoryAria: 'Read story: {{name}}',
     directionsAria: 'Get directions to {{name}}',
@@ -281,5 +282,7 @@ export default {
   map: {
     clusterZoom: '{{count}} places here — tap to zoom in',
     clusterList: '{{count}} places at this spot',
+    failed: 'The map could not be drawn. The list below still works.',
+    retry: 'Try the map again',
   },
 };

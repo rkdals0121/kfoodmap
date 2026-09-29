@@ -106,6 +106,20 @@ function sheetOverlap(map) {
   return Math.max(0, Math.min(m.bottom - Math.max(s.top, m.top), m.height - 240));
 }
 
+// flyToBounds with padding larger than the map itself (a zero-size map in a
+// hidden or collapsing container, or a sheet covering most of it) computes a
+// NaN zoom and throws — and an uncaught throw in an effect blanked the whole
+// app. Only fly when there is room; never let a map move take the app down.
+function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
+  const size = map.getSize();
+  if (size.x - padTL[0] - padBR[0] < 40 || size.y - padTL[1] - padBR[1] < 40) return;
+  try {
+    map.flyToBounds(L.latLngBounds(latlngs), { paddingTopLeft: padTL, paddingBottomRight: padBR, ...options });
+  } catch {
+    // leave the map where it is
+  }
+}
+
 // When a search or filter leaves nothing on screen — someone types "Busan"
 // while the map shows Seoul — move the map to what was found. Only then: if
 // any result is already visible, the map stays where the person put it.
@@ -121,12 +135,7 @@ function FollowResults({ restaurants }) {
     const overlap = sheetOverlap(map);
     const visible = L.bounds([0, 0], [size.x, Math.max(1, size.y - overlap)]);
     if (latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
-    map.flyToBounds(L.latLngBounds(latlngs), {
-      paddingTopLeft: [56, 56],
-      paddingBottomRight: [56, 56 + overlap],
-      maxZoom: 15,
-      duration: 0.6,
-    });
+    safeFlyToBounds(map, latlngs, [56, 56], [56, 56 + overlap], { maxZoom: 15, duration: 0.6 });
     // key stands in for restaurants: same places, same key, no move.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, map]);
@@ -216,9 +225,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
             title={label}
             alt={label}
             eventHandlers={{
-              click: () => map.flyToBounds(L.latLngBounds(latlngs.map(c => [c.lat, c.lng])), {
-                paddingTopLeft: [56, 56],
-                paddingBottomRight: [56, 56 + sheetOverlap(map)],
+              click: () => safeFlyToBounds(map, latlngs.map(c => [c.lat, c.lng]), [56, 56], [56, 56 + sheetOverlap(map)], {
                 maxZoom: map.getMaxZoom(),
                 duration: 0.5,
               }),

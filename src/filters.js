@@ -31,5 +31,11 @@ export function matchesSearch(r, query) {
   const q = squash(query ?? '');
   if (q === '') return true;
   const fields = [r.name, r.vibe, r.zone, r.address?.value];
-  return fields.some(f => typeof f === 'string' && squash(f).includes(q));
+  if (fields.some(f => typeof f === 'string' && squash(f).includes(q))) return true;
+  // Several words ("Busan korean", "itaewon vegan bakery"): every word must
+  // appear somewhere in the place's name, area, address or story.
+  const words = String(query).trim().split(/\s+/).map(squash).filter(w => w.length >= 2);
+  if (words.length < 2) return false;
+  const haystack = squash([...fields, r.story].filter(f => typeof f === 'string').join(' '));
+  return words.every(w => haystack.includes(w));
 }

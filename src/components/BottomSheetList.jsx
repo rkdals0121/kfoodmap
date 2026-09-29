@@ -16,7 +16,7 @@ const PAGE = 40;
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 
-function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, lens, mapCenter }) {
+function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, lens }) {
   const { t } = useTranslation();
   const name = displayName(place.name);
   const status = getOpenStatus(place.hours);
@@ -54,11 +54,17 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
             header says so). Unknown hours are said, not left blank. */}
         <p className="place-card__where">
           <span className="place-card__zone">{place.zone}</span>
-          <span aria-hidden="true"> · </span>
-          <span className="place-card__distance">
-            {formatDistance(place.distanceKm)}
-            <span className="visually-hidden"> {t('list.fromMapCentre')}</span>
-          </span>
+          {/* Past 50 km a distance from the map centre means nothing to a
+              visitor (a shared link opens over Seoul), so it is left out. */}
+          {place.distanceKm <= 50 && (
+            <>
+              <span aria-hidden="true"> · </span>
+              <span className="place-card__distance">
+                {formatDistance(place.distanceKm)}
+                <span className="visually-hidden"> {t('list.fromMapCentre')}</span>
+              </span>
+            </>
+          )}
         </p>
         <p className="place-card__meta">
           {status ? (
@@ -108,7 +114,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
           <button
             className="icon-btn"
             aria-label={t('list.directionsAria', { name })}
-            onClick={() => window.open(directionsUrl(place, mapCenter), '_blank')}
+            onClick={() => window.open(directionsUrl(place), '_blank')}
           >
             <CompassIcon size={20} />
           </button>
@@ -162,6 +168,13 @@ export default function BottomSheetList({
       {/* Said once for the whole list rather than on every card: the same
           caveat the detail page carries, so the lines below are never read as
           audited. */}
+      {/* Said while the Halal filter is on and no place listed holds a
+          sighted certificate (true of every place today). */}
+      {activeFilters.includes('Halal') && sorted.length > 0
+        && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
+        <p className="section-note place-list__note">{t('list.halalCaveat')}</p>
+      )}
+
       {sustainabilityLens && sorted.length > 0 && (
         <p className="section-note place-list__note">
           {t('list.esgCaveat')}
@@ -177,7 +190,6 @@ export default function BottomSheetList({
           onReadStory={onReadStory}
           onToggleBookmark={onToggleBookmark}
           lens={sustainabilityLens}
-          mapCenter={mapCenter}
         />
       ))}
 

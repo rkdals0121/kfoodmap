@@ -153,45 +153,40 @@ export function todaysHours(hoursFact, now = new Date()) {
   if (!weekly) return hoursFact.value.raw ?? null;
   const today = weekly[DAY_KEYS[now.getDay()]];
   if (!today) return null;
-  if (today.length === 0) return 'Closed today';
+  if (today.length === 0) return 'closed';
   return today.map(s => `${fromMinutes(toMinutes(s.from))} – ${fromMinutes(toMinutes(s.to))}`).join(', ');
 }
 
-// A directions deep link into Google Maps. With an origin (the current map
-// centre — the area the user is looking at) it opens a routed trip rather than
-// just dropping a pin they then have to route from themselves. Without one it
-// falls back to the previous pin behaviour, so a missing origin never breaks
-// the link. No runtime routing call is made here — the map app does the
-// routing — so this stays inside the no-backend constraint (§2.1).
-export function directionsUrl(place, origin = null) {
+// Directions deep links. They name only the destination, so the map app
+// routes from where the phone actually is. They used to pass the app's map
+// centre as the origin, which is not the visitor's position: after a pan,
+// or from a shared link (the map starts over Seoul), a Busan place was
+// routed from Seoul. No routing call is made here (§2.1).
+export function directionsUrl(place) {
   const { lat, lng } = coordsOf(place);
-  const destination = `${lat},${lng}`;
-  if (origin && Number.isFinite(origin[0]) && Number.isFinite(origin[1])) {
-    const params = new URLSearchParams({
-      api: '1',
-      origin: `${origin[0]},${origin[1]}`,
-      destination,
-    });
-    return `https://www.google.com/maps/dir/?${params}`;
-  }
-  return `https://www.google.com/maps/search/?api=1&query=${destination}`;
+  const params = new URLSearchParams({ api: '1', destination: `${lat},${lng}` });
+  return `https://www.google.com/maps/dir/?${params}`;
 }
 
-export function naverMapUrl(place, origin = null) {
+// Naver's directions with an empty start ("-"), which Naver fills with the
+// phone's location; a name search could land on another branch. Naver's
+// web links carry Web Mercator metres (EPSG:3857), as in its own
+// /p/directions/-/14135864.3,4515440.9,<name>,.../-/car links.
+const toMercator = (lat, lng) => {
+  const R = 6378137;
+  const x = R * (lng * Math.PI / 180);
+  const y = R * Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI / 180) / 2));
+  return [x, y];
+};
+export function naverMapUrl(place) {
   const { lat, lng } = coordsOf(place);
-  const name = encodeURIComponent(place.name);
-  if (origin && Number.isFinite(origin[0]) && Number.isFinite(origin[1])) {
-    return `https://map.naver.com/p/directions/${origin[1]},${origin[0]},Origin/${lng},${lat},${name}/-/transit?c=15,0,0,0,dh`;
-  }
-  return `https://map.naver.com/p/search/${name}?c=15,0,0,0,dh`;
+  const [x, y] = toMercator(lat, lng);
+  const name = encodeURIComponent(displayName(place.name));
+  return `https://map.naver.com/p/directions/-/${x.toFixed(2)},${y.toFixed(2)},${name}/-/transit`;
 }
 
-// `_origin` is accepted for signature parity with directionsUrl/naverMapUrl
-// but not yet used: unlike those two, this always drops a pin rather than
-// opening a routed trip from the map centre. Kakao's link scheme does
-// support a routed `from/.../to/...` form; wiring it up is a real feature
-// change, not a housekeeping one, so it stays unimplemented here.
-export function kakaoMapUrl(place, _origin = null) {
+// Kakao's route link starts from the phone's location too.
+export function kakaoMapUrl(place) {
   const { lat, lng } = coordsOf(place);
   const name = encodeURIComponent(place.name);
   return `https://map.kakao.com/link/to/${name},${lat},${lng}`;
