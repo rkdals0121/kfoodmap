@@ -314,6 +314,7 @@ export default function RestaurantDetail({
               );
             })}
 
+            {(openClaim === null || certClaim) && (
             <div className="diet-note">
               {/* An open claim explanation already says this, with its source. */}
               {openClaim === null && <p><strong>{caveat.title}</strong> {caveat.body}</p>}
@@ -325,6 +326,7 @@ export default function RestaurantDetail({
                 </p>
               )}
             </div>
+            )}
 
             {/* 4. Quick Information (Hours, Transit, Links, Actions) */}
             <div className="practical">
