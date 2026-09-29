@@ -2074,6 +2074,25 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     fields too. The service worker's precache limit was raised to 4 MiB
     when the chunk first crossed 2 MiB (vite.config.js).
 
+39. **Field quality passes, 2026-09-29 afternoon** (rules and counts in
+    docs/data-expansion/RULINGS.md; briefs FILL-/MENUS-/COORDS-BRIEF.md under
+    .superpowers/data-expansion/). Hours unknown 467 → 113, phone 186 → 64,
+    signature menu 151 → 96, transit 199 → 155 (57 of those now say plainly
+    that no station is walkable). Source order: owner-entered data on an
+    owner-registered Kakao listing first; stale sources (undated HappyCow
+    hours, Zabihah, KTO 2021, blogs ≤ 2023) never block a current one; where
+    two current sources disagree only the agreed days are recorded. Every
+    pin was audited against its own Kakao listing (one moved 368 m); every
+    active place was scanned for closure signals (4 quarantined today in
+    total from closure checks, plus 3 from identity checks). A real bug was
+    fixed on the way: weekly slots past midnight never matched, so late
+    kitchens showed Closed all evening (utils.getOpenStatus, tests in
+    scripts/tests/open-status.test.mjs). Saved places now prefetch their
+    full record so their detail works offline (privacy page updated).
+    **Naver is still unavailable**: the PlayMCP Naver tool is suspended by
+    its provider and the user cannot re-enable it; coordinates can only be
+    CONFIRMED once a Naver source returns.
+
 
 ---
 
