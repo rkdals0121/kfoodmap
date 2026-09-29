@@ -1510,14 +1510,14 @@ export const restaurants = [
       "evidence": "Kakao Map's walking-route endpoint for 지구본 비건베이커리카페 resolves to this point. Naver's search MCP was unavailable this session, so this is a single-service lookup, not a cross-check."
     },
     "address": {
-      "value": "56 Songdo-gwahak-ro, BT Center 105, Yeonsu-gu, Incheon (Songdo)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Map service lookup",
-      "lastCheckedAt": "2026-09-28",
+      "value": "Units 104–105, 1F BT Center (Songdo Technopark), 56 Songdo-gwahak-ro, Yeonsu-gu, Incheon (Songdo)",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/earthborn_vegan/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives 인천 연수구 송도과학로 56; Incheon's own tourism site and DiningCode independently add the unit, BT센터 105호 (DiningCode also gives the 지번 송도동 172-3). Held at SUPPORTED, not CONFIRMED, because Naver's own listing could not be cross-checked this session."
+      "evidence": "Operator (Instagram bio (@earthborn_vegan), read from the raw page text on 2026-09-29): '🐢본점 송도과학로 56BT센터104호, 105호'. Kakao Map panel3 (place.map.kakao.com/955789312): '인천 연수구 송도과학로 56 송도테크노파크 BT센터 1층 104~105호'. They agree. Road, building number, building (BT센터) and units 104 and 105 agree. The operator gives no floor; 1F is Kakao's. The previous value's 'BT Center 105' is widened to both units the operator names."
     },
     "hours": {
       "value": null,
@@ -2234,13 +2234,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 16-12 Seoulsup 2-gil, Seongdong-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Independent sources agree",
-      "lastCheckedAt": "2026-09-28",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/cafe_glunic/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives 서울 성동구 서울숲2길 16-12; a HappyCow listing independently gives the same address (16-12 Seoulsup 2-gil, Seoul 04768)."
+      "evidence": "Operator (Instagram bio (@cafe_glunic), read from the raw page text on 2026-09-29): '서울시 성동구 서울숲2길16-12,1층'. Kakao Map panel3 (place.map.kakao.com/829624793): '서울 성동구 서울숲2길 16-12 1층'. They agree. Road, building number and floor (1층) agree."
     },
     "hours": {
       "value": {
@@ -2396,13 +2396,13 @@ export const restaurants = [
     },
     "address": {
       "value": "34 Sinheung-ro, Yongsan-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Independent sources agree",
-      "lastCheckedAt": "2026-09-28",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/morocococafe/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives 서울 용산구 신흥로 34; a DiningCode listing and a HappyCow listing both independently give the same building (지번 용산동2가 45-9)."
+      "evidence": "Operator (Instagram bio (@morocococafe), read from the raw page text on 2026-09-29): '📍서울 용산구 신흥로 34'. Kakao Map panel3 (place.map.kakao.com/276990260): '서울 용산구 신흥로 34 남동연립 1층 101호'. They agree. Road and building number agree. Only Kakao gives a floor/unit (남동연립 1층 101호), so the value keeps none."
     },
     "hours": {
       "value": {
@@ -8908,13 +8908,13 @@ export const restaurants = [
     },
     "address": {
       "value": "42-16, Baekjegobun-ro 7-gil, Songpa-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Map service lookup",
-      "lastCheckedAt": "2026-09-28",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/aladdins_lamb/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives 서울 송파구 백제고분로7길 42-16, matching Seoul's official tourism site (\"42-16, Baekjegobun-ro 7-gil, Songpa-gu, Seoul\") and DiningCode's listing (\"서울특별시 송파구 백제고분로7길 42-16 정빌딩\") exactly."
+      "evidence": "Operator (Instagram bio (@aladdins_lamb), read from the raw page text on 2026-09-29): '주소 : 송파구 백제고분로 7길 42-16'. Kakao Map panel3 (place.map.kakao.com/21405772): '서울 송파구 백제고분로7길 42-16 1층'. They agree. Road and building number agree ('백제고분로 7길' and '백제고분로7길' differ only by a space). Only Kakao gives a floor."
     },
     "hours": {
       "value": {
@@ -9234,13 +9234,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 6 Seongdeokjeong 9ga-gil, Seongdong-gu, Seoul (Seongsu-dong 1-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Map service lookup",
-      "lastCheckedAt": "2026-09-28",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/roomtemperature.kafeteria/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives 서울 성동구 성덕정9가길 6, matching Seoul's official tourism site's address (\"6, Seongdeokjeong 9ga-gil, Seongdong-gu, Seoul (Seongsu-dong 1-ga)\") exactly."
+      "evidence": "Operator (Instagram bio (@roomtemperature.kafeteria), read from the raw page text on 2026-09-29): '성동구 성덕정9가길 6 / 6, Seongdeokjeong 9ga-gil, Seoungdong-gu, Seoul'. Kakao Map panel3 (place.map.kakao.com/1930992262): '서울 성동구 성덕정9가길 6 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
       "value": {
@@ -12061,13 +12061,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 22 Ttukseom-ro 3-gil, Seongdong-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1080034632",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/epikore.official/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives '서울 성동구 뚝섬로3길 22 1층 (성수동1가)'; DiningCode gives '서울특별시 성동구 뚝섬로3길 22 1층'; HappyCow's directory gives '22 Ttukseom-ro 3-gil'. All agree."
+      "evidence": "Operator (Instagram bio (@epikore.official), read from the raw page text on 2026-09-29): '성수 · 뚝섬로3길 22, 1F'. Kakao Map panel3 (place.map.kakao.com/1080034632): '서울 성동구 뚝섬로3길 22 1층'. They agree. Road, building number and floor agree."
     },
     "hours": {
       "value": null,
@@ -12181,13 +12181,13 @@ export const restaurants = [
     },
     "address": {
       "value": "B1F, 4-6 Seongsu-il-ro 3-gil, Seongdong-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/631002199",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/pureundeli/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives '서울 성동구 성수일로3길 4-6 지하 1층 (성수동1가)'; DiningCode gives '서울특별시 성동구 성수일로3길 4-6 지하1층'; HappyCow gives '4-6, Seongsu-il-ro 3-gil, Seongdong-gu'. All agree."
+      "evidence": "Operator (Instagram bio (@pureundeli), read from the raw page text on 2026-09-29): '🗝️ 성동구 성수일로 3길 4-6, B1'. Kakao Map panel3 (place.map.kakao.com/631002199): '서울 성동구 성수일로3길 4-6 지하 1층'. They agree. Road, building number and floor (B1 = 지하 1층) agree."
     },
     "hours": {
       "value": null,
@@ -18730,13 +18730,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 201, 2F, 80 Jeungga-ro, Seodaemun-gu, Seoul 03695",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1996816293",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/weirdough.friends/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map (business-verified): '서울 서대문구 증가로 80 2층 201호 (우)03695' (place.map.kakao.com/1996816293). HappyCow (fetched twice, identical): '80 KR 2nd Floor, 201, 80 Jeungga-ro, Seodaemun-gu, Seoul, South Korea'."
+      "evidence": "Operator (Instagram bio (@weirdough.friends), read from the raw page text on 2026-09-29): '서울 서대문구 증가로 80  2층'. Kakao Map panel3 (place.map.kakao.com/1996816293): '서울 서대문구 증가로 80 2층 201호'. They agree. Road, building number and floor (2층) agree. The unit number 201 is Kakao's; the operator gives none."
     },
     "hours": {
       "value": {
@@ -19042,13 +19042,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 34-6 Donhwamun-ro 11-gil, Jongno-gu, Seoul 03133",
-      "confidence": "supported",
-      "source": "Restaurant directory listing",
-      "url": "https://www.happycow.net/reviews/ajindang-seoul-385270",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/ajindang_iksun/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "HappyCow (fetched twice, identical): '34-6 Donhwamun-ro 11-gil, Jongno-gu, Seoul, South Korea, 03133'. Kakao Map (business-verified): '서울 종로구 돈화문로11길 34-6 1층 (우)03133' (place.map.kakao.com/1575502715)."
+      "evidence": "Operator (Instagram bio (@ajindang_iksun), read from the raw page text on 2026-09-29): '종로구 돈화문로 11길 34-6'. Kakao Map panel3 (place.map.kakao.com/1575502715): '서울 종로구 돈화문로11길 34-6 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
       "value": {
@@ -20235,13 +20235,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 75 Nonhyeon-ro 175-gil, Gangnam-gu, Seoul",
-      "confidence": "supported",
+      "confidence": "confirmed",
       "source": "The restaurant",
-      "url": "https://mahinavegan.com/ko/",
-      "method": "Independent sources agree",
+      "url": "https://mahinavegan.com/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "The operator's own site gives '대한민국, 서울특별시 강남구 논현로175길 75, 2층'. DiningCode (https://www.diningcode.com/profile.php?rid=PR6YW1gWvUk4) gives '서울특별시 강남구 논현로175길 75 2층'; Seoul's vegetarian-restaurant register (https://func.seoul.go.kr/user/vegetarian/restaurantList.do) gives '서울 강남구 논현로175길 75 2층'; Kakao Map lists 마히나비건테이블 at 서울 강남구 논현로175길 75. All agree."
+      "evidence": "Operator (the operator's own site, raw HTML, read from the raw page text on 2026-09-29): '대한민국, 서울특별시 강남구 논현로175길 75, 2층 / 2nd Floor, 75 Nonhyeon-ro 175-gil, Gangnam-gu, Seoul, Republic of Korea'. Kakao Map panel3 (place.map.kakao.com/1209872494): '서울 강남구 논현로175길 75 2층'. They agree. Road, building number and floor agree. Kakao has two listings for the place (1209872494 and 1604705350); both give this address."
     },
     "hours": {
       "value": {
@@ -20546,13 +20546,13 @@ export const restaurants = [
     },
     "address": {
       "value": "17 Nonhyeon-ro 16-gil, Gangnam-gu, Seoul (Gaepo-dong 1230-9)",
-      "confidence": "supported",
+      "confidence": "confirmed",
       "source": "The restaurant",
       "url": "http://lovinghut.kr/kr/bbs/board.php?bo_table=restaurants_kr",
       "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Loving Hut Korea's own store list gives '러빙헛 스마일 주소.. 서울 강남구 논현로 16길17 (개포동1230-9)'. Kakao Map lists 러빙헛스마일 at 서울 강남구 논현로16길 17, and DiningCode's search listing gives '서울특별시 강남구 논현로16길 17 1층 러빙헛랜드' (its former name). Seoul's vegetarian-restaurant register still shows an older address, '서울 강남구 논현로6길 18'; the operator's own list and Kakao agree on 논현로16길 17, and the operator's page settles it."
+      "evidence": "Operator (Loving Hut Korea's own store list (매장 정보), read from the raw page text on 2026-09-29): '서울 강남구 논현로 16길17 (개포동1230-9)'. Kakao Map panel3 (place.map.kakao.com/27493166): '서울 강남구 논현로16길 17 1층 103호, jibun 개포동 1230-9'. They agree. Road, building number and lot number agree. Only Kakao gives a floor/unit (1층 103호), so the value keeps none."
     },
     "hours": {
       "value": null,
@@ -21069,13 +21069,13 @@ export const restaurants = [
     },
     "address": {
       "value": "17-5 Darigan 3-gil, Danwon-gu, Ansan, Gyeonggi-do (Gojan-dong)",
-      "confidence": "supported",
+      "confidence": "confirmed",
       "source": "The restaurant",
       "url": "http://lovinghut.kr/kr/bbs/board.php?bo_table=restaurants_kr",
       "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Loving Hut Korea's own store list, read twice: '안산 고잔점 주소.. 경기도 안산시 단원구 다리간3길 17-5 (고잔동)'. Kakao Map lists 러빙헛 안산고잔점 at '경기 안산시 단원구 다리간3길 17-5 1층 (고잔동)' and DiningCode (rid=uOt4ZSWKbE6k) gives '경기도 안산시 단원구 다리간3길 17-5 미니빌'. All agree on the street address.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Loving Hut Korea's own store list (매장 정보), read from the raw page text on 2026-09-29): '경기도 안산시 단원구 다리간3길 17-5 (고잔동)'. Kakao Map panel3 (place.map.kakao.com/11654791): '경기 안산시 단원구 다리간3길 17-5 1층, jibun 고잔동 688-3'. They agree. Road, building number and dong agree. Only Kakao gives a floor, so the value keeps none."
     },
     "hours": {
       "value": {
@@ -22407,13 +22407,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 87 Hongyeon-gil, Seodaemun-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/139304151",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/veggies.kitchen.and.bar/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map: '서울 서대문구 홍연길 87 1층 (연희동)' (지번 연희동 719-18). DiningCode (rid=GN3V2mRhCmgd): '서울특별시 서대문구 홍연길 87 1층(연희동)', 지번 연희동 719-18. They agree."
+      "evidence": "Operator (Instagram bio (@veggies.kitchen.and.bar), read from the raw page text on 2026-09-29): '🥦서대문구 홍연길87 1층'. Kakao Map panel3 (place.map.kakao.com/139304151): '서울 서대문구 홍연길 87 1층'. They agree. Road, building number and floor agree."
     },
     "hours": {
       "value": null,
@@ -23262,14 +23262,14 @@ export const restaurants = [
       "evidence": "Kakao Map's walking-route endpoint to '두유럽미' (Kakao place 1331779949, 인천 부평구 경인로931번길 12-4) resolves the destination to 37.488060/126.723088. Naver is unreachable this session, so this is Kakao-only and held at SUPPORTED."
     },
     "address": {
-      "value": "Unit B02, 12-4 Gyeongin-ro 931beon-gil, Bupyeong-gu, Incheon",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1331779949",
-      "method": "Independent sources agree",
+      "value": "12-4 Gyeongin-ro 931beon-gil, Bupyeong-gu, Incheon",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/dou.luv.me/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map: '인천 부평구 경인로931번길 12-4 (부평동)'. DiningCode (rid=EzvQXP0axBE9): '인천광역시 부평구 경인로931번길 12-4 b02호 두유럽미'. They agree; the unit number is DiningCode's."
+      "evidence": "Operator (Instagram bio (@dou.luv.me), read from the raw page text on 2026-09-29): '🏠 인천 부평구 경인로931번길 12-4'. Kakao Map panel3 (place.map.kakao.com/1331779949): '인천 부평구 경인로931번길 12-4'. They agree. They agree exactly. The previous value's 'Unit B02' came from DiningCode alone; neither the operator nor Kakao gives it, so the confirmed value leaves it out."
     },
     "hours": {
       "value": null,
@@ -29400,13 +29400,13 @@ export const restaurants = [
     },
     "address": {
       "value": "102, Sejin Villa, 648 Seohaean-ro, Jeju-si, Jeju-do (Yongdam 3-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1416890463",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/e_um.mei/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1416890463): '제주특별자치도 제주시 서해안로 648 세진빌라 102호 (용담삼동)', jibun 용담삼동 516-2. HappyCow gives 'YongdamSam-dong 516-2' (the same parcel) and DiningCode (rid=JoE0KXsyyNx9) gives the same road address.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@e_um.mei), read from the raw page text on 2026-09-29): '제주시 서해안로 648 세진빌라 102호'. Kakao Map panel3 (place.map.kakao.com/1416890463): '제주특별자치도 제주시 서해안로 648 세진빌라 102호'. They agree. Road, building number, building name and unit (102호) agree."
     },
     "hours": {
       "value": {
@@ -29856,13 +29856,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 18-14 Napeupdong 1-gil, Aewol-eup, Jeju-si, Jeju-do (Napeup-ri)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1520691558",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/vegantablebaram/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1520691558): '제주특별자치도 제주시 애월읍 납읍동1길 18-14 1층 (애월읍 납읍리)'. HappyCow gives '18-14 Nabeupdong 1-gil, Aewol-eup'. (KTO's 2021 guide gave 18-16; the two current sources agree on 18-14.)",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@vegantablebaram), read from the raw page text on 2026-09-29): '📍제주시 애월읍 납읍동1길18-14'. Kakao Map panel3 (place.map.kakao.com/1520691558): '제주특별자치도 제주시 애월읍 납읍동1길 18-14 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
       "value": null,
@@ -30345,13 +30345,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 960 Aewolhaean-ro, Aewol-eup, Jeju-si, Jeju-do (Hagwi 2-ri)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/2006784637",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/avec_vegan/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 2006784637): '제주특별자치도 제주시 애월읍 애월해안로 960 2층 (애월읍 하귀2리)'. HappyCow gives '2nd floor, 960, Aewolhaean-ro, Aewol-eup'.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@avec_vegan), read from the raw page text on 2026-09-29): '애월해안로960 2층 아베끄 / 2nd floor, 960, Aewolhaean-ro, Aewol-eup, Jeju'. Kakao Map panel3 (place.map.kakao.com/2006784637): '제주특별자치도 제주시 애월읍 애월해안로 960 2층'. They agree. Road, building number and floor agree."
     },
     "hours": {
       "value": null,
@@ -30805,13 +30805,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 238 Dodong-ro, Jinju, Gyeongsangnam-do (Hadae-dong)",
-      "confidence": "supported",
+      "confidence": "confirmed",
       "source": "The restaurant",
-      "url": "http://lovinghut.kr/kr/bbs/board.php?bo_table=restaurants_kr&wr_id=78",
+      "url": "http://lovinghut.kr/kr/bbs/board.php?bo_table=restaurants_kr",
       "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Loving Hut Korea's own branch page for 진주점, read twice with identical text: '경남 진주시 도동로 238'. Kakao Map (place 762877295): '경남 진주시 도동로 238 1층 (하대동)'. DiningCode gives 도동로 238 (지번 하대동 331-1) and HappyCow '238 Dodong-ro (at 331-1 Hade-dong)'. All agree.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Loving Hut Korea's own store list (매장 정보), read from the raw page text on 2026-09-29): '경남 진주시 도동로 238'. Kakao Map panel3 (place.map.kakao.com/762877295): '경남 진주시 도동로 238 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
       "value": null,
@@ -30935,13 +30935,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 8-2 Hanamcheonseo-gil 21beon-gil, Uichang-gu, Changwon, Gyeongsangnam-do",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/655957289",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/ssongddi_and_bread/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 655957289): '경남 창원시 의창구 하남천서길21번길 8-2 1층 (도계동)'. HappyCow's Changwon listing gives '8-2, Hanamcheonseo-gil 21beon-gil, Uichang-gu'. They agree.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@ssongddi_and_bread), read from the raw page text on 2026-09-29): 'Ad:창원시 의창구 하남천서길 21번길 8-2'. Kakao Map panel3 (place.map.kakao.com/655957289): '경남 창원시 의창구 하남천서길21번길 8-2 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
       "value": {
@@ -31205,13 +31205,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 81 Sinseon-ro, Nam-gu, Ulsan (Yaeum-dong 747-24)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/880326663",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/mimigotgan/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 880326663): '울산 남구 신선로 81 1층 (야음동)', lot number 야음동 747-24. HappyCow's Ulsan listing gives '747-24 Yaeum-dong' — the same lot. DiningCode gives 신선로 81 1층.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@mimigotgan), read from the raw page text on 2026-09-29): '울산 남구 신선로 81 1층 민트색가게'. Kakao Map panel3 (place.map.kakao.com/880326663): '울산 남구 신선로 81 1층'. They agree. Road, building number and floor agree."
     },
     "hours": {
       "value": {
@@ -32795,13 +32795,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F (Jehan Oriental Clinic building), 18 Ayang-ro, Dong-gu, Daegu (Sinam-dong)",
-      "confidence": "supported",
+      "confidence": "confirmed",
       "source": "The restaurant",
       "url": "http://lovinghut.kr/kr/bbs/board.php?bo_table=restaurants_kr",
       "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Loving Hut Korea's own store list, read twice with identical text: '평화점 주소.. 대구시 동구 아양로 18 (제한한의원 2층)'. Kakao Map (place 1793268365): '대구 동구 아양로 18 제한한의원 2층 (신암동)', homepage www.lovinghut.kr. Both agree.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Loving Hut Korea's own store list (매장 정보), read from the raw page text on 2026-09-29): '대구시 동구 아양로 18 (제한한의원 2층)'. Kakao Map panel3 (place.map.kakao.com/1793268365): '대구 동구 아양로 18 제한한의원 2층'. They agree. Road, building number, building and floor agree."
     },
     "hours": {
       "value": {
@@ -35769,13 +35769,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 10 Hwasancheonbyeon 1-gil, Wansan-gu, Jeonju, Jeonbuk State (Junghwasan-dong 2-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1250024625",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/present_vegancafe/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '전북특별자치도 전주시 완산구 화산천변1길 10 1층 (중화산동2가)'. DiningCode (rid=YOrF3FHcHwQR): '화산천변1길 10', same jibun 중화산동2가 762-7. HappyCow: '10 Hwasancheonbyeon 1-gil'. All agree.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@present_vegancafe), read from the raw page text on 2026-09-29): '📍전주시 완산구 화산천변1길10'. Kakao Map panel3 (place.map.kakao.com/1250024625): '전북특별자치도 전주시 완산구 화산천변1길 10 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
       "value": null,
@@ -39702,14 +39702,14 @@ export const restaurants = [
       "evidence": "Kakao Map's walking-route API resolves '보들보들제빵소' to 37.390854, 126.925831 (destination point of the route from 안양역 (Line 1)), the same point Kakao's place record gives. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
     },
     "address": {
-      "value": "1F, 50-1 Hyeonchung-ro, Manan-gu, Anyang, Gyeonggi-do (Anyang-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1818389117",
-      "method": "Independent sources agree",
+      "value": "50-1 Hyeonchung-ro, Manan-gu, Anyang, Gyeonggi-do (Anyang-dong)",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/bodlebodle.bakery/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '경기 안양시 만안구 현충로 50-1 (안양동)', jibun 안양동 468-26. HappyCow's list gives '경기 안양시 만안구 현충로 50-1 1층 보들보들제빵소'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@bodlebodle.bakery), read from the raw page text on 2026-09-29): '만안구 현충로 50-1'. Kakao Map panel3 (place.map.kakao.com/1818389117): '경기 안양시 만안구 현충로 50-1'. They agree. They agree. The previous value's '1F' came from HappyCow alone; neither the operator nor Kakao gives a floor, so the confirmed value leaves it out."
     },
     "hours": {
       "value": null,
@@ -42643,13 +42643,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 44 Hyanggyo-gil, Wansan-gu, Jeonju, Jeonbuk State (Gyo-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/24325006",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/hawaiianrecipe/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '전북특별자치도 전주시 완산구 향교길 44 1층 (교동)', jibun 교동 215-2. HappyCow's Jeonju list: '44, Hyanggyo-gil, Wansan-gu Jeonju'. They agree, and the phone numbers match.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@hawaiianrecipe), read from the raw page text on 2026-09-29): '전주시 완산구 향교길 44'. Kakao Map panel3 (place.map.kakao.com/24325006): '전북특별자치도 전주시 완산구 향교길 44 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
       "value": null,
@@ -42763,13 +42763,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 111, Star Tower, 36 Giji-ro, Iseo-myeon, Wanju-gun, Jeonbuk State (Galsan-ri)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1669120848",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/cobe_cafe/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '전북특별자치도 완주군 이서면 기지로 36 스타타워 111호 (이서면 갈산리)', jibun 갈산리 663-1. HappyCow's Jeonju list: '36, 111ho, Giji-ro, Iseo-myeon, Wanju-gun'. They agree.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@cobe_cafe), read from the raw page text on 2026-09-29): '• 완주군 이서면 기지로 36, 111호 (하얀집)'. Kakao Map panel3 (place.map.kakao.com/1669120848): '전북특별자치도 완주군 이서면 기지로 36 스타타워 111호'. They agree. Road, building number and unit (111호) agree. The building name (스타타워) is Kakao's."
     },
     "hours": {
       "value": null,
@@ -43998,13 +43998,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 14 Gwangbokjungang-ro 34beon-gil, Jung-gu, Busan (Daecheong-dong 2-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1088115122",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/love.and.communication/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1088115122): '부산 중구 광복중앙로34번길 14 (대청동2가)'. HappyCow gives '14 Gwangbokjungang-ro 34beon-gil 2F'; a 2026-09-23 blog linked from the Kakao listing gives the same address, 2층.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@love.and.communication), read from the raw page text on 2026-09-29): '부산 중구 광복중앙로34번길 14 2F'. Kakao Map panel3 (place.map.kakao.com/1088115122): '부산 중구 광복중앙로34번길 14'. They agree. Road and building number agree. Kakao gives no floor; 2F is the operator's."
     },
     "hours": {
       "value": {
@@ -44160,13 +44160,13 @@ export const restaurants = [
     },
     "address": {
       "value": "4F Museum of Contemporary Art Busan, 1191 Nakdongnam-ro, Saha-gu, Busan (Hadan-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1399627374",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/arp_eulsuk/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1399627374): '부산 사하구 낙동남로 1191 부산현대미술관 4층 (하단동)'. HappyCow gives '4F, 1191 Nakdongnam-ro, Saha-gu'. This is a separate branch from ARP in Yeongdo (arp-yeongdo, b7-busan), at a different address.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio (@arp_eulsuk), read from the raw page text on 2026-09-29): '낙동남로 1191, 부산현대미술관 4층'. Kakao Map panel3 (place.map.kakao.com/1399627374): '부산 사하구 낙동남로 1191 부산현대미술관 4층'. They agree. Road, building number, building and floor agree."
     },
     "hours": {
       "value": {
@@ -44621,13 +44621,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 14 Jeonpo-daero 246beon-gil, Busanjin-gu, Busan (Jeonpo-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/2038764037",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://oven-goodthing.web.app/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 2038764037): '부산 부산진구 전포대로246번길 14 1층 (전포동)'. HappyCow gives '14, Jeonpo-daero 246beon-gil'.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (the operator's own shop site, business-information footer (회사 주소), read from the raw page text on 2026-09-29): '부산 부산진구 전포대로246번길 14 1층 오굳띵'. Kakao Map panel3 (place.map.kakao.com/2038764037): '부산 부산진구 전포대로246번길 14 1층'. They agree. Road, building number and floor agree."
     },
     "hours": {
       "value": {
