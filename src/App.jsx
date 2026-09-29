@@ -53,6 +53,10 @@ function AppShell() {
   const focusStory = Boolean(location.state?.focusStory);
   const isSubmit = location.pathname === '/submit';
   const isPrivacy = location.pathname === '/privacy';
+  // A detail, submit or privacy sheet is modal: while one is open, what lies
+  // behind it is inert, so Tab stays inside the sheet instead of wandering
+  // into the list and map it covers.
+  const modalOpen = Boolean(selectedRestaurant) || isSubmit || isPrivacy;
   const submitPlace = useMemo(
     () => (isSubmit ? resolvePlace(new URLSearchParams(location.search).get('place'), activeRestaurants) : null),
     [isSubmit, location.search],
@@ -200,7 +204,7 @@ function AppShell() {
   return (
     <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
       {/* Map is now at the base level */}
-      <div className="map-region" inert={mapCovered || undefined}>
+      <div className="map-region" inert={mapCovered || modalOpen || undefined}>
         {!isOnline && (
           <div className="offline-banner" role="status">
             {t('app.offline')}
@@ -221,7 +225,7 @@ function AppShell() {
         />
       </div>
 
-      <div className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`}>
+      <div className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || undefined}>
         {/* Render Map Items ONLY when activeTab is 'map' */}
         {activeTab === 'map' && (
           <>
@@ -298,7 +302,7 @@ function AppShell() {
         />
       </div>
 
-      <div className="border-region">
+      <div className="border-region" inert={modalOpen || undefined}>
         <button 
           className="sidebar-toggle"
           aria-label={isSidebarCollapsed ? t('app.sidebarExpand') : t('app.sidebarCollapse')}
