@@ -458,19 +458,6 @@ button {
   flex-shrink: 0;
 }
 
-/* Story teaser: the vibe one-liner surfaces culture on the card, giving a
-   reason to tap into the story before the user commits */
-.place-card__vibe {
-  font-size: 12px;
-  line-height: 1.45;
-  color: var(--muted);
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  font-style: italic;
-}
-
 .place-card__media {
   grid-area: media;
   align-self: start;
@@ -488,19 +475,6 @@ button {
   justify-content: space-between;
   gap: 8px;
   align-self: end;
-}
-.place-card__rating {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  white-space: nowrap;
-}
-.place-card__star {
-  color: var(--orange);
-}
-.place-card__reviews {
-  color: var(--muted);
-  font-weight: 400;
 }
 .place-card__story-btn {
   position: relative;
@@ -785,28 +759,6 @@ button {
 .practical-muted {
   color: var(--muted);
   font-weight: 400;
-}
-
-/* Trust banner: the first thing a user sees after the header — answering
-   "can I trust this page?" before any dietary or practical claim */
-.trust-banner {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px 14px;
-  background: var(--green-tint);
-  border: 1px solid #C6F1DA;
-  border-radius: var(--radius);
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--green-strong);
-}
-.trust-banner svg {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.trust-banner strong {
-  font-weight: 700;
 }
 
 /* Quick facts */
@@ -1790,22 +1742,6 @@ button {
   cursor: pointer;
   font-family: var(--font);
 }
-.stamp-ring {
-  width: 96px;
-  height: 96px;
-  margin-bottom: 6px;
-  border-radius: 50%;
-  border: 2px solid var(--green-strong);
-  background: var(--green-tint);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.stamp-ring img {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-}
 /* ---------- Passport seals (dojang) ----------
    The one Korean motif in the app, kept to the Journal. Flat ink, a double
    rule, characters laid out as a seal is cut (see data/seal-text.js). */
@@ -1848,12 +1784,6 @@ button {
 .stamp:nth-child(even) .seal {
   transform: rotate(1.5deg);
 }
-.stamp:nth-child(odd) .stamp-ring {
-  transform: rotate(-1.5deg);
-}
-.stamp:nth-child(even) .stamp-ring {
-  transform: rotate(1.8deg);
-}
 .stamp-name {
   font-weight: 700;
   font-size: 14px;
@@ -1868,18 +1798,6 @@ button {
   letter-spacing: 0.03em;
   color: var(--green-strong);
 }
-.stamp-visited-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--green-strong);
-  padding: 1px 7px;
-  background: var(--green-tint);
-  border-radius: 999px;
-  margin-top: 2px;
-}
-.stamp-saved-label,
 .stamp-sample-tag {
   font-size: 10px;
   font-weight: 700;
@@ -1891,22 +1809,6 @@ button {
   border-radius: 999px;
   margin-top: 2px;
 }
-/* A saved place is a plan, not a stamp: the ring stays open until the visit is
-   recorded, so a fully inked stamp always means "you have been here" */
-.stamp--saved .stamp-ring {
-  border-style: dashed;
-  border-width: 1.5px;
-  border-color: var(--line);
-  background: var(--surface);
-  opacity: 0.6;
-}
-.stamp--saved .stamp-name {
-  color: var(--muted-strong);
-}
-.stamp--saved .stamp-date {
-  color: var(--muted);
-}
-
 /* Passport cover nudge: a micro-milestone message that acknowledges progress */
 .passport-cover__nudge {
   margin-top: 10px;
@@ -2683,23 +2585,6 @@ button {
   align-items: center;
   gap: 8px;
   min-width: 80px;
-}
-.badge-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-.badge-item.locked .badge-icon {
-  background: var(--surface);
-  filter: grayscale(100%) opacity(0.3);
-  box-shadow: none;
 }
 .badge-name {
   font-size: 13px;
