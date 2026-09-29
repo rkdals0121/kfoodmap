@@ -14,6 +14,7 @@ import {
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
+import { CLAIM_CLASS } from './claim';
 
 // Keyed by the identifier as stored in restaurant.traits / compared in
 // App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
@@ -36,9 +37,25 @@ function SectionHead({ Icon, title, kr }) {
   );
 }
 
-function Trust({ fact }) {
-  const { label, tone, detail } = trustBadge(fact);
-  return <span className={`trust trust--${tone}`} title={detail}>{label}</span>;
+// A dietary fact is a button: tapping it opens the source and reasoning
+// below the row. This used to live in a hover tooltip, which a phone
+// never shows.
+function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
+  const { label: level, tone } = trustBadge(fact);
+  return (
+    <li>
+      <button
+        type="button"
+        className={`fact claim claim-fact claim--${CLAIM_CLASS[tone]}`}
+        aria-expanded={open}
+        aria-controls={`claim-explain-${id}`}
+        onClick={onToggle}
+      >
+        <Icon size={16} aria-hidden="true" /> {label}
+        <span className="claim-fact__level">{level}</span>
+      </button>
+    </li>
+  );
 }
 
 // Keyed by confidence level; titleKey/bodyKey are resolved with t() inside
@@ -59,6 +76,7 @@ export default function RestaurantDetail({
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
+  const [openClaim, setOpenClaim] = useState(null);
   const storyRef = useRef(null);
   const sheetRef = useRef(null);
   // The bundle carries a lighter record; the full one (evidence, menus,
@@ -200,14 +218,35 @@ export default function RestaurantDetail({
             {/* 3. Diet Tags */}
             {facts.length > 0 && (
               <ul className="fact-row" aria-label={t('detail.dietaryFactsLabel')}>
-                {facts.map(({ id, Icon, label, fact: f }) => (
+                {facts.map(({ id, Icon, label, fact: f }) => (f ? (
+                  <ClaimFact
+                    key={id}
+                    id={id}
+                    Icon={Icon}
+                    label={label}
+                    fact={f}
+                    open={openClaim === id}
+                    onToggle={() => setOpenClaim(o => (o === id ? null : id))}
+                  />
+                ) : (
                   <li key={id} className="fact">
                     <Icon size={16} aria-hidden="true" /> {label}
-                    {f && <Trust fact={f} />}
                   </li>
-                ))}
+                )))}
               </ul>
             )}
+            {facts.filter(x => x.fact).map(({ id, label, fact: f }) => {
+              const { label: level, detail } = trustBadge(f);
+              return (
+                <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
+                  <p><strong>{label} · {level}.</strong> {detail}</p>
+                  <p className="claim-explain__meta">
+                    {t('detail.claimSource', { source: sourceLabel(f.source) })}
+                    {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
+                  </p>
+                </div>
+              );
+            })}
 
             <div className="diet-note">
               <p><strong>{caveat.title}</strong> {caveat.body}</p>
@@ -397,7 +436,7 @@ export default function RestaurantDetail({
               <p className="provenance__title">{t('detail.aboutThisInformation')}</p>
               <p>
                 <Trans i18nKey="detail.provenanceOfficialSentence" components={[<strong key="0" />]} />
-                <Trans i18nKey="detail.provenanceReportedSentence" components={[<strong key="0" />]} /> <Trans i18nKey="detail.provenanceInferredSentence" components={[<strong key="0" />]} />
+                <Trans i18nKey="detail.provenanceReportedSentence" components={[<strong key="0" />]} /> <Trans i18nKey="detail.provenanceInferredSentence" components={[<strong key="0" />, <strong key="1" />]} />
               </p>
               <dl className="provenance__list">
                 <div>

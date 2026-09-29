@@ -998,29 +998,82 @@ button {
 
 /* Trust badge: confidence × source collapsed into one word. Deliberately quiet
    — it qualifies the fact it follows, it isn't the headline. */
-.trust {
-  margin-left: 6px;
-  padding: 1px 6px;
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: help;
+/* ---------- The claim mark (docs/UI-DIRECTION.md) ----------
+   How sure we are about a dietary claim, by fill and border style plus a
+   word; never by colour alone, never green/amber/red. Confirmed is the
+   rare, strong case (solid ink), so it stands out where it exists. */
+.claim {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--muted);
 }
-.trust--strong {
-  background: var(--green-tint);
-  color: var(--green-strong);
-}
-.trust--medium,
-.trust--none {
-  background: var(--fill);
+.claim__level,
+.claim-fact__level {
+  font-size: 11px;
+  font-weight: 500;
   color: var(--muted-strong);
 }
-.trust--weak {
-  background: var(--orange-tint);
-  color: var(--orange-strong);
+.claim__level::before,
+.claim-fact__level::before {
+  content: '·';
+  margin-right: 5px;
+}
+.claim--confirmed,
+.claim-fact.claim--confirmed {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.claim--confirmed .claim__level,
+.claim--confirmed .claim-fact__level,
+.claim--confirmed svg {
+  color: #D5D9DF;
+}
+.claim--reported {
+  border-style: solid;
+}
+.claim--reading {
+  border: 1.5px dashed var(--muted-strong);
+}
+.claim--unknown {
+  border: 1px dotted var(--muted);
+  color: var(--muted-strong);
+}
+
+/* On the detail page the claim is a button that opens its explanation. */
+.claim-fact {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  min-height: 40px;
+}
+.claim-fact[aria-expanded='true'] {
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--muted);
+}
+.claim-fact:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+}
+.claim-explain {
+  margin-top: -4px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--muted);
+  background: var(--bg);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-body);
+}
+.claim-explain p + p {
+  margin-top: 6px;
+}
+.claim-explain__meta {
+  color: var(--muted-strong);
+  font-size: 12px;
 }
 
 .diet-note {
@@ -1241,6 +1294,15 @@ button {
   font-size: 12px;
   font-weight: 500;
   font-family: var(--font);
+}
+.tag-chip.claim {
+  background: var(--surface);
+  color: var(--ink);
+  padding: 2px 8px;
+}
+.tag-chip.claim--confirmed {
+  background: var(--ink);
+  color: #fff;
 }
 
 /* ---------- Bottom tab bar ---------- */
