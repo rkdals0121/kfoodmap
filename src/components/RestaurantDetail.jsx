@@ -16,6 +16,7 @@ import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
 import { CLAIM_CLASS } from './claim';
 import ClaimChip from './ClaimChip';
+import KoText from './KoText';
 
 // Keyed by the identifier as stored in restaurant.traits / compared in
 // App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
@@ -233,12 +234,7 @@ export default function RestaurantDetail({
           <div className={`detail-content${galleryImages.length > 0 ? '' : ' detail-content--no-hero'}`}>
             {/* 2. Restaurant Name */}
             <header className="detail-header">
-              <h2>
-                {/* Hangul parts carry lang="ko" so a screen reader switches voice. */}
-                {String(place.name).split(/(\([^)]*[가-힣][^)]*\))/).map((part, i) => (
-                  /[가-힣]/.test(part) ? <span key={i} lang="ko">{part}</span> : part
-                ))}
-              </h2>
+              <h2><KoText>{place.name}</KoText></h2>
               <p className="detail-meta">
                 {place.zone}
                 {distance && <><span aria-hidden="true"> · </span>{distance}</>}
@@ -444,7 +440,7 @@ export default function RestaurantDetail({
                 <div className="menu-rows">
                   {place.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
-                      <span>{m.name}</span>
+                      <span><KoText>{m.name}</KoText></span>
                       <span className="menu-row__price">{m.price ?? t('detail.priceNotListed')}</span>
                     </div>
                   ))}
