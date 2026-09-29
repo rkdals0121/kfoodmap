@@ -18579,13 +18579,13 @@ export const restaurants = [
       "evidence": "DiningCode's menu section lists these items at these prices."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode lists '0507-1393-2005'; Seoul's 2022 Muslim visitor guide lists '+82- 70-7758-1997'. The two disagree, so the phone is left unknown."
+      "value": "02-792-1997",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/mrkebab2009/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's Instagram bio (@mrkebab2009, 'Mr. Kebab | 미스터케밥') reads: \"⏰ 24 hours 📍 192 Itaewon-ro, Yongsan-gu, Seoul 📞02-792-1997\" — this branch's address. Read twice in the browser, identical. Earlier sources: DiningCode '0507-1393-2005' (a relay, not a disagreement) and Seoul's 2022 Muslim visitor guide '+82- 70-7758-1997' (a third-party guide, four years old; the operator outranks it). The chain site mrkebab.co.kr did not respond. Kakao listing 11520662 lists no phone."
     },
     "transit": {
       "value": {
@@ -23249,13 +23249,13 @@ export const restaurants = [
       "evidence": "DiningCode's menu lists '로마식 카르보나라 파스타 28,000원 스파게티 | 비건 계란 노른자, 비건 베이컨' and '미트볼 파스타 28,000원'. The operator's site names '그릴드 파인애플 버거' and '콜리플라워 스테이크' as signature dishes without prices, and Seoul's vegetarian-restaurant register lists all four, each marked '(비건)'."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The operator's site and Seoul's vegetarian-restaurant register give 070-4105-5331; DiningCode gives 0507-1371-5331. The sources disagree, so the number is left unknown."
+      "value": "070-4105-5331",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://mahinavegan.com/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own site mahinavegan.com (EN and /ko/ pages) states its telephone as \"+82-70-4105-5331\" in its structured data, whose address is \"2F, 75 Nonhyeon-ro 175-gil\" (this venue), and its rendered page carries call links \"tel:+827041055331\". Read twice (curl, and the rendered page in the browser), identical. Seoul's vegetarian-restaurant register gives the same 070-4105-5331. DiningCode's 0507-1371-5331 is a relay number, not a disagreement (second-pass rule 3). Kakao listing 1209872494 (unregistered) lists no phone."
     },
     "officialUrl": {
       "value": "https://mahinavegan.com/",
@@ -24865,13 +24865,13 @@ export const restaurants = [
       "evidence": "Operator's site menu. The eggplant and soft-tofu set prices match DiningCode (가지깐풍 6,500, 순두부정식 8,500). The tofu bibimbap price is left out: operator 7,500, DiningCode 8,000, Kakao Map 6,500 KRW."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Three numbers: operator site +82-2-333-6333, Kakao Map 0503-7152-5567, DiningCode 0507-1394-6333."
+      "value": "02-333-6333",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://bebab.kr",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own site bebab.kr shows \"+82-2-333-6333\" on its call button and as \"telephone\": \"+82-2-333-6333\" in its structured data, with the address \"3-3 Hongik-ro, Mapo-gu\". Read twice, identical. The button's link target is a theme placeholder (\"tel:234.567.3455\"), not a Korean number, so it is not treated as a second statement. The owner-registered Kakao listing 1400000257 shows only 0503-7152-5567, a relay number, and DiningCode 0507-1394-6333 is a relay too; the operator's direct line beats a relay."
     },
     "officialUrl": {
       "value": "https://bebab.kr",
@@ -28825,13 +28825,13 @@ export const restaurants = [
       "evidence": "Visit Seoul (2026) signature dishes: 'Nasi Lemak ₩10,000' and 'Halal Food (Pizza / Sandwich)'. Kakao Map operator menu (edited 2022-11): 하프 치킨 라이스 10000, 양고기 라이스 14000, 라구 피자(S) 16000, 양고기 피자(S) 16000, 치즈 피자(S) 16000."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: VisitKorea gives '+82-2-3785-2468', Visit Seoul (2026) gives '+82-507-1326-2468', and Kakao lists no phone. Left unknown."
+      "value": "02-3785-2468",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/itaewon_kitchen/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's Instagram bio (@itaewon_kitchen, linked from Kakao listing 155393554) reads: \"🇰🇷서울 용산구 이태원동 137-56번지(우사단로 34)🇰🇷 ☎️예약 문의 전화 (02)3785-2468\" — the same address as this entry. Read twice in the browser, identical. The account is private (40 followers, 12 posts); only the bio is public. VisitKorea gives the same +82-2-3785-2468; Visit Seoul's +82-507-1326-2468 is a 0507 relay, not a disagreement."
     },
     "transit": {
       "value": {
@@ -29124,13 +29124,13 @@ export const restaurants = [
       "evidence": "Kakao Map operator menu (edited 2022-11): 바클라와(1PC) 2500, 카이막 9800, 로쿰(100gr) 6000, 터키홍차 3500, 카이막+모듬빵 9500."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: VisitKorea and Kakao give 02-790-5585, Visit Seoul gives '+82-507-1387-5585'. Left unknown."
+      "value": "02-790-5585",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/kervanbakery/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's Instagram bio (@kervanbakery, 'Kervan Turkish Bakery') reads: \"🇹🇷 Turkish Desert&Bakery | 터키 디저트&베이커리 📍 736-11 Hannam-dong Yongsan-gu Seoul 📞 02-790-5585\". 한남동 736-11 is the lot address Kakao gives for 이태원로 208 (listing 24375610). Read once as the raw public page; a second read was blocked by Instagram's login wall (not bypassed). Kakao and VisitKorea give the same 02-790-5585; Visit Seoul's +82-507-1387-5585 is a 0507 relay, not a disagreement."
     },
     "transit": {
       "value": {
@@ -31360,6 +31360,12 @@ export const restaurants = [
         "method": "Read from a government listing",
         "lastCheckedAt": "2026-09-29",
         "evidence": "KTO's 'Muslim-Friendly Restaurants in Korea' guide (\"Information in this book is valid as of December 2021\") sorts restaurants into four categories; in its Seoul street-map legend, '151 Taj C1' is listed under 'Muslim-friendly' (guide PDF: https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf). It is still in the Korea Tourism Organization's current Muslim-friendly restaurant listing on VisitKorea (menu 'Muslim-friendly Travel > Restaurants', whose index page says \"The Korea Tourism Organization categorized Muslim-friendly restaurants so that Muslim tourists can conveniently dine in Korea\"); the current page does not print a category, so the category is the 2021 guide's. Current VisitKorea page (dated 12/20/2017, read twice, identical): https://english.visitkorea.or.kr/svc/sp/MuslimFriendly/contentsView.do?menuSn=983&dataSetId=235&vcontsId=229680. Pork check: the Kakao operator menu (4 items, edited 2024-10-19) and DiningCode's menu (chicken, prawn, paneer and vegetable dishes, biryani, lunch sets) show no pork item. Still trading: DiningCode reviews dated 2026-08-03 and 2026-06-09; blog posts to 2026-09-18; the operator's Kakao profile carries a current notice sending bookings to CatchTable. KTO defines Muslim-friendly as offering some halal dishes while alcohol may be sold, which maps to friendly; no certificate is claimed."
+      },
+      "halalCertClaim": {
+        "body": "an unnamed halal certifier (the bio names none)",
+        "statedBy": "The restaurant's own Instagram bio (@taj.seoul, linked as the homepage on its owner-registered Kakao listing 42222494)",
+        "quote": "Indian Restaurant in Seoul | Halal Certified",
+        "status": "stated by the operator in its bio (set in Unicode bold letters, rendered here in plain letters); no certifying body, certificate number or expiry sighted, and nothing says whether it covers the kitchen or the meat"
       }
     },
     "imageLeads": [],
@@ -32241,13 +32247,13 @@ export const restaurants = [
       "evidence": "Kakao Map operator menu (edited 2025-01-20): '섬사 (양고기 빵) 4000', 'Giant shashlyk set 90000'. DiningCode: 'Somsa / 사모사 4,000 원 양파, 양고기, 향신료, 반죽, 버터' and 'Giant Set / 큰꼬치세트 90,000 원 양꼬치-4개, 닭꼬치-4개, 쇠고기 다진꼬치-4개'. Only items where both agree are listed; delivery prices are higher."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The operator's Instagram bio and DiningCode give 042-825-9937; Kakao Map gives 0503-7151-4749 (a relay number). Left unknown."
+      "value": "042-825-9937",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/afiya_halal/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's Instagram bio (@afiya_halal, linked as the homepage on its owner-registered Kakao listing 963352806) reads: \"📍대전 유성구 대학로 169 ☎️ 042-825-9937 🕰 9:00~21:00\". Read twice in the browser (rendered page and page meta), identical. DiningCode gives the same number. The owner's Kakao listing shows only 0503-7151-4749, a relay number; the operator's direct line beats a relay."
     },
     "officialUrl": {
       "value": null,
@@ -95503,13 +95509,13 @@ export const restaurants = [
       "evidence": "Owner-entered Kakao menu (edited 2024-07): drinks only, including 소이라떼 4000 and 아몬드브리즈라떼 4000; the breads are not listed."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Unknown: Kakao lists '010-582-4086', which has one digit too few for a Korean mobile number."
+      "value": "010-5824-0863",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/geonbbang.vegan/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's Instagram bio (@geonbbang.vegan, linked from its owner-registered Kakao listing 1436833675) reads: \"𝗖𝗮𝗹𝗹⠀ +82 10 5824 0863\". Read twice in the browser, identical. The owner's Kakao listing shows '010-582-4086' — ten digits, not a valid mobile number, and the first ten digits of the Instagram number with the last digit dropped; read as a truncated entry of the same number, not a second number."
     },
     "officialUrl": {
       "value": null,
