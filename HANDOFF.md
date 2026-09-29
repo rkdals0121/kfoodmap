@@ -2155,6 +2155,21 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     `scripts/icons/`), link-preview card (`scripts/og-card.py`), prerendered
     titles use displayName. Browser-pane gotcha: timers stop while the pane
     is hidden, so never await setTimeout inside a javascript_tool call.
+44. **Critique round 2, 2026-09-30 ~01:20** (`CRITIQUE-2.md`): fixed the
+    regressions it found — pork-free chips had the halal crescent; "Halal ·
+    Not known" read as yes (now "Halal status: not known"); "Last checked:
+    Never" flashed while loading; unsaving a visited place now asks first
+    (it drops the visit and seal); docked-detail close falls back to the
+    list when the opener is gone; skip link past the map pins; field
+    edges 3.2:1 (`--field-line`); Profile uses Journal's words; caveat
+    hidden while a claim explanation is open; menu names attributed to the
+    restaurant; active filter chip is tint + ✓, not solid. Also
+    `validateCopy` in check-data (unattributed "certified" in story/vibe),
+    `KoText` (lang="ko" on Hangul runs), distances say "from map centre".
+    Left open: long privacy bullets; "Not halal" chip is not tappable;
+    journey titles like "Busan: Fully Vegan…" rest on Reported claims (the
+    per-stop marks and tally say so); keyboard path through hundreds of
+    map pins (skip link added, pins still focusable).
 
 
 ---
