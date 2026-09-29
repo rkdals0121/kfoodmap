@@ -153,9 +153,19 @@ export default function RestaurantDetail({
     label: b.label,
     fact: b.fact,
   }));
+  // A known "no" (serves pork, no vegan dishes) is a claim like any other:
+  // same mark, and tappable for its source. No diet icon — a crescent beside
+  // "Not halal" reads as halal at a glance.
+  const shownDiets = new Set(dietFacts.map(f => f.id));
+  const noneFacts = ['vegan', 'halal'].filter(k => !shownDiets.has(k)).flatMap(k => {
+    const f = place.dietary[k];
+    return isKnown(f) && f.value === (k === 'vegan' ? VEGAN.NONE : HALAL.NONE)
+      ? [{ id: k, Icon: null, label: t(`dietary.${k}None`), fact: f }]
+      : [];
+  });
+  const claimFacts = [...dietFacts, ...noneFacts];
   const traitFacts = place.traits.filter(id => TRAIT_META[id])
     .map(id => ({ id, Icon: TRAIT_META[id].Icon, label: t(TRAIT_META[id].labelKey), fact: null }));
-  const facts = [...dietFacts, ...traitFacts];
   const certClaim = place.dietary.halalCertClaim;
   const caveatKeys = DIET_CAVEAT_KEYS[dietaryConfidence(place)] ?? DIET_CAVEAT_KEYS[CONFIDENCE.UNKNOWN];
   const caveat = { title: t(caveatKeys.titleKey), body: t(caveatKeys.bodyKey) };
@@ -257,9 +267,9 @@ export default function RestaurantDetail({
             </header>
 
             {/* 3. Diet Tags */}
-            {dietFacts.length > 0 && (
+            {claimFacts.length > 0 && (
               <ul className="fact-row" aria-label={t('detail.dietaryFactsLabel')}>
-                {dietFacts.map(({ id, Icon, label, fact: f }) => (
+                {claimFacts.map(({ id, Icon, label, fact: f }) => (
                   <ClaimFact
                     key={id}
                     id={id}
@@ -277,17 +287,11 @@ export default function RestaurantDetail({
                 café should see "Halal · Not known", not silence. A known
                 "no" (serves pork) is a claim with its own strength. */}
             {(() => {
-              const shown = new Set(dietFacts.map(f => f.id));
-              const other = ['vegan', 'halal'].filter(k => !shown.has(k)).map(k => {
-                const f = place.dietary[k];
-                const none = isKnown(f) && f.value === (k === 'vegan' ? VEGAN.NONE : HALAL.NONE);
-                return none
-                  // No diet icon: a crescent beside "Not halal" reads as halal at a glance.
-                  ? <ClaimChip key={k} label={t(`dietary.${k}None`)} fact={f} />
-                  // One plain phrase: a bold "Halal" beside a small "Not known" read as yes.
-                  : <ClaimChip key={k} level={t(`dietary.${k}NotKnown`)} tone="none" />;
-              });
-              return other.length > 0 && <p className="detail-otherdiet">{other}</p>;
+              const claimed = new Set(claimFacts.map(f => f.id));
+              // One plain phrase: a bold "Halal" beside a small "Not known" read as yes.
+              const unknown = ['vegan', 'halal'].filter(k => !claimed.has(k))
+                .map(k => <ClaimChip key={k} level={t(`dietary.${k}NotKnown`)} tone="none" />);
+              return unknown.length > 0 && <p className="detail-otherdiet">{unknown}</p>;
             })()}
             {/* Traits describe the place; they are not claims with a
                 confidence, so they are plain text, not chips. */}
@@ -301,7 +305,7 @@ export default function RestaurantDetail({
                 ))}
               </p>
             )}
-            {facts.filter(x => x.fact).map(({ id, label, fact: f }) => {
+            {claimFacts.map(({ id, label, fact: f }) => {
               const { label: level, detail } = trustBadge(f);
               return (
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
