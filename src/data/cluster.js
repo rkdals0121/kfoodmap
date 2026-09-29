@@ -10,7 +10,9 @@
 // the order given, each unclaimed point seeds a group and claims every
 // unclaimed point within `radius` of it. The same input always gives the
 // same groups, so pins do not reshuffle between renders at the same zoom.
-export const CLUSTER_RADIUS_PX = 40;
+// 64, not the 40 a pin's width needs: at 40 a Seoul view still showed ~60
+// markers, a carpet of dark count circles and pins (2026-09-30).
+export const CLUSTER_RADIUS_PX = 64;
 
 export function clusterPoints(points, radius = CLUSTER_RADIUS_PX) {
   const r2 = radius * radius;

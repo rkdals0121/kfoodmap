@@ -3102,7 +3102,9 @@ button {
    OSM designed them for, so this stops well short of the 0.2 that looked
    best in isolation. */
 .leaflet-tile-pane {
-  filter: saturate(0.45) brightness(1.03) contrast(0.96);
+  /* 0.45 still left a busy mat of green, brown and road colour under the
+     pins (2026-09-30); 0.25 keeps parks and water readable as tints. */
+  filter: saturate(0.25) brightness(1.05) contrast(0.94);
 }
 
 /* Offered only when a new version arrived while the page was in use — an
@@ -3145,18 +3147,18 @@ button {
   border: none;
 }
 .k-cluster span {
+  /* A light count, not a dark disc: the pins are the content, a group is
+     a pointer to "zoom in here". Size is set per count (MapComponent). */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
   border-radius: 50%;
-  background: var(--green-strong);
-  color: #fff;
+  background: var(--green-tint);
+  color: var(--green-strong);
   font-weight: 700;
-  font-size: 15px;
-  border: 3px solid #fff;
-  box-shadow: 0 2px 6px rgba(16, 24, 40, 0.3);
+  font-size: 13px;
+  border: 2px solid var(--green-strong);
+  box-shadow: 0 1px 4px rgba(16, 24, 40, 0.18);
   box-sizing: border-box;
   transition: transform 0.15s ease;
 }

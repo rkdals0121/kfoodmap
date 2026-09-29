@@ -51,13 +51,13 @@ const pinGlyph = (kind, colour) => {
 // Teardrop pin: white body with green outline, solid green when selected
 const makePinIcon = (kind, selected) => L.divIcon({
   className: `k-pin k-pin--${kind}${selected ? ' k-pin--active' : ''}`,
-  html: `<svg width="34" height="44" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg">
+  html: `<svg width="28" height="36" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg">
     <path d="M17 42.5C17 42.5 31.5 26.4 31.5 15.6C31.5 7.6 25 1.5 17 1.5C9 1.5 2.5 7.6 2.5 15.6C2.5 26.4 17 42.5 17 42.5Z"
       fill="${selected ? '#0E9F6E' : '#FFFFFF'}" stroke="${selected ? '#087F5B' : '#0E9F6E'}" stroke-width="2.5"/>
     ${pinGlyph(kind, selected ? '#FFFFFF' : '#087F5B')}
   </svg>`,
-  iconSize: [34, 44],
-  iconAnchor: [17, 42],
+  iconSize: [28, 36],
+  iconAnchor: [14, 35],
 });
 
 // Built once. react-leaflet calls setIcon whenever the icon prop is a new
@@ -82,11 +82,14 @@ const pinLabel = (r) => [
 const clusterIcons = new Map();
 const clusterIcon = (count) => {
   if (!clusterIcons.has(count)) {
+    // Sized by how many places it holds, so the map reads at a glance
+    // where the food is, without every group shouting the same.
+    const size = count < 10 ? 30 : count < 50 ? 36 : 44;
     clusterIcons.set(count, L.divIcon({
       className: 'k-cluster',
-      html: `<span aria-hidden="true">${count}</span>`,
-      iconSize: [40, 40],
-      iconAnchor: [20, 20],
+      html: `<span aria-hidden="true" style="width:${size}px;height:${size}px">${count}</span>`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
     }));
   }
   return clusterIcons.get(count);
