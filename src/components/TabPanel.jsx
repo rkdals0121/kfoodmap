@@ -3,7 +3,9 @@ import { displayName } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { SparkleIcon, UserIcon, ChevronRightIcon, CompassIcon } from './Icons';
+import {
+  SparkleIcon, UserIcon, ChevronRightIcon, CompassIcon, GlobeIcon, MapPinIcon, InfoIcon, LockIcon, LogOutIcon, TrashIcon,
+} from './Icons';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
@@ -200,11 +202,11 @@ function ProfileTab({
   // app that refuses to show a dietary claim it cannot back, a control that
   // does nothing is the same class of untruth.
   const settings = [
-    { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: '🌐', action: () => setLanguagePickerOpen(true) },
-    { label: t('profile.suggestRestaurant'), value: '', icon: '📍', action: () => navigate('/submit') },
+    { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: <GlobeIcon size={20} />, action: () => setLanguagePickerOpen(true) },
+    { label: t('profile.suggestRestaurant'), value: '', icon: <MapPinIcon size={20} />, action: () => navigate('/submit') },
     // Shows the opening screen again: what the map is and how to read a claim.
-    { label: t('profile.aboutApp'), value: '', icon: 'ℹ️', action: () => { aboutOpener.current = document.activeElement; setAboutOpen(true); } },
-    { label: t('profile.privacyPolicy'), value: '', icon: '🔒', action: () => navigate('/privacy') },
+    { label: t('profile.aboutApp'), value: '', icon: <InfoIcon size={20} />, action: () => { aboutOpener.current = document.activeElement; setAboutOpen(true); } },
+    { label: t('profile.privacyPolicy'), value: '', icon: <LockIcon size={20} />, action: () => navigate('/privacy') },
   ];
 
   return (
@@ -272,7 +274,7 @@ function ProfileTab({
       <div className="settings-list">
         {settings.map((item, idx) => (
           <button type="button" key={idx} className="settings-item" onClick={item.action}>
-            <span className="settings-icon">{item.icon}</span>
+            <span className="settings-icon" aria-hidden="true">{item.icon}</span>
             <span className="settings-text">
               <span className="settings-label">{item.label}</span>
             </span>
@@ -286,7 +288,7 @@ function ProfileTab({
         <div className="settings-list settings-list--account">
           <span className="settings-section-label">{t('profile.accountSection')}</span>
           <button type="button" className="settings-item" onClick={onSignOut}>
-            <span className="settings-icon">🚪</span>
+            <span className="settings-icon" aria-hidden="true"><LogOutIcon size={20} /></span>
             <span className="settings-text">
               <span className="settings-label">{t('profile.signOut')}</span>
             </span>
@@ -294,7 +296,7 @@ function ProfileTab({
             <ChevronRightIcon size={18} />
           </button>
           <button type="button" className="settings-item settings-item--danger" onClick={confirmThenDelete}>
-            <span className="settings-icon">🗑️</span>
+            <span className="settings-icon" aria-hidden="true"><TrashIcon size={20} /></span>
             <span className="settings-text">
               <span className="settings-label">{t('profile.deleteRecords')}</span>
             </span>

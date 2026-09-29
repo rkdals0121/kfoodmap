@@ -378,6 +378,13 @@ button {
   inset: 0;
   border-radius: var(--radius-lg);
 }
+.place-card__meta,
+.place-card__distance,
+.practical-row,
+.menu-row__price {
+  /* Times, distances and prices in equal-width figures, so they line up. */
+  font-variant-numeric: tabular-nums;
+}
 .place-card__meta {
   font-size: 13px;
   color: var(--muted);
@@ -2436,7 +2443,8 @@ button {
   border-bottom: none;
 }
 .settings-icon {
-  font-size: 20px;
+  display: flex;
+  color: var(--muted-strong);
 }
 .settings-text {
   flex: 1;

@@ -172,4 +172,42 @@ export const ChevronLeftIcon = ({ size = 18 }) => (
   </svg>
 );
 
+export const GlobeIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18" />
+    <path d="M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z" />
+  </svg>
+);
 
+export const InfoIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 11v5.5" />
+    <path d="M12 7.6v.1" />
+  </svg>
+);
+
+export const LockIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <rect x="5" y="10.5" width="14" height="10" rx="2" />
+    <path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" />
+  </svg>
+);
+
+export const LogOutIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="M9.5 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.5" />
+    <path d="m15 16.5 4.5-4.5L15 7.5" />
+    <path d="M19.5 12H9.5" />
+  </svg>
+);
+
+export const TrashIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="M4 6.5h16" />
+    <path d="M9.5 6.5V4.5h5v2" />
+    <path d="M6.5 6.5 7.5 20h9l1-13.5" />
+    <path d="M10.5 10.5v6M13.5 10.5v6" />
+  </svg>
+);
