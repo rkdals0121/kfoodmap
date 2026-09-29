@@ -241,6 +241,9 @@ function AppShell() {
                 onReadStory={openStory}
                 onToggleBookmark={handleToggleBookmark}
                 sustainabilityLens={sustainabilityLens}
+                activeFilters={selectedFilters}
+                searchQuery={searchQuery}
+                onClearFilters={() => { setSelectedFilters([]); setSearchQuery(''); }}
               />
             </section>
           </>

@@ -73,6 +73,7 @@ export default {
     hoursUnknown: 'Hours not recorded',
     noMatch: 'No places match',
     noMatchHint: 'Try removing a filter or searching a different name or area.',
+    clearAll: 'Clear search and filters',
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',
     readStoryAria: 'Read the story of {{name}}',
     directionsAria: 'Get directions to {{name}}',

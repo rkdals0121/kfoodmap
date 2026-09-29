@@ -168,6 +168,14 @@ button {
   overflow-x: auto;
   padding: 2px;
   margin: -2px;
+  /* The row scrolls sideways; a fade at the right edge says there is more.
+     The spacer below lets the last chip scroll clear of the fade. */
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+}
+.chip-row::after {
+  content: '';
+  flex: 0 0 20px;
 }
 /* Chip groups sit in the same scrolling row, separated by a hairline so the
    sustainability axis reads as a set rather than as loose chips */
@@ -281,6 +289,28 @@ button {
 .place-list__empty strong {
   color: var(--ink);
   font-weight: 600;
+}
+.place-list__criteria {
+  margin: 6px 0;
+  color: var(--ink-body);
+  font-weight: 500;
+}
+.place-list__clear {
+  margin-top: 14px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line-hover);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.place-list__clear:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
 }
 
 .place-card {
@@ -784,6 +814,12 @@ button {
 .fact svg {
   color: var(--green-strong);
   flex-shrink: 0;
+}
+/* A trait (mild taste, fermented) describes the place; it is not a claim
+   with a confidence, so it must not look like the claim mark's outline. */
+.fact:not(.claim) {
+  background: var(--fill);
+  border-color: transparent;
 }
 
 /* Practical block */

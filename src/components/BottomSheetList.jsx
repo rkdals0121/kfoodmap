@@ -6,6 +6,9 @@ import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf, di
 import { dietaryBadges, trustBadge } from '../data/verification';
 import { CLAIM_CLASS } from './claim';
 import { TRAIT_GROUPS } from '../filters';
+import { CHIP_GROUPS } from '../i18n/labels';
+
+const CHIP_LABEL_KEY = Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey]));
 
 // How many cards the list draws at a time (see BottomSheetList).
 const PAGE = 40;
@@ -120,7 +123,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
 
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onToggleBookmark, bookmarkedIds, mapCenter,
-  sustainabilityLens,
+  sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters,
 }) {
   const { t } = useTranslation();
   const sorted = useMemo(() =>
@@ -190,7 +193,21 @@ export default function BottomSheetList({
         <div className="place-list__empty">
           <MapPinIcon size={26} />
           <p><strong>{t('list.noMatch')}</strong></p>
+          {/* Say which conditions produced nothing, so the way out is obvious. */}
+          {(activeFilters.length > 0 || searchQuery.trim()) && (
+            <p className="place-list__criteria">
+              {[
+                ...activeFilters.map(id => t(CHIP_LABEL_KEY[id] ?? id)),
+                ...(searchQuery.trim() ? [`“${searchQuery.trim()}”`] : []),
+              ].join(' + ')}
+            </p>
+          )}
           <p>{t('list.noMatchHint')}</p>
+          {onClearFilters && (activeFilters.length > 0 || searchQuery.trim()) && (
+            <button type="button" className="place-list__clear" onClick={onClearFilters}>
+              {t('list.clearAll')}
+            </button>
+          )}
         </div>
       )}
     </div>
