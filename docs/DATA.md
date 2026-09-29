@@ -44,7 +44,8 @@ valueless fact is `unknown` — the two can never disagree.
 ### Confidence
 
 - **`confirmed`** — checked against a primary source: a registry, the operator,
-  or an on-site visit. Requires `lastCheckedAt`. **Nothing is `confirmed` today.**
+  or an on-site visit. Requires `lastCheckedAt`. Rare: a handful of dietary
+  claims read from the operator's own site or menu (2026-09-30).
 - **`supported`** — a source states it outright ("100% vegan meals"; a menu
   lists it), but nobody has checked it.
 - **`inferred`** — our reading of context: the kind of kitchen, or how the venue
@@ -70,12 +71,14 @@ crowd claims about halal would be worse than no data at all.
 
 | Confidence × source | Badge |
 |---|---|
-| confirmed + OFFICIAL | **Official** |
 | confirmed + COMMUNITY | **Community-checked** |
-| confirmed (other) | **Confirmed** |
+| confirmed (other, incl. OFFICIAL) | **Confirmed** |
 | supported | **Reported** |
-| inferred | **Inferred** |
-| unknown | **Unknown** |
+| inferred | **Our reading** |
+| unknown | **Not known** |
+
+The words are the claim mark's (docs/UI-DIRECTION.md); the detail page
+explains each one with the fact's own source and date.
 
 Helpers: `isKnown(f)`, `isConfirmed(f)`, `needsCheck(f)`, `dietaryConfidence(place)`.
 
