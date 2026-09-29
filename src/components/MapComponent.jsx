@@ -84,7 +84,7 @@ const clusterIcon = (count) => {
   if (!clusterIcons.has(count)) {
     clusterIcons.set(count, L.divIcon({
       className: 'k-cluster',
-      html: `<span>${count}</span>`,
+      html: `<span aria-hidden="true">${count}</span>`,
       iconSize: [40, 40],
       iconAnchor: [20, 20],
     }));

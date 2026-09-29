@@ -20,7 +20,7 @@ export default {
     legendReportedChip: 'Halal-friendly',
     legendReported: 'A source says so — a guide, a directory, a map listing — and we have not checked it against a primary one.',
     legendReadingChip: 'Vegan options',
-    legendReading: 'Read from context. Treat it as a lead.',
+    legendReading: 'Our best guess from what we found. Check before you go.',
     legendUnknown: 'We could not find out, so we say so.',
     legendNote: 'Menus and kitchens change. If your diet is strict, ask staff before you order.',
     continue: 'Open the map',
@@ -264,6 +264,8 @@ export default {
     // after transitExit (or the station/line text) with no separator supplied by the JSX.
     transitWalk: ' · {{minutes}} min walk',
     actionSave: 'Save',
+    savedNote: 'Saved to your Journal.',
+    removedNote: 'Removed from your Journal.',
     actionBeenHere: 'Been here',
     galleryItem: 'Gallery item',
   },

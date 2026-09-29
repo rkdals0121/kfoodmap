@@ -55,6 +55,7 @@ function AppShell() {
     [id],
   );
   const focusStory = Boolean(location.state?.focusStory);
+  const focusDirections = Boolean(location.state?.focusDirections);
   const isSubmit = location.pathname === '/submit';
   const isPrivacy = location.pathname === '/privacy';
   const submitPlace = useMemo(
@@ -132,6 +133,9 @@ function AppShell() {
   // rather than rendering unverified detail.
   const openDetail = (r) => { if (isQuarantined(r)) return; if (r.id !== id) navigate(`/place/${r.id}`); };
   const openStory = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`, { state: { focusStory: true } }); };
+  // The card's directions button opens the place at its map-app buttons
+  // (Naver and Kakao first), rather than straight to Google.
+  const openDirections = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`, { state: { focusDirections: true } }); };
 
   // Local first, always: the device is written before any request goes out
   // and is never rolled back by one that fails.
@@ -299,6 +303,7 @@ function AppShell() {
                 bookmarkedIds={bookmarkedIds}
                 onRestaurantClick={openDetail}
                 onReadStory={openStory}
+                onDirections={openDirections}
                 onToggleBookmark={handleToggleBookmark}
                 sustainabilityLens={sustainabilityLens}
                 activeFilters={selectedFilters}
@@ -361,6 +366,7 @@ function AppShell() {
         onToggleVisited={handleToggleVisited}
         mapCenter={mapCenter}
         focusStory={focusStory}
+        focusDirections={focusDirections}
         docked={isWide}
       />
 

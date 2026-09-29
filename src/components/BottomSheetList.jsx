@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf, displayName } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
@@ -16,7 +16,7 @@ const PAGE = 40;
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 
-function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, lens }) {
+function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens }) {
   const { t } = useTranslation();
   const name = displayName(place.name);
   const status = getOpenStatus(place.hours);
@@ -114,7 +114,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
           <button
             className="icon-btn"
             aria-label={t('list.directionsAria', { name })}
-            onClick={() => window.open(directionsUrl(place), '_blank')}
+            onClick={() => onDirections(place)}
           >
             <CompassIcon size={20} />
           </button>
@@ -125,7 +125,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
 }
 
 export default function BottomSheetList({
-  restaurants, onRestaurantClick, onReadStory, onToggleBookmark, bookmarkedIds, mapCenter,
+  restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters,
 }) {
   const { t } = useTranslation();
@@ -188,6 +188,7 @@ export default function BottomSheetList({
           bookmarked={bookmarkedIds.includes(r.id)}
           onOpen={onRestaurantClick}
           onReadStory={onReadStory}
+          onDirections={onDirections}
           onToggleBookmark={onToggleBookmark}
           lens={sustainabilityLens}
         />

@@ -900,6 +900,17 @@ button {
   gap: 8px;
   margin-top: 12px;
 }
+.action-note {
+  min-height: 1.4em;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--green-strong);
+  text-align: center;
+}
+.action-note:empty {
+  min-height: 0;
+  margin-top: 0;
+}
 .action-btn {
   flex: 1;
   min-height: 60px;
@@ -1179,6 +1190,11 @@ button {
   margin-top: 6px;
   padding-top: 6px;
   border-top: 1px solid var(--line);
+}
+.diet-note__cert:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 
 .section-note {

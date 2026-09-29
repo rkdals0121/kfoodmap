@@ -73,14 +73,29 @@ const DIET_CAVEAT_KEYS = {
 
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited,
-  mapCenter, focusStory, docked = false,
+  mapCenter, focusStory, focusDirections = false, docked = false,
 }) {
   const { t, i18n } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [openClaim, setOpenClaim] = useState(null);
+  // Say where a save went. Driven by the saved state actually changing, not
+  // the tap (unsaving a visited place can be cancelled), and only while the
+  // same place stays open.
+  const [saveNote, setSaveNote] = useState(null);
+  const lastSaved = useRef({ id: restaurant?.id, saved: isBookmarked });
+  useEffect(() => {
+    const prev = lastSaved.current;
+    lastSaved.current = { id: restaurant?.id, saved: isBookmarked };
+    if (prev.id !== restaurant?.id) { setSaveNote(null); return undefined; }
+    if (prev.saved === isBookmarked) return undefined;
+    setSaveNote(isBookmarked ? 'saved' : 'removed');
+    const timer = setTimeout(() => setSaveNote(null), 3000);
+    return () => clearTimeout(timer);
+  }, [isBookmarked, restaurant?.id]);
   const storyRef = useRef(null);
+  const directionsRef = useRef(null);
   const sheetRef = useRef(null);
   // The bundle carries a lighter record; the full one (evidence, menus,
   // transit, phone, links) is fetched when the detail opens.
@@ -112,10 +127,13 @@ export default function RestaurantDetail({
     if (!restaurant) return;
     if (focusStory && storyRef.current) {
       storyRef.current.scrollIntoView({ block: 'start' });
+    } else if (focusDirections && directionsRef.current) {
+      directionsRef.current.scrollIntoView({ block: 'start' });
+      directionsRef.current.querySelector('.detail-directions button')?.focus({ preventScroll: true });
     } else {
       sheetRef.current?.focus();
     }
-  }, [restaurant, focusStory]);
+  }, [restaurant, focusStory, focusDirections]);
 
   useEffect(() => {
     if (!restaurant) return undefined;
@@ -310,7 +328,7 @@ export default function RestaurantDetail({
               const { label: level, detail } = trustBadge(f);
               return (
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
-                  <p><strong>{label} · {level}.</strong> {detail}</p>
+                  <p><strong>{label} · {level}.</strong> {/[.!?]$/.test(detail) ? detail : `${detail}.`}</p>
                   <p className="claim-explain__meta">
                     {t('detail.claimSource', { source: sourceLabel(f.source) })}
                     {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
@@ -409,6 +427,10 @@ export default function RestaurantDetail({
                   <span>{shared ? t('detail.shared') : t('detail.share')}</span>
                 </button>
               </div>
+              <p className="action-note" role="status">
+                {saveNote === 'saved' && t('detail.savedNote')}
+                {saveNote === 'removed' && t('detail.removedNote')}
+              </p>
             </div>
 
             {/* Menus, transit, phone and links arrive with the full record
@@ -421,7 +443,7 @@ export default function RestaurantDetail({
 
             {/* 5. Directions / Address. Naver and Kakao first: they are the maps
                 visitors are told to use in Korea, where Google's coverage is thin. */}
-            <section className="detail-section">
+            <section className="detail-section" ref={directionsRef}>
               <SectionHead Icon={CompassIcon} title={t('detail.locationDirections')} />
               
               <div className="practical-row">
