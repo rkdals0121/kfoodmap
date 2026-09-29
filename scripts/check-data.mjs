@@ -5,7 +5,7 @@
 
 import { restaurants } from '../src/data/restaurants.js';
 import {
-  CONFIDENCE, HALAL, IMAGE_RIGHTS, LIFECYCLE, isKnown, validateDietary, dietaryBadges,
+  CONFIDENCE, HALAL, IMAGE_RIGHTS, LIFECYCLE, isKnown, validateDietary, validateCopy, dietaryBadges,
 } from '../src/data/verification.js';
 import { hasEvidence } from '../src/data/evidence.js';
 import { loadStore } from './lib/evidence-store.mjs';
@@ -73,6 +73,7 @@ for (const r of restaurants) {
   }
 
   for (const p of validateDietary(r)) note(r.id, p);
+  for (const p of validateCopy(r)) note(r.id, p);
 
   // Quarantine is itself a claim and needs evidence like any other. These are
   // the only two required lifecycle rules for the MVP — see the Restaurant

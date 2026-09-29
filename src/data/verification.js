@@ -322,3 +322,27 @@ export function validateDietary(place) {
   }
   return problems;
 }
+
+// Words that make a sentence about certification a report rather than an
+// assertion: who says so, that it was not sighted, or that it lapsed.
+const CERT_QUALIFIER = /\b(not|no|never|rather than|self-certified|says?|said|describ\w*|lists?|listed|listing|reports?|reported|claims?|claimed|calls?|called|according|records?|recorded|notes?|noted|categor\w*|files?|filed|tags?|class\w*|expired|though|but|named|announce\w*|newsroom|asserts?|states?|stated|repeats?|assurance|word)\b/i;
+
+/**
+ * Data QA for editorial copy (story, vibe): a sentence that mentions
+ * certification must say whose word it is, unless the halal level is
+ * CERTIFIED with a sighted certificate. EID's story once ended on "the only
+ * Korean restaurant certified by KMF" under a note that KMF lists no
+ * certificate — the story, read last, outranked the claim mark.
+ */
+export function validateCopy(place) {
+  if (place.dietary?.halal?.value === HALAL.CERTIFIED) return [];
+  const problems = [];
+  for (const field of ['story', 'vibe']) {
+    for (const sentence of String(place[field] ?? '').split(/(?<=[.!?])\s+/)) {
+      if (/certif/i.test(sentence) && !CERT_QUALIFIER.test(sentence)) {
+        problems.push(`${field} asserts certification without saying whose word it is: "${sentence.slice(0, 90)}"`);
+      }
+    }
+  }
+  return problems;
+}
