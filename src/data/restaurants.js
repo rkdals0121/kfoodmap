@@ -86045,4 +86045,737 @@ export const restaurants = [
     "coverImage": null,
     "gallery": []
   },
+  // Kakao halal discovery in the capital region, on the operators' own words.
+  {
+    "id": "the-halal-oppa-sangsu",
+    "name": "The Halal Oppa (더할랄오빠)",
+    "zone": "Sangsu-dong, Mapo-gu, Seoul (Hongdae)",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.54824757313272,
+        "lng": 126.92282093643036
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '더할랄오빠' to 37.548248, 126.922821 (destination of the route from 상수역 (Line 6)); the place feed (place 2110297616) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 41-1 Wausan-ro, Mapo-gu, Seoul (Sangsu-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2110297616",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 마포구 와우산로 41-1 1층 (상수동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 11:00–01:00; Tue 11:00–01:00; Wed 11:00–01:00; Thu 11:00–01:00; Fri 11:00–05:00; Sat 11:00–05:00; Sun 11:00–01:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "01:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "01:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "01:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "01:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "05:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "05:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "01:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2110297616",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:00 ~ 01:00; 수(9/30) 11:00 ~ 01:00; 목(10/1) 11:00 ~ 01:00; 금(10/2) 11:00 ~ 05:00; 토(10/3) 11:00 ~ 05:00; 일(10/4) 11:00 ~ 01:00; 월(10/5) 11:00 ~ 01:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Lamb kebab wrap (양고기 케밥 랩)",
+          "price": "7,900 KRW"
+        },
+        {
+          "name": "Chicken kebab rice (치킨 케밥 밥)",
+          "price": "10,900 KRW"
+        },
+        {
+          "name": "Falafel wrap (팔라펠 랩)",
+          "price": "7,500 KRW"
+        },
+        {
+          "name": "Smash beef burger (스매쉬 비프 버거)",
+          "price": "7,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2110297616",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu on the owner-registered listing (20 items, last edited 2026-06-29): '양고기 케밥 랩 7900', '치킨 케밥 밥 10900', '팔라펠 랩 7500 — 정통 이집트 팔라펠 샌드위치', '스매쉬 비프 버거 7900'. The other items are chicken, lamb, 'mix', falafel and fries versions of the same wraps, baguettes, boxes and rice plates."
+    },
+    "phone": {
+      "value": "0503-7152-4003",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2110297616",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0503-7152-4003. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/thehalaloppa",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2110297616",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. The profile name (og:description, read twice, identical) is 'The Halal Oppa'; the biography could not be read without logging in."
+    },
+    "transit": {
+      "value": {
+        "station": "Sangsu",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 2,
+        "distanceM": 116
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 상수역 (Line 6) to 더할랄오빠: 116 m / 110 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/2110297616",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (my-store status REGISTERED; read twice, identical): '홍대에서 즐기는 정통 할랄 중동 요리와 세계 각국의 샌드위치, The Halal Oppa!' (authentic halal Middle Eastern food and sandwiches from around the world). The owner-entered menu (20 items, edited 2026-06-29) names chicken, lamb, beef, falafel, fries and 'mix' kebabs; no pork, ham, sausage or pepperoni is listed, and no alcohol. The menu is not complete (visitor posts name a cheese spicy burger and cheese balls that it does not list), so pork is ruled out only for what is listed. No certificate is claimed or sighted. Still trading: Kakao reviews dated 2026-09-23 and 2026-09-11; Kakao-listed blog posts dated 2026-09-21 and 2026-09-22."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A late-night kebab and sandwich counter by Sangsu Station, near Hongdae.",
+    "story": "This small shop by Sangsu Station describes its own food as authentic halal Middle Eastern cooking, alongside sandwiches from around the world. Its listed menu is kebab wraps, baguettes, boxes and rice plates in chicken, lamb or mixed meat, Egyptian-style falafel and beef smash burgers. No halal certificate has been sighted.",
+    "esg_point": "The owner describes the food as halal on its own listing",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "king-kebab-itaewon",
+    "name": "King Kebab Itaewon (킹케밥 이태원점)",
+    "zone": "Itaewon-dong, Yongsan-gu, Seoul (Itaewon)",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.53467838960145,
+        "lng": 126.99464272789642
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '킹케밥 이태원점' to 37.534678, 126.994643 (destination of the route from 이태원역 (Line 6)); the place feed (place 737176614) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 185 Itaewon-ro, Yongsan-gu, Seoul (Itaewon-dong)",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.kingkebab.co.kr/%ed%82%b9%ec%bc%80%eb%b0%a5-%ec%9d%b4%ed%83%9c%ec%9b%90%ec%a0%90/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "The operator's own branch page (raw HTML): '킹케밥 이태원점 … 주소 : 서울시 용산구 이태원로 185, 1층(이태원동)'. Kakao Map place feed for the owner-registered listing (read twice, identical): '서울 용산구 이태원로 185 1층 (이태원동)'. The operator's page and Kakao agree exactly."
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 00:00–24:00; Tue 00:00–24:00; Wed 00:00–24:00; Thu 00:00–24:00; Fri 00:00–24:00; Sat 00:00–24:00; Sun 00:00–24:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/737176614",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 00:00 ~ 24:00; 수(9/30) 00:00 ~ 24:00; 목(10/1) 00:00 ~ 24:00; 금(10/2) 00:00 ~ 24:00; 토(10/3) 00:00 ~ 24:00; 일(10/4) 00:00 ~ 24:00; 월(10/5) 00:00 ~ 24:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken kebab (치킨 케밥)",
+          "price": "6,900 KRW"
+        },
+        {
+          "name": "Lamb kebab (램 케밥)",
+          "price": "7,900 KRW"
+        },
+        {
+          "name": "Iskender, lamb (이스켄데르 램)",
+          "price": "17,900 KRW"
+        },
+        {
+          "name": "Adana beef steak (아다나 비프 스테이크)",
+          "price": "18,500 KRW"
+        },
+        {
+          "name": "Lamb chop steak (양갈비스테이크)",
+          "price": "26,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/737176614",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu on the owner-registered listing (21 items, edited 2025-04-29 to 2025-08-30): '치킨 케밥 6900', '램 케밥 7900', '이스켄데르 램 17900', '아다나 비프 스테이크 18500', '양갈비스테이크 26900'. The rest are chicken, lamb, beef and 'mix' kebabs, shish and grill plates and sets."
+    },
+    "phone": {
+      "value": "0502-0535-5666",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/737176614",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0502-0535-5666. Single source."
+    },
+    "officialUrl": {
+      "value": "https://www.kingkebab.co.kr",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://www.kingkebab.co.kr/%ed%82%b9%ec%bc%80%eb%b0%a5-%ec%9d%b4%ed%83%9c%ec%9b%90%ec%a0%90/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing; the chain site has a branch page for 이태원점 giving this address."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram is linked from this branch listing."
+    },
+    "transit": {
+      "value": {
+        "station": "Itaewon",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 1,
+        "distanceM": 71
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 이태원역 (Line 6) to 킹케밥 이태원점: 71 m / 82 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/737176614",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (my-store status REGISTERED; read twice, identical): '터키 쉐프가 만드는 진짜 터키 케밥! 특제 소스와 아즈소스로 이태원에서 즐기는 할랄 맛집.' (real Turkish kebab by a Turkish chef — a halal restaurant in Itaewon). The chain's own site (www.kingkebab.co.kr, raw HTML read twice, identical) is titled 'King Kebab Turkish Restaurant – Halal Turkish Kebab'. The owner-entered menu (21 items, edited 2025) names chicken, lamb, beef and 'mix' dishes; no pork, ham, sausage or pepperoni, and no alcohol. What the 'mix' contains is not stated. No certificate is claimed or sighted. Still trading: Kakao reviews dated 2026-09-19 and 2026-07-06; Kakao-listed blog post dated 2026-01-31."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A round-the-clock Turkish kebab house a minute from Itaewon Station.",
+    "story": "This Itaewon branch of the King Kebab chain describes itself on its own listing as a halal restaurant where a Turkish chef makes the kebabs. Its listed menu runs from chicken and lamb kebab wraps to Iskender, Adana beef and lamb chop plates, and it is listed as open around the clock. No halal certificate has been sighted.",
+    "esg_point": "The owner describes the restaurant as halal on its own listing",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "atlas-uijeongbu",
+    "name": "Atlas Uzbek Kitchen (아트라스)",
+    "zone": "Uijeongbu-dong, Uijeongbu",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.7377507629407,
+        "lng": 127.050299325927
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '아트라스' to 37.737751, 127.050299 (destination of the route from 의정부역 (Line 1)); the place feed (place 472028231) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "2F, 138 Simin-ro, Uijeongbu, Gyeonggi-do (Uijeongbu-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/472028231",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 의정부시 시민로 138 2층 (의정부동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 10:00–22:00; Tue 10:00–22:00; Wed 10:00–22:00; Thu 10:00–22:00; Fri 10:00–22:00; Sat 10:00–22:00; Sun 10:00–22:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/472028231",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 10:00 ~ 22:00; 수(9/30) 10:00 ~ 22:00; 목(10/1) 10:00 ~ 22:00; 금(10/2) 10:00 ~ 22:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 10:00 ~ 22:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Plov / osh, beef and carrot pilaf (플로브(오쉬))",
+          "price": "10,500 KRW"
+        },
+        {
+          "name": "Samsa, beef pastry (쌈사)",
+          "price": "4,000 KRW"
+        },
+        {
+          "name": "Shashlik skewer — lamb, beef, chicken or minced beef (샤슬릭)",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "Lagman, beef noodle soup (라그만)",
+          "price": "8,500 KRW"
+        },
+        {
+          "name": "Kazan kebab, lamb with potatoes (카잔케밥)",
+          "price": "12,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/472028231",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu on the owner-registered listing (20 items, edited 2025-08-27 and 2026-06-16): '플로브(오쉬) 10500 — … 소고기와 당근을 볶아낸 … 볶음밥', '쌈사 4000 — … 소고기가 들어간 만두', '샤슬릭 6500 — <양,소,닭, 다진 소고기 4가지 케밥>', '라그만 8500 — 소고기와 야채가 들어간 국물에 면', '카잔케밥 12900 — … 양고기에 포테이토'."
+    },
+    "phone": {
+      "value": "0503-7152-0997",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/472028231",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0503-7152-0997. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/atlas.kr25",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/472028231",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Uijeongbu",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 579
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 의정부역 (Line 1) to 아트라스: 579 m / 540 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/472028231",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The Kakao Talk channel line on its owner-registered Kakao listing (my-store status REGISTERED; read twice, identical): '의정부에서 즐기는 정통 우즈베키스탄 할랄요리, 우즈벡 가정식 그대로! 플로브와 쌈사가 인기' (authentic Uzbek halal cooking in Uijeongbu); owner introduction: '현지 셰프의 우즈벡 가정식 레스토랑 … 전 메뉴는 매장에서 수제로 만듭니다'. The owner-entered menu (20 items, edited 2025-08 and 2026-06) names beef, lamb or chicken in every meat dish; no pork, ham, sausage or pepperoni, and no alcohol. No certificate is claimed or sighted. Still trading: Kakao reviews dated 2026-07-12, 2026-05-07 and 2026-02-24."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "Uzbek home cooking with bread baked in-house, near Uijeongbu Station.",
+    "story": "This second-floor restaurant near Uijeongbu Station serves Uzbek home cooking by a chef from Uzbekistan and calls its food halal on its own Kakao channel. Everything is made on site, from non bread and flaky patyr to beef samsa, plov, lagman and charcoal-grilled shashlik of lamb, beef or chicken. No halal certificate has been sighted.",
+    "esg_point": "Everything, bread included, is made on the premises",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "mahalla-yongin",
+    "name": "Mahalla Halal Uzbek Restaurant (마할라 할랄 우즈벡 레스토랑)",
+    "zone": "Gimnyangjang-dong, Cheoin-gu, Yongin",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.234141631084206,
+        "lng": 127.20939157820182
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '마할라 할랄 우즈벡 레스토랑' to 37.234142, 127.209392 (destination of the route from 용인중앙시장역 (EverLine)); the place feed (place 915860809) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Units 109–110, 1F, Yongin S1 Smart Building, 1104 Baegok-daero, Cheoin-gu, Yongin, Gyeonggi-do (Gimnyangjang-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/915860809",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 용인시 처인구 백옥대로 1104 용인에스원스마트빌 1층 109~110호 (김량장동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 10:00–24:00; Tue 10:00–24:00; Wed 10:00–24:00; Thu 10:00–24:00; Fri 10:00–24:00; Sat 10:00–24:00; Sun 10:00–24:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "24:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "24:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "24:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "24:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "24:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "24:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/915860809",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 10:00 ~ 24:00; 수(9/30) 10:00 ~ 24:00; 목(10/1) 10:00 ~ 24:00; 금(10/2) 10:00 ~ 24:00; 토(10/3) 10:00 ~ 24:00; 일(10/4) 10:00 ~ 24:00; 월(10/5) 10:00 ~ 24:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Mahalla osh, Uzbek pilaf (마할라 우즈베키스탄식 플로프)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Manti, steamed meat dumplings (우즈베키스탄식 찐만두)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Sho‘rva, beef soup (우즈베키스탄식 소고기 수프)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Tabaka chicken (타바카 치킨)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "Tandir somsa, beef (탄두르 삼사)",
+          "price": "4,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/915860809",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu on the owner-registered listing (14 items, edited 2026-09-16/17): '마할라 우즈베키스탄식 플로프 (Mahalla Osh) 10000', '우즈베키스탄식 찐만두 (Manti) 12000', '우즈베키스탄식 소고기 수프 (Sho‘rva) 10000', '타바카 치킨 (Tabaka) 10000', '탄두르 삼사 (Tandir somsa) 4500 — 육즙 가득한 소고기'."
+    },
+    "phone": {
+      "value": "010-8088-8848",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/915860809",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 010-8088-8848. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/mahalla.yongin",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/915860809",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Profile name (og:description, read twice, identical): 'MAHALLA ● HALAL UZBEK RESTAURANT'. The biography could not be read without logging in."
+    },
+    "transit": {
+      "value": {
+        "station": "Yongin Jungang Market",
+        "line": "EverLine",
+        "exit": null,
+        "walkingMinutes": 8,
+        "distanceM": 506
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 용인중앙시장역 (EverLine) to 마할라 할랄 우즈벡 레스토랑: 506 m / 488 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source reviewed states that any dish is vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://www.instagram.com/mahalla.yongin",
+        "method": "Read from the operator’s own website",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The operator's own Instagram, linked from its owner-registered Kakao listing: profile name 'MAHALLA ● HALAL UZBEK RESTAURANT' (read twice from the raw page's og:description, identical) — the operator describing the restaurant as halal (plantiful precedent). The owner-entered Kakao menu (14 items, edited September 2026) names beef and chicken, and elsewhere unspecified 'meat' (고기) in Uzbek dishes; no pork, ham, sausage or pepperoni, and no alcohol. No certificate is claimed or sighted. Still trading: Kakao reviews dated 2026-09-24 and 2026-09-16; the listing appears newly opened (menu entered 2026-09-16)."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A new Uzbek kitchen by Yongin Jungang Market, open late.",
+    "story": "This Uzbek restaurant near Yongin Jungang Market describes itself on its own Instagram as a halal Uzbek restaurant. Its listed menu covers osh (pilaf), manti and chuchvara dumplings, several kinds of lagman noodles, beef soups, tabaka chicken and oven- and tandir-baked samsa. It appears to have opened in September 2026. No halal certificate has been sighted.",
+    "esg_point": "The operator presents itself as a halal Uzbek restaurant",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
 ];
