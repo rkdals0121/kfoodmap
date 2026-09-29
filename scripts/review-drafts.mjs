@@ -34,7 +34,7 @@ const METHODS = new Set(Object.values(METHOD));
 // Evidence nobody can reopen. Every one of these reached a draft in round 1 or 2.
 const UNTRACEABLE = /research aggregation|aggregat(ion|or)s?|websearch|search (result )?summar|blog coverage|several (sites|blogs|sources) (say|describe|report)/i;
 // Copy that reaches travellers must not sell, and must not narrate our process.
-const PROMOTIONAL = /\b(popular|beloved|loved by|much-loved|long-standing following|famous|renowned|must-visit|best in|hidden gem|followers?|a following of|following of)\b/i;
+const PROMOTIONAL = /\b(popular|beloved|loved by|much-loved|long-standing following|famous|renowned|must-visit|best in|hidden gem|followers?|a following of|following of|pioneer\w*|trailblaz\w*|iconic|legendary|best-known|perfect spot|world-class|queues?|crowds?)\b/i;
 const PROCESS_TALK = /\b(recorded as|we (did|chose|treated|recorded)|was not treated as|this entry (does not|claims)|rather than guess(ed)?|left (it )?off the map|per the (brief|rule))\b/i;
 // A superlative is fine only when a named source is credited for it in the same sentence.
 // "only" on its own is usually a plain fact ("only a lunch and a dinner
