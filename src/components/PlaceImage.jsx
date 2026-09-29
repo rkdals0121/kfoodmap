@@ -16,7 +16,7 @@ export default function PlaceImage({ place, variant = 'thumb', className = '', o
   const showReal = real && !failed;
 
   return (
-    <div className={`place-image place-image--${variant} ${className}`} onClick={onClick}>
+    <div className={`place-image place-image--${variant}${showReal ? '' : ' place-image--placeholder'} ${className}`} onClick={onClick}>
       {showReal ? (
         // real photos are heavier — lazy-load them
         <img src={real} alt="" loading="lazy" onError={() => setFailed(true)} />

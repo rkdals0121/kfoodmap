@@ -118,7 +118,9 @@ export default function RestaurantDetail({
     place.dietary.vegan, place.dietary.halal,
   ].map(f => f?.lastCheckedAt).filter(Boolean).sort().at(-1);
 
-  const galleryImages = [place.photo || place.coverImage || place.image].filter(Boolean);
+  // Only real photography opens the gallery: blowing the placeholder
+  // illustration up to full screen shows nothing new.
+  const galleryImages = [place.photo || place.coverImage].filter(Boolean);
 
   const fallbackCopy = (text) => {
     const ta = document.createElement('textarea');
@@ -178,7 +180,7 @@ export default function RestaurantDetail({
 
         <div className="detail-scroll">
           {/* 1. Hero Image */}
-          <PlaceImage place={place} variant="hero" onClick={() => setGalleryOpen(true)} />
+          <PlaceImage place={place} variant="hero" onClick={galleryImages.length > 0 ? () => setGalleryOpen(true) : undefined} />
 
           <div className="detail-content">
             {/* 2. Restaurant Name */}

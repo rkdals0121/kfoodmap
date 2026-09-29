@@ -41,17 +41,19 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
           </button>
         </h4>
 
+        {/* Status and distance share a line; the hours detail gets its own,
+            so a long "until … · last order …" never strands a separator at
+            a line end on a phone-width card. */}
         <p className="place-card__meta">
           {status && (
             <>
               <span className={status.open ? 'is-open' : 'is-closed'}>{status.label}</span>
               <span aria-hidden="true">·</span>
-              <span>{status.detail}</span>
-              <span aria-hidden="true">·</span>
             </>
           )}
           <span>{formatDistance(place.distanceKm)}</span>
         </p>
+        {status?.detail && <p className="place-card__hours">{status.detail}</p>}
 
         <div className="place-card__badges">
           {badges.slice(0, 3).map(label => (

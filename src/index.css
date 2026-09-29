@@ -325,11 +325,13 @@ button {
   color: var(--ink);
   text-align: left;
   cursor: pointer;
-  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   max-width: 100%;
-  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
 /* Stretched link: makes the whole card open the detail view */
 .place-card__open-btn::after {
@@ -345,6 +347,12 @@ button {
   flex-wrap: wrap;
   gap: 5px;
   line-height: 1.4;
+}
+.place-card__hours {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-top: -3px;
 }
 .is-open {
   color: var(--green-strong);
@@ -402,6 +410,10 @@ button {
   grid-area: media;
   align-self: start;
   width: 100%;
+  /* The placeholder's positioned layers would otherwise sit above the
+     name button's stretched ::after, so a tap on the thumbnail - the
+     biggest target on the card - did nothing. Let it fall through. */
+  pointer-events: none;
 }
 
 .place-card__foot {
@@ -596,6 +608,12 @@ button {
   aspect-ratio: 4 / 3;
   border-radius: 0;
   cursor: pointer;
+}
+.place-image--hero.place-image--placeholder {
+  /* No photo yet (true of every place today): a slim band instead of a
+     4:3 frame, so the name and dietary badges sit in the first screen. */
+  aspect-ratio: 5 / 2;
+  cursor: default;
 }
 .place-image--hero .place-image__illustration {
   width: 30%;
