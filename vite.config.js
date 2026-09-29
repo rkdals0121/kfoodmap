@@ -178,7 +178,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'],
       manifest: {
         name: 'K-Food Map',
         short_name: 'K-Food Map',
@@ -187,9 +187,13 @@ export default defineConfig({
         background_color: '#FFFFFF',
         display: 'standalone',
         start_url: '/',
+        // Drawn from scripts/icons/*.svg by scripts/app-icons.mjs.
         icons: [
           { src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml' },
           { src: 'apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+          { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
