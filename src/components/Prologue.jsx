@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined } from '../data/verification';
+import ClaimChip from './ClaimChip';
 import './Prologue.css';
 
 const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
@@ -11,10 +12,10 @@ const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
 // the last a 1.5 s "Opening the map…" spinner that loaded nothing. There is
 // deliberately no location step: the app never requests the device's location.
 const LEGEND = [
-  { level: 'confirmed', chipKey: 'prologue.legendConfirmedChip', levelKey: 'trust.confirmed', bodyKey: 'prologue.legendConfirmed' },
-  { level: 'reported', chipKey: 'prologue.legendReportedChip', levelKey: 'trust.reported', bodyKey: 'prologue.legendReported' },
-  { level: 'reading', chipKey: 'prologue.legendReadingChip', levelKey: 'trust.inferred', bodyKey: 'prologue.legendReading' },
-  { level: 'unknown', chipKey: null, levelKey: 'trust.unknown', bodyKey: 'prologue.legendUnknown' },
+  { tone: 'strong', kind: 'vegan', chipKey: 'prologue.legendConfirmedChip', levelKey: 'trust.confirmed', bodyKey: 'prologue.legendConfirmed' },
+  { tone: 'medium', kind: 'halal', chipKey: 'prologue.legendReportedChip', levelKey: 'trust.reported', bodyKey: 'prologue.legendReported' },
+  { tone: 'weak', kind: 'vegan', chipKey: 'prologue.legendReadingChip', levelKey: 'trust.inferred', bodyKey: 'prologue.legendReading' },
+  { tone: 'none', kind: null, chipKey: null, levelKey: 'trust.unknown', bodyKey: 'prologue.legendUnknown' },
 ];
 
 // Also opened later from Profile → About, as a dialog (`dialog`), where the
@@ -47,11 +48,9 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
         <section className="prologue-legend" aria-labelledby="prologue-legend-title">
           <h2 id="prologue-legend-title" className="prologue-legend__title">{t('prologue.legendTitle')}</h2>
           <ul>
-            {LEGEND.map(({ level, chipKey, levelKey, bodyKey }) => (
-              <li key={level} className="prologue-legend__row">
-                <span className={`tag-chip claim claim--${level}`}>
-                  {chipKey ? <>{t(chipKey)}<span className="claim__level">{t(levelKey)}</span></> : t(levelKey)}
-                </span>
+            {LEGEND.map(({ tone, kind, chipKey, levelKey, bodyKey }) => (
+              <li key={tone} className="prologue-legend__row">
+                <ClaimChip kind={kind} label={chipKey ? t(chipKey) : null} level={t(levelKey)} tone={tone} />
                 <span className="prologue-legend__body">{t(bodyKey)}</span>
               </li>
             ))}

@@ -4,13 +4,13 @@ import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
-  SparkleIcon, UserIcon, ChevronRightIcon, CompassIcon, GlobeIcon, MapPinIcon, InfoIcon, LockIcon, LogOutIcon, TrashIcon,
+  SparkleIcon, UserIcon, ChevronRightIcon, BowlIcon, GlobeIcon, MapPinIcon, InfoIcon, LockIcon, LogOutIcon, TrashIcon,
 } from './Icons';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
-import PlaceImage from './PlaceImage';
 import Prologue from './Prologue';
+import ClaimChip from './ClaimChip';
 import { LANGUAGE_STORAGE_KEY } from '../i18n/index.js';
 
 // Stories for Discover's culture section, by id: the old name lookups had
@@ -61,7 +61,8 @@ function DiscoverTab() {
       {resolvedJourneys.length > 0 && (
         <>
           <div className="tab-panel-header">
-            <span className="panel-icon" aria-hidden="true"><CompassIcon size={24} /></span>
+            {/* Not the compass: that glyph means "get directions" on cards. */}
+            <span className="panel-icon" aria-hidden="true"><BowlIcon size={24} /></span>
             <h2>{t('discover.journeysTitle')}</h2>
             <p>{t('discover.journeysSubtitle')}</p>
           </div>
@@ -79,10 +80,14 @@ function DiscoverTab() {
                         onClick={() => navigate(`/place/${place.id}`)}
                       >
                         <span className="journey-stop__num">{i + 1}</span>
-                        <PlaceImage place={place} variant="thumb" className="journey-stop__img" />
+                        {/* The page promises each stop says how sure we are:
+                            so each stop carries its claim marks. */}
                         <span className="journey-stop__text">
                           <span className="journey-stop__name">{displayName(place.name)}</span>
                           <span className="journey-stop__zone">{place.zone}</span>
+                          <span className="journey-stop__claims">
+                            {dietaryBadges(place).map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}
+                          </span>
                         </span>
                         <ChevronRightIcon size={16} />
                       </button>
@@ -107,12 +112,11 @@ function DiscoverTab() {
       <div className="story-grid">
         {cultureStories.map(place => (
           <article key={place.id} className="story-card" onClick={() => navigate(`/place/${place.id}`)}>
-            <PlaceImage place={place} variant="hero" className="story-card-img" />
             <div className="story-card-content">
               <p className="story-card__kind">{t('discover.storyLabel')}</p>
               <h3>{displayName(place.name)}</h3>
               <p>{place.story.split('.')[0] + '.'}</p>
-              <button className="story-card-btn">{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
+              <button className="story-card-btn" aria-label={t('list.readStoryAria', { name: displayName(place.name) })}>{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
             </div>
           </article>
         ))}

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
-import { isQuarantined, isKnown, VEGAN, dietaryBadges, trustBadge } from '../data/verification';
+import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
 import { formatShortDate, displayName, getOpenStatus } from '../utils';
-import { CLAIM_CLASS } from './claim';
+import ClaimChip from './ClaimChip';
 import { ChevronRightIcon } from './Icons';
 import Seal from './Seal';
 import { sealText } from '../data/seal-text';
@@ -31,14 +31,7 @@ function SavedRow({ place, savedAt, onOpen }) {
             )}
           </span>
           <span className="saved-row__claims">
-            {dietaryBadges(place).map(b => {
-              const { label: level, tone } = trustBadge(b.fact);
-              return (
-                <span key={b.key} className={`tag-chip claim claim--${CLAIM_CLASS[tone]}`}>
-                  {b.label}<span className="claim__level">{level}</span>
-                </span>
-              );
-            })}
+            {dietaryBadges(place).map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}
           </span>
         </span>
         <ChevronRightIcon size={18} />

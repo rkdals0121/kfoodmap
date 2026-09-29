@@ -1351,14 +1351,34 @@ button {
   font-weight: 500;
   font-family: var(--font);
 }
-.tag-chip.claim {
-  background: var(--surface);
-  color: var(--ink);
-  padding: 2px 8px;
+.claim-chip {
+  padding: 3px 10px 3px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  gap: 5px;
+  white-space: nowrap;
 }
-.tag-chip.claim--confirmed {
-  background: var(--ink);
-  color: #fff;
+.claim-chip svg {
+  flex-shrink: 0;
+}
+.claim--confirmed.claim-chip svg {
+  color: #D5D9DF;
+}
+.place-card__traits {
+  font-size: 12px;
+  color: var(--muted-strong);
+  line-height: 1.4;
+}
+.journey-stop__claims {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 4px;
+}
+.journey-stop__claims:empty {
+  display: none;
 }
 
 /* ---------- Bottom tab bar ---------- */

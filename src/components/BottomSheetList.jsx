@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
 import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf, displayName } from '../utils';
-import { dietaryBadges, trustBadge } from '../data/verification';
-import { CLAIM_CLASS } from './claim';
+import { dietaryBadges } from '../data/verification';
+import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 
@@ -32,13 +32,9 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
     ? [...place.traits].sort((a, b) =>
         Number(SUSTAINABILITY_TRAITS.includes(b)) - Number(SUSTAINABILITY_TRAITS.includes(a)))
     : place.traits;
-  // Dietary claims lead and carry their claim mark; traits follow plain.
-  const claims = dietaryBadges(place).map(b => {
-    const { label: level, tone } = trustBadge(b.fact);
-    return { label: b.label, level, tone };
-  });
-  const badges = [...claims, ...traits.map(label => ({ label }))];
-  const extraBadges = badges.length - 3;
+  // Dietary claims carry the claim mark; traits are a plain line under them
+  // (a filled chip read as more certain than the claim beside it).
+  const claims = dietaryBadges(place);
   // No place has a photo yet. Until one does, a placeholder thumbnail took
   // half the card and left one card per screen; without it the card is
   // text only and three or four fit.
@@ -72,16 +68,14 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
           )}
         </p>
 
-        <div className="place-card__badges">
-          {badges.slice(0, 3).map(b => (b.tone ? (
-            <span key={b.label} className={`tag-chip claim claim--${CLAIM_CLASS[b.tone]}`}>
-              {b.label}<span className="claim__level">{b.level}</span>
-            </span>
-          ) : (
-            <span key={b.label} className="tag-chip">{b.label}</span>
-          )))}
-          {extraBadges > 0 && <span className="tag-chip">+{extraBadges}</span>}
-        </div>
+        {claims.length > 0 && (
+          <div className="place-card__badges">
+            {claims.map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}
+          </div>
+        )}
+        {traits.length > 0 && (
+          <p className="place-card__traits">{traits.map(id => t(CHIP_LABEL_KEY[id] ?? id)).join(' · ')}</p>
+        )}
 
         {/* The restaurant's own recorded line, verbatim — the same string the
             detail page shows. Nothing is written or summarised for the list. */}
