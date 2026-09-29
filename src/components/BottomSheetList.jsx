@@ -157,7 +157,8 @@ export default function BottomSheetList({
   return (
     <div className="place-list">
       <div className="place-list__header">
-        <h3>{t('list.placeCount', { count: sorted.length })}</h3>
+        {/* Announced politely when a filter or search changes the count. */}
+        <h3><span aria-live="polite">{t('list.placeCount', { count: sorted.length })}</span></h3>
         {sorted.length > 1 && <span className="place-list__hint">{t('list.nearestFirst')}</span>}
       </div>
 

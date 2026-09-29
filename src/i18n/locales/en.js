@@ -137,7 +137,7 @@ export default {
     topicLabel: 'What is it about?',
     topicPlaceholder: 'Choose one',
     topics: {
-      vegan: 'Vegan options',
+      vegan: 'Vegan',
       halal: 'Halal',
       hours: 'Opening hours',
       closed: 'Closed or moved',
