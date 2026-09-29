@@ -13836,7 +13836,7 @@ export const restaurants = [
     },
     "traits": [],
     "vibe": "A plant-based Korean kitchen in a basement arcade near Sangwolgok Station, with vegan versions of gukbap, soft-tofu stew and gimbap.",
-    "story": "Loving Hut Real Love is a vegan restaurant in the basement of a small shopping building a short walk from Sangwolgok Station. HappyCow lists it as 100% vegan, serving Korean and modern fusion dishes. Its Kakao Map menu includes a vegan sundae gukbap, vegan gimbap and soft-tofu set meals. Opening hours differ between listings, so it is worth calling before a trip.",
+    "story": "Loving Hut Real Love is a vegan restaurant in the basement of a small shopping building a short walk from Sangwolgok Station. HappyCow lists it as 100% vegan, serving Korean and modern fusion dishes. Its Kakao Map menu includes a vegan sundae gukbap, vegan gimbap and soft-tofu set meals.",
     "esg_point": "An entirely plant-based menu of Korean everyday dishes, per a vegan restaurant directory.",
     "image": "/images/vegan_cafe.svg",
     "photo": null,
@@ -14164,7 +14164,7 @@ export const restaurants = [
     },
     "traits": [],
     "vibe": "A small basement deli in Seongsu making vegan bagel sandwiches, with oat-milk drinks.",
-    "story": "Pureun Deli is a basement-level bagel shop on a Seongsu side street. HappyCow lists it as fully vegan, and the shop describes itself on Kakao Map as making handmade vegan bagel sandwiches. Drinks use oat milk. Saturday hours differ between listings.",
+    "story": "Pureun Deli is a basement-level bagel shop on a Seongsu side street. HappyCow lists it as fully vegan, and the shop describes itself on Kakao Map as making handmade vegan bagel sandwiches. Drinks use oat milk.",
     "esg_point": "Handmade vegan bagels and oat-milk drinks, per the shop and a vegan directory.",
     "image": "/images/vegan_cafe.svg",
     "photo": null,
@@ -17437,7 +17437,7 @@ export const restaurants = [
       }
     },
     "vibe": "A plant-based Korean fusion course restaurant in Sangam that doubles as a vegan culture space.",
-    "story": "jumjumjumjumjumjum serves an eight-course vegan meal built on house-made sauces and pestos, in a room finished with recycled aluminium near Digital Media City. Seoul's official tourism site describes it as a vegan restaurant, culture hub and exhibition space, and HappyCow lists it as plant-based modern Korean fusion. Lunch is by reservation; opening hours differ between listings, so check before going.",
+    "story": "jumjumjumjumjumjum serves an eight-course vegan meal built on house-made sauces and pestos, in a room finished with recycled aluminium near Digital Media City. Seoul's official tourism site describes it as a vegan restaurant, culture hub and exhibition space, and HappyCow lists it as plant-based modern Korean fusion. Lunch is by reservation.",
     "esg_point": "Fully plant-based kitchen; the interior is built from recycled aluminium (per Seoul's tourism site).",
     "imageLeads": [],
     "traits": [],
@@ -25841,7 +25841,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A small vegan kitchen by the Hongjecheon stream in Yeonhui-dong, pairing pasta and rice plates with Korean greens.",
-    "story": "Veggies describes itself as a fully vegan restaurant. Its plates mix Western dishes with Korean vegetables: a chive-pesto pasta served with seasoned gosari (bracken), a taco rice on barley with a lentil-and-mushroom patty, and gnocchi in a porcini and soy-milk cream. It sits on a residential street in Yeonhui-dong, about half an hour's walk from Gajwa Station, so a bus or taxi is the easier way there. Hours vary by day; check before going.",
+    "story": "Veggies describes itself as a fully vegan restaurant. Its plates mix Western dishes with Korean vegetables: a chive-pesto pasta served with seasoned gosari (bracken), a taco rice on barley with a lentil-and-mushroom patty, and gnocchi in a porcini and soy-milk cream. It sits on a residential street in Yeonhui-dong, about half an hour's walk from Gajwa Station, so a bus or taxi is the easier way there.",
     "esg_point": "Soy milk, tofu cream and lentils in place of dairy and meat across the menu",
     "image": "/images/pasta.svg",
     "photo": null,
@@ -33680,7 +33680,7 @@ export const restaurants = [
       }
     },
     "vibe": "A Loving Hut vegan kitchen on the coastal highway in Namwon, on the south-east of the island.",
-    "story": "This is the Jeju branch of Loving Hut, a vegan restaurant chain whose Korean site says every dish on its menu is vegan and contains no animal ingredients. It sits on the Iljudong-ro coastal highway in Namwon-eup, between Seogwipo and Pyoseon. The branch welcomes phone reservations; opening days differ between listings, so call ahead.",
+    "story": "This is the Jeju branch of Loving Hut, a vegan restaurant chain whose Korean site says every dish on its menu is vegan and contains no animal ingredients. It sits on the Iljudong-ro coastal highway in Namwon-eup, between Seogwipo and Pyoseon. The branch welcomes phone reservations.",
     "esg_point": "A chain-wide vegan menu with no animal ingredients.",
     "image": "/images/vegan_cafe.svg",
     "imageLeads": [],
@@ -35362,7 +35362,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A small vegan café beside Vegi Narang Kitchen in rural Geochang.",
-    "story": "Cafe Narang is a vegan café a few doors from Vegi Narang Kitchen in Namha-myeon, Geochang. HappyCow lists it as vegan and describes it as a meditation café within a Buddhist community, serving granola, yogurt and fortune cookies; Kakao Map lists coffee, teas and ades, with the lattes named as vegan. Opening times differ between sources, though both say it is closed on Mondays. It is best combined with a meal at Vegi Narang Kitchen, since both are a taxi ride from Geochang's bus terminal.",
+    "story": "Cafe Narang is a vegan café a few doors from Vegi Narang Kitchen in Namha-myeon, Geochang. HappyCow lists it as vegan and describes it as a meditation café within a Buddhist community, serving granola, yogurt and fortune cookies; Kakao Map lists coffee, teas and ades, with the lattes named as vegan. It is closed on Mondays. It is best combined with a meal at Vegi Narang Kitchen, since both are a taxi ride from Geochang's bus terminal.",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
     "photo": null,
@@ -41133,7 +41133,7 @@ export const restaurants = [
       }
     },
     "vibe": "A vegan Korean yakseon (medicinal-food) restaurant in Jeonju, cooking with vegetables from its own farm.",
-    "story": "Gamloheon serves Korean yakseon cooking, set meals built on the idea of food as medicine, and HappyCow lists it as fully vegan. Its current menu centres on set meals: a basic yakseon table, and a set with a plant-based tteokgalbi patty that the restaurant describes as made with produce from its own farm. It is in the performance-hall building at 20 Hyeonmu 1-gil, just west of the Hanok Village. Opening hours differ between listings, so check before you go.",
+    "story": "Gamloheon serves Korean yakseon cooking, set meals built on the idea of food as medicine, and HappyCow lists it as fully vegan. Its current menu centres on set meals: a basic yakseon table, and a set with a plant-based tteokgalbi patty that the restaurant describes as made with produce from its own farm. It is in the performance-hall building at 20 Hyeonmu 1-gil, just west of the Hanok Village.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -41499,7 +41499,7 @@ export const restaurants = [
       }
     },
     "vibe": "A fully vegan brunch café beside the Hwasan stream in Jeonju’s Junghwasan-dong.",
-    "story": "Present Vegan Cafe (프레종 in Korean) is a brunch café that HappyCow lists as fully vegan. Its menu runs to falafel salad in pita, avocado rolls with plant-based meat, barbecue ciabatta sandwiches and lattes made with soy or oat milk. Hours differ between listings, so check before you go. It is in a residential part of Jeonju, a bus or taxi ride from the station.",
+    "story": "Present Vegan Cafe (프레종 in Korean) is a brunch café that HappyCow lists as fully vegan. Its menu runs to falafel salad in pita, avocado rolls with plant-based meat, barbecue ciabatta sandwiches and lattes made with soy or oat milk. It is in a residential part of Jeonju, a bus or taxi ride from the station.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -41993,7 +41993,7 @@ export const restaurants = [
       }
     },
     "vibe": "A Korean vegetarian buffet in Gwangju where, HappyCow reports, everything but the cheese pizza is vegan.",
-    "story": "Salim Classic is an all-you-can-eat vegetarian buffet in Juwol-dong serving mostly Korean dishes with a few Western ones. HappyCow reports that everything on the buffet is vegan except a cheese pizza, so vegans can eat almost everything but should skip that. It is a bus or taxi ride from the nearest subway station. Hours are listed in only one place, so call ahead.",
+    "story": "Salim Classic is an all-you-can-eat vegetarian buffet in Juwol-dong serving mostly Korean dishes with a few Western ones. HappyCow reports that everything on the buffet is vegan except a cheese pizza, so vegans can eat almost everything but should skip that. It is a bus or taxi ride from the nearest subway station.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -50918,7 +50918,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A vegan Korean set-meal restaurant with floor seating on the edge of Gyeongsan.",
-    "story": "Saesil is a Korean set-meal (hansik) restaurant in Gyeyang-dong, Gyeongsan, that HappyCow lists as fully vegan and describes as a vegan Korean restaurant with floor seating and private rooms. HappyCow also notes that it serves beer or wine. It is about 35 minutes on foot from Gyeongsan Station, so a taxi or local bus is the easier way there. Opening hours come from one source, so check before going.",
+    "story": "Saesil is a Korean set-meal (hansik) restaurant in Gyeyang-dong, Gyeongsan, that HappyCow lists as fully vegan and describes as a vegan Korean restaurant with floor seating and private rooms. HappyCow also notes that it serves beer or wine. It is about 35 minutes on foot from Gyeongsan Station, so a taxi or local bus is the easier way there.",
     "esg_point": null,
     "image": "/images/fermented_dish.svg",
     "photo": null,
@@ -97748,7 +97748,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A vegan dessert bakery in Mokpo that also teaches vegan baking.",
-    "story": "Kubi Kubi describes itself as a Mokpo bakery making 100% plant-based vegan desserts. It also runs vegan baking classes (a one-day class is 60,000 KRW on its listing). Opening hours are not published on Kakao Map, so check before a special trip.",
+    "story": "Kubi Kubi describes itself as a Mokpo bakery making 100% plant-based vegan desserts. It also runs vegan baking classes (a one-day class is 60,000 KRW on its listing).",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
     "photo": null,
