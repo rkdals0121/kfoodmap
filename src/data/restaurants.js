@@ -808,6 +808,7 @@ export const restaurants = [
 
     phone: fact("0507-1330-0619", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing, matched by three independent write-ups; a 0507 number forwards to the venue's real line" }),
 
+    transit: unknownFact("Nearest rail station is Cheongna International City (Airport Railroad), 4.7 km away; no walkable rail link. Kakao walking route from 청라국제도시역 공항철도: about 4729 m / 4450 s (checked 2026-09-29)."),
     dietary: {
       // Corrected 2026-07-17, from VEGAN.FULL. The draft was true when written
       // and is now false — the venue stopped being vegan-only at its June 2026
@@ -913,6 +914,7 @@ export const restaurants = [
     ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Curry names and prices from a DiningCode listing checked 2026-07-17. Lamb Kebab is real and prominent — independently described across nine visitor write-ups from 2015 to 2025 — but the only price found for it dates to 2022, four years stale, so it is left unstated rather than carried forward as current. \"Chicken Tikka Masala\" and \"Fresh Hummus & Pita\" are dropped: neither has current-dated confirmation. \"Halal\" is not used as a dish label — halal-friendliness is a restaurant-level fact (see dietary.halal), not a menu label, the same rule applied to bombay-brau" }),
     phone: fact("032-859-6900", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing; a landline, not a 0507 forwarding number" }),
 
+    transit: unknownFact("Nearest rail station is Dongchun (Incheon Line 1), 2.8 km away; no walkable rail link. Kakao walking routes (checked 2026-09-29): from 동춘역 about 2824 m / 2666 s; from 동막역 about 2935 m / 2827 s."),
     dietary: {
       vegan: unknownFact("No vegan information in the source"),
       halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "A DiningCode listing and Korea Tourism Organization's own multilingual tourism page both describe the venue as halal-oriented (Indian/Turkish/Arabic cuisine, a clientele of Southeast Asian students and Middle Eastern traders), but neither, nor any of the dozen visitor write-ups reviewed, mentions KMF certification. Held at FRIENDLY, not CERTIFIED — no certificate has been sighted" }),
