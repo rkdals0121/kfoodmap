@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined } from '../data/verification';
@@ -17,14 +17,31 @@ const LEGEND = [
   { level: 'unknown', chipKey: null, levelKey: 'trust.unknown', bodyKey: 'prologue.legendUnknown' },
 ];
 
-export default function Prologue({ onComplete }) {
+// Also opened later from Profile → About, as a dialog (`dialog`), where the
+// button closes it rather than opening the map.
+export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologue.continue' }) {
   const { t } = useTranslation();
+  const ctaRef = useRef(null);
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; });
 
+  useEffect(() => {
+    if (!dialog) return undefined;
+    ctaRef.current?.focus();
+    const onKey = (e) => { if (e.key === 'Escape') onCompleteRef.current(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [dialog]);
+
+  const Wrapper = dialog ? 'div' : 'main';
   return (
-    <div className="prologue-layout">
-      <main className="prologue-content">
+    <div
+      className="prologue-layout"
+      {...(dialog ? { role: 'dialog', 'aria-modal': true, 'aria-labelledby': 'prologue-title' } : {})}
+    >
+      <Wrapper className="prologue-content">
         <p className="prologue-eyebrow">K-Food Map</p>
-        <h1 className="prologue-title">{t('prologue.title')}</h1>
+        <h1 id="prologue-title" className="prologue-title">{t('prologue.title')}</h1>
         <p className="prologue-subtitle">{t('prologue.subtitle', { activeCount })}</p>
 
         <section className="prologue-legend" aria-labelledby="prologue-legend-title">
@@ -42,8 +59,8 @@ export default function Prologue({ onComplete }) {
           <p className="prologue-legend__note">{t('prologue.legendNote')}</p>
         </section>
 
-        <button className="prologue-btn" onClick={onComplete}>{t('prologue.continue')}</button>
-      </main>
+        <button ref={ctaRef} className="prologue-btn" onClick={onComplete}>{t(ctaKey)}</button>
+      </Wrapper>
     </div>
   );
 }

@@ -24,6 +24,7 @@ export default {
     legendUnknown: 'We could not find out, so we say so.',
     legendNote: 'Menus and kitchens change. If your diet is strict, ask staff before you order.',
     continue: 'Open the map',
+    close: 'Close',
   },
   trust: {
     unknown: 'Not known',
@@ -101,7 +102,6 @@ export default {
     settingsTitle: 'Settings',
     settingsSubtitle: 'Manage your preferences and app settings.',
     aboutApp: 'About K-Food Map',
-    version: 'v1.0',
     signInGoogle: 'Sign in with Google',
     signInFailed: "Sign-in didn't finish. Your saved places are still on this device — try again when you're ready.",
     passport: 'Passport',

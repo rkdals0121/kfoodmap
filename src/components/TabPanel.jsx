@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { displayName } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
@@ -8,6 +8,7 @@ import { restaurants } from '../data/restaurants';
 import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
 import PlaceImage from './PlaceImage';
+import Prologue from './Prologue';
 import { LANGUAGE_STORAGE_KEY } from '../i18n/index.js';
 
 // Stories for Discover's culture section, by id: the old name lookups had
@@ -170,6 +171,8 @@ function ProfileTab({
 }) {
   const { t, i18n } = useTranslation();
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const aboutOpener = useRef(null);
   const navigate = useNavigate();
   const currentLanguage = LANGUAGES.find(l => l.code === i18n.language) ?? LANGUAGES[0];
 
@@ -199,7 +202,8 @@ function ProfileTab({
   const settings = [
     { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: '🌐', action: () => setLanguagePickerOpen(true) },
     { label: t('profile.suggestRestaurant'), value: '', icon: '📍', action: () => navigate('/submit') },
-    { label: t('profile.aboutApp'), value: t('profile.version'), icon: 'ℹ️' },
+    // Shows the opening screen again: what the map is and how to read a claim.
+    { label: t('profile.aboutApp'), value: '', icon: 'ℹ️', action: () => { aboutOpener.current = document.activeElement; setAboutOpen(true); } },
     { label: t('profile.privacyPolicy'), value: '', icon: '🔒', action: () => navigate('/privacy') },
   ];
 
@@ -300,6 +304,10 @@ function ProfileTab({
       )}
 
       {languagePickerOpen && <LanguagePicker onClose={() => setLanguagePickerOpen(false)} />}
+      {aboutOpen && createPortal(
+        <Prologue dialog ctaKey="prologue.close" onComplete={() => { setAboutOpen(false); aboutOpener.current?.focus(); }} />,
+        document.body,
+      )}
     </section>
   );
 }
