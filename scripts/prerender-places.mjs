@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { restaurants } from '../src/data/restaurants.js';
 import { isQuarantined } from '../src/data/verification.js';
+import { displayName } from '../src/utils.js';
 
 const SITE_URL = 'https://kfoodmap.vercel.app';
 
@@ -47,7 +48,9 @@ function ogImageFor(place) {
 }
 
 function replacements(place) {
-  const name = escapeHtml(place.name.split('(')[0].trim());
+  // displayName, not split('('): that cut "Nimat (니맛), Culinary Square T2"
+  // to "Nimat", the same bug the app fixed for its own views.
+  const name = escapeHtml(displayName(place.name));
   const description = escapeHtml(place.vibe);
   const url = `${SITE_URL}/place/${place.id}`;
 
