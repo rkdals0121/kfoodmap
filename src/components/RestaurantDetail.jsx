@@ -189,6 +189,11 @@ export default function RestaurantDetail({
               <p className="detail-meta">
                 {place.zone}
                 {distance && <><span aria-hidden="true"> · </span>{distance}</>}
+                {/* Open/closed up here too, as on the list card: it is the first thing
+                    a traveller acts on. The detail stays in the hours row below. */}
+                {status && (
+                  <><span aria-hidden="true"> · </span><strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong></>
+                )}
               </p>
             </header>
 
