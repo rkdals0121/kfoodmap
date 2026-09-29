@@ -2785,13 +2785,13 @@ export const restaurants = [
     },
     "address": {
       "value": "B1–1F, 9 Seonggyungwan-ro 6-gil, Jongno-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Map service lookup",
-      "lastCheckedAt": "2026-09-28",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://www.persianpalace.com/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map: 서울 종로구 성균관로6길 9 지하1층,1층, matching the place named 페르시안궁전. Independently corroborated by Tripadvisor and Zabihah, which both give 9 Sungkyunkwan-ro 6-gil / Seonggyungwan-ro 6-Gil, Jongno-gu."
+      "evidence": "Operator (site footer, http://www.persianpalace.com/, read 2026-09-29): '종로구 명륜2가 성균관로6길 9'. Kakao Map place panel (place.map.kakao.com/11520636): '서울 종로구 성균관로6길 9 지하1층,1층 (명륜2가)'. Road name and building number agree. The operator gives no floor; Kakao adds 지하1층,1층."
     },
     "hours": {
       "value": {
@@ -2928,7 +2928,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://www.persianpalace.com/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/11520636",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 페르시안궁전 (https://place.map.kakao.com/11520636) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled 페르시안궁전 and its footer gives the Seonggyungwan-ro 6-gil address and the phone 02-763-6050."
+    }
   },
   // ---- Data expansion, round 2 (2026-09-28) ----
   // Ten more, verified from written sources. Two holds from round 1 are
@@ -4314,7 +4323,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/chickpeace.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1332732556",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 칙피스 성수점 (https://place.map.kakao.com/1332732556) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '칙피스'. This is the brand account for all Chick Peace branches, not a single branch."
+    }
   },
   {
     "id": "nimat-incheon-airport-t2",
@@ -5212,13 +5230,13 @@ export const restaurants = [
       "evidence": "DiningCode listing; a 0507 forwarding number. Reservations are described as required, so this is the number a traveller would actually need to call."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator-run Instagram or other social account was found and confirmed this session."
+      "value": "https://www.instagram.com/tea_chahororok/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/97116797",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 차호로록 (https://place.map.kakao.com/97116797) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '차호로록'. Its bio gives the same phone as Kakao (02 2676 4689)."
     },
     "transit": {
       "value": {
@@ -6071,7 +6089,25 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/slunch_factory/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1449970636",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 슬런치팩토리 홍대점 (https://place.map.kakao.com/1449970636) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '슬런치 팩토리'. Its bio gives the same phone as Kakao (02-6224-6525)."
+    },
+    "officialUrl": {
+      "value": "https://slunch.co.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1449970636",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 슬런치팩토리 홍대점 (https://place.map.kakao.com/1449970636) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled \"VeggieVerse - 슬런치 팩토리\"; it is the brand site, and its footer gives the company office in Daejeon, not this shop."
+    }
   },
   {
     "id": "gosame-sinchon",
@@ -6547,7 +6583,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/kervankorea/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17061718",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 케르반레스토랑 이태원 본점 (https://place.map.kakao.com/17061718) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'Kervan Restaurant | 케르반 레스토랑'. Its bio says \"Seoul, Itaewon branch\"."
+    }
   },
   {
     "id": "dubai-restaurant-itaewon",
@@ -6953,7 +6998,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/vegetuskr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1441623065",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 베제투스 (https://place.map.kakao.com/1441623065) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'VEGETUS vegan restaurant'. Its bio names 서울 해방촌 채식식당 베제투스."
+    }
   },
   {
     "id": "yang-good",
@@ -7108,7 +7162,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/yanggood/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/19346141",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 양국 (https://place.map.kakao.com/19346141) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '양국'."
+    }
   },
   {
     "id": "plantude-coex",
@@ -7266,7 +7329,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/plantude.official/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/884459004",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 플랜튜드 코엑스점 (https://place.map.kakao.com/884459004) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '플랜튜드'. This is the Plantude brand account for all branches."
+    }
   },
   {
     "id": "kervan-coex",
@@ -7492,7 +7564,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/chickpeace.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/714223410",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 칙피스 가로수길점 (https://place.map.kakao.com/714223410) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '칙피스'. This is the brand account for all Chick Peace branches, not a single branch."
+    }
   },
   {
     "id": "bium-cheongdam",
@@ -7513,13 +7594,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 41 Hakdong-ro 97-gil, Gangnam-gu, Seoul (리유빌딩 1층)",
-      "confidence": "supported",
-      "source": "Restaurant directory listing",
-      "url": "https://www.diningcode.com/profile.php?rid=CtpVAMoETIKC",
-      "method": "Independent sources agree",
-      "lastCheckedAt": "2026-09-28",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/biumseoul/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "DiningCode gives '서울특별시 강남구 학동로97길 41 1층'; mennoblesse.com independently gives '서울시 강남구 학동로97길 41, 리유빌딩 1층'; Kakao Map's own listing for 비움 independently gives 서울 강남구 학동로97길 41. All three agree."
+      "evidence": "Operator (Instagram bio, in English, https://www.instagram.com/biumseoul/, read 2026-09-29): '1F, 41 Hakdong-ro 97-gil, Gangnam-gu, Seoul, Republic of Korea'. Kakao Map place panel (place.map.kakao.com/1488389083): '서울 강남구 학동로97길 41 리유빌딩 1층 (청담동)'. Road name and building number agree. Hakdong-ro 97-gil 41 = 학동로97길 41; both give 1F/1층."
     },
     "hours": {
       "value": {
@@ -7656,7 +7737,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/biumseoul/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1488389083",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 비움 (https://place.map.kakao.com/1488389083) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'BIUM seoul'. Its bio gives the same address and phone as Kakao."
+    }
   },
   {
     "id": "star-samarkand-dongdaemun",
@@ -8451,7 +8541,16 @@ export const restaurants = [
     "image": "/images/noodles.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/gosariexpress/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/173951940",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 고사리 익스프레스 (https://place.map.kakao.com/173951940) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '고사리 익스프레스 신당'."
+    }
   },
   {
     "id": "saffron-myeongdong",
@@ -8775,7 +8874,16 @@ export const restaurants = [
     "image": "/images/pasta.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/oopsfarmer/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1440545658",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 어쩌다농부 남대문점 (https://place.map.kakao.com/1440545658) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '어쩌다농부'."
+    }
   },
   {
     "id": "blu-seoul",
@@ -8887,7 +8995,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/blu.seoul/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/448090148",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 블루서울 (https://place.map.kakao.com/448090148) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '블루서울'."
+    }
   },
   {
     "id": "aladdins-lamb-jamsil",
@@ -9213,7 +9330,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/mokrojungwon/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/883186039",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 목로정원 (https://place.map.kakao.com/883186039) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '목로정원'."
+    }
   },
   {
     "id": "room-temperature-seongsu",
@@ -10058,7 +10184,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/inditable_official/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2055952433",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 인디테이블 (https://place.map.kakao.com/2055952433) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '인디테이블'. Its bio names 인디테이블 판교점 in 판교 아브뉴프랑."
+    }
   },
   {
     "id": "newdelhi-goyang",
@@ -10260,7 +10395,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://www.everestfood.com/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/190917502",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 에베레스트 하남스타필드점 (https://place.map.kakao.com/190917502) links this as the venue's homepage. The page was opened on 2026-09-29: the page is the Everest Restaurant company site (에베레스트 레스토랑); it is chain-level, not branch-specific."
+    }
   },
   {
     "id": "masala-bucheon",
@@ -10749,7 +10893,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/agrafood/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/32292147",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 아그라 안성스타필드 (https://place.map.kakao.com/32292147) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '아그라'. This is the Agra brand account, not a branch account."
+    }
   },
   {
     "id": "suembu-dongtan",
@@ -11556,13 +11709,13 @@ export const restaurants = [
     },
     "address": {
       "value": "#304, 3F, Samyoung Town, 151 Gwangdeok-daero, Danwon-gu, Ansan, Gyeonggi-do",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://www.data.go.kr/data/15099378/fileData.do",
-      "method": "Read from a government listing",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/kinzagojan/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Gyeonggi Tourism Organization's dataset row gives 안산시 단원구 광덕대로151 304호; Kakao Map (https://place.map.kakao.com/1562813267) independently resolves the place to 경기 안산시 단원구 광덕대로 151 삼영타운 3층 304호. DiningCode's listing gives the same road address and unit. The dataset's same-named Anyang row is a separate listing and not this entry."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/kinzagojan/, read 2026-09-29): '안산시 단원구 광덕대로 151, 삼영타운 304호'. Kakao Map place panel (place.map.kakao.com/1562813267): '경기 안산시 단원구 광덕대로 151 삼영타운 3층 304호 (고잔동)'. Road name and building number agree. Both give unit 304 in 삼영타운; only Kakao adds 3층."
     },
     "hours": {
       "value": null,
@@ -11634,7 +11787,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/kinzagojan/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1562813267",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 긴자인도레스토랑 (https://place.map.kakao.com/1562813267) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '긴자인도레스토랑 (profile name 김성락)'. Its bio gives the same phone and address as Kakao."
+    }
   },
   {
     "id": "welcome-to-dubai-suwon",
@@ -11655,13 +11817,13 @@ export const restaurants = [
     },
     "address": {
       "value": "#102, 1F, Maesan-dong Eoullim Center, 13-4 Maesan-ro, Paldal-gu, Suwon, Gyeonggi-do",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/2023124784",
-      "method": "Map service lookup",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/wtdubai4/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives 경기 수원시 팔달구 매산로 13-4 매산동어울림센터 1층 102호; DiningCode's own listing independently gives the same road address (\"경기도 수원시 팔달구 매산로 13-4 매산동어울림센터 1층 102호\")."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/wtdubai4/, read 2026-09-29): '수원시 팔달구 매산로13-4 102호'. Kakao Map place panel (place.map.kakao.com/2023124784): '경기 수원시 팔달구 매산로 13-4 매산동어울림센터 1층 102호 (매산로1가)'. Road name and building number agree. Both give unit 102; only Kakao adds 1층 and the building name."
     },
     "hours": {
       "value": null,
@@ -11733,7 +11895,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/wtdubai4/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2023124784",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 웰컴투두바이 (https://place.map.kakao.com/2023124784) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '웰컴투두바이'. Its bio gives the same address as Kakao."
+    }
   },
   {
     "id": "troy-kebab-suwon",
@@ -11832,7 +12003,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/troykebabsuwon/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/251958364",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 트로이케밥 수원점 (https://place.map.kakao.com/251958364) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'TROY KEBAB SUWON'. Its bio gives the same phone as Kakao (010-3714-9508)."
+    }
   },
   {
     "id": "retro33-yongin",
@@ -11853,13 +12033,13 @@ export const restaurants = [
     },
     "address": {
       "value": "#102, 16-8 Heungdeok 2-ro 65beon-gil, Giheung-gu, Yongin, Gyeonggi-do",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/24984567",
-      "method": "Map service lookup",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.vegan33.com/%EC%98%A4%EC%8B%9C%EB%8A%94%EA%B8%B8",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map gives 경기 용인시 기흥구 흥덕2로65번길 16-8 건물 뒤편 102호; DiningCode's own listing independently gives the same road address (\"경기도 용인시 기흥구 흥덕2로65번길 16-8 미니마리 뒷편 1층\")."
+      "evidence": "Operator (directions page (오시는길), https://www.vegan33.com/%EC%98%A4%EC%8B%9C%EB%8A%94%EA%B8%B8, read 2026-09-29): '16954 용인시 기흥구 흥덕2로 65번길 16-8'. Kakao Map place panel (place.map.kakao.com/24984567): '경기 용인시 기흥구 흥덕2로65번길 16-8 건물 뒤편 102호 (영덕동)'. Road name and building number agree. The operator gives no unit; Kakao adds 102호."
     },
     "hours": {
       "value": null,
@@ -11925,7 +12105,25 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/retro33_/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/24984567",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 레트로33 (https://place.map.kakao.com/24984567) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '레트로33'."
+    },
+    "officialUrl": {
+      "value": "https://www.vegan33.com/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/24984567",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 레트로33 (https://place.map.kakao.com/24984567) links this as the venue's homepage. The page was opened on 2026-09-29: the site covers VEGAN33 and RETRO33 and its directions page gives the Heungdeok 2-ro 65beon-gil 16-8 address."
+    }
   },
   {
     "id": "loving-hut-real-love-wolgok",
@@ -12040,7 +12238,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://www.lovinghut.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1556976169",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 러빙헛 리얼러브점 (https://place.map.kakao.com/1556976169) links this as the venue's homepage. The page was opened on 2026-09-29: the Loving Hut Korea chain site; its store list names 리얼러브점 at 장월로3길 1, 동아다누프라자 B106호 with the same phone as Kakao (02-2088-4098)."
+    }
   },
   {
     "id": "epikore-seongsu",
@@ -12894,13 +13101,13 @@ export const restaurants = [
       "evidence": "DiningCode gives 0507-1428-0599 while Seoul's vegetarian-restaurant list gives 070-7543-0599 for the same address. The two disagree, so the field is left unknown."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator-run Instagram account was found and confirmed this session."
+      "value": "https://www.instagram.com/ooh_breado/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/190594939",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 우부래도 베지찬 (https://place.map.kakao.com/190594939) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '우부래도 & 베지찬'."
     },
     "transit": {
       "value": {
@@ -12966,13 +13173,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 129, B1, Hyundai Apartment Shopping Arcade, 95 Dangsan-ro, Yeongdeungpo-gu, Seoul",
-      "confidence": "supported",
-      "source": "Restaurant directory listing",
-      "url": "https://www.diningcode.com/profile.php?rid=o3NTg26bBpTX",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/rudis_vegan/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "DiningCode gives 서울특별시 영등포구 당산로 95 현대아파트상가 지하1층 129호 (지번 당산동2가 164); Kakao Map independently gives the same road address, 서울 영등포구 당산로 95."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/rudis_vegan/, read 2026-09-29) gives a lot-number address: '서울시 영등포구 당산동2가 164번지 당산현대아파트 상가 지하 1층 129호'. Kakao Map place panel (place.map.kakao.com/284501443): '서울 영등포구 당산로 95 현대아파트상가 지하1층 129호 (당산동2가)', lot number '당산동2가 164'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). Both give 지하1층 129호."
     },
     "hours": {
       "value": null,
@@ -13023,13 +13230,13 @@ export const restaurants = [
       "evidence": "DiningCode listing; a 0507 forwarding number."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator-run Instagram account was found and confirmed this session."
+      "value": "https://www.instagram.com/rudis_vegan/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/284501443",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 루디스비건 (https://place.map.kakao.com/284501443) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '루디스비건'. Its bio gives the same lot-number address and unit as Kakao."
     },
     "transit": {
       "value": {
@@ -13095,13 +13302,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 457-1 Bongcheon-ro, Gwanak-gu, Seoul",
-      "confidence": "supported",
-      "source": "Restaurant directory listing",
-      "url": "https://www.diningcode.com/profile.php?rid=ccc18oLd3Mky",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/veganmamabakery/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "DiningCode gives 서울특별시 관악구 봉천로 457-1 1층 (지번 봉천동 871-74); HappyCow gives \"457-1 Bongcheon-ro, Gwanak-gu\"; Kakao Map independently gives 서울 관악구 봉천로 457-1."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/veganmamabakery/, read 2026-09-29): '관악구봉천로457-1'. Kakao Map place panel (place.map.kakao.com/2121214286): '서울 관악구 봉천로 457-1 1층 (봉천동)'. Road name and building number agree. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
       "value": null,
@@ -13152,13 +13359,13 @@ export const restaurants = [
       "evidence": "DiningCode listing; a 0507 forwarding number."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator-run Instagram account was found and confirmed this session."
+      "value": "https://www.instagram.com/veganmamabakery/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2121214286",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 비건마마 (https://place.map.kakao.com/2121214286) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '비건마마'. Its bio gives the same road address as Kakao."
     },
     "transit": {
       "value": {
@@ -13549,7 +13756,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "https://otsalcorp.co.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12740961",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 옷살 서울대입구본점 (https://place.map.kakao.com/12740961) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled \"인도정통요리전문점 옷살\"; it is the franchise company site, not branch-specific."
+    }
   },
   // Northern and western Gyeonggi.
   {
@@ -13571,13 +13787,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 50 Taepyeong-ro 73beon-gil, Uijeongbu, Gyeonggi-do",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://www.data.go.kr/data/15099378/fileData.do",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://www.durga.co.kr/bbs/board.php?bo_table=gallery&wr_id=3",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Gyeonggi Tourism Organization's public dataset '경기관광공사_경기도 무슬림 친화 음식점' (data.go.kr, dated 2024-05-31), read as raw CSV: '의정부시, 네팔인도식, 두르가(의정부점), 의정부시 태평로73번길 50'. Kakao Map (place 16097816): '경기 의정부시 태평로73번길 50 2층'. DiningCode (rid vTZTmRccyWfq) list page: '경기도 의정부시 태평로73번길 50 2층'. All three agree."
+      "evidence": "Operator (store page (매장안내 두르가 의정부점), http://www.durga.co.kr/bbs/board.php?bo_table=gallery&wr_id=3, read 2026-09-29) gives a lot-number address: '경기도 의정부시 의정부동 176-12'. Kakao Map place panel (place.map.kakao.com/16097816): '경기 의정부시 태평로73번길 50 2층 (의정부동)', lot number '의정부동 176-12'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). The operator gives no floor; Kakao adds 2층."
     },
     "hours": {
       "value": null,
@@ -14296,13 +14512,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 212-22 Donggyo-ro, Mapo-gu, Seoul 03994",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitseoul.net/restaurants/SEOUL-IYA/ENP0x9x1n",
-      "method": "Read from a government listing",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/seouliya_official/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Seoul's official tourism site gives \"03994 212-22, Donggyo-ro, Mapo-gu, Seoul 2F\" (identical on two fetches). Kakao Map independently lists 서울이야(Seoul iya) at 서울 마포구 동교로 212-22, category 한식."
+      "evidence": "Operator (Instagram bio, in English, https://www.instagram.com/seouliya_official/, read 2026-09-29): '212-22, Donggyo-ro, Mapo-gu, Seoul, Korea'. Kakao Map place panel (place.map.kakao.com/1219742473): '서울 마포구 동교로 212-22 2층 (동교동)'. Road name and building number agree. Donggyo-ro 212-22 = 동교로 212-22. The operator gives no floor; Kakao adds 2층."
     },
     "hours": {
       "value": {
@@ -14430,7 +14646,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/seouliya_official/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1219742473",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 서울이야(Seoul iya) (https://place.map.kakao.com/1219742473) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'Seouliya 서울이야'. Its bio gives the same road address as Kakao."
+    }
   },
   {
     "id": "nusantaraku-hongdae",
@@ -14597,7 +14822,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/nusantaraku_korea/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/56602102",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 누산타라쿠 (https://place.map.kakao.com/56602102) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '누산타라쿠 Nusantaraku'. Its bio gives the same phone as Kakao (02-332-4207)."
+    }
   },
   {
     "id": "eid-bbq-hongdae",
@@ -14789,13 +15023,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 66 Wausan-ro, Mapo-gu, Seoul 04067",
-      "confidence": "supported",
-      "source": "Restaurant directory listing",
-      "url": "https://www.diningcode.com/profile.php?rid=1XRQ0bFna85w",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/the_fitzza/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "DiningCode: \"서울특별시 마포구 와우산로 66 2층\"; Halalfoodle: \"2층, 66 Wausan-ro, Mapo-gu\"; EatingSeoul: \"2F, 66 Wausan-ro, Mapo-gu, Seoul, South Korea, 04067\". Kakao Map lists a pizza restaurant named 더핏짜 at 서울 마포구 와우산로 66 (a shorter form of the same name)."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/the_fitzza/, read 2026-09-29): '더핏짜 홍대 : 서울 마포구 와우산로 66 2층'. Kakao Map place panel (place.map.kakao.com/1484385167): '서울 마포구 와우산로 66 2층 (서교동)'. Road name and building number agree. Both give 2층."
     },
     "hours": {
       "value": {
@@ -14933,7 +15167,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/the_fitzza/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1484385167",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 더핏짜 (https://place.map.kakao.com/1484385167) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '더 할랄 핏짜 - the halal fitzza'. Its bio gives the same address as Kakao."
+    }
   },
   {
     "id": "jumjumjum-sangam",
@@ -14954,13 +15197,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 36 Seongam-ro 15-gil, Mapo-gu, Seoul 03930",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitseoul.net/restaurants/jumjumjumjumjumjum/ENPb30c47",
-      "method": "Read from a government listing",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/jum.jum.jum.jum.jum.jum/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Seoul's official tourism site: \"03930 1st Floor, 36, Seongam-ro 15-gil, Mapo-gu, Seoul\" (identical on two fetches). HappyCow (\"1F, 36 Seongam-ro 15-gil\"), DiningCode (\"서울특별시 마포구 성암로15길 36 1층\") and Kakao Map (서울 마포구 성암로15길 36) agree."
+      "evidence": "Operator (Instagram bio, in English, https://www.instagram.com/jum.jum.jum.jum.jum.jum/, read 2026-09-29): '1F 36, Seongam-ro 15-gil, Mapo-gu, Seoul'. Kakao Map place panel (place.map.kakao.com/1292340047): '서울 마포구 성암로15길 36 1층 (상암동)'. Road name and building number agree. Seongam-ro 15-gil 36 = 성암로15길 36; both give 1F/1층."
     },
     "hours": {
       "value": null,
@@ -15037,7 +15280,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/jum.jum.jum.jum.jum.jum/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1292340047",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 점점점점점점 (https://place.map.kakao.com/1292340047) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '• • • • • •'. Its bio gives the same address and phone as Kakao."
+    }
   },
   {
     "id": "pul-mangwon",
@@ -15423,13 +15675,13 @@ export const restaurants = [
     },
     "address": {
       "value": "55-3 Mangwon-ro, Mapo-gu, Seoul",
-      "confidence": "supported",
-      "source": "Restaurant directory listing",
-      "url": "https://www.diningcode.com/profile.php?rid=E3SJ7u8Lph1t",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/selermari_seoul/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "DiningCode: \"서울특별시 마포구 망원로 55-3\" (identical on two fetches); hey! travel (Nov 2024): \"서울시 마포구 망원로 55-3\"; Kakao Map: 샐러마리, 서울 마포구 망원로 55-3, category 분식."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/selermari_seoul/, read 2026-09-29): '주소 : 마포구 망원로 55-3'. Kakao Map place panel (place.map.kakao.com/1592693649): '서울 마포구 망원로 55-3 1층 (망원동)'. Road name and building number agree. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
       "value": {
@@ -15550,7 +15802,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/selermari_seoul/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1592693649",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 샐러마리 (https://place.map.kakao.com/1592693649) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'SELERMARI 샐러마리'. Its bio gives the same address as Kakao."
+    }
   },
   {
     "id": "camels-kitchen-hapjeong",
@@ -15662,7 +15923,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/camel__kitchen/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/121890065",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 카멜스키친 (https://place.map.kakao.com/121890065) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '카멜스키친'. Its bio gives the same phone as Kakao (02-6326-3200)."
+    }
   },
   {
     "id": "hwanggeumlyong-mangwon",
@@ -15967,7 +16237,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/istanbul_grilll/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1012671702",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 이스탄불그릴 (https://place.map.kakao.com/1012671702) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '이스탄불 그릴(ISTANBUL GRILL)'."
+    }
   },
   // Yongsan-gu: Itaewon, the mosque slope, Haebangchon, Gyeongnidan. mr-kebab-itaewon shares 192 Itaewon-ro with Kervan and Dubai — a separate business (own Kakao id, phone, cuisine).
   {
@@ -16216,7 +16495,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/hojibobo_restaurant/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1719328462",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 호지보보 (https://place.map.kakao.com/1719328462) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'HojiBobo Restaurant | Seoul'. Its bio gives the same phone as Kakao (02-792-2010)."
+    }
   },
   {
     "id": "arabesque-itaewon",
@@ -16366,13 +16654,13 @@ export const restaurants = [
     },
     "address": {
       "value": "125 Bogwang-ro, Yongsan-gu, Seoul",
-      "confidence": "supported",
-      "source": "Restaurant directory listing",
-      "url": "https://www.diningcode.com/profile.php?rid=gAPtzYq1BBRF",
-      "method": "Read from a directory listing",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/troykebabkorea/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "DiningCode's listing gives '서울특별시 용산구 보광로 125'. Kakao Map independently lists '트로이' at the same road address (place.map.kakao.com/1552783005). Across the road from the existing sultan-kebab-itaewon (126 Bogwang-ro); a different business."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/troykebabkorea/, read 2026-09-29) gives a lot-number address: '서울특별시 용산구 이태원동 130-1.'. Kakao Map place panel (place.map.kakao.com/1552783005): '서울 용산구 보광로 125 2층 (이태원동)', lot number '이태원동 130-1'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). The operator gives no floor; Kakao adds 2층."
     },
     "hours": {
       "value": {
@@ -16464,7 +16752,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/troykebabkorea/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1552783005",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 트로이 (https://place.map.kakao.com/1552783005) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'TROY Kebab'. Its bio gives the same phone as Kakao (02-792-2599)."
+    }
   },
   {
     "id": "king-kebab-gyeongridan",
@@ -16984,13 +17281,13 @@ export const restaurants = [
     },
     "address": {
       "value": "10 Sowol-ro 20-gil, Yongsan-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/bytofu_hbc/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Kakao Map lists '바이두부' at 서울 용산구 소월로20길 10 (place.map.kakao.com/183174330). DiningCode gives '서울특별시 용산구 소월로20길 10'; HappyCow gives '10 sowolro 20 gil, Seoul' (fetched twice); The Korea Times (Aug 2024, fetched twice) gives '10 Sowol-ro 20-gil, Yongsan District, Seoul'. All four agree."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/bytofu_hbc/, read 2026-09-29): '용산구 소월로20길 10 (해방촌)'. Kakao Map place panel (place.map.kakao.com/183174330): '서울 용산구 소월로20길 10 2층 (용산동2가)'. Road name and building number agree. The operator gives no floor; Kakao adds 2층."
     },
     "hours": {
       "value": null,
@@ -17066,7 +17363,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/bytofu_hbc/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/183174330",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 바이두부 (https://place.map.kakao.com/183174330) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '바이두부 (byTOFU)'. Its bio gives the same address as Kakao."
+    }
   },
   {
     "id": "plantude-yongsan",
@@ -17168,7 +17474,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/plantude.official/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1361877073",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 플랜튜드 아이파크몰 용산점 (https://place.map.kakao.com/1361877073) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '플랜튜드'. This is the Plantude brand account for all branches."
+    }
   },
   {
     "id": "daom-guksujip",
@@ -17610,13 +17925,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 299 Samil-daero, Jung-gu, Seoul 04537",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitseoul.net/restaurants/Myeongdongjeong/ENPwiwz0p",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.hanjeongsik.co.kr/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "Seoul's tourism site: '04537 1st Floor, 299 Samil-daero, Jung-gu, Seoul' (read twice, identical). Kakao Map: '서울 중구 삼일대로 299 이화빌딩 1층 (우)04537' (place.map.kakao.com/26845535, business-verified). The operator's own site (hanjeongsik.co.kr) gives the lot-number form '서울시 중구 충무로2가 60-3'; that lot address was not independently matched to 삼일대로 299, so the operator page is not cited for the road address."
+      "evidence": "Operator (home page footer, https://www.hanjeongsik.co.kr/, read 2026-09-29) gives a lot-number address: '©명동정 서울시 중구 충무로2가 60-3 Tel 02-3789-5130'. Kakao Map place panel (place.map.kakao.com/26845535): '서울 중구 삼일대로 299 이화빌딩 1층 (충무로2가)', lot number '충무로2가 60-3'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
       "value": {
@@ -17787,7 +18102,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "https://www.hanjeongsik.co.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26845535",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 명동정 (https://place.map.kakao.com/26845535) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled \"Home | 명동정\" and gives the same phone as Kakao (02-3789-5130)."
+    }
   },
   {
     "id": "myeongdong-chaeum",
@@ -19982,7 +20306,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/lofi_vegan/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1531779646",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 로파이 (https://place.map.kakao.com/1531779646) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '인천비건디저트 로파이'."
+    }
   },
   {
     "id": "myeongaros-cheongna",
@@ -20098,7 +20431,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/m_arroz_ppang/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1072783693",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 명아로스디저트 (https://place.map.kakao.com/1072783693) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'M_arroz ppang (명_아로스디저트)by청라'."
+    }
   },
   {
     "id": "the-iroun-dongincheon",
@@ -20758,7 +21100,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/plantude.official/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2059749465",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 플랜튜드 고덕점 (https://place.map.kakao.com/2059749465) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '플랜튜드'. This is the Plantude brand account for all branches."
+    }
   },
   {
     "id": "gomone-kongtang-dunchon",
@@ -21331,13 +21682,13 @@ export const restaurants = [
       "evidence": "DiningCode and Seoul's vegetarian-restaurant register give 02-722-2337; Kakao Map lists it alongside a second number, 02-3675-8688."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website found."
+      "value": "http://www.gmananim.com/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12447514",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 마나님레시피 (https://place.map.kakao.com/12447514) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled \"Mananim Recipe\"; it shows images only, no text."
     },
     "instagram": {
       "value": null,
@@ -21931,14 +22282,14 @@ export const restaurants = [
       "evidence": "Kakao Map's walking-route API resolves '이밥' to 37.579241, 126.987604 (destination point of the route from 안국역 3호선). Naver Place cross-check was not available (naver.com unreachable), so this is Kakao-only."
     },
     "address": {
-      "value": "Unit 102, 1F, 29 Changdeokgung 1-gil, Jongno-gu, Seoul (Gye-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/16042156",
-      "method": "Independent sources agree",
+      "value": "1F, 29 Changdeokgung 1-gil, Jongno-gu, Seoul (Gye-dong)",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/yibap_mawoman/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '서울 종로구 창덕궁1길 29 1층 (계동)'. DiningCode (rid=k3J1uhPCeMUV): '서울특별시 종로구 창덕궁1길 29 102호'. Seoul's vegetarian-restaurant register: '서울 종로구 창덕궁1길 29'. All agree.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/yibap_mawoman/, read 2026-09-29) gives a lot-number address: '서울시 종로구 계동 140-49 1층'. Kakao Map place panel (place.map.kakao.com/16042156): '서울 종로구 창덕궁1길 29 1층 (계동)', lot number '계동 140-49'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). Both give 1층. The old value's 'Unit 102' is given by neither source and is dropped."
     },
     "hours": {
       "value": null,
@@ -23657,13 +24008,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 31 Yonsei-ro 7an-gil, Seodaemun-gu, Seoul",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/_pashakebab/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 160444812): 서울 서대문구 연세로7안길 31 1층 (창천동). Zabihah gives \"31 Yonsei-ro 7an-gil\" and DiningCode (rid sdmuhTZdsnWn) \"서울특별시 서대문구 연세로7안길 31 1층\". All agree. A different building from gosame-sinchon (38 Yonsei-ro 7an-gil).",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/_pashakebab/, read 2026-09-29): '서울시 서대문구 연세로7안길 31'. Kakao Map place panel (place.map.kakao.com/160444812): '서울 서대문구 연세로7안길 31 1층 (창천동)'. Road name and building number agree. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
       "value": {
@@ -23800,7 +24151,16 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/_pashakebab/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/160444812",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 파샤케밥 (https://place.map.kakao.com/160444812) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'PASHA KEBAB & BURGER'. Its bio gives the same address as Kakao."
+    }
   },
   {
     "id": "nirvana-insadong",
@@ -23918,7 +24278,16 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/nirvana.seoul/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/424289324",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 니르바나 (https://place.map.kakao.com/424289324) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'Nirvana Indian Kitchen'. Its bio gives the same phone as Kakao (02-720-1910)."
+    }
   },
   {
     "id": "om-restaurant-gwanghwamun",
@@ -24082,7 +24451,16 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://www.omfood.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21407823",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 옴 레스토랑 광화문점 (https://place.map.kakao.com/21407823) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled \"Om Restaurant & Cafe\"; its branch pages show their details as images, not text. It is chain-level."
+    }
   },
   {
     "id": "snack-pack-melbourne-paju",
@@ -24408,7 +24786,16 @@ export const restaurants = [
     "image": "/images/mild_soup.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/ddmspecialduck/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8327843",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 별난오리 (https://place.map.kakao.com/8327843) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '동대문별난오리'."
+    }
   },
   {
     "id": "hyeongje-yukhoe-jongno",
@@ -24524,7 +24911,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://www.yukhoe.com/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21722720",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 형제육회 본점 (https://place.map.kakao.com/21722720) links this as the venue's homepage. The page was opened on 2026-09-29: the site is 형제육회's own (menu, notices); no address in text."
+    }
   },
   {
     "id": "ildossi-dakgalbi-gwanghwamun",
@@ -24682,7 +25078,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/ildossi.dakgalbi/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1858369353",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 일도씨닭갈비 광화문점 (https://place.map.kakao.com/1858369353) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '일도씨 닭갈비'. This is the Ildossi brand account, not a branch account."
+    }
   },
   {
     "id": "ildossi-dakgalbi-bangbae",
@@ -24798,7 +25203,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/ildossi.dakgalbi/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/19245044",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 일도씨닭갈비 방배점 (https://place.map.kakao.com/19245044) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '일도씨 닭갈비'. This is the Ildossi brand account, not a branch account."
+    }
   },
   {
     "id": "hamcho-ganjang-gejang-myeongdong",
@@ -24819,13 +25233,13 @@ export const restaurants = [
     },
     "address": {
       "value": "B1, Sunshine Building, 27 Myeongdong 8ga-gil, Jung-gu, Seoul",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitkorea.or.kr/svc/sp/MuslimFriendly/contentsView.do?menuSn=983&dataSetId=235&vcontsId=229584",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.hamchogejang.com/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "VisitKorea's current Muslim-friendly page: 'Address B1 27 Myeongdong 8ga-gil, Jung-gu, Seoul'. Kakao Map: 서울 중구 명동8가길 27 선샤인빌딩 지하1층. Visit Seoul (2025): 'B1 Floor, 27, Myeongdong 8ga-gil, Jung-gu, Seoul'. DiningCode: 명동8가길 27 지하 1층. All agree."
+      "evidence": "Operator (home page footer, https://www.hamchogejang.com/, read 2026-09-29) gives a lot-number address: '서울시 중구 충무로 2가 11-1 Tel 02 - 318-1624'. Kakao Map place panel (place.map.kakao.com/14750361): '서울 중구 명동8가길 27 선샤인빌딩 지하1층 (충무로2가)', lot number '충무로2가 11-1'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). The operator gives no floor; Kakao adds 지하1층."
     },
     "hours": {
       "value": {
@@ -24956,7 +25370,16 @@ export const restaurants = [
     "image": "/images/fermented_dish.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "https://www.hamchogejang.com/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/14750361",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 함초간장게장 (https://place.map.kakao.com/14750361) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled \"HOME | 함초간장게장\" and gives the same phone as Kakao (02-318-1624)."
+    }
   },
   {
     "id": "zaffran-itaewon",
@@ -25087,13 +25510,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 34 Usadan-ro, Yongsan-gu, Seoul",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitkorea.or.kr/svc/sp/MuslimFriendly/contentsView.do?menuSn=983&dataSetId=235&vcontsId=229603",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/itaewon_kitchen/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "VisitKorea's current Muslim-friendly page: 'Address 2F 34 Usadan-ro, Yongsan-gu, Seoul'. Visit Seoul (2026): '2nd Floor, 34 Usadan-ro, Yongsan-gu, Seoul'. Kakao Map: 서울 용산구 우사단로 34 2층 남측호. All agree."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/itaewon_kitchen/, read 2026-09-29): '서울 용산구 이태원동 137-56번지(우사단로 34)'. Kakao Map place panel (place.map.kakao.com/155393554): '서울 용산구 우사단로 34 2층 남측호 (이태원동)'. Road name and building number agree. The operator's lot number 이태원동 137-56 is also Kakao's lot number. The operator gives no floor; Kakao adds 2층 남측호."
     },
     "hours": {
       "value": null,
@@ -25188,7 +25611,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/itaewon_kitchen/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/155393554",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 이태원키친 (https://place.map.kakao.com/155393554) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '이태원키친'. Its bio gives the same address as Kakao."
+    }
   },
   {
     "id": "kervan-cafe-usadan",
@@ -25746,13 +26178,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit B120, B1, Le Meilleur Jongno Town, 19 Jong-ro, Jongno-gu, Seoul",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitkorea.or.kr/svc/sp/MuslimFriendly/contentsView.do?menuSn=983&dataSetId=235&vcontsId=229565",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://www.durga.co.kr/bbs/board.php?bo_table=gallery&wr_id=6",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "VisitKorea's current Muslim-friendly page: 'Address Le Meilleur Jongno Town 19 Jong-ro, Jongno-gu, Seoul'. Kakao Map: 서울 종로구 종로 19 르메이에르종로타운 지하1층 B120호. DiningCode: 종로 19 르메이에르종로타운1 B1. All agree; the unit is Kakao's."
+      "evidence": "Operator (store page (매장안내 본점 광화문), http://www.durga.co.kr/bbs/board.php?bo_table=gallery&wr_id=6, read 2026-09-29): '서울특별시 종로구 종로1.2.3.4가동 종로 19'. Kakao Map place panel (place.map.kakao.com/8281840): '서울 종로구 종로 19 르메이에르종로타운 지하1층 B120호 (종로1가)'. Road name and building number agree. The operator gives no floor or unit; Kakao adds 지하1층 B120호."
     },
     "hours": {
       "value": {
@@ -25915,7 +26347,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://www.durga.co.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8281840",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 두르가 광화문본점 (https://place.map.kakao.com/8281840) links this as the venue's homepage. The page was opened on 2026-09-29: the Durga chain site; its store page for 본점 (광화문) gives 종로 19 and the phone 02-733-4786, the same as Kakao."
+    }
   },
   {
     "id": "luna-asia-samseong",
@@ -26097,7 +26538,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/lunaasia_/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/11732885",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 루나아시아 (https://place.map.kakao.com/11732885) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '루나아시아'. Its bio is empty."
+    }
   },
   {
     "id": "casablanca-sandwicherie",
@@ -26118,13 +26568,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 35 Sinheung-ro, Yongsan-gu, Seoul",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitkorea.or.kr/svc/sp/MuslimFriendly/contentsView.do?menuSn=983&dataSetId=235&vcontsId=229540",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/casablancasandwicherie/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "VisitKorea's current Muslim-friendly page: 'Address 35 Sinheung-ro, Yongsan-gu, Seoul'. Kakao Map: 서울 용산구 신흥로 35 1층. DiningCode: 신흥로 35. All agree. (Morococo Cafe, already on the map, is across the street at 34 Sinheung-ro and shares a phone number; they are separate listings.)"
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/casablancasandwicherie/, read 2026-09-29) gives a lot-number address: '서울특별시 용산구 용산동2가 44-7'. Kakao Map place panel (place.map.kakao.com/24208557): '서울 용산구 신흥로 35 1층 (용산동2가)', lot number '용산동2가 44-7'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
       "value": {
@@ -26254,7 +26704,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/casablancasandwicherie/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/24208557",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 카사블랑카 (https://place.map.kakao.com/24208557) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'Casablanca Sandwicherie'. Its bio gives the same phone as Kakao (02-797-8367)."
+    }
   },
   {
     "id": "manokamana-daehakro",
@@ -26858,7 +27317,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/kitchenofindia_seoul/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27318998",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 키친오브인디아 (https://place.map.kakao.com/27318998) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '키친오브인디아'."
+    }
   },
   {
     "id": "manokamana-sinchon",
@@ -27041,13 +27509,13 @@ export const restaurants = [
     },
     "address": {
       "value": "4F, Daehwa Building, 13 Eulji-ro 43-gil, Jung-gu, Seoul",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitkorea.or.kr/svc/sp/MuslimFriendly/contentsView.do?menuSn=983&dataSetId=235&vcontsId=229600",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://pooja.fordining.kr/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "VisitKorea's current Muslim-friendly page: 'Address 4F 13 Eulji-ro 43-gil, Jung-gu, Seoul'. Kakao Map: 서울 중구 을지로43길 13 대화빌딩 4층. DiningCode: 을지로43길 13 대화빌딩 4층. All agree."
+      "evidence": "Operator (site footer (business information), http://pooja.fordining.kr/, read 2026-09-29): '서울특별시 중구 을지로6가 18-71 4층 (을지로43길 13)'. Kakao Map place panel (place.map.kakao.com/12996602): '서울 중구 을지로43길 13 대화빌딩 4층 (을지로6가)'. Road name and building number agree. Both give 4층; the operator also gives the lot number 을지로6가 18-71, which is Kakao's lot number too."
     },
     "hours": {
       "value": null,
@@ -27136,7 +27604,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://pooja.fordining.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12996602",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 뿌자2 (https://place.map.kakao.com/12996602) links this as the venue's homepage. The page was opened on 2026-09-29: its footer names 뿌자, 을지로43길 13 4층 and the phone 02-2274-2922, the same as Kakao."
+    }
   },
   {
     "id": "aangan-ewha",
@@ -27298,7 +27775,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://www.aangan.co.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12428606",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 아건 이대점 (https://place.map.kakao.com/12428606) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled \"아건레스토랑에 오신것을 환영합니다\" and gives the same phone as Kakao (02-364-8771) for its 신촌 branch, but a different building number (이화여대길 63, not 37)."
+    }
   },
   {
     "id": "taj-myeongdong",
@@ -27414,7 +27900,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/taj.seoul/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/42222494",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 인도음식점 타지 명동성당점 (https://place.map.kakao.com/42222494) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '인도음식점 타지'."
+    }
   },
   {
     "id": "yeougol-sushi-seogyo",
@@ -27625,13 +28120,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 8 Dongmak-ro 9-gil, Mapo-gu, Seoul",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://english.visitkorea.or.kr/svc/sp/MuslimFriendly/contentsView.do?menuSn=983&dataSetId=235&vcontsId=229564",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/delhi_india_seokyo/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
       "precision": "street",
-      "evidence": "VisitKorea's current Muslim-friendly page: 'Address 2F 8 Dongmak-ro 9-gil, Mapo-gu, Seoul'. Kakao Map: 서울 마포구 독막로9길 8 2층. DiningCode: 독막로9길 8 2층. All agree."
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/delhi_india_seokyo/, read 2026-09-29) gives a lot-number address: '주소 : 서울 마포구 서교동 402-6 2층'. Kakao Map place panel (place.map.kakao.com/27416360): '서울 마포구 독막로9길 8 2층 (서교동)', lot number '서교동 402-6'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). Both give 2층."
     },
     "hours": {
       "value": null,
@@ -27720,7 +28215,16 @@ export const restaurants = [
     "image": "/images/halal_meat.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/delhi_india_seokyo/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27416360",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 델리인디아 (https://place.map.kakao.com/27416360) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '#델리인디아'. Its bio gives the same phone as Kakao (02-2631-2109)."
+    }
   },
   // Daejeon, Sejong and the Chungcheong provinces.
   {
@@ -28869,7 +29373,16 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/jejuhalalasalam/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/312026789",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 아살람레스토랑 HALAL (https://place.map.kakao.com/312026789) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '아살람/제주예멘식당/HALAL'."
+    }
   },
   {
     "id": "bagdad-jeju",
@@ -31617,13 +32130,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 442 Sincheondong-ro, Suseong-gu, Daegu (Suseong-dong 4-ga)",
-      "confidence": "supported",
-      "source": "Government tourism site",
-      "url": "https://www.daegufood.go.kr/kor/sub/halal.asp?snm=137",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://www.samsoo.co.kr/index.php",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Daegu food site: '삼수장어 신천동로점 | 수성구 신천동로 442'. KTO 2021 guide: '442, Sincheondong-ro, Suseong-gu, Daegu' (Samsoo Jangeo, Sincheondong-ro Branch). Kakao Map (place 7918731, named 삼수장어 본점): '대구 수성구 신천동로 442 2층 (수성동4가)'. All agree on the street address; Kakao now calls this branch the main branch (본점).",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (home page branch list, http://www.samsoo.co.kr/index.php, read 2026-09-29): '본점: 053-745-7800 대구광역시 수성구 신천동로 442 / 대구광역시 수성구 수성동4가 1190-3'. Kakao Map place panel (place.map.kakao.com/7918731): '대구 수성구 신천동로 442 2층 (수성동4가)'. Road name and building number agree. The operator's lot number 수성동4가 1190-3 is also Kakao's. The operator gives no floor; Kakao adds 2층."
     },
     "hours": {
       "value": null,
@@ -31666,13 +32179,13 @@ export const restaurants = [
       "evidence": "Daegu food site 053-745-7800; KTO 2021 guide 053-745-7800; Kakao Map 053-745-7800."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The 2021 KTO guide gives www.samsoo.co.kr; it was not opened, so it is not confirmed as current."
+      "value": "http://www.samsoo.co.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7918731",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 삼수장어 본점 (https://place.map.kakao.com/7918731) links this as the venue's homepage. The page was opened on 2026-09-29: the page is titled 삼수장어 and its branch list gives 본점 at 신천동로 442 with the same phone as Kakao (053-745-7800)."
     },
     "instagram": {
       "value": null,
@@ -33356,13 +33869,13 @@ export const restaurants = [
       "evidence": "Daegu food site 053-614-2236; Kakao Map 053-614-2236."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website found."
+      "value": "http://www.juwangsankor.co.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1316928198",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 주왕산삼계탕 현풍점 (https://place.map.kakao.com/1316928198) links this as the venue's homepage. The page was opened on 2026-09-29: the page is the 주왕산삼계탕 franchise head-office site (가맹 본사); it is chain-level, not branch-specific."
     },
     "instagram": {
       "value": null,
@@ -34160,13 +34673,13 @@ export const restaurants = [
       "evidence": "No operator website; Kakao Map links a CatchTable booking page (https://app.catchtable.co.kr/ct/shop/arpkitchen), which was not opened."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map links https://www.instagram.com/arp_kitchen, but the profile was not opened."
+      "value": "https://www.instagram.com/arp_kitchen/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1618376903",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel for 아르프 영도 (https://place.map.kakao.com/1618376903) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '아르프'."
     },
     "transit": {
       "value": {
@@ -35880,13 +36393,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F MacDesign Building, 36 Seonneomeo-ro, Wansan-gu, Jeonju, Jeonbuk State (Junghwasan-dong 2-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/747437727",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/figfromvegan/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '전북특별자치도 전주시 완산구 선너머로 36 맥디자인빌딩 1층 (중화산동2가)', jibun 중화산동2가 20-10. DiningCode: '선너머로 36 맥디자인 빌딩 1층'. HappyCow: '20, Junghwasan-dong 2-ga (at First floor of MacDesign Building)', the same building. All agree.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/figfromvegan/, read 2026-09-29) gives a lot-number address: '전주 중화산동 2가 20-10 맥디자인빌딩 1층'. Kakao Map place panel (place.map.kakao.com/747437727): '전북특별자치도 전주시 완산구 선너머로 36 맥디자인빌딩 1층 (중화산동2가)', lot number '중화산동2가 20-10'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). Both give 맥디자인빌딩 1층."
     },
     "hours": {
       "value": {
@@ -36482,13 +36995,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F rear-gate shops, Ilgok Elyche Prime, 419 Seoljuk-ro, Buk-gu, Gwangju (Samgak-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/439611341",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/jungsrun/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '설죽로 419 일곡엘리체프라임 후문상가 1층 (삼각동)'. DiningCode (rid=j5ooxZOvh25p): '광주광역시 북구 설죽로 419 엘리체프라임아파트 대로변 후문입구상가'. HappyCow: '419 Seoljuk-ro, Buk-gu'. All agree.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/jungsrun/, read 2026-09-29): '광주광역시 북구 설죽로419 일곡엘리체프라임 후문상가'. Kakao Map place panel (place.map.kakao.com/439611341): '전남광주통합특별시 북구 설죽로 419 일곡엘리체프라임 후문상가 1층 (삼각동)'. Road name and building number agree; the only difference is an administrative rename (agreement case 1 of the 2026-09-29 ruling). Kakao now prints the city as 전남광주통합특별시 where the operator writes 광주광역시. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
       "value": null,
@@ -37313,13 +37826,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 126 Otae-ro, Daeso-eup, Eumseong-gun, Chungcheongbuk-do",
-      "confidence": "supported",
+      "confidence": "confirmed",
       "source": "The restaurant",
       "url": "https://www.instagram.com/kebab_island/",
-      "method": "Independent sources agree",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "The operator's own Instagram bio (raw page text, read twice, identical): '📍충북 음성군 대소면 오태로 126'. Kakao Map (place 546012462): '충북 음성군 대소읍 오태로 126 1층 (대소읍 오산리)'. DiningCode (rid=AZzM8aQsmDFk): '충청북도 음성군 대소면 오태로 126'. Road name and number agree in all three; the operator and DiningCode name the township 대소면, Kakao 대소읍, so this is left at supported rather than confirmed.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/kebab_island/, read 2026-09-29): '충북 음성군 대소면 오태로 126'. Kakao Map place panel (place.map.kakao.com/546012462): '충북 음성군 대소읍 오태로 126 1층 (대소읍 오산리)'. Road name and building number agree; the only difference is an administrative rename (agreement case 1 of the 2026-09-29 ruling). The operator writes 대소면, Kakao 대소읍 (the town was raised from 면 to 읍). The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
       "value": {
@@ -54105,13 +54618,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 31 Goryeodae-ro 28-gil, Seongbuk-gu, Seoul (Anam-dong 5-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/60173632",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/samchungdang__anam/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 60173632): '서울 성북구 고려대로28길 31 1층 (안암동5가)' (jibun 안암동5가 86-172). HappyCow's Seoul list gives '1st Floor, 31, Koryo-daero 28-gil, Seongbuk-gu'. HappyCow's text also gives '서울 성북구 고려대로28길 31 1층', the same address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/samchungdang__anam/, read 2026-09-29) gives a lot-number address: '서울특별시성북구안암동5가 86-172'. Kakao Map place panel (place.map.kakao.com/60173632): '서울 성북구 고려대로28길 31 1층 (안암동5가)', lot number '안암동5가 86-172'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
       "value": null,
@@ -58957,13 +59470,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 2 Sangdang-ro 91beon-gil, Sangdang-gu, Cheongju, Chungcheongbuk-do (Bungmun-ro 1-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1730774513",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/cafe.hail/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '충북 청주시 상당구 상당로91번길 2 1층 (북문로1가)', jibun 북문로1가 4-1. HappyCow's list gives '2 Sangdang-ro 91beon-gil, Seongan-dong, Sangdang-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/cafe.hail/, read 2026-09-29) gives a lot-number address: '청주시 상당구 북문로1가 4-1 1층 하일'. Kakao Map place panel (place.map.kakao.com/1730774513): '충북 청주시 상당구 상당로91번길 2 1층 (북문로1가)', lot number '북문로1가 4-1'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). Both give 1층."
     },
     "hours": {
       "value": null,
@@ -66864,13 +67377,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 38 Bangbaecheon-ro 4an-gil, Seocho-gu, Seoul (Bangbae-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/394782555",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/gourmet.the.rabbit/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 394782555): '서울 서초구 방배천로4안길 38 1층 (방배동)' (jibun 방배동 454-25). HappyCow's Seoul list gives '38, Bangbaecheon-ro 4-an Gil, 1st Flr'. They agree on the location.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/gourmet.the.rabbit/, read 2026-09-29) gives a lot-number address: '서초구 방배동 454-25, 1층'. Kakao Map place panel (place.map.kakao.com/394782555): '서울 서초구 방배천로4안길 38 1층 (방배동)', lot number '방배동 454-25'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). Both give 1층."
     },
     "hours": {
       "value": null,
@@ -84521,6 +85034,587 @@ export const restaurants = [
     "story": "Onhwadang describes itself as a vegan bakery. It bakes rice loaves, bagels and buns; several are named as vegan on its menu, including a rice salt bread, a cheese loaf and a chocolate muffin. Ask about items not marked vegan.",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  // Korean leads: owner-labelled vegan dishes on owner-registered Kakao listings.
+  {
+    "id": "insadodam-insadong",
+    "name": "Insadodam (인사도담)",
+    "zone": "Gwanhun-dong, Jongno-gu, Seoul (Insadong)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5751286387185,
+        "lng": 126.984132316285
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '인사도담' to 37.575129, 126.984132 (destination of the route from 안국역 (Line 3)); the place feed (place 899048923) gives 37.575130, 126.984133, within a few metres. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 5-1 Insadong 16-gil, Jongno-gu, Seoul (Gwanhun-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/899048923",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 종로구 인사동16길 5-1 1층 (관훈동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address. (HappyCow's Seoul list gives this lot to a place it calls Bukchondodam, per an earlier researcher's note; HappyCow is not used for anything in this entry.)",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 11:00–15:00, 17:00–22:00; Tue 11:00–15:00, 17:00–22:00; Wed 11:00–15:00, 17:00–22:00; Thu 11:00–15:00, 17:00–22:00; Fri 11:00–15:00, 17:00–22:00; Sat 11:00–15:00, 17:00–22:00; Sun 11:00–15:00, 17:00–22:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/899048923",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 수(9/30) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 목(10/1) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 금(10/2) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 토(10/3) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 일(10/4) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 월(10/5) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임). Kakao note: '21:00 라스트오더'. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Minari jeon, water-parsley pancake, marked for vegans (BEST미나리전 (for vegan))",
+          "price": "16,000 KRW"
+        },
+        {
+          "name": "Steamed tofu and vegetables, marked for vegans (두부야채찜 (for vegan))",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Tofu and mushroom stew in an earthen pot, marked for vegans (뚝배기 두부버섯탕 (for vegan))",
+          "price": "15,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/899048923",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (20 items, last edited 2026-04-02; read twice, identical): 'BEST미나리전(for vegan) 16000 — 미나리,양파를 도담 비법 반죽을 섞어 바삭하게 만든 전.'; '두부야채찜 (for vegan) 13000 — 팽이, 느타리, 단호박, 숙주, 청경채, 알배추, 두부를 찜기에 쪄 …'; '뚝배기 두부버섯탕(for vegan) 15000 — 비법으로 끓여낸 야채육수에 두부, 버섯을 넣어 끓인 따듯한 국물요리'. The rest of the menu is pork galbi-jjim, octopus, bulgogi, beef brisket, kimchi-jjim with pork and pollack; the bibimbap carries no vegan mark. Only the three marked dishes are listed here."
+    },
+    "phone": {
+      "value": "0507-1365-0141",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/899048923",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0507-1365-0141. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account is linked from the Kakao listing."
+    },
+    "transit": {
+      "value": {
+        "station": "Anguk",
+        "line": "Line 3",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 254
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안국역 (Line 3) to 인사도담: 254 m / 228 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/899048923",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own labels on the owner-entered menu of its owner-registered Kakao listing (my-store status REGISTERED; read twice, identical): three dishes are marked '(for vegan)' — 'BEST미나리전(for vegan)', '두부야채찜 (for vegan)' and '뚝배기 두부버섯탕(for vegan)' (the stew: '야채육수에 두부, 버섯'). The rest of the menu is meat and seafood, so `options`. Nothing on the current menu contradicts the three labels: the steamed-vegetable dish has a separate beef-brisket version (차돌 야채찜), and the pancake batter is described only as the house recipe. Still trading: blog posts listed on the Kakao page dated 2026-09-13, 2026-09-19 and 2026-09-29."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Korean restaurant in an Insadong alley, a few minutes from Anguk Station, with three dishes the owner marks for vegans.",
+    "story": "Insadodam serves Korean dishes and makgeolli in Insadong: bibimbap, braised pork galbi, spicy octopus, bulgogi and share sets. The owner marks three dishes on the menu as vegan: a crisp minari (water parsley) and onion pancake, tofu and vegetables cooked in a steamer, and a tofu and mushroom stew in vegetable stock. Most of the menu uses meat or seafood, so name the vegan dishes when you order. It is about a four-minute walk from Anguk Station.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "gyejeol-gotgan-haenggung",
+    "name": "Gyejeol Gotgan (계절곳간)",
+    "zone": "Sinpung-dong, Paldal-gu, Suwon (Haenggung-dong)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.28447991180817,
+        "lng": 127.01267606164119
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '계절곳간' to 37.284480, 127.012676 (destination of the route from 매교역 (Suin-Bundang Line)); the place feed (place 1418299574) gives 37.284481, 127.012675, within a few metres. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 21-11 Hwaseomun-ro 32beon-gil, Paldal-gu, Suwon, Gyeonggi (Sinpung-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1418299574",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 수원시 팔달구 화서문로32번길 21-11 1층 (신풍동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 10:00–16:00, 17:00–19:00; Tue 10:00–16:00, 17:00–19:00; Wed 10:00–16:00, 17:00–19:00; Thu 10:00–16:00, 17:00–19:00; Fri 10:00–16:00, 17:00–19:00; Sat 11:00–16:00, 17:00–20:00; Sun 11:00–16:00, 17:00–20:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1418299574",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 10:00 ~ 19:00 (16:00 ~ 17:00 브레이크타임); 수(9/30) 10:00 ~ 19:00 (16:00 ~ 17:00 브레이크타임); 목(10/1) 10:00 ~ 19:00 (16:00 ~ 17:00 브레이크타임); 금(10/2) 10:00 ~ 19:00 (16:00 ~ 17:00 브레이크타임); 토(10/3) 11:00 ~ 20:00 (16:00 ~ 17:00 브레이크타임); 일(10/4) 11:00 ~ 20:00 (16:00 ~ 17:00 브레이크타임); 월(10/5) 10:00 ~ 19:00 (16:00 ~ 17:00 브레이크타임). Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Tofu hummus gimbap (두부 후무스 김밥 (VG))",
+          "price": "7,000 KRW"
+        },
+        {
+          "name": "Tempeh gimbap (템페 김밥 (VG))",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "Hummus and tempeh salad (후무스 템페 샐러드 (VG))",
+          "price": "11,000 KRW"
+        },
+        {
+          "name": "Cauliflower and tofu gangjeong (콜리플라워 두부 강정 (VG))",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1418299574",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (19 items, last edited 2026-05-28; read twice, identical): '두부 후무스 김밥 (VG) 7000 — 직접 만든 후무스와 구운 두부를 넣어 만든 비건 김밥입니다'; '템페 김밥 (VG) 6500 — … 템페가 들어간 비건 김밥입니다'; '후무스 템페 샐러드 (VG) 11000'; '콜리플라워 두부 강정 (VG) 11000' (the salad and gangjeong also come as minis). The rest of the menu includes Suwon galbi, tuna, egg, fish-cake and ricotta items; only the VG-marked dishes are listed here."
+    },
+    "phone": {
+      "value": "031-8004-0411",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1418299574",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 031-8004-0411. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/season.storage/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1418299574",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. The public profile page reads '계절곳간 (@season.storage)'; its bio text was not available without logging in."
+    },
+    "transit": {
+      "value": {
+        "station": "Maegyo",
+        "line": "Suin-Bundang Line",
+        "exit": null,
+        "walkingMinutes": 40,
+        "distanceM": 2593
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 매교역 (Suin-Bundang Line) to 계절곳간: 2593 m / 2402 s. A long walk (about 40 minutes); Haenggung-dong is usually reached by bus. Hwaseo Station (Line 1) is farther: 2,886 m on the same API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1418299574",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own labels on the owner-entered menu of its owner-registered Kakao listing (my-store status REGISTERED; read twice, identical): items marked '(VG)' — '두부 후무스 김밥 (VG)' ('비건 김밥입니다'), '템페 김밥 (VG)' ('비건 김밥입니다'), '후무스 템페 샐러드 (VG)', '콜리플라워 두부 강정 (VG)' and the minis of the last two. Other rolls and salads use galbi, tuna, egg, fish cake or ricotta, so `options`. Nothing on the current menu contradicts the VG labels (the tuna roll's 'vegan mayo' is not marked VG and is not counted). Still trading: blog posts listed on the Kakao page dated 2026-09-17, 2026-09-22 and 2026-09-26."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small gimbap and salad shop in Suwon's Haenggung-dong with rolls the owner marks vegan.",
+    "story": "Gyejeol Gotgan makes gimbap and salads near the Hwaseomun gate of Hwaseong Fortress. The owner marks several items VG, meaning vegan: a gimbap with house-made hummus and grilled tofu, a tempeh gimbap, a hummus and tempeh salad, and cauliflower-and-tofu gangjeong, a crisp glazed fry. Other rolls use Suwon galbi, tuna, egg or fish cake, so look for the VG mark. There is no subway close by: Maegyo Station is about a 40-minute walk, and most visitors come by bus.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "otto-gimbap-gangseo-gucheong",
+    "name": "Otto Gimbap Gangseo-gu Office (오토김밥 강서구청점)",
+    "zone": "Hwagok-dong, Gangseo-gu, Seoul",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5548761358757,
+        "lng": 126.852622292156
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '오토김밥 강서구청점' to 37.554876, 126.852622 (destination of the route from 가양역 (Line 9)); the place feed (place 1848992629) gives 37.554875, 126.852622, within a few metres. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 101, 1F, 354-5 Hwagok-ro, Gangseo-gu, Seoul (Hwagok-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1848992629",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 강서구 화곡로 354-5 연우넥스트파크뷰 1층 101호 (화곡동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 09:00–22:00; Tue 09:00–22:00; Wed 09:00–22:00; Thu 09:00–22:00; Fri 09:00–22:00; Sat 09:00–22:00; Sun 09:00–22:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1848992629",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 09:00 ~ 22:00; 수(9/30) 09:00 ~ 22:00; 목(10/1) 09:00 ~ 22:00; 금(10/2) 09:00 ~ 22:00; 토(10/3) 09:00 ~ 22:00; 일(10/4) 09:00 ~ 22:00; 월(10/5) 09:00 ~ 22:00. Kakao note: '새벽 및 오전 단체주문은 가게로 전화부탁드립니다 🙆🏻‍♀️💟'. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Vegan tuna gimbap (비건참치김밥)",
+          "price": "6,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1848992629",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (11 items, last edited 2025-09-05; read twice, identical): '비건참치김밥 6500 — 국내최초 비건참치김밥 비건참치+식물성 마요네즈+로메인+깻잎+저염단무지+오이+당근'. The other items are gimbap with fish cake, egg or Spam, fried chicken and a pollock-roe rice ball; only the vegan roll is listed here."
+    },
+    "phone": {
+      "value": "010-8117-0110",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1848992629",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 010-8117-0110. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account is linked from the Kakao listing."
+    },
+    "transit": {
+      "value": {
+        "station": "Gayang",
+        "line": "Line 9",
+        "exit": null,
+        "walkingMinutes": 15,
+        "distanceM": 900
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 가양역 (Line 9) to 오토김밥 강서구청점: 900 m / 885 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1848992629",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own menu entry on its owner-registered Kakao listing (my-store status REGISTERED; read twice, identical): '비건참치김밥 — 국내최초 비건참치김밥 비건참치+식물성 마요네즈+로메인+깻잎+저염단무지+오이+당근' (vegan tuna, plant-based mayonnaise, romaine, perilla leaf, pickled radish, cucumber, carrot; no egg, unlike the other rolls). One vegan dish on a mixed menu, so `options`. Nothing on the menu contradicts it. Weakest point: the menu was last edited 2025-09-05, just over a year ago. Still trading: blog posts listed on the Kakao page dated 2026-04-06 and 2026-08-27. A separate branch of the chain whose Itaewon head shop (otto-gimbap-itaewon) is already on the map."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A gimbap shop in Hwagok-dong with one vegan roll: plant-based tuna and mayonnaise.",
+    "story": "This Gangseo branch of Otto Gimbap makes gimbap rolls and Korean fried chicken. Its vegan tuna gimbap uses a plant-based tuna and mayonnaise with romaine, perilla leaf, pickled radish, cucumber and carrot, and no egg. The other rolls contain egg, fish cake or Spam. It is about a 15-minute walk from Gayang Station on Line 9.",
+    "esg_point": null,
+    "image": "/images/fermented_dish.svg",
     "photo": null,
     "coverImage": null,
     "gallery": []
