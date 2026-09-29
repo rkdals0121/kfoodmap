@@ -83,9 +83,25 @@ export default function RestaurantDetail({
   // transit, phone, links) is fetched when the detail opens.
   const full = usePlaceRecord(restaurant);
 
+  // Remember what opened the sheet (a card, a pin, a journey stop) and give
+  // focus back to it on close, so a keyboard or screen-reader user resumes
+  // where they were instead of at the top of the page. Declared before the
+  // effect below, which moves focus into the sheet.
+  const placeId = restaurant?.id;
+  useEffect(() => {
+    if (!placeId) return undefined;
+    const opener = document.activeElement;
+    return () => {
+      if (opener && opener !== document.body && document.contains(opener) && typeof opener.focus === 'function') {
+        opener.focus({ preventScroll: true });
+      }
+    };
+  }, [placeId]);
+
   useEffect(() => {
     setCopied(false);
     setShared(false);
+    setOpenClaim(null);
     if (!restaurant) return;
     if (focusStory && storyRef.current) {
       storyRef.current.scrollIntoView({ block: 'start' });
