@@ -55,7 +55,10 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
         <p className="place-card__where">
           <span className="place-card__zone">{place.zone}</span>
           <span aria-hidden="true"> · </span>
-          <span className="place-card__distance">{formatDistance(place.distanceKm)}</span>
+          <span className="place-card__distance">
+            {formatDistance(place.distanceKm)}
+            <span className="visually-hidden"> {t('list.fromMapCentre')}</span>
+          </span>
         </p>
         <p className="place-card__meta">
           {status ? (

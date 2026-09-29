@@ -237,7 +237,7 @@ export default function RestaurantDetail({
               <h2><KoText>{place.name}</KoText></h2>
               <p className="detail-meta">
                 {place.zone}
-                {distance && <><span aria-hidden="true"> · </span>{distance}</>}
+                {distance && <><span aria-hidden="true"> · </span>{t('detail.fromMapCentre', { distance })}</>}
                 {/* Open/closed up here too, as on the list card: it is the first thing
                     a traveller acts on. The detail stays in the hours row below. */}
                 {status && (
