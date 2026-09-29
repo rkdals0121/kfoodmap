@@ -207,6 +207,13 @@ export default function RestaurantDetail({
               {certClaim && <p className="diet-note__cert">{t('detail.certificationClaimed', { body: certClaim.body })}</p>}
             </div>
 
+            {/* Menus, transit, phone and links arrive with the full record
+                (usePlaceRecord). Say so while it loads, so the sheet doesn't
+                look finished and then grow; offline the line never shows. */}
+            {!full && typeof navigator !== 'undefined' && navigator.onLine !== false && (
+              <p className="detail-loading" role="status">{t('detail.loadingDetails')}</p>
+            )}
+
             {/* 4. Representative Menu */}
             {isKnown(place.menus) && (
               <section className="detail-section">

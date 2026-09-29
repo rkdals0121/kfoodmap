@@ -188,6 +188,7 @@ export default {
     methodDirectory: 'Read from a directory listing',
   },
   detail: {
+    loadingDetails: 'Loading menu, transit and contact details…',
     close: 'Close',
     dietaryFactsLabel: 'Dietary and dining facts',
     certificationClaimed: 'Certification claimed: {{body}} — we have not sighted the certificate.',

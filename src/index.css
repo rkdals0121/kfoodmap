@@ -2865,3 +2865,10 @@ button {
   outline: 2px solid var(--green);
   outline-offset: 2px;
 }
+
+/* One quiet line while a place's full record loads (RestaurantDetail). */
+.detail-loading {
+  margin: 4px 0 12px;
+  font-size: 13px;
+  color: #667085;
+}
