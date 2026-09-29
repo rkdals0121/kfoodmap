@@ -18,7 +18,7 @@
 // inventing one. It is shown publicly on /privacy, which is the point.
 export const PRIVACY_CONTACT = 'rkdalsinha@gmail.com';
 
-export const PRIVACY_EFFECTIVE_DATE = '2026-09-29';
+export const PRIVACY_EFFECTIVE_DATE = '2026-09-30';
 
 // scripts/leads.mjs purge-emails removes contact_email from leads older
 // than this. The policy text below states the same number.
@@ -41,7 +41,13 @@ export const privacyPolicy = {
       },
       {
         heading: 'Stored on your device',
-        text: 'Signed out, the app keeps four things in your browser’s local storage: the places you saved or marked as visited, with the dates you did so — unsaving a place does not delete this entry, it keeps it marked as unsaved so the place does not quietly reappear later; whether you finished the welcome screens; your language choice; and, if a sign-in on this device has ended on its own — an expired or revoked sign-in, or a sign-out in another tab — a flag recording that, kept only so the app can explain why your saved places are gone, and removed the next time you sign in. None of it is sent to us. Pressing “Sign in” writes a fifth before any account session exists: a short-lived code the sign-in exchange needs (`kfm-auth-code-verifier`), removed when the sign-in completes and left behind until the next attempt if you abandon it. Once you are signed in, two more things are added: your Supabase session, and which account’s places are on this device — and the places, visits, and unsaved-place records you have are then kept in sync with your account, so signing out erases them from that device while your account keeps them. Clearing this site’s data in your browser deletes everything local storage holds, whether or not you are signed in. For offline use, the browser also stores the app’s own files, and the full details of the places you have opened or saved, so those pages work without a connection. These are the same public pages anyone can open; they stay on your device and are never sent to us, though together they show which places you looked at — clearing this site’s data removes them.',
+        items: [
+          'Signed out, the app keeps four things in your browser’s local storage: the places you saved or marked as visited, with the dates you did so — unsaving a place does not delete this entry, it keeps it marked as unsaved so the place does not quietly reappear later; whether you finished the welcome screens; your language choice; and, if a sign-in on this device has ended on its own — an expired or revoked sign-in, or a sign-out in another tab — a flag recording that, kept only so the app can explain why your saved places are gone, and removed the next time you sign in. None of it is sent to us.',
+          'Pressing “Sign in” writes a fifth before any account session exists: a short-lived code the sign-in exchange needs (`kfm-auth-code-verifier`), removed when the sign-in completes and left behind until the next attempt if you abandon it.',
+          'Once you are signed in, two more things are added: your Supabase session, and which account’s places are on this device — and the places, visits, and unsaved-place records you have are then kept in sync with your account, so signing out erases them from that device while your account keeps them.',
+          'Clearing this site’s data in your browser deletes everything local storage holds, whether or not you are signed in.',
+          'For offline use, the browser also stores the app’s own files, and the full details of the places you have opened or saved, so those pages work without a connection. These are the same public pages anyone can open; they stay on your device and are never sent to us, though together they show which places you looked at — clearing this site’s data removes them.',
+        ],
       },
       {
         heading: 'Signing in',
@@ -92,7 +98,13 @@ export const privacyPolicy = {
       },
       {
         heading: '이용자 기기에 저장되는 정보',
-        text: '로그인하지 않은 상태에서 앱은 브라우저의 로컬 저장소에 네 가지를 보관합니다: 저장하거나 방문 표시한 장소와 그 날짜 — 저장 해제한 장소는 삭제되지 않고 "저장 해제됨"으로 표시된 채 남아, 나중에 조용히 다시 나타나지 않도록 합니다; 첫 안내 화면 완료 여부; 선택한 언어; 그리고 이 기기의 로그인이 스스로 종료된 적이 있다면(로그인 만료·해지, 또는 다른 탭에서의 로그아웃) 저장된 장소가 사라진 이유를 설명하기 위한 표시로, 다음 로그인 시 삭제됩니다. 이 정보는 운영자에게 전송되지 않습니다. “로그인”을 누르면 아직 세션이 생기기 전에 다섯 번째 항목이 기록됩니다: 로그인 교환에 필요한 임시 코드(`kfm-auth-code-verifier`)로, 로그인이 끝나면 삭제되고 중간에 그만두면 다음 시도 때까지 남습니다. 로그인하면 두 가지가 더해집니다: Supabase 로그인 세션, 그리고 이 기기가 어느 계정의 장소를 보관하고 있는지를 나타내는 값 — 이후 저장·방문 표시한 장소와 저장 해제 기록은 계정과 동기화되며, 로그인을 해제하면 이 기기에서는 지워지고 계정에는 남습니다. 브라우저에서 이 사이트의 데이터를 삭제하면 로그인 여부와 관계없이 로컬 저장소의 내용이 모두 지워집니다. 오프라인 이용을 위해 브라우저가 앱 파일도 저장하지만, 여기에는 이용자에 관한 정보가 없습니다.',
+        items: [
+          '로그인하지 않은 상태에서 앱은 브라우저의 로컬 저장소에 네 가지를 보관합니다: 저장하거나 방문 표시한 장소와 그 날짜 — 저장 해제한 장소는 삭제되지 않고 "저장 해제됨"으로 표시된 채 남아, 나중에 조용히 다시 나타나지 않도록 합니다; 첫 안내 화면 완료 여부; 선택한 언어; 그리고 이 기기의 로그인이 스스로 종료된 적이 있다면(로그인 만료·해지, 또는 다른 탭에서의 로그아웃) 저장된 장소가 사라진 이유를 설명하기 위한 표시로, 다음 로그인 시 삭제됩니다. 이 정보는 운영자에게 전송되지 않습니다.',
+          '“로그인”을 누르면 아직 세션이 생기기 전에 다섯 번째 항목이 기록됩니다: 로그인 교환에 필요한 임시 코드(`kfm-auth-code-verifier`)로, 로그인이 끝나면 삭제되고 중간에 그만두면 다음 시도 때까지 남습니다.',
+          '로그인하면 두 가지가 더해집니다: Supabase 로그인 세션, 그리고 이 기기가 어느 계정의 장소를 보관하고 있는지를 나타내는 값 — 이후 저장·방문 표시한 장소와 저장 해제 기록은 계정과 동기화되며, 로그인을 해제하면 이 기기에서는 지워지고 계정에는 남습니다.',
+          '브라우저에서 이 사이트의 데이터를 삭제하면 로그인 여부와 관계없이 로컬 저장소의 내용이 모두 지워집니다.',
+          '오프라인 이용을 위해 브라우저는 앱 파일과, 이용자가 열어 보았거나 저장한 장소의 전체 정보도 저장해 두어 연결 없이도 그 페이지가 열리게 합니다. 이는 누구나 열 수 있는 공개 페이지와 같은 내용으로, 이용자의 기기에만 남고 운영자에게 전송되지 않지만, 모아 보면 이용자가 어떤 장소를 보았는지 드러납니다 — 이 사이트의 데이터를 삭제하면 함께 지워집니다.',
+        ],
       },
       {
         heading: '로그인',
