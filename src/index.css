@@ -884,6 +884,17 @@ button {
 .btn-primary--kakao:hover {
   box-shadow: 0 6px 16px rgba(254, 229, 0, 0.4);
 }
+/* Google comes third (thin coverage in Korea), so it is a quiet outline
+   rather than the app's orange call to action. */
+.btn-primary--google {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-hover);
+  box-shadow: none;
+}
+.btn-primary--google:hover {
+  box-shadow: var(--shadow-1);
+}
 
 /* The row of map-app buttons under the address. */
 .detail-directions {

@@ -266,25 +266,7 @@ export default function RestaurantDetail({
               <p className="detail-loading" role="status">{t('detail.loadingDetails')}</p>
             )}
 
-            {/* 4. Representative Menu */}
-            {isKnown(place.menus) && (
-              <section className="detail-section">
-                <SectionHead Icon={MenuIcon} title={t('detail.signatureMenu')} />
-                <div className="menu-rows">
-                  {place.menus.value.map(m => (
-                    <div key={m.name} className="menu-row">
-                      <span>{m.name}</span>
-                      <span className="menu-row__price">{m.price ?? t('detail.priceNotListed')}</span>
-                    </div>
-                  ))}
-                </div>
-                {needsCheck(place.menus) && (
-                  <p className="section-note">{t('detail.menuUnverified')}</p>
-                )}
-              </section>
-            )}
-
-            {/* 5. Quick Information (Hours, Transit, Links, Actions) */}
+            {/* 4. Quick Information (Hours, Transit, Links, Actions) */}
             <div className="practical">
               <div className="practical-row">
                 <ClockIcon size={17} />
@@ -360,7 +342,59 @@ export default function RestaurantDetail({
               </div>
             </div>
 
-            {/* 6. Story & Hook */}
+            {/* 5. Directions / Address. Naver and Kakao first: they are the maps
+                visitors are told to use in Korea, where Google's coverage is thin. */}
+            <section className="detail-section">
+              <SectionHead Icon={CompassIcon} title={t('detail.locationDirections')} />
+              
+              <div className="practical-row">
+                <MapPinIcon size={17} />
+                <span>
+                  {place.address.value}
+                  {place.address.precision === 'area' && (
+                    <span className="practical-muted">{t('detail.areaOnly')}</span>
+                  )}
+                </span>
+                <button className="practical-copy" onClick={handleCopy}>
+                  {copied ? t('detail.copied') : t('detail.copy')}
+                </button>
+              </div>
+
+              <div className="detail-directions">
+                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place, mapCenter), '_blank')}>
+                  Naver Map
+                </button>
+                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place, mapCenter), '_blank')}>
+                  Kakao Map
+                </button>
+                <button className="btn-primary btn-primary--google" onClick={() => window.open(directionsUrl(place, mapCenter), '_blank')}>
+                  Google Maps
+                </button>
+              </div>
+              <Link className="detail-report" to={`/submit?place=${place.id}`}>
+                {t('submit.reportLink')}
+              </Link>
+            </section>
+            
+            {/* 6. Representative Menu */}
+            {isKnown(place.menus) && (
+              <section className="detail-section">
+                <SectionHead Icon={MenuIcon} title={t('detail.signatureMenu')} />
+                <div className="menu-rows">
+                  {place.menus.value.map(m => (
+                    <div key={m.name} className="menu-row">
+                      <span>{m.name}</span>
+                      <span className="menu-row__price">{m.price ?? t('detail.priceNotListed')}</span>
+                    </div>
+                  ))}
+                </div>
+                {needsCheck(place.menus) && (
+                  <p className="section-note">{t('detail.menuUnverified')}</p>
+                )}
+              </section>
+            )}
+
+            {/* 7. Story & Hook */}
             <section className="detail-hook">
               <p className="detail-hook__label">{t('detail.whyItsSpecial')}</p>
               <p className="detail-hook__quote">&ldquo;{place.vibe}&rdquo;</p>
@@ -385,39 +419,6 @@ export default function RestaurantDetail({
               </div>
             </section>
 
-            {/* 7. Directions / Address */}
-            <section className="detail-section">
-              <SectionHead Icon={CompassIcon} title={t('detail.locationDirections')} />
-              
-              <div className="practical-row">
-                <MapPinIcon size={17} />
-                <span>
-                  {place.address.value}
-                  {place.address.precision === 'area' && (
-                    <span className="practical-muted">{t('detail.areaOnly')}</span>
-                  )}
-                </span>
-                <button className="practical-copy" onClick={handleCopy}>
-                  {copied ? t('detail.copied') : t('detail.copy')}
-                </button>
-              </div>
-
-              <div className="detail-directions">
-                <button className="btn-primary" onClick={() => window.open(directionsUrl(place, mapCenter), '_blank')}>
-                  Google Maps
-                </button>
-                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place, mapCenter), '_blank')}>
-                  Naver Map
-                </button>
-                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place, mapCenter), '_blank')}>
-                  Kakao Map
-                </button>
-              </div>
-              <Link className="detail-report" to={`/submit?place=${place.id}`}>
-                {t('submit.reportLink')}
-              </Link>
-            </section>
-            
             {/* Dining Tips */}
             <section className="detail-section">
               <SectionHead Icon={BowlIcon} title={t('detail.diningTips')} />
