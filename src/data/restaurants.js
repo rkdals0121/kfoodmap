@@ -3184,14 +3184,15 @@ export const restaurants = [
         "source": "The restaurant",
         "url": "https://linktr.ee/BUSANJIB",
         "method": "Read from the operator’s own website",
-        "lastCheckedAt": "2026-09-28",
-        "evidence": "The operator's own Google Business 'About' text, reached via the Linktree, reads: 'BUSANJIB KBBQ is a certified halal Korean BBQ restaurant located in the heart of Myeongdong, Seoul. Since 1987, we've served authentic Korean flavors with traditional recipes. Loved by locals and international travelers alike, including Muslim...'. No certifying body, certificate number, or expiry is named, so this stays at friendly rather than certified."
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The operator's own Google Business 'About' text, reached via the Linktree, reads: 'BUSANJIB KBBQ is a certified halal Korean BBQ restaurant located in the heart of Myeongdong, Seoul. Since 1987, we've served authentic Korean flavors with traditional recipes. Loved by locals and international travelers alike, including Muslim...'. No certifying body, certificate number, or expiry is named, so this stays at friendly rather than certified. The KMF Halal Committee public certificate list (\"2023-2026년 KMF할랄인증 제품목록\", Google Sheet linked from https://kmfhalal.or.kr/cert, read 2026-09-29) has two Busan Jib restaurant certificates, KMFHC25-0250 ('부산집 bbq / busanjib bbq') and KMFHC25-0254 ('부산집 KBBQ / BUSAN JIB KBBQ'), both valid 2025-04-15 to 2026-04-14, with no renewal although the list runs to July 2026. Neither names a branch. So the 'certified' wording matches a certificate that has since expired."
       },
       "halalCertClaim": {
         "body": "an unnamed halal certifier (the operator's own Google Business description says 'certified halal' but names no authority)",
         "statedBy": "BUSANJIB KBBQ's Google Business profile 'About' description, reached via the operator's own Linktree — business-authored copy, not a government or KMF source",
         "quote": "BUSANJIB KBBQ is a certified halal Korean BBQ restaurant located in the heart of Myeongdong, Seoul. Since 1987, we've served authentic Korean flavors with traditional recipes.",
-        "status": "stated by the operator's own business-profile copy; no certifying body, certificate number, or expiry sighted"
+        "status": "stated by the operator's own business-profile copy; no certifying body, certificate number, or expiry sighted; KMF certificates KMFHC25-0250 and KMFHC25-0254 for Busan Jib expired 2026-04-14 with no renewal listed",
+        "note": "the KMF certificates listed for Busan Jib expired on 14 April 2026, and no renewal is listed."
       }
     },
     "imageLeads": [
@@ -3309,14 +3310,15 @@ export const restaurants = [
         "source": "The restaurant",
         "url": "https://linktr.ee/BUSANJIB",
         "method": "Read from the operator’s own website",
-        "lastCheckedAt": "2026-09-28",
-        "evidence": "The BSJ Chicken (3F) Google Business listing, reached via the operator's own Linktree, states in its own About text: 'Halal Certified Restaurant In Seoul, Korea.' The KBBQ (2F) listing's About text reads 'Halal Korean Food and Barbecue' without the word 'certified'. Neither names a certifying body, certificate number, or expiry, so this stays at friendly rather than certified."
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The BSJ Chicken (3F) Google Business listing, reached via the operator's own Linktree, states in its own About text: 'Halal Certified Restaurant In Seoul, Korea.' The KBBQ (2F) listing's About text reads 'Halal Korean Food and Barbecue' without the word 'certified'. Neither names a certifying body, certificate number, or expiry, so this stays at friendly rather than certified. The KMF Halal Committee public certificate list (\"2023-2026년 KMF할랄인증 제품목록\", Google Sheet linked from https://kmfhalal.or.kr/cert, read 2026-09-29) has two Busan Jib restaurant certificates, KMFHC25-0250 ('부산집 bbq / busanjib bbq') and KMFHC25-0254 ('부산집 KBBQ / BUSAN JIB KBBQ'), both valid 2025-04-15 to 2026-04-14, with no renewal although the list runs to July 2026. Neither names a branch. So the 'certified' wording matches a certificate that has since expired."
       },
       "halalCertClaim": {
         "body": "an unnamed halal certifier (the operator's own BSJ Chicken Hongdae Google Business listing says 'Halal Certified Restaurant' but names no authority)",
         "statedBy": "BSJ Chicken Hongdae's Google Business profile 'About' description, reached via the operator's own Linktree",
         "quote": "Halal Certified Restaurant In Seoul, Korea",
-        "status": "stated by the operator's own business-profile copy; no certifying body, certificate number, or expiry sighted"
+        "status": "stated by the operator's own business-profile copy; no certifying body, certificate number, or expiry sighted; KMF certificates KMFHC25-0250 and KMFHC25-0254 for Busan Jib expired 2026-04-14 with no renewal listed",
+        "note": "the KMF certificates listed for Busan Jib expired on 14 April 2026, and no renewal is listed."
       }
     },
     "imageLeads": [
@@ -32455,13 +32457,14 @@ export const restaurants = [
         "url": "https://namisum-en.imweb.me/77",
         "method": "Read from the operator’s own website",
         "lastCheckedAt": "2026-09-29",
-        "evidence": "Nami Island's own Restaurants page (read twice, identical text): 'Dongmoon (Asian) specializes in dining for couples and families. Halal food is also available, fulfilling the needs of our Muslim visitors from around the globe.' The page is current: it carries a notice for another island restaurant, 'Open on weekends and public holidays through Oct. 18 (Sun.)'. The operator's FAQ (https://namisum-en.imweb.me/35/?bmode=view&idx=7167234, read twice, identical) answers 'Is there a Halal restaurant on Nami Island?' with 'There are Halal restaurants on the island. Certified Halal Restaurant ‘Dongmoon’ is delighted to welcome our Muslim visitors from around the globe.', and the same page's structured FAQ lists '2) Dongmoon (Asian fusion, Halal-certified)'. KTO's 'Muslim-Friendly Restaurants in Korea' guide (valid as of December 2021) lists '005 Asian Family Restaurant Dongmoon' under Halal-certified (https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf). Pork check: neither the Kakao nor the DiningCode menu shows pork (DiningCode's '우삼겹' is beef brisket and '치킨탕수육' is chicken); both menus are partial and undated. Alcohol: not stated anywhere. Still trading: Kakao blog reviews dated 2026-04-25 and 2025-08-09 (the latter posted by Nami Island's official blog: '이곳은 무슬림도 안심하고 식사할 수 있…'); Kakao listing updated 2026-09-09. No certificate has been sighted, so the level is friendly and the claim is recorded in halalCertClaim."
+        "evidence": "Nami Island's own Restaurants page (read twice, identical text): 'Dongmoon (Asian) specializes in dining for couples and families. Halal food is also available, fulfilling the needs of our Muslim visitors from around the globe.' The page is current: it carries a notice for another island restaurant, 'Open on weekends and public holidays through Oct. 18 (Sun.)'. The operator's FAQ (https://namisum-en.imweb.me/35/?bmode=view&idx=7167234, read twice, identical) answers 'Is there a Halal restaurant on Nami Island?' with 'There are Halal restaurants on the island. Certified Halal Restaurant ‘Dongmoon’ is delighted to welcome our Muslim visitors from around the globe.', and the same page's structured FAQ lists '2) Dongmoon (Asian fusion, Halal-certified)'. KTO's 'Muslim-Friendly Restaurants in Korea' guide (valid as of December 2021) lists '005 Asian Family Restaurant Dongmoon' under Halal-certified (https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf). Pork check: neither the Kakao nor the DiningCode menu shows pork (DiningCode's '우삼겹' is beef brisket and '치킨탕수육' is chicken); both menus are partial and undated. Alcohol: not stated anywhere. Still trading: Kakao blog reviews dated 2026-04-25 and 2025-08-09 (the latter posted by Nami Island's official blog: '이곳은 무슬림도 안심하고 식사할 수 있…'); Kakao listing updated 2026-09-09. Certificate: the KMF Halal Committee public certificate list (\"2023-2026년 KMF할랄인증 제품목록\", Google Sheet linked from https://kmfhalal.or.kr/cert, read 2026-09-29) has a current restaurant certificate KMFHC26-0160 (valid 2026-03-17 to 2027-03-16, renewing KMFHC25-0182) held by 주식회사남문 / NAMMOON, Inc. The certificate names the company, not the restaurant, and the island also has a restaurant called Nammoon, so linking it to Dongmoon rests on the operator's own FAQ rather than on the certificate itself. The level therefore stays friendly and the certificate is recorded in halalCertClaim."
       },
       "halalCertClaim": {
-        "body": "not named on the operator’s pages",
+        "body": "KMF Halal Committee (Korea Muslim Federation)",
         "statedBy": "Nami Island (the operator), English FAQ and FAQ list; also KTO's 'Muslim-Friendly Restaurants in Korea' guide, valid as of December 2021 ('Halal-certified' category)",
         "quote": "Certified Halal Restaurant ‘Dongmoon’ is delighted to welcome our Muslim visitors from around the globe.",
-        "status": "stated by the operator; certifying body, certificate number and expiry not sighted"
+        "status": "KMF lists certificate KMFHC26-0160 (valid to 2027-03-16) for the company 주식회사남문 / NAMMOON, Inc.; the certificate does not name Dongmoon itself",
+        "note": "KMF lists a current certificate (KMFHC26-0160, valid to 16 March 2027) for NAMMOON, Inc., the company behind the island's restaurants; it does not name Dongmoon itself."
       }
     },
     "imageLeads": [],

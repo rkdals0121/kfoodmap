@@ -204,7 +204,13 @@ export default function RestaurantDetail({
 
             <div className="diet-note">
               <p><strong>{caveat.title}</strong> {caveat.body}</p>
-              {certClaim && <p className="diet-note__cert">{t('detail.certificationClaimed', { body: certClaim.body })}</p>}
+              {certClaim && (
+                <p className="diet-note__cert">
+                  {certClaim.note
+                    ? t('detail.certificationClaimedNote', { body: certClaim.body, note: certClaim.note })
+                    : t('detail.certificationClaimed', { body: certClaim.body })}
+                </p>
+              )}
             </div>
 
             {/* Menus, transit, phone and links arrive with the full record

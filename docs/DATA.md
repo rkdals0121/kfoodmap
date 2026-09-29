@@ -89,7 +89,7 @@ Dietary data is safety-critical, so it is structured rather than tagged.
 dietary: {
   vegan: fact(VEGAN.OPTIONS, { status, source, evidence }),
   halal: fact(HALAL.FRIENDLY, { status, source, evidence }),
-  halalCertClaim: { body, status },   // optional, see below
+  halalCertClaim: { body, status, note? },   // optional, see below
 }
 ```
 
@@ -118,6 +118,10 @@ not just ingredients. It requires `confidence: CONFIRMED` **and** a `cert`
 reference; `validateDietary()` rejects anything less. Where a certificate is
 *claimed* but unsighted, record it as `halalCertClaim` and leave the level at
 `friendly`. The UI prints the claim as a claim.
+When a registry entry *was* sighted but does not settle the claim — it names
+the operating company rather than the outlet, or it has expired — say so in the
+claim's `note`; the UI then prints that sentence in place of "we have not
+sighted the certificate". The level still stays at `friendly`.
 
 Halal may only be `inferred` from the venue's own declaration (`SELF_DECLARED`)
 — never from a category or another dietary field.
