@@ -2111,6 +2111,32 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     opens the place (the placeholder sat above the stretched link). Detail:
     no place has a photo yet, so the placeholder hero is a 5:2 band and no
     longer opens a gallery. Profile settings rows are real buttons.
+42. **UI direction and the claim mark, 2026-09-29 night.** Research
+    (`.superpowers/ui-direction/REFERENCES.md`, AUDIT.md) led to a written
+    direction, **docs/UI-DIRECTION.md** — read it before any UI work. Concept:
+    a field reference, not a food magazine. Signature: the **claim mark** —
+    every dietary claim shows how sure we are by chip style plus a word:
+    Confirmed (solid ink), Reported (outline), Our reading (dashed), Not known
+    (`src/components/claim.js`, `.claim*` in index.css). On the detail page a
+    claim is a button that opens its source, reasoning and last-checked date
+    (was a hover tooltip). Shipped with it: one vocabulary everywhere
+    (Inferred→Our reading, Unknown→Not known); a one-screen prologue that
+    teaches the claim mark (fake 1.5 s spinner removed; Profile → About
+    reopens it); text-only list cards (no photos exist) with area, open
+    status and "opens tomorrow 11:00 AM" look-ahead (`getOpenStatus`, tests);
+    detail reordered (claims → hours/transit → Naver/Kakao/Google → menu →
+    story), Google demoted to an outline button; pins show vegan/halal by
+    glyph (`data/pin-kind.js`, tests); Journal saved places as practical rows,
+    visited places and badges as **dojang seals** (`Seal.jsx`,
+    `data/seal-text.js`, tests; `--seal` token is Journal-only); typeface
+    switched to self-hosted **Pretendard GOV** (privacy page updated: Google
+    Fonts no longer contacted). Honesty fixes: site title/description (was
+    "Sustainable Korean Dining"), "already-verified" journey copy, "Last
+    verified", a KMF dining tip, "v1.0" in Profile, "we verify every
+    submission". Accessibility: focus returns to the opener when detail
+    closes; background is inert under modal sheets and under full-screen
+    tabs on phones; sheet handle is a labelled button; list count is a live
+    region; settings rows are buttons with line icons.
 
 
 ---
