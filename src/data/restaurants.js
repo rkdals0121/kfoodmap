@@ -1773,13 +1773,30 @@ export const restaurants = [
       "evidence": "DiningCode: 영업시간 12:00-22:00, 브레이크타임 15:00-18:00, 휴무일 일·월요일. It is a reservation-only tasting-menu restaurant (booking by email, legume.seoul@gmail.com), so these are stated operating hours, not a guarantee of walk-in seating."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Two sources disagree on the course prices by more than double: DiningCode gives lunch 150,000 / dinner 250,000 KRW (rising to 160,000 / 260,000 from 1 Oct 2026), NOL World gives 69,000 / 99,000 KRW. Per the verification rule, a field two sources disagree on stays unknown."
+      "value": [
+        {
+          "name": "Dinner course (seasonal tasting menu: avocado, leek, burdock, cucumber, peach, seaweed, chickpea, vegetable soup, cauliflower, mushroom, green apple, chamomile, petit four and tea)",
+          "price": "250,000 KRW"
+        },
+        {
+          "name": "Lunch course (shorter seasonal tasting menu: avocado, peach, chickpea, vegetable soup, mushroom, chamomile, petit four, tea)",
+          "price": "150,000 KRW"
+        },
+        {
+          "name": "Seasonal Vegetable Cutlet (add-on course dish, 2 pieces)",
+          "price": "25,000 KRW"
+        },
+        {
+          "name": "Truffle & Hazelnut Sorbet (add-on dessert)",
+          "price": "25,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "http://www.legume.kr/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own site legume.kr links its menus as PDFs ('Menus Dinner / Lunch / Wine'). Dinner PDF (Google Drive file 1Mtg5JkMsCs9FEI_4csvthpc_YC3veu8-, PDF title '26년 3분기 영문 디너', created 2026-08-19): 'Avocado | Leek | Burdock | Cucumber | Peach | Seaweed | Chickpea | Vegetable Soup | Cauliflower | Mushroom | Green Apple | Chamomile | Petit four & Tea | 250, | 6 Glass Wine Pairing (+200, | Seasonal Vegetable Cutlet (2 pieces, +25, | Truffle & Hazelnut Sorbet (+25,'. Lunch PDF (file 16-ADwccU7bjnwJOCO8Hqbr-To5ev0YKZ, '26년 3분기 영문 런치', created 2026-08-19): 'Avocado | Peach | Chickpea | Vegetable Soup | Mushroom | Chamomile | Petit four | Tea | 150, | 4 Glass Wine Pairing (+130, | Seasonal Vegetable Cutlet (2 pieces, +25, | Truffle & Hazelnut Sorbet (+25,'. The PDFs' text layer uses a shifted font encoding, decoded by one constant character offset. The site's /information page confirms 'Lunch course - 150,000 KRW Dinner course - 250,000 KRW'. Read twice: both PDFs byte-identical on re-download, and the information page identical. The operator publishes this menu in English only, so the names are its English course and dish names, not Korean names with a gloss. Wine pairings are left out."
     },
     "phone": {
       "value": "0507-1365-1567",
@@ -32356,13 +32373,34 @@ export const restaurants = [
       "evidence": "Sources disagree: Kakao Map shows 10:30–17:00 every day this week; DiningCode shows 10:30–17:00 on some days and 10:30–19:00 on others; KTO's 2021 guide gave 09:40–19:30 on weekdays. The operator's dining page gives no hours. Ferry times also limit when the island can be reached."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Menus disagree: Kakao lists five dishes at 13,000 KRW (삼선짬뽕, 불고기덮밥, 나시고랭, 치킨크라파오, 게살볶음밥) with no edit date, while DiningCode lists a different set at 12,000–18,000 KRW (어향가지덮밥, 불고기덮밥 15,000, 유린기, 소고기 짜장면 and others). The operator's own menu opens in a script-only pop-up that could not be read. Neither list shows a pork item."
+      "value": [
+        {
+          "name": "소고기 짜장면 (black-bean-sauce noodles with beef)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "해물짬뽕 (spicy seafood noodle soup)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "불고기덮밥 (bulgogi beef over rice)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "잡채밥 (stir-fried glass noodles over rice)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "유린기 (fried chicken in a spicy, tangy soy sauce with salad)",
+          "price": "18,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://namisum-en.imweb.me/77",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The island operator's own dining page (namisum-en.imweb.me/77): Dongmoon's 'MENU' button opens a modal titled '[메뉴판] 동문' with three menu images uploaded 2026-04-01 and 2026-06-01 (cdn.imweb.me/thumbnail/20260401/e80f2b6bd2919.jpg, …/20260401/cfa1a50290d4d.jpg, …/20260601/077a98250ea42.jpg), headed '아시안패밀리레스토랑 동문' with a Korea Muslim Federation halal-committee logo. Lines read from the image: '12.0 소고기 짜장면 Black Bean Sauce Noodles with Beef (Jajangmyeon)'; '15.0 해물짬뽕 Spicy Seafood Noodle Soup (Jjamppong)'; '15.0 불고기덮밥 Bulgogi Rice Bowl'; '15.0 잡채밥 Vegetarian Stir-fried Glass Noodles (Japchae) Rice Bowl'; '18.0 유린기 Fried Chicken in Spicy and Tangy Soy Sauce with Salad (Yuringi)'. Prices are printed in thousands of won ('12.0' = 12,000). The rest of the menu: 우삼겹김치덮밥 15.0, 새우 볶음밥 12.0, 어향가지덮밥 15.0, 치킨탕수육 18.0, 망고크림새우 18.0, set menus 42.0–45.0 with Pepsi or Sprite, and 냉모밀 13.0 (June image). No pork or alcohol item appears. The image was re-downloaded and was byte-identical. There is no Kakao listing to compare (fill2 notes)."
     },
     "phone": {
       "value": "031-580-8099",
@@ -45713,13 +45751,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '인천광역시 연수구 컨벤시아대로 69 송도밀레니엄 1층 136호'. Kakao Map place panel (27467246): '인천 연수구 컨벤시아대로 69 송도밀레니엄 1층 136호 (송도동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 송도신도시점', phone 032-858-6288, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–20:35",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "20:35"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "20:35"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "20:35"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "20:35"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "20:35"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "20:35"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "20:35"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://api.bonif.co.kr/store/v1/store-detail?strIdx=4482&brdCd=BF102",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Operator: the Bonjuk franchisor BonIF's store finder (the store-detail API behind https://www.bonif.co.kr/brand/store?brdCd=BF102; a franchisor's store finder is the operator's page for its branches per the promote-d ruling), record strIdx=4482 '본 죽&비빔밥 송도신도시점' at '인천광역시 연수구 컨벤시아대로 69'. operateTime (weekday 0 = Monday; the API flags index 1 as today on Tuesday 29 Sep): 월–일 each 09:00–20:35. Read twice, identical (after removing the timestamp and today flag). No break time is set (breakTimeStartTm empty). The Kakao listing 27467246 is not owner-registered (my_store_notice.status READY_TO_REGISTER), so per ruling 1 the operator's hours win over the current readings they override: Kakao shows 09:00 ~ 21:00 every day (read 2026-09-29). DiningCode's 20:35 close (fill-hp-2, fill3-1) matches the operator."
     },
     "menus": {
       "value": [
@@ -55640,13 +55724,79 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon 11:30am-3:00pm, 5:30pm-9:30pm, Wed-Sun 11:30am-3:00pm, 5:30pm-9:30pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Wed–Sun lunch 12:00–15:00 (last order 13:00), dinner 17:30–21:30 (last order 19:30); closed Mondays and Tuesdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "13:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "13:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "13:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "19:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "13:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "19:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "13:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "19:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://jihwajafood.co.kr/reservation",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's own site, reservation page (jihwajafood.co.kr/reservation): '영업시간 점심 12:00 ~ 15:00 (라스트오더 13:00) 저녁 17:30 ~ 21:30 (라스트오더 19:30) ※ 매주 월요일 화요일은 정기휴일입니다.' The site footer repeats the same times. Read twice (curl), identical. Per ruling 1 the operator outranks the current sources it overrides, recorded in the fill2/fill3 notes: Kakao opens at 11:30 and marks only Tuesday closed; DiningCode opens at 12:00, and the two differed on the evening reopening (17:00 vs 17:30). The same page says dinner serves the full court course only, while lunch also serves the set menu."
     },
     "menus": {
       "value": [
