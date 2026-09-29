@@ -315,7 +315,8 @@ export default function RestaurantDetail({
             })}
 
             <div className="diet-note">
-              <p><strong>{caveat.title}</strong> {caveat.body}</p>
+              {/* An open claim explanation already says this, with its source. */}
+              {openClaim === null && <p><strong>{caveat.title}</strong> {caveat.body}</p>}
               {certClaim && (
                 <p className="diet-note__cert">
                   {certClaim.note

@@ -215,7 +215,7 @@ export default {
     certificationClaimed: 'Certification claimed: {{body}} — we have not sighted the certificate.',
     certificationClaimedNote: 'Certification claimed: {{body}} — {{note}}',
     signatureMenu: 'Signature menu',
-    menuUnverified: 'Dishes and prices are unverified and may have changed.',
+    menuUnverified: "Dish names and prices are the restaurant's own, unverified, and may have changed.",
     hoursUnknown: 'Opening hours unknown — check before you go',
     website: 'Website',
     instagram: 'Instagram',
