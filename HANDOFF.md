@@ -2188,6 +2188,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     **Data follow-up (not done):** some operators' own words are recorded
     as Reported (e.g. Soban Vegan) although DATA.md would call a
     primary-source read Confirmed — a levels audit is data work, not UI.
+46. **Regression QA, 2026-09-30 ~05:40** (`QA-1.md`): no high-severity bug,
+    no console errors. Fixed: Close on a place opened in-app now goes Back
+    (`openPlace`/`closePlace` in App, `state.fromApp`; a second place
+    replaces the first; `state.tab` keeps the tab across reload);
+    commas stripped from Kakao/Naver link names; noopener on map links;
+    Privacy returns focus; Clear focuses search; un-visiting asks first.
+    Open: Naver's short `/p/directions/-/x,y,name/-/transit` form (no place
+    ID) is undocumented — try it once on a phone; "Busan korean" ranks
+    Seoul's "Busan Jib" first (distance sort); saved list not grouped by
+    city (zone strings are too irregular).
 
 
 ---
