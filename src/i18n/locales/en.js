@@ -168,7 +168,7 @@ export default {
     localSourcing: 'Local Sourcing',
     mildTaste: 'Mild Taste',
     fermented: 'Fermented',
-    searchPlaceholder: 'Search restaurants or neighborhoods',
+    searchPlaceholder: 'Search by name or area',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',
