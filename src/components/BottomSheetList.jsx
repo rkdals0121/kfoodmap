@@ -30,9 +30,13 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
     : place.traits;
   const badges = [...dietaryBadges(place).map(b => b.label), ...traits];
   const extraBadges = badges.length - 3;
+  // No place has a photo yet. Until one does, a placeholder thumbnail took
+  // half the card and left one card per screen; without it the card is
+  // text only and three or four fit.
+  const hasPhoto = Boolean(place.photo || place.coverImage);
 
   return (
-    <article className="place-card">
+    <article className={`place-card${hasPhoto ? '' : ' place-card--text'}`}>
       <div className="place-card__body">
         {/* Stretched link: the name button's ::after covers the whole card */}
         <h4 className="place-card__name">
@@ -41,19 +45,23 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
           </button>
         </h4>
 
-        {/* Status and distance share a line; the hours detail gets its own,
-            so a long "until … · last order …" never strands a separator at
-            a line end on a phone-width card. */}
+        {/* Where, then when. Distance is from the map centre (the list
+            header says so). Unknown hours are said, not left blank. */}
+        <p className="place-card__where">
+          <span className="place-card__zone">{place.zone}</span>
+          <span aria-hidden="true"> · </span>
+          <span className="place-card__distance">{formatDistance(place.distanceKm)}</span>
+        </p>
         <p className="place-card__meta">
-          {status && (
+          {status ? (
             <>
               <span className={status.open ? 'is-open' : 'is-closed'}>{status.label}</span>
-              <span aria-hidden="true">·</span>
+              {status.detail && <> · {status.detail}</>}
             </>
+          ) : (
+            <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
           )}
-          <span>{formatDistance(place.distanceKm)}</span>
         </p>
-        {status?.detail && <p className="place-card__hours">{status.detail}</p>}
 
         <div className="place-card__badges">
           {badges.slice(0, 3).map(label => (
@@ -67,7 +75,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, l
         {lens && <p className="place-card__esg">{place.esg_point}</p>}
       </div>
 
-      <PlaceImage place={place} variant="thumb" className="place-card__media" />
+      {hasPhoto && <PlaceImage place={place} variant="thumb" className="place-card__media" />}
 
       <div className="place-card__foot">
         <button

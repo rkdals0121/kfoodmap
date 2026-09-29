@@ -65,7 +65,8 @@ export default {
   list: {
     placeCount_one: '{{count}} place',
     placeCount_other: '{{count}} places',
-    nearestFirst: 'Nearest first',
+    nearestFirst: 'Nearest the map centre',
+    hoursUnknown: 'Hours not recorded',
     noMatch: 'No places match',
     noMatchHint: 'Try removing a filter or searching a different name or area.',
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',

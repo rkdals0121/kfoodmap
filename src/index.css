@@ -268,8 +268,9 @@ button {
   font-weight: 600;
 }
 .place-list__hint {
+  /* A plain statement of the order, not a control: green read as a link. */
   font-size: 12px;
-  color: var(--green-strong);
+  color: var(--muted);
   font-weight: 500;
 }
 .place-list__empty {
@@ -343,16 +344,34 @@ button {
 .place-card__meta {
   font-size: 13px;
   color: var(--muted);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
   line-height: 1.4;
 }
-.place-card__hours {
+.place-card--text {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'body'
+    'foot';
+  gap: 4px;
+}
+.place-card__where {
+  display: flex;
+  min-width: 0;
   font-size: 13px;
-  color: var(--muted);
   line-height: 1.4;
-  margin-top: -3px;
+  color: var(--ink-body);
+}
+.place-card__zone {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.place-card__where > span:not(.place-card__zone) {
+  flex-shrink: 0;
+  white-space: pre;
+}
+.place-card__unknown {
+  font-style: italic;
 }
 .is-open {
   color: var(--green-strong);
