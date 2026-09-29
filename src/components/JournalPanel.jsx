@@ -5,6 +5,8 @@ import { isQuarantined, isKnown, VEGAN, dietaryBadges, trustBadge } from '../dat
 import { formatShortDate, displayName, getOpenStatus } from '../utils';
 import { CLAIM_CLASS } from './claim';
 import { ChevronRightIcon } from './Icons';
+import Seal from './Seal';
+import { sealText } from '../data/seal-text';
 
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
@@ -76,10 +78,11 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
   }, [visitedList]);
 
   const badges = [
-    { key: 'first-taste', icon: '🇰🇷', name: t('journal.firstTaste'), earned: visitedList.length > 0 },
+    // Seal words: 첫맛 "first taste", 채식 "plant-based eating".
+    { key: 'first-taste', seal: { chars: ['첫', '맛'], cols: 2 }, name: t('journal.firstTaste'), earned: visitedList.length > 0 },
     {
       key: 'plant-based',
-      icon: '🌱',
+      seal: { chars: ['채', '식'], cols: 2 },
       name: t('journal.plantBased'),
       earned: visitedList.some(({ place }) => isKnown(place.dietary?.vegan) && place.dietary.vegan.value === VEGAN.FULL),
     },
@@ -114,7 +117,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
         <div className="badges-grid">
           {badges.map(badge => (
             <div key={badge.key} className={`badge-item ${badge.earned ? 'earned' : 'locked'}`}>
-              <div className="badge-icon">{badge.icon}</div>
+              <Seal {...badge.seal} earned={badge.earned} size="sm" />
               <span className="badge-name">{badge.name}</span>
             </div>
           ))}
@@ -133,9 +136,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 className="stamp"
                 onClick={() => onRestaurantClick(place)}
               >
-                <span className="stamp-ring">
-                  <img src={place.image} alt="" />
-                </span>
+                <Seal {...sealText(place.name)} />
                 <span className="stamp-name">{displayName(place.name)}</span>
                 <span className="stamp-zone">{place.zone}</span>
                 {visitedAt && <span className="stamp-date">{formatShortDate(visitedAt, i18n.language)}</span>}
@@ -189,9 +190,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                     className="stamp"
                     onClick={() => onRestaurantClick(place)}
                   >
-                    <span className="stamp-ring">
-                      <img src={place.image} alt="" />
-                    </span>
+                    <Seal {...sealText(place.name)} />
                     <span className="stamp-name">{displayName(place.name)}</span>
                     <span className="stamp-zone">{place.zone}</span>
                     <span className="stamp-sample-tag">{t('journal.sample')}</span>
