@@ -4,7 +4,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { restaurants } from '../../src/data/restaurants.js';
-import { clientRecord, clientModule, placeDataFile, DETAIL_ONLY } from '../lib/client-data.mjs';
+import { clientRecord, clientModule, placeDataFile, DETAIL_ONLY, AUDIT_KEYS } from '../lib/client-data.mjs';
 
 const keysOf = (v, out = new Set()) => {
   if (Array.isArray(v)) v.forEach(x => keysOf(x, out));
@@ -12,9 +12,9 @@ const keysOf = (v, out = new Set()) => {
   return out;
 };
 
-test('the bundled copy carries no evidence text and no detail-only field', () => {
+test('the bundled copy carries no audit trail and no detail-only field', () => {
   const slim = restaurants.map(clientRecord);
-  assert.equal(keysOf(slim).has('evidence'), false);
+  for (const k of AUDIT_KEYS) assert.equal(keysOf(slim).has(k), false, k);
   for (const r of slim) for (const k of DETAIL_ONLY) assert.equal(k in r, false, `${r.id}.${k}`);
 });
 
@@ -53,7 +53,8 @@ test('only the detail view reads stripped fields — anything else must fetch th
   };
   collect(fileURLToPath(new URL('../../src', import.meta.url)));
   const allowed = ['data/restaurants.js', 'data/verification.js', 'components/RestaurantDetail.jsx'];
-  const pattern = new RegExp(`\\.(evidence|${DETAIL_ONLY.join('|')})\\b`);
+  // `.url` is left out of the pattern: auth code reads URLs of its own.
+  const pattern = new RegExp(`\\.(evidence|method|lastCheckedAt|${DETAIL_ONLY.join('|')})\\b`);
   const readers = files
     .filter(f => !allowed.some(a => f.replaceAll('\\', '/').endsWith(a)))
     .filter(f => pattern.test(readFileSync(f, 'utf8')));

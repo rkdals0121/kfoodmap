@@ -8,23 +8,25 @@
 // 433 kB even without evidence text).
 //
 // So the bundle carries each place without
-//   - `evidence` on any fact (the audit paragraph behind each badge), and
+//   - `evidence`, `url`, `method` and `lastCheckedAt` on any fact — the
+//     audit trail behind each badge, which only the detail view shows — and
 //   - DETAIL_ONLY fields, which nothing outside RestaurantDetail reads,
 // and the detail view fetches the full record from /place-data/<id>.json
-// when it opens (src/hooks/usePlaceRecord.js). Source, URL, method, date and
-// confidence of every remaining fact stay in the bundle, so every badge in
-// the list renders exactly as before.
+// when it opens (src/hooks/usePlaceRecord.js). Value, confidence and source
+// of every remaining fact stay in the bundle, so every badge in the list
+// renders exactly as before.
 //
 // scripts/tests/client-data.test.mjs fails if any other file starts reading
 // a stripped field — such a reader must fetch the full record first.
 export const DETAIL_ONLY = ['menus', 'transit', 'phone', 'officialUrl', 'instagram', 'timeline'];
+export const AUDIT_KEYS = ['evidence', 'url', 'method', 'lastCheckedAt'];
 
 function stripEvidence(value) {
   if (Array.isArray(value)) return value.map(stripEvidence);
   if (value && typeof value === 'object') {
     const out = {};
     for (const [k, v] of Object.entries(value)) {
-      if (k === 'evidence') continue;
+      if (AUDIT_KEYS.includes(k)) continue;
       out[k] = stripEvidence(v);
     }
     return out;
