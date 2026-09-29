@@ -30,7 +30,11 @@ const squash = (s) => s.toLowerCase().replace(/[\s-]+/g, '');
 export function matchesSearch(r, query) {
   const q = squash(query ?? '');
   if (q === '') return true;
-  const fields = [r.name, r.vibe, r.zone, r.address?.value];
+  // The halal level is searchable too, so "pork-free" finds every pork-free
+  // place (the Halal filter leaves them out: pork-free is not halal).
+  const halal = r.dietary?.halal;
+  const fields = [r.name, r.vibe, r.zone, r.address?.value,
+    halal && halal.confidence !== 'unknown' ? halal.value : null];
   if (fields.some(f => typeof f === 'string' && squash(f).includes(q))) return true;
   // Several words ("Busan korean", "itaewon vegan bakery"): every word must
   // appear somewhere in the place's name, area, address or story.

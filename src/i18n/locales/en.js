@@ -85,7 +85,7 @@ export default {
     noMatch: 'No places match',
     noMatchHint: 'Try removing a filter or searching a different name or area.',
     clearAll: 'Clear search and filters',
-    halalCaveat: "None of these places has a halal certificate we could sight. 'Halal-friendly' is what a source reports — open a place to see which source, and ask staff.",
+    halalCaveat: "None of these places has a halal certificate we could sight. 'Halal-friendly' is what a source reports — open a place to see which source, and ask staff. Pork-free places (no pork, meat not halal) are not in this filter; search \"pork-free\" to find them.",
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',
     readStoryAria: 'Read story: {{name}}',
     directionsAria: 'Get directions to {{name}}',

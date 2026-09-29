@@ -112,6 +112,27 @@ for (const place of active) {
   writeFileSync(path.join(distDir, 'privacy', 'index.html'), page, 'utf8');
 }
 
+// The tabs have addresses too (/discover, /journal, /profile), so a reload or
+// a shared link there is a real file. Journal and Profile are a visitor's own
+// screens: noindex.
+for (const [slug, title, index] of [
+  ['discover', 'Food journeys and stories · K-Food Map', true],
+  ['journal', 'Your food passport · K-Food Map', false],
+  ['profile', 'Profile · K-Food Map', false],
+]) {
+  const url = `${SITE_URL}/${slug}`;
+  const page = [
+    [/<title>.*<\/title>/, `<title>${title}</title>`],
+    [/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${title}" />`],
+    [/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`],
+    [/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`],
+    ...(index ? [] : [[/<\/head>/, `  <meta name="robots" content="noindex" />
+  </head>`]]),
+  ].reduce((html, [pattern, value]) => html.replace(pattern, () => value), template);
+  mkdirSync(path.join(distDir, slug), { recursive: true });
+  writeFileSync(path.join(distDir, slug, 'index.html'), page, 'utf8');
+}
+
 // Generated here rather than kept as a static file in public/, for the same
 // reason the pages above are generated: the URL set IS the active-restaurant
 // set, so deriving both from `active` makes it impossible for the sitemap to
@@ -141,4 +162,4 @@ writeFileSync(
 );
 
 console.log(`Prerendered ${active.length} place page(s) into dist/place/ (of ${restaurants.length} total).`);
-console.log(`Wrote submit/index.html, privacy/index.html, sitemap.xml (${active.length + 1} URLs) and robots.txt.`);
+console.log(`Wrote submit/, privacy/, discover/, journal/, profile/ index.html, sitemap.xml (${active.length + 1} URLs) and robots.txt.`);

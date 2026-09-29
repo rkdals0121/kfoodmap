@@ -34,6 +34,9 @@ const SUSTAINABILITY_AXIS = ['Sustainability', ...TRAIT_GROUPS.Sustainability];
 // discovery surface — map, search, cards, Journal — at this single point.
 const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
 
+const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile: '/profile' };
+const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': 'profile' };
+
 function AppShell() {
   const { t } = useTranslation();
   const { id } = useParams();
@@ -66,7 +69,16 @@ function AppShell() {
   // only record that an unsave happened, and dropping it here would let the
   // next sync resurrect the place. Children still receive only saved entries.
   const [entries, setEntries] = useState(loadLocalPassport);
-  const [activeTab, setActiveTab] = useState('map');
+  // Tabs have addresses (/discover, /journal, /profile), so reload and the
+  // phone's Back button keep you where you were. A place, the report form
+  // or the privacy page opens over whichever tab is active and returns to it.
+  const [activeTab, setActiveTab] = useState(() => PATH_TAB[location.pathname] ?? 'map');
+  useEffect(() => {
+    if (PATH_TAB[location.pathname]) setActiveTab(PATH_TAB[location.pathname]);
+    else if (location.pathname === '/') setActiveTab('map');
+  }, [location.pathname]);
+  const tabPath = TAB_PATH[activeTab] ?? '/';
+  const selectTab = (tab) => navigate(TAB_PATH[tab] ?? '/');
   // Below 768px a non-map tab covers the whole map. The map is then made
   // inert, so Tab never lands on a pin nobody can see (WCAG 2.4.11). From
   // 768px up the map stays visible beside the panel and stays usable.
@@ -147,7 +159,7 @@ function AppShell() {
     setSelectedFilters(prev =>
       prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]
     );
-    if (id) navigate('/', { replace: true });
+    if (id) navigate(tabPath, { replace: true });
   };
 
   const handleToggleBookmark = (placeId) => {
@@ -304,7 +316,7 @@ function AppShell() {
         {activeTab !== 'map' && activeTab !== 'journal' && (
           <TabPanel
             tab={activeTab}
-            onNavigate={setActiveTab}
+            onNavigate={selectTab}
             session={session}
             googleReady={googleReady}
             onSignIn={signIn}
@@ -320,7 +332,7 @@ function AppShell() {
 
         <TabBar 
           activeTab={activeTab} 
-          onSelect={setActiveTab} 
+          onSelect={selectTab} 
           isCollapsed={isSidebarCollapsed} 
         />
       </div>
@@ -342,7 +354,7 @@ function AppShell() {
       {/* Layer 2: Full-Screen Detail Modal */}
       <RestaurantDetail
         restaurant={selectedRestaurant}
-        onClose={() => navigate('/')}
+        onClose={() => navigate(tabPath)}
         isBookmarked={selectedRestaurant ? bookmarkedIds.includes(selectedRestaurant.id) : false}
         onToggleBookmark={handleToggleBookmark}
         isVisited={selectedRestaurant ? visitedIds.includes(selectedRestaurant.id) : false}
@@ -356,10 +368,10 @@ function AppShell() {
         <SubmitSheet
           key={location.search}
           place={submitPlace}
-          onClose={() => navigate(submitPlace ? `/place/${submitPlace.id}` : '/', { replace: true })}
+          onClose={() => navigate(submitPlace ? `/place/${submitPlace.id}` : tabPath, { replace: true })}
         />
       )}
-      {isPrivacy && <PrivacySheet onClose={() => navigate('/', { replace: true })} />}
+      {isPrivacy && <PrivacySheet onClose={() => navigate(tabPath, { replace: true })} />}
 
     </main>
   );
