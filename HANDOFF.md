@@ -2137,6 +2137,24 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     closes; background is inert under modal sheets and under full-screen
     tabs on phones; sheet handle is a labelled button; list count is a live
     region; settings rows are buttons with line icons.
+43. **Critique rounds, 2026-09-30 00:00–01:00.** An adversarial reviewer
+    checked the live site against UI-DIRECTION.md
+    (`.superpowers/ui-direction/CRITIQUE-1.md`); fixed from it: EID/Dongmoon
+    stories and two one-liners no longer overclaim certification; one
+    `ClaimChip` everywhere (cards, saved rows, prologue, every journey stop);
+    detail has no placeholder hero, traits as plain text, one-line caveat,
+    "Halal · Not known" / "Not halal" for the diet a place has no claim for,
+    worded Save / Been here (one tap saves and visits) / Share; Naver button
+    ink darkened (white on its green was 2.25:1); OSM credit moved top-right
+    (it was hidden under the phone tab bar — a licence requirement); unknown
+    paths show the map; visually hidden H1 + `main`; detail **docks beside a
+    live map from 768px** (not modal there; `docked` prop, `modalOpen` in
+    App); Busan Jib names lose "(Halal)"; privacy page's Korean offline
+    sentence corrected to match the English (effective 2026-09-30). Also new
+    tonight: app icon (was the Vite template bolt; `scripts/app-icons.mjs`,
+    `scripts/icons/`), link-preview card (`scripts/og-card.py`), prerendered
+    titles use displayName. Browser-pane gotcha: timers stop while the pane
+    is hidden, so never await setTimeout inside a javascript_tool call.
 
 
 ---
