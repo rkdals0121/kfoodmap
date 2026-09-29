@@ -1,60 +1,70 @@
-// One-off: rasterizes each category illustration in public/images/ into a
-// 1200x630 PNG under public/og/, for use as og:image in the per-restaurant
-// pages scripts/prerender-places.mjs generates.
+// Draws the per-category link-preview cards (public/og/<category>.png,
+// 1200x630) that scripts/prerender-places.mjs points og:image at. Crawlers
+// (KakaoTalk, Facebook, X) need a raster image and drop an SVG og:image.
 //
-// Why this exists: link-preview crawlers (KakaoTalk, Facebook, Twitter)
-// require a raster format -- they silently drop an og:image pointing at an
-// SVG. The illustrations are SVG, so the tag was removed entirely rather
-// than ship one that never renders (HANDOFF §7 #22). This restores it.
+// Each card pairs the category illustration (public/images/*.svg) with what
+// the map is, in Pretendard GOV, so a shared place link says "K-Food Map"
+// and not just "a drawing of a bowl". fallback.png is drawn separately, by
+// scripts/og-card.py, and is left alone here.
 //
-// The source SVGs are 400x300 (4:3); og:image wants 1200x630 (~1.91:1).
-// Rather than crop the illustration to fit, each is scaled to fit inside
-// the frame and centred on the SVG's own background colour, so the result
-// reads as a deliberate card rather than a badly-cropped image.
-//
-// Not part of npm run build -- run manually, commit the output. Re-run if
-// the illustrations ever change:
+// Not part of the build — run it and commit the output when an illustration
+// or the wording changes. Uses a headless Chromium (Edge or Chrome; set
+// BROWSER to its path if neither default exists):
 //   node scripts/rasterize-og-images.mjs
-
-import { chromium } from 'playwright';
-import { readFileSync, mkdirSync, readdirSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
+import { existsSync, readFileSync, readdirSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const imagesDir = path.join(__dirname, '..', 'public', 'images');
-const outDir = path.join(__dirname, '..', 'public', 'og');
+const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+const imagesDir = path.join(root, 'public', 'images');
+const outDir = path.join(root, 'public', 'og');
+const font = (w) => pathToFileURL(path.join(root, `node_modules/pretendard-gov/dist/public/static/alternative/PretendardGOV-${w}.ttf`)).href;
+const browser = [
+  process.env.BROWSER,
+  'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
+  'C:/Program Files/Google/Chrome/Application/chrome.exe',
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/usr/bin/chromium',
+].find(p => p && existsSync(p));
+if (!browser) throw new Error('No Chromium browser found; set BROWSER=/path/to/chrome');
 
-const WIDTH = 1200;
-const HEIGHT = 630;
-// The illustrations' own canvas colour, so the letterboxed area is
-// indistinguishable from the artwork's background rather than a grey band.
-const BACKGROUND = '#F8F6F0';
-
-mkdirSync(outDir, { recursive: true });
-
-const svgFiles = readdirSync(imagesDir).filter(f => f.endsWith('.svg'));
-
-const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: WIDTH, height: HEIGHT } });
-
-for (const file of svgFiles) {
+const tmp = mkdtempSync(path.join(tmpdir(), 'kfm-og-'));
+const files = readdirSync(imagesDir).filter(f => f.endsWith('.svg') && f !== 'fallback.svg');
+for (const file of files) {
   const svg = readFileSync(path.join(imagesDir, file), 'utf8');
-  const html = `<!doctype html><html><head><style>
-    html, body { margin: 0; padding: 0; }
-    .frame {
-      width: ${WIDTH}px; height: ${HEIGHT}px;
-      background: ${BACKGROUND};
-      display: flex; align-items: center; justify-content: center;
-    }
-    .frame svg { width: 84%; height: 84%; }
-  </style></head><body><div class="frame">${svg}</div></body></html>`;
-
-  await page.setContent(html);
-  const outPath = path.join(outDir, file.replace(/\.svg$/, '.png'));
-  await page.locator('.frame').screenshot({ path: outPath });
+  const html = `<!doctype html><html><head><meta charset="utf-8"><style>
+    @font-face { font-family: P; font-weight: 400; src: url('${font('Regular')}'); }
+    @font-face { font-family: P; font-weight: 700; src: url('${font('Bold')}'); }
+    @font-face { font-family: P; font-weight: 800; src: url('${font('ExtraBold')}'); }
+    html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+    body { background: #F7F7F8; font-family: P, sans-serif; color: #1F2328; position: relative; }
+    .bar { position: absolute; inset: 0 0 auto 0; height: 8px; background: #087F5B; }
+    .text { position: absolute; left: 80px; top: 120px; width: 560px; }
+    .eyebrow { font-weight: 700; font-size: 22px; letter-spacing: 0.14em; color: #087F5B; }
+    h1 { margin: 22px 0 0; font-weight: 800; font-size: 58px; line-height: 1.12; letter-spacing: -0.02em; }
+    p { margin: 22px 0 0; font-size: 28px; line-height: 1.4; color: #3F444A; }
+    .url { position: absolute; left: 80px; bottom: 70px; font-size: 22px; color: #6B7280; }
+    .art { position: absolute; right: 70px; top: 85px; width: 460px; height: 460px; border-radius: 28px;
+           background: #F8F6F0; display: flex; align-items: center; justify-content: center; }
+    .art svg { width: 88%; height: auto; }
+  </style></head><body>
+    <div class="bar"></div>
+    <div class="text">
+      <div class="eyebrow">K-FOOD MAP</div>
+      <h1>Vegan and halal food across Korea.</h1>
+      <p>Every dietary claim says how sure we are.</p>
+    </div>
+    <div class="url">kfoodmap.vercel.app</div>
+    <div class="art">${svg}</div>
+  </body></html>`;
+  const htmlPath = path.join(tmp, file.replace(/\.svg$/, '.html'));
+  writeFileSync(htmlPath, html);
+  const out = path.join(outDir, file.replace(/\.svg$/, '.png'));
+  execFileSync(browser, [
+    '--headless=new', '--disable-gpu', '--hide-scrollbars', '--force-device-scale-factor=1',
+    '--window-size=1200,630', `--screenshot=${out}`, '--allow-file-access-from-files', pathToFileURL(htmlPath).href,
+  ], { stdio: 'ignore', timeout: 90_000 });
+  console.log(path.relative(root, out));
 }
-
-await browser.close();
-
-console.log(`Rasterized ${svgFiles.length} og:image(s) into public/og/ (${WIDTH}x${HEIGHT}).`);
