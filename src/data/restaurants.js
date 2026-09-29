@@ -1532,13 +1532,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (@earthborn_vegan), read from the raw page text on 2026-09-29): '🐢본점 송도과학로 56BT센터104호, 105호'. Kakao Map panel3 (place.map.kakao.com/955789312): '인천 연수구 송도과학로 56 송도테크노파크 BT센터 1층 104~105호'. They agree. Road, building number, building (BT센터) and units 104 and 105 agree. The operator gives no floor; 1F is Kakao's. The previous value's 'BT Center 105' is widened to both units the operator names."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree on weekend hours: Incheon's tourism site (itour.incheon.go.kr) states Sat–Sun 11:00–19:00, while DiningCode's own page states Sat–Sun 10:30–21:00 (last order 20:45). Weekday hours agree (Mon–Fri 08:30–19:00), but per the project's rule, a field where sources disagree stays unknown rather than picking one — the schema has no way to record 'known on weekdays, unknown on weekends' within one hours fact."
+      "value": {
+        "raw": "Mon–Fri 08:30–19:00; Sat, Sun 10:30–19:00; public holidays 10:30–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/955789312",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 955789312 (panel3 opening-hours block): '[기본 영업시간] 월 08:30 ~ 19:00; [기본 영업시간] 화 08:30 ~ 19:00; [기본 영업시간] 수 08:30 ~ 19:00; [기본 영업시간] 목 08:30 ~ 19:00; [기본 영업시간] 금 08:30 ~ 19:00; [기본 영업시간] 토 10:30 ~ 19:00; [기본 영업시간] 일 10:30 ~ 19:00; [공휴일] 10:30 ~ 21:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Other sources recorded earlier: Incheon's tourism site Sat–Sun 11:00–19:00; DiningCode Sat–Sun 10:30–21:00 (last order 20:45). Weekday hours agree across all three."
     },
     "menus": {
       "value": [
@@ -2387,7 +2433,16 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "phone": {
+      "value": "1544-4223",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/829624793",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 829624793 lists '02-1544-4223'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode gives the relay number 0507-1303-5475, which the second-pass ruling does not count as a disagreement. Kakao shows the number exactly as '02-1544-4223' (a 1544 nationwide number with an area-code prefix). Kakao writes it as \"02-1544-4223\"; 1544 numbers are nationwide and dialled without an area code, so it is recorded as 1544-4223."
+    }
   },
   {
     "id": "morococo",
@@ -3865,13 +3920,13 @@ export const restaurants = [
       "evidence": "DiningCode's own page: '샐러드와 쌈채소는 물론이고 콩불고기, 콩치킨, 짜장, 파스타, 곤약초밥, 비건 김밥, 각종 반찬까지 준비' and a buffet price of 13,000 KRW per person."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode gives 0507-1403-6316; HappyCow independently gives +82-2-5776316 (02-577-6316). The two numbers disagree and neither source is clearly the more current, so this stays unknown rather than picking one."
+      "value": "02-577-6316",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/671783167",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 671783167 lists '02-577-6316'. Read twice, identical. HappyCow gives the same number (+82-2-5776316). DiningCode's 0507-1403-6316 is a relay number, not a disagreement under the second-pass ruling."
     },
     "transit": {
       "value": {
@@ -6740,13 +6795,54 @@ export const restaurants = [
       "evidence": "VisitKorea (english.visitkorea.or.kr, fetched directly) gives '192, Itaewon-ro, Yongsan-gu, Seoul'. Kakao Map independently lists '두바이 레스토랑' at the identical road address (place.map.kakao.com/21232510), and DiningCode's own listing (fetched directly) gives the same address. This is the same street number as `kervan-itaewon`; the two appear to occupy different floors of the same building, though this project could not confirm which floor Dubai Restaurant is on from an opened source."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "VisitKorea (fetched directly) states '11:30-23:00'. DiningCode (fetched directly) instead states '영업시간: 12:00 - 23:00 라스트오더: 22:30' and shows the restaurant closed on the day checked, consistent with a Monday closure. The two disagree on opening time and on whether there is a closed day, so this stays unknown."
+      "value": {
+        "raw": "Tue–Sun 12:00–23:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "23:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/21232510",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 21232510 (panel3 opening-hours block): '화(9/29) 12:00 ~ 23:00; 수(9/30) 12:00 ~ 23:00; 목(10/1) 12:00 ~ 23:00; 금(10/2) 12:00 ~ 23:00; 토(10/3) 12:00 ~ 23:00; 일(10/4) 12:00 ~ 23:00; 월(10/5) 휴무일'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. VisitKorea states '11:30-23:00'; DiningCode (checked earlier) agrees with Kakao: 12:00–23:00, last order 22:30, closed Mondays."
     },
     "menus": {
       "value": null,
@@ -7125,6 +7221,15 @@ export const restaurants = [
       "method": "Map service lookup",
       "lastCheckedAt": "2026-09-29",
       "evidence": "Kakao Map's place panel for 베제투스 (https://place.map.kakao.com/1441623065) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named 'VEGETUS vegan restaurant'. Its bio names 서울 해방촌 채식식당 베제투스."
+    },
+    "phone": {
+      "value": "070-8824-5959",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1441623065",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1441623065 lists '070-8824-5959'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode gives the relay number 0507-1407-4431."
     }
   },
   {
@@ -8569,13 +8674,67 @@ export const restaurants = [
       "evidence": "The Michelin Guide gives '중구 퇴계로85길 12-10'. DiningCode independently gives '서울특별시 중구 퇴계로85길 12-10 1층'. Kakao Map's own address for a Korean-food business of this name at this address matches exactly: 서울 중구 퇴계로85길 12-10."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources conflict on both the closed days and the daily schedule. The Michelin Guide: closed Monday only, Tue-Sun 12:00-14:30 / 17:00-21:00. DiningCode: closed Sunday AND Monday, Tue-Sat 11:00-21:30 with a 14:30-17:00 break and last orders at 14:00/20:30. Per the verification rule, a field two sources disagree on stays unknown."
+      "value": {
+        "raw": "Tue–Fri 11:00–21:30, break 14:30–17:00, last orders 14:00 / 20:30; closed Mondays and Sundays; Sat not stated",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "14:30",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "14:30",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "14:30",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "14:30",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/173951940",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 173951940 (panel3 opening-hours block): '화(9/29) 11:00 ~ 21:30 14:30 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 21:30 14:30 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 21:30 14:30 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 21:30 14:30 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 21:30; 일(10/4) 휴무일; 월(10/5) 휴무일; 안내: 런치 라스트오더 14:00 , 디너 라스트오더는 20:30 입니다.'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Sat left out (not stated as a regular day). Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Last orders 14:00 (lunch) and 20:30 (dinner) are from the owner's note on the same listing ('런치 라스트오더 14:00 , 디너 라스트오더는 20:30 입니다.'). Saturday falls on 3 Oct (a public holiday) and Kakao shows it without the break, so Saturday is left out. The owner's notice says it closes on Chuseok day. Other sources: the Michelin Guide gives Tue–Sun 12:00–14:30 / 17:00–21:00 (closed Monday); DiningCode gives Tue–Sat 11:00–21:30 with a 14:30–17:00 break, closed Sunday and Monday."
     },
     "menus": {
       "value": [
@@ -8608,13 +8767,13 @@ export const restaurants = [
       "evidence": "DiningCode's own menu board lists these items and prices. The Michelin Guide separately and consistently describes a fern (gosari) oil-sauce bibim noodle and a Taiwanese-style chili crepe as signature dishes, without prices."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The Michelin Guide gives +82 2-2039-3140; DiningCode gives 0507-1393-3140. These do not match, and neither was confirmed as the current number, so left unknown rather than guessed."
+      "value": "02-2039-3140",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/173951940",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 173951940 lists '02-2039-3140'. Read twice, identical. Owner-entered on its registered Kakao listing. The Michelin Guide gives the same number. DiningCode's 0507-1393-3140 is a relay number."
     },
     "transit": {
       "value": {
@@ -9031,13 +9190,54 @@ export const restaurants = [
       "evidence": "HappyCow gives '21, Chungmu-ro 4-gil, Jung-gu, Seoul, South Korea'. Kakao Map's own listing for a business named '블루서울' (category: fusion cuisine) at this address matches exactly: 서울 중구 충무로4길 21."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No hours were sighted on any page opened this session; HappyCow mentions reservations are taken by Instagram DM, but states no fixed hours."
+      "value": {
+        "raw": "Mon, Tue, Thu–Sat 17:00–23:00; Sun 17:00–22:00; closed Wednesdays; public holidays 17:00–23:00; the owner posts extra closures on Instagram (@blu.seoul)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "17:00",
+              "to": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "17:00",
+              "to": "23:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "17:00",
+              "to": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "17:00",
+              "to": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "17:00",
+              "to": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/448090148",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 448090148 (panel3 opening-hours block): '[기본 영업시간] 월 17:00 ~ 23:00; [기본 영업시간] 화 17:00 ~ 23:00; [기본 영업시간] 목 17:00 ~ 23:00; [기본 영업시간] 금 17:00 ~ 23:00; [기본 영업시간] 토 17:00 ~ 23:00; [기본 영업시간] 일 17:00 ~ 22:00; [공휴일] 17:00 ~ 23:00; 휴무: 매주 수요일; 안내: 휴무 일정 인스타 공지 @blu.seoul'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode instead shows 12:00–23:00 with a 15:00–17:00 break. HappyCow gave no hours."
     },
     "menus": {
       "value": [
@@ -9062,13 +9262,13 @@ export const restaurants = [
       "evidence": "HappyCow names these as example dishes; no prices were sighted."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow shows a garbled number ('+82-50371503566') that does not match any valid Korean phone format, so it is not recorded."
+      "value": "0503-7150-3566",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/448090148",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 448090148 lists '0503-7150-3566'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. This is a 0503 virtual number; the owner lists no direct line. DiningCode gives the relay 0507-1341-1365. HappyCow's garbled '+82-50371503566' is the same number."
     },
     "transit": {
       "value": {
@@ -9398,13 +9598,13 @@ export const restaurants = [
       "evidence": "HappyCow lists \"vegan croissants, brownies and carrot cake\" among the café's offerings."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No phone number was sighted for this listing."
+      "value": "02-467-3186",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/883186039",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 883186039 lists '02-467-3186'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode gives the relay 0507-1362-3186."
     },
     "transit": {
       "value": {
@@ -9703,13 +9903,13 @@ export const restaurants = [
       "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-243-1187; DiningCode's own listing gives 0507-1319-1441. The two disagree, so the field is left unknown rather than picking one."
+      "value": "031-243-1187",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1247915886",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1247915886 lists '031-243-1187'. Read twice, identical. Gyeonggi Tourism Organization's dataset gives the same number. DiningCode's 0507-1319-1441 is a relay number."
     },
     "transit": {
       "value": {
@@ -9855,13 +10055,13 @@ export const restaurants = [
       "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-237-1090; DiningCode's own listing gives 0507-1311-1136. The two disagree, so the field is left unknown rather than picking one."
+      "value": "031-237-1090",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1210036773",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1210036773 lists '031-237-1090'. Read twice, identical. Owner-entered on its registered Kakao listing. Gyeonggi Tourism Organization's dataset gives the same number. DiningCode's 0507-1311-1136 is a relay number."
     },
     "transit": {
       "value": {
@@ -10000,13 +10200,13 @@ export const restaurants = [
       "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-258-3305; DiningCode's own listing gives 0507-1458-3422. The two disagree, so the field is left unknown rather than picking one."
+      "value": "031-258-3305",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7966850",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 7966850 lists '031-258-3305'. Read twice, identical. Gyeonggi Tourism Organization's dataset gives the same number. DiningCode's 0507-1458-3422 is a relay number."
     },
     "transit": {
       "value": {
@@ -10099,13 +10299,13 @@ export const restaurants = [
       "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-254-0977; DiningCode's own listing gives 0507-1440-1680. The two disagree, so the field is left unknown rather than picking one."
+      "value": "031-254-0977",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1511929845",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1511929845 lists '031-254-0977'. Read twice, identical. Gyeonggi Tourism Organization's dataset gives the same number. DiningCode's 0507-1440-1680 is a relay number."
     },
     "transit": {
       "value": {
@@ -10389,13 +10589,13 @@ export const restaurants = [
       "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-781-2177; DiningCode's own listing for the Seohyeon branch gives 0507-1325-2177. The two disagree, so the field is left unknown rather than picking one."
+      "value": "031-781-2177",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21574337",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 21574337 lists '031-781-2177'. Read twice, identical. Gyeonggi Tourism Organization's dataset gives the same number. DiningCode's 0507-1325-2177 is a relay number."
     },
     "transit": {
       "value": {
@@ -10572,13 +10772,13 @@ export const restaurants = [
       "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Gyeonggi Tourism Organization's dataset gives 031-708-7022; DiningCode's own listing gives 0507-1411-7034. The two disagree, so the field is left unknown rather than picking one."
+      "value": "031-708-7022",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2055952433",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2055952433 lists '031-708-7022'. Read twice, identical. Owner-entered on its registered Kakao listing. Gyeonggi Tourism Organization's dataset gives the same number. DiningCode's 0507-1411-7034 is a relay number."
     },
     "transit": {
       "value": {
@@ -11357,13 +11557,13 @@ export const restaurants = [
       "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The dataset gives 0507-1413-1704; Kakao Map gives 031-690-1703. The two disagree, so the field is left unknown."
+      "value": "031-690-1703",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/942350327",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 942350327 lists '031-690-1703'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. The dataset's 0507-1413-1704 is a relay number."
     },
     "transit": {
       "value": {
@@ -11502,13 +11702,13 @@ export const restaurants = [
       "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The dataset gives 0507-1361-1695; Kakao Map gives 031-8092-1695. The two disagree, so the field is left unknown."
+      "value": "031-8092-1695",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/32292147",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 32292147 lists '031-8092-1695'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. The dataset's 0507-1361-1695 is a relay number."
     },
     "transit": {
       "value": null,
@@ -12521,13 +12721,13 @@ export const restaurants = [
       "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The dataset and Kakao Map give 031-493-9563; DiningCode's listing gives 0507-1362-9563. The sources disagree, so the field is left unknown."
+      "value": "031-493-9563",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/14100981",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 14100981 lists '031-493-9563'. Read twice, identical. The dataset gives the same number. DiningCode's 0507-1362-9563 is a relay number."
     },
     "transit": {
       "value": {
@@ -12602,13 +12802,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/kinzagojan/, read 2026-09-29): '안산시 단원구 광덕대로 151, 삼영타운 304호'. Kakao Map place panel (place.map.kakao.com/1562813267): '경기 안산시 단원구 광덕대로 151 삼영타운 3층 304호 (고잔동)'. Road name and building number agree. Both give unit 304 in 삼영타운; only Kakao adds 3층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+      "value": {
+        "raw": "Daily 11:30–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1562813267",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1562813267 (panel3 opening-hours block): '화(9/29) 11:30 ~ 22:00; 수(9/30) 11:30 ~ 22:00; 목(10/1) 11:30 ~ 22:00; 금(10/2) 11:30 ~ 22:00; 토(10/3) 11:30 ~ 22:00; 일(10/4) 11:30 ~ 22:00; 월(10/5) 11:30 ~ 22:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode (rid PiCkMYioUj73) shows 11:30–21:00 on the days listed; Kakao's owner-entered 22:00 close is used."
     },
     "menus": {
       "value": null,
@@ -12710,13 +12956,36 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/wtdubai4/, read 2026-09-29): '수원시 팔달구 매산로13-4 102호'. Kakao Map place panel (place.map.kakao.com/2023124784): '경기 수원시 팔달구 매산로 13-4 매산동어울림센터 1층 102호 (매산로1가)'. Road name and building number agree. Both give unit 102; only Kakao adds 1층 and the building name."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
+      "value": {
+        "raw": "Sat, Sun 11:00–21:00, last order 20:00; closed Mondays, Tuesdays, Wednesdays, Thursdays and Fridays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [],
+          "thu": [],
+          "fri": [],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2023124784",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2023124784 (panel3 opening-hours block): '화(9/29) 휴무일; 수(9/30) 휴무일; 목(10/1) 휴무일; 금(10/2) 휴무일; 토(10/3) 11:00 ~ 21:00 20:00 라스트오더; 일(10/4) 11:00 ~ 21:00 20:00 라스트오더; 월(10/5) 휴무일; 매주 월요일, 화요일, 수요일, 목요일, 금요일 휴무'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode (rid YTPE3MAZsAum) shows two weekday 20:00–22:00 slots and Sat–Sun 11:00–21:00; the owner-entered Kakao schedule (weekends only) is used."
     },
     "menus": {
       "value": null,
@@ -12728,13 +12997,13 @@ export const restaurants = [
       "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode's listing gives 0507-1424-0538; Kakao Map gives 010-4424-0504. The two disagree, so the field is left unknown."
+      "value": "010-4424-0504",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2023124784",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2023124784 lists '010-4424-0504'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode's 0507-1424-0538 is a relay number."
     },
     "transit": {
       "value": {
@@ -12944,13 +13213,13 @@ export const restaurants = [
       "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-8008-8358; DiningCode's listing gives 0507-1420-3326. The two disagree, so the field is left unknown."
+      "value": "010-8008-8358",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/24984567",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 24984567 lists '010-8008-8358'. Read twice, identical. DiningCode's 0507-1420-3326 is a relay number, not a disagreement under the second-pass ruling; no other source gives a number."
     },
     "transit": {
       "value": null,
@@ -13037,13 +13306,74 @@ export const restaurants = [
       "evidence": "Kakao Map gives '서울 성북구 장월로3길 1 동아다누프라자 지하1층 106호' (jibun 상월곡동 101-2). DiningCode's listing gives '서울특별시 성북구 장월로3길 1 (상월곡동)' with jibun '상월곡동 101-2 B106호', and HappyCow's Seoul directory gives 'B106 1 Jangwol-ro 3-gil, Seongbuk District'. All three agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree. Kakao Map: Wed–Sun 11:30–21:00 with a 15:30–17:00 break, closed Mon–Tue. HappyCow: 'Wed-Fri 11:30am-3:30pm, Wed-Sun 5:00pm-9:00pm, Sat-Sun 11:30am-4:00pm'. DiningCode: '일 11:00-21:00', '수,목,토 11:30-21:00'. Call ahead."
+      "value": {
+        "raw": "Wed–Fri 11:30–21:00, break 15:30–17:00, last order 20:00; Sat, Sun 11:30–21:00, break 16:00–17:00, last order 20:00; closed Mondays and Tuesdays; the owner notes it may close early if no diners are in by the 20:00 last order",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1556976169",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1556976169 (panel3 opening-hours block): '화(9/29) 휴무일; 수(9/30) 11:30 ~ 21:00 15:30 ~ 17:00 브레이크타임; 목(10/1) 11:30 ~ 21:00 15:30 ~ 17:00 브레이크타임; 금(10/2) 11:30 ~ 21:00 15:30 ~ 17:00 브레이크타임; 토(10/3) 11:30 ~ 21:00 16:00 ~ 17:00 브레이크타임; 일(10/4) 11:30 ~ 21:00 16:00 ~ 17:00 브레이크타임; 월(10/5) 휴무일; 안내: 라스트오더(20시)까지 매장 이용 고객이 없을 경우 조기 마감합니다.; 매주 월요일, 화요일 휴무'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Last order 20:00 is from the owner's note: '라스트오더(20시)까지 매장 이용 고객이 없을 경우 조기 마감합니다.' Earlier sources: HappyCow (undated) split Wed–Fri/Sat–Sun hours; DiningCode '일 11:00-21:00', '수,목,토 11:30-21:00'."
     },
     "menus": {
       "value": [
@@ -13161,13 +13491,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (@epikore.official), read from the raw page text on 2026-09-29): '성수 · 뚝섬로3길 22, 1F'. Kakao Map panel3 (place.map.kakao.com/1080034632): '서울 성동구 뚝섬로3길 22 1층'. They agree. Road, building number and floor agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree. Kakao Map and DiningCode: Mon–Fri 10:30–20:00, Sat–Sun 10:30–16:00. HappyCow: 'Mon-Sat 10:30am-8:00pm'. A 2026-08 blog excerpt shown on Kakao Map says it closes on Sundays. Call ahead."
+      "value": {
+        "raw": "Mon–Fri 10:30–20:00; Sat, Sun 10:30–16:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "16:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "16:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1080034632",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1080034632 (panel3 opening-hours block): '화(9/29) 10:30 ~ 20:00; 수(9/30) 10:30 ~ 20:00; 목(10/1) 10:30 ~ 20:00; 금(10/2) 10:30 ~ 20:00; 토(10/3) 10:30 ~ 16:00; 일(10/4) 10:30 ~ 16:00; 월(10/5) 10:30 ~ 20:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode agrees (Mon–Fri 10:30–20:00, Sat–Sun 10:30–16:00). HappyCow (undated) says Mon–Sat 10:30–20:00; a 2026-08 blog excerpt says it closes Sundays."
     },
     "menus": {
       "value": [
@@ -13281,13 +13657,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (@pureundeli), read from the raw page text on 2026-09-29): '🗝️ 성동구 성수일로 3길 4-6, B1'. Kakao Map panel3 (place.map.kakao.com/631002199): '서울 성동구 성수일로3길 4-6 지하 1층'. They agree. Road, building number and floor (B1 = 지하 1층) agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree on Saturdays: Kakao Map lists Mon–Sat 11:00–18:00 (closed Sun); HappyCow lists 'Mon-Fri 11:00am-6:00pm, Sat 11:00am-5:00pm' and says Saturdays are by reservation only."
+      "value": {
+        "raw": "Mon–Sat 11:00–18:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/631002199",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 631002199 (panel3 opening-hours block): '화(9/29) 11:00 ~ 18:00; 수(9/30) 11:00 ~ 18:00; 목(10/1) 11:00 ~ 18:00; 금(10/2) 11:00 ~ 18:00; 토(10/3) 11:00 ~ 18:00; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 18:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. HappyCow (undated) lists Sat 11:00–17:00 by reservation only; stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -13491,13 +13908,94 @@ export const restaurants = [
       "evidence": "Kakao Map gives '서울 성동구 한림말1길 8 1층 (옥수동)' under the name '콩물에빠진두부 옥수본점'; DiningCode lists '콩빠두' at '서울특별시 성동구 한림말1길 8 1층'; HappyCow lists 'Kongppadu - 콩빠두' at '8 Hallimmal 1-gil, Seongdong-gu'. All agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree. Kakao Map: daily 10:30–20:30 with a 15:00–16:30 break. HappyCow: 'Mon-Sun 10:30am-9:30pm'."
+      "value": {
+        "raw": "Daily 10:30–20:30, break 15:00–16:30, last order 19:50",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30",
+              "lastOrder": "19:50"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30",
+              "lastOrder": "19:50"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30",
+              "lastOrder": "19:50"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30",
+              "lastOrder": "19:50"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30",
+              "lastOrder": "19:50"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30",
+              "lastOrder": "19:50"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30",
+              "lastOrder": "19:50"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/13228501",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 13228501 (panel3 opening-hours block): '화(9/29) 10:30 ~ 20:30 15:00 ~ 16:30 브레이크타임 19:50 라스트오더; 수(9/30) 10:30 ~ 20:30 15:00 ~ 16:30 브레이크타임 19:50 라스트오더; 목(10/1) 10:30 ~ 20:30 15:00 ~ 16:30 브레이크타임 19:50 라스트오더; 금(10/2) 10:30 ~ 20:30 15:00 ~ 16:30 브레이크타임 19:50 라스트오더; 토(10/3) 10:30 ~ 20:30 15:00 ~ 16:30 브레이크타임 19:50 라스트오더; 일(10/4) 10:30 ~ 20:30 15:00 ~ 16:30 브레이크타임 19:50 라스트오더; 월(10/5) 10:30 ~ 20:30 15:00 ~ 16:30 브레이크타임 19:50 라스트오더'. Read twice, identical. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. No DiningCode listing was found (searched '콩물에빠진두부' and '콩물에빠진두부 옥수'). The only other source, HappyCow (undated: Mon–Sun 10:30–21:30), is stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -13602,13 +14100,54 @@ export const restaurants = [
       "evidence": "Kakao Map gives '서울 성북구 창경궁로 318 제이에스원혜화 101호 (삼선동1가)'; DiningCode gives '서울특별시 성북구 창경궁로 318 101호'; HappyCow gives '318, Cheonggyeongung-ro, Seongbukgu'. All agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree. Kakao Map: Tue–Sun 11:30–21:30, closed Mon. HappyCow (business info last updated 28 May 2023): 'Open Tue-Sun 12:00pm-9:00pm'."
+      "value": {
+        "raw": "Tue–Sun 11:30–21:30; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/410758680",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 410758680 (panel3 opening-hours block): '화(9/29) 11:30 ~ 21:30; 수(9/30) 11:30 ~ 21:30; 목(10/1) 11:30 ~ 21:30; 금(10/2) 11:30 ~ 21:30; 토(10/3) 11:30 ~ 21:30; 일(10/4) 11:30 ~ 21:30; 월(10/5) 휴무일'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. HappyCow (business info last updated 28 May 2023) says Tue–Sun 12:00–21:00; stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -13629,13 +14168,13 @@ export const restaurants = [
       "evidence": "Kakao Map's operator-entered menu (updated 2025-04-15) lists '아이스크림 싱글 컵/콘 4500' and '아이스크림 더블 컵/콘 8000'."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao Map lists 02-3675-0010; HappyCow lists '+82-264090011'; a 2026 blog excerpt on Kakao Map gives a 0507 number."
+      "value": "02-3675-0010",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/410758680",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 410758680 lists '02-3675-0010'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. HappyCow (business info last updated May 2023) gives '+82-264090011'; a 2026 blog excerpt gives a 0507 relay number."
     },
     "instagram": {
       "value": "http://instagram.com/achemice",
@@ -13829,13 +14368,87 @@ export const restaurants = [
       "evidence": "The operator's own website footer: '서울특별시 성동구 연무장1길 15-1, 1층'. Kakao Map gives '서울 성동구 연무장1길 15-1 1층 (성수동2가)'; HappyCow gives '15 Yeonmujang 1-gil'; DiningCode gives '서울특별시 성동구 연무장1길 15-1 1층'."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree. Kakao Map: daily 11:00–20:00 with a 15:00–16:00 break. HappyCow: 'Mon-Fri 11:00am-8:00pm, Sat-Sun 11:00am-4:00pm'."
+      "value": {
+        "raw": "Daily 11:00–20:00, break 15:00–16:00; closed on 1 Jan, the three Seollal days, Children's Day, the three Chuseok days and Christmas",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1164647137",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1164647137 (panel3 opening-hours block): '[기본 영업시간] 매일 11:00 ~ 20:00 15:00 ~ 16:00 브레이크타임; 휴무: 1월1일, 설전날, 설당일, 설다음날, 어린이날, 추석전날, 추석당일, 추석다음날, 성탄절'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. HappyCow (undated) says Mon–Fri 11:00–20:00, Sat–Sun 11:00–16:00; stale per the second-pass ruling."
     },
     "menus": {
       "value": null,
@@ -13937,13 +14550,59 @@ export const restaurants = [
       "evidence": "DiningCode gives 서울특별시 동작구 상도로37길 3 (지번 상도1동 666-3); HappyCow gives \"3, Sangdo-ro 37-gil, Dongjak-gu (at Yangnyeong-ro)\" for the bakery and \"3, Sangdo-ro 37-Gil, 2nd Floor, Dongjak-gu\" for Veggie Chan; Seoul's vegetarian-restaurant list gives 서울특별시 동작구 상도로37길 3; Kakao Map independently gives 서울 동작구 상도로37길 3 under the name 우부래도 베지찬."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: DiningCode shows 10:00–22:00 every day, while HappyCow's bakery listing says \"Open Mon-Sun 10:00am-10:00pm. Closed every other Mon.\" and its Veggie Chan listing (the 2F restaurant) says \"Open Mon-Sun 11:30am-8:00pm.\" Left unknown rather than choosing one."
+      "value": {
+        "raw": "Daily 10:00–22:00; closed on public holidays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/190594939",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 190594939 (panel3 opening-hours block): '[기본 영업시간] 매일 10:00 ~ 22:00; 휴무: 공휴일'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode agrees on 10:00–22:00 daily. HappyCow (undated) adds 'Closed every other Mon' for the bakery and 11:30–20:00 for the 2F Veggie Chan; stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -13976,13 +14635,13 @@ export const restaurants = [
       "evidence": "DiningCode's menu section lists 단호박 머핀 4,000원, 쌀바게트 4,500원, 홍국단팥빵 4,000원, 코코넛크림단팥빵 3,500원, 흑임자크림빵 3,500원. Bakery items rotate, so this is a sample."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode gives 0507-1428-0599 while Seoul's vegetarian-restaurant list gives 070-7543-0599 for the same address. The two disagree, so the field is left unknown."
+      "value": "0502-5554-0026",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/190594939",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 190594939 lists '0502-5554-0026'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. This is a 0502 virtual number, the only one the owner lists. Seoul's vegetarian-restaurant list gives 070-7543-0599 and DiningCode the relay 0507-1428-0599."
     },
     "instagram": {
       "value": "https://www.instagram.com/ooh_breado/",
@@ -14580,13 +15239,13 @@ export const restaurants = [
       "evidence": "DiningCode lists these items at these prices; the dal makhani is described as made with \"녹두, 콩, 크림\" (mung beans, beans, cream)."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode gives 0507-1350-6527 and the KTO guidebook gives 02-882-6527. They disagree, so the field is left unknown."
+      "value": "02-882-6527",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/12740961",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 12740961 lists '02-882-6527, 02-875-6527'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. The owner lists two lines; the first, 02-882-6527, is also in the KTO guidebook. DiningCode's 0507-1350-6527 is a relay number."
     },
     "instagram": {
       "value": null,
@@ -14680,13 +15339,59 @@ export const restaurants = [
       "evidence": "Operator (store page (매장안내 두르가 의정부점), http://www.durga.co.kr/bbs/board.php?bo_table=gallery&wr_id=3, read 2026-09-29) gives a lot-number address: '경기도 의정부시 의정부동 176-12'. Kakao Map place panel (place.map.kakao.com/16097816): '경기 의정부시 태평로73번길 50 2층 (의정부동)', lot number '의정부동 176-12'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). The operator gives no floor; Kakao adds 2층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode both give 10:00-22:00 daily, but the Korea Tourism Organization guide (valid as of December 2021) gives 10:00-21:00. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Daily 10:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16097816",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 16097816 (panel3 opening-hours block): '화(9/29) 10:00 ~ 22:00; 수(9/30) 10:00 ~ 22:00; 목(10/1) 10:00 ~ 22:00; 금(10/2) 10:00 ~ 22:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 10:00 ~ 22:00'. Read twice, identical. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. DiningCode (rid vTZTmRccyWfq, read twice, identical) agrees: 10:00–22:00 on every day shown (30 Sep–5 Oct). The only other source, the Korea Tourism Organization guide valid as of December 2021 (10:00–21:00), is stale per the second-pass ruling."
     },
     "menus": {
       "value": null,
@@ -14806,13 +15511,13 @@ export const restaurants = [
       "evidence": "Kakao Map and DiningCode list different items and prices with no overlap to cross-check, so no menu is stated."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The Gyeonggi Tourism Organization dataset and Kakao Map give 031-949-9135; DiningCode gives 0507-1311-9135. The sources disagree, so the field is left unknown."
+      "value": "031-949-9135",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1803970712",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1803970712 lists '031-949-9135'. Read twice, identical. Gyeonggi Tourism Organization's dataset gives the same number. DiningCode's 0507-1311-9135 is a relay number."
     },
     "transit": {
       "value": {
@@ -15329,13 +16034,13 @@ export const restaurants = [
       "evidence": "Kakao Map's owner-marked menu lists 'Osh 10,000원 소고기.말고기가 들어간 볶음밥', 'Non(논) 3,000원', 'Samsa(삼사) 4,000원 소고기와 양파등으로 속재료를 만든'. DiningCode also lists '삼사(SAMSA) - 4,000원'."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-7772-2334; DiningCode gives 0507-1422-2363. The sources disagree, so the field is left unknown."
+      "value": "010-7772-2334",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/183769521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 183769521 lists '010-7772-2334'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode's 0507-1422-2363 is a relay number."
     },
     "transit": {
       "value": null,
@@ -16000,13 +16705,13 @@ export const restaurants = [
       "evidence": "DiningCode menu lists these items with these exact prices; it marks the beef on the meat lover slice and the pepperoni on the pasta as halal (\"할랄\")."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode gives 0507-1360-5246; EatingSeoul gives +82 2-324-2111. The sources disagree."
+      "value": "02-324-2111",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1484385167",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1484385167 lists '02-324-2111'. Read twice, identical. EatingSeoul gives the same number. DiningCode's 0507-1360-5246 is a relay number."
     },
     "transit": {
       "value": {
@@ -16090,13 +16795,74 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, in English, https://www.instagram.com/jum.jum.jum.jum.jum.jum/, read 2026-09-29): '1F 36, Seongam-ro 15-gil, Mapo-gu, Seoul'. Kakao Map place panel (place.map.kakao.com/1292340047): '서울 마포구 성암로15길 36 1층 (상암동)'. Road name and building number agree. Seongam-ro 15-gil 36 = 성암로15길 36; both give 1F/1층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The sources disagree: Seoul's tourism site gives Wed–Thu 11:30–16:00 and Fri–Sun 11:30–22:00, closed Mon–Tue; HappyCow gives Wed–Sun 11:30–15:00 and 17:00–21:00; DiningCode gives 11:30–22:00 with a 15:00–17:00 break. Lunch is reservation-only per the tourism site."
+      "value": {
+        "raw": "Tue–Sat 11:30–22:00, break 15:00–17:00, last order 21:00; closed Mondays and Sundays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00",
+              "lastOrder": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00",
+              "lastOrder": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00",
+              "lastOrder": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00",
+              "lastOrder": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00",
+              "lastOrder": "21:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1292340047",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1292340047 (panel3 opening-hours block): '화(9/29) 11:30 ~ 22:00 15:00 ~ 17:00 브레이크타임 21:00 라스트오더; 수(9/30) 11:30 ~ 22:00 15:00 ~ 17:00 브레이크타임 21:00 라스트오더; 목(10/1) 11:30 ~ 22:00 15:00 ~ 17:00 브레이크타임 21:00 라스트오더; 금(10/2) 11:30 ~ 22:00 15:00 ~ 17:00 브레이크타임 21:00 라스트오더; 토(10/3) 11:30 ~ 22:00 15:00 ~ 17:00 브레이크타임 21:00 라스트오더; 일(10/4) 휴무일; 월(10/5) 휴무일'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Other sources recorded earlier: Seoul's tourism site Wed–Thu 11:30–16:00, Fri–Sun 11:30–22:00, closed Mon–Tue; HappyCow (undated) Wed–Sun; DiningCode 11:30–22:00 with a 15:00–17:00 break."
     },
     "menus": {
       "value": [
@@ -16113,13 +16879,13 @@ export const restaurants = [
       "evidence": "english.visitseoul.net signature dish: \"Eight-Course Vegan Meny ₩40,000\" (sic)."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Seoul's tourism site gives +82-507-1318-5971; DiningCode gives 070-4240-5971. The sources disagree."
+      "value": "070-4240-5971",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1292340047",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1292340047 lists '070-4240-5971'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode gives the same number; Seoul's tourism site gives the relay 0507-1318-5971."
     },
     "transit": {
       "value": {
@@ -16203,13 +16969,65 @@ export const restaurants = [
       "evidence": "DiningCode: \"서울특별시 마포구 포은로 89 2F\" (identical on two fetches); hey! travel (Nov 2024): \"서울시 마포구 포은로 89 2층\"; Kakao Map lists 풀 발효부엌 at 서울 마포구 포은로 89, category 채식뷔페."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The sources disagree: DiningCode gives 11:00–20:30 with a 15:00–17:00 break; hey! travel (Nov 2024) gives 11:00–20:00, closed Mondays."
+      "value": {
+        "raw": "Tue–Fri 11:00–20:30, break 15:00–17:00; Sat 11:00–20:30; closed Mondays and Sundays; public holidays 11:00–20:30; closed on Chuseok day and Christmas",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2076442584",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2076442584 (panel3 opening-hours block): '[기본 영업시간] 화 11:00 ~ 20:30 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 수 11:00 ~ 20:30 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 목 11:00 ~ 20:30 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 금 11:00 ~ 20:30 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 토 11:00 ~ 20:30; [공휴일] 11:00 ~ 20:30; 휴무: 매주 월요일, 일요일, 추석당일, 성탄절; 안내: 쉐프님의 부상으로 8월말까지 임시 휴관하게 되어 송구드립니다. *재오픈 예정일: 9.2 수'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. The owner's note about a temporary closure until the end of August (reopening 2 Sep) has passed. DiningCode gives 11:00–20:30 with a 15:00–17:00 break; hey! travel (Nov 2024) gives 11:00–20:00, closed Mondays."
     },
     "menus": {
       "value": [
@@ -18220,13 +19038,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/bytofu_hbc/, read 2026-09-29): '용산구 소월로20길 10 (해방촌)'. Kakao Map place panel (place.map.kakao.com/183174330): '서울 용산구 소월로20길 10 2층 (용산동2가)'. Road name and building number agree. The operator gives no floor; Kakao adds 2층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow lists split hours (e.g. 'Mon 9:00am-3:00pm, 5:00pm-7:30pm'); DiningCode lists '09:00 - 16:00' with a last order at 15:30 on the days shown. They disagree, so hours stay unknown."
+      "value": {
+        "raw": "Mon, Thu–Sun 09:00–16:00, last order 15:30; closed Tuesdays and Wednesdays; public holidays 09:00–16:00; closed on Seollal day",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "16:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "tue": [],
+          "wed": [],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "16:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "16:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "16:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "16:00",
+              "lastOrder": "15:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/183174330",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 183174330 (panel3 opening-hours block): '[기본 영업시간] 월 09:00 ~ 16:00; [기본 영업시간] 목 09:00 ~ 16:00; [기본 영업시간] 금 09:00 ~ 16:00; [기본 영업시간] 토 09:00 ~ 16:00; [기본 영업시간] 일 09:00 ~ 16:00; [공휴일] 09:00 ~ 16:00; 휴무: 매주 화요일, 수요일, 설당일; 안내: 라스트오더 - 3:30pm'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Last order 15:30 from the owner's note '라스트오더 - 3:30pm'. DiningCode agrees (09:00–16:00, last order 15:30). HappyCow's split hours are undated and stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -18302,6 +19161,15 @@ export const restaurants = [
       "method": "Map service lookup",
       "lastCheckedAt": "2026-09-29",
       "evidence": "Kakao Map's place panel for 바이두부 (https://place.map.kakao.com/183174330) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '바이두부 (byTOFU)'. Its bio gives the same address as Kakao."
+    },
+    "phone": {
+      "value": "070-4035-6004",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/183174330",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 183174330 lists '070-4035-6004'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode's 0507-1378-7019 is a relay number."
     }
   },
   {
@@ -18413,6 +19281,15 @@ export const restaurants = [
       "method": "Map service lookup",
       "lastCheckedAt": "2026-09-29",
       "evidence": "Kakao Map's place panel for 플랜튜드 아이파크몰 용산점 (https://place.map.kakao.com/1361877073) links this account as the venue's own. The profile was opened on 2026-09-29 and is live, named '플랜튜드'. This is the Plantude brand account for all branches."
+    },
+    "phone": {
+      "value": "02-2012-0798",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1361877073",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1361877073 lists '02-2012-0798'. Read twice, identical. DiningCode's 0507-1390-0798 is a relay number."
     }
   },
   {
@@ -19433,13 +20310,13 @@ export const restaurants = [
       "evidence": "Seoul's tourism page lists 'Lamb Shashlik ₩8,000' and 'Plov (Traditional Fried Rice) ₩10,900'. Kakao's menu shows 양고기 샤슬릭 at 7,500원, so prices may have moved; the government figures are recorded as the source's own."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Seoul's tourism page gives +82-507-1349-4267; Kakao gives 02-2277-4183."
+      "value": "02-2277-4183",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16989098",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 16989098 lists '02-2277-4183'. Read twice, identical. Seoul's tourism page and DiningCode (rid QPEbB5MVZVyG, read twice, identical) give only the relay number 0507-1349-4267, which is not a disagreement under the second-pass ruling."
     },
     "instagram": {
       "value": null,
@@ -19901,13 +20778,13 @@ export const restaurants = [
       "evidence": "Kakao's listing shows these four items with these prices (비건함박플레이트 16,000원, 야채스프커리 14,000원, 타코라이스 14,000원, 곡물패티버거 14,000원)."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: HappyCow gives +82-10-3022-0857; Kakao gives 02-586-8088."
+      "value": "02-586-8088",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1943608911",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1943608911 lists '02-586-8088'. Read twice, identical. DiningCode (rid eoQupS2t0aUJ, read twice, identical) gives the same number. HappyCow's +82-10-3022-0857 is undated and stale per the second-pass ruling."
     },
     "instagram": {
       "value": "https://www.instagram.com/so_iroum",
@@ -20821,13 +21698,66 @@ export const restaurants = [
       "evidence": "DiningCode: '인천광역시 남동구 미래로 42 코아루 파크드림 2층'. HappyCow: 'Mirae-ro 42, 2nd Flr (미래로 42 2층)'. Kakao: 명인콩국수, 인천 남동구 미래로 42. All three agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow (last updated Dec 2022) says Mon–Sat 11:00–15:00, closed Sunday; DiningCode shows 11:00–19:40. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:00–19:40, last order 19:10",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "19:40",
+              "lastOrder": "19:10"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "19:40",
+              "lastOrder": "19:10"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "19:40",
+              "lastOrder": "19:10"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "19:40",
+              "lastOrder": "19:10"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "19:40",
+              "lastOrder": "19:10"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "19:40",
+              "lastOrder": "19:10"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "19:40",
+              "lastOrder": "19:10"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/521332855",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 521332855 (panel3 opening-hours block): '화(9/29) 11:00 ~ 19:40 19:10 라스트오더; 수(9/30) 11:00 ~ 19:40 19:10 라스트오더; 목(10/1) 11:00 ~ 19:40 19:10 라스트오더; 금(10/2) 11:00 ~ 19:40 19:10 라스트오더; 토(10/3) 11:00 ~ 19:40 19:10 라스트오더; 일(10/4) 11:00 ~ 19:40 19:10 라스트오더; 월(10/5) 11:00 ~ 19:40 19:10 라스트오더'. Read twice, identical. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. DiningCode (rid 3UhEwlvrqtws, read twice, identical) agrees: 11:00–19:40 on every day shown (30 Sep–5 Oct). HappyCow (last updated Dec 2022: Mon–Sat 11:00–15:00, closed Sunday) is stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -21047,13 +21977,59 @@ export const restaurants = [
       "evidence": "The chain's own branch page (chaeyuk.com 매장안내) lists '채육식당 주안점 | 인천광역시 미추홀구 석바위로 35, 102호'. Kakao Map (채육식당 주안점, 인천 미추홀구 석바위로 35) and DiningCode ('인천광역시 미추홀구 석바위로 35 102호') agree exactly. This is a different address from the existing Songdo branch (테크노파크로111번길 5)."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The operator's branch page says 10:00–22:00 (last order 21:00); DiningCode shows 10:00–20:00. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Daily 10:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/544031065",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 544031065 (panel3 opening-hours block): '화(9/29) 10:00 ~ 22:00; 수(9/30) 10:00 ~ 22:00; 목(10/1) 10:00 ~ 22:00; 금(10/2) 10:00 ~ 22:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 10:00 ~ 22:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. The operator's branch page agrees (10:00–22:00, last order 21:00); DiningCode shows 10:00–20:00."
     },
     "menus": {
       "value": [
@@ -21159,13 +22135,54 @@ export const restaurants = [
       "evidence": "DiningCode: '인천광역시 계양구 계양문화로 119 상가동 132호 카페 lofi'. Kakao: 로파이, 인천 계양구 계양문화로 119. HappyCow: '119 Gyeyangmunhwa-ro' (HappyCow files it under Bucheon, but the street address is this Incheon one)."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode shows 09:30–20:00 with one weekly rest day; HappyCow says Tue–Sun 10:30–21:00, closed Monday. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Tue–Sun 09:30–20:00; closed Mondays; public holidays 09:30–20:00",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "09:30",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:30",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:30",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:30",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:30",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:30",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1531779646",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1531779646 (panel3 opening-hours block): '[기본 영업시간] 화 09:30 ~ 20:00; [기본 영업시간] 수 09:30 ~ 20:00; [기본 영업시간] 목 09:30 ~ 20:00; [기본 영업시간] 금 09:30 ~ 20:00; [기본 영업시간] 토 09:30 ~ 20:00; [기본 영업시간] 일 09:30 ~ 20:00; [공휴일] 09:30 ~ 20:00; 휴무: 매주 월요일'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode agrees (09:30–20:00 with one weekly rest day). HappyCow (undated) says Tue–Sun 10:30–21:00; stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -21284,13 +22301,49 @@ export const restaurants = [
       "evidence": "DiningCode: '인천광역시 서구 청라커낼로288번길 26 1층 120호'. Kakao: 명아로스디저트, 인천 서해구 청라커낼로288번길 26. Same road address; 서구 to 서해구 is Incheon's 2026 district reorganisation, not a disagreement."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only DiningCode gives hours (10:00–18:00 on open days, with several rest days in the week shown), and which weekdays are closed could not be read unambiguously."
+      "value": {
+        "raw": "Tue–Sat 10:00–18:00; closed Mondays and Sundays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1072783693",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1072783693 (panel3 opening-hours block): '화(9/29) 10:00 ~ 18:00; 수(9/30) 10:00 ~ 18:00; 목(10/1) 10:00 ~ 18:00; 금(10/2) 10:00 ~ 18:00; 토(10/3) 10:00 ~ 18:00; 일(10/4) 휴무일; 월(10/5) 휴무일'. Read twice, identical. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. DiningCode (rid rfTNvTZyT9IA) shows 10:00–18:00 on Tue 29 Sep–Fri 2 Oct and 휴무일 on Sat 3 Oct–Mon 5 Oct. Its only difference from Kakao is Sat 3 Oct, a public holiday; under the second-pass ruling a holiday closure around 1–3 Oct is not a disagreement about regular hours."
     },
     "menus": {
       "value": [
@@ -21848,13 +22901,54 @@ export const restaurants = [
       "evidence": "Operator (Loving Hut Korea's own store list (매장 정보), read from the raw page text on 2026-09-29): '서울 강남구 논현로 16길17 (개포동1230-9)'. Kakao Map panel3 (place.map.kakao.com/27493166): '서울 강남구 논현로16길 17 1층 103호, jibun 개포동 1230-9'. They agree. Road, building number and lot number agree. Only Kakao gives a floor/unit (1층 103호), so the value keeps none."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only DiningCode gives hours (10:50–19:30, with several closed days in the displayed week that do not form a clear weekly pattern). Not corroborated, so left unknown."
+      "value": {
+        "raw": "Mon–Sat 11:00–19:30; closed Sundays; the owner notes hours may change and asks visitors to phone first",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/27493166",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27493166 (panel3 opening-hours block): '화(9/29) 11:00 ~ 19:30; 수(9/30) 11:00 ~ 19:30; 목(10/1) 11:00 ~ 19:30; 금(10/2) 11:00 ~ 19:30; 토(10/3) 11:00 ~ 19:30; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 19:30; 안내: 가게 사정으로 영업시간이 변경 될 수 있으니 오시기 전 전화로 확인하세요 025780512'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode shows 10:50–19:30."
     },
     "menus": {
       "value": [
@@ -21879,13 +22973,13 @@ export const restaurants = [
       "evidence": "DiningCode's menu, listed under the restaurant's former name 러빙헛 랜드 at the same address: '비건김밥 8,000원 GF / 100% 식물성 재료로 만든', '웰빙 짜장면(오신채) 11,000원', '양념소이후라이드 레귤러 24,000원'. The operator posted that 러빙헛 랜드 was renamed 러빙헛 스마일; the menu may have changed since, so it is held at SUPPORTED."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Loving Hut Korea's store list and Seoul's vegetarian-restaurant register give 02-578-0512; DiningCode gives 0507-1402-0512. The sources disagree, so the number is left unknown."
+      "value": "02-578-0512",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/27493166",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27493166 lists '02-578-0512'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Loving Hut Korea's store list and Seoul's vegetarian-restaurant register give the same number; the owner's hours note also gives '025780512'. DiningCode's 0507-1402-0512 is a relay number."
     },
     "officialUrl": {
       "value": "http://lovinghut.kr/",
@@ -22143,13 +23237,69 @@ export const restaurants = [
       "evidence": "Seoul's vegetarian-restaurant register gives '서울 강동구 풍성로57길 13'; DiningCode (https://www.diningcode.com/profile.php?rid=uDZarSVMlIfS) gives '서울특별시 강동구 풍성로57길 13'; Kakao Map lists 고모네원조콩탕황태탕 at 서울 강동구 풍성로57길 13. All agree. The register uses an older trading name, 고모네원조콩탕북어찜; the same phone number (02-485-4675) appears in both the register and DiningCode."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only DiningCode's current-day hours (11:00–20:30) were sighted, not a weekly schedule, and no second source gives hours."
+      "value": {
+        "raw": "Tue–Sat 11:00–20:30, break 14:30–17:00; closed Mondays and Sundays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/8177529",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 8177529 (panel3 opening-hours block): '화(9/29) 11:00 ~ 20:30 14:30 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 20:30 14:30 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 20:30 14:30 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 20:30 14:30 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 20:30 14:30 ~ 17:00 브레이크타임; 일(10/4) 휴무일; 월(10/5) 휴무일'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode (rid uDZarSVMlIfS) shows 11:00–20:30 with a 14:30–17:00 break today and 휴무일 for Thu 1–Mon 5 Oct, which looks like a holiday closure."
     },
     "menus": {
       "value": [
@@ -22776,13 +23926,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map: Tue–Sat 11:30–21:30, closed Sun–Mon. DiningCode's current week shows a different pattern (open Tue–Thu, closed Fri–Mon, a holiday week). Not settled; call ahead."
+      "value": {
+        "raw": "Tue–Sat 11:30–21:30; closed Mondays and Sundays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/803064022",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 803064022 (panel3 opening-hours block): '화(9/29) 11:30 ~ 21:30; 수(9/30) 11:30 ~ 21:30; 목(10/1) 11:30 ~ 21:30; 금(10/2) 11:30 ~ 21:30; 토(10/3) 11:30 ~ 21:30; 일(10/4) 휴무일; 월(10/5) 휴무일'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode's current week (a holiday week) shows Tue–Thu open and Fri–Mon closed."
     },
     "menus": {
       "value": [
@@ -22807,13 +23993,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu (edited 2026-05-28) and DiningCode's menu give the same names and prices for these three vegan dishes. Kakao also lists 비건순두부국수, 비건카레덮밥 and 비건유부불백."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode give 02-6401-1721; Seoul's vegetarian-restaurant register gives 0507-1302-1721. Sources disagree."
+      "value": "02-6401-1721",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/803064022",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 803064022 lists '02-6401-1721'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode gives the same number; Seoul's register gives the relay 0507-1302-1721."
     },
     "officialUrl": {
       "value": null,
@@ -22937,13 +24123,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu (items edited 2025-11) and DiningCode's menu give the same names and prices for these items."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give 02-2223-2565; DiningCode gives 0507-1324-2565. Sources disagree."
+      "value": "02-2223-2565",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/898363785",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 898363785 lists '02-2223-2565'. Read twice, identical. Seoul's vegetarian-restaurant register gives the same number. DiningCode's 0507-1324-2565 is a relay number."
     },
     "officialUrl": {
       "value": null,
@@ -23036,13 +24222,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Operator site: '11.00AM – 07.45PM'. Kakao Map: 11:00–20:00, closed Monday. DiningCode: 11:00–20:00 every day with a 15:30–16:30 break. Sources disagree."
+      "value": {
+        "raw": "Tue–Sun 11:00–20:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1400000257",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1400000257 (panel3 opening-hours block): '화(9/29) 11:00 ~ 20:00; 수(9/30) 11:00 ~ 20:00; 목(10/1) 11:00 ~ 20:00; 금(10/2) 11:00 ~ 20:00; 토(10/3) 11:00 ~ 20:00; 일(10/4) 11:00 ~ 20:00; 월(10/5) 휴무일'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. The operator's website gives '11.00AM – 07.45PM'; DiningCode gives 11:00–20:00 daily with a 15:30–16:30 break."
     },
     "menus": {
       "value": [
@@ -23166,13 +24393,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map: 10:00–21:00, closed Monday. DiningCode: 10:30–20:30 with a 15:00–16:00 break. Sources disagree."
+      "value": {
+        "raw": "Tue–Sun 10:00–21:00; closed Mondays; public holidays 10:00–21:00; closed on Seollal eve and day and Chuseok eve and day",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/7953468",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 7953468 (panel3 opening-hours block): '[기본 영업시간] 화 10:00 ~ 21:00; [기본 영업시간] 수 10:00 ~ 21:00; [기본 영업시간] 목 10:00 ~ 21:00; [기본 영업시간] 금 10:00 ~ 21:00; [기본 영업시간] 토 10:00 ~ 21:00; [기본 영업시간] 일 10:00 ~ 21:00; [공휴일] 10:00 ~ 21:00; 휴무: 매주 월요일, 설전날, 설당일, 추석전날, 추석당일'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode gives 10:30–20:30 with a 15:00–16:00 break."
     },
     "menus": {
       "value": [
@@ -23296,13 +24564,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/yibap_mawoman/, read 2026-09-29) gives a lot-number address: '서울시 종로구 계동 140-49 1층'. Kakao Map place panel (place.map.kakao.com/16042156): '서울 종로구 창덕궁1길 29 1층 (계동)', lot number '계동 140-49'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). Both give 1층. The old value's 'Unit 102' is given by neither source and is dropped."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map: Mon, Tue, Thu, Fri 11:30–20:00; Wed and Sat 11:30–17:00; closed Sunday. DiningCode's current week differs (a holiday week). Not settled."
+      "value": {
+        "raw": "Mon, Tue, Thu, Fri 11:30–20:00; Wed, Sat 11:30–17:00; closed Sundays; closed on 1 Jan, Seollal day, Chuseok day and Christmas",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "17:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "17:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/16042156",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 16042156 (panel3 opening-hours block): '[기본 영업시간] 월 11:30 ~ 20:00; [기본 영업시간] 화 11:30 ~ 20:00; [기본 영업시간] 수 11:30 ~ 17:00; [기본 영업시간] 목 11:30 ~ 20:00; [기본 영업시간] 금 11:30 ~ 20:00; [기본 영업시간] 토 11:30 ~ 17:00; 휴무: 매주 일요일, 1월1일, 설당일, 추석당일, 성탄절'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode (rid k3J1uhPCeMUV) shows a holiday-week pattern (Thu 11:30–17:00, Fri closed)."
     },
     "menus": {
       "value": [
@@ -23681,13 +24990,13 @@ export const restaurants = [
       "evidence": "Items and prices appear identically on DiningCode's menu section and on Kakao Map's menu list (e.g. '트러플 볶음 짜장면 16,000', '매운버섯짬뽕 11,000', '유린팽이 22,000'). DiningCode describes the jjamppong as '얼큰하고 개운한 맛의 비건 짬뽕'."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists 02-790-8688 while DiningCode lists 0507-1393-8688. The two sources give different numbers, so the field is left unknown."
+      "value": "02-790-8688",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/56374675",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 56374675 lists '02-790-8688'. Read twice, identical. DiningCode's 0507-1393-8688 is a relay number."
     },
     "instagram": {
       "value": "https://www.instagram.com/alt.a_official/",
@@ -23771,13 +25080,83 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (@veggies.kitchen.and.bar), read from the raw page text on 2026-09-29): '🥦서대문구 홍연길87 1층'. Kakao Map panel3 (place.map.kakao.com/139304151): '서울 서대문구 홍연길 87 1층'. They agree. Road, building number and floor agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map's week view shows Tue–Sun 11:00–21:00 (break 15:00–17:00) and Monday 11:00–15:00; DiningCode's week view agrees except that it shows Friday 2 Oct as 11:00–15:00. The sources disagree on one day, so hours are left unknown."
+      "value": {
+        "raw": "Mon 11:00–15:00; Tue–Sun 11:00–21:00, break 15:00–17:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/139304151",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 139304151 (panel3 opening-hours block): '화(9/29) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 일(10/4) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 월(10/5) 11:00 ~ 15:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode's week agrees except Fri 2 Oct (11:00–15:00)."
     },
     "menus": {
       "value": [
@@ -23802,13 +25181,13 @@ export const restaurants = [
       "evidence": "These three items appear at the same prices on DiningCode and Kakao Map. DiningCode's descriptions: '부추로 만든 페스토 파스타와 고사리 나물, 두부크림'; '렌틸과 버섯으로 만든 패티, 샐러드, 살사, 치폴레크림, 보리밥, 나초, 고수'; '포르치니 버섯과 두유로 만든 크림, 느타리 버섯, 뇨끼, 퀴노아'."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists 070-8648-2826 while DiningCode lists 0507-1343-9312; the sources differ, so the field is left unknown."
+      "value": "070-8648-2826",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/139304151",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 139304151 lists '070-8648-2826'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode's 0507-1343-9312 is a relay number."
     },
     "instagram": {
       "value": "https://instagram.com/veggies.kitchen.and.bar",
@@ -24247,13 +25626,13 @@ export const restaurants = [
       "evidence": "DiningCode's menu section. Its salt bread (수제채식버터 소금빵) is 3,300 KRW there but 3,000 KRW on Kakao Map, so it is left out. The operator's Instagram says the line-up changes weekly."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists 02-2138-0822 while DiningCode lists 0507-1330-4827; the sources differ, so the field is left unknown."
+      "value": "02-2138-0822",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1345518815",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1345518815 lists '02-2138-0822'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode's 0507-1330-4827 is a relay number."
     },
     "instagram": {
       "value": "http://instagram.com/yong.tokki",
@@ -24627,13 +26006,44 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (@dou.luv.me), read from the raw page text on 2026-09-29): '🏠 인천 부평구 경인로931번길 12-4'. Kakao Map panel3 (place.map.kakao.com/1331779949): '인천 부평구 경인로931번길 12-4'. They agree. They agree exactly. The previous value's 'Unit B02' came from DiningCode alone; neither the operator nor Kakao gives it, so the confirmed value leaves it out."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map's week view shows Tue–Fri 11:00–20:00 and Sat–Mon closed; DiningCode's shows only Tue–Wed open. The week includes the 3 October holiday and the sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Tue–Fri 11:00–20:00; closed Mondays, Saturdays and Sundays; public holidays 11:00–20:00",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1331779949",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1331779949 (panel3 opening-hours block): '[기본 영업시간] 화 11:00 ~ 20:00; [기본 영업시간] 수 11:00 ~ 20:00; [기본 영업시간] 목 11:00 ~ 20:00; [기본 영업시간] 금 11:00 ~ 20:00; [공휴일] 11:00 ~ 20:00; 휴무: 매주 월요일, 토요일, 일요일; 안내: 매주 토,일,월요일은 정기 휴무 입니다.'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. The owner's note reads '매주 토,일,월요일은 정기 휴무 입니다.' DiningCode's holiday week shows only Tue–Wed open."
     },
     "menus": {
       "value": [
@@ -25194,13 +26604,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 11:30–21:00 with a 15:00–17:00 break and a weekly Tuesday closure (the operator's Kakao notice: \"04.28.2026 부터 매주 화요일 정기휴무입니다!\"), while Zabihah lists 12:00 AM – 10:00 PM daily. They disagree, so hours are left unknown."
+      "value": {
+        "raw": "Mon, Wed–Sun 11:30–21:00, break 15:00–17:00; closed Tuesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/424289324",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 424289324 (panel3 opening-hours block): '화(9/29) 휴무일; 수(9/30) 11:30 ~ 21:00 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:30 ~ 21:00 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:30 ~ 21:00 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:30 ~ 21:00 15:00 ~ 17:00 브레이크타임; 일(10/4) 11:30 ~ 21:00 15:00 ~ 17:00 브레이크타임; 월(10/5) 11:30 ~ 21:00 15:00 ~ 17:00 브레이크타임; 매주 화요일 휴무'. Read twice, identical. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. DiningCode (rid MJmUJI5o7q6G, read twice, identical) agrees: closed today (Tue 29 Sep), Wed–Mon 11:30–21:00 with a 15:00–17:00 break (last orders 14:30 / 20:30). The operator's Kakao notice: '04.28.2026 부터 매주 화요일 정기휴무입니다!'. Zabihah (undated, '12:00 AM – 10:00 PM daily') is stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -25494,13 +26969,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives Tue–Fri 11:30–02:30, Sat–Sun 17:00–02:30, closed Monday; Zabihah lists 11:00 AM – 02:00 AM daily. They disagree, so hours are left unknown."
+      "value": {
+        "raw": "Tue–Fri 11:30–02:30; Sat, Sun 17:00–02:30; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "02:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "02:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "02:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "02:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "17:00",
+              "to": "02:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "17:00",
+              "to": "02:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1086441270",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1086441270 (panel3 opening-hours block): '화(9/29) 11:30 ~ 02:30; 수(9/30) 11:30 ~ 02:30; 목(10/1) 11:30 ~ 02:30; 금(10/2) 11:30 ~ 02:30; 토(10/3) 17:00 ~ 02:30; 일(10/4) 17:00 ~ 02:30; 월(10/5) 휴무일'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Zabihah (undated) lists 11:00–02:00 daily; stale per the second-pass ruling."
     },
     "menus": {
       "value": [
@@ -25525,13 +27041,13 @@ export const restaurants = [
       "evidence": "Kakao Map's operator menu (edited 2026-05-20): 치킨/비프/램 스낵팩(스몰) 11,900, 믹스 스낵팩(미듐) 13,900, 치킨/비프/램 타코 6,900, 퀘사디아 6,900. Chicken, beef and lamb only; no pork."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao lists 0502-5554-0113 and Zabihah 0507-1413-2684. They disagree; left unknown."
+      "value": "0502-5554-0113",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1086441270",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1086441270 lists '0502-5554-0113'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. This is a 0502 virtual number, the only one the owner lists. Zabihah gives the relay 0507-1413-2684."
     },
     "transit": {
       "value": {
@@ -25712,13 +27228,67 @@ export const restaurants = [
       "evidence": "VisitKorea's current Muslim-friendly page: 'Address 2F 12 Jong-ro 46-gil, Jongno-gu, Seoul'. Kakao Map: 서울 종로구 종로46길 12 동문빌딩 2층. Visit Seoul (2026): '2nd Floor, 12 Jong-ro 46-gil, Jongno-gu, Seoul'. DiningCode: 종로46길 12 2층. All agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: VisitKorea says 'Daily 11:00–22:00 (Break Time 15:00–17:00)', Visit Seoul (2026) says 'Monday - Saturday 11:00-22:00 (Break Hours 15:00 - 17:00) … Closed on Sundays', and Kakao Map shows 11:00–20:00 with no Sunday. Left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:00–20:00, break 15:00–17:00; Sat, Sun not stated",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/8327843",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 8327843 (panel3 opening-hours block): '화(9/29) 11:00 ~ 20:00 15:00 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 20:00 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 20:00 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 20:00 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 20:00; 월(10/5) 11:00 ~ 20:00 15:00 ~ 17:00 브레이크타임'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Sat left out (not stated as a regular day). Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Kakao's week omits Sunday 4 Oct entirely, so Sunday is not stated. Saturday is 3 Oct (a public holiday) and shows no break, so it is left out. Visit Seoul (2026) says Mon–Sat 11:00–22:00 with a 15:00–17:00 break, closed Sundays; VisitKorea says daily 11:00–22:00."
     },
     "menus": {
       "value": [
@@ -26121,13 +27691,59 @@ export const restaurants = [
       "evidence": "VisitKorea's current Muslim-friendly page: 'Address 1F 4 Bangbae-ro 8-gil, Seocho-gu, Seoul'. Kakao Map: 서울 서초구 방배로8길 4 1층 104호. DiningCode: 방배로8길 4. All agree; the unit number is Kakao's."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: VisitKorea says 'Daily 10:30–22:00 (Last Order 21:00)'; Kakao Map shows 10:00–21:30, and 11:00–23:00 on Sundays. Left unknown."
+      "value": {
+        "raw": "Mon–Sat 10:00–21:30; Sun 11:00–23:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "21:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "21:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "21:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "21:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "21:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "21:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/19245044",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 19245044 (panel3 opening-hours block): '화(9/29) 10:00 ~ 21:30; 수(9/30) 10:00 ~ 21:30; 목(10/1) 10:00 ~ 21:30; 금(10/2) 10:00 ~ 21:30; 토(10/3) 10:00 ~ 21:30; 일(10/4) 11:00 ~ 23:00; 월(10/5) 10:00 ~ 21:30'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. VisitKorea says 'Daily 10:30–22:00 (Last Order 21:00)'."
     },
     "menus": {
       "value": [
@@ -26654,13 +28270,59 @@ export const restaurants = [
       "evidence": "VisitKorea's current Muslim-friendly page: 'Address 17 Usadan-ro 10-gil, Yongsan-gu, Seoul'. Visit Seoul (2026): '1st Floor, 17, Usadan-ro 10-gil, Yongsan-gu, Seoul'. Kakao Map: 우사단로10길 17 1층. DiningCode: 우사단로10길 17 1층. All agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: VisitKorea and Visit Seoul give 08:00–22:00 daily; Kakao Map shows 11:00–22:00. Left unknown."
+      "value": {
+        "raw": "Daily 11:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1795745877",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1795745877 (panel3 opening-hours block): '화(9/29) 11:00 ~ 22:00; 수(9/30) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 22:00; 일(10/4) 11:00 ~ 22:00; 월(10/5) 11:00 ~ 22:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. VisitKorea and Visit Seoul give 08:00–22:00 daily."
     },
     "menus": {
       "value": [
@@ -26689,13 +28351,13 @@ export const restaurants = [
       "evidence": "Kakao Map operator menu (edited 2023): 카이막 세트 9900, 바클라와(R) 2500, 터키커피(HOT) 5500, 시미트(1개) 2500. Visit Seoul (2026) signature dishes: 'Kaymak Set (for 2) ₩19,900', 'Menemen set ₩19,900' — prices differ from Kakao's older menu, so treat prices as indicative."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: VisitKorea gives '+82-507-1411-2152'; Visit Seoul (2026) and Kakao give 02-795-1997. Left unknown."
+      "value": "02-795-1997",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1795745877",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1795745877 lists '02-795-1997'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. Visit Seoul (2026) gives the same number; VisitKorea gives the relay 0507-1411-2152."
     },
     "transit": {
       "value": {
@@ -27075,13 +28737,54 @@ export const restaurants = [
       "evidence": "VisitKorea's current Muslim-friendly page: 'Address 1F 16-2 Jahamun-ro 5-gil, Jongno-gu, Seoul'. Kakao Map: 서울 종로구 자하문로5길 16-2 1층. DiningCode: 자하문로5길 16-2. All agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree on times: VisitKorea says 'Daily 11:00–23:00. Closed on Tuesdays'; Kakao Map shows 11:30–22:30, closed Tuesdays. Both agree it is closed on Tuesdays; times left unknown."
+      "value": {
+        "raw": "Mon, Wed–Sun 11:30–22:30; closed Tuesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "22:30"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "22:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "22:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "22:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "22:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "22:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/23642006",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 23642006 ('꾸스꾸스', 서울 종로구 자하문로5길 16-2 1층 (체부동)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 월 11:30 ~ 22:30; 수 11:30 ~ 22:30; 목 11:30 ~ 22:30; 금 11:30 ~ 22:30; 토 11:30 ~ 22:30; 일 11:30 ~ 22:30 | 휴무일: 매주 화요일, 추석당일 | 안내: 추석 당일(25일)휴무.  단, 그 주 화(22일)는 정상영업\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. Other sources: VisitKorea 'Daily 11:00–23:00. Closed on Tuesdays'; DiningCode today shows 11:30–22:30 (22:00 on Sat 3 Oct and Sun 4 Oct), Tuesday closed, and lists 0507-1382-5762. Under the 14:0x ruling the operator's own entry outranks them."
     },
     "menus": {
       "value": [
@@ -28235,13 +29938,60 @@ export const restaurants = [
       "evidence": "VisitKorea's current Muslim-friendly page: 'Address B1 336 Olympic-ro, Songpa-gu, Seoul'. Kakao Map: 서울 송파구 올림픽로 336 대우유토피아 지하1층 6호. DiningCode: 올림픽로 336 지하1층. All agree; the building name and unit are Kakao's."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: VisitKorea gives 'Weekdays 11:30–21:30, Weekends 12:00–21:30 (Break Time 14:30–16:30, Last Order 20:30). Closed on Mondays'; Kakao Map gives the same opening, closing and last-order times and Monday closure but no break time. Left unknown; both agree it is closed on Mondays."
+      "value": {
+        "raw": "Tue–Fri 11:30–21:30, last order 20:30; Sat–Sun 12:00–21:30, last order 20:30; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/27318998",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27318998 ('키친오브인디아', 서울 송파구 올림픽로 336 대우유토피아 지하1층 6호 (방이동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 11:30 ~ 21:30 (20:30 라스트오더); 수(9/30) 11:30 ~ 21:30 (20:30 라스트오더); 목(10/1) 11:30 ~ 21:30 (20:30 라스트오더); 금(10/2) 11:30 ~ 21:30 (20:30 라스트오더); 토(10/3) 12:00 ~ 21:30 (20:30 라스트오더); 일(10/4) 12:00 ~ 21:30 (20:30 라스트오더); 월(10/5) 휴무일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. Kakao shows no break. VisitKorea and DiningCode (today) both give a 14:30–16:30 break with the same opening, closing and last-order times and Monday closed. Under the 14:0x ruling the operator's own entry outranks them; the break they report is recorded here."
     },
     "menus": {
       "value": [
@@ -28818,13 +30568,78 @@ export const restaurants = [
       "evidence": "VisitKorea's current Muslim-friendly page: 'Address 2F PageMyeong-dong 73 Myeongdong-gil, Jung-gu, Seoul'. Kakao Map: 서울 중구 명동길 73 페이지명동 2층. DiningCode: 명동길 73 페이지명동 2층. All agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree on times: VisitKorea says 'Daily 11:30–22:00 (Break Time 15:30–17:30; Last Order 14:00, 20:00). Closed on Mondays'; Kakao Map shows 11:30–21:30 with a 15:00–17:30 weekday break, closed Mondays. Both agree it is closed on Mondays; times left unknown."
+      "value": {
+        "raw": "Tue–Fri 11:30–21:30, break 15:00–17:30, last order 14:00 and 20:00; Sat–Sun 11:30–21:30; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "21:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "21:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/42222494",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 42222494 ('인도음식점 타지 명동성당점', 서울 중구 명동길 73 페이지명동 2층 (명동1가)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 화 11:30 ~ 21:30 (15:00 ~ 17:30 브레이크타임); 수 11:30 ~ 21:30 (15:00 ~ 17:30 브레이크타임); 목 11:30 ~ 21:30 (15:00 ~ 17:30 브레이크타임); 금 11:30 ~ 21:30 (15:00 ~ 17:30 브레이크타임); 토 11:30 ~ 21:30; 일 11:30 ~ 21:30 | 휴무일: 매주 월요일, 매년 1/1 | 안내: 평일 점심 라스트오더 14:00 디너 라스트 오더 20:00\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. Last orders are from the owner's note '평일 점심 라스트오더 14:00 디너 라스트 오더 20:00' (weekdays only). VisitKorea says 'Daily 11:30–22:00 (Break Time 15:30–17:30)'; DiningCode today 11:30–21:30, last order 20:00, Monday closed and Fri 2 Oct closed (holiday week). The operator's own entry outranks them (14:0x ruling)."
     },
     "menus": {
       "value": [
@@ -29438,13 +31253,13 @@ export const restaurants = [
       "evidence": "DiningCode menu: '여법 밥상 16,000 원 … 여법 한상 25,000 원 … 여법 특선 (평일 저녁, 주말) 50,000 원 [예약 문의]'. A 2026-03-27 blog review shown on Kakao Map gives the same prices ('여법밥상 16,000원, 여법한상 25,000원 여법특선 50,000원'). The 50,000 course is arranged per booking and is not listed here."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-4822-1744; DiningCode and HappyCow give 0507-1398-1744 (a relay number). Left unknown; both are listed publicly."
+      "value": "010-4822-1744",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1962999647",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1962999647 ('여법밥상', 대전 유성구 전민로46번길 78 1층 (전민동)) lists 010-4822-1744 (listing not owner-registered). Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode (earlier pass) and HappyCow give 0507-1398-1744, a relay number; under the 14:0x ruling a relay is not a disagreement with the shop's own line."
     },
     "officialUrl": {
       "value": null,
@@ -29656,13 +31471,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: the operator's Instagram bio says '🕰 9:00~21:00'; Kakao Map shows 10:00 ~ 22:00 daily ('연중무휴'); DiningCode shows 10:00 – 22:00 (20:00 on one day). Left unknown."
+      "value": {
+        "raw": "Daily 10:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/963352806",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 963352806 ('아피야할랄레스토랑', 대전 유성구 대학로 169 1층 (궁동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 10:00 ~ 22:00; 수(9/30) 10:00 ~ 22:00; 목(10/1) 10:00 ~ 22:00; 금(10/2) 10:00 ~ 22:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 10:00 ~ 22:00 | 연중무휴\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. The operator's Instagram bio (read in an earlier pass) says '🕰 9:00~21:00'; DiningCode today agrees with Kakao (10:00–22:00, last order 21:30; 20:00 on Sat 3 Oct, the holiday). Under the 14:0x ruling the owner-entered Kakao hours win; the Instagram bio's differing times are recorded here."
     },
     "menus": {
       "value": [
@@ -30179,13 +32040,60 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Not settled: Kakao Map shows only Tuesday 10:00–15:00 this week; DiningCode shows 10:00–15:00 with one closed day in the week. DiningCode notes that reservations are required ('예약필수')."
+      "value": {
+        "raw": "Mon–Tue, Thu–Sun 10:00–15:00, last order 14:30; closed Wednesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1687037751",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1687037751 ('밭맛', 강원특별자치도 양양군 손양면 선사유적로 259 1층 (손양면 동호리)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 10:00 ~ 15:00; 수(9/30) 휴무일; 목(10/1) 10:00 ~ 15:00; 금(10/2) 10:00 ~ 15:00; 토(10/3) 10:00 ~ 15:00; 일(10/4) 10:00 ~ 15:00; 월(10/5) 10:00 ~ 15:00 | 안내: 라스트 오더 14:30\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. Last order 14:30 is the owner's note '라스트 오더 14:30'. DiningCode could not be found at this address today; an earlier pass recorded DiningCode 10:00–15:00 with one closed day and '예약필수' (reservations required)."
     },
     "menus": {
       "value": [
@@ -30210,13 +32118,13 @@ export const restaurants = [
       "evidence": "The operator's own Kakao menu (my-store status REGISTERED; items edited 2025-05 to 2025-09): '넝쿨콩 토마토 생면 파스타 15000 … 모든 파스타는 토종밀(금강밀, 백강밀)로 만든 생면으로 제공됩니다', '북대기콩 후무스 샐러드 12000 … 토종 메주콩, 북대기콩으로 완성한 후무스 샐러드', '노랑차조 쿠스쿠스 샐러드 12000 … 좁쌀을 쿠스쿠스 질감으로 재현한 샐러드'. DiningCode gives the same 12,000 KRW for the hummus and couscous salads. The menu changes with the season."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao gives 0502-5552-4067, DiningCode 0507-1324-4019."
+      "value": "0502-5552-4067",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1687037751",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1687037751 ('밭맛', 강원특별자치도 양양군 손양면 선사유적로 259 1층 (손양면 동호리)) lists 0502-5552-4067 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0502) number entered on the owner-registered listing. An earlier pass recorded DiningCode's 0507-1324-4019, also a relay; no direct line is listed by the operator."
     },
     "instagram": {
       "value": null,
@@ -30326,13 +32234,13 @@ export const restaurants = [
       "evidence": "Kakao Map's operator menu (items edited 2024-05 to 2026-06) and DiningCode's menu give the same prices for these three items. Other items differ in price between the two (e.g. lamb kebab wrap 12,000 vs 11,000 KRW), so only the agreeing ones are listed. Neither menu lists pork or alcohol."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map, HappyCow and KTO's 2021 guide give 064-751-1225, but DiningCode lists 0504-3139-6652. Left unknown; the Kakao number is the one most sources carry."
+      "value": "064-751-1225",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/312026789",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 312026789 ('아살람레스토랑 HALAL', 제주특별자치도 제주시 중앙로2길 7 1층 (삼도이동)) lists 064-751-1225 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. HappyCow and KTO's 2021 guide give the same number; DiningCode's 0504-3139-6652 is a relay number and not a disagreement (14:0x ruling)."
     },
     "transit": {
       "value": null,
@@ -30416,13 +32324,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:00–22:30 with a 15:00–17:00 break every day; DiningCode shows the same on most days but 17:00–22:00 on one; HappyCow gives 11:00–22:30 with no break. Left unknown."
+      "value": {
+        "raw": "Daily 11:00–22:30, break 15:00–17:00, last order 22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30",
+              "lastOrder": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30",
+              "lastOrder": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30",
+              "lastOrder": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30",
+              "lastOrder": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30",
+              "lastOrder": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30",
+              "lastOrder": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30",
+              "lastOrder": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1892506702",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1892506702 ('바그다드', 제주특별자치도 제주시 관덕로8길 34 1층 (삼도이동)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 22:30 (15:00 ~ 17:00 브레이크타임) (22:00 라스트오더); 수(9/30) 11:00 ~ 22:30 (15:00 ~ 17:00 브레이크타임) (22:00 라스트오더); 목(10/1) 11:00 ~ 22:30 (15:00 ~ 17:00 브레이크타임) (22:00 라스트오더); 금(10/2) 11:00 ~ 22:30 (15:00 ~ 17:00 브레이크타임) (22:00 라스트오더); 토(10/3) 11:00 ~ 22:30 (15:00 ~ 17:00 브레이크타임) (22:00 라스트오더); 일(10/4) 11:00 ~ 22:30 (15:00 ~ 17:00 브레이크타임) (22:00 라스트오더); 월(10/5) 11:00 ~ 22:30 (15:00 ~ 17:00 브레이크타임) (22:00 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. No DiningCode listing found today; an earlier pass recorded DiningCode with the same hours on most days (17:00–22:00 on one day). HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -30527,13 +32516,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 10:30–21:00 daily; Salam Jeju gives 11:00–21:00. Left unknown."
+      "value": {
+        "raw": "Daily 10:30–21:00, last order 20:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21520796",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 21520796 ('비원삼계탕', 제주특별자치도 제주시 수목원길 3-1 1층 (노형동)) — listing not owner-registered — shows: \"화(9/29) 10:30 ~ 21:00 (20:00 라스트오더); 수(9/30) 10:30 ~ 21:00 (20:00 라스트오더); 목(10/1) 10:30 ~ 21:00 (20:00 라스트오더); 금(10/2) 10:30 ~ 21:00 (20:00 라스트오더); 토(10/3) 10:30 ~ 21:00 (20:00 라스트오더); 일(10/4) 10:30 ~ 21:00 (20:00 라스트오더); 월(10/5) 10:30 ~ 21:00 (20:00 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. No DiningCode listing found. Salam Jeju's undated 11:00–21:00 is treated as stale like HappyCow (undated guide listing)."
     },
     "menus": {
       "value": [
@@ -30707,13 +32749,13 @@ export const restaurants = [
       "evidence": "Kakao Map's operator menu (edited 2025-09-18) and DiningCode both list 전복죽 at 15,000 KRW and crab and lobster at market price. Set sides include butter-grilled prawns and abalone and corn cheese. No pork listed."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 064-744-7373; DiningCode and Salam Jeju give 0507-1465-7374. Left unknown."
+      "value": "064-744-7373",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/18636946",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 18636946 ('크랩스토리 제주공항점', 제주특별자치도 제주시 서해안로 352 (도두이동)) lists 064-744-7373 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today and Salam Jeju give 0507-1465-7374, a relay number — not a disagreement (14:0x ruling)."
     },
     "transit": {
       "value": null,
@@ -31298,13 +33340,13 @@ export const restaurants = [
       "evidence": "Kakao Map's operator menu, items edited 2026-09-24; the descriptions name vegan chicken, vegan cheddar sauce and plant-based mince."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and KTO's 2021 guide give 064-796-0522; HappyCow's second listing gives 010-3250-9564. Left unknown."
+      "value": "064-796-0522",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/742999664",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 742999664 ('앤드유카페', 제주특별자치도 제주시 한림읍 한림로 518 1층 (한림읍 옹포리)) lists 064-796-0522 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. KTO's 2021 guide gives the same number. DiningCode today gives 0507-1302-9564 (a relay) and HappyCow 010-3250-9564; the owner's own entry outranks them."
     },
     "instagram": {
       "value": "https://www.instagram.com/andyucafe",
@@ -31547,13 +33589,13 @@ export const restaurants = [
       "evidence": "Kakao Map's operator menu (items edited 2025-11-06 and 2026-09-09)."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0507-1402-9022, HappyCow 010-4614-2518 and KTO's 2021 guide 010-9469-9022. Left unknown."
+      "value": "0507-1402-9022",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/721800909",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 721800909 ('카페901', 제주특별자치도 제주시 1100로 2977-10 2층 (노형동)) lists 0507-1402-9022 (listing not owner-registered). Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a 0507 relay number; the listing is not owner-registered and no direct line is listed by the operator. DiningCode today lists the same 0507-1402-9022. HappyCow's 010-4614-2518 (undated) and KTO's 2021 guide's 010-9469-9022 are stale under the 14:0x ruling."
     },
     "instagram": {
       "value": "https://www.instagram.com/jeju901_official",
@@ -31685,13 +33727,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu items were edited in 2023 and 2025; HappyCow names burgers, focaccia, noodles and salad. Not settled as a current menu."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0502-5552-0240 and HappyCow 010-9922-2281. Left unknown."
+      "value": "0502-5552-0240",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/147445947",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 147445947 ('칠분의오', 제주특별자치도 제주시 구좌읍 해맞이해안로 650-20 111동 1층 (구좌읍 행원리)) lists 0502-5552-0240 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0502) number on the owner-registered listing. HappyCow (undated) gives 010-9922-2281; the owner's own entry outranks it."
     },
     "instagram": {
       "value": "https://www.instagram.com/five_seventh__/",
@@ -31787,13 +33829,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu dates from 2023."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-6203-1034 and HappyCow 010-6204-1034. Left unknown."
+      "value": "010-6203-1034",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1280164185",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1280164185 ('썬샤인워크', 제주특별자치도 서귀포시 소보리당로 40-4 1층 (상예동)) lists 010-6203-1034 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. HappyCow (undated) gives 010-6204-1034 and DiningCode today 0507-1421-1036 (a relay); the owner's own entry outranks them. Note: Kakao currently shows '임시 휴업' (temporarily closed)."
     },
     "instagram": {
       "value": "https://www.instagram.com/sunshinewalkjeju/",
@@ -31871,13 +33913,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (@avec_vegan), read from the raw page text on 2026-09-29): '애월해안로960 2층 아베끄 / 2nd floor, 960, Aewolhaean-ro, Aewol-eup, Jeju'. Kakao Map panel3 (place.map.kakao.com/2006784637): '제주특별자치도 제주시 애월읍 애월해안로 960 2층'. They agree. Road, building number and floor agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:00–19:00 closed Wednesday; HappyCow gives 11:00–20:00 closed Wednesday. Closing time disagrees; left unknown (both say closed Wednesdays)."
+      "value": {
+        "raw": "Mon–Tue, Thu–Sun 11:00–19:00; closed Wednesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2006784637",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2006784637 ('아베끄', 제주특별자치도 제주시 애월읍 애월해안로 960 2층 (애월읍 하귀2리)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 11:00 ~ 19:00; 수(9/30) 휴무일; 목(10/1) 11:00 ~ 19:00; 금(10/2) 11:00 ~ 19:00; 토(10/3) 11:00 ~ 19:00; 일(10/4) 11:00 ~ 19:00; 월(10/5) 11:00 ~ 19:00\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. HappyCow (undated) gives 11:00–20:00, closed Wednesday; stale under the 14:0x ruling. No DiningCode listing found at this address."
     },
     "menus": {
       "value": null,
@@ -31973,13 +34056,84 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode shows 11:00–21:00 with a 15:00–17:00 break and one closed day; HappyCow gives Monday–Saturday 11:00–15:00 and 17:00–21:00. Closing times broadly agree but the closed day is not settled. Left unknown."
+      "value": {
+        "raw": "Mon–Sat 11:00–21:00, break 15:00–17:00, last order 20:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/10267331",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 10267331 ('다소니', 제주특별자치도 제주시 오남로6길 24 (오라일동)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:00 라스트오더); 수(9/30) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:00 라스트오더); 목(10/1) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:00 라스트오더); 금(10/2) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:00 라스트오더); 토(10/3) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:00 라스트오더); 일(10/4) 휴무일; 월(10/5) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:00 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:00–21:00, break 15:00–17:00, last order 20:00, Sun 4 Oct closed). HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -32084,13 +34238,101 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map's week view shows 12:00–21:00 every day with a 15:00–18:00 break (last orders 14:00 and 20:00); HappyCow gives 'Tue-Sun 12:00pm-3:00pm, 6:00pm-9:00pm', i.e. closed on Mondays. The sources disagree on Monday, so hours are left unknown; the lunch and dinner sittings agree."
+      "value": {
+        "raw": "Daily 12:00–21:00, break 15:00–18:00, last order 14:00 and 20:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "18:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "18:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "18:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "18:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "18:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "18:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            },
+            {
+              "from": "18:00",
+              "to": "21:00",
+              "lastOrder": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1722132805",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1722132805 ('베지나랑키친', 경남 거창군 남하면 대야길 69-17 2층 (남하면 대야리)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 12:00 ~ 21:00 (15:00 ~ 18:00 브레이크타임) (14:00 라스트오더) (20:00 라스트오더); 수(9/30) 12:00 ~ 21:00 (15:00 ~ 18:00 브레이크타임) (14:00 라스트오더) (20:00 라스트오더); 목(10/1) 12:00 ~ 21:00 (15:00 ~ 18:00 브레이크타임) (14:00 라스트오더) (20:00 라스트오더); 금(10/2) 12:00 ~ 21:00 (15:00 ~ 18:00 브레이크타임) (14:00 라스트오더) (20:00 라스트오더); 토(10/3) 12:00 ~ 21:00 (15:00 ~ 18:00 브레이크타임) (14:00 라스트오더) (20:00 라스트오더); 일(10/4) 12:00 ~ 21:00 (15:00 ~ 18:00 브레이크타임) (14:00 라스트오더) (20:00 라스트오더); 월(10/5) 12:00 ~ 21:00 (15:00 ~ 18:00 브레이크타임) (14:00 라스트오더) (20:00 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today shows 11:30–21:00 with a 15:00–17:30 break and Mon 5 Oct closed; HappyCow (undated) 'Tue-Sun 12:00pm-3:00pm, 6:00pm-9:00pm'. Under the 14:0x ruling the operator's own entry outranks them; their differing times are recorded here."
     },
     "menus": {
       "value": [
@@ -32214,13 +34456,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:00–21:00, closed Mondays; HappyCow gives 'Tue-Sun 9:00am-8:00pm'. The opening and closing times disagree, so hours are left unknown; both say Monday is closed."
+      "value": {
+        "raw": "Tue–Sun 11:00–21:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/785485402",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 785485402 ('카페나랑', 경남 거창군 남하면 대야길 69-3 (남하면 대야리)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 21:00; 수(9/30) 11:00 ~ 21:00; 목(10/1) 11:00 ~ 21:00; 금(10/2) 11:00 ~ 21:00; 토(10/3) 11:00 ~ 21:00; 일(10/4) 11:00 ~ 21:00; 월(10/5) 휴무일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. No DiningCode listing found at this address. HappyCow (undated) 'Tue-Sun 9:00am-8:00pm' is stale under the 14:0x ruling."
     },
     "menus": {
       "value": null,
@@ -32614,13 +34897,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 12:00–19:00, Wednesday to Sunday; HappyCow gives 'Mon-Thu 12:00pm-8:00pm, Sat-Sun 12:00pm-8:00pm'. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Wed–Sun 12:00–19:00; closed Mondays and Tuesdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/669176828",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 669176828 ('영감영감', 울산 중구 옥교로 43 1층 (학산동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 휴무일; 수(9/30) 12:00 ~ 19:00; 목(10/1) 12:00 ~ 19:00; 금(10/2) 12:00 ~ 19:00; 토(10/3) 12:00 ~ 19:00; 일(10/4) 12:00 ~ 19:00; 월(10/5) 휴무일 | 매주 월요일, 화요일 휴무\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. HappyCow (undated) 'Mon-Thu 12:00pm-8:00pm, Sat-Sun 12:00pm-8:00pm' is stale under the 14:0x ruling. No DiningCode listing found."
     },
     "menus": {
       "value": null,
@@ -32790,13 +35109,13 @@ export const restaurants = [
       "evidence": "Kakao Map lists a single item (홍국식빵, edited 2026-09-07); HappyCow says only 'bread, cookies, cakes'. No full menu was found."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists 0503-7153-0395 while HappyCow gives a different number; the sources disagree."
+      "value": "0503-7153-0395",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/880326663",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 880326663 ('미미곳간', 울산 남구 신선로 81 1층 (야음동)) lists 0503-7153-0395 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0503) number on the owner-registered listing. HappyCow gives a different number; the owner's own entry outranks it."
     },
     "officialUrl": {
       "value": null,
@@ -32889,13 +35208,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 12:00–18:30 Friday to Tuesday, closed Wednesday and Thursday; HappyCow gives 'Mon-Sun 12:00pm-6:30pm'. The sources disagree on closing days, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Tue, Fri–Sun 12:00–18:30; closed Wednesdays and Thursdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "wed": [],
+          "thu": [],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1472468264",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1472468264 ('기메메빵소', 경남 김해시 평전로 196 1층 (내동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 12:00 ~ 18:30; 수(9/30) 휴무일; 목(10/1) 휴무일; 금(10/2) 12:00 ~ 18:30; 토(10/3) 12:00 ~ 18:30; 일(10/4) 12:00 ~ 18:30; 월(10/5) 12:00 ~ 18:30\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. HappyCow (undated) 'Mon-Sun 12:00pm-6:30pm' is stale under the 14:0x ruling. No DiningCode listing found."
     },
     "menus": {
       "value": null,
@@ -33006,13 +35361,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:00–23:00 on most days (15:00–23:00 on the current Tuesday); Zabihah gives 11:00 AM - 10:00 PM daily. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Mon, Wed–Sun 11:00–23:00; Tue 15:00–23:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "15:00",
+              "to": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/10812668",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 10812668 ('타지마할 김해점', 경남 김해시 분성로335번길 13 2층 (서상동)) — listing not owner-registered — shows: \"화(9/29) 15:00 ~ 23:00; 수(9/30) 11:00 ~ 23:00; 목(10/1) 11:00 ~ 23:00; 금(10/2) 11:00 ~ 23:00; 토(10/3) 11:00 ~ 23:00; 일(10/4) 11:00 ~ 23:00; 월(10/5) 11:00 ~ 23:00 | 연중무휴\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees exactly (11:00–23:00; 15:00–23:00 on Tuesday). Zabihah's undated 11:00 AM – 10:00 PM is treated as stale like HappyCow (undated directory listing)."
     },
     "menus": {
       "value": [
@@ -33143,13 +35544,101 @@ export const restaurants = [
       "evidence": "Operator (home page branch list, http://www.samsoo.co.kr/index.php, read 2026-09-29): '본점: 053-745-7800 대구광역시 수성구 신천동로 442 / 대구광역시 수성구 수성동4가 1190-3'. Kakao Map place panel (place.map.kakao.com/7918731): '대구 수성구 신천동로 442 2층 (수성동4가)'. Road name and building number agree. The operator's lot number 수성동4가 1190-3 is also Kakao's. The operator gives no floor; Kakao adds 2층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao Map shows 11:20–21:30 daily with a 15:00–17:00 break, while the 2021 KTO guide gives 11:30–21:30, closed on the Seollal and Chuseok holidays."
+      "value": {
+        "raw": "Daily 11:20–21:30, break 15:00–17:00, last order 14:30 and 20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:20",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:20",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:20",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:20",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:20",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:20",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:20",
+              "to": "15:00",
+              "lastOrder": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7918731",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 7918731 ('삼수장어 본점', 대구 수성구 신천동로 442 2층 (수성동4가)) — listing not owner-registered — shows: \"화(9/29) 11:20 ~ 21:30 (15:00 ~ 17:00 브레이크타임) (14:30 라스트오더) (20:30 라스트오더); 수(9/30) 11:20 ~ 21:30 (15:00 ~ 17:00 브레이크타임) (14:30 라스트오더) (20:30 라스트오더); 목(10/1) 11:20 ~ 21:30 (15:00 ~ 17:00 브레이크타임) (14:30 라스트오더) (20:30 라스트오더); 금(10/2) 11:20 ~ 21:30 (15:00 ~ 17:00 브레이크타임) (14:30 라스트오더) (20:30 라스트오더); 토(10/3) 11:20 ~ 21:30 (15:00 ~ 17:00 브레이크타임) (14:30 라스트오더) (20:30 라스트오더); 일(10/4) 11:20 ~ 21:30 (15:00 ~ 17:00 브레이크타임) (14:30 라스트오더) (20:30 라스트오더); 월(10/5) 11:20 ~ 21:30 (15:00 ~ 17:00 브레이크타임) (14:30 라스트오더) (20:30 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. The only disagreement was KTO's 2021 guide (11:30–21:30), stale under the 14:0x ruling. No DiningCode listing found."
     },
     "menus": {
       "value": [
@@ -33273,13 +35762,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao Map shows 11:00–23:00 every day; the 2021 KTO guide's prayer-room table gives '11:00-11:00'."
+      "value": {
+        "raw": "Daily 11:00–23:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1221497299",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1221497299 ('뉴살라딘 성서계대점', 대구 달서구 계대동문로 17 3층 (신당동)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 23:00; 수(9/30) 11:00 ~ 23:00; 목(10/1) 11:00 ~ 23:00; 금(10/2) 11:00 ~ 23:00; 토(10/3) 11:00 ~ 23:00; 일(10/4) 11:00 ~ 23:00; 월(10/5) 11:00 ~ 23:00 | 연중무휴\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:00–23:00 every day). KTO's 2021 guide is stale."
     },
     "menus": {
       "value": [
@@ -33891,13 +36426,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao Map shows 11:30–22:00, closed Mondays; the 2021 KTO guide gives 10:30–22:00, closed on the 1st and 3rd Mondays."
+      "value": {
+        "raw": "Tue–Sun 11:30–22:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/15376276",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 15376276 ('인도방랑기', 대구 북구 대학로 81 (산격동)) — listing not owner-registered — shows: \"화(9/29) 11:30 ~ 22:00; 수(9/30) 11:30 ~ 22:00; 목(10/1) 11:30 ~ 22:00; 금(10/2) 11:30 ~ 22:00; 토(10/3) 11:30 ~ 22:00; 일(10/4) 11:30 ~ 22:00; 월(10/5) 휴무일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. The only disagreement was KTO's 2021 guide (10:30–22:00, closed 1st and 3rd Mondays), stale under the 14:0x ruling. No DiningCode listing found."
     },
     "menus": {
       "value": [
@@ -34191,13 +36767,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao Map shows 11:30–22:00 with a 15:00–17:00 break, closed Mondays; the 2021 KTO guide gives 11:30–15:00 and 17:00–21:30, closed on the 1st and 3rd Mondays."
+      "value": {
+        "raw": "Tue–Sun 11:30–22:00, break 15:00–17:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1742484104",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1742484104 ('라가', 대구 수성구 신매로16길 45 1층 (신매동)) — listing not owner-registered — shows: \"화(9/29) 11:30 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 수(9/30) 11:30 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 목(10/1) 11:30 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 금(10/2) 11:30 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 토(10/3) 11:30 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 일(10/4) 11:30 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 월(10/5) 휴무일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:30–22:00, break 15:00–17:00, Mon 5 Oct closed). KTO's 2021 guide is stale."
     },
     "menus": {
       "value": [
@@ -34663,13 +37304,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao Map shows 09:00–20:30 every day; the 2021 KTO guide gives 09:00–21:00, closed on the Seollal and Chuseok holidays."
+      "value": {
+        "raw": "Daily 09:00–20:30, last order 20:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16579740",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 16579740 ('원조현풍 박소선할매집곰탕 본점', 대구 달성군 현풍읍 현풍중앙로 56-1 (현풍읍 하리)) — listing not owner-registered — shows: \"화(9/29) 09:00 ~ 20:30 (20:00 라스트오더); 수(9/30) 09:00 ~ 20:30 (20:00 라스트오더); 목(10/1) 09:00 ~ 20:30 (20:00 라스트오더); 금(10/2) 09:00 ~ 20:30 (20:00 라스트오더); 토(10/3) 09:00 ~ 20:30 (20:00 라스트오더); 일(10/4) 09:00 ~ 20:30 (20:00 라스트오더); 월(10/5) 09:00 ~ 20:30 (20:00 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (09:00–20:30, last order 20:00). KTO's 2021 guide is stale."
     },
     "menus": {
       "value": [
@@ -35081,13 +37775,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao Map shows 10:30–21:00 every day with a 15:00–16:00 break; the 2021 KTO guide gives 10:00–22:00, closed on Seollal and Chuseok day and the day after."
+      "value": {
+        "raw": "Daily 10:30–21:00, break 15:00–16:00, last order 20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "16:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/24036668",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 24036668 ('벚꽃나들버섯집', 대구 달성군 옥포읍 옥포로 8 1층 (옥포읍 기세리)) — listing not owner-registered — shows: \"화(9/29) 10:30 ~ 21:00 (15:00 ~ 16:00 브레이크타임) (20:30 라스트오더); 수(9/30) 10:30 ~ 21:00 (15:00 ~ 16:00 브레이크타임) (20:30 라스트오더); 목(10/1) 10:30 ~ 21:00 (15:00 ~ 16:00 브레이크타임) (20:30 라스트오더); 금(10/2) 10:30 ~ 21:00 (15:00 ~ 16:00 브레이크타임) (20:30 라스트오더); 토(10/3) 10:30 ~ 21:00 (15:00 ~ 16:00 브레이크타임) (20:30 라스트오더); 일(10/4) 10:30 ~ 21:00 (15:00 ~ 16:00 브레이크타임) (20:30 라스트오더); 월(10/5) 10:30 ~ 21:00 (15:00 ~ 16:00 브레이크타임) (20:30 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (10:30–21:00, break 15:00–16:00, last order 20:30); its Thu–Fri 1–2 Oct closures fall in the holiday window (ruling 4). KTO's 2021 guide is stale."
     },
     "menus": {
       "value": [
@@ -35206,13 +37981,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The operator's Instagram bio says '매일 11:30 - 21:00 L.O 19:40 breaktime 15:00 - 17:00', and DiningCode gives the same times every day, but HappyCow says it is 'Closed every 2nd and 4th Mon.' The closing days disagree, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:30–21:00, break 15:00–17:00, last order 19:40",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "19:40"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "19:40"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "19:40"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "19:40"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "19:40"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "19:40"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "19:40"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26235666",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 26235666 ('베지나랑 부산광안리점', 부산 수영구 광안해변로370번길 9-32 노블스카이 9층 (민락동)) — listing not owner-registered — shows: \"화(9/29) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (19:40 라스트오더); 수(9/30) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (19:40 라스트오더); 목(10/1) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (19:40 라스트오더); 금(10/2) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (19:40 라스트오더); 토(10/3) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (19:40 라스트오더); 일(10/4) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (19:40 라스트오더); 월(10/5) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (19:40 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today and the operator's Instagram bio ('매일 11:30 - 21:00 L.O 19:40 breaktime 15:00 - 17:00') agree. HappyCow's undated 'Closed every 2nd and 4th Mon.' is stale under the 14:0x ruling."
     },
     "menus": {
       "value": [
@@ -35344,13 +38200,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The operator's Instagram bio says '11:30~19:00 (last order 18:00) ❌ Closed Wed + Sun', while HappyCow gives 11:30am–8:00pm with last order 7pm. Both say it is closed on Wednesdays and Sundays, but the closing time disagrees, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Tue, Thu–Sat 11:30–19:00, last order 18:00; closed Wednesdays and Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "19:00",
+              "lastOrder": "18:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "19:00",
+              "lastOrder": "18:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "19:00",
+              "lastOrder": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "19:00",
+              "lastOrder": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "19:00",
+              "lastOrder": "18:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1269247840",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1269247840 ('소반비건식당', 부산 서구 대영로85번길 21 1층 (동대신동2가)) — listing not owner-registered — shows: \"화(9/29) 11:30 ~ 19:00 (18:00 라스트오더); 수(9/30) 휴무일; 목(10/1) 11:30 ~ 19:00 (18:00 라스트오더); 금(10/2) 11:30 ~ 19:00 (18:00 라스트오더); 토(10/3) 11:30 ~ 19:00 (18:00 라스트오더); 일(10/4) 휴무일; 월(10/5) 11:30 ~ 19:00 (18:00 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today (listed as 소반식당 at the same address) agrees: 11:30–19:00, Wednesday and Sunday closed; the operator's Instagram bio says '11:30~19:00 (last order 18:00) ❌ Closed Wed + Sun'. HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -35482,13 +38379,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only HappyCow gives hours (Tue–Sun 11:30am–7:00pm), and nothing else consulted corroborates them. Left unknown."
+      "value": {
+        "raw": "Tue–Sun 11:30–20:00, break 15:00–17:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1145683883",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1145683883 ('편한집밥', 부산 북구 만덕3로 28-10 1층 (만덕동)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 화 11:30 ~ 20:00 (15:00 ~ 17:00 브레이크타임); 수 11:30 ~ 20:00 (15:00 ~ 17:00 브레이크타임); 목 11:30 ~ 20:00 (15:00 ~ 17:00 브레이크타임); 금 11:30 ~ 20:00 (15:00 ~ 17:00 브레이크타임); 토 11:30 ~ 20:00 (15:00 ~ 17:00 브레이크타임); 일 11:30 ~ 20:00 (15:00 ~ 17:00 브레이크타임) | 휴무일: 매주 월요일, 설전날, 설당일, 추석전날, 추석당일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today shows 11:30–19:00 with a 15:00–17:00 break (last order 18:30) and Mon 5 Oct closed — an earlier close than Kakao's 20:00. HappyCow (undated) gives Tue–Sun 11:30–19:00. Under the 14:0x ruling the owner-entered hours win; the 19:00 close from the other sources is recorded here."
     },
     "menus": {
       "value": [
@@ -35521,13 +38483,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu (edited 2024-02-08) lists 편한집밥 정식, 두개장 정식, 만두국 정식, 연잎밥 정식, 버섯탕수 and 소이킨 (콩치킨). A 2026-05-31 blog on the Kakao page names 두개장 (vegan yukgaejang). Prices are two years old and are not given."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 051-516-1488, HappyCow gives +82-1044931488, and the operator's shop gives 010-5747-9291 for its online store. The restaurant's number is not settled."
+      "value": "051-516-1488",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1145683883",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1145683883 ('편한집밥', 부산 북구 만덕3로 28-10 1층 (만덕동)) lists 051-516-1488 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today lists the same number."
     },
     "officialUrl": {
       "value": "https://veganhomefood.com",
@@ -35620,13 +38582,72 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "DiningCode shows different hours on different days (11:30–16:00 on some, 11:30–21:00 or 20:00 on others, one closed day) and no other source consulted gives a weekly schedule. Left unknown; the MICHELIN page offers online booking."
+      "value": {
+        "raw": "Mon–Wed 11:30–16:00, last order 15:00; Fri–Sun 11:30–20:00, break 16:00–17:00, last order 19:00; closed Thursdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "16:00",
+              "lastOrder": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "16:00",
+              "lastOrder": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "16:00",
+              "lastOrder": "15:00"
+            }
+          ],
+          "thu": [],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00",
+              "lastOrder": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00",
+              "lastOrder": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00",
+              "lastOrder": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1618376903",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1618376903 ('아르프 영도', 부산 영도구 태종로99번길 35 1층 (봉래동2가)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 11:30 ~ 16:00 (15:00 라스트오더); 수(9/30) 11:30 ~ 16:00 (15:00 라스트오더); 목(10/1) 휴무일; 금(10/2) 11:30 ~ 20:00 (16:00 ~ 17:00 브레이크타임) (19:00 라스트오더); 토(10/3) 11:30 ~ 20:00 (16:00 ~ 17:00 브레이크타임) (19:00 라스트오더); 일(10/4) 11:30 ~ 20:00 (16:00 ~ 17:00 브레이크타임) (19:00 라스트오더); 월(10/5) 11:30 ~ 16:00 (15:00 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. No DiningCode listing found today; an earlier pass recorded DiningCode with different hours on different days. The operator's own entry outranks it (14:0x ruling). The MICHELIN page offers online booking."
     },
     "menus": {
       "value": [
@@ -35659,13 +38680,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu (edited 2026-03-16 to 2026-06-30) and DiningCode's menu both list 고사리 파스타, 참나물 파스타, 파니푸리와 치폴레 후무스 and 알배추구이와 머쉬룸 크럼블, and a vegan burger. The MICHELIN page names the bracken pasta as its signature. Prices differ between the two listings by 1,000 won on several items, so none are given."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The MICHELIN page gives +82 10-5588-1368, Kakao Map gives 010-4361-1368 and DiningCode gives 0507-1307-1368. The sources disagree."
+      "value": "010-4361-1368",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1618376903",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1618376903 ('아르프 영도', 부산 영도구 태종로99번길 35 1층 (봉래동2가)) lists 010-4361-1368 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. The MICHELIN page gives +82 10-5588-1368 and DiningCode 0507-1307-1368 (a relay); the owner's own entry outranks them (14:0x ruling)."
     },
     "officialUrl": {
       "value": null,
@@ -35797,13 +38818,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu (items edited 2023-10 to 2025-07) and DiningCode's menu both list tandoori chicken, butter chicken, palak paneer, biryani and samosa; Kakao also lists chickpea, lentil, mushroom and paneer curries. Prices differ between the two, so none are given. No pork appears on either menu."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and KTO's 2021 guide give 051-987-9673; DiningCode gives 0507-1400-9673. The sources disagree."
+      "value": "051-987-9673",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/578182032",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 578182032 ('발리우드', 부산 수영구 광남로130번길 9 2층 (광안동)) lists 051-987-9673 (listing not owner-registered). Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. KTO's 2021 guide gives the same number; DiningCode's 0507-1400-9673 is a relay number and not a disagreement (14:0x ruling)."
     },
     "officialUrl": {
       "value": null,
@@ -37131,13 +40152,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 11:30–20:30 with a 14:30–17:30 break and 19:45 last order; DiningCode gives the same hours with 19:40 last order; HappyCow gives 'Mon-Sat 12:00pm-2:00pm, 5:00pm-9:00pm'. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Sat 11:30–20:30, break 14:30–17:30; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:30",
+              "to": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:30",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:30",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:30",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:30",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:30",
+              "to": "20:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16866376",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 16866376 ('감로헌', 전북특별자치도 전주시 완산구 현무1길 20 공연홀 1층 (경원동3가)) — listing not owner-registered — shows: \"화(9/29) 11:30 ~ 20:30 (14:30 ~ 17:30 브레이크타임) (19:45 라스트오더); 수(9/30) 11:30 ~ 20:30 (14:30 ~ 17:30 브레이크타임) (19:45 라스트오더); 목(10/1) 11:30 ~ 20:30 (14:30 ~ 17:30 브레이크타임) (19:45 라스트오더); 금(10/2) 11:30 ~ 20:30 (14:30 ~ 17:30 브레이크타임) (19:45 라스트오더); 토(10/3) 11:30 ~ 20:30 (14:30 ~ 17:30 브레이크타임) (19:45 라스트오더); 일(10/4) 휴무일; 월(10/5) 11:30 ~ 20:30 (14:30 ~ 17:30 브레이크타임) (19:45 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. An earlier pass recorded DiningCode with the same hours but a 19:40 last order (Kakao 19:45); the listing could not be re-found today. The last order is left out because of that difference. HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -37387,13 +40473,60 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (@present_vegancafe), read from the raw page text on 2026-09-29): '📍전주시 완산구 화산천변1길10'. Kakao Map panel3 (place.map.kakao.com/1250024625): '전북특별자치도 전주시 완산구 화산천변1길 10 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 10:30–17:00 (last order 16:30); HappyCow gives 'Mon-Sat 10:30am-10:00pm'. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Sat 10:30–17:00, last order 16:30; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "17:00",
+              "lastOrder": "16:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "17:00",
+              "lastOrder": "16:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "17:00",
+              "lastOrder": "16:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "17:00",
+              "lastOrder": "16:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "17:00",
+              "lastOrder": "16:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "17:00",
+              "lastOrder": "16:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1250024625",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1250024625 ('프레종', 전북특별자치도 전주시 완산구 화산천변1길 10 1층 (중화산동2가)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 10:30 ~ 17:00 (16:30 라스트오더); 수(9/30) 10:30 ~ 17:00 (16:30 라스트오더); 목(10/1) 10:30 ~ 17:00 (16:30 라스트오더); 금(10/2) 10:30 ~ 17:00 (16:30 라스트오더); 토(10/3) 10:30 ~ 17:00 (16:30 라스트오더); 일(10/4) 휴무일; 월(10/5) 10:30 ~ 17:00 (16:30 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (10:30–17:00, last order 16:30; Thu 1 – Sun 4 Oct shown closed, the holiday week). HappyCow (undated) 'Mon-Sat 10:30am-10:00pm' is stale."
     },
     "menus": {
       "value": null,
@@ -37405,13 +40538,13 @@ export const restaurants = [
       "evidence": "Kakao Map and DiningCode list overlapping dishes (falafel salad, avocado roll, barbecue sandwich) but at different prices; menu left unknown."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0502-5550-4525, DiningCode 010-5736-0597 and HappyCow +82-50713960592. The numbers disagree."
+      "value": "0502-5550-4525",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1250024625",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1250024625 ('프레종', 전북특별자치도 전주시 완산구 화산천변1길 10 1층 (중화산동2가)) lists 0502-5550-4525 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0502) number on the owner-registered listing. DiningCode today gives 010-5736-0597 and HappyCow a 0507 relay; the owner's own entry outranks them."
     },
     "officialUrl": {
       "value": null,
@@ -37645,13 +40778,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode both give 11:30–15:00 with 14:00 last order and HappyCow gives 'Mon-Sun 11:30am-3:00pm', but the listings do not agree on closed days. Left unknown; expect lunch only."
+      "value": {
+        "raw": "Daily 11:30–15:00, last order 14:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:00",
+              "lastOrder": "14:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17965543",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 17965543 ('수자타', 전남광주통합특별시 동구 동산길7번길 3 1층 (운림동)) — listing not owner-registered — shows: \"화(9/29) 11:30 ~ 15:00 (14:00 라스트오더); 수(9/30) 11:30 ~ 15:00 (14:00 라스트오더); 목(10/1) 11:30 ~ 15:00 (14:00 라스트오더); 금(10/2) 11:30 ~ 15:00 (14:00 라스트오더); 토(10/3) 11:30 ~ 15:00 (14:00 라스트오더); 일(10/4) 11:30 ~ 15:00 (14:00 라스트오더); 월(10/5) 11:30 ~ 15:00 (14:00 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:30–15:00, last order 14:00, tagged 연중무휴); its Thu–Fri 1–2 Oct closures fall in the holiday window (ruling 4). HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -37767,13 +40953,74 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only Kakao Map gives hours (Sun–Thu 11:30–20:00 with a 14:00–17:30 break, Fri 11:30–14:00, closed Saturday); not cross-checked."
+      "value": {
+        "raw": "Mon–Thu, Sun 11:30–20:00, break 14:00–17:30; Fri 11:30–14:00; closed Saturdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "14:00"
+            }
+          ],
+          "sat": [],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "14:00"
+            },
+            {
+              "from": "17:30",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/349943762",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 349943762 ('살림클래식 채식뷔페', 전남광주통합특별시 남구 서문대로 813 A동 1층 (주월동)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 월 11:30 ~ 20:00 (14:00 ~ 17:30 브레이크타임); 화 11:30 ~ 20:00 (14:00 ~ 17:30 브레이크타임); 수 11:30 ~ 20:00 (14:00 ~ 17:30 브레이크타임); 목 11:30 ~ 20:00 (14:00 ~ 17:30 브레이크타임); 금 11:30 ~ 14:00; 일 11:30 ~ 20:00 (14:00 ~ 17:30 브레이크타임) | 공휴일: 11:30 ~ 20:00 (14:30 ~ 17:30 브레이크타임) | 휴무일: 매주 토요일, 추석전날, 추석당일, 추석다음날\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:30–20:00, break 14:00–17:30; Thu 1 – Sat 3 Oct closed for the holiday, matching the owner's 추석 closures). Kakao also lists a public-holiday period 11:30–20:00 with a 14:30–17:30 break."
     },
     "menus": {
       "value": null,
@@ -37785,13 +41032,13 @@ export const restaurants = [
       "evidence": "Kakao Map lists buffet prices only (adult 16,900 KRW, edited 2025-12-04); a single source, so no menu is given."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 062-682-3004; HappyCow gives +82-626753552. The numbers disagree."
+      "value": "062-682-3004",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/349943762",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 349943762 ('살림클래식 채식뷔페', 전남광주통합특별시 남구 서문대로 813 A동 1층 (주월동)) lists 062-682-3004 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today lists the same number. HappyCow's +82-626753552 (undated) is stale."
     },
     "officialUrl": {
       "value": null,
@@ -37878,13 +41125,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:30–20:30 on weekdays and 11:00–20:30 at weekends with the note '브레이크타임 없어졌다고합니다'; HappyCow gives 11:00–15:00 and 17:00–21:00 daily. The sources disagree."
+      "value": {
+        "raw": "Mon–Fri 11:30–20:30; Sat–Sun 11:00–20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/9969548",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 9969548 ('풀꽃세상채식뷔페', 전북특별자치도 전주시 완산구 우림로 1036-13 (중인동)) — listing not owner-registered — shows: \"화(9/29) 11:30 ~ 20:30; 수(9/30) 11:30 ~ 20:30; 목(10/1) 11:30 ~ 20:30; 금(10/2) 11:30 ~ 20:30; 토(10/3) 11:00 ~ 20:30; 일(10/4) 11:00 ~ 20:30; 월(10/5) 11:30 ~ 20:30 | 안내: 브레이크타임 없어졌다고합니다\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (weekdays 11:30–20:30, weekends 11:00–20:30); its Thu–Fri 1–2 Oct closures fall in the holiday window (ruling 4). Kakao's note '브레이크타임 없어졌다고합니다' says the break has been dropped. HappyCow's undated 11:00–15:00/17:00–21:00 is stale."
     },
     "menus": {
       "value": null,
@@ -38100,13 +41393,53 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/jungsrun/, read 2026-09-29): '광주광역시 북구 설죽로419 일곡엘리체프라임 후문상가'. Kakao Map place panel (place.map.kakao.com/439611341): '전남광주통합특별시 북구 설죽로 419 일곡엘리체프라임 후문상가 1층 (삼각동)'. Road name and building number agree; the only difference is an administrative rename (agreement case 1 of the 2026-09-29 ruling). Kakao now prints the city as 전남광주통합특별시 where the operator writes 광주광역시. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives Mon–Fri 10:00–19:30 and Sat 10:00–15:00; HappyCow gives Mon-Fri 9:00am-7:30pm and Sat 9:00am-4:00pm. The sources disagree."
+      "value": {
+        "raw": "Mon–Fri 10:00–19:30, last order 19:00; closed Sundays; Sat not confirmed",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "19:30",
+              "lastOrder": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "19:30",
+              "lastOrder": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "19:30",
+              "lastOrder": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "19:30",
+              "lastOrder": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "19:30",
+              "lastOrder": "19:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/439611341",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 439611341 ('정스런김밥집', 전남광주통합특별시 북구 설죽로 419 일곡엘리체프라임 후문상가 1층 (삼각동)) — listing not owner-registered — shows: \"기본 영업시간: 월 10:00 ~ 19:30 (19:00 라스트오더); 화 10:00 ~ 19:30 (19:00 라스트오더); 수 10:00 ~ 19:30 (19:00 라스트오더); 목 10:00 ~ 19:30 (19:00 라스트오더); 금 10:00 ~ 19:30 (19:00 라스트오더); 토 10:00 ~ 15:00 | 공휴일: 10:00 ~ 15:00 | 휴무일: 매주 일요일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees on weekdays (10:00–19:30, last order 19:00) and Sunday closed, but gives Saturday (3 Oct) 10:00–16:00 against Kakao's 10:00–15:00, so Saturday is left out. HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -38540,13 +41873,84 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:00–21:00 with a 15:30–17:00 break and a closed day; HappyCow gives no hours. Single source, left unknown."
+      "value": {
+        "raw": "Mon–Wed, Fri–Sun 11:00–21:00, break 15:30–17:00, last order 20:30; closed Thursdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/14504521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 14504521 ('나눌터', 전남광주통합특별시 순천시 팔마1길 4 1층 (연향동)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 21:00 (15:30 ~ 17:00 브레이크타임) (20:30 라스트오더); 수(9/30) 11:00 ~ 21:00 (15:30 ~ 17:00 브레이크타임) (20:30 라스트오더); 목(10/1) 휴무일; 금(10/2) 11:00 ~ 21:00 (15:30 ~ 17:00 브레이크타임) (20:30 라스트오더); 토(10/3) 11:00 ~ 21:00 (15:30 ~ 17:00 브레이크타임) (20:30 라스트오더); 일(10/4) 11:00 ~ 21:00 (15:30 ~ 17:00 브레이크타임) (20:30 라스트오더); 월(10/5) 11:00 ~ 21:00 (15:30 ~ 17:00 브레이크타임) (20:30 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:00–21:00, break 15:30–17:00, last order 20:30; Thursday closed). Its Fri 2 Oct closure falls in the holiday window (ruling 4)."
     },
     "menus": {
       "value": [
@@ -38665,13 +42069,83 @@ export const restaurants = [
       "evidence": "Kakao Map (operator-registered listing): '강원특별자치도 강릉시 금성로 21 중앙시장 2층 42호'. KTO 2021 guide, entry 048: '21, Geumseong-ro, Gangneung-si, Gangwon-do'. DiningCode (rid fW10hwsRhPK2): '강원도 강릉시 금성로 21 중앙시장 2층 42호'. All agree."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: Kakao Map shows 09:00–21:00 with a 16:00–17:00 break on most days; DiningCode shows 09:00–20:00; a 2026-08-27 blog post linked from Kakao gives '매일 09:00 - 20:00'. Left unknown."
+      "value": {
+        "raw": "Mon–Tue, Thu–Sun 09:00–21:00, break 16:00–17:00; Wed 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/26491593",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 26491593 ('고향먹거리', 강원특별자치도 강릉시 금성로 21 중앙시장 2층 42호 (성남동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 09:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임); 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임); 금(10/2) 09:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임); 토(10/3) 09:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임); 일(10/4) 09:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임); 월(10/5) 09:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today shows 09:00–20:00 with a 16:00–17:00 break every day, and a 2026-08-27 blog linked from Kakao gives '매일 09:00 - 20:00' — both close an hour earlier than Kakao. Under the 14:0x ruling the owner-entered hours win; the 20:00 close from the other sources is recorded here."
     },
     "menus": {
       "value": [
@@ -38808,13 +42282,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree on closing time: Kakao Map and DiningCode show 11:00 ~ 23:00 every day ('연중무휴'), Zabihah shows 11:00 AM - 10:00 PM every day. Left unknown; all three agree it opens daily at 11:00."
+      "value": {
+        "raw": "Daily 11:00–23:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "23:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/13110298",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 13110298 ('마운틴피시텔 레스토랑', 충남 천안시 동남구 버들로 4 (대흥동)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 23:00; 수(9/30) 11:00 ~ 23:00; 목(10/1) 11:00 ~ 23:00; 금(10/2) 11:00 ~ 23:00; 토(10/3) 11:00 ~ 23:00; 일(10/4) 11:00 ~ 23:00; 월(10/5) 11:00 ~ 23:00 | 연중무휴\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. An earlier pass recorded DiningCode with the same 11:00–23:00 every day; it could not be re-found today. Zabihah's undated 11:00 AM – 10:00 PM is treated as stale like HappyCow."
     },
     "menus": {
       "value": null,
@@ -39083,13 +42603,41 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree: the operator's Instagram bio gives '화,목,금 (Tues,Thur,Fri) 11am~ 6:00pm 토(Saturday) 11am~3pm' (no Wednesday); Kakao Map's current week shows Tue–Fri 11:00 ~ 18:00 including Wednesday, Sat 11:00 ~ 15:00. Left unknown."
+      "value": {
+        "raw": "Tue, Thu–Fri 11:00–18:00; Sat 11:00–15:00; Wed not confirmed",
+        "weekly": {
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/384288114",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 384288114 ('세이비건', 대전 중구 대종로 585 갤러리빌딩 1층 (선화동)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 18:00; 수(9/30) 11:00 ~ 18:00; 목(10/1) 11:00 ~ 18:00; 금(10/2) 11:00 ~ 18:00; 토(10/3) 11:00 ~ 15:00\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. The operator's Instagram bio (read in an earlier pass) gives '화,목,금 (Tues,Thur,Fri) 11am~ 6:00pm 토(Saturday) 11am~3pm' — no Wednesday — while Kakao shows Wednesday open. Wednesday is left out; the other days agree. No DiningCode listing found."
     },
     "menus": {
       "value": null,
@@ -39200,13 +42748,48 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Sources disagree on Saturday: Kakao Map and DiningCode show 10:30 ~ 19:30 Monday to Saturday, closed Sunday; a 2026 blog excerpt shown on Kakao gives '토: 10:30 - 16:00'. Left unknown."
+      "value": {
+        "raw": "Mon–Fri 10:30–19:30; closed Sundays; Sat not confirmed",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "19:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "19:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "19:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/192105763",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 192105763 ('이츠비건', 세종특별자치시 다솜1로 21 한뜰마을4단지 상가 근린생활시설 301동 148호 (어진동)) — listing not owner-registered — shows: \"화(9/29) 10:30 ~ 19:30; 수(9/30) 10:30 ~ 19:30; 목(10/1) 10:30 ~ 19:30; 금(10/2) 10:30 ~ 19:30; 토(10/3) 10:30 ~ 19:30; 일(10/4) 휴무일; 월(10/5) 10:30 ~ 19:30\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees on Mon–Fri 10:30–19:30 (Thu–Fri 1–2 Oct closed, holiday window) and Sunday closed. A 2026 blog excerpt on Kakao gives '토: 10:30 - 16:00', so Saturday is left out."
     },
     "menus": {
       "value": null,
@@ -39694,13 +43277,87 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 11:00–21:00, break 16:00–17:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/13137656",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 13137656 ('인덕원비빔국수 안양본점', 경기 안양시 동안구 안양판교로 25 1층 (관양동)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임) (20:45 라스트오더); 수(9/30) 11:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임) (20:45 라스트오더); 목(10/1) 11:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임) (20:45 라스트오더); 금(10/2) 11:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임) (20:45 라스트오더); 토(10/3) 11:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임) (20:45 라스트오더); 일(10/4) 11:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임) (20:45 라스트오더); 월(10/5) 11:00 ~ 21:00 (16:00 ~ 17:00 브레이크타임) (20:45 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees on 11:00–21:00 with a 16:00–17:00 break; its Thu–Fri 1–2 Oct closures fall in the holiday window (ruling 4). DiningCode's last order is 20:30 against Kakao's 20:45, so the last order is left out."
     },
     "menus": {
       "value": [
@@ -40202,13 +43859,76 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Tue–Fri 11:00–21:00, break 15:00–17:00, last order 20:30; Sat–Sun 11:00–21:00, last order 20:30; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27292643",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27292643 ('삼대째손두부 오산점', 경기 오산시 동부대로 347 1층 (갈곶동)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:30 라스트오더); 수(9/30) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:30 라스트오더); 목(10/1) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:30 라스트오더); 금(10/2) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:30 라스트오더); 토(10/3) 11:00 ~ 21:00 (20:30 라스트오더); 일(10/4) 11:00 ~ 21:00 (20:30 라스트오더); 월(10/5) 휴무일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees on Tue–Wed (11:00–21:00, break 15:00–17:00, last order 20:30) and Monday closed; its Fri 2 – Sun 4 Oct closures fall in the holiday window (ruling 4)."
     },
     "menus": {
       "value": [
@@ -41214,13 +44934,13 @@ export const restaurants = [
       "evidence": "Kakao Map operator menu, edited 2026-01-17 and 2026-04-10; items carry GF/SF/OF codes. The scone line describes 무첨가두유 (plain soy milk) and almond flour."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-9796-1258 and HappyCow gives +82-1099950808. The sources disagree, so the phone is left unknown."
+      "value": "010-9796-1258",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1150028734",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1150028734 ('비숍', 경기 평택시 동부공원로14번길 61 1층 (비전동)) lists 010-9796-1258 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. HappyCow (undated) gives +82-1099950808; the owner's own entry outranks it."
     },
     "officialUrl": {
       "value": "http://litt.ly/vishop_",
@@ -41477,13 +45197,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Sat 10:00–21:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/834256467",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 834256467 ('소피비건빵', 경기 남양주시 화도읍 맷돌로 110-13 신명프라자 1층 102호 (화도읍 마석우리)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 10:00 ~ 21:00; 수(9/30) 10:00 ~ 21:00; 목(10/1) 10:00 ~ 21:00; 금(10/2) 10:00 ~ 21:00; 토(10/3) 10:00 ~ 21:00; 일(10/4) 휴무일; 월(10/5) 10:00 ~ 21:00\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today opens at 09:00 (09:00–21:00, Sun 4 Oct closed); HappyCow gives no hours. Under the 14:0x ruling the owner-entered 10:00 opening wins; DiningCode's 09:00 is recorded here."
     },
     "menus": {
       "value": [
@@ -41508,13 +45269,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu lists only drinks (edited 2024-08 to 2025-10-13); every milk drink is oat, soy or coconut. The bread line-up is not on Kakao, so no bread is named here as fact."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0503-7153-4256 (a virtual number) and HappyCow gives +82-315938585. The sources disagree, so the phone is left unknown."
+      "value": "0503-7153-4256",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/834256467",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 834256467 ('소피비건빵', 경기 남양주시 화도읍 맷돌로 110-13 신명프라자 1층 102호 (화도읍 마석우리)) lists 0503-7153-4256 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0503) number on the owner-registered listing. DiningCode today and HappyCow give 031-593-8585, which may be the shop's landline; the owner chose the relay on its own listing."
     },
     "officialUrl": {
       "value": null,
@@ -41929,13 +45690,33 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Sat–Sun 11:00–20:00; closed Mondays, Tuesdays, Wednesdays and Thursdays; Fri not confirmed",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [],
+          "thu": [],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/110181535",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 110181535 ('희와래커피로스터스', 인천 강화군 불은면 덕진로178번길 25-29 1층 (불은면 신현리)) — listing not owner-registered — shows: \"화(9/29) 휴무일; 수(9/30) 휴무일; 목(10/1) 휴무일; 금(10/2) 11:00 ~ 19:00; 토(10/3) 11:00 ~ 20:00; 일(10/4) 11:00 ~ 20:00; 월(10/5) 휴무일 | 매주 월요일, 화요일, 수요일, 목요일 휴무\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees on Mon–Thu closed and Sat–Sun 11:00–20:00, but shows a 13:00–15:00 break on Friday that Kakao does not, so Friday is left out."
     },
     "menus": {
       "value": null,
@@ -42040,13 +45821,49 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/moanda_ve/, read 2026-09-29): '🏡 수원시 장안구 율전로105, 모앤더비'. Kakao Map place panel (1361763675): '경기 수원시 장안구 율전로 105 1층 102호 (율전동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the unit."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Fri 12:00–17:00; closed Saturdays and Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "17:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "17:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "17:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "17:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "17:00"
+            }
+          ],
+          "sat": [],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1361763675",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1361763675 ('비건카페 모앤더비', 경기 수원시 장안구 율전로 105 1층 102호 (율전동)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 월 12:00 ~ 17:00; 화 12:00 ~ 17:00; 수 12:00 ~ 17:00; 목 12:00 ~ 17:00; 금 12:00 ~ 17:00 | 공휴일: 12:00 ~ 17:00 | 휴무일: 매주 토요일, 일요일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees on 12:00–17:00 (it shows Mon 5 Oct closed, the substitute holiday). Kakao's owner block also gives public holidays 12:00–17:00."
     },
     "menus": {
       "value": null,
@@ -42058,13 +45875,13 @@ export const restaurants = [
       "evidence": "Kakao Map shows only a photo menu entry ('메뉴판', 2025-12-14), with no items in text."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 031-253-8462 and HappyCow gives +82-1039100179. The sources disagree, so the phone is left unknown."
+      "value": "031-253-8462",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1361763675",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1361763675 ('비건카페 모앤더비', 경기 수원시 장안구 율전로 105 1층 102호 (율전동)) lists 031-253-8462 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today gives 0507-1351-8462, a relay — not a disagreement. HappyCow (undated) is stale."
     },
     "officialUrl": {
       "value": null,
@@ -42157,13 +45974,39 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Fri–Sun 11:30–19:00; closed Mondays, Tuesdays, Wednesdays and Thursdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [],
+          "thu": [],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/187227345",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 187227345 ('해피베이커리', 경기 평택시 중앙시장로12번길 1 1층 (신장동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 휴무일; 수(9/30) 휴무일; 목(10/1) 휴무일; 금(10/2) 11:30 ~ 19:00; 토(10/3) 11:30 ~ 19:00; 일(10/4) 11:30 ~ 19:00; 월(10/5) 휴무일 | 매주 월요일, 화요일, 수요일, 목요일 휴무\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today shows 11:00–18:00 Fri–Sun (Mon–Thu closed). Under the 14:0x ruling the owner-entered 11:30–19:00 wins; DiningCode's times are recorded here."
     },
     "menus": {
       "value": [
@@ -42192,13 +46035,13 @@ export const restaurants = [
       "evidence": "Kakao Map operator menu, edited 2025-10-18 to 2025-12-03. Several descriptions mention 비건버터 (vegan butter) or 비건마요네즈. Only prices stated on Kakao are given."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 031-666-7160 and HappyCow gives +82-316112975. The sources disagree, so the phone is left unknown."
+      "value": "031-666-7160",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/187227345",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 187227345 ('해피베이커리', 경기 평택시 중앙시장로12번길 1 1층 (신장동)) lists 031-666-7160 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today gives 0507-1392-7160, a relay — not a disagreement. HappyCow (undated) is stale."
     },
     "officialUrl": {
       "value": null,
@@ -42358,13 +46201,13 @@ export const restaurants = [
       "evidence": "Kakao Map operator menu, edited 2026-09-01; only three items are listed."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0503-7150-6499 (a virtual number) and HappyCow gives +82-326770560. The sources disagree, so the phone is left unknown."
+      "value": "0503-7150-6499",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/243407865",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 243407865 ('오뉴쓰', 경기 부천시 원미구 평천로 698 1층 (약대동)) lists 0503-7150-6499 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0503) number on the owner-registered listing. HappyCow (undated) gives +82-326770560; the owner's own entry outranks it."
     },
     "officialUrl": {
       "value": null,
@@ -42457,13 +46300,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/cafe.selah_/, read 2026-09-29): '👉🏻이천시 영창로193번길 30'. Kakao Map place panel (1014937271): '경기 이천시 영창로193번길 30 1층 (창전동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the floor."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Sat 11:00–18:30; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "18:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "18:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "18:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "18:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "18:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "18:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1014937271",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1014937271 ('셀라', 경기 이천시 영창로193번길 30 1층 (창전동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 11:00 ~ 18:30; 수(9/30) 11:00 ~ 18:30; 목(10/1) 11:00 ~ 18:30; 금(10/2) 11:00 ~ 18:30; 토(10/3) 11:00 ~ 18:30; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 18:30\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today opens at 10:30 and shows Thu 1 – Sat 3 Oct closed (holiday week). Under the 14:0x ruling the owner-entered 11:00 opening wins; DiningCode's 10:30 is recorded here."
     },
     "menus": {
       "value": [
@@ -42718,13 +46602,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode give 11:00–15:00; HappyCow gives 'Tue-Sun 11:30am-3:00pm'. The opening time disagrees; all three describe a lunch-only buffet."
+      "value": {
+        "raw": "Tue–Sun 11:00–15:00; closed Mondays; the owner warns of occasional temporary closures, so check before travelling",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/30413962",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 30413962 ('빛가람비건채식뷔페', 충북 충주시 신대2길 26 1층 (단월동)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 화 11:00 ~ 15:00; 수 11:00 ~ 15:00; 목 11:00 ~ 15:00; 금 11:00 ~ 15:00; 토 11:00 ~ 15:00; 일 11:00 ~ 15:00 | 공휴일: 11:00 ~ 15:00 | 휴무일: 매주 월요일, 설전날, 설당일, 설다음날 | 안내: 6월부터 임시휴무가 있을수 있으니, 네이버에서 빛가람채식뷔페를 검색하시고 출발 부탁드립니다\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. The owner adds '6월부터 임시휴무가 있을수 있으니, 네이버에서 빛가람채식뷔페를 검색하시고 출발 부탁드립니다' (temporary closures possible; check before setting out). An earlier pass recorded DiningCode 11:00–15:00 (agrees); HappyCow (undated) 'Tue-Sun 11:30am-3:00pm' is stale."
     },
     "menus": {
       "value": [
@@ -42838,13 +46763,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode give 11:30–15:00 (DiningCode shows Sunday closed); HappyCow gives 'Mon-Sat 11:30am-3:00pm, 5:30pm-9:00pm'. The evening sitting disagrees; expect lunch only."
+      "value": {
+        "raw": "Mon–Sat 11:30–15:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21878475",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 21878475 ('담은하늘채', 전남광주통합특별시 목포시 평화로 38-7 (상동)) — listing not owner-registered — shows: \"화(9/29) 11:30 ~ 15:00; 수(9/30) 11:30 ~ 15:00; 목(10/1) 11:30 ~ 15:00; 금(10/2) 11:30 ~ 15:00; 토(10/3) 11:30 ~ 15:00; 일(10/4) 휴무일; 월(10/5) 11:30 ~ 15:00\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:30–15:00, Sunday closed). HappyCow's undated evening sitting is stale."
     },
     "menus": {
       "value": null,
@@ -42949,13 +46915,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Wed-Thu 12:30pm-7:00pm, Fri-Sun 12:30pm-9:00pm'; Kakao Map shows Tuesday closed and no other days. Not confirmed; the Kakao menu marks the meal as a weekend menu."
+      "value": {
+        "raw": "Wed 17:00–22:00; Thu–Sun 11:30–17:00; closed Mondays and Tuesdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "17:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "17:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "17:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "17:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/431687098",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 431687098 ('틈싹', 충남 공주시 웅진로 153 1층 103호 (중동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 휴무일; 수(9/30) 17:00 ~ 22:00; 목(10/1) 11:30 ~ 17:00; 금(10/2) 11:30 ~ 17:00; 토(10/3) 11:30 ~ 17:00; 일(10/4) 11:30 ~ 17:00; 월(10/5) 휴무일 | 매주 월요일, 화요일 휴무\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. HappyCow (undated) 'Wed-Thu 12:30pm-7:00pm, Fri-Sun 12:30pm-9:00pm' is stale under the 14:0x ruling. No DiningCode listing found. The Wednesday evening-only slot (17:00–22:00) is as the owner entered it."
     },
     "menus": {
       "value": [
@@ -42980,13 +46982,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (edited 2026-06-08): '[주말메뉴] 틈싹스페셜 (비건) 15000 <계절마다 주목한 이야기를 담아 만든 요리…>', '오트커피 6000', '두유 짜이 6000', also '이히브루 맥주 9000' (craft beer) and a 5,000 KRW reading-room fee refunded on a book purchase."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 0507-1389-3985; Kakao Map gives 0503-7150-2334 (a relay number). They disagree."
+      "value": "0503-7150-2334",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/431687098",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 431687098 ('틈싹', 충남 공주시 웅진로 153 1층 103호 (중동)) lists 0503-7150-2334 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0503) number on the owner-registered listing. HappyCow's 0507-1389-3985 is another relay."
     },
     "officialUrl": {
       "value": null,
@@ -43190,13 +47192,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 08:30–21:00 daily; HappyCow gives 'Mon-Sun 11:00am-10:00pm'. They disagree."
+      "value": {
+        "raw": "Daily 08:30–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17249072",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 17249072 ('신토불이약초식당', 충북 보은군 속리산면 법주사로 268 1층 (속리산면 사내리)) — listing not owner-registered — shows: \"화(9/29) 08:30 ~ 21:00; 수(9/30) 08:30 ~ 21:00; 목(10/1) 08:30 ~ 21:00; 금(10/2) 08:30 ~ 21:00; 토(10/3) 08:30 ~ 21:00; 일(10/4) 08:30 ~ 21:00; 월(10/5) 08:30 ~ 21:00 | 연중무휴\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (08:30–21:00 every day). HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -43489,13 +47537,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 11:00–20:00 with a 15:00–17:00 break; HappyCow gives 'Mon-Sun 10:30am-3:00pm, 5:00pm-8:30pm'. They disagree."
+      "value": {
+        "raw": "Daily 11:00–20:00, break 15:00–17:00, last order 14:20",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12600777",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 12600777 ('반야돌솥밥 효자동본점', 전북특별자치도 전주시 완산구 홍산1길 6 1-2층 (효자동2가)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 20:00 (15:00 ~ 17:00 브레이크타임) (14:20 라스트오더); 수(9/30) 11:00 ~ 20:00 (15:00 ~ 17:00 브레이크타임) (14:20 라스트오더); 목(10/1) 11:00 ~ 20:00 (15:00 ~ 17:00 브레이크타임) (14:20 라스트오더); 금(10/2) 11:00 ~ 20:00 (15:00 ~ 17:00 브레이크타임) (14:20 라스트오더); 토(10/3) 11:00 ~ 20:00 (15:00 ~ 17:00 브레이크타임) (14:20 라스트오더); 일(10/4) 11:00 ~ 20:00 (15:00 ~ 17:00 브레이크타임) (14:20 라스트오더); 월(10/5) 11:00 ~ 20:00 (15:00 ~ 17:00 브레이크타임) (14:20 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:00–20:00, break 15:00–17:00, last orders 14:20 and 19:20); its Fri 2 Oct closure falls in the holiday window (ruling 4). Only Kakao's 14:20 last order is recorded. HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -44007,13 +48136,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 11:00–19:30 on four days of the current week; HappyCow gives no hours. Closed days not confirmed."
+      "value": {
+        "raw": "Mon–Fri, Sun 11:00–19:30, break 15:00–16:30; closed Saturdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "19:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "19:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "19:30"
+            }
+          ],
+          "sat": [],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "19:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/9223810",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 9223810 ('영희네팥칼국수', 전북특별자치도 군산시 나운안길 8 1층 (나운동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 11:00 ~ 19:30 (15:00 ~ 16:30 브레이크타임); 수(9/30) 11:00 ~ 19:30 (15:00 ~ 16:30 브레이크타임); 목(10/1) 11:00 ~ 19:30 (15:00 ~ 16:30 브레이크타임); 금(10/2) 11:00 ~ 19:30 (15:00 ~ 16:30 브레이크타임); 토(10/3) 휴무일; 일(10/4) 11:00 ~ 19:30 (15:00 ~ 16:30 브레이크타임); 월(10/5) 11:00 ~ 19:30 (15:00 ~ 16:30 브레이크타임)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today shows 11:00–20:00 with a 15:00–16:30 break (last orders 14:30 and 19:30), Sat 3 Oct closed and Fri 2 Oct 11:00–15:00. Under the 14:0x ruling the owner-entered hours win; DiningCode's 20:00 close is recorded here."
     },
     "menus": {
       "value": [
@@ -44034,13 +48228,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (edited 2025-11-04), five items: '항아리칼국수 19000 ; 바지락칼국수 9000 ; 팥칼국수 10000 ; 새알팥죽 11000 ; 돌솥비빔밥 10000'."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives a 0502 relay number; HappyCow gives none. Not confirmed."
+      "value": "0502-5553-2948",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/9223810",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 9223810 ('영희네팥칼국수', 전북특별자치도 군산시 나운안길 8 1층 (나운동)) lists 0502-5553-2948 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0502) number on the owner-registered listing. DiningCode today gives 063-465-1122; the owner's own entry outranks it."
     },
     "officialUrl": {
       "value": null,
@@ -44519,13 +48713,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 11:00–18:40 on weekdays and 11:00–17:40 at weekends; HappyCow gives 'Mon-Sun 9:30am-7:30pm'. They disagree."
+      "value": {
+        "raw": "Tue–Fri 11:00–18:40; Sat–Sun 11:00–17:40; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "18:40"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "18:40"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "18:40"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "18:40"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "17:40"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "17:40"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/424485243",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 424485243 ('정성김밥', 전남광주통합특별시 목포시 영산로40번길 12-4 1층 (경동1가)) — listing not owner-registered — shows: \"화(9/29) 11:00 ~ 18:40; 수(9/30) 11:00 ~ 18:40; 목(10/1) 11:00 ~ 18:40; 금(10/2) 11:00 ~ 18:40; 토(10/3) 11:00 ~ 17:40; 일(10/4) 11:00 ~ 17:40; 월(10/5) 휴무일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees on Tue–Wed 11:00–18:40, Sun 11:00–17:40 and Monday closed; it shows shorter hours on Thu 1 – Sat 3 Oct, the holiday window (ruling 4). HappyCow (undated) is stale."
     },
     "menus": {
       "value": null,
@@ -44636,13 +48871,84 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 10:30–21:00; HappyCow gives 'Mon-Sun 10:30am-8:30pm'. They disagree."
+      "value": {
+        "raw": "Mon–Sat 10:30–21:00, break 15:00–17:00, last order 20:15; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/10722147",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 10722147 ('제일반점', 전남광주통합특별시 동구 구성로 174 (금남로5가)) — listing not owner-registered — shows: \"화(9/29) 10:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:15 라스트오더); 수(9/30) 10:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:15 라스트오더); 목(10/1) 10:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:15 라스트오더); 금(10/2) 10:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:15 라스트오더); 토(10/3) 10:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:15 라스트오더); 일(10/4) 휴무일; 월(10/5) 10:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임) (20:15 라스트오더)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (10:30–21:00, break 15:00–17:00, last order 20:15, Sunday closed). HappyCow (undated) is stale."
     },
     "menus": {
       "value": null,
@@ -44870,13 +49176,74 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (@hawaiianrecipe), read from the raw page text on 2026-09-29): '전주시 완산구 향교길 44'. Kakao Map panel3 (place.map.kakao.com/24325006): '전북특별자치도 전주시 완산구 향교길 44 1층'. They agree. Road and building number agree. The operator gives no floor; 1F is Kakao's."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 11:00–20:00 on weekdays and 11:00–16:00 on Saturday; HappyCow gives 'Mon-Tue 11:00am-6:00pm, Thu-Sat 11:00am-6:00pm'. They disagree."
+      "value": {
+        "raw": "Mon–Fri 11:00–20:00, break 15:30–17:00; Sat 11:00–16:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/24325006",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 24325006 ('하와이안레시피', 전북특별자치도 전주시 완산구 향교길 44 1층 (교동)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 월 11:00 ~ 20:00 (15:30 ~ 17:00 브레이크타임); 화 11:00 ~ 20:00 (15:30 ~ 17:00 브레이크타임); 수 11:00 ~ 20:00 (15:30 ~ 17:00 브레이크타임); 목 11:00 ~ 20:00 (15:30 ~ 17:00 브레이크타임); 금 11:00 ~ 20:00 (15:30 ~ 17:00 브레이크타임); 토 11:00 ~ 16:00 | 휴무일: 매주 일요일, 설전날, 설당일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (11:00–20:00, break 15:30–17:00; it adds a 19:30 last order and shows Fri–Sat 2–3 Oct closed). HappyCow (undated) is stale."
     },
     "menus": {
       "value": [
@@ -45021,13 +49388,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (edited 2025-10-26), eleven items, including sandwiches, a German-style brunch plate, soups and sourdough loaves (ingredients listed as flour, whole wheat, starter, salt, water)."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-50713600694; Kakao Map gives a 0503 relay number. They disagree."
+      "value": "0503-7150-5734",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1669120848",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1669120848 ('꼬베', 전북특별자치도 완주군 이서면 기지로 36 스타타워 111호 (이서면 갈산리)) lists 0503-7150-5734 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0503) number on the owner-registered listing. HappyCow gives a 0507 relay. Kakao's listing also says '재정비 후 9월 중 재오픈합니다!' (reopening in September after renovation)."
     },
     "officialUrl": {
       "value": null,
@@ -46562,13 +50929,39 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows Friday–Sunday 14:00–20:00; HappyCow gives Saturday–Sunday 12:00–19:00 and says reservations are required. They disagree."
+      "value": {
+        "raw": "Fri–Sun 14:00–20:00; closed Mondays, Tuesdays, Wednesdays and Thursdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [],
+          "thu": [],
+          "fri": [
+            {
+              "from": "14:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "14:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "14:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/213076361",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 213076361 ('나유타의 부엌', 부산 금정구 오륜대로 262 (오륜동)) — listing not owner-registered — shows: \"화(9/29) 휴무일; 수(9/30) 휴무일; 목(10/1) 휴무일; 금(10/2) 14:00 ~ 20:00; 토(10/3) 14:00 ~ 20:00; 일(10/4) 14:00 ~ 20:00; 월(10/5) 휴무일 | 매주 월요일, 화요일, 수요일, 목요일 휴무\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. No DiningCode listing found. HappyCow (undated) 'Saturday–Sunday 12:00–19:00, reservations required' is stale under the 14:0x ruling."
     },
     "menus": {
       "value": null,
@@ -46772,13 +51165,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows Thursday–Monday (closed Tuesday and Wednesday); HappyCow gives Monday and Wednesday–Sunday. The closed days disagree."
+      "value": {
+        "raw": "Mon–Tue, Thu–Fri 11:00–17:00; Sat–Sun 11:00–18:00; closed Wednesdays; the owner also lists one-off closures (e.g. 6 Oct, 20–23 Oct, 30 Oct 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "17:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "17:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "17:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "17:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1648645702",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1648645702 ('크샤나', 부산 기장군 일광읍 물방길 98 흰 건물 핑크색 대문 (일광읍 삼성리)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 월 11:00 ~ 17:00; 화 11:00 ~ 17:00; 목 11:00 ~ 17:00; 금 11:00 ~ 17:00; 토 11:00 ~ 18:00; 일 11:00 ~ 18:00 | 2026년 10월 5일: 월 11:00 ~ 18:00 | 2026년 10월 9일: 금 11:00 ~ 18:00 | 휴무일: 매주 수요일, 9/29(화), 10/6(화), 10/20(화) ~ 10/23(금), 10/30(금)\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. Kakao also lists dated closures (9/29, 10/6, 10/20–10/23, 10/30) and dated openings (Mon 5 Oct and Fri 9 Oct 11:00–18:00); these are not part of the regular week. DiningCode today shows varying times (10:00/09:30–18:00) on individual days; HappyCow (undated) is stale. The owner's regular block outranks them (14:0x ruling)."
     },
     "menus": {
       "value": null,
@@ -46928,13 +51362,13 @@ export const restaurants = [
       "evidence": "Kakao lists only an americano; the desserts change by season (HappyCow)."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-1088080643; Kakao Map gives 0502-5551-2503. They differ."
+      "value": "0502-5551-2503",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2038764037",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2038764037 ('오굳띵', 부산 부산진구 전포대로246번길 14 1층 (전포동)) lists 0502-5551-2503 (listing not owner-registered). Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0502) number; the listing is not owner-registered and no direct line is listed anywhere current. HappyCow (undated) gives 010-8808-0643."
     },
     "instagram": {
       "value": "https://instagram.com/ohh_goodthing",
@@ -47018,13 +51452,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows Thursday–Monday 12:00–18:30; HappyCow gives Wednesday–Sunday 12:00–18:30. The closed days disagree."
+      "value": {
+        "raw": "Mon, Thu–Sun 12:00–18:30; closed Tuesdays and Wednesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "tue": [],
+          "wed": [],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1237462821",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1237462821 ('뭉구점 비건베이커리', 부산 부산진구 서전로37번길 26 B동 1층 156호 (전포동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 휴무일; 수(9/30) 휴무일; 목(10/1) 12:00 ~ 18:30; 금(10/2) 12:00 ~ 18:30; 토(10/3) 12:00 ~ 18:30; 일(10/4) 12:00 ~ 18:30; 월(10/5) 12:00 ~ 18:30 | 매주 화요일, 수요일 휴무\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees on 12:00–18:30 (shows Fri 2 Oct and Mon 5 Oct closed). HappyCow (undated) 'Wednesday–Sunday' is stale."
     },
     "menus": {
       "value": null,
@@ -47126,13 +51596,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/rainbowcrust2023/, read 2026-09-29): '부산 서구 구덕로 124번길 13 1층'. Kakao Map place panel (1463068024): '부산 서구 구덕로124번길 13 1층 (토성동5가)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 08:30–20:00 Monday to Friday; HappyCow gives Mon–Fri 8:00am–8:00pm and Saturday 8:00am–5:00pm. Opening time and Saturday disagree."
+      "value": {
+        "raw": "Mon–Fri 08:30–20:00; Sat 08:30–17:00; closed Sundays; closed on public holidays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:30",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:30",
+              "to": "17:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1463068024",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1463068024 ('레인보우크러스트', 부산 서구 구덕로124번길 13 1층 (토성동5가)) — listing not owner-registered — shows: \"기본 영업시간: 월 08:30 ~ 20:00; 화 08:30 ~ 20:00; 수 08:30 ~ 20:00; 목 08:30 ~ 20:00; 금 08:30 ~ 20:00; 토 08:30 ~ 17:00 | 휴무일: 매주 일요일, 공휴일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. No DiningCode listing found. HappyCow (undated) is stale. Kakao also says public holidays are closed ('공휴일')."
     },
     "menus": {
       "value": null,
@@ -47293,13 +51804,13 @@ export const restaurants = [
       "evidence": "Only Kakao gives prices; HappyCow names rice, chestnut and chocolate breads and olive ciabatta, which only partly overlap."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-1047435428; Kakao Map gives 0502-5551-2039. They differ."
+      "value": "0502-5551-2039",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2004661517",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2004661517 ('쌀빵맨', 부산 동래구 사직북로63번길 55 1층 (사직동)) lists 0502-5551-2039 — owner-entered on its registered Kakao listing. Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. This is a Kakao relay (0502) number on the owner-registered listing. HappyCow (undated) gives 010-4743-5428; the owner's own entry outranks it."
     },
     "instagram": {
       "value": "https://www.instagram.com/ricebread_man",
@@ -47549,13 +52060,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 10:00–16:00 daily; HappyCow gives 9:30am–6:00pm daily. They disagree."
+      "value": {
+        "raw": "Daily 10:00–16:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "16:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/880483801",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 880483801 ('비비빔', 부산 사하구 옥천로 121 (감천동)) — listing not owner-registered — shows: \"화(9/29) 10:00 ~ 16:00; 수(9/30) 10:00 ~ 16:00; 목(10/1) 10:00 ~ 16:00; 금(10/2) 10:00 ~ 16:00; 토(10/3) 10:00 ~ 16:00; 일(10/4) 10:00 ~ 16:00; 월(10/5) 10:00 ~ 16:00\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. No DiningCode listing found. HappyCow (undated) '9:30am–6:00pm daily' is stale under the 14:0x ruling."
     },
     "menus": {
       "value": [
@@ -47816,13 +52373,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio (which also names the shop '강릉 휘게 비건 베이커리 카페'), https://www.instagram.com/cafe_hygge_gn/, read 2026-09-29): '병산동 성덕로123'. Kakao Map place panel (1128758184): '강원특별자치도 강릉시 성덕로 123 (병산동)'. Road name and building number agree. The bio gives no city; Kakao places 성덕로 123 in Gangneung, which the bio names as the shop's town."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows Tuesday–Sunday 10:30–20:00, closed Monday; HappyCow gives Mon–Sun 10:30am–9:00pm. They disagree."
+      "value": {
+        "raw": "Tue–Sun 10:30–20:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1128758184",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1128758184 ('카페휘게', 강원특별자치도 강릉시 성덕로 123 (병산동)) — owner-entered on its registered Kakao listing — shows: \"기본 영업시간: 화 10:30 ~ 20:00; 수 10:30 ~ 20:00; 목 10:30 ~ 20:00; 금 10:30 ~ 20:00; 토 10:30 ~ 20:00; 일 10:30 ~ 20:00 | 공휴일: 10:30 ~ 20:00 | 휴무일: 매주 월요일\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (10:30–20:00, Mon 5 Oct closed). HappyCow (undated) 'Mon–Sun 10:30am–9:00pm' is stale. Kakao's owner block gives public holidays 10:30–20:00."
     },
     "menus": {
       "value": null,
@@ -47918,13 +52516,60 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 07:30–15:40, closed Tuesday; HappyCow gives 8:00am–3:30pm, Monday and Wednesday–Sunday. The closed day agrees but the times do not."
+      "value": {
+        "raw": "Mon, Wed–Sun 07:30–15:40, last order 15:00; closed Tuesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "07:30",
+              "to": "15:40",
+              "lastOrder": "15:00"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "07:30",
+              "to": "15:40",
+              "lastOrder": "15:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "07:30",
+              "to": "15:40",
+              "lastOrder": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "07:30",
+              "to": "15:40",
+              "lastOrder": "15:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "07:30",
+              "to": "15:40",
+              "lastOrder": "15:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "07:30",
+              "to": "15:40",
+              "lastOrder": "15:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/15197397",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 15197397 ('그리운보리밥', 강원특별자치도 속초시 법대로 34 1-2층 (영랑동)) — owner-entered on its registered Kakao listing — shows: \"화(9/29) 휴무일; 수(9/30) 07:30 ~ 15:40 (15:00 라스트오더); 목(10/1) 07:30 ~ 15:40 (15:00 라스트오더); 금(10/2) 07:30 ~ 15:40 (15:00 라스트오더); 토(10/3) 07:30 ~ 15:40 (15:00 라스트오더); 일(10/4) 07:30 ~ 15:40 (15:00 라스트오더); 월(10/5) 07:30 ~ 15:40 (15:00 라스트오더) | 매주 화요일 휴무\". Read twice (first-pass reads, 29 Sep) and a third time live at 13:5x KST today; identical. DiningCode today agrees (07:30–15:40, last order 15:00, Tuesday closed). HappyCow (undated) is stale."
     },
     "menus": {
       "value": null,
@@ -48177,13 +52822,13 @@ export const restaurants = [
       "evidence": "HappyCow names no items; the operator menu is one source."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-50714298059; Kakao Map gives 0503-7153-7682. They differ."
+      "value": "0503-7153-7682",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/144908851",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 144908851 (owner-registered listing) lists 0503-7153-7682 — read twice, identical. This is a Kakao relay number; the listing gives no direct line. DiningCode shows its own 0507 relay (0507-1429-8059). Earlier evidence (outranked by the operator, ruling 1): HappyCow gives +82-50714298059; Kakao Map gives 0503-7153-7682. They differ."
     },
     "instagram": {
       "value": "https://www.instagram.com/use_of_yeah",
@@ -48399,13 +53044,39 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows Friday–Sunday 11:00–18:00; HappyCow gives Fri–Sun 1:00pm–6:00pm. The days agree but the opening time does not."
+      "value": {
+        "raw": "Fri–Sun 11:00–18:00; closed Mondays, Tuesdays, Wednesdays and Thursdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [],
+          "thu": [],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/366268462",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 366268462 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 휴무일; 수(9/30) 휴무일; 목(10/1) 휴무일; 금(10/2) 11:00 ~ 18:00; 토(10/3) 11:00 ~ 18:00; 일(10/4) 11:00 ~ 18:00; 월(10/5) 휴무일 | 매주 월요일, 화요일, 수요일, 목요일 휴무' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid YJkzVMAxSHgN, read twice, identical) regular hours ['월,금,토/일 11:00-18:00']; dated view: 9월 30일(수) 휴무일; 10월 1일(목) 휴무일; 10월 2일(금) 영업시간: 11:00 - 18:00; 10월 3일(토) 휴무일; 10월 4일(일) 영업시간: 11:00 - 18:00. Earlier evidence (stale HappyCow or none): Kakao Map shows Friday–Sunday 11:00–18:00; HappyCow gives Fri–Sun 1:00pm–6:00pm. The days agree but the opening time does not."
     },
     "menus": {
       "value": [
@@ -48514,13 +53185,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/jeju_chom_omegi/, read 2026-09-29): '제주시 공설로 43'. Kakao Map place panel (26429630): '제주특별자치도 제주시 공설로 43 1층 (오라일동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 08:00–19:00 (Saturday from 07:00); HappyCow gives Monday 7:00am–9:00pm and Tuesday–Sunday 7:00am–7:00pm. They disagree."
+      "value": {
+        "raw": "Daily 08:00–19:00; public holidays 07:00–19:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/26429630",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 26429630 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 매일 08:00 ~ 19:00 | 공휴일: 07:00 ~ 19:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid WSvBpMdFbE0e, read twice, identical) regular hours ['매일 08:00-19:00']; dated view: 9월 30일(수) 영업시간: 08:00 - 19:00; 10월 1일(목) 영업시간: 08:00 - 19:00; 10월 2일(금) 영업시간: 08:00 - 19:00; 10월 3일(토) 영업시간: 08:00 - 19:00; 10월 4일(일) 영업시간: 08:00 - 19:00. Earlier evidence (stale HappyCow or none): Kakao Map shows 08:00–19:00 (Saturday from 07:00); HappyCow gives Monday 7:00am–9:00pm and Tuesday–Sunday 7:00am–7:00pm. They disagree."
     },
     "menus": {
       "value": [
@@ -48633,13 +53350,69 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/jeju_mellow/, read 2026-09-29): '서귀포시 호근동 막동산로 8-3'. Kakao Map place panel (1574635533): '제주특별자치도 서귀포시 막동산로 8-3 1층 (호근동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:00–20:00 on Monday and Thursday to Sunday; HappyCow gives the same days but 11:00–14:00 and 17:00–20:00. The days agree; the break does not."
+      "value": {
+        "raw": "Mon, Thu–Sun 11:00–20:00, break 15:00–17:00; closed Tuesdays and Wednesdays; lunch last order 14:00, dinner last order 19:00; may close early when ingredients run out",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [],
+          "wed": [],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1574635533",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1574635533 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 휴무일; 수(9/30) 휴무일; 목(10/1) 11:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 일(10/4) 11:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 월(10/5) 11:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임 | 매주 화요일, 수요일 휴무' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid k0qMnUkveF6K, read twice, identical) regular hours ['월,목,금,토/일 11:00-20:00']; dated view: 9월 30일(수) 휴무일; 10월 1일(목) 영업시간: 11:00 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:00; 10월 2일(금) 영업시간: 11:00 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:00; 10월 3일(토) 영업시간: 11:00 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:00; 10월 4일(일) 영업시간: 11:00 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:00; 10월 5일(월) 영업시간: 11:00 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:00. Earlier evidence (stale HappyCow or none): Kakao Map shows 11:00–20:00 on Monday and Thursday to Sunday; HappyCow gives the same days but 11:00–14:00 and 17:00–20:00. The days agree; the break does not."
     },
     "menus": {
       "value": null,
@@ -48651,13 +53424,13 @@ export const restaurants = [
       "evidence": "Kakao lists one set; HappyCow names mushroom bibimbap, brown-rice noodles, rice-cake soup and lotus-leaf rice. Only the lotus-leaf rice is in both."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-1027040728; Kakao Map gives 0502-5552-9239. They differ."
+      "value": "0502-5552-9239",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1574635533",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1574635533 (owner-registered listing) lists 0502-5552-9239 — read twice, identical. This is a Kakao relay number; the listing gives no direct line. DiningCode shows its own 0507 relay (0507-1337-0728). Earlier evidence (outranked by the operator, ruling 1): HappyCow gives +82-1027040728; Kakao Map gives 0502-5552-9239. They differ."
     },
     "instagram": {
       "value": "https://www.instagram.com/jeju_mellow/",
@@ -48807,13 +53580,13 @@ export const restaurants = [
       "evidence": "HappyCow names red-bean soup, noodles in red-bean gruel and pumpkin congee; the same dishes are on Kakao Map's operator menu (edited 2025-09-20). Prices are Kakao's."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-647873479; Kakao Map gives 0503-7151-3177. They differ."
+      "value": "0503-7151-3177",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/12653693",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 12653693 (owner-registered listing) lists 0503-7151-3177 — read twice, identical. This is a Kakao relay number; the listing gives no direct line. DiningCode shows its own 0507 relay (0507-1358-3479). Earlier evidence (outranked by the operator, ruling 1): HappyCow gives +82-647873479; Kakao Map gives 0503-7151-3177. They differ."
     },
     "transit": {
       "value": null,
@@ -48960,13 +53733,13 @@ export const restaurants = [
       "evidence": "HappyCow names bibimbap, tofu and mushroom fries with sweet-and-sour sauce and acorn-jelly salad; Kakao Map's operator menu (edited 2025-04-25) has the same dishes. Prices are Kakao's."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-50713802415; Kakao Map gives 0502-5550-5727 and 010-3993-2415. They differ."
+      "value": "010-3993-2415",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1652310236",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1652310236 (owner-registered listing) lists 0502-5550-5727, 010-3993-2415 — read twice, identical. The owner's listing gives a 0502 relay (0502-5550-5727) and the direct line 010-3993-2415; the direct line is used. No DiningCode listing at 연신로 39. Earlier evidence (outranked by the operator, ruling 1): HappyCow gives +82-50713802415; Kakao Map gives 0502-5550-5727 and 010-3993-2415. They differ."
     },
     "transit": {
       "value": null,
@@ -49035,13 +53808,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:40–15:00, closed Sunday; HappyCow gives Mon–Sat 11:30am–3:00pm. The opening time differs."
+      "value": {
+        "raw": "Mon–Fri 11:40–15:00; closed Saturdays and Sundays; last order 14:30; closed on public holidays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:40",
+              "to": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:40",
+              "to": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:40",
+              "to": "15:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:40",
+              "to": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:40",
+              "to": "15:00"
+            }
+          ],
+          "sat": [],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/10398560",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 10398560 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 월 11:40 ~ 15:00; 화 11:40 ~ 15:00; 수 11:40 ~ 15:00; 목 11:40 ~ 15:00; 금 11:40 ~ 15:00 | 휴무: 매주 토요일, 일요일, 공휴일 | 라스트 오더 14:30분 입니다 주말, 공휴일 휴무입니다' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid mkFgFCyKNS21, read twice, identical) regular hours ['월,화,수,금,토 11:30-15:00']; dated view: 9월 30일(수) 영업시간: 11:30 - 15:00 / 라스트오더: 14:30; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일. Earlier evidence (stale HappyCow or none): Kakao Map shows 11:40–15:00, closed Sunday; HappyCow gives Mon–Sat 11:30am–3:00pm. The opening time differs."
     },
     "menus": {
       "value": null,
@@ -49128,13 +53937,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows Wednesday–Sunday 12:00–19:00; HappyCow gives Wed–Sun 12:00pm–6:00pm. The days agree but the closing time does not."
+      "value": {
+        "raw": "Wed–Sun 12:00–19:00; closed Mondays and Tuesdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1204467536",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1204467536 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 휴무일; 수(9/30) 12:00 ~ 19:00; 목(10/1) 12:00 ~ 19:00; 금(10/2) 12:00 ~ 19:00; 토(10/3) 12:00 ~ 19:00; 일(10/4) 12:00 ~ 19:00; 월(10/5) 휴무일 | 매주 월요일, 화요일 휴무' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid iGDxeNK4hsWu, read twice, identical) regular hours ['월-수 12:00-19:00']; dated view: 9월 30일(수) 영업시간: 12:00 - 19:00 / 라스트오더: 18:30; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일. Earlier evidence (stale HappyCow or none): Kakao Map shows Wednesday–Sunday 12:00–19:00; HappyCow gives Wed–Sun 12:00pm–6:00pm. The days agree but the closing time does not."
     },
     "menus": {
       "value": [
@@ -49163,13 +54008,13 @@ export const restaurants = [
       "evidence": "Kakao Map's operator menu (edited 2025-03-03) labels these '(채식)'; HappyCow names eggplant with rice, stir-fried bracken with perilla-seed soup and curry rice as its vegan choices."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-1041449760; Kakao Map gives 0503-7151-1835. They differ."
+      "value": "0503-7151-1835",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1204467536",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1204467536 (owner-registered listing) lists 0503-7151-1835 — read twice, identical. This is a Kakao relay number and the only one on the owner's listing. DiningCode gives 010-4144-9760; the owner's entry wins (ruling 1). Earlier evidence (outranked by the operator, ruling 1): HappyCow gives +82-1041449760; Kakao Map gives 0503-7151-1835. They differ."
     },
     "instagram": {
       "value": "http://instagram.com/bobttae",
@@ -49247,13 +54092,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows Tuesday–Sunday (closed Monday); HappyCow gives Mon–Sat 10:00am–9:00pm. The closed day disagrees."
+      "value": {
+        "raw": "Tue–Sat 10:00–21:00; Sun 10:00–20:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/27552336",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27552336 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 10:00 ~ 21:00; 수(9/30) 10:00 ~ 21:00; 목(10/1) 10:00 ~ 21:00; 금(10/2) 10:00 ~ 21:00; 토(10/3) 10:00 ~ 21:00; 일(10/4) 10:00 ~ 20:00; 월(10/5) 휴무일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid ZJ9OY6dFnNIH, read twice, identical) regular hours ['화,수,목,금,토/일 10:00-20:30']; dated view: 9월 30일(수) 영업시간: 10:00 - 20:30 / 라스트오더: 19:30; 10월 1일(목) 영업시간: 10:00 - 20:30 / 라스트오더: 19:30; 10월 2일(금) 영업시간: 10:00 - 20:30 / 라스트오더: 19:30; 10월 3일(토) 영업시간: 10:00 - 20:30 / 라스트오더: 19:30; 10월 4일(일) 영업시간: 10:00 - 20:30 / 라스트오더: 19:30. Earlier evidence (stale HappyCow or none): Kakao Map shows Tuesday–Sunday (closed Monday); HappyCow gives Mon–Sat 10:00am–9:00pm. The closed day disagrees."
     },
     "menus": {
       "value": [
@@ -49278,13 +54164,13 @@ export const restaurants = [
       "evidence": "HappyCow names buckwheat & perilla kalguksu, buckwheat & perilla sujebi and buckwheat bingtteok as vegan; Kakao Map's operator menu (edited 2025-06-29) has the same three. Prices are Kakao's."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives +82-50713468580; Kakao Map gives 064-796-8580. They differ."
+      "value": "064-796-8580",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/27552336",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27552336 (owner-registered listing) lists 064-796-8580 — read twice, identical. DiningCode shows a 0507 relay (0507-1346-8580), not a different line (ruling 3). Earlier evidence (outranked by the operator, ruling 1): HappyCow gives +82-50713468580; Kakao Map gives 064-796-8580. They differ."
     },
     "transit": {
       "value": null,
@@ -49360,13 +54246,47 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/babpulkkot/, read 2026-09-29): '은평구 연서로15길 8 1F'. Kakao Map place panel (62621048): '서울 은평구 연서로15길 8 1층 (구산동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 11:30am-2:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:30–14:30; Kakao gives no Saturday or Sunday hours",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "14:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/62621048",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 62621048 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 11:30 ~ 14:30; 수(9/30) 11:30 ~ 14:30; 목(10/1) 11:30 ~ 14:30; 금(10/2) 11:30 ~ 14:30; 월(10/5) 11:30 ~ 14:30' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid evqCQD50CE5z, read twice, identical) regular hours ['월-금,토 11:30-14:30']; dated view: 9월 30일(수) 영업시간: 11:30 - 14:30 / 라스트오더: 14:00; 10월 1일(목) 영업시간: 11:30 - 14:30 / 라스트오더: 14:00; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일; 10월 5일(월) 영업시간: 11:30 - 14:30 / 라스트오더: 14:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 11:30am-2:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -49860,13 +54780,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 10:00am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:00–20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/7885551",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 7885551 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 매일 11:00 ~ 20:30 | 공휴일: 11:00 ~ 20:30' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid InVGSIiAc3kY, read twice, identical) regular hours ['매일 11:00-21:00']; dated view: 9월 30일(수) 영업시간: 11:00 - 21:00; 10월 1일(목) 영업시간: 11:00 - 21:00; 10월 2일(금) 영업시간: 11:00 - 21:00; 10월 3일(토) 영업시간: 11:00 - 21:00; 10월 4일(일) 영업시간: 11:00 - 21:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 10:00am-10:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -49891,13 +54857,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2026-04-03). Only dishes covered by the vegan evidence are listed; the full menu also has non-vegan dishes."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-523-2860; HappyCow gives +82-2-523-0280. The sources disagree."
+      "value": "02-523-2860",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/7885551",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 7885551 (owner-registered listing) lists 02-523-2860 — read twice, identical. DiningCode gives the same number. Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 02-523-2860; HappyCow gives +82-2-523-0280. The sources disagree."
     },
     "officialUrl": {
       "value": null,
@@ -49990,13 +54956,62 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon 11:30am-3:30pm, Wed-Fri 11:30am-9:00pm, Sat-Sun 12:00pm-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon 11:30–15:30; Wed–Fri 11:30–20:30; Sat, Sun 12:00–20:30, break 15:30–16:30; closed Tuesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:30"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/465632381",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 465632381 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 휴무일; 수(9/30) 11:30 ~ 20:30; 목(10/1) 11:30 ~ 20:30; 금(10/2) 11:30 ~ 20:30; 토(10/3) 12:00 ~ 20:30, 15:30 ~ 16:30 브레이크타임; 일(10/4) 12:00 ~ 20:30, 15:30 ~ 16:30 브레이크타임; 월(10/5) 11:30 ~ 15:30 | 매주 화요일 휴무' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid sz8xl8o5wPoF, read twice, identical) regular hours ['수-금 11:30-20:30', '월,토/일 12:00-20:30']; dated view: 9월 30일(수) 영업시간: 11:30 - 20:30 / 라스트오더: 20:00; 10월 1일(목) 영업시간: 11:30 - 20:30 / 라스트오더: 20:00; 10월 2일(금) 영업시간: 11:30 - 20:30 / 라스트오더: 20:00; 10월 3일(토) 영업시간: 12:00 - 20:30 / 브레이크타임: 15:30 - 16:30; 10월 4일(일) 영업시간: 12:00 - 20:30 / 브레이크타임: 15:30 - 16:30 / 라스트오더: 20:00; 10월 5일(월) 영업시간: 12:00 - 20:30 / 브레이크타임: 15:30 - 16:30. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon 11:30am-3:30pm, Wed-Fri 11:30am-9:00pm, Sat-Sun 12:00pm-9:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -50477,13 +55492,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 10:00am-10:00pm, Sun 10:00am-2:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri, Sun 10:00–15:00; closed Saturdays; last order 1 hour before closing; closed on public holidays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "15:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "15:00"
+            }
+          ],
+          "sat": [],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "15:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1520361961",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1520361961 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 월 10:00 ~ 15:00; 화 10:00 ~ 15:00; 수 10:00 ~ 15:00; 목 10:00 ~ 15:00; 금 10:00 ~ 15:00; 일 10:00 ~ 15:00 | 휴무: 매주 토요일, 26/10/5 개천절 대체공휴일, 공휴일 | Last Order : 마감 1시간 전' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid Rv3SuTtrf6nW, read twice, identical) regular hours ['매일 10:00-15:00']; dated view: 9월 30일(수) 영업시간: 10:00 - 15:00 / 라스트오더: 14:20; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 영업시간: 10:00 - 15:00 / 라스트오더: 14:20; 10월 5일(월) 영업시간: 10:00 - 15:00 / 라스트오더: 14:20. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 10:00am-10:00pm, Sun 10:00am-2:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -50603,13 +55659,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 10:30am-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon 10:30–14:30; Wed–Fri 10:30–20:30, break 14:30–17:00; Sat, Sun 10:30–20:30; closed Tuesdays; closed the day before, day of and day after Chuseok",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "14:30"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "14:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1169980233",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1169980233 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 월 10:30 ~ 14:30; 수 10:30 ~ 20:30, 14:30 ~ 17:00 브레이크타임; 목 10:30 ~ 20:30, 14:30 ~ 17:00 브레이크타임; 금 10:30 ~ 20:30, 14:30 ~ 17:00 브레이크타임; 토 10:30 ~ 20:30; 일 10:30 ~ 20:30 | 휴무: 매주 화요일, 추석전날, 추석당일, 추석다음날' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid LSXwhMzZhWNG, read twice, identical) regular hours ['수-금,토/일 10:30-20:30', '월 10:30-14:30']; dated view: 9월 30일(수) 영업시간: 10:30 - 20:30; 10월 1일(목) 영업시간: 10:30 - 20:30; 10월 2일(금) 영업시간: 10:30 - 20:30; 10월 3일(토) 영업시간: 10:30 - 20:30; 10월 4일(일) 영업시간: 10:30 - 20:30. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Sun 10:30am-9:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -50634,13 +55743,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2026-02-13). Only dishes covered by the vegan evidence are listed; the full menu also has non-vegan dishes."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-790-6714; HappyCow gives +82-507-1420-6714. The sources disagree."
+      "value": "02-790-6714",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1169980233",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1169980233 (owner-registered listing) lists 02-790-6714 — read twice, identical. DiningCode shows a 0507 relay (0507-1420-6714), not a different line (ruling 3). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 02-790-6714; HappyCow gives +82-507-1420-6714. The sources disagree."
     },
     "officialUrl": {
       "value": null,
@@ -50733,13 +55842,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sat 11:00am-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:00–20:40, break 15:00–16:30; Sat 11:00–19:40, break 15:00–16:30; closed Sundays; orders close 20:00 on weekdays and 19:00 on Saturday; closed around New Year, Seollal and Chuseok",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:40"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:40"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:40"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:40"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:40"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "19:40"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/22710501",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 22710501 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 월 11:00 ~ 20:40, 15:00 ~ 16:30 브레이크타임; 화 11:00 ~ 20:40, 15:00 ~ 16:30 브레이크타임; 수 11:00 ~ 20:40, 15:00 ~ 16:30 브레이크타임; 목 11:00 ~ 20:40, 15:00 ~ 16:30 브레이크타임; 금 11:00 ~ 20:40, 15:00 ~ 16:30 브레이크타임; 토 11:00 ~ 19:40, 15:00 ~ 16:30 브레이크타임 | 휴무: 매주 일요일, 1월1일, 설전날, 설당일, 설다음날, 추석전날, 추석당일, 추석다음날 | 평일 저녁 8시, 주말 저녁 7시 주문마감입니다.' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid Oe2P82gLlBvF, read twice, identical) regular hours ['월-금 11:00-20:40', '토 11:00-19:40']; dated view: 9월 30일(수) 영업시간: 11:00 - 20:40 / 브레이크타임: 15:00 - 16:30 / 라스트오더: 20:00; 10월 1일(목) 영업시간: 11:00 - 20:40 / 브레이크타임: 15:00 - 16:30 / 라스트오더: 20:00; 10월 2일(금) 영업시간: 11:00 - 20:40 / 브레이크타임: 15:00 - 16:30 / 라스트오더: 20:00; 10월 3일(토) 영업시간: 11:00 - 19:40 / 브레이크타임: 15:00 - 16:30 / 라스트오더: 19:00; 10월 4일(일) 휴무일; 10월 5일(월) 영업시간: 11:00 - 20:40 / 브레이크타임: 15:00 - 16:30 / 라스트오더: 20:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Sat 11:00am-9:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -50863,13 +56037,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 11:00am-3:00pm, 5:00pm-9:00pm, Sat-Sun 11:00am-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:30–20:30, break 15:00–17:00, last order 20:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30",
+              "lastOrder": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/26510896",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 26510896 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 11:30 ~ 20:30, 15:00 ~ 17:00 브레이크타임, 20:00 라스트오더; 수(9/30) 11:30 ~ 20:30, 15:00 ~ 17:00 브레이크타임, 20:00 라스트오더; 목(10/1) 11:30 ~ 20:30, 15:00 ~ 17:00 브레이크타임, 20:00 라스트오더; 금(10/2) 11:30 ~ 20:30, 15:00 ~ 17:00 브레이크타임, 20:00 라스트오더; 토(10/3) 11:30 ~ 20:30, 15:00 ~ 17:00 브레이크타임, 20:00 라스트오더; 일(10/4) 11:30 ~ 20:30, 15:00 ~ 17:00 브레이크타임, 20:00 라스트오더; 월(10/5) 11:30 ~ 20:30, 15:00 ~ 17:00 브레이크타임, 20:00 라스트오더' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid mMyeOMLzOOAK, read twice, identical) regular hours ['매일 11:30-20:30']; dated view: 9월 30일(수) 영업시간: 11:30 - 20:30 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 20:00; 10월 1일(목) 영업시간: 11:30 - 20:30 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 20:00; 10월 2일(금) 영업시간: 11:30 - 20:30 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 20:00; 10월 3일(토) 영업시간: 11:30 - 20:30 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 20:00; 10월 4일(일) 영업시간: 11:30 - 20:30 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 20:00; 10월 5일(월) 영업시간: 11:30 - 20:30 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 20:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 11:00am-3:00pm, 5:00pm-9:00pm, Sat-Sun 11:00am-9:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -50985,13 +56240,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-7:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 09:00–20:00, last order 19:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26792341",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 26792341 opening hours: '화(9/29) 09:00 ~ 20:00, 19:30 라스트오더; 수(9/30) 09:00 ~ 20:00, 19:30 라스트오더; 목(10/1) 09:00 ~ 20:00, 19:30 라스트오더; 금(10/2) 09:00 ~ 20:00, 19:30 라스트오더; 토(10/3) 09:00 ~ 20:00, 19:30 라스트오더; 일(10/4) 09:00 ~ 20:00, 19:30 라스트오더; 월(10/5) 09:00 ~ 20:00, 19:30 라스트오더 | 연중무휴' — read twice, identical. DiningCode agrees. DiningCode (rid N6giSMdiyvY3, read twice, identical) regular hours ['매일 09:00-20:00']; dated view: 9월 30일(수) 영업시간: 09:00 - 20:00 / 라스트오더: 19:30; 10월 1일(목) 영업시간: 09:00 - 20:00 / 라스트오더: 19:30; 10월 2일(금) 영업시간: 09:00 - 20:00 / 라스트오더: 19:30; 10월 3일(토) 영업시간: 09:00 - 20:00 / 라스트오더: 19:30; 10월 4일(일) 영업시간: 09:00 - 20:00 / 라스트오더: 19:30; 10월 5일(월) 영업시간: 09:00 - 20:00 / 라스트오더: 19:30. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sun 11:00am-7:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": null,
@@ -51273,13 +56581,53 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 10:30am-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Sat 11:00–21:00; Kakao gives no Sunday hours",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/516623109",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 516623109 opening hours: '화(9/29) 11:00 ~ 21:00; 수(9/30) 11:00 ~ 21:00; 목(10/1) 11:00 ~ 21:00; 금(10/2) 11:00 ~ 21:00; 토(10/3) 11:00 ~ 21:00; 월(10/5) 11:00 ~ 21:00' — read twice, identical. Kakao gives no Sunday hours, so Sunday is left out (DiningCode marks Sun 10/4 closed). Mon–Sat agree with DiningCode. DiningCode (rid 57xXEaG95IQB, read twice, identical) regular hours ['월-금,토 11:00-21:00']; dated view: 9월 30일(수) 영업시간: 11:00 - 21:00; 10월 1일(목) 영업시간: 11:00 - 21:00; 10월 2일(금) 영업시간: 11:00 - 21:00; 10월 3일(토) 영업시간: 11:00 - 21:00; 10월 4일(일) 휴무일. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sun 10:30am-9:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -51589,13 +56937,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2026-07-09). Only dishes covered by the vegan evidence are listed; the full menu also has non-vegan dishes."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-2264-5057; HappyCow gives +82-2-2268-3344. The sources disagree."
+      "value": "02-2264-5057",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/18755777",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 18755777 lists 02-2264-5057 — read twice, identical. DiningCode gives the same number. Earlier evidence (stale HappyCow, ruling 2): Kakao Map gives 02-2264-5057; HappyCow gives +82-2-2268-3344. The sources disagree."
     },
     "officialUrl": {
       "value": null,
@@ -51688,13 +57036,87 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 11:30am-3:00pm, 5:00pm-10:00pm, Sat-Sun 11:30am-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:10–22:00, break 15:00–17:00; Sat, Sun 11:10–22:00, break 15:00–15:10",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:10",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:10",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:10",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:10",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:10",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:10",
+              "to": "15:00"
+            },
+            {
+              "from": "15:10",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:10",
+              "to": "15:00"
+            },
+            {
+              "from": "15:10",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/13057594",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 13057594 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 월 11:10 ~ 22:00, 15:00 ~ 17:00 브레이크타임; 화 11:10 ~ 22:00, 15:00 ~ 17:00 브레이크타임; 수 11:10 ~ 22:00, 15:00 ~ 17:00 브레이크타임; 목 11:10 ~ 22:00, 15:00 ~ 17:00 브레이크타임; 금 11:10 ~ 22:00, 15:00 ~ 17:00 브레이크타임; 토 11:10 ~ 22:00, 15:00 ~ 15:10 브레이크타임; 일 11:10 ~ 22:00, 15:00 ~ 15:10 브레이크타임 | 공휴일: 11:10 ~ 22:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid XgZC0Qt5UVRY, read twice, identical) regular hours ['토/일 11:00-21:00', '월-금 11:00-22:00']; dated view: 9월 30일(수) 영업시간: 11:00 - 22:00 / 브레이크타임: 15:00 - 17:00; 10월 1일(목) 영업시간: 11:00 - 22:00 / 브레이크타임: 15:00 - 17:00; 10월 2일(금) 영업시간: 11:00 - 22:00 / 브레이크타임: 15:00 - 17:00; 10월 3일(토) 영업시간: 11:00 - 21:00; 10월 4일(일) 영업시간: 11:00 - 21:00; 10월 5일(월) 영업시간: 11:00 - 22:00 / 브레이크타임: 15:00 - 17:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 11:30am-3:00pm, 5:00pm-10:00pm, Sat-Sun 11:30am-9:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": null,
@@ -52065,13 +57487,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 2:00pm-10:00pm, Sat 11:30am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Tue–Fri 12:30–21:00; Sat 12:30–20:00; closed Mondays and Sundays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "12:30",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:30",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:30",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:30",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:30",
+              "to": "20:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1790001043",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1790001043 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 12:30 ~ 21:00; 수(9/30) 12:30 ~ 21:00; 목(10/1) 12:30 ~ 21:00; 금(10/2) 12:30 ~ 21:00; 토(10/3) 12:30 ~ 20:00; 일(10/4) 휴무일; 월(10/5) 휴무일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid 6jRqK6Rd1uqL, read twice, identical) regular hours ['화,수,목,금 12:30-21:00', '토 12:30-20:00']; dated view: 9월 30일(수) 영업시간: 12:30 - 21:00 / 라스트오더: 20:30; 10월 1일(목) 영업시간: 12:30 - 21:00 / 라스트오더: 20:30; 10월 2일(금) 영업시간: 12:30 - 21:00 / 라스트오더: 20:30; 10월 3일(토) 영업시간: 12:30 - 20:00 / 라스트오더: 19:30; 10월 4일(일) 휴무일. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 2:00pm-10:00pm, Sat 11:30am-10:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -52195,13 +57653,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/cafe_yeorm/, read 2026-09-29): '서대문구 가재울로 6길 53-3'. Kakao Map place panel (1386841418): '서울 서대문구 가재울로6길 53-3 1층 (남가좌동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Wed 1:00pm-7:00pm, Sat 1:00pm-7:00pm, Sun 12:00pm-6:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Thu 12:00–19:00; Sat, Sun 12:00–18:00; closed Fridays; public holidays 12:00–18:00; closed on New Year's Day, Seollal, Labour Day and Chuseok day",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1386841418",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1386841418 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 월 12:00 ~ 19:00; 화 12:00 ~ 19:00; 수 12:00 ~ 19:00; 목 12:00 ~ 19:00; 토 12:00 ~ 18:00; 일 12:00 ~ 18:00 | 공휴일: 12:00 ~ 18:00 | 휴무: 매주 금요일, 1월1일, 설당일, 노동절, 추석당일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid y65G3AMBq2Hw, read twice, identical) regular hours ['월-수 12:00-19:00', '목,금,토/일 12:00-18:00']; dated view: 9월 30일(수) 영업시간: 12:00 - 19:00 / 라스트오더: 18:30; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 영업시간: 12:00 - 18:00 / 라스트오더: 17:30; 10월 5일(월) 영업시간: 12:00 - 19:00 / 라스트오더: 18:30. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Wed 1:00pm-7:00pm, Sat 1:00pm-7:00pm, Sun 12:00pm-6:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -52321,13 +57820,48 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Tue-Fri 12:00pm-6:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 12:00–18:00; closed Sundays; hours for Saturday not confirmed",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1681071011",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1681071011 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 12:00 ~ 18:00; 수(9/30) 12:00 ~ 18:00; 목(10/1) 12:00 ~ 18:00; 금(10/2) 12:00 ~ 18:00; 토(10/3) 휴무일; 일(10/4) 휴무일; 월(10/5) 12:00 ~ 18:00' — read twice, identical. Kakao's week view marks Sat 10/3 (a public holiday) 휴무일 with no weekly rule, and DiningCode's regular hours include Saturday, so Saturday is left out. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid knZcgv42SvAS, read twice, identical) regular hours ['월-금,토 12:00-18:00']; dated view: 9월 30일(수) 영업시간: 12:00 - 18:00 / 라스트오더: 17:30; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일; 10월 5일(월) 영업시간: 12:00 - 18:00 / 라스트오더: 17:30. Earlier evidence (stale HappyCow or none): HappyCow gives 'Tue-Fri 12:00pm-6:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -52447,13 +57981,39 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/jigu_bakery/, read 2026-09-29): '마포구 성미산로29길 30-3 1층'. Kakao Map place panel (820833808): '서울 마포구 성미산로29길 30-3 1층 3호 (연남동)'. Road name and building number agree, and so does the floor/unit where both give one. Both give 1층; only Kakao adds the unit (3호)."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Thu-Sat 12:00pm-8:00pm, Sun 12:00pm-7:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Fri–Sun 12:00–19:00; closed Mondays, Tuesdays, Wednesdays and Thursdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [],
+          "thu": [],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/820833808",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 820833808 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 휴무일; 수(9/30) 휴무일; 목(10/1) 휴무일; 금(10/2) 12:00 ~ 19:00; 토(10/3) 12:00 ~ 19:00; 일(10/4) 12:00 ~ 19:00; 월(10/5) 휴무일 | 매주 월요일, 화요일, 수요일, 목요일 휴무' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid IHSOVC4biDyp, read twice, identical) regular hours ['금,토/일 12:00-19:00']; dated view: 9월 30일(수) 휴무일; 10월 1일(목) 휴무일; 10월 2일(금) 영업시간: 12:00 - 19:00; 10월 3일(토) 영업시간: 12:00 - 19:00; 10월 4일(일) 영업시간: 12:00 - 19:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Thu-Sat 12:00pm-8:00pm, Sun 12:00pm-7:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -52649,13 +58209,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2026-06-22). A selection; the whole menu is vegan per the sources in the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0502-5550-9803; HappyCow gives no number. One source only."
+      "value": "0502-5550-9803",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2129285181",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2129285181 (owner-registered listing) lists 0502-5550-9803 — read twice, identical. This is a Kakao relay number and the only one on the owner's listing. DiningCode gives 010-5610-7109; the owner's entry wins (ruling 1). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 0502-5550-9803; HappyCow gives no number. One source only."
     },
     "officialUrl": {
       "value": null,
@@ -52743,13 +58303,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Tue–Sun 12:00–21:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21460483",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 21460483 opening hours: '화(9/29) 12:00 ~ 21:00; 수(9/30) 12:00 ~ 21:00; 목(10/1) 12:00 ~ 21:00; 금(10/2) 12:00 ~ 21:00; 토(10/3) 12:00 ~ 21:00; 일(10/4) 12:00 ~ 21:00; 월(10/5) 휴무일' — read twice, identical. DiningCode agrees (12:00–21:00, Monday not open); its Thu 10/1 closure is a Chuseok-period date (ruling 4). DiningCode (rid owuAG4Mb0Bur, read twice, identical) regular hours ['화,수,목,금,토/일 12:00-21:00']; dated view: 9월 30일(수) 영업시간: 12:00 - 21:00 / 라스트오더: 19:00; 10월 1일(목) 휴무일; 10월 2일(금) 영업시간: 12:00 - 21:00 / 라스트오더: 19:00; 10월 3일(토) 영업시간: 12:00 - 21:00 / 라스트오더: 19:00; 10월 4일(일) 영업시간: 12:00 - 21:00 / 라스트오더: 19:00. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -52786,13 +58387,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu, items edited 2025-11-13 and 2026-07-13. These six items are the whole menu shown."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 054-774-5378 and HappyCow gives +82-547745376. The sources differ by one digit, so the phone is left unknown."
+      "value": "054-774-5378",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21460483",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 21460483 lists 054-774-5378 — read twice, identical. DiningCode gives the same number. Earlier evidence (stale HappyCow, ruling 2): Kakao Map gives 054-774-5378 and HappyCow gives +82-547745376. The sources differ by one digit, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -52984,13 +58585,13 @@ export const restaurants = [
       "evidence": "Kakao Map operator menu on an owner-registered listing, edited 2026-07-21. It also lists pollack, seafood pancake and pork cutlet dishes. The menu does not say which dishes are vegan."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 054-777-7896 and 010-3828-6860; HappyCow gives +82-1066856860. The sources disagree, so the phone is left unknown."
+      "value": "054-777-7896",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/81792570",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 81792570 (owner-registered listing) lists 054-777-7896, 010-3828-6860 — read twice, identical. The owner's listing gives 054-777-7896 and 010-3828-6860; the landline is used. DiningCode gives 010-4512-5700; the owner's entry wins (ruling 1). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 054-777-7896 and 010-3828-6860; HappyCow gives +82-1066856860. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -53841,13 +59442,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Tue–Sat 12:00–19:00; closed Mondays and Sundays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1319521237",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1319521237 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 12:00 ~ 19:00; 수(9/30) 12:00 ~ 19:00; 목(10/1) 12:00 ~ 19:00; 금(10/2) 12:00 ~ 19:00; 토(10/3) 12:00 ~ 19:00; 일(10/4) 휴무일; 월(10/5) 휴무일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid tXsHSVpg19G6, read twice, identical) regular hours ['화,수,목,금,토 12:00-19:00']; dated view: 9월 30일(수) 영업시간: 12:00 - 19:00; 10월 1일(목) 휴무일; 10월 2일(금) 영업시간: 12:00 - 19:00; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": null,
@@ -53859,13 +59496,13 @@ export const restaurants = [
       "evidence": "Kakao Map shows no menu."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-8852-3039 and HappyCow gives +82-1086780172. The sources disagree, so the phone is left unknown."
+      "value": "010-8852-3039",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1319521237",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1319521237 (owner-registered listing) lists 010-8852-3039 — read twice, identical. DiningCode shows a 0507 relay (0507-1320-0172), not a different line (ruling 3). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 010-8852-3039 and HappyCow gives +82-1086780172. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -53981,13 +59618,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu: 두부포케 edited 2026-08-31. The menu also lists chicken, tuna and eel poke. It does not say which bowls are vegan."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 053-257-8555 and HappyCow gives +82-50714638556. The sources disagree, so the phone is left unknown."
+      "value": "053-257-8555",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/363032241",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 363032241 lists 053-257-8555 — read twice, identical. DiningCode shows a 0507 relay (0507-1463-8556), not a different line (ruling 3). Earlier evidence (stale HappyCow, ruling 2): Kakao Map gives 053-257-8555 and HappyCow gives +82-50714638556. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -54556,13 +60193,77 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon, Tue, Thu–Sun 08:00–20:00, break 15:00–17:00; Kakao gives no Wednesday hours",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1338258830",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1338258830 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 목(10/1) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 금(10/2) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 토(10/3) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 일(10/4) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 월(10/5) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid 4GQJnKzNWBnb, read twice, identical) regular hours ['매일 08:00-20:00']; dated view: 9월 30일(수) 영업시간: 08:00 - 20:00; 10월 1일(목) 영업시간: 08:00 - 20:00; 10월 2일(금) 영업시간: 08:00 - 20:00; 10월 3일(토) 영업시간: 08:00 - 20:00; 10월 4일(일) 영업시간: 08:00 - 20:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": null,
@@ -54944,13 +60645,49 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio; the phone in the bio (052-273-4368) is the number Kakao lists, https://www.instagram.com/bakery_bobo, read 2026-09-29): '울산 거마로 5번길 27(옥동)'. Kakao Map place panel (689729286): '울산 남구 거마로5번길 27 1층 (옥동)'. Road name and building number agree, and so does the floor/unit where both give one. The bio omits the district (남구); only Kakao gives the floor."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Tue–Sat 11:00–19:30; closed Mondays and Sundays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "19:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/689729286",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 689729286 opening hours: '화(9/29) 11:00 ~ 19:30; 수(9/30) 11:00 ~ 19:30; 목(10/1) 11:00 ~ 19:30; 금(10/2) 11:00 ~ 19:30; 토(10/3) 11:00 ~ 19:30; 일(10/4) 휴무일; 월(10/5) 휴무일' — read twice, identical. DiningCode agrees (11:00–19:30, Sunday closed; it shows no Monday). DiningCode (rid phzow8rqlWFQ, read twice, identical) regular hours ['월-금,토 11:00-19:30']; dated view: 9월 30일(수) 영업시간: 11:00 - 19:30; 10월 1일(목) 영업시간: 11:00 - 19:30; 10월 2일(금) 영업시간: 11:00 - 19:30; 10월 3일(토) 영업시간: 11:00 - 19:30; 10월 4일(일) 휴무일. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": null,
@@ -55588,13 +61325,54 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 관악구 남부순환로 1741 (봉천동) 1층'. Kakao Map place panel (875994158): '서울 관악구 남부순환로 1741 1층 (봉천동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 봉천역점', phone 02-873-0352, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sat 10:00am-9:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Fri 09:30–21:00; Sat 10:00–15:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:30",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:30",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:30",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:30",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:30",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "15:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/875994158",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 875994158 opening hours: '화(9/29) 09:30 ~ 21:00; 수(9/30) 09:30 ~ 21:00; 목(10/1) 09:30 ~ 21:00; 금(10/2) 09:30 ~ 21:00; 토(10/3) 10:00 ~ 15:00; 일(10/4) 휴무일; 월(10/5) 09:30 ~ 21:00' — read twice, identical. DiningCode agrees (Mon–Fri 09:30–21:00, Sat 10:00–15:00, Sunday closed); its Thu 10/1–Fri 10/2 closures are Chuseok-period dates (ruling 4). DiningCode (rid Nb6muXFC4tcL, read twice, identical) regular hours ['토 10:00-15:00', '월-금 09:30-21:00']; dated view: 9월 30일(수) 영업시간: 09:30 - 21:00 / 라스트오더: 20:40; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 영업시간: 10:00 - 15:00 / 라스트오더: 14:40; 10월 4일(일) 휴무일; 10월 5일(월) 영업시간: 09:30 - 21:00 / 라스트오더: 20:40. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sat 10:00am-9:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -56060,13 +61838,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 관악구 대학길 30 (신림동)'. Kakao Map place panel (7900596): '서울 관악구 대학길 30 1층 (신림동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본죽 신림고시촌점', phone 02-887-6288, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 9:30am-10:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 08:30–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7900596",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 7900596 opening hours: '화(9/29) 08:30 ~ 22:00; 수(9/30) 08:30 ~ 22:00; 목(10/1) 08:30 ~ 22:00; 금(10/2) 08:30 ~ 22:00; 토(10/3) 08:30 ~ 22:00; 일(10/4) 08:30 ~ 22:00; 월(10/5) 08:30 ~ 22:00' — read twice, identical. DiningCode agrees (08:30–22:00); its Fri 10/2–Sat 10/3 closures are Chuseok-period dates (ruling 4). DiningCode (rid cjijoYdu9brA, read twice, identical) regular hours ['월-목,일 08:30-22:00']; dated view: 9월 30일(수) 영업시간: 08:30 - 22:00; 10월 1일(목) 영업시간: 08:30 - 22:00; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 영업시간: 08:30 - 22:00. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sun 9:30am-10:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -56344,13 +62168,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 관악구 호암로 598 (신림동) 1층'. Kakao Map place panel (839985292): '서울 관악구 호암로 598 1층 (신림동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 신림녹두거리점', phone 02-888-6233, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sat 10:00am-10:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/839985292",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 839985292 opening hours: '화(9/29) 09:00 ~ 21:00; 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00; 금(10/2) 09:00 ~ 21:00; 토(10/3) 09:00 ~ 21:00; 일(10/4) 09:00 ~ 21:00; 월(10/5) 09:00 ~ 21:00' — read twice, identical. No DiningCode listing was found at 호암로 598, so no current second source disagrees. DiningCode has no listing at this address. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sat 10:00am-10:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -56901,13 +62771,13 @@ export const restaurants = [
       "evidence": "HappyCow names no specific dish, only that some gimbap, rice-cake and noodle-soup dishes can be made vegan on request, so no dish is named here. The Kakao menu (edited 2026-02-03) has 24 items, mostly gimbap with tuna, ham, pork, egg or cheese; a 2026-02-25 Kakao review says egg is stirred into the ramen."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-323-8737; HappyCow gives no number. One source only."
+      "value": "02-323-8737",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1282850413",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1282850413 (owner-registered listing) lists 02-323-8737 — read twice, identical. DiningCode shows a 0507 relay (0507-1369-8637), not a different line (ruling 3). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 02-323-8737; HappyCow gives no number. One source only."
     },
     "officialUrl": {
       "value": null,
@@ -57000,13 +62870,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 9:00am-8:30pm, Sat-Sun 11:00am-8:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Fri 08:00–20:00; Sat, Sun 08:00–16:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:00",
+              "to": "16:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "16:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1654410191",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1654410191 opening hours: '화(9/29) 08:00 ~ 20:00; 수(9/30) 08:00 ~ 20:00; 목(10/1) 08:00 ~ 20:00; 금(10/2) 08:00 ~ 20:00; 토(10/3) 08:00 ~ 16:00; 일(10/4) 08:00 ~ 16:00; 월(10/5) 08:00 ~ 20:00' — read twice, identical. DiningCode agrees. DiningCode (rid 3qLRjCMDVQR4, read twice, identical) regular hours ['월-금 08:00-20:00', '토/일 08:00-16:00']; dated view: 9월 30일(수) 영업시간: 08:00 - 20:00; 10월 1일(목) 영업시간: 08:00 - 20:00; 10월 2일(금) 영업시간: 08:00 - 20:00; 10월 3일(토) 영업시간: 08:00 - 16:00; 10월 4일(일) 영업시간: 08:00 - 16:00. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Fri 9:00am-8:30pm, Sat-Sun 11:00am-8:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -57023,13 +62939,13 @@ export const restaurants = [
       "evidence": "Kakao Map operator menu of 22 items, edited 2025-07-17 and 2025-12-05. The operator's own item name says 비건 (vegan). The '베지김밥' is described by the operator as made with egg ('부드러운 지단에…'), so it is not listed here."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-6952-3884; HappyCow gives +82-50713713884. The sources disagree."
+      "value": "02-6952-3884",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1654410191",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1654410191 lists 02-6952-3884 — read twice, identical. DiningCode shows a 0507 relay (0507-1371-3884), not a different line (ruling 3). Earlier evidence (stale HappyCow, ruling 2): Kakao Map gives 02-6952-3884; HappyCow gives +82-50713713884. The sources disagree."
     },
     "officialUrl": {
       "value": null,
@@ -57122,13 +63038,68 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/samchungdang__anam/, read 2026-09-29) gives a lot-number address: '서울특별시성북구안암동5가 86-172'. Kakao Map place panel (place.map.kakao.com/60173632): '서울 성북구 고려대로28길 31 1층 (안암동5가)', lot number '안암동5가 86-172'. The operator's lot number is identical to Kakao's (agreement case 2 of the 2026-09-29 ruling: identical lot-number address). The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-10:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Fri 11:00–20:30, break 15:00–16:30; closed Sundays; hours for Saturday not confirmed",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "20:30"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/60173632",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 60173632 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 11:00 ~ 20:30, 15:00 ~ 16:30 브레이크타임; 수(9/30) 11:00 ~ 20:30, 15:00 ~ 16:30 브레이크타임; 목(10/1) 11:00 ~ 20:30, 15:00 ~ 16:30 브레이크타임; 금(10/2) 11:00 ~ 20:30, 15:00 ~ 16:30 브레이크타임; 토(10/3) 휴무일; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 20:30, 15:00 ~ 16:30 브레이크타임' — read twice, identical. Kakao's week view marks Sat 10/3 (a public holiday) 휴무일 with no weekly rule, and DiningCode's regular hours include Saturday, so Saturday is left out. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid ZVFrxoTBb7HR, read twice, identical) regular hours ['월-금,토 11:00-20:30']; dated view: 9월 30일(수) 영업시간: 11:00 - 20:30 / 브레이크타임: 15:00 - 16:30 / 라스트오더: 14:30, 20:00; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일; 10월 5일(월) 영업시간: 11:00 - 20:30 / 브레이크타임: 15:00 - 16:30 / 라스트오더: 14:30, 20:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Sun 11:00am-10:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -57145,13 +63116,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu of 18 items, edited 2025-09-08 and 2025-10-10. The operator describes the hummus vegan gimbap as '당근+오이+단무지+양배추+포두부+후무스+로메인'."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0502-5553-1689; HappyCow gives +82-50714290064. The sources disagree."
+      "value": "0502-5553-1689",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/60173632",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 60173632 (owner-registered listing) lists 0502-5553-1689 — read twice, identical. This is a Kakao relay number; the listing gives no direct line. DiningCode shows its own 0507 relay (0507-1429-0064). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 0502-5553-1689; HappyCow gives +82-50714290064. The sources disagree."
     },
     "officialUrl": {
       "value": null,
@@ -57430,13 +63401,13 @@ export const restaurants = [
       "evidence": "HappyCow says there are vegan main dishes and sides but does not name them, so no dish is named here. The Kakao menu (edited 2025-09-02 and 2026-02-27) has dried-radish-greens soups and rice dishes beside boiled pork, bulgogi, cockle and tripe dishes; none is labelled vegan."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-3789-9292; HappyCow gives no number. One source only."
+      "value": "02-3789-9292",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/26853115",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 26853115 (owner-registered listing) lists 02-3789-9292 — read twice, identical. DiningCode shows a 0507 relay (0507-1408-9308), not a different line (ruling 3). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 02-3789-9292; HappyCow gives no number. One source only."
     },
     "officialUrl": {
       "value": "http://soonnam.com/",
@@ -57646,13 +63617,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-10:30pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 10:00–23:30, last order 23:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "23:30",
+              "lastOrder": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "23:30",
+              "lastOrder": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "23:30",
+              "lastOrder": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "23:30",
+              "lastOrder": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "23:30",
+              "lastOrder": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "23:30",
+              "lastOrder": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "23:30",
+              "lastOrder": "23:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8200814",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 8200814 opening hours: '화(9/29) 10:00 ~ 23:30, 23:00 라스트오더; 수(9/30) 10:00 ~ 23:30, 23:00 라스트오더; 목(10/1) 10:00 ~ 23:30, 23:00 라스트오더; 금(10/2) 10:00 ~ 23:30, 23:00 라스트오더; 토(10/3) 10:00 ~ 23:30, 23:00 라스트오더; 일(10/4) 10:00 ~ 23:30, 23:00 라스트오더; 월(10/5) 10:00 ~ 23:30, 23:00 라스트오더' — read twice, identical. DiningCode agrees. DiningCode (rid MvR2VcYsc4vv, read twice, identical) regular hours ['매일 10:00-23:30']; dated view: 9월 30일(수) 영업시간: 10:00 - 23:30 / 라스트오더: 23:00; 10월 1일(목) 영업시간: 10:00 - 23:30 / 라스트오더: 23:00; 10월 2일(금) 영업시간: 10:00 - 23:30 / 라스트오더: 23:00; 10월 3일(토) 영업시간: 10:00 - 23:30 / 라스트오더: 23:00; 10월 4일(일) 영업시간: 10:00 - 23:30 / 라스트오더: 23:00; 10월 5일(월) 영업시간: 10:00 - 23:30 / 라스트오더: 23:00. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sun 11:00am-10:30pm'; no second source was checked, so hours are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -57773,13 +63797,69 @@ export const restaurants = [
       "evidence": "Operator (site footer, https://www.kh.or.kr/kh, read 2026-09-29): '04626 서울시 중구 퇴계로 36길 10 한국의집'. Kakao Map place panel (13050574): '서울 중구 퇴계로36길 10 (필동2가)'. Road name and building number agree. Neither gives a floor."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Tue-Sun 12:00pm-3:00pm, 6:00pm-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Tue–Sat 12:00–22:00, break 15:00–18:00; closed Mondays and Sundays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/13050574",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 13050574 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 12:00 ~ 22:00, 15:00 ~ 18:00 휴게시간; 수(9/30) 12:00 ~ 22:00, 15:00 ~ 18:00 휴게시간; 목(10/1) 12:00 ~ 22:00, 15:00 ~ 18:00 휴게시간; 금(10/2) 12:00 ~ 22:00, 15:00 ~ 18:00 휴게시간; 토(10/3) 12:00 ~ 22:00, 15:00 ~ 18:00 휴게시간; 일(10/4) 휴무일; 월(10/5) 휴무일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid k36stciDg87W, read twice, identical) regular hours ['화,수,목,금,토 10:00-22:00']; dated view: 9월 30일(수) 영업시간: 10:00 - 22:00; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일. Earlier evidence (stale HappyCow or none): HappyCow gives 'Tue-Sun 12:00pm-3:00pm, 6:00pm-10:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": null,
@@ -57791,13 +63871,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu (edited 2026-04-10) lists only the 한국의집 정식 set courses (lunch and dinner, main hall and annex); neither source names a vegan dish, so none is named here."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-3011-9200; HappyCow gives +82-2-2266-9101. The sources disagree."
+      "value": "02-3011-9200",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/13050574",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 13050574 (owner-registered listing) lists 02-3011-9200 — read twice, identical. DiningCode gives the same number. Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 02-3011-9200; HappyCow gives +82-2-2266-9101. The sources disagree."
     },
     "officialUrl": {
       "value": "https://www.kh.or.kr/kh",
@@ -57890,13 +63970,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:30am-3:00pm, 5:30pm-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:30–21:00, break 15:20–17:30, last order 20:15",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:20"
+            },
+            {
+              "from": "17:30",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:20"
+            },
+            {
+              "from": "17:30",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:20"
+            },
+            {
+              "from": "17:30",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:20"
+            },
+            {
+              "from": "17:30",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:20"
+            },
+            {
+              "from": "17:30",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:20"
+            },
+            {
+              "from": "17:30",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:20"
+            },
+            {
+              "from": "17:30",
+              "to": "21:00",
+              "lastOrder": "20:15"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21539210",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 21539210 opening hours: '화(9/29) 11:30 ~ 21:00, 15:20 ~ 17:30 브레이크타임, 20:15 라스트오더; 수(9/30) 11:30 ~ 21:00, 15:20 ~ 17:30 브레이크타임, 20:15 라스트오더; 목(10/1) 11:30 ~ 21:00, 15:20 ~ 17:30 브레이크타임, 20:15 라스트오더; 금(10/2) 11:30 ~ 21:00, 15:20 ~ 17:30 브레이크타임, 20:15 라스트오더; 토(10/3) 11:30 ~ 21:00, 15:20 ~ 17:30 브레이크타임, 20:15 라스트오더; 일(10/4) 11:30 ~ 21:00, 15:20 ~ 17:30 브레이크타임, 20:15 라스트오더; 월(10/5) 11:30 ~ 21:00, 15:20 ~ 17:30 브레이크타임, 20:15 라스트오더' — read twice, identical. Same hours as Kakao; DiningCode's closures on Thu 10/1 and Fri 10/2 are Chuseok-period dates, not a different regular schedule (ruling 4). DiningCode (rid SmYrNOUPfBim, read twice, identical) regular hours ['매일 11:30-21:00']; dated view: 9월 30일(수) 영업시간: 11:30 - 21:00 / 브레이크타임: 15:20 - 17:30 / 라스트오더: 20:15; 10월 1일(목) 휴무일; 10월 2일(금) 휴무일; 10월 3일(토) 영업시간: 11:30 - 21:00 / 브레이크타임: 15:20 - 17:30 / 라스트오더: 20:15; 10월 4일(일) 영업시간: 11:30 - 21:00 / 브레이크타임: 15:20 - 17:30 / 라스트오더: 20:15; 10월 5일(월) 영업시간: 11:30 - 21:00 / 브레이크타임: 15:20 - 17:30 / 라스트오더: 20:15. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sun 11:30am-3:00pm, 5:30pm-9:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": null,
@@ -58007,13 +64168,87 @@ export const restaurants = [
       "evidence": "Operator (the business-information footer of the 운봉에덴식당 website, which Kakao links as the venue's homepage; the footer phone 02-786-3119 is the number Kakao lists, http://r167.realserver1.com/, read 2026-09-29): '서울특별시 영등포구 의사당대로 127 롯데캐슬 엠파이어 지하 1층'. Kakao Map place panel (500850275): '서울 영등포구 의사당대로 127 롯데캐슬 엠파이어 지하1층 6호 (여의도동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the unit (6호)."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-2:00pm, 5:00pm-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:00–21:00, break 15:00–17:00; Sat, Sun 11:00–21:00, break 16:00–17:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/500850275",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 500850275 opening hours: '화(9/29) 11:00 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 21:00, 16:00 ~ 17:00 브레이크타임; 일(10/4) 11:00 ~ 21:00, 16:00 ~ 17:00 브레이크타임; 월(10/5) 11:00 ~ 21:00, 15:00 ~ 17:00 브레이크타임' — read twice, identical. No current second source disagrees. DiningCode has no listing at this address. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sun 11:00am-2:00pm, 5:00pm-9:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -58267,13 +64502,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/shinoldtea/, read 2026-09-29): '서울 종로구 인사동길 47-8'. Kakao Map place panel (8414730): '서울 종로구 인사동길 47-8 1층 (관훈동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon 10:00am-8:00pm, Tue-Fri 10:00am-9:00pm, Sat-Sun 10:00am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon 10:00–20:00; Tue–Fri 10:00–21:00; Sat, Sun 10:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/8414730",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 8414730 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 10:00 ~ 21:00; 수(9/30) 10:00 ~ 21:00; 목(10/1) 10:00 ~ 21:00; 금(10/2) 10:00 ~ 21:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 10:00 ~ 20:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid 501wBpazsmS4, read twice, identical) regular hours ['월-금 10:00-21:00', '토/일 10:00-22:00']; dated view: 9월 30일(수) 영업시간: 10:00 - 21:00 / 라스트오더: 20:30; 10월 1일(목) 영업시간: 10:00 - 21:00 / 라스트오더: 20:30; 10월 2일(금) 영업시간: 10:00 - 21:00 / 라스트오더: 20:30; 10월 3일(토) 영업시간: 10:00 - 22:00; 10월 4일(일) 영업시간: 10:00 - 22:00 / 라스트오더: 21:30; 10월 5일(월) 영업시간: 10:00 - 21:00 / 라스트오더: 20:30. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon 10:00am-8:00pm, Tue-Fri 10:00am-9:00pm, Sat-Sun 10:00am-10:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -58290,13 +64571,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2026-06-09). Only the rice cake HappyCow names is listed; the menu also has dairy drinks and ice cream."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-732-5257; HappyCow gives +82-10-8572-3468. The sources disagree."
+      "value": "02-732-5257",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/8414730",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 8414730 (owner-registered listing) lists 02-732-5257 — read twice, identical. DiningCode gives the same number. Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 02-732-5257; HappyCow gives +82-10-8572-3468. The sources disagree."
     },
     "officialUrl": {
       "value": null,
@@ -58389,13 +64670,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 10:00am-10:30pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 10:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/20056529",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 20056529 opening hours: '화(9/29) 10:00 ~ 22:00; 수(9/30) 10:00 ~ 22:00; 목(10/1) 10:00 ~ 22:00; 금(10/2) 10:00 ~ 22:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 10:00 ~ 22:00' — read twice, identical. DiningCode agrees. DiningCode (rid 3F5Z7y9182f0, read twice, identical) regular hours ['매일 10:00-22:00']; dated view: 9월 30일(수) 영업시간: 10:00 - 22:00; 10월 1일(목) 영업시간: 10:00 - 22:00; 10월 2일(금) 영업시간: 10:00 - 22:00; 10월 3일(토) 영업시간: 10:00 - 22:00; 10월 4일(일) 영업시간: 10:00 - 22:00. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): HappyCow gives 'Mon-Sun 10:00am-10:30pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": null,
@@ -58506,13 +64833,59 @@ export const restaurants = [
       "evidence": "Operator (site footer (business information), https://www.gangjeonghouse.com/, read 2026-09-29): '06068 서울특별시 강남구 학동로 435 (청담동) 1층 강정이넘치는집'. Kakao Map place panel (1913306850): '서울 강남구 학동로 435 1층 (청담동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 7:00am-10:00pm, Sat-Sun 9:00am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Sat 07:00–22:00; Sun 08:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "07:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "07:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "07:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "07:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "07:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "07:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1913306850",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1913306850 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 07:00 ~ 22:00; 수(9/30) 07:00 ~ 22:00; 목(10/1) 07:00 ~ 22:00; 금(10/2) 07:00 ~ 22:00; 토(10/3) 07:00 ~ 22:00; 일(10/4) 08:00 ~ 22:00; 월(10/5) 07:00 ~ 22:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid sgu0YiMPD1KJ, read twice, identical) regular hours ['월-금,토 07:00-22:00', '일 08:00-22:00']; dated view: 9월 30일(수) 영업시간: 07:00 - 22:00; 10월 1일(목) 영업시간: 07:00 - 22:00; 10월 2일(금) 영업시간: 07:00 - 22:00; 10월 3일(토) 영업시간: 07:00 - 22:00; 10월 4일(일) 영업시간: 08:00 - 22:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 7:00am-10:00pm, Sat-Sun 9:00am-10:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": null,
@@ -58623,13 +64996,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sat 6:00am-6:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Sat 07:00–18:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "07:00",
+              "to": "18:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "07:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "07:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "07:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "07:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "07:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1542620826",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1542620826 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 07:00 ~ 18:00; 수(9/30) 07:00 ~ 18:00; 목(10/1) 07:00 ~ 18:00; 금(10/2) 07:00 ~ 18:00; 토(10/3) 07:00 ~ 18:00; 일(10/4) 휴무일; 월(10/5) 07:00 ~ 18:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid zLDkrqGDiEhV, read twice, identical) regular hours ['화-목 07:00-18:00']; dated view: 9월 30일(수) 영업시간: 07:00 - 18:00; 10월 1일(목) 영업시간: 07:00 - 18:00; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Sat 6:00am-6:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": null,
@@ -58740,13 +65154,59 @@ export const restaurants = [
       "evidence": "Operator (site footer (business information), https://www.dduckhamji.com/, read 2026-09-29): '서울특별시 송파구 올림픽로 212 (잠실동) 갤러리아팰리스 지하 104호'. Kakao Map place panel (16679070): '서울 송파구 올림픽로 212 갤러리아팰리스 지하 104호 (잠실동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 7:00am-7:00pm, Sat 7:00am-6:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 08:00–19:00; closed on public holidays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/16679070",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 16679070 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 매일 08:00 ~ 19:00 | 휴무: 1월1일, 설당일, 설다음날, 삼일절, 노동절, 어린이날, 석가탄신일, 현충일, 제헌절, 광복절, 추석당일, 추석다음날, 개천절, 26/10/5 개천절 대체공휴일, 한글날, 성탄절' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid CXpMlFFfa0bO, read twice, identical) regular hours ['매일 08:00-19:00']; dated view: 9월 30일(수) 영업시간: 08:00 - 19:00; 10월 1일(목) 영업시간: 08:00 - 19:00; 10월 2일(금) 영업시간: 08:00 - 19:00; 10월 3일(토) 휴무일; 10월 4일(일) 영업시간: 08:00 - 19:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 7:00am-7:00pm, Sat 7:00am-6:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
       "value": [
@@ -58866,13 +65326,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No source consulted gives opening hours that could be cross-checked."
+      "value": {
+        "raw": "Daily 11:00–21:00, break 15:00–16:30, last order 20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/11814895",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 11814895 opening hours: '화(9/29) 11:00 ~ 21:00, 15:00 ~ 16:30 브레이크타임, 20:30 라스트오더; 수(9/30) 11:00 ~ 21:00, 15:00 ~ 16:30 브레이크타임, 20:30 라스트오더; 목(10/1) 11:00 ~ 21:00, 15:00 ~ 16:30 브레이크타임, 20:30 라스트오더; 금(10/2) 11:00 ~ 21:00, 15:00 ~ 16:30 브레이크타임, 20:30 라스트오더; 토(10/3) 11:00 ~ 21:00, 15:00 ~ 16:30 브레이크타임, 20:30 라스트오더; 일(10/4) 11:00 ~ 21:00, 15:00 ~ 16:30 브레이크타임, 20:30 라스트오더; 월(10/5) 11:00 ~ 21:00, 15:00 ~ 16:30 브레이크타임, 20:30 라스트오더' — read twice, identical. DiningCode agrees, including the 15:00–16:30 break; its Sat 10/3 closure is a holiday date (ruling 4). DiningCode (rid jZy7UyEQDEU2, read twice, identical) regular hours ['월-금,일 11:00-21:00']; dated view: 9월 30일(수) 영업시간: 11:00 - 21:00 / 브레이크타임: 15:00 - 16:30; 10월 1일(목) 영업시간: 11:00 - 21:00 / 브레이크타임: 15:00 - 16:30; 10월 2일(금) 영업시간: 11:00 - 21:00 / 브레이크타임: 15:00 - 16:30; 10월 3일(토) 휴무일; 10월 4일(일) 영업시간: 11:00 - 21:00 / 브레이크타임: 15:00 - 16:30; 10월 5일(월) 영업시간: 11:00 - 21:00 / 브레이크타임: 15:00 - 16:30. Earlier evidence, not counted as a current disagreement (second-pass ruling 2): No source consulted gives opening hours that could be cross-checked."
     },
     "menus": {
       "value": [
@@ -59742,13 +66283,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon, Thu, Fri 11:30–18:30; Sat, Sun 11:00–19:00; closed Tuesdays and Wednesdays; last order 30 minutes before closing; closed Seollal and Chuseok day",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "18:30"
+            }
+          ],
+          "tue": [],
+          "wed": [],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "18:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "18:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1870886599",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1870886599 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 월 11:30 ~ 18:30; 목 11:30 ~ 18:30; 금 11:30 ~ 18:30; 토 11:00 ~ 19:00; 일 11:00 ~ 19:00 | 공휴일: 11:00 ~ 19:00 | 휴무: 매주 화요일, 수요일, 설당일, 추석당일 | 라스트 오더시간은 영업시간 종료 30분 전입니다.' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid ESPuWcUi8IGh, read twice, identical) regular hours ['토/일 11:00-19:00', '월,목 11:30-18:30']; dated view: 9월 30일(수) 휴무일; 10월 1일(목) 영업시간: 11:30 - 18:30 / 라스트오더: 18:00; 10월 2일(금) 휴무일; 10월 3일(토) 영업시간: 11:00 - 19:00; 10월 4일(일) 영업시간: 11:00 - 19:00 / 라스트오더: 18:30; 10월 5일(월) 영업시간: 11:30 - 18:30 / 라스트오더: 18:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -60135,13 +66712,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Fri 08:30–21:00; Sat 09:00–20:00; Sun 11:00–20:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/969861989",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 969861989 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 08:30 ~ 21:00; 수(9/30) 08:30 ~ 21:00; 목(10/1) 08:30 ~ 21:00; 금(10/2) 08:30 ~ 21:00; 토(10/3) 09:00 ~ 20:00; 일(10/4) 11:00 ~ 20:00; 월(10/5) 08:30 ~ 21:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid Bu0qUHnCEgOG, read twice, identical) regular hours ['월-금 08:30-20:00', '토/일 09:00-19:30']; dated view: 9월 30일(수) 영업시간: 08:30 - 20:00 / 라스트오더: 19:30; 10월 1일(목) 영업시간: 08:30 - 20:00 / 라스트오더: 19:30; 10월 2일(금) 영업시간: 08:30 - 20:00 / 라스트오더: 19:30; 10월 3일(토) 영업시간: 09:00 - 19:30 / 라스트오더: 19:00; 10월 4일(일) 영업시간: 09:00 - 19:30 / 라스트오더: 19:00; 10월 5일(월) 영업시간: 08:30 - 20:00 / 라스트오더: 19:30. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -60279,13 +66902,13 @@ export const restaurants = [
       "evidence": "No usable menu: see the evidence of the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-3771-3324 and HappyCow gives +82-50713523373. The sources disagree, so the phone is left unknown."
+      "value": "010-3771-3324",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1949712622",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1949712622 lists 010-3771-3324 — read twice, identical. DiningCode shows a 0507 relay (0507-1352-3373), not a different line (ruling 3). Earlier evidence (stale HappyCow, ruling 2): Kakao Map gives 010-3771-3324 and HappyCow gives +82-50713523373. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -60442,13 +67065,13 @@ export const restaurants = [
       "evidence": "No usable menu: see the evidence of the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-507-2727 and HappyCow gives +82-50714422728. The sources disagree, so the phone is left unknown."
+      "value": "02-507-2727",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/342175100",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 342175100 (owner-registered listing) lists 02-507-2727 — read twice, identical. DiningCode shows a 0507 relay (0507-1442-2728), not a different line (ruling 3). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 02-507-2727 and HappyCow gives +82-50714422728. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -60895,13 +67518,47 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Thu, Sun 10:00–19:00; hours for Friday, Saturday not confirmed",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/767389877",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 767389877 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 10:00 ~ 19:00; 수(9/30) 10:00 ~ 19:00; 목(10/1) 10:00 ~ 19:00; 금(10/2) 휴무일; 일(10/4) 10:00 ~ 19:00; 월(10/5) 10:00 ~ 19:00' — read twice, identical. Kakao's week view marks Fri 10/2 휴무일 with no weekly rule and gives no Saturday; DiningCode's regular hours include Friday. Friday and Saturday are left out. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid oXCASAuTIbCm, read twice, identical) regular hours ['월-금,일 10:00-19:00']; dated view: 9월 30일(수) 영업시간: 10:00 - 19:00; 10월 1일(목) 영업시간: 10:00 - 19:00; 10월 2일(금) 영업시간: 10:00 - 19:00; 10월 3일(토) 휴무일; 10월 4일(일) 영업시간: 10:00 - 19:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": null,
@@ -61312,13 +67969,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Wed–Sun 08:00–20:00; closed Mondays and Tuesdays; closing days may move when Mon/Tue is a public holiday",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1086781141",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1086781141 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 수 08:00 ~ 20:00; 목 08:00 ~ 20:00; 금 08:00 ~ 20:00; 토 08:00 ~ 20:00; 일 08:00 ~ 20:00 | 공휴일: 08:00 ~ 20:00 | 휴무: 매주 월요일, 화요일 | 월화가 공휴일이면 정상영업후 휴무일이 변경될수 있습니다. 휴무달력은 항상 매장내 공지합니다' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid 5gO1O8wVchXF, read twice, identical) regular hours ['수-금,토/일 07:00-20:00']; dated view: 9월 30일(수) 영업시간: 07:00 - 20:00; 10월 1일(목) 영업시간: 07:00 - 20:00; 10월 2일(금) 영업시간: 07:00 - 20:00; 10월 3일(토) 영업시간: 07:00 - 20:00; 10월 4일(일) 영업시간: 07:00 - 20:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -61500,13 +68193,13 @@ export const restaurants = [
       "evidence": "No usable menu: see the evidence of the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 031-8066-2906 and HappyCow gives +82-24665584. The sources disagree, so the phone is left unknown."
+      "value": "031-8066-2906",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/283900555",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 283900555 lists 031-8066-2906 — read twice, identical. DiningCode lists no number. Earlier evidence (stale HappyCow, ruling 2): Kakao Map gives 031-8066-2906 and HappyCow gives +82-24665584. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -62536,13 +69229,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (these items edited 2026-01-27). The Kakao menu lists drinks only; the plant milk used in lattes other than the coconut latte is not stated."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 070-4099-2266 / 010-5449-9958 and HappyCow gives +82-50714209958. The sources disagree, so the phone is left unknown."
+      "value": "070-4099-2266",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1900623101",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1900623101 (owner-registered listing) lists 070-4099-2266, 010-5449-9958 — read twice, identical. The owner's listing gives 070-4099-2266 and 010-5449-9958; the first-listed landline is used. DiningCode gives 070-4099-2266 too. Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 070-4099-2266 / 010-5449-9958 and HappyCow gives +82-50714209958. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -62629,13 +69322,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/cafe_la_moire_/, read 2026-09-29): '마포구 월드컵로 11길 46-14 2층'. Kakao Map place panel (168986267): '서울 마포구 월드컵로11길 46-14 파르크39 2층 (망원동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 11:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/168986267",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 168986267 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 11:00 ~ 21:00; 수(9/30) 11:00 ~ 21:00; 목(10/1) 11:00 ~ 21:00; 금(10/2) 11:00 ~ 21:00; 토(10/3) 11:00 ~ 21:00; 일(10/4) 11:00 ~ 21:00; 월(10/5) 11:00 ~ 21:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid 7O6VJGPC2SXR, read twice, identical) regular hours ['화 12:00-21:00', '월,수,목,금,토/일 11:00-21:00']; dated view: 9월 30일(수) 영업시간: 11:00 - 21:00; 10월 1일(목) 영업시간: 11:00 - 21:00; 10월 2일(금) 영업시간: 11:00 - 21:00; 10월 3일(토) 영업시간: 11:00 - 21:00; 10월 4일(일) 영업시간: 11:00 - 21:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": null,
@@ -62746,13 +69485,48 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Tue 11:30–15:00, last order 14:30; Wed–Sun 11:30–20:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1797645798",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1797645798 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 11:30 ~ 15:00, 14:30 라스트오더; 수(9/30) 11:30 ~ 20:00; 목(10/1) 11:30 ~ 20:00; 금(10/2) 11:30 ~ 20:00; 토(10/3) 11:30 ~ 20:00; 일(10/4) 11:30 ~ 20:00; 월(10/5) 휴무일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid cFgLnw80jayc, read twice, identical) regular hours ['화,수,목,금,토/일 11:30-20:00']; dated view: 9월 30일(수) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30; 10월 1일(목) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30; 10월 2일(금) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30; 10월 3일(토) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30; 10월 4일(일) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting. Tuesday left out: the owner week view shows only 11:30–15:00 that day, unlike every other day, which may be a one-off entry."
     },
     "menus": {
       "value": null,
@@ -63044,13 +69818,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (these items edited 2023-08-24). This menu dates from 2023; prices may have changed."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0507-1423-4493 and HappyCow gives +82-1033134963. The sources disagree, so the phone is left unknown."
+      "value": "0507-1423-4493",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/327016114",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 327016114 (owner-registered listing) lists 0507-1423-4493 — read twice, identical. This is a relay number and the only one listed; DiningCode gives the same number. Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 0507-1423-4493 and HappyCow gives +82-1033134963. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -63186,13 +69960,13 @@ export const restaurants = [
       "evidence": "No usable menu: see the evidence of the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-2961-2756 and HappyCow gives +82-50713172756. The sources disagree, so the phone is left unknown."
+      "value": "010-2961-2756",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/208808606",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 208808606 lists 010-2961-2756 — read twice, identical. No DiningCode listing was found at this address. Earlier evidence (stale HappyCow, ruling 2): Kakao Map gives 010-2961-2756 and HappyCow gives +82-50713172756. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -63730,13 +70504,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (these items edited 2024-10-04, 2024-12-17). The menu also lists a lotus cheesecake and dairy lattes."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0503-7150-3963 and HappyCow gives +82-1045290043. The sources disagree, so the phone is left unknown."
+      "value": "0503-7150-3963",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/128610202",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 128610202 (owner-registered listing) lists 0503-7150-3963 — read twice, identical. This is a Kakao relay number; the listing gives no direct line. DiningCode shows its own 0507 relay (0507-1367-0197). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 0503-7150-3963 and HappyCow gives +82-1045290043. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -63887,13 +70661,13 @@ export const restaurants = [
       "evidence": "No usable menu: see the evidence of the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 062-222-9231 and HappyCow gives +82-7086399231. The sources disagree, so the phone is left unknown."
+      "value": "062-222-9231",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/27598298",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27598298 (owner-registered listing) lists 062-222-9231 — read twice, identical. DiningCode gives the same number. Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 062-222-9231 and HappyCow gives +82-7086399231. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -64106,13 +70880,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/letter_of_light2/, read 2026-09-29): '전주시 완산구 전주객사2길 74-11 그린빌 1층'. Kakao Map place panel (1030380303): '전북특별자치도 전주시 완산구 전주객사2길 74-11 그린빌 1층 (고사동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Fri, Sun 09:00–18:00; Sat 09:00–19:00; public holidays 09:00–19:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1030380303",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1030380303 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 월 09:00 ~ 18:00; 화 09:00 ~ 18:00; 수 09:00 ~ 18:00; 목 09:00 ~ 18:00; 금 09:00 ~ 18:00; 토 09:00 ~ 19:00; 일 09:00 ~ 18:00 | 공휴일: 09:00 ~ 19:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid ZOLFExckeknb, read twice, identical) regular hours ['월,화,목,금,토/일 09:00-18:00']; dated view: 9월 30일(수) 휴무일; 10월 1일(목) 영업시간: 09:00 - 18:00 / 라스트오더: 17:00; 10월 2일(금) 영업시간: 09:00 - 18:00 / 라스트오더: 17:00; 10월 3일(토) 영업시간: 09:00 - 18:00 / 라스트오더: 17:00; 10월 4일(일) 영업시간: 09:00 - 18:00 / 라스트오더: 17:00; 10월 5일(월) 영업시간: 09:00 - 18:00 / 라스트오더: 17:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -64468,13 +71288,13 @@ export const restaurants = [
       "evidence": "No usable menu: see the evidence of the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 063-288-3924 and HappyCow gives +82-639023924. The sources disagree, so the phone is left unknown."
+      "value": "063-288-3924",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1610406058",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1610406058 (owner-registered listing) lists 063-288-3924 — read twice, identical. DiningCode shows a 0507 relay (0507-1373-3924), not a different line (ruling 3). Earlier evidence (outranked by the operator, ruling 1): Kakao Map gives 063-288-3924 and HappyCow gives +82-639023924. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -64767,13 +71587,13 @@ export const restaurants = [
       "evidence": "No usable menu: see the evidence of the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 061-741-3422 and HappyCow gives +82-1093087975. The sources disagree, so the phone is left unknown."
+      "value": "061-741-3422",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1067268738",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1067268738 lists 061-741-3422 — read twice, identical. DiningCode shows a 0507 relay (0507-1390-3422), not a different line (ruling 3). Earlier evidence (stale HappyCow, ruling 2): Kakao Map gives 061-741-3422 and HappyCow gives +82-1093087975. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
       "value": null,
@@ -64971,13 +71791,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Tue–Sun 11:00–21:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/289281715",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 289281715 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 11:00 ~ 21:00; 수(9/30) 11:00 ~ 21:00; 목(10/1) 11:00 ~ 21:00; 금(10/2) 11:00 ~ 21:00; 토(10/3) 11:00 ~ 21:00; 일(10/4) 11:00 ~ 21:00; 월(10/5) 휴무일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid bEuhrEBnOZPm, read twice, identical) regular hours ['화,수,목,금,토/일 11:00-22:00']; dated view: 9월 30일(수) 영업시간: 11:00 - 22:00; 10월 1일(목) 영업시간: 11:00 - 22:00; 10월 2일(금) 영업시간: 11:00 - 22:00; 10월 3일(토) 영업시간: 11:00 - 22:00; 10월 4일(일) 영업시간: 11:00 - 22:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": [
@@ -65212,13 +72073,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon, Wed–Fri 11:00–21:00; Sat, Sun 12:00–21:00; closed Tuesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/708129703",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 708129703 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 휴무일; 수(9/30) 11:00 ~ 21:00; 목(10/1) 11:00 ~ 21:00; 금(10/2) 11:00 ~ 21:00; 토(10/3) 12:00 ~ 21:00; 일(10/4) 12:00 ~ 21:00; 월(10/5) 11:00 ~ 21:00 | 매주 화요일 휴무' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid nGKPLGCdNS7U, read twice, identical) regular hours ['월,수,목,금,토/일 10:00-21:00']; dated view: 9월 30일(수) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 1일(목) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 2일(금) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 3일(토) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 4일(일) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 5일(월) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
       "value": null,
@@ -65323,13 +72225,69 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Wed–Sun 12:00–22:00, break 15:00–18:00; closed Mondays and Tuesdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "15:00"
+            },
+            {
+              "from": "18:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/24169074",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 24169074 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 휴무일; 수(9/30) 12:00 ~ 22:00 / 15:00 ~ 18:00 브레이크타임; 목(10/1) 12:00 ~ 22:00 / 15:00 ~ 18:00 브레이크타임; 금(10/2) 12:00 ~ 22:00 / 15:00 ~ 18:00 브레이크타임; 토(10/3) 12:00 ~ 22:00 / 15:00 ~ 18:00 브레이크타임; 일(10/4) 12:00 ~ 22:00 / 15:00 ~ 18:00 브레이크타임; 월(10/5) 휴무일; 휴무: 매주 월요일, 화요일 휴무'. Read twice, identical. DiningCode (rid 0gREGAddEv1P) gives '수-금,토/일 12:00-21:30' with a 14:30–18:00 break and last orders 13:30/20:30 — different; under the 29 Sep second-pass ruling 1 the operator's own entry on its registered listing outranks it."
     },
     "menus": {
       "value": [
@@ -65791,13 +72749,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:00–20:00 daily (Sunday to 15:30); HappyCow gives Mon–Sat 11:30am–10:30pm. They disagree."
+      "value": {
+        "raw": "Mon–Sat 11:00–20:00, last order 19:30; Sun 11:00–15:30, last order 15:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:30",
+              "lastOrder": "15:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/16639272",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 16639272 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 20:00 / 19:30 라스트오더; 수(9/30) 11:00 ~ 20:00 / 19:30 라스트오더; 목(10/1) 11:00 ~ 20:00 / 19:30 라스트오더; 금(10/2) 11:00 ~ 20:00 / 19:30 라스트오더; 토(10/3) 11:00 ~ 20:00 / 19:30 라스트오더; 일(10/4) 11:00 ~ 15:30 / 15:00 라스트오더; 월(10/5) 11:00 ~ 20:00 / 19:30 라스트오더'. Read twice, identical. DiningCode (rid c7CqrK8NKdg0) gives '일 11:00-15:30, 월-금,토 11:00-20:00' — no conflict. The entry's earlier HappyCow hours (Mon–Sat 11:30am–10:30pm, undated) are a stale source and do not block this (ruling 2)."
     },
     "menus": {
       "value": [
@@ -66196,13 +73207,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 11:00–20:00, closed Tuesday; HappyCow gives no hours. One source only."
+      "value": {
+        "raw": "Mon 11:00–20:00, break 15:30–17:00; Wed–Sun 11:00–20:00, break 15:30–17:00; closed Tuesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26436623",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 26436623, opening-hours block: '화(9/29) 휴무일; 수(9/30) 11:00 ~ 20:00 / 15:30 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 20:00 / 15:30 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 20:00 / 15:30 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 20:00 / 15:30 ~ 17:00 브레이크타임; 일(10/4) 11:00 ~ 20:00 / 15:30 ~ 17:00 브레이크타임; 월(10/5) 11:00 ~ 20:00 / 15:30 ~ 17:00 브레이크타임; 휴무: 매주 화요일 휴무'. Read twice, identical. DiningCode (rid oxqMfgnpJY6r) has no regular hours for this place (its dated week view marks every day 휴무일, the pattern it shows for listings with no hours data), so it shows no hours to compare (ruling 2)."
     },
     "menus": {
       "value": [
@@ -66776,13 +73852,13 @@ export const restaurants = [
       "evidence": "HappyCow names red bean paste soup with rice ball, red bean paste soup with noodles and perilla seed kalguksu; Kakao Map's owner-registered menu (edited 2026-06-30) lists 새알팥죽 (겨울), 팥칼국수 and 들깨칼국수. Prices are Kakao's; the red bean porridge is marked winter-only."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 064-782-3128; HappyCow gives no phone. One source only."
+      "value": "064-782-3128",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2138835439",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2138835439 (owner-entered on its registered Kakao listing) lists 064-782-3128. Read twice, identical. DiningCode gives 0507-1372-3128, a relay (safe) number, which is not a disagreement with the shop's own line (ruling 3)."
     },
     "transit": {
       "value": null,
@@ -66990,13 +74066,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 08:30–22:00 (Friday to 15:00); HappyCow gives Mon–Sun 7:00am–11:00pm. They disagree."
+      "value": {
+        "raw": "Mon–Thu 08:30–22:00; Fri 08:30–15:00; Sat, Sun 08:30–22:00; closed on Seollal and Chuseok days",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "15:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:30",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1054775218",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1054775218 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 08:30 ~ 22:00; [기본 영업시간] 화 08:30 ~ 22:00; [기본 영업시간] 수 08:30 ~ 22:00; [기본 영업시간] 목 08:30 ~ 22:00; [기본 영업시간] 금 08:30 ~ 15:00; [기본 영업시간] 토 08:30 ~ 22:00; [기본 영업시간] 일 08:30 ~ 22:00; 휴무: 설당일, 추석당일'. Read twice, identical. DiningCode (rid lUtUf5DzvGYZ) gives '매일 08:30-22:00' (no Friday short day); the operator's own entry outranks it (ruling 1). The entry's earlier HappyCow hours (7:00am–11:00pm, undated) are stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -67232,13 +74354,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows 10:00–23:00, closed Wednesday; HappyCow gives Mon–Sat 8:00am–3:00am, Sun 8:00am–11:00pm. They disagree."
+      "value": {
+        "raw": "Mon, Tue 10:00–23:00; Thu–Sun 10:00–23:00; closed Wednesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "23:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "23:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/532652868",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 532652868, opening-hours block: '화(9/29) 10:00 ~ 23:00; 수(9/30) 휴무일; 목(10/1) 10:00 ~ 23:00; 금(10/2) 10:00 ~ 23:00; 토(10/3) 10:00 ~ 23:00; 일(10/4) 10:00 ~ 23:00; 월(10/5) 10:00 ~ 23:00'. Read twice, identical. DiningCode (rid uS6G2R21lx86) gives '월,화,목,금,토/일 10:00-23:00' — the same. The entry's earlier HappyCow hours (Mon–Sat 8:00am–3:00am, undated) are a stale source and do not block this (ruling 2)."
     },
     "menus": {
       "value": [
@@ -67344,13 +74507,87 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio; the phone in the bio (02-771-3328) is the number Kakao lists, http://www.instagram.com/benjamin_pokesalad, read 2026-09-29): '서울 중구 퇴계로20길 20 1층'. Kakao Map place panel (711503345): '서울 중구 퇴계로20길 20 1층 (남산동2가)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sat 11:00am-3:00pm, Mon-Fri 5:00pm-9:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 11:00–20:30, break 15:00–17:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/711503345",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 711503345 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 20:30 / 15:00 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 20:30 / 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 20:30 / 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 20:30 / 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 20:30 / 15:00 ~ 17:00 브레이크타임; 일(10/4) 11:00 ~ 20:30 / 15:00 ~ 17:00 브레이크타임; 월(10/5) 11:00 ~ 20:30 / 15:00 ~ 17:00 브레이크타임'. Read twice, identical. DiningCode (rid 8bnD9PwJaK96) gives '매일 11:00-20:30' with a 15:00–17:00 break — the same. The entry's earlier HappyCow hours (undated) are stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -67466,13 +74703,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon 9:00am-2:30pm, 3:00pm-8:30pm, Wed-Fri 9:00am-2:30pm, Wed-Sat 3:00pm-8:30pm, Sun 9:00am-2:30pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon 08:00–20:00; Wed–Sun 08:00–20:00; closed Tuesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2053387119",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2053387119, opening-hours block: '화(9/29) 휴무일; 수(9/30) 08:00 ~ 20:00; 목(10/1) 08:00 ~ 20:00; 금(10/2) 08:00 ~ 20:00; 토(10/3) 08:00 ~ 20:00; 일(10/4) 08:00 ~ 20:00; 월(10/5) 08:00 ~ 20:00; 휴무: 매주 화요일 휴무'. Read twice, identical. DiningCode (rid rk3L2aOpEuGo) gives '월,수,목,금,토/일 08:00-20:00' — the same. The entry's earlier HappyCow hours (from 9:00, undated) are a stale source and do not block this (ruling 2)."
     },
     "menus": {
       "value": [
@@ -67767,13 +75045,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/cafe.seasonsori, read 2026-09-29): '🌿이대 본점 … 이화여대3길 27, 201호'. Kakao Map place panel (1632596295): '서울 서대문구 이화여대3길 27 2층 201호 (대현동)'. Road name and building number agree, and so does the floor/unit where both give one. The bio gives no district; Kakao places 이화여대3길 27 in Seodaemun-gu. Only Kakao gives the floor."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 10:00am-10:00pm, Sat-Sun 11:00am-9:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Fri 10:00–22:00; Sat, Sun 11:00–21:00; public holidays 11:00–21:00; closed on 1 Jan, the three Seollal days, the three Chuseok days and Christmas; one-off hours on 30 Sep (10:00–19:00) and 3 Oct (11:00–17:30); the hall may be booked out for private events (see its Instagram)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1632596295",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1632596295 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 10:00 ~ 22:00; [기본 영업시간] 화 10:00 ~ 22:00; [기본 영업시간] 수 10:00 ~ 22:00; [기본 영업시간] 목 10:00 ~ 22:00; [기본 영업시간] 금 10:00 ~ 22:00; [기본 영업시간] 토 11:00 ~ 21:00; [기본 영업시간] 일 11:00 ~ 21:00; [2026년 9월 30일] 수 10:00 ~ 19:00; [2026년 10월 3일] 토 11:00 ~ 17:30; [공휴일]  11:00 ~ 21:00; 휴무: 1월1일, 설전날, 설당일, 설다음날, 추석전날, 추석당일, 추석다음날, 성탄절; 안내: *대관으로 인해 홀 사용이 어려울 수 있습니다. 인스타그램을 확인해주세요.'. Read twice, identical. DiningCode (rid aTYCFMkEE4e6) gives '월-금 10:00-22:00, 일 11:00-21:00, 토 10:00-17:30' — Saturday differs; the operator's own entry outranks it (ruling 1). HappyCow's earlier hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -67897,13 +75221,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 11:30am-3:00pm, Mon-Sun 5:00pm-9:30pm, Sat-Sun 11:30am-4:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 11:30–21:00, break 15:00–17:00, last order 20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2114260452",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2114260452 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:30 ~ 21:00 / 15:00 ~ 17:00 브레이크타임 / 20:30 라스트오더; 수(9/30) 11:30 ~ 21:00 / 15:00 ~ 17:00 브레이크타임 / 20:30 라스트오더; 목(10/1) 11:30 ~ 21:00 / 15:00 ~ 17:00 브레이크타임 / 20:30 라스트오더; 금(10/2) 11:30 ~ 21:00 / 15:00 ~ 17:00 브레이크타임 / 20:30 라스트오더; 토(10/3) 11:30 ~ 21:00 / 15:00 ~ 17:00 브레이크타임 / 20:30 라스트오더; 일(10/4) 11:30 ~ 21:00 / 15:00 ~ 17:00 브레이크타임 / 20:30 라스트오더; 월(10/5) 11:30 ~ 21:00 / 15:00 ~ 17:00 브레이크타임 / 20:30 라스트오더'. Read twice, identical. DiningCode (rid yux4lyAxNPQh) gives '매일 11:30-21:00' with a 15:00–17:00 break — the same. The entry's earlier HappyCow hours (undated) are stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -67920,13 +75325,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu of one item, edited 2026-06-04; blog posts listed on Kakao mention other dishes (such as a hot mackerel soba) that the menu does not list, so it is incomplete."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 070-7795-6969; HappyCow gives +82-50713776970. The sources disagree."
+      "value": "070-7795-6969",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2114260452",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2114260452 (owner-entered on its registered Kakao listing) lists 070-7795-6969. Read twice, identical. DiningCode gives 0507-1377-6970 and the entry's earlier HappyCow evidence +82-507-1377-6970 — a relay (safe) number, not a disagreement with the shop's own line (ruling 3); HappyCow is also undated (ruling 2)."
     },
     "officialUrl": {
       "value": null,
@@ -68493,13 +75898,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-10:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon, Tue 11:00–22:00; Thu–Sun 11:00–22:00; closed Wednesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1423394242",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1423394242 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 22:00; 수(9/30) 휴무일; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 22:00; 일(10/4) 11:00 ~ 22:00; 월(10/5) 11:00 ~ 22:00'. Read twice, identical. No DiningCode listing was found at this address. The entry's earlier HappyCow hours ('Mon-Sun 11:00am-10:00pm', undated) are stale; the operator's own entry outranks them anyway (rulings 1–2)."
     },
     "menus": {
       "value": [
@@ -68615,13 +76061,34 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Tue-Sat 12:00pm-7:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Fri 12:00–18:00; Sat 12:00–17:00; closed Mondays, Tuesdays, Wednesdays, Thursdays and Sundays; public holidays 12:00–17:00; closed 2–3 Oct and on Seollal day",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [],
+          "thu": [],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "17:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/151355785",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 151355785 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 금 12:00 ~ 18:00; [기본 영업시간] 토 12:00 ~ 17:00; [공휴일]  12:00 ~ 17:00; 휴무: 매주 월요일, 화요일, 수요일, 목요일, 일요일, 10/2(금) ~ 10/3(토), 설당일'. Read twice, identical. DiningCode (rid brxNkkS6icN9) gives '금 12:00-18:00, 토 12:00-17:00' — the same. HappyCow's earlier 'Tue-Sat 12:00pm-7:00pm' (undated) is stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -69090,13 +76557,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-12:00am'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Sat 11:00–24:00; Sun 11:00–22:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/12411385",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 12411385 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 24:00; 수(9/30) 11:00 ~ 24:00; 목(10/1) 11:00 ~ 24:00; 금(10/2) 11:00 ~ 24:00; 토(10/3) 11:00 ~ 24:00; 일(10/4) 11:00 ~ 22:30; 월(10/5) 11:00 ~ 24:00'. Read twice, identical. DiningCode (rid HXUwj9R4ETqH) gives '월-수 11:00-22:30, 목,금,토/일 10:30-22:30' — different; the operator's own entry outranks it (ruling 1). HappyCow's earlier 'Mon-Sun 11:00am-12:00am' (undated) is stale."
     },
     "menus": {
       "value": [
@@ -69220,13 +76733,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sat 11:00am-10:30pm, Sun 11:00am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:00–22:00, last order 20:40",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "20:40"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "20:40"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "20:40"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "20:40"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "20:40"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "20:40"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "20:40"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2022806150",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2022806150, opening-hours block: '화(9/29) 11:00 ~ 22:00; 수(9/30) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 22:00; 일(10/4) 11:00 ~ 22:00; 월(10/5) 11:00 ~ 22:00; 안내: 라스트오더 20:40'. Read twice, identical. DiningCode (rid WVPbK8ldHHlP) gives '매일 11:00-22:00', last order 20:40 — the same. HappyCow's earlier hours (Mon–Sat to 10:30pm, undated) are stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -69519,13 +77085,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2025-06-30). Only dishes covered by the vegan evidence are listed; the full menu also has non-vegan dishes."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-556-4182; HappyCow gives +82-50713164182. The sources disagree."
+      "value": "02-556-4182",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/74461068",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 74461068 lists 02-556-4182. Read twice, identical. DiningCode gives 0507-1316-4182 (HappyCow the same), a relay (safe) number — not a disagreement with the shop's own line (ruling 3)."
     },
     "officialUrl": {
       "value": null,
@@ -69618,13 +77184,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Tue-Sun 12:00pm-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Tue–Sun open 24 hours; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1133416273",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1133416273, opening-hours block: '화(9/29) 00:00 ~ 24:00; 수(9/30) 00:00 ~ 24:00; 목(10/1) 00:00 ~ 24:00; 금(10/2) 00:00 ~ 24:00; 토(10/3) 00:00 ~ 24:00; 일(10/4) 00:00 ~ 24:00; 월(10/5) 휴무일'. Read twice, identical. DiningCode (rid BNjNpcIYtt8Q) gives '화,수,목,금,토/일 00:00-24:00' — the same. HappyCow's earlier 'Tue-Sun 12:00pm-9:00pm' (undated) is stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -69756,13 +77363,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sat 11:00am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Sat 11:10–22:00, break 15:25–16:45; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:10",
+              "to": "15:25"
+            },
+            {
+              "from": "16:45",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:10",
+              "to": "15:25"
+            },
+            {
+              "from": "16:45",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:10",
+              "to": "15:25"
+            },
+            {
+              "from": "16:45",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:10",
+              "to": "15:25"
+            },
+            {
+              "from": "16:45",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:10",
+              "to": "15:25"
+            },
+            {
+              "from": "16:45",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:10",
+              "to": "15:25"
+            },
+            {
+              "from": "16:45",
+              "to": "22:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/107915877",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 107915877 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:10 ~ 22:00 / 15:25 ~ 16:45 브레이크타임; 수(9/30) 11:10 ~ 22:00 / 15:25 ~ 16:45 브레이크타임; 목(10/1) 11:10 ~ 22:00 / 15:25 ~ 16:45 브레이크타임; 금(10/2) 11:10 ~ 22:00 / 15:25 ~ 16:45 브레이크타임; 토(10/3) 11:10 ~ 22:00 / 15:25 ~ 16:45 브레이크타임; 일(10/4) 휴무일; 월(10/5) 11:10 ~ 22:00 / 15:25 ~ 16:45 브레이크타임'. Read twice, identical. DiningCode (rid V8RaVJtCTASg) gives '월-금,토 11:10-22:00' — the same. HappyCow's earlier hours (undated) are stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -70069,13 +77741,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 11:00am-10:00pm, Sat 11:30am-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:00–22:00, last order 21:30; Sat, Sun 11:00–21:00, last order 20:20",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "21:00",
+              "lastOrder": "20:20"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:00",
+              "lastOrder": "20:20"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/862485396",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 862485396 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 22:00; 수(9/30) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 21:00; 일(10/4) 11:00 ~ 21:00; 월(10/5) 11:00 ~ 22:00; 안내: (Last order) 평일 21:30 / 주말 20:20'. Read twice, identical. DiningCode (rid vd2XesZMc3mQ) gives '월-금 11:00-22:00, 토/일 11:00-21:00' — the same. HappyCow's earlier hours (undated) are stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -70199,13 +77924,66 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 10:30–22:00, last order 21:55",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "22:00",
+              "lastOrder": "21:55"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "22:00",
+              "lastOrder": "21:55"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:30",
+              "to": "22:00",
+              "lastOrder": "21:55"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "22:00",
+              "lastOrder": "21:55"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "22:00",
+              "lastOrder": "21:55"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "22:00",
+              "lastOrder": "21:55"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "22:00",
+              "lastOrder": "21:55"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/430584550",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 430584550, opening-hours block: '화(9/29) 10:30 ~ 22:00 / 21:55 라스트오더; 수(9/30) 10:30 ~ 22:00 / 21:55 라스트오더; 목(10/1) 10:30 ~ 22:00 / 21:55 라스트오더; 금(10/2) 10:30 ~ 22:00 / 21:55 라스트오더; 토(10/3) 10:30 ~ 22:00 / 21:55 라스트오더; 일(10/4) 10:30 ~ 22:00 / 21:55 라스트오더; 월(10/5) 10:30 ~ 22:00 / 21:55 라스트오더'. Read twice, identical. DiningCode (rid 01vrTBi8Nplg) gives '매일 10:30-22:00' — the same. HappyCow's earlier 'Mon-Sun 11:00am-9:00pm' (undated) is stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -70451,13 +78229,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-9:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:00–21:00; Sat, Sun 11:00–20:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/530320702",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 530320702 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 21:00; 수(9/30) 11:00 ~ 21:00; 목(10/1) 11:00 ~ 21:00; 금(10/2) 11:00 ~ 21:00; 토(10/3) 11:00 ~ 20:00; 일(10/4) 11:00 ~ 20:00; 월(10/5) 11:00 ~ 21:00'. Read twice, identical. DiningCode (rid qMSBxn7CdtQi) gives '월-금 10:30-21:00, 토/일 11:00-20:00' — weekday opening differs; the operator's own entry outranks it (ruling 1). HappyCow's earlier hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -70474,13 +78298,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2026-08-28). Only dishes covered by the vegan evidence are listed; the full menu also has non-vegan dishes."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-6456-8856; HappyCow gives no number. One source only."
+      "value": "02-6456-8856",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/530320702",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 530320702 (owner-entered on its registered Kakao listing) lists 02-6456-8856. Read twice, identical. DiningCode gives 0507-1332-8856, a relay (safe) number — not a disagreement with the shop's own line (ruling 3)."
     },
     "officialUrl": {
       "value": null,
@@ -70573,13 +78397,68 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/prathet_thai_/, read 2026-09-29): '13, Teheran-ro 21-gil, Gangnam-gu, Seoul'. Kakao Map place panel (1112196743): '서울 강남구 테헤란로21길 13 1층 (역삼동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 11:00am-2:30pm, 4:30pm-9:30pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:00–20:50, break 14:30–16:30; closed Sundays; Saturday not given (Kakao marks Sat 3 Oct, a public holiday, closed)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "16:30",
+              "to": "20:50"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "16:30",
+              "to": "20:50"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "16:30",
+              "to": "20:50"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "16:30",
+              "to": "20:50"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            },
+            {
+              "from": "16:30",
+              "to": "20:50"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1112196743",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1112196743, opening-hours block: '화(9/29) 11:00 ~ 20:50 / 14:30 ~ 16:30 브레이크타임; 수(9/30) 11:00 ~ 20:50 / 14:30 ~ 16:30 브레이크타임; 목(10/1) 11:00 ~ 20:50 / 14:30 ~ 16:30 브레이크타임; 금(10/2) 11:00 ~ 20:50 / 14:30 ~ 16:30 브레이크타임; 토(10/3) 휴무일; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 20:50 / 14:30 ~ 16:30 브레이크타임'. Read twice, identical. DiningCode (rid xTeQSu5RNQ0q) has no regular hours for this place (its dated week view marks every day 휴무일, its pattern for listings with no hours data), so it shows no hours to compare (ruling 2). HappyCow's earlier hours (evening to 9:30pm, undated) are stale."
     },
     "menus": {
       "value": [
@@ -70711,13 +78590,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 11:00am-9:00pm, Sat 11:00am-8:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 08:00–20:30; Sat, Sun 10:00–18:30; public holidays 10:00–20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:00",
+              "to": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:00",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "18:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "18:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/613197379",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 613197379, opening-hours block: '[기본 영업시간] 월 08:00 ~ 20:30; [기본 영업시간] 화 08:00 ~ 20:30; [기본 영업시간] 수 08:00 ~ 20:30; [기본 영업시간] 목 08:00 ~ 20:30; [기본 영업시간] 금 08:00 ~ 20:30; [기본 영업시간] 토 10:00 ~ 18:30; [기본 영업시간] 일 10:00 ~ 18:30; [공휴일]  10:00 ~ 20:30'. Read twice, identical. No DiningCode listing was found at this address. HappyCow's earlier 'Mon-Fri 11:00am-9:00pm, Sat 11:00am-8:00pm' (undated) is a stale source and does not block this (ruling 2)."
     },
     "menus": {
       "value": [
@@ -70734,13 +78659,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2026-08-28). Only dishes covered by the vegan evidence are listed; the full menu also has non-vegan dishes. Items without a price have none on the Kakao menu."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 070-4337-5252; HappyCow gives +82-50713135254. The sources disagree."
+      "value": "070-4337-5252",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/613197379",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 613197379 lists 070-4337-5252. Read twice, identical. No DiningCode listing was found at this address. The entry's earlier HappyCow number (a 0507 relay, undated) is stale and a relay in any case (rulings 2–3)."
     },
     "officialUrl": {
       "value": "http://www.saladbox.kr",
@@ -70833,13 +78758,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 9:00am-8:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 10:00–19:00; closed Saturdays and Sundays; also closed on public holidays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1525689156",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1525689156 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 10:00 ~ 19:00; [기본 영업시간] 화 10:00 ~ 19:00; [기본 영업시간] 수 10:00 ~ 19:00; [기본 영업시간] 목 10:00 ~ 19:00; [기본 영업시간] 금 10:00 ~ 19:00; 휴무: 매주 토요일, 일요일, 공휴일'. Read twice, identical. DiningCode (rid qJpHXAQpr7rG) gives '월-금,토 10:00-19:30' — different; the operator's own entry outranks it (ruling 1). HappyCow's earlier hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -70856,13 +78817,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2024-10-21). Only dishes covered by the vegan evidence are listed; the full menu also has non-vegan dishes."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-722-5891; HappyCow gives +82-27225892. The sources disagree."
+      "value": "02-722-5891",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1525689156",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1525689156 (owner-entered on its registered Kakao listing) lists 02-722-5891. Read twice, identical. DiningCode gives 010-2953-5891 and the entry's earlier HappyCow evidence 02-722-5892; the operator's own entry on its registered listing outranks both (ruling 1)."
     },
     "officialUrl": {
       "value": null,
@@ -70955,13 +78916,54 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/saladus.kr/, read 2026-09-29): '서울 은평구 연서로20길 3, 1층'. Kakao Map place panel (239569581): '서울 은평구 연서로20길 3 1층 (대조동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 10:30am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon, Tue 12:00–22:00; Thu–Sun 12:00–22:00; closed Wednesdays; also closed the day before, of and after Seollal and Chuseok",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/239569581",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 239569581 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 12:00 ~ 22:00; [기본 영업시간] 화 12:00 ~ 22:00; [기본 영업시간] 목 12:00 ~ 22:00; [기본 영업시간] 금 12:00 ~ 22:00; [기본 영업시간] 토 12:00 ~ 22:00; [기본 영업시간] 일 12:00 ~ 22:00; 휴무: 매주 수요일, 설전날, 설당일, 설다음날, 추석전날, 추석당일, 추석다음날'. Read twice, identical. DiningCode (rid 3WUg4w9hRv6z) gives '월,화,목,금,토/일 11:30-21:30' — different; the operator's own entry outranks it (ruling 1). HappyCow's earlier hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -71077,13 +79079,72 @@ export const restaurants = [
       "evidence": "Operator (the store list on the Slow Cali brand website, which Kakao links as the venue's homepage, https://www.slowcali.co.kr/bbs/content.php?co_id=store, read 2026-09-29): '슬로우캘리 연남본점 주소 서울 마포구 동교로38길 35 2층 (연남동)'. Kakao Map place panel (1900893477): '서울 마포구 동교로38길 35 2층 (연남동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon 11:30am-8:30pm, Tue-Sun 11:30am-3:00pm, 5:00pm-8:30pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:00–20:00, break 16:00–17:00, last order 19:30; Saturday and Sunday not given (Kakao shows no times for Sat 3 Oct or Sun 4 Oct)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "16:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00",
+              "lastOrder": "19:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1900893477",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1900893477 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 20:00 / 16:00 ~ 17:00 브레이크타임 / 19:30 라스트오더; 수(9/30) 11:00 ~ 20:00 / 16:00 ~ 17:00 브레이크타임 / 19:30 라스트오더; 목(10/1) 11:00 ~ 20:00 / 16:00 ~ 17:00 브레이크타임 / 19:30 라스트오더; 금(10/2) 11:00 ~ 20:00 / 16:00 ~ 17:00 브레이크타임 / 19:30 라스트오더; 월(10/5) 11:00 ~ 20:00 / 16:00 ~ 17:00 브레이크타임 / 19:30 라스트오더'. Read twice, identical. DiningCode (rid 0xSZeTifgwmx) gives '월-금,토 11:00-20:00' — no conflict on the days filled. HappyCow's earlier hours (undated) are stale (ruling 2)."
     },
     "menus": {
       "value": [
@@ -71104,13 +79165,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2026-08-31). Only dishes covered by the vegan evidence are listed; the full menu also has non-vegan dishes."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 0502-5554-5255; HappyCow gives +82-23360688. The sources disagree."
+      "value": "0502-5554-5255",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1900893477",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1900893477 (owner-entered on its registered Kakao listing) lists 0502-5554-5255. Read twice, identical. This is the only number the owner lists, and it is a 0502 relay (virtual) number that forwards to the shop. DiningCode gives 02-336-8885 and the entry's earlier HappyCow evidence 02-336-0688; the operator's own entry outranks both (ruling 1)."
     },
     "officialUrl": {
       "value": "https://www.slowcali.co.kr/",
@@ -71504,13 +79565,69 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 11:30am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 11:30–22:00, break 15:00–17:00; closed Saturdays and Sundays; also closed on public holidays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1475081143",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1475081143 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 화 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 수 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 목 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 금 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임; 휴무: 매주 토요일, 일요일, 공휴일'. Read twice, identical. DiningCode (rid ifwi0ZMJpOf9) gives '월-금,토 11:30-22:00' (Saturday open); the operator's own entry outranks it (ruling 1). HappyCow's earlier 'Mon-Fri 11:30am-10:00pm' (undated) is stale."
     },
     "menus": {
       "value": [
@@ -72093,13 +80210,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Sat-Sun 11:00am-5:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Tue–Sun 08:00–18:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "08:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "18:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/852685039",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 852685039 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 08:00 ~ 18:00; 수(9/30) 08:00 ~ 18:00; 목(10/1) 08:00 ~ 18:00; 금(10/2) 08:00 ~ 18:00; 토(10/3) 08:00 ~ 18:00; 일(10/4) 08:00 ~ 18:00; 월(10/5) 휴무일'. Read twice, identical. DiningCode (rid nQTuwPPZI9Wf) gives '화,수,토 08:00-18:00, 목,금,일 11:00-18:00' — different on Thu/Fri/Sun; the operator's own entry outranks it (ruling 1). HappyCow's earlier weekend-only hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -72124,13 +80282,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu (last edited 2023-09-06). A selection; the whole menu is vegan per the sources in the vegan field."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 010-7730-8559; HappyCow gives +82-1050968559. The sources disagree."
+      "value": "010-7730-8559",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/852685039",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 852685039 (owner-entered on its registered Kakao listing) lists 010-7730-8559. Read twice, identical. DiningCode gives the same number. The entry's earlier HappyCow number (+82-10-5096-8559, undated) is stale (ruling 2)."
     },
     "officialUrl": {
       "value": null,
@@ -72353,13 +80511,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/dugong.soycafe/, read 2026-09-29): '이대점(이화여대5길 9)'. Kakao Map place panel (566549956): '서울 서대문구 이화여대5길 9 파크제이드 이화 1층 101호 (대현동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator gives no floor or unit; Kakao adds them."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon 1:30pm-9:00pm, Tue-Wed 11:00am-9:00pm, Thu-Fri 11:00am-7:00pm, Sun 12:30pm-7:30pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:00–19:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/566549956",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 566549956 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 19:00; 수(9/30) 11:00 ~ 19:00; 목(10/1) 11:00 ~ 19:00; 금(10/2) 11:00 ~ 19:00; 토(10/3) 11:00 ~ 19:00; 일(10/4) 11:00 ~ 19:00; 월(10/5) 11:00 ~ 19:00'. Read twice, identical. DiningCode (rid jQQ2QZgk6995) gives '월 13:00-21:00, 화,수 11:00-21:00, 목,금 11:00-19:00, 금,토/일 12:30-19:30' — different; the operator's own entry outranks it (ruling 1). HappyCow's earlier hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -72483,13 +80687,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/jaiso__official/, read 2026-09-29): '안국점: (영업 10-19) 북촌로 10'. Kakao Map place panel (1002941064): '서울 종로구 북촌로 10 1층 (재동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator gives no floor; Kakao adds 1층."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 10:00am-7:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 10:00–19:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1002941064",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1002941064, opening-hours block: '화(9/29) 10:00 ~ 19:00; 수(9/30) 10:00 ~ 19:00; 목(10/1) 10:00 ~ 19:00; 금(10/2) 10:00 ~ 19:00; 토(10/3) 10:00 ~ 19:00; 일(10/4) 10:00 ~ 19:00; 월(10/5) 10:00 ~ 19:00'. Read twice, identical. DiningCode (rid k7qbgeQ7qEdx) gives '매일 10:00-19:00' — the same (its dated view's 1–3 Oct closures are holiday dates, ruling 4). HappyCow's earlier 'Mon-Sun 10:00am-7:00pm' agrees as well."
     },
     "menus": {
       "value": [
@@ -72795,13 +81045,60 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon 9:30am-5:00pm, Wed-Fri 9:30am-5:00pm, Sat-Sun 9:00am-5:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon 09:30–17:00, last order 15:30; Wed–Fri 09:30–17:00, last order 15:30; Sat, Sun 09:00–17:00, last order 15:30; closed Tuesdays; public holidays 09:00–17:00; also closed 30 Sep and 20–22 Oct; closes early when ingredients run out",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:30",
+              "to": "17:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "09:30",
+              "to": "17:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:30",
+              "to": "17:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:30",
+              "to": "17:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "17:00",
+              "lastOrder": "15:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "17:00",
+              "lastOrder": "15:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2005749800",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2005749800 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 09:30 ~ 17:00; [기본 영업시간] 수 09:30 ~ 17:00; [기본 영업시간] 목 09:30 ~ 17:00; [기본 영업시간] 금 09:30 ~ 17:00; [기본 영업시간] 토 09:00 ~ 17:00; [기본 영업시간] 일 09:00 ~ 17:00; [공휴일]  09:00 ~ 17:00; 휴무: 매주 화요일, 9/30(수), 10/20(화) ~ 10/22(목); 안내: 라스트 오더는 3시 30분이나 재료 소진 시 조기마감합니다. 인스타그램 참고 부탁드려요🩷'. Read twice, identical. DiningCode (rid ofIbPAwdKdZV) gives '월,수 09:30-17:00, 목,금,토/일 09:00-17:00' — Thu/Fri opening differs; the operator's own entry outranks it (ruling 1). HappyCow's earlier hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -73438,13 +81735,53 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Tue 11:00am-10:00pm, Thu-Sun 11:00am-10:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon, Tue 11:00–22:00; Thu–Sat 11:00–22:00; Sun 11:00–21:30; Wednesday not given",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "21:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/10902244",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 10902244 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 22:00; 일(10/4) 11:00 ~ 21:30; 월(10/5) 11:00 ~ 22:00'. Read twice, identical. DiningCode (rid QVAiMOZFmkDd) gives '월,화,목,금,토/일 10:30-21:30' — different; the operator's own entry outranks it (ruling 1). HappyCow's earlier hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -73560,13 +81897,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 9:00am-6:00pm, Sat 11:00am-6:00pm, Sun 12:30pm-6:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 09:00–18:00; Sun 12:30–18:00; closed Saturdays; also closed on Chuseok day and National Foundation Day (3 Oct)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [],
+          "sun": [
+            {
+              "from": "12:30",
+              "to": "18:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/815868422",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 815868422 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 09:00 ~ 18:00; [기본 영업시간] 화 09:00 ~ 18:00; [기본 영업시간] 수 09:00 ~ 18:00; [기본 영업시간] 목 09:00 ~ 18:00; [기본 영업시간] 금 09:00 ~ 18:00; [기본 영업시간] 일 12:30 ~ 18:00; 휴무: 매주 토요일, 추석당일, 개천절'. Read twice, identical. DiningCode (rid Wgg8gSvqPODw) gives '월-금 09:00-18:00, 일 12:30-18:00' — the same. HappyCow's earlier Saturday 11:00am-6:00pm (undated) is a stale source and does not block this (ruling 2)."
     },
     "menus": {
       "value": [
@@ -73682,13 +82060,59 @@ export const restaurants = [
       "evidence": "Operator (Instagram bio, https://www.instagram.com/trou8les/, read 2026-09-29): '서울 강남구 가로수길 78, 1F'. Kakao Map place panel (794691108): '서울 강남구 가로수길 78 1층 (신사동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Sun 11:00am-7:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Daily 08:00–19:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/794691108",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 794691108 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 08:00 ~ 19:00; 수(9/30) 08:00 ~ 19:00; 목(10/1) 08:00 ~ 19:00; 금(10/2) 08:00 ~ 19:00; 토(10/3) 08:00 ~ 19:00; 일(10/4) 08:00 ~ 19:00; 월(10/5) 08:00 ~ 19:00'. Read twice, identical. DiningCode (rid la6oV7exLn86) gives '매일 08:00-19:00' — the same. HappyCow's earlier 'Mon-Sun 11:00am-7:00pm' (undated) is a stale source and does not block this (ruling 2)."
     },
     "menus": {
       "value": null,
@@ -73700,13 +82124,13 @@ export const restaurants = [
       "evidence": "HappyCow says there are many vegan smoothies but does not name them. Kakao Map's menu (edited 2026-08) has six smoothies, two described with almond-milk bases, and yogurt bowls made with dairy Greek yogurt; no item is marked vegan, so none is named here."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 070-8849-3333; HappyCow gives no number. One source only."
+      "value": "070-8849-3333",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/794691108",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 794691108 (owner-entered on its registered Kakao listing) lists 070-8849-3333. Read twice, identical. DiningCode gives 0507-1341-3382, a relay (safe) number — not a disagreement with the shop's own line (ruling 3)."
     },
     "officialUrl": {
       "value": null,
@@ -73799,13 +82223,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow gives 'Mon-Fri 8:30am-8:00pm, Sat-Sun 8:00am-8:00pm'; no second source was checked, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Fri 07:00–15:00; Sat, Sun 07:00–20:00; public holidays 07:00–20:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "07:00",
+              "to": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "07:00",
+              "to": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "07:00",
+              "to": "15:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "07:00",
+              "to": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "07:00",
+              "to": "15:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "07:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "07:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1604111384",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1604111384 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 07:00 ~ 15:00; [기본 영업시간] 화 07:00 ~ 15:00; [기본 영업시간] 수 07:00 ~ 15:00; [기본 영업시간] 목 07:00 ~ 15:00; [기본 영업시간] 금 07:00 ~ 15:00; [기본 영업시간] 토 07:00 ~ 20:00; [기본 영업시간] 일 07:00 ~ 20:00; [공휴일]  07:00 ~ 20:00'. Read twice, identical. DiningCode (rid otI3OWn3VP8H) gives '월-수 07:00-15:00, 목,금,토/일 07:00-20:00' — Thu/Fri differ; the operator's own entry outranks it (ruling 1). HappyCow's earlier hours (undated) are stale."
     },
     "menus": {
       "value": [
@@ -73920,13 +82390,78 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Sat 11:00–21:00, break 15:00–17:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8064601",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 8064601, opening-hours block: '화(9/29) 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임'. Read twice, identical. DiningCode (rid bMinf16PyWW5) gives '월-금,토 11:00-21:00' — the same (its dated view's 1–3 Oct closures are holiday dates, ruling 4)."
     },
     "menus": {
       "value": [
@@ -74701,13 +83236,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Fri 08:00–22:00; Sat, Sun 10:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/19645541",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 19645541 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 08:00 ~ 22:00; 수(9/30) 08:00 ~ 22:00; 목(10/1) 08:00 ~ 22:00; 금(10/2) 08:00 ~ 22:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 08:00 ~ 22:00'. Read twice, identical. DiningCode (rid 5m9oUrM44sgS) gives '월-수 08:00-22:00, 목,금,토/일 10:00-22:00' — Thu/Fri opening differs; the operator's own entry outranks it (ruling 1)."
     },
     "menus": {
       "value": [
@@ -75204,13 +83785,13 @@ export const restaurants = [
       "evidence": "Kakao Map menu of 8 items, last edited 2026-09-09. Only dishes covered by the vegan evidence are listed."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 02-359-2223 and Seoul's vegetarian register gives 0507-1365-2223; they disagree, so the phone is left unknown."
+      "value": "02-359-2223",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/966115628",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 966115628 lists 02-359-2223. Read twice, identical. DiningCode gives the same number. Seoul's register gives 0507-1365-2223, a relay (safe) number, which is not a disagreement with the shop's own line (ruling 3)."
     },
     "officialUrl": {
       "value": null,
@@ -76149,13 +84730,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울 서대문구 연희맛로 18 (연희동, 우림조경) 1층 본죽&비빔밥 연희점'. Kakao Map place panel (18299379): '서울 서대문구 연희맛로 18 1층 (연희동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 연희점', phone 02-324-8866, the same number Kakao lists. The operator adds a building name in brackets that Kakao omits; only one source gives it, so it is not a conflict."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/18299379",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 18299379, opening-hours block: '화(9/29) 09:00 ~ 21:00; 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00; 금(10/2) 09:00 ~ 21:00; 토(10/3) 09:00 ~ 21:00; 일(10/4) 09:00 ~ 21:00; 월(10/5) 09:00 ~ 21:00'. Read twice, identical. The operator's own page — franchisor BonIF's store finder record '본 죽&비빔밥 연희점' (서울 서대문구 연희맛로 18 (연희동, 우림조경) 1층 본죽&비빔밥 연희점), https://api.bonif.co.kr/store/v1/store-detail?strIdx=4051&brdCd=BF102, read twice, identical — gives '월 09:00-21:00; 화 09:00-21:00; 수 09:00-21:00; 목 09:00-21:00; 금 09:00-21:00; 토 09:00-21:00; 일 09:00-21:00' — the same as Kakao. DiningCode (rid YNMuQQcYBAya) gives '매일 09:30-21:30' — different, but the operator's own page outranks it (rule 3's exception, second-pass ruling 1), and it agrees with Kakao."
     },
     "menus": {
       "value": [
@@ -76409,13 +85036,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 성북구 아리랑로 6-1 (동선동4가)'. Kakao Map place panel (23825103): '서울 성북구 아리랑로 6-1 1층 (동선동4가)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 돈암동점', phone 02-928-8477, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/23825103",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 23825103, opening-hours block: '화(9/29) 09:00 ~ 21:00; 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00; 금(10/2) 09:00 ~ 21:00; 토(10/3) 09:00 ~ 21:00; 일(10/4) 09:00 ~ 21:00; 월(10/5) 09:00 ~ 21:00'. Read twice, identical. The operator's own page — franchisor BonIF's store finder record '본 죽&비빔밥 돈암동점' (서울특별시 성북구 아리랑로 6-1 (동선동4가) ), https://api.bonif.co.kr/store/v1/store-detail?strIdx=5417&brdCd=BF102, read twice, identical — gives '월 09:00-21:00; 화 09:00-21:00; 수 09:00-21:00; 목 09:00-21:00; 금 09:00-21:00; 토 09:00-21:00; 일 09:00-21:00' — the same as Kakao. DiningCode (rid nWliUFldepbS) gives '월-수 08:30-21:00, 목,금,토/일 10:00-20:00' — different, but the operator's own page outranks it (rule 3's exception, second-pass ruling 1), and it agrees with Kakao."
     },
     "menus": {
       "value": [
@@ -76922,13 +85595,83 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon 11:00–14:30; Tue–Sun 11:00–21:00, break 15:00–17:00; public holidays 11:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "14:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/25147888",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 25147888 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 월 11:00 ~ 14:30; [기본 영업시간] 화 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 수 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 목 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 금 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 토 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; [기본 영업시간] 일 11:00 ~ 21:00 / 15:00 ~ 17:00 브레이크타임; [공휴일]  11:00 ~ 21:00'. Read twice, identical. DiningCode (rid YZtkMthnwHE0) gives '화,수,목,금,토/일 11:00-20:30, 월 11:00-14:00' — closing differs; the operator's own entry outranks it (ruling 1)."
     },
     "menus": {
       "value": [
@@ -77020,13 +85763,94 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 11:00–21:00, break 15:30–16:30, last order 20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:30"
+            },
+            {
+              "from": "16:30",
+              "to": "21:00",
+              "lastOrder": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/989349005",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 989349005, opening-hours block: '화(9/29) 11:00 ~ 21:00 / 15:30 ~ 16:30 브레이크타임 / 20:30 라스트오더; 수(9/30) 11:00 ~ 21:00 / 15:30 ~ 16:30 브레이크타임 / 20:30 라스트오더; 목(10/1) 11:00 ~ 21:00 / 15:30 ~ 16:30 브레이크타임 / 20:30 라스트오더; 금(10/2) 11:00 ~ 21:00 / 15:30 ~ 16:30 브레이크타임 / 20:30 라스트오더; 토(10/3) 11:00 ~ 21:00 / 15:30 ~ 16:30 브레이크타임 / 20:30 라스트오더; 일(10/4) 11:00 ~ 21:00 / 15:30 ~ 16:30 브레이크타임 / 20:30 라스트오더; 월(10/5) 11:00 ~ 21:00 / 15:30 ~ 16:30 브레이크타임 / 20:30 라스트오더'. Read twice, identical. DiningCode (rid jxIVsBeYFAsR) gives '매일 11:00-21:00' — the same (its dated view's 1–3 Oct closures are holiday dates, ruling 4)."
     },
     "menus": {
       "value": [
@@ -77969,13 +86793,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 강남구 선릉로 424'. Kakao Map place panel (329258144): '서울 강남구 선릉로 424 2층 (대치동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 선릉점', phone 02-566-7763, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/329258144",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 329258144, opening-hours block: '화(9/29) 09:00 ~ 21:00; 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00; 금(10/2) 09:00 ~ 21:00; 토(10/3) 09:00 ~ 21:00; 일(10/4) 09:00 ~ 21:00; 월(10/5) 09:00 ~ 21:00'. Read twice, identical. The operator's own page — franchisor BonIF's store finder record '본 죽&비빔밥 선릉점' (서울특별시 강남구 선릉로 424 ), https://api.bonif.co.kr/store/v1/store-detail?strIdx=4014&brdCd=BF102, read twice, identical — gives '월 09:00-21:00; 화 09:00-21:00; 수 09:00-21:00; 목 09:00-21:00; 금 09:00-21:00; 토 09:00-21:00; 일 09:00-21:00' — the same as Kakao. DiningCode (rid thofIiZf1RGF) gives '월-금,토 09:00-20:30, 일 10:00-20:50' — different, but the operator's own page outranks it (rule 3's exception, second-pass ruling 1), and it agrees with Kakao."
     },
     "menus": {
       "value": [
@@ -78554,13 +87424,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 강동구 상암로 195 (명일동, 에이플러스) 105호'. Kakao Map place panel (17696404): '서울 강동구 상암로 195 에이플러스 1층 105호 (명일동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 굽은다리역점', phone 02-442-6233, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17696404",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 17696404, opening-hours block: '화(9/29) 09:00 ~ 21:00; 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00; 금(10/2) 09:00 ~ 21:00; 토(10/3) 09:00 ~ 21:00; 일(10/4) 09:00 ~ 21:00; 월(10/5) 09:00 ~ 21:00'. Read twice, identical. The operator's own page — franchisor BonIF's store finder record '본 죽&비빔밥 굽은다리역점' (서울특별시 강동구 상암로 195 (명일동, 에이플러스) 105호), https://api.bonif.co.kr/store/v1/store-detail?strIdx=6253&brdCd=BF102, read twice, identical — gives '월 09:00-21:00; 화 09:00-21:00; 수 09:00-21:00; 목 09:00-21:00; 금 09:00-21:00; 토 09:00-21:00; 일 09:00-21:00' — the same as Kakao. DiningCode (rid SRixJU6UUiMb) gives '토 09:00-15:00, 월,화,수,금,일 09:00-21:00' — different, but the operator's own page outranks it (rule 3's exception, second-pass ruling 1), and it agrees with Kakao."
     },
     "menus": {
       "value": [
@@ -78684,13 +87600,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 강동구 진황도로 189 (둔촌동) 1층 101호'. Kakao Map place panel (1587585967): '서울 강동구 진황도로 189 1층 101호 (둔촌동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 둔촌보훈병원점', phone 02-478-6288, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1587585967",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1587585967, opening-hours block: '화(9/29) 09:00 ~ 21:00; 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00; 금(10/2) 09:00 ~ 21:00; 토(10/3) 09:00 ~ 21:00; 일(10/4) 09:00 ~ 21:00; 월(10/5) 09:00 ~ 21:00'. Read twice, identical. The operator's own page — franchisor BonIF's store finder record '본 죽&비빔밥 둔촌보훈병원점' (서울특별시 강동구 진황도로 189 (둔촌동) 1층 101호), https://api.bonif.co.kr/store/v1/store-detail?strIdx=4602&brdCd=BF102, read twice, identical — gives '월 09:00-21:00; 화 09:00-21:00; 수 09:00-21:00; 목 09:00-21:00; 금 09:00-21:00; 토 09:00-21:00; 일 09:00-21:00' — the same as Kakao. DiningCode (rid Qjlu7CDgARf9) gives '매일 09:00-21:00' — the same; its dated view marks 1–4 Oct closed, a holiday-week block (ruling 4), not a different regular schedule."
     },
     "menus": {
       "value": [
@@ -78814,13 +87776,53 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 영등포구 여의나루로 42 (여의도동, 여의도종합상가) 205,206호'. Kakao Map place panel (396419545): '서울 영등포구 여의나루로 42 여의도종합상가 2층 205~206호 (여의도동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 여의도역점', phone 02-780-6288, the same number Kakao lists. The operator writes the units as '205,206호' and Kakao as '205~206호': the same two units."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Sat 09:00–20:30; Sunday not given",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "20:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/396419545",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 396419545, opening-hours block: '화(9/29) 09:00 ~ 20:30; 수(9/30) 09:00 ~ 20:30; 목(10/1) 09:00 ~ 20:30; 금(10/2) 09:00 ~ 20:30; 토(10/3) 09:00 ~ 20:30; 월(10/5) 09:00 ~ 20:30'. Read twice, identical. The operator's own page — franchisor BonIF's store finder record '본 죽&비빔밥 여의도역점' (서울특별시 영등포구 여의나루로 42 (여의도동, 여의도종합상가) 205,206호), https://api.bonif.co.kr/store/v1/store-detail?strIdx=6224&brdCd=BF102, read twice, identical — gives '월 09:00-20:30; 화 09:00-20:30; 수 09:00-20:30; 목 09:00-20:30; 금 09:00-20:30; 토 09:00-20:30' — the same as Kakao. DiningCode (rid baA8Z2VbIXdH) gives '월-금 07:30-20:30, 목,토 07:30-20:00' — different, but the operator's own page outranks it (rule 3's exception, second-pass ruling 1), and it agrees with Kakao."
     },
     "menus": {
       "value": [
@@ -78944,13 +87946,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 금천구 금하로 619 (시흥동) 1층'. Kakao Map place panel (8368604): '서울 금천구 금하로 619 1층 (시흥동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 시흥사거리점', phone 02-808-6288, the same number Kakao lists."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8368604",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 8368604, opening-hours block: '화(9/29) 09:00 ~ 21:00; 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00; 금(10/2) 09:00 ~ 21:00; 토(10/3) 09:00 ~ 21:00; 일(10/4) 09:00 ~ 21:00; 월(10/5) 09:00 ~ 21:00'. Read twice, identical. The operator's own page — franchisor BonIF's store finder record '본 죽&비빔밥 시흥사거리점' (서울특별시 금천구 금하로 619 (시흥동) 1층), https://api.bonif.co.kr/store/v1/store-detail?strIdx=4142&brdCd=BF102, read twice, identical — gives '월 09:00-21:00; 화 09:00-21:00; 수 09:00-21:00; 목 09:00-21:00; 금 09:00-21:00; 토 09:00-21:00; 일 09:00-21:00' — the same as Kakao. DiningCode (rid QSt2QIXr0Guw) gives '매일 09:30-20:40' — different, but the operator's own page outranks it (rule 3's exception, second-pass ruling 1), and it agrees with Kakao."
     },
     "menus": {
       "value": [
@@ -79380,13 +88428,59 @@ export const restaurants = [
       "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 동작구 만양로 81 (노량진동, 문화독서실)'. Kakao Map place panel (16090405): '서울 동작구 만양로 81 1층 103호 (노량진동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 노량진점', phone 02-3280-6288, the same number Kakao lists. The operator adds a building name in brackets that Kakao omits; only one source gives it, so it is not a conflict."
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Daily 09:00–21:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16090405",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 16090405, opening-hours block: '화(9/29) 09:00 ~ 21:00; 수(9/30) 09:00 ~ 21:00; 목(10/1) 09:00 ~ 21:00; 금(10/2) 09:00 ~ 21:00; 토(10/3) 09:00 ~ 21:00; 일(10/4) 09:00 ~ 21:00; 월(10/5) 09:00 ~ 21:00'. Read twice, identical. The operator's own page — franchisor BonIF's store finder record '본 죽&비빔밥 노량진점' (서울특별시 동작구 만양로 81 (노량진동, 문화독서실) ), https://api.bonif.co.kr/store/v1/store-detail?strIdx=4915&brdCd=BF102, read twice, identical — gives '월 09:00-21:00; 화 09:00-21:00; 수 09:00-21:00; 목 09:00-21:00; 금 09:00-21:00; 토 09:00-21:00; 일 09:00-21:00' — the same as Kakao. DiningCode (rid XkDlzaFVi5KK) gives '매일 10:00-21:00' — different, but the operator's own page outranks it (rule 3's exception, second-pass ruling 1), and it agrees with Kakao."
     },
     "menus": {
       "value": [
@@ -80159,13 +89253,90 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists opening hours, but no second source was checked, so hours are left unknown. Check before visiting."
+      "value": {
+        "raw": "Mon–Sat 11:00–21:30, break 15:00–17:00, lunch last order 14:20, last order 20:40; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:40"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:40"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:40"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:40"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:40"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:30",
+              "lastOrder": "20:40"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/20548626",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 20548626, opening-hours block: '화(9/29) 11:00 ~ 21:30 / 15:00 ~ 17:00 브레이크타임 / 14:20 라스트오더 / 20:40 라스트오더; 수(9/30) 11:00 ~ 21:30 / 15:00 ~ 17:00 브레이크타임 / 14:20 라스트오더 / 20:40 라스트오더; 목(10/1) 11:00 ~ 21:30 / 15:00 ~ 17:00 브레이크타임 / 14:20 라스트오더 / 20:40 라스트오더; 금(10/2) 11:00 ~ 21:30 / 15:00 ~ 17:00 브레이크타임 / 14:20 라스트오더 / 20:40 라스트오더; 토(10/3) 11:00 ~ 21:30 / 15:00 ~ 17:00 브레이크타임 / 14:20 라스트오더 / 20:40 라스트오더; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 21:30 / 15:00 ~ 17:00 브레이크타임 / 14:20 라스트오더 / 20:40 라스트오더'. Read twice, identical. DiningCode (rid sckiOfZrKSFQ) gives '월-금,토 11:00-21:30' — the same (its dated view's 1–3 Oct closures are holiday dates, ruling 4)."
     },
     "menus": {
       "value": [
@@ -80598,13 +89769,87 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode give 11:00–22:30 with a 15:00–17:00 break; Zabihah gives 12:00 PM – 10:00 PM daily. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:00–22:30, break 15:00–17:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27268075",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27268075, opening-hours block: '화(9/29) 11:00 ~ 22:30 / 15:00 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 22:30 / 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 22:30 / 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 22:30 / 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:00 ~ 22:30 / 15:00 ~ 17:00 브레이크타임; 일(10/4) 11:00 ~ 22:30 / 15:00 ~ 17:00 브레이크타임; 월(10/5) 11:00 ~ 22:30 / 15:00 ~ 17:00 브레이크타임'. Read twice, identical. DiningCode (rid vnOkXE1ZnaQ7) gives '매일 11:00-22:30' — the same. Zabihah's '12:00 PM – 10:00 PM daily' (an undated user-edited directory page, like HappyCow) is treated as a stale source and does not block this (ruling 2)."
     },
     "menus": {
       "value": [
@@ -80637,13 +89882,13 @@ export const restaurants = [
       "evidence": "Kakao Map's 14-item menu, last edited 2023-10-31 to 2023-12-29 (listing not owner-registered): '빠니푸리 6000', '베지터블브리야니 11000', '램커리 13000', '새우빈달루 12000', '카다이램 14000'. Prices are about three years old."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and Zabihah's page data give 02-2261-2912; DiningCode gives 0507-1400-7305. The sources disagree, so the phone is left unknown."
+      "value": "02-2261-2912",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27268075",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 27268075 lists 02-2261-2912. Read twice, identical. Zabihah's page data gives the same number. DiningCode gives 0507-1400-7305, a relay (safe) number — not a disagreement with the shop's own line (ruling 3)."
     },
     "officialUrl": {
       "value": null,
@@ -80742,13 +89987,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode give 11:00–22:00 daily; Zabihah gives 12:00 PM – 10:00 PM daily. The opening times disagree, so hours are left unknown."
+      "value": {
+        "raw": "Daily 11:00–22:00",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12570290",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 12570290, opening-hours block: '화(9/29) 11:00 ~ 22:00; 수(9/30) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 22:00; 일(10/4) 11:00 ~ 22:00; 월(10/5) 11:00 ~ 22:00'. Read twice, identical. DiningCode (rid not re-found in this pass) gave 11:00–22:00 daily per the entry's earlier evidence — the same. Zabihah's '12:00 PM – 10:00 PM daily' (an undated user-edited directory page) is treated as a stale source (ruling 2)."
     },
     "menus": {
       "value": [
@@ -80781,13 +90072,13 @@ export const restaurants = [
       "evidence": "DiningCode's menu (read twice, identical; undated): '치킨버터마살라 12,000 원', '팔락파니르 12,000 원', '사모사 5,000 원', '파니푸리 6,000 원', '점심세트 10,500 원'. Kakao's 7-item menu was last edited 2019–2022 with older prices, so DiningCode's list is used."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and Zabihah's page data give 02-703-3535; DiningCode gives 0507-1403-3536. The sources disagree, so the phone is left unknown."
+      "value": "02-703-3535",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12570290",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 12570290 lists 02-703-3535. Read twice, identical. Zabihah's page data gives the same number. DiningCode gave 0507-1403-3536 (per the entry's earlier evidence), a relay (safe) number — not a disagreement with the shop's own line (ruling 3)."
     },
     "officialUrl": {
       "value": null,
@@ -81390,13 +90681,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map gives 11:00–20:00 Monday–Saturday with no Sunday hours; Zabihah gives 11:00 AM – 10:00 PM every day; DiningCode says hours need checking. The sources disagree, so hours are left unknown."
+      "value": {
+        "raw": "Mon–Sat 11:00–20:00; closed Sundays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17908634",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 17908634, opening-hours block: '화(9/29) 11:00 ~ 20:00; 수(9/30) 11:00 ~ 20:00; 목(10/1) 11:00 ~ 20:00; 금(10/2) 11:00 ~ 20:00; 토(10/3) 11:00 ~ 20:00; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 20:00'. Read twice, identical. DiningCode (rid yBdcd4OIFxU0) shows no hours ('영업시간 확인 필요'). Zabihah's '11:00 AM – 10:00 PM every day' (an undated user-edited directory page) is treated as a stale source (ruling 2)."
     },
     "menus": {
       "value": [
@@ -81429,13 +90761,13 @@ export const restaurants = [
       "evidence": "Kakao Map's 8-item menu, edited 2026-04-22 to 2026-06-29 (listing not owner-registered): '양고기케밥 7000', '치킨케밥 6000', '로얄케밥 6500', '라이스치킨케밥 9000', '팔라펠&호우스 10000'. DiningCode's undated menu lists the same dishes at lower, older prices."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode give 02-776-6904; Zabihah's page data gives +82 10 3131 1764. The sources disagree, so the phone is left unknown."
+      "value": "02-776-6904",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17908634",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 17908634 lists 02-776-6904. Read twice, identical. DiningCode gives the same number. Zabihah's page data gives +82 10 3131 1764; Zabihah is an undated user-edited directory page and is treated as a stale source (ruling 2)."
     },
     "officialUrl": {
       "value": null,
@@ -85765,13 +95097,13 @@ export const restaurants = [
       "evidence": "Kakao Map's menu list gives these items and prices; DiningCode lists the gazpacho at the same 11,000 KRW and marks it '무오신채 글루텐프리'. The menu changes monthly ('9월의 메뉴')."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map lists 02-3272-4058 while DiningCode lists 0507-1360-4058; the sources differ, so the field is left unknown."
+      "value": "02-3272-4058",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/717790455",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 717790455 (owner-entered on its registered Kakao listing) lists 02-3272-4058. Read twice, identical. DiningCode gives 0507-1360-4058, a relay (safe) number — not a disagreement with the shop's own line (ruling 3)."
     },
     "instagram": {
       "value": "https://www.instagram.com/littlegangster_vegan/",
@@ -86145,13 +95477,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map publishes no regular hours for this listing, and no other source was opened for them."
+      "value": {
+        "raw": "Tue–Fri 10:00–20:00; Sat 09:00–19:00; closed Mondays and Sundays; the shop also closes when the owner teaches classes in the shop or elsewhere",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1682869351",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1682869351 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 10:00 ~ 20:00; 수(9/30) 10:00 ~ 20:00; 목(10/1) 10:00 ~ 20:00; 금(10/2) 10:00 ~ 20:00; 토(10/3) 09:00 ~ 19:00; 일(10/4) 휴무일; 월(10/5) 휴무일; 안내: 휴무 매주 일/월요일 매장 수업, 출장 수업 시 매장 휴무입니다:)'. Read twice, identical. DiningCode (rid IQfZlA01AguQ) has no regular hours for this place (its dated week view marks every day 휴무일, its pattern for listings with no hours data)."
     },
     "menus": {
       "value": [
@@ -86901,13 +96269,47 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map publishes no regular hours for this listing, and no other source was opened for them."
+      "value": {
+        "raw": "Mon–Fri 12:00–19:00; Saturday and Sunday not given (Kakao marks Sat 3 Oct closed and shows no Sunday)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/866601159",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 866601159 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 12:00 ~ 19:00; 수(9/30) 12:00 ~ 19:00; 목(10/1) 12:00 ~ 19:00; 금(10/2) 12:00 ~ 19:00; 토(10/3) 휴무일; 월(10/5) 12:00 ~ 19:00'. Read twice, identical. DiningCode (rid 276UvJr2EOmC) gives '월-금,토 10:20-18:00' — different; the operator's own entry outranks it (ruling 1)."
     },
     "menus": {
       "value": [
@@ -88622,13 +98024,70 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map publishes no regular hours for this listing, and no other source was opened for them."
+      "value": {
+        "raw": "Mon, Tue 10:30–20:00, break 15:00–17:00; Thu, Fri 10:30–20:00, break 15:00–17:00; Sat, Sun 10:30–20:00; closed Wednesdays",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:30",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1200593853",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1200593853 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 10:30 ~ 20:00 / 15:00 ~ 17:00 브레이크타임; 수(9/30) 휴무일; 목(10/1) 10:30 ~ 20:00 / 15:00 ~ 17:00 브레이크타임; 금(10/2) 10:30 ~ 20:00 / 15:00 ~ 17:00 브레이크타임; 토(10/3) 10:30 ~ 20:00; 일(10/4) 10:30 ~ 20:00; 월(10/5) 10:30 ~ 20:00 / 15:00 ~ 17:00 브레이크타임'. Read twice, identical. DiningCode (rid tDZ3HvPVBAOu) gives '월,화,목,금,토/일 10:30-20:00' and a 15:00–17:00 break on weekends too; the operator's own entry outranks it (ruling 1)."
     },
     "menus": {
       "value": [
@@ -89702,13 +99161,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map publishes no regular hours for this listing, and no other source was opened for them."
+      "value": {
+        "raw": "Mon–Fri 11:00–19:00; Sat, Sun 10:00–20:30",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "20:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/871045860",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 871045860 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 19:00; 수(9/30) 11:00 ~ 19:00; 목(10/1) 11:00 ~ 19:00; 금(10/2) 11:00 ~ 19:00; 토(10/3) 10:00 ~ 20:30; 일(10/4) 10:00 ~ 20:30; 월(10/5) 11:00 ~ 19:00'. Read twice, identical. DiningCode (rid X6i7ittzFbUu) gives '매일 11:00-18:00' — different; the operator's own entry outranks it (ruling 1)."
     },
     "menus": {
       "value": [
@@ -90156,13 +99661,59 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map publishes no regular hours for this listing, and no other source was opened for them."
+      "value": {
+        "raw": "Daily 10:00–18:00; the owner lists dated closures on 29 Sep, 6–9 Oct, 13 Oct, 18–19 Oct and 25–26 Oct, and 16:00 closing on 28 Sep",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "18:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1231017201",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1231017201 (owner-entered on its registered Kakao listing), opening-hours block: '[기본 영업시간] 매일 10:00 ~ 18:00; [2026년 9월 28일] 월 10:00 ~ 16:00; 휴무: 9/29(화), 10/6(화) ~ 10/9(금), 10/13(화), 10/18(일) ~ 10/19(월), 10/25(일) ~ 10/26(월)'. Read twice, identical. DiningCode (rid KBVVfHIT9K4d) gives '월,수,목,토/일 10:00-18:00'; the operator's own entry outranks it (ruling 1)."
     },
     "menus": {
       "value": [
@@ -91838,13 +101389,13 @@ export const restaurants = [
       "evidence": "The operator's own menu page (gnukebab.co.kr/menu.html, read twice as raw text, identical; in-store prices). The owner-entered Kakao menu (38 items, every item edited 2026-09-28) gives the same kebab, rice-bowl, snack-pack and lunch-box prices; it does not list the hot dog."
     },
     "phone": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The operator's site gives 0507-1480-1695; the Kakao listing gives 010-7612-1359. The sources disagree, so the field is left unknown."
+      "value": "010-7612-1359",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/538177395",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 538177395 (owner-entered on its registered Kakao listing) lists 010-7612-1359. Read twice, identical. The operator's own site gives 0507-1480-1695, a relay (safe) number, and DiningCode the same relay; the owner-entered line on the registered listing outranks it and a relay is not a disagreement (rulings 1 and 3)."
     },
     "officialUrl": {
       "value": "https://gnukebab.co.kr/",
@@ -95451,13 +105002,49 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map publishes no regular hours for this listing, and no other source was opened for them."
+      "value": {
+        "raw": "Wed–Sun 12:00–19:00; closed Mondays and Tuesdays",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1073774543",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1073774543 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 휴무일; 수(9/30) 12:00 ~ 19:00; 목(10/1) 12:00 ~ 19:00; 금(10/2) 12:00 ~ 19:00; 토(10/3) 12:00 ~ 19:00; 일(10/4) 12:00 ~ 19:00; 월(10/5) 휴무일; 휴무: 매주 월요일, 화요일 휴무'. Read twice, identical. DiningCode (rid n2B4wAAjhIYT) gives '수-금,토/일 12:00-19:00' — the same."
     },
     "menus": {
       "value": [
@@ -96064,13 +105651,54 @@ export const restaurants = [
       "precision": "street"
     },
     "hours": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map publishes no regular hours for this listing, and no other source was opened for them."
+      "value": {
+        "raw": "Tue–Sun 11:00–18:00; closed Mondays",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1571386635",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1571386635 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 11:00 ~ 18:00; 수(9/30) 11:00 ~ 18:00; 목(10/1) 11:00 ~ 18:00; 금(10/2) 11:00 ~ 18:00; 토(10/3) 11:00 ~ 18:00; 일(10/4) 11:00 ~ 18:00; 월(10/5) 휴무일'. Read twice, identical. DiningCode (rid RjtNrleiA5kP) gives '화,수,목,금,토/일 11:00-18:00' — the same (its dated view marks Sun 4 Oct closed, a single holiday-week date)."
     },
     "menus": {
       "value": [
