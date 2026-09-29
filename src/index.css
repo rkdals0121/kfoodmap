@@ -1281,6 +1281,33 @@ button {
   gap: 20px;
   animation: fadeIn 0.25s ease;
 }
+/* Discover and Profile hold long content, not a centred empty state. With
+   the base rule's centring and no overflow, a column taller than the screen
+   spilled equally off the top, out of reach: on a phone the heading and the
+   first journeys sat ~1,800px above the viewport. Stack from the top and
+   scroll instead. */
+.discover-panel,
+.profile-panel {
+  justify-content: flex-start;
+  overflow-y: auto;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.discover-panel > *,
+.profile-panel > * {
+  flex-shrink: 0;
+}
+/* Full-width columns, not content-sized ones centred (which overflowed the
+   screen by ~70px); cards read left-aligned. */
+.discover-panel > .journey-list,
+.discover-panel > .story-grid {
+  align-self: stretch;
+  padding: 0;
+}
+.discover-panel > .journey-list,
+.discover-panel > .story-grid {
+  text-align: left;
+}
 .panel-icon {
   color: var(--muted);
   display: flex;
@@ -1298,7 +1325,9 @@ button {
   color: var(--ink);
   margin-bottom: -8px;
 }
-.tab-panel p {
+/* :where() keeps this at one class of specificity, so a card's own
+   paragraph class (.journey-card__description, later in the file) wins. */
+.tab-panel :where(p) {
   color: var(--ink-body);
   line-height: 1.7;
   font-size: 16px;

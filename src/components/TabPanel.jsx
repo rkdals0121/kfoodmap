@@ -10,24 +10,29 @@ import { journeys } from '../data/journeys';
 import PlaceImage from './PlaceImage';
 import { LANGUAGE_STORAGE_KEY } from '../i18n/index.js';
 
-// Pick some interesting stories for Discover
-const cultureStories = [
-  restaurants.find(r => r.name.includes('Balwoo')), // Temple Cuisine
-  restaurants.find(r => r.name.includes('Myeongdong Kyoja')), // Noodles/Kimchi
-  restaurants.find(r => r.name.includes('Gwangjang')), // Street Food
-  restaurants.find(r => r.name.includes('Jungsik')), // Modern Korean
-].filter(Boolean);
+// Stories for Discover's culture section, by id: the old name lookups had
+// quietly stopped matching three of four places, leaving one card. A place
+// that is gone or quarantined drops out rather than opening a dead page.
+const CULTURE_STORY_IDS = [
+  'balwoo',               // Buddhist temple food, Seoul
+  'gamloheon-jeonju',     // yakseon, food as medicine, Jeonju
+  'osegyehyang',          // Korean-Chinese classics made vegan, Insadong
+  'vegenarang-gwangalli', // temple-style food, Busan
+];
 
 // A journey's stops must all still be active — if any one of them were ever
 // quarantined, the editorial claim ("three verified restaurants...") would
 // no longer be true, so the whole journey is dropped rather than shown with
 // a silently missing stop.
 const byId = Object.fromEntries(restaurants.map(r => [r.id, r]));
+const cultureStories = CULTURE_STORY_IDS
+  .map(id => byId[id])
+  .filter(place => place && !isQuarantined(place));
 const resolvedJourneys = journeys
   .map(j => ({ ...j, stops: j.stopIds.map(id => byId[id]) }))
   .filter(j => j.stops.every(place => place && !isQuarantined(place)));
 
-function DiscoverTab({ onNavigate }) {
+function DiscoverTab() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -78,7 +83,7 @@ function DiscoverTab({ onNavigate }) {
 
       <div className="story-grid">
         {cultureStories.map(place => (
-          <article key={place.id} className="story-card" onClick={() => onNavigate('map')}>
+          <article key={place.id} className="story-card" onClick={() => navigate(`/place/${place.id}`)}>
             <PlaceImage place={place} variant="hero" className="story-card-img" />
             <div className="story-card-content">
               <h3>{displayName(place.name)}</h3>
@@ -282,7 +287,7 @@ export default function TabPanel({
   tab, onNavigate, session, googleReady, onSignIn, onSignOut, onDeleteRecords,
   lastSyncFailed, sessionEnded, signInFailed, savedCount, visitedCount,
 }) {
-  if (tab === 'discover') return <DiscoverTab onNavigate={onNavigate} />;
+  if (tab === 'discover') return <DiscoverTab />;
   if (tab === 'profile') {
     return (
       <ProfileTab
