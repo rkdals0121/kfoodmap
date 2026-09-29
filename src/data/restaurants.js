@@ -59288,7 +59288,7 @@ export const restaurants = [
       }
     },
     "vibe": "A small all-vegan bakery by Suseong Market making traditional Korean breads.",
-    "story": "Zero Table is a small bakery beside Suseong Market in Daegu. HappyCow says everything it bakes is vegan and most of it is gluten-free, and that it closes when the day's bread sells out, so go early. Its lattes are made with soy or almond milk. It is a 3-minute walk from Suseong Market station on Line 3.",
+    "story": "Zero Table is a small bakery beside Suseong Market in Daegu. HappyCow says everything it bakes is vegan and most of it is gluten-free. Its own Instagram currently says the shop opens by reservation only ('현재는 예약으로 운영됩니다'), so book before you go. Its lattes are made with soy or almond milk. It is a 3-minute walk from Suseong Market station on Line 3.",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
     "imageLeads": [],
@@ -80174,7 +80174,19 @@ export const restaurants = [
     },
     "vibe": "A small vegan bagel shop near Sadang with plant-based cream-cheese spreads.",
     "story": "The Rabbit is a vegan bagel shop and grocery. The owner describes it as 100% vegan, made without dairy or eggs, and HappyCow lists it as a vegan bagel and dessert shop. Bagels include basil-tomato-olive, black sesame and soy milk, with plant-based spreads such as onion-chive and fig; its 'cream cheese' and 'parmesan' are dairy-free versions. It is mainly take-out. It is an eight-minute walk from Sadang Station.",
-    "image": "/images/vegan_cafe.svg"
+    "image": "/images/vegan_cafe.svg",
+    "lifecycle": {
+      "status": "quarantine",
+      "determination": {
+        "value": "quarantine",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": null,
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Closure check 2026-09-29 (.superpowers/data-expansion/closure-check.md): the owner's Kakao schedule marks all seven days closed with no notice explaining it; the newest dated visit is a Kakao review of 2026-04-25 and the owner's last menu edit 2026-04-24. No sign of a move. Withheld until a call to 02-6085-7846 or a later listing settles whether it still trades."
+      }
+    }
   },
   {
     "imageLeads": [],
@@ -99131,7 +99143,19 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "lifecycle": {
+      "status": "quarantine",
+      "determination": {
+        "value": "quarantine",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": null,
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Closure check 2026-09-29 (.superpowers/data-expansion/closure-check.md): the operator's own Kakao channel pins a post dated 2026-05-06, read twice identically — '이번 카페영업중단 이후에 온라인을 통한 사업으로 전향…' (the café has stopped trading; the business is moving online). Kakao's owner schedule marks all seven days closed. Quarantined rather than deleted so the record stays auditable."
+      }
+    }
   },
   {
     "id": "silktela-munsan",
