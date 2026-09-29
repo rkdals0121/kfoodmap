@@ -53,10 +53,6 @@ function AppShell() {
   const focusStory = Boolean(location.state?.focusStory);
   const isSubmit = location.pathname === '/submit';
   const isPrivacy = location.pathname === '/privacy';
-  // A detail, submit or privacy sheet is modal: while one is open, what lies
-  // behind it is inert, so Tab stays inside the sheet instead of wandering
-  // into the list and map it covers.
-  const modalOpen = Boolean(selectedRestaurant) || isSubmit || isPrivacy;
   const submitPlace = useMemo(
     () => (isSubmit ? resolvePlace(new URLSearchParams(location.search).get('place'), activeRestaurants) : null),
     [isSubmit, location.search],
@@ -84,6 +80,11 @@ function AppShell() {
     return () => mq.removeEventListener('change', onChange);
   }, []);
   const mapCovered = activeTab !== 'map' && !isWide;
+  // The submit and privacy sheets are modal, and so is the detail on a
+  // phone, where it covers the map: while one is open what lies behind it is
+  // inert, so Tab stays inside. From 768px up the detail docks beside a
+  // live map instead, and is not modal.
+  const modalOpen = (Boolean(selectedRestaurant) && !isWide) || isSubmit || isPrivacy;
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
@@ -337,6 +338,7 @@ function AppShell() {
         onToggleVisited={handleToggleVisited}
         mapCenter={mapCenter}
         focusStory={focusStory}
+        docked={isWide}
       />
 
       {isSubmit && (

@@ -155,6 +155,17 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
 
   const atMaxZoom = zoom >= map.getMaxZoom();
 
+  // From 768px up the detail docks beside the map, so bring an opened place
+  // into view if it is off screen. Not on a phone, where the detail covers
+  // the map and a pan would only reshuffle the list behind it.
+  useEffect(() => {
+    if (!selected || !window.matchMedia?.('(min-width: 768px)').matches) return;
+    const c = coordsOf(selected);
+    const ll = L.latLng(c.lat, c.lng);
+    if (!map.getBounds().pad(-0.1).contains(ll)) map.panTo(ll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId]);
+
   return (
     <>
       {groups.map(members => {

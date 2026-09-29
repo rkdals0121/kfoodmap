@@ -3183,3 +3183,25 @@ button {
   font-size: 13px;
   color: #667085;
 }
+
+/* ---------- Docked detail (768px up) ----------
+   Beside a live map instead of a centred modal over a dimmed one: the
+   place's pin stays visible and the map stays usable (docs/UI-DIRECTION.md,
+   CRITIQUE-1 #10). Last in the file so it outranks the 1024px dialog rule. */
+.detail-sheet--docked {
+  left: 0;
+  right: auto;
+  top: 0;
+  bottom: 0;
+  transform: none;
+  width: min(420px, 50vw);
+  height: 100%;
+  border-radius: 0;
+  border-right: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+  animation: dockIn 0.2s ease-out;
+}
+@keyframes dockIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: none; }
+}

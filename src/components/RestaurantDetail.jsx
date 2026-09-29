@@ -72,7 +72,7 @@ const DIET_CAVEAT_KEYS = {
 
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited,
-  mapCenter, focusStory,
+  mapCenter, focusStory, docked = false,
 }) {
   const { t, i18n } = useTranslation();
   const [copied, setCopied] = useState(false);
@@ -208,8 +208,17 @@ export default function RestaurantDetail({
 
   return (
     <>
-      <div className="detail-backdrop" onClick={onClose} />
-      <div className="detail-sheet" role="dialog" aria-modal="true" aria-label={name} ref={sheetRef} tabIndex={-1}>
+      {/* Docked (768px up) the detail sits beside a live map: no backdrop,
+          not modal. On a phone it is a modal sheet over the map. */}
+      {!docked && <div className="detail-backdrop" onClick={onClose} />}
+      <div
+        className={`detail-sheet${docked ? ' detail-sheet--docked' : ''}`}
+        role="dialog"
+        aria-modal={docked ? undefined : 'true'}
+        aria-label={name}
+        ref={sheetRef}
+        tabIndex={-1}
+      >
         <button className="detail-close" aria-label={t('detail.close')} onClick={onClose}>
           <XIcon size={18} />
         </button>
