@@ -3205,15 +3205,15 @@ export const restaurants = [
     "category": "halal-korean",
     "coordinates": {
       "value": {
-        "lat": 37.55650533617257,
-        "lng": 126.92028522432139
+        "lat": 37.55368577,
+        "lng": 126.92247468
       },
       "confidence": "supported",
       "source": "Naver Place / Kakao Map",
-      "url": null,
-      "method": "Map service routing API",
-      "lastCheckedAt": "2026-09-28",
-      "evidence": "Kakao Map's walking-routing API resolves '부산집' near Hongik University to 37.556505, 126.920285. Naver cross-check unavailable — the Naver Search MCP was down for the whole session."
+      "url": "https://place.map.kakao.com/1609123200",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao place 1609123200 (서울 마포구 어울마당로 100-6, 부산집홍대, 2층) is at 37.55368577,126.92247468; the previous pin was 368 m away. The previous pin sat exactly on a different 부산집 listing (Kakao 21410648, 서울 마포구 월드컵북로 18), a separate branch."
     },
     "address": {
       "value": "2F-3F, 100-6 Eoulmadang-ro, Mapo-gu, Seoul",
