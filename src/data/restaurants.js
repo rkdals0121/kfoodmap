@@ -75351,4 +75351,4133 @@ export const restaurants = [
     "coverImage": null,
     "gallery": []
   },
+  // Kakao '비건' discovery — capital region, on the operators' own words (owner-registered listings).
+  {
+    "id": "kkotbap-epida-insadong",
+    "name": "Kkotbap Epida Insadong (꽃밥에피다 인사동)",
+    "zone": "Gwanhun-dong, Jongno-gu, Seoul (Insadong)",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5752745847246,
+        "lng": 126.984020213994
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '꽃밥에피다 인사동' to 37.575275, 126.984020 (destination of the route from 안국역 (Line 3)); the place feed (place 27373320) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 3-6 Insadong 16-gil, Jongno-gu, Seoul (Gwanhun-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27373320",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 종로구 인사동16길 3-6 1층 (관훈동)'. The listing is registered to its owner (my-store status REGISTERED). The operator's site lists this branch as its Insadong restaurant with phone 02-732-0276, the number on the Kakao listing, but gives no street address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 11:30–15:00, 17:00–21:00; Tue 11:30–15:00, 17:00–21:00; Wed 11:30–15:00, 17:00–21:00; Thu 11:30–15:00, 17:00–21:00; Fri 11:30–15:00, 17:00–21:00; Sat 11:30–15:00, 17:00–21:00; Sun 11:30–15:00, 17:00–21:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27373320",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 수(9/30) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 목(10/1) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 금(10/2) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 토(10/3) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 일(10/4) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 월(10/5) 11:30 ~ 21:00 (15:00 ~ 17:00 브레이크타임). Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Special vegan full course (스페셜 비건 풀코스)",
+          "price": "62,000 KRW"
+        },
+        {
+          "name": "Vegan half course (비건 하프 코스)",
+          "price": "45,000 KRW"
+        },
+        {
+          "name": "Chaegaejang, meatless vegetable yukgaejang, with brown rice (채개장과 현미밥)",
+          "price": "24,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27373320",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (items edited 2026-05-05): '스페셜 비건 풀코스 62000 — 8가지 비건 코스 와 자연재배 유기농 쌀로 지은 눈개승마나물 비빔밥 식사와 디저트로 준비합니다. 국, 김치, 사이드 모든 메뉴들이 액젓이나 화학…'; '비건 하프 코스 45000 — 4가지 비건 코스에 … 눈개승마나물 비빔밥과 된장국 그리고 간단한 디저트로 구성된 비건 코스'; '채개장과 현미밥 24000 — … 고기 없는 채소 육개장'. The same menu also lists grass-fed hanwoo, pork neck, pork jeyuk, a sea-squirt bibimbap, dried rockfish and a bojagi bibimbap wrapped in egg; only the dishes above are listed here."
+    },
+    "phone": {
+      "value": "02-732-0276",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.goodbab.co.kr",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The operator's site (read twice): '인사동 레스토랑 02-732-0276'. Kakao Map gives the same number."
+    },
+    "officialUrl": {
+      "value": "https://www.goodbab.co.kr",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27373320",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing; the site names the Insadong restaurant and its phone number."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/flowerrice_official",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27373320",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Anguk",
+        "line": "Line 3",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 291
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안국역 (Line 3) to 꽃밥에피다 인사동: 291 m / 263 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://www.goodbab.co.kr",
+        "method": "Read from the operator’s own website",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The operator's own site (raw page read twice, identical): '인사동과 북촌 모두 비건 채식인들도 마음 편하게 드실 수 있도록 밥, 국, 반찬을 비롯한 모든 사이드들은 비건식으로 준비하고 있습니다. 더불어 100% Grass-Fed 풀로만 한우나 … 무항생제 자연양돈 등 최선의 축산물들이나 우럭찜 등 해산물도 선택할 수 있어서 비건과 일반인들이 함께 편안히 즐기실 수 있습니다.' (At both Insadong and Bukchon, rice, soup, banchan and all sides are prepared vegan; meat and seafood mains are also offered.) The owner-entered Kakao menu (2026-05-05) lists two vegan courses and a meatless 채개장. A mixed kitchen, so `options`. Still trading: Kakao-listed blog posts dated 2026-02-17 ('꽃밥에 피다 비건풀코스') and 2026-03-22; owner notice dated 2026-09-19."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A Korean restaurant in an Insadong alley cooking with organic rice and traditional soy sauce and doenjang, with vegan set courses.",
+    "story": "Kkotbap Epida cooks Korean meals from organic and naturally farmed ingredients, seasoned with traditional ganjang and doenjang. Its own site says that at both its restaurants the rice, soup, banchan and every side are made vegan, with meat and fish offered as separate mains. Vegan diners can order a four- or eight-dish vegan course ending in a namul bibimbap, or chaegaejang, a spicy yukgaejang-style soup made without meat. Some dishes on the menu use egg, beef, pork or seafood, so name the vegan course when you order. It is a four-minute walk from Anguk Station; its sister branch in Bukchon is also on the map.",
+    "esg_point": "Organic, naturally farmed Korean rice and traditionally brewed soy sauce and doenjang.",
+    "image": "/images/fermented_dish.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "jandisok-sangdo",
+    "name": "Imagine You're in the Grass (잔디속에있다고상상을해)",
+    "zone": "Sangdo-dong, Dongjak-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5041919030132,
+        "lng": 126.94884218245015
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '잔디속에있다고상상을해' to 37.504192, 126.948842 (destination of the route from 상도역 (Line 7)); the place feed (place 325377640) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "2F, 265-30 Sangdo-ro, Dongjak-gu, Seoul (Sangdo 1-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/325377640",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 동작구 상도로 265-30 2층 (상도1동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 11:00–22:00; Tue 11:00–22:00; Wed 11:00–22:00; Thu 11:00–22:00; Fri 11:00–22:00; Sat 11:00–22:00; Sun 11:00–22:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/325377640",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:00 ~ 22:00; 수(9/30) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 22:00; 일(10/4) 11:00 ~ 22:00; 월(10/5) 11:00 ~ 22:00. Kakao note: '주문 마감 : 영업 종료 시간 30분(음료), 1시간 전(디저트)입니다.'. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Brownie (브라우니)",
+          "price": "7,000 KRW"
+        },
+        {
+          "name": "Banana toast (바나나 토스트)",
+          "price": "6,800 KRW"
+        },
+        {
+          "name": "Salt coffee (솔트커피)",
+          "price": "5,800 KRW"
+        },
+        {
+          "name": "Americano (아메리카노)",
+          "price": "5,200 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/325377640",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2026-03-09 and 2026-09-04): 브라우니 7000, 솔트커피 5800, 바나나 토스트 6800, 아메리카노 5200. Short list; the café may sell more."
+    },
+    "phone": {
+      "value": "0507-1326-1809",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/325377640",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0507-1326-1809. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://instagram.com/jandi_sok",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/325377640",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Sangdo",
+        "line": "Line 7",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 278
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 상도역 (Line 7) to 잔디속에있다고상상을해: 278 m / 257 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/325377640",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (my-store status REGISTERED; read twice, identical): '모든 메뉴 비건' (every menu item is vegan), followed by '4인까지 이용 / 강아지 동반 가능 … / 현금결제불가'. The owner-entered menu (brownie, banana toast, coffee) does not contradict it. Kakao keyword tags are not used as evidence. Still trading: owner notice dated 2026-09-04 (Chuseok closure on 25 Sep only); Kakao-listed blog posts dated 2026-08-05 and 2026-08-31."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small upstairs café by Sangdo Station where, in the owner's words, every item on the menu is vegan.",
+    "story": "The owner of this second-floor café says every item on its menu is vegan. The listed menu is short: a brownie, banana toast, salt coffee and americano. Groups are limited to four people, dogs are welcome with a rabies-vaccination certificate, and it does not take cash. It is a four-minute walk from Sangdo Station on Line 7.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "cafe-geobugi-bangbae",
+    "name": "Cafe Geobugi (카페거북이)",
+    "zone": "Bangbae-dong, Seocho-gu, Seoul (Sadang)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.48019357535061,
+        "lng": 126.98341413251211
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '카페거북이' to 37.480194, 126.983414 (destination of the route from 사당역 (Line 2)); the place feed (place 1674974477) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 48 Bangbaecheon-ro 4an-gil, Seocho-gu, Seoul (Bangbae-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1674974477",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 서초구 방배천로4안길 48 1층 (방배동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 12:00–22:00; Tue 12:00–22:00; Wed 12:00–22:00; Thu 12:00–22:00; Fri 12:00–22:00; Sat 12:00–22:00; Sun 12:00–22:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1674974477",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 12:00 ~ 22:00; 수(9/30) 12:00 ~ 22:00; 목(10/1) 12:00 ~ 22:00; 금(10/2) 12:00 ~ 22:00; 토(10/3) 12:00 ~ 22:00; 일(10/4) 12:00 ~ 22:00; 월(10/5) 12:00 ~ 22:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Carrot cake (당근 케이크)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "Mugwort and black sesame cake (쑥임자 케이크)",
+          "price": "7,500 KRW"
+        },
+        {
+          "name": "Red bean bingsu (팥빙수)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Walnut pie (호두 파이)",
+          "price": "6,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1674974477",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (items edited 2025-10-20 to 2026-07-22): 당근 케이크 8000, 쑥임자 케이크 7500, 팥빙수 15000, 호두 파이 6000, among 20 cakes, tarts and bingsu. Items marked 'Season Off' are not listed here."
+    },
+    "phone": {
+      "value": "070-4015-5314",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1674974477",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 070-4015-5314. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://instagram.com/_cafe_turtle_",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1674974477",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Sadang",
+        "line": "Line 2 / Line 4",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 563
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 사당역 (Line 2) to 카페거북이: 563 m / 516 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1674974477",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '비건 디저트 전문점 카페 거북이입니다 :) 모든 재료를 식물성으로 사용중입니다!' (a vegan dessert shop; every ingredient used is plant-based). The menu names cheesecakes and a lemon meringue tart; the owner's statement covers every ingredient, so they are read as plant versions, not as a contradiction. Still trading: Kakao-listed blog posts dated 2026-09-15, 2026-09-19 and 2026-09-22; Kakao review dated 2026-07-25."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A dessert café in Bangbae that says every ingredient it uses is plant-based: cakes, tarts, pies and bingsu.",
+    "story": "Cafe Geobugi (\"turtle\") describes itself as a vegan dessert shop and says every ingredient it uses is plant-based. The menu runs to cakes, tarts, pies and seasonal bingsu: carrot cake, a mugwort and black sesame cake, walnut pie and red bean bingsu among them. Some cakes are seasonal. It is about a nine-minute walk from Sadang Station.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "vegan-daum-gajwa",
+    "name": "Vegan Daum Bakery (비건다움 제과점)",
+    "zone": "Jung-dong, Mapo-gu, Seoul (Gajwa)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.56943619324768,
+        "lng": 126.91231953248351
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '비건다움 제과점' to 37.569436, 126.912320 (destination of the route from 가좌역 (Gyeongui–Jungang Line)); the place feed (place 412494521) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 104, 1F Agate shopping arcade, 38 Seongam-ro, Mapo-gu, Seoul (Jung-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/412494521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 마포구 성암로 38 가좌행복주택 Agate 상가 1층 104호 (중동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue closed; Wed 12:00–18:30; Thu 12:00–18:30; Fri 12:00–18:30; Sat 12:00–18:00; Sun closed (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "18:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/412494521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 휴무; 수(9/30) 12:00 ~ 18:30; 목(10/1) 12:00 ~ 18:30; 금(10/2) 12:00 ~ 18:30; 토(10/3) 12:00 ~ 18:00; 일(10/4) 휴무; 월(10/5) 휴무. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chocolate banana cake (초코바나나 케이크)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "S'more cookie with vegan marshmallow (스모어 쿠키)",
+          "price": "4,700 KRW"
+        },
+        {
+          "name": "Peanut butter chocolate chip cookie (피넛버터 초코칩 쿠키)",
+          "price": "4,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/412494521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2025-08-22 to 2025-09-16): 초코바나나 케이크 8000, 스모어 쿠키 4700 ('비건 마시멜로우와 다크초콜릿'), 피넛버터 초코칩 쿠키 4500. The menu is a year old; seasonal items are not listed here."
+    },
+    "phone": {
+      "value": "0507-1432-9884",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/412494521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0507-1432-9884. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://instagram.com/vegandaum",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/412494521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Gajwa",
+        "line": "Gyeongui–Jungang Line",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 272
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 가좌역 (Gyeongui–Jungang Line) to 비건다움 제과점: 272 m / 248 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/412494521",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own words on its owner-registered Kakao listing (read twice, identical): introduction '밀가루&유제품&계란 없이도 먹을 수 있는 속편한 디저트를 만듭니다' and Kakao channel line '밀가루&유제품&계란 없이도 속편하게 먹을수 있는 비건디저트는 만듭니다.' (vegan desserts made without wheat flour, dairy or egg). The menu does not contradict it (its 'cheese' cookie is described as '무첨가 두유로 만든 수제치즈'). Still trading: Kakao-listed blog posts dated 2026-03-17, 2026-04-12 and 2026-04-16; Kakao review dated 2025-12-11."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small bakery by Gajwa Station making vegan, gluten-free cakes and cookies without dairy or egg.",
+    "story": "Vegan Daum makes desserts without wheat flour, dairy or egg, and calls them vegan. Its menu lists a chocolate banana cake and cookies such as a s'more cookie with vegan marshmallow; its blueberry cookie uses a house soy-milk cheese. Items change with the season. It is a four-minute walk from Gajwa Station.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "forfour-bread-seogyo",
+    "name": "For Four Bread (포포브레드)",
+    "zone": "Seogyo-dong, Mapo-gu, Seoul (Hapjeong)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.554557000563584,
+        "lng": 126.91711735242647
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '포포브레드' to 37.554557, 126.917117 (destination of the route from 합정역 (Line 2)); the place feed (place 363670536) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F Sewon Bldg, 13 Donggyo-ro 18-gil, Mapo-gu, Seoul (Seogyo-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/363670536",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 마포구 동교로18길 13 세원빌딩 1층 (서교동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Unknown: the owner's Kakao notice of 2026-09-02 says the shop cut its opening from five days a week to three from September and will post each month's days on Instagram, while Kakao's structured hours still show Tue–Sat 12:00–18:00. The two disagree and Instagram could not be read."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Posiki, rice-flour loaf (포식이)",
+          "price": "7,000 KRW"
+        },
+        {
+          "name": "Chestnut rice loaf (밤식이)",
+          "price": "8,500 KRW"
+        },
+        {
+          "name": "Mugwort rice ciabatta (쑥쌀 치아바타)",
+          "price": "5,500 KRW"
+        },
+        {
+          "name": "Chocolate banana pound cake (초바 파운드)",
+          "price": "5,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/363670536",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (all items edited 2025-01-24, so prices may have changed): 포식이 7000 ('국산 쌀가루로 만든 … 시그니처 식빵'), 밤식이 8500, 쑥쌀 치아바타 5500, 초바 파운드 5500 ('비건 파운드 케잌')."
+    },
+    "phone": {
+      "value": "02-332-2044",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/363670536",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 02-332-2044. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/forfourbread/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/363670536",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Hapjeong",
+        "line": "Line 2 / Line 6",
+        "exit": null,
+        "walkingMinutes": 11,
+        "distanceM": 763
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 합정역 (Line 2) to 포포브레드: 763 m / 685 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/363670536",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '사람, 동물, 지구, 내일 4가지를 위한 따뜻한 비건 베이커리, 포포브레드입니다.' (a vegan bakery 'for people, animals, the planet and tomorrow'). The menu (rice loaves, ciabatta, pound cakes, cookies) does not contradict it. Still trading: owner notice dated 2026-09-02 (reduced opening days); Kakao-listed blog posts dated 2026-08-14, 2026-08-28 and 2026-08-29."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A vegan rice-flour bakery near Hapjeong, open only a few days a week.",
+    "story": "For Four Bread calls itself a vegan bakery baking \"for people, animals, the planet and tomorrow\". It bakes loaves, ciabatta and campagne from Korean rice flour, plus gluten-free pound cakes, cookies and madeleines. Since September 2026 the shop opens only three days a week and posts the days on Instagram at the start of each month, so check before you go. It is about an eleven-minute walk from Hapjeong Station.",
+    "esg_point": "Breads made from Korean-grown rice flour.",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "modu-garden-gimpo",
+    "name": "Modu-ui Jeongwon (모두의 정원)",
+    "zone": "Masan-dong, Gimpo, Gyeonggi",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.6341652941525,
+        "lng": 126.642544201218
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '모두의 정원' to 37.634165, 126.642544 (destination of the route from 마산역 (Gimpo Goldline)); the place feed (place 104956017) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 101, Bldg 1, 8-28 Gimpohangang 8-ro 148beon-gil, Gimpo-si, Gyeonggi-do (Masan-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/104956017",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 김포시 김포한강8로148번길 8-28 1동 101호 (마산동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue 11:30–19:30; Wed 11:30–19:30; Thu 11:30–19:30; Fri 11:30–19:30; Sat 11:30–19:30; Sun 11:30–19:30 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:30",
+              "to": "19:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:30",
+              "to": "19:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:30",
+              "to": "19:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:30",
+              "to": "19:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:30",
+              "to": "19:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "19:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/104956017",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:30 ~ 19:30; 수(9/30) 11:30 ~ 19:30; 목(10/1) 11:30 ~ 19:30; 금(10/2) 11:30 ~ 19:30; 토(10/3) 11:30 ~ 19:30; 일(10/4) 11:30 ~ 19:30; 월(10/5) 휴무. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chocolate cream cake (초코크림 케이크)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Grapefruit cake (자몽케이크)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Mugwort cake or matcha cake (토종쑥밭케이크/순수말차케이크)",
+          "price": "8,900 KRW"
+        },
+        {
+          "name": "Americano (아메리카노)",
+          "price": "4,800 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/104956017",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2026-03-24 to 2026-06-17): 초코크림 케이크 8900 ('비건 가나슈 가득'), 자몽케이크 8900 ('자몽 비건 생크림'), 토종쑥밭케이크/순수말차케이크 8900, 아메리카노 4800; whole cakes need two days' notice."
+    },
+    "phone": {
+      "value": "070-5220-0254",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/104956017",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 070-5220-0254. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/modoo.garden",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/104956017",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Masan",
+        "line": "Gimpo Goldline",
+        "exit": null,
+        "walkingMinutes": 15,
+        "distanceM": 901
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 마산역 (Gimpo Goldline) to 모두의 정원: 901 m / 902 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/104956017",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '원물 중심 순식물성 디저트 카페🪴 전 메뉴 식물성 재료 …' (a purely plant-based dessert café; every menu item uses plant ingredients). The menu's cake descriptions say '비건 가나슈', '오트크림', '비건 생크림' and '순식물성'; its flavoured lattes do not name a milk, and the owner's all-menu statement is read as covering them. Still trading: owner notice dated 2026-09-22 (open through Chuseok); Kakao-listed blog posts dated 2026-07-30, 2026-08-20 and 2026-08-29."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A plant-based cake café in Gimpo's Masan-dong, where the owner says every item is made from plant ingredients.",
+    "story": "Modu-ui Jeongwon (\"everyone's garden\") calls itself a purely plant-based dessert café, and its owner says every menu item is made from plant ingredients. Its cakes include fruit-topped cakes with oat cream and chocolate, grapefruit, mugwort and matcha cakes; whole cakes can be ordered two days ahead. It is about a fifteen-minute walk from Masan Station on the Gimpo Goldline.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "chorokbbang-pyeongtaek-godeok",
+    "name": "Chorokbbang Pyeongtaek Godeok (초록빵 평택고덕점)",
+    "zone": "Godeok-dong, Pyeongtaek, Gyeonggi",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.042002306622706,
+        "lng": 127.03898600691284
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '초록빵 평택고덕점' to 37.042002, 127.038986 (destination of the route from 평택지제역); the place feed (place 577673733) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 102, 1F, Bldg 1, 5 Hambaksan 2-gil, Pyeongtaek-si, Gyeonggi-do (Godeok-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/577673733",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 평택시 함박산2길 5 1동 1층 102호 (고덕동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue 08:30–19:00; Wed 08:30–19:00; Thu 08:30–19:00; Fri 08:30–19:00; Sat 08:30–19:00; Sun closed (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:30",
+              "to": "19:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/577673733",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 08:30 ~ 19:00; 수(9/30) 08:30 ~ 19:00; 목(10/1) 08:30 ~ 19:00; 금(10/2) 08:30 ~ 19:00; 토(10/3) 08:30 ~ 19:00; 일(10/4) 휴무; 월(10/5) 휴무. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Plain rice loaf (기본 쌀식빵)",
+          "price": "4,600 KRW"
+        },
+        {
+          "name": "Mugwort, glutinous rice, red bean and bean rice loaf (쑥 찹쌀팥콩 쌀식빵)",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "Black sesame rice loaf (흑임자 쌀식빵)",
+          "price": "5,900 KRW"
+        },
+        {
+          "name": "Fig rice loaf (무화과 쌀식빵)",
+          "price": "5,700 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/577673733",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2025-11-24/25): eight rice-flour loaves including 기본 쌀식빵 4600, 쑥 찹쌀팥콩 쌀식빵 6500, 흑임자 쌀식빵 5900, 무화과 쌀식빵 5700."
+    },
+    "phone": {
+      "value": "0503-7153-5495",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/577673733",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map lists 0503-7153-5495 and 070-4833-7007. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/chorok.bbang_vegan",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/577673733",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No rail station within walking distance: Kakao Map's walking route from Pyeongtaek Jije Station (SRT / Line 1) is 4,869 m (about 77 minutes). Take a bus or taxi."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/577673733",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '동물성 재료(달걀,버터,우유 등)를 사용하지 않는 비건 베이크샵 입니다:)' (a vegan bake shop using no animal ingredients such as egg, butter or milk). The menu of rice loaves does not contradict it. Still trading: Kakao-listed blog posts dated 2026-08-02 and 2026-08-21; Kakao reviews dated 2025-11-19 (newly opened)."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A vegan rice-bread shop in Godeok new town, Pyeongtaek, baking loaves without egg, butter or milk.",
+    "story": "The Godeok branch of Chorokbbang says it is a vegan bake shop that uses no egg, butter, milk or other animal ingredients. It bakes rice-flour loaves in flavours such as mugwort with red bean, black sesame, fig and chestnut cinnamon. It opened in late 2025 in Godeok new town; the nearest rail station, Pyeongtaek Jije, is almost 5 km away, so come by bus or taxi.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "dampuk-bakery-wirye",
+    "name": "Dampuk Bakery (담뿍빵집)",
+    "zone": "Jangji-dong, Songpa-gu, Seoul (Wirye)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.4772899119027,
+        "lng": 127.14369110088533
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '담뿍빵집' to 37.477290, 127.143691 (destination of the route from 남위례역 (Line 8)); the place feed (place 1905840635) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit Y104, 1F, Songpa Wirye Wise The Sharp arcade, 270 Wiryegwangjang-ro, Songpa-gu, Seoul (Jangji-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1905840635",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 송파구 위례광장로 270 송파위례와이즈더샵 상가 1층 Y104호 (장지동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 12:00–20:00; Tue 12:00–20:00; Wed closed; Thu 12:00–20:00; Fri 12:00–20:00; Sat 12:00–20:00; Sun closed (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "12:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1905840635",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 12:00 ~ 20:00; 수(9/30) 휴무; 목(10/1) 12:00 ~ 20:00; 금(10/2) 12:00 ~ 20:00; 토(10/3) 12:00 ~ 20:00; 일(10/4) 휴무; 월(10/5) 12:00 ~ 20:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Vegan sugar-free new-crop rice loaf, plain, two-colour or red yeast rice (비건 무설탕 햅쌀식빵 백미/2색/홍국)",
+          "price": null
+        },
+        {
+          "name": "Vegan organic unsalted, unsweetened new-crop rice loaf (비건 유기농 햅쌀 무염무당 쌀식빵)",
+          "price": null
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1905840635",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The owner's Kakao notice of 2026-08-13 (a fifth-anniversary sale) lists '비건 무설탕 햅쌀식빵(백미,2색,홍국) 비건 유기농 햅쌀 무염무당 쌀식빵 …'. No prices are given there, and the Kakao menu (one item, 2022) is out of date."
+    },
+    "phone": {
+      "value": "0502-5552-0375",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1905840635",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0502-5552-0375. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/dam_puk.vegan.bakery",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1905840635",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No subway station close by: Kakao Map's walking route from Namwirye Station (Line 8) is 2,351 m (about 37 minutes). A bus is quicker."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1905840635",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '천연발효종 & 비건 베이커리 담뿍빵집입니다.' (a natural-leaven and vegan bakery). The owner's notice of 2026-08-13 lists only vegan rice loaves. Still trading: that notice (a 30% fifth-anniversary sale); Kakao-listed blog posts dated 2025-08-10 and 2025-08-27. The Kakao reviews themselves stop in 2023, which is why an earlier batch left it out."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small vegan sourdough and rice-bread bakery in Wirye new town.",
+    "story": "Dampuk describes itself as a natural-leaven, vegan bakery. It bakes rice loaves, including sugar-free and unsalted organic ones, which it also sells online. It is in a shopping arcade in Wirye new town, about 37 minutes' walk from Namwirye Station, so a bus is the easier way there.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "wonder-chips-gaebong",
+    "name": "Wonder Chips (원더칩스)",
+    "zone": "Gaebong-dong, Guro-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.50052469074828,
+        "lng": 126.84948236046617
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '원더칩스' to 37.500525, 126.849482 (destination of the route from 오류동역 (Line 1)); the place feed (place 211927645) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 102, 1F, 43 Gocheok-ro 30-gil, Guro-gu, Seoul (Gaebong-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/211927645",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 구로구 고척로30길 43 1층 102호 (개봉동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 11:00–20:00; Tue 11:00–20:00; Wed 11:00–20:00; Thu 11:00–18:00; Fri closed; Sat 11:00–20:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "18:00"
+            }
+          ],
+          "fri": [],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/211927645",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:00 ~ 20:00; 수(9/30) 11:00 ~ 20:00; 목(10/1) 11:00 ~ 18:00; 금(10/2) 휴무; 토(10/3) 11:00 ~ 20:00; 일(10/4) 12:00 ~ 08:00; 월(10/5) 11:00 ~ 20:00. Sunday is shown as '12:00 ~ 08:00', which looks like an entry error, so Sunday is left out of the structured hours. Single source."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Unknown: the Kakao menu has one item last edited in 2024, which does not describe what is sold today."
+    },
+    "phone": {
+      "value": "0502-5551-7298",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/211927645",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0502-5551-7298. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/wonderchips_bakeshop",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/211927645",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Oryu-dong",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 17,
+        "distanceM": 1111
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 오류동역 (Line 1) to 원더칩스: 1111 m / 1041 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/211927645",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '세련된 사람들의 건강한 디저트 루틴, 비건·글루텐프리 디저트 전문점 원더칩스입니다.' (a shop specialising in vegan, gluten-free desserts); Kakao channel line: '비건·글루텐프리 디저트, 매일 안심하고 즐겨요'. Still trading: owner notice dated 2026-07-19 (a summer cookie sale); Kakao review dated 2026-02-03; Kakao-listed blog posts dated 2026-03-23, 2026-04-09 and 2026-06-15."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small vegan, gluten-free cookie and dessert shop in Gaebong-dong.",
+    "story": "Wonder Chips calls itself a vegan and gluten-free dessert specialist. It sells thick cookies, financiers and other baked goods, many of them online. It is about an eighteen-minute walk from Oryu-dong Station on Line 1.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "iroun-jegwa-jayang",
+    "name": "Iroun Jegwa (이로운제과)",
+    "zone": "Jayang-dong, Gwangjin-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5342540869952,
+        "lng": 127.066943455404
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '이로운제과' to 37.534254, 127.066943 (destination of the route from 자양역 (Line 7)); the place feed (place 2137025517) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 29 Ttukseom-ro 32-gil, Gwangjin-gu, Seoul (Jayang-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2137025517",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 광진구 뚝섬로32길 29 1층 (자양동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 14:00–18:30; Tue closed; Wed 12:00–18:30; Thu 12:00–19:00; Fri 12:00–19:00; Sat 12:00–19:00; Sun 14:00–18:30 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "14:00",
+              "to": "18:30"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "18:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "14:00",
+              "to": "18:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2137025517",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 휴무; 수(9/30) 12:00 ~ 18:30; 목(10/1) 12:00 ~ 19:00; 금(10/2) 12:00 ~ 19:00; 토(10/3) 12:00 ~ 19:00; 일(10/4) 14:00 ~ 18:30; 월(10/5) 14:00 ~ 18:30. Kakao note: '뚝섬유원지 한강드론쇼 → 2026.10.9 금 21시 마감 (단, 조기마감 가능)'. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Coconut crumble scone (코코넛 크럼블 스콘)",
+          "price": "5,000 KRW"
+        },
+        {
+          "name": "Gluten-free rice salted caramel cookie (쌀) 솔.카 쿠키)",
+          "price": "5,000 KRW"
+        },
+        {
+          "name": "Mello cookies with vegan marshmallow: corn, pumpkin, mugwort, chocolate (멜로 쿠키)",
+          "price": null
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2137025517",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2026-09-05): 코코넛 크럼블 스콘 5000 ('유기농코코넛오일'), 쌀) 솔.카 쿠키 5000 ('매장에서 직접 만드는 발효비건버터'), and 콘멜로/단호박멜로/쑥멜로/초코멜로 쿠키 ('비건마쉬멜로') with no price shown."
+    },
+    "phone": {
+      "value": "0503-7151-4182",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2137025517",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0503-7151-4182. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/i.ze_cookie/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2137025517",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Jayang (Ttukseom Resort)",
+        "line": "Line 7",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 424
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 자양역 (Line 7) to 이로운제과: 424 m / 414 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/2137025517",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own words on its owner-registered Kakao listing (read twice, identical): Kakao channel line '우리몸에 이로운, 맛있는 비건 쿠키 & 디저트를 만들어요' (we make vegan cookies and desserts) and introduction '비건은 물론, 모두와 함께 건강하고 맛있는 쿠키&디저트를 즐기고픈 마음에 시작했어요!'. The owner-entered menu names house-made vegan butter, vegan marshmallow and coconut oil; nothing on it names dairy or egg. Still trading: menu edited 2026-09-05; Kakao-listed blog posts dated 2026-06-26, 2026-06-28 and 2026-07-01."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small vegan cookie shop near the Han River at Ttukseom, known for marshmallow-filled cookies.",
+    "story": "Iroun Jegwa says it makes vegan cookies and desserts, using its own fermented vegan butter, vegan marshmallow and organic coconut oil. The signature is a series of chewy levain-style cookies filled with vegan marshmallow, in corn, pumpkin, mugwort and chocolate; scones and gift boxes are sold too. It is a seven-minute walk from Jayang Station, close to Ttukseom Han River Park.",
+    "esg_point": "Gift boxes packed in biodegradable bags and paper, per the shop's menu.",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "second-breeze-bucheon",
+    "name": "Second Breeze (세컨드브리즈)",
+    "zone": "Sang-dong, Bucheon, Gyeonggi",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5011887002626,
+        "lng": 126.75478860600295
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '세컨드브리즈' to 37.501189, 126.754789 (destination of the route from 상동역 (Line 7)); the place feed (place 3512092) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 22 Jomaru-ro 97beon-gil, Wonmi-gu, Bucheon-si, Gyeonggi-do (Sang-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/3512092",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 부천시 원미구 조마루로97번길 22 상동근생주택 1층 (상동)'. The listing is registered to its owner (my-store status REGISTERED). HappyCow gave 석천로16번길 71 (b7-hc-capital-rest). The owner-registered Kakao listing, with an owner notice dated 2026-09-23, gives this address; the operator's own listing is taken to settle it (the shop has most likely moved).",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Tue closed; Wed 11:00–20:00; Thu 11:00–20:00; Fri 11:00–20:00; Sat 11:00–20:00; Sun 11:00–20:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/3512092",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 휴무; 수(9/30) 11:00 ~ 20:00; 목(10/1) 11:00 ~ 20:00; 금(10/2) 11:00 ~ 20:00; 토(10/3) 11:00 ~ 20:00; 일(10/4) 11:00 ~ 20:00. Kakao note: '마지막주 월요일 휴무'. Single source."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Unknown: the Kakao menu (two items, edited 2024-12) is too thin and old to describe what is sold now."
+    },
+    "phone": {
+      "value": "070-8230-7719",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/3512092",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 070-8230-7719. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "http://www.instagram.com/secondbreeze_vegan",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/3512092",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Sang-dong",
+        "line": "Line 7",
+        "exit": null,
+        "walkingMinutes": 13,
+        "distanceM": 785
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 상동역 (Line 7) to 세컨드브리즈: 785 m / 762 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/3512092",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line, shown on its owner-registered Kakao listing (read twice, identical): '부천 비건 카페 / 노밀크 노버터 노계란' (a vegan café in Bucheon: no milk, no butter, no egg). The only menu items listed are an americano and a '비건 통밀스콘'. Still trading: owner notice dated 2026-09-23 (open through Chuseok); Kakao-listed blog posts dated 2026-06-23, 2026-07-04 and 2026-09-08."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A quiet vegan café near Sang-dong Station that bakes without milk, butter or egg.",
+    "story": "Second Breeze describes itself as a vegan café in Bucheon that bakes with no milk, butter or egg. It sells scones and other vegan desserts, including fruit sandwiches, with coffee. Dogs are welcome. It is about a thirteen-minute walk from Sang-dong Station on Line 7.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "bdro-guui",
+    "name": "BDRO (비디알오)",
+    "zone": "Guui-dong, Gwangjin-gu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.5391215919592,
+        "lng": 127.088403054232
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves 'BDRO' to 37.539122, 127.088403 (destination of the route from 구의역 (Line 2)); the place feed (place 589549633) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 14 Achasan-ro 57-gil, Gwangjin-gu, Seoul (Guui-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/589549633",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 광진구 아차산로57길 14 1층 (구의동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue closed; Wed 11:00–22:00; Thu 11:00–22:00; Fri 11:00–22:00; Sat 11:00–22:00; Sun 11:00–22:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/589549633",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 휴무; 수(9/30) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 22:00; 일(10/4) 11:00 ~ 22:00; 월(10/5) 휴무. Kakao note: '주문마감은 21:00 입니다.'. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Bracken pasta (고사리파스타)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "Basil pasta (바질파스타)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "Mala pasta (마라파스타)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "Truffle pasta (트러플파스타)",
+          "price": "9,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/589549633",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2025-08-04 to 2026-05-12): 고사리파스타 8000, 바질파스타 9000, 마라파스타 8000, 트러플파스타 9000, 칠리파스타 8000, plus coffee and teas. The menu lists 카페라떼 and 밀크티 without saying which milk is used."
+    },
+    "phone": {
+      "value": "0507-1349-8650",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/589549633",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0507-1349-8650. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "http://instagram.com/cafe_bdro",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/589549633",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Guui",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 398
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 구의역 (Line 2) to BDRO: 398 m / 356 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/589549633",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line on its owner-registered Kakao listing (read twice, identical): '구의동에 위치한 비건카페 비디알오입니다.' (BDRO, a vegan café in Guui-dong). Nothing on the owner-entered menu names an animal product; the latte and milk tea do not say which milk, and the owner's statement is read as covering them. Weakest point: the statement is one line, and an earlier batch could not read the Instagram profile consistently. Still trading: owner notice dated 2026-09-25 (Chuseok break, reopening 30 Sep); Kakao reviews dated 2026-05-23, 2026-06-21 and 2026-07-25."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A cheap, relaxed vegan café by Guui Station known for its pastas.",
+    "story": "BDRO describes itself as a vegan café. Besides coffee and tea it serves pastas at 8,000–9,000 won, including a bracken (gosari) pasta, basil, mala, chilli and truffle. It is a six-minute walk from Guui Station on Line 2; last orders are at 21:00.",
+    "esg_point": null,
+    "image": "/images/pasta.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "pini-cake-house-bongcheon",
+    "name": "Pini Cake House (피니케이크하우스)",
+    "zone": "Bongcheon-dong, Gwanak-gu, Seoul (Seoul Nat'l Univ. Station)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.4778289168849,
+        "lng": 126.95444400441
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '피니케이크하우스' to 37.477829, 126.954444 (destination of the route from 서울대입구역 (Line 2)); the place feed (place 1382179592) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F Ecoraum, 38 Gwanak-ro 12-gil, Gwanak-gu, Seoul (Bongcheon-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1382179592",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 관악구 관악로12길 38 에코라움 1층 (봉천동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue 12:00–22:00; Wed 12:00–22:00; Thu 12:00–22:00; Fri 12:00–22:00; Sat 12:00–22:00; Sun 12:00–22:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "12:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1382179592",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 12:00 ~ 22:00; 수(9/30) 12:00 ~ 22:00; 목(10/1) 12:00 ~ 22:00; 금(10/2) 12:00 ~ 22:00; 토(10/3) 12:00 ~ 22:00; 일(10/4) 12:00 ~ 22:00; 월(10/5) 휴무. Kakao note: '🍰주문케이크 픽업가능시간: 10시30~21시30분🍰'. Single source."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Unknown: the owner-entered Kakao menu lists only drinks (americano, lattes, cream sodas, TWG teas; edited 2024-04 to 2026-06); the cakes it is known for are not listed."
+    },
+    "phone": {
+      "value": "070-8836-8990",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1382179592",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 070-8836-8990. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/pini_cake_house",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1382179592",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Seoul Nat'l Univ.",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 10,
+        "distanceM": 578
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 서울대입구역 (Line 2) to 피니케이크하우스: 578 m / 572 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1382179592",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line on its owner-registered Kakao listing (read twice, identical): '비건케이크카페 피니케이크하우스입니다:)' (a vegan cake café). Nothing on the drinks-only menu names an animal product; 카페라떼 does not say which milk. Weakest point: this one line is the only operator statement found, and recent blog titles talk about lettering cakes without mentioning vegan. Still trading: Kakao-listed blog posts dated 2026-07-28, 2026-08-28 and 2026-09-12."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small cake café near Seoul National University Station that calls itself a vegan cake café and writes custom lettering on cakes.",
+    "story": "Pini Cake House describes itself as a vegan cake café. It makes small lettering cakes to order, including lunchbox-sized cakes, and serves coffee, teas and cream sodas. It is about a ten-minute walk from Seoul National University Station on Line 2, near Sharosu-gil.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "dolmen-bakery-ganghwa",
+    "name": "Dolmen Bakery (돌멘베이커리)",
+    "zone": "Seonwon-myeon, Ganghwa-gun, Incheon",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.72247432309369,
+        "lng": 126.51321589577896
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '돌멘베이커리' to 37.722474, 126.513216 (destination of the route from 강화여객자동차터미널); the place feed (place 1303057250) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 101, 1F, 1209 Haeandong-ro, Seonwon-myeon, Ganghwa-gun, Incheon",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1303057250",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '인천 강화군 선원면 해안동로 1209 1층 101호 (선원면 신정리)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 10:00–20:00; Tue 10:00–20:00; Wed 10:00–20:00; Thu 10:00–20:00; Fri closed; Sat 10:00–20:00; Sun 10:00–20:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1303057250",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 10:00 ~ 20:00; 수(9/30) 10:00 ~ 20:00; 목(10/1) 10:00 ~ 20:00; 금(10/2) 휴무; 토(10/3) 10:00 ~ 20:00; 일(10/4) 10:00 ~ 20:00; 월(10/5) 10:00 ~ 20:00. Single source."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Unknown: the Kakao menu lists only drinks, last edited 2021–2023."
+    },
+    "phone": {
+      "value": "070-4352-0179",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1303057250",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 070-4352-0179. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/dolmen_bakery/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1303057250",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Rural Ganghwa Island: Kakao Map's walking route from Ganghwa Bus Terminal is 4,188 m (about 64 minutes). Best reached by car, taxi or local bus."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1303057250",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line on its owner-registered Kakao listing (read twice, identical): '강화도 염하강을 마주보고 있는 비건 베이커리 카페입니다 :)' (a vegan bakery café facing the Yeomha channel on Ganghwa Island). The drinks-only menu does not contradict it. Still trading: Kakao-listed blog posts dated 2026-04-28, 2026-05-12 and 2026-05-27 ('비건빵 … 재방문 후기')."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A vegan bakery café on Ganghwa Island looking across the Yeomha channel.",
+    "story": "Dolmen Bakery describes itself as a vegan bakery café, set on the east coast of Ganghwa Island facing the Yeomha channel. It bakes vegan breads and serves coffee, herbal teas and ades. It is well outside town, about an hour's walk from Ganghwa Bus Terminal, so come by car or taxi; it is closed on Fridays.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "youngi-jegwa-uijeongbu",
+    "name": "Youngi Jegwa (영이제과)",
+    "zone": "Minrak-dong, Uijeongbu, Gyeonggi",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.7466296770972,
+        "lng": 127.098909836738
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '영이제과' to 37.746630, 127.098910 (destination of the route from 탑석역 (Uijeongbu LRT)); the place feed (place 1405838735) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 102, 1F, 16-7 Omok-ro 225beon-gil, Uijeongbu-si, Gyeonggi-do (Minrak-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1405838735",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 의정부시 오목로225번길 16-7 1층 102호 (민락동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Unknown: Kakao Map shows no opening hours, and the shop sells much of its range online, so opening days could not be checked."
+    },
+    "menus": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Unknown: the Kakao menu (three items) was last edited in 2023."
+    },
+    "phone": {
+      "value": "010-8678-0192",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1405838735",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 010-8678-0192. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/02_bakery",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1405838735",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No station close by: Kakao Map's walking route from Tapseok Station (Uijeongbu LRT) is 2,442 m (about 39 minutes). A bus or taxi is easier."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1405838735",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line on its owner-registered Kakao listing (read twice, identical): '비건베이커리 영이제과 입니다 :)' (Youngi Jegwa, a vegan bakery). The old menu (2023) names a '비건쌀소금빵 — 유기농 비건버터' and rice crumble cookies; nothing contradicts the statement. Still trading: Kakao review dated 2025-10-19; Kakao-listed blog posts dated 2026-09-08 and 2026-09-27 (a pop-up and parcel orders)."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small vegan bakery in Minrak-dong, Uijeongbu, making rice-flour cookies and salt bread.",
+    "story": "Youngi Jegwa describes itself as a vegan bakery. It makes rice-flour crumble cookies and a vegan rice salt bread, and sells much of its range by parcel and at pop-ups, so check its Kakao or Instagram page before visiting; no opening hours are published. It is about 40 minutes' walk from Tapseok Station, so take a bus or taxi.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "geongang-bbangjip-yongin",
+    "name": "Geongang-han Bbangjip (건강한빵집)",
+    "zone": "Samga-dong, Cheoin-gu, Yongin, Gyeonggi",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.24376644279653,
+        "lng": 127.16759320550447
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '건강한빵집' to 37.243766, 127.167593 (destination of the route from 삼가역 (Yongin Everline)); the place feed (place 1436833675) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 103-1, Bldg A, 17 Geumhak-ro, Cheoin-gu, Yongin-si, Gyeonggi-do (Samga-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1436833675",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 용인시 처인구 금학로 17 A동 103-1호 (삼가동)'. The listing is registered to its owner (my-store status REGISTERED). HappyCow gave a Myongji-ro address (b7-hc-capital-rest noted the shop has probably moved). The owner-registered Kakao listing gives this address and has a 2026 review, so the operator's own listing is taken to settle it.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 10:00–19:00; Tue 10:00–19:00; Wed 10:00–19:00; Thu 10:00–19:00; Fri 10:00–19:00; Sat 10:00–19:00; Sun closed (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "19:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1436833675",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 10:00 ~ 19:00; 수(9/30) 10:00 ~ 19:00; 목(10/1) 10:00 ~ 19:00; 금(10/2) 10:00 ~ 19:00; 토(10/3) 10:00 ~ 19:00; 일(10/4) 휴무; 월(10/5) 10:00 ~ 19:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Soy latte (소이라떼)",
+          "price": "4,000 KRW"
+        },
+        {
+          "name": "Almond Breeze latte (아몬드브리즈라떼)",
+          "price": "4,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1436833675",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2024-07): drinks only, including 소이라떼 4000 and 아몬드브리즈라떼 4000; the breads are not listed."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Unknown: Kakao lists '010-582-4086', which has one digit too few for a Korean mobile number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/geonbbang.vegan/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1436833675",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Samga",
+        "line": "Yongin Everline",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 278
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 삼가역 (Yongin Everline) to 건강한빵집: 278 m / 264 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1436833675",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line on its owner-registered Kakao listing (read twice, identical): '용인 건강한 비건빵 맛집 / 우리쌀로 만들어 더 담백하고 맛은 절대 포기 못해요!' (Yongin's healthy vegan bread, made from Korean rice). The drinks on its menu all use soy or almond milk. Still trading: Kakao review dated 2026-02-01; Kakao-listed blog posts dated 2025-08-16, 2026-04-06 and 2026-06-16."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small vegan rice-bread bakery by Samga Station in Yongin.",
+    "story": "This bakery calls itself a place for healthy vegan bread made from Korean rice. Its drinks are made with soy or almond milk. It is a four-minute walk from Samga Station on the Yongin Everline, near Yongin City Hall.",
+    "esg_point": "Breads made from Korean-grown rice.",
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "cafe-uroka-gyodae",
+    "name": "Cafe Uroka (카페유로카)",
+    "zone": "Seocho-dong, Seocho-gu, Seoul (Gyodae)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.4928180979467,
+        "lng": 127.012556269037
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '카페유로카' to 37.492818, 127.012556 (destination of the route from 교대역 (Line 3)); the place feed (place 2147182864) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 102, 1F Gwanjeong Bldg, 8 Seocho-daero 50-gil, Seocho-gu, Seoul (Seocho-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2147182864",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 서초구 서초대로50길 8 관정빌딩 1층 102호 (서초동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 08:30–22:30; Tue 08:30–22:30; Wed 08:30–22:30; Thu 08:30–22:30; Fri 08:30–22:30; Sat closed; Sun 11:30–22:30 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "sat": [],
+          "sun": [
+            {
+              "from": "11:30",
+              "to": "22:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2147182864",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 08:30 ~ 22:30; 수(9/30) 08:30 ~ 22:30; 목(10/1) 08:30 ~ 22:30; 금(10/2) 08:30 ~ 22:30; 토(10/3) 휴무; 일(10/4) 11:30 ~ 22:30; 월(10/5) 08:30 ~ 22:30. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Vegan peanut butter cookie (비건땅콩버터쿠키)",
+          "price": "2,500 KRW"
+        },
+        {
+          "name": "Vegan chocolate chip cookie (비건초코칩쿠키)",
+          "price": "2,500 KRW"
+        },
+        {
+          "name": "Vegan chocolate financier (비건초코휘낭시에)",
+          "price": "4,000 KRW"
+        },
+        {
+          "name": "Vegan orange financier (비건오렌지휘낭시에)",
+          "price": "4,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2147182864",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2025-03 to 2026-06-22): 비건땅콩버터쿠키 2500, 비건초코칩쿠키 2500, 비건초코휘낭시에 4000, 비건오렌지휘낭시에 4000. Its 카페라떼 is described '우유 귀리 변경 가능' (milk, or oat on request)."
+    },
+    "phone": {
+      "value": "070-8844-5018",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2147182864",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 070-8844-5018. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "http://www.instagram.com/cafeuroka",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2147182864",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Seoul Nat'l Univ. of Education",
+        "line": "Line 2 / Line 3",
+        "exit": null,
+        "walkingMinutes": 5,
+        "distanceM": 300
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 교대역 (Line 3) to 카페유로카: 300 m / 295 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/2147182864",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '교대역 쌀로 만든 비건 글루텐프리 베이커리' (a vegan, gluten-free rice bakery by Gyodae Station), and the owner-entered menu labels its cookies and financiers '비건'. But the menu's 카페라떼 is made with cow's milk unless oat is requested, so the café as a whole is not vegan: `options`. Still trading: owner notice dated 2026-01-26 (winter menu); Kakao-listed blog posts dated 2026-02-04, 2026-02-21 and 2026-02-24."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A quiet wood-toned café by Gyodae Station baking vegan, gluten-free rice-flour sweets.",
+    "story": "Cafe Uroka calls itself a vegan, gluten-free bakery baking with rice flour, and labels its cookies and financiers vegan. Its coffee drinks use cow's milk unless you ask for oat, so order plant milk with your drink. It is a five-minute walk from Gyodae Station (Seoul National University of Education).",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "neulimi-gwajajeom-macheon",
+    "name": "Neulimi Gwajajeom (느리미과자점)",
+    "zone": "Macheon-dong, Songpa-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.4981727290867,
+        "lng": 127.151486595704
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '느리미과자점' to 37.498173, 127.151487 (destination of the route from 마천역 (Line 5)); the place feed (place 771315559) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 101, 1F, 18 Seongnaecheon-ro 32-gil, Songpa-gu, Seoul (Macheon-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/771315559",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 송파구 성내천로32길 18 1층 101호 (마천동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue 11:00–20:00; Wed 11:00–20:00; Thu 11:00–20:00; Fri 11:00–20:00; Sat 11:00–20:00; Sun 11:00–20:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/771315559",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:00 ~ 20:00; 수(9/30) 11:00 ~ 20:00; 목(10/1) 11:00 ~ 20:00; 금(10/2) 11:00 ~ 20:00; 토(10/3) 11:00 ~ 20:00; 일(10/4) 11:00 ~ 20:00; 월(10/5) 휴무. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Signature brownie, gluten- and oil-free (시그니처 브라우니 GF/OF)",
+          "price": "3,500 KRW"
+        },
+        {
+          "name": "Neulimi levain cookie (느리미쿠키 르뱅)",
+          "price": "5,400 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/771315559",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu: '시그니처 브라우니(GF/OF) 3500 — … 꾸덕촉촉한 비건브라우니' and '느리미쿠키(르뱅) 5400 — 수제비건버터를 만들어서 …' (both edited 2025-02). The menu also lists both 카페라떼 and 오트라떼 (edited 2026-07-24)."
+    },
+    "phone": {
+      "value": "0503-7151-7837",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/771315559",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0503-7151-7837. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/neulimi_dessert",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/771315559",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Macheon",
+        "line": "Line 5",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 463
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 마천역 (Line 5) to 느리미과자점: 463 m / 385 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/771315559",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line on its owner-registered Kakao listing (read twice, identical): '송파구 비건&글루텐프리 디저트카페입니다.' (a vegan and gluten-free dessert café), and the owner-entered menu describes its brownie as '비건브라우니' and its cookie as made with '수제비건버터'. The menu lists a 카페라떼 beside an 오트라떼, so the plain latte is taken to be dairy: `options`, not `full`. Still trading: menu edited 2026-07-24; Kakao-listed blog posts dated 2026-03-13 and 2026-07-15."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A neighbourhood dessert café by Macheon Station with vegan, gluten-free brownies and cookies.",
+    "story": "Neulimi calls itself a vegan and gluten-free dessert café. Its brownie is described as vegan and its levain cookies are made with house vegan butter; it also bakes chickpea-based treats and rice madeleines. The drinks list has both a regular latte and an oat latte, so ask for the oat one. It is a six-minute walk from Macheon Station on Line 5.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "pyeonghyeong-mangwon",
+    "name": "Pyeonghyeong (평형)",
+    "zone": "Mangwon-dong, Mapo-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5556197393534,
+        "lng": 126.90460257223
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '평형' to 37.555620, 126.904603 (destination of the route from 망원역 (Line 6)); the place feed (place 2131106327) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 6 Poeun-ro 5-gil, Mapo-gu, Seoul (Mangwon-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2131106327",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 마포구 포은로5길 6 상가 1층 (망원동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue 11:00–20:00; Wed 11:00–20:00; Thu 11:00–20:00; Fri 11:00–20:00; Sat 11:00–20:00; Sun 11:00–20:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2131106327",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:00 ~ 20:00; 수(9/30) 11:00 ~ 20:00; 목(10/1) 11:00 ~ 20:00; 금(10/2) 11:00 ~ 20:00; 토(10/3) 11:00 ~ 20:00; 일(10/4) 11:00 ~ 20:00; 월(10/5) 휴무. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Mugwort pound cake (쑥쑥 파운드)",
+          "price": "5,000 KRW"
+        },
+        {
+          "name": "Cookie (쿠키)",
+          "price": "2,700 KRW"
+        },
+        {
+          "name": "Soy yoghurt with Korean-grain granola (두유요거트+우리곡식그래놀라)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "Assam oat milk tea (아쌈 오트밀크티)",
+          "price": "6,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2131106327",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2025-08 to 2026-09-22): 쑥쑥 파운드 5000, 쿠키 2700, 두유요거트+우리곡식그래놀라(비건) 6000, 아쌈 오트밀크티 6000, plus hand-drip coffees, teas and two quiches."
+    },
+    "phone": {
+      "value": "010-3217-9817",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2131106327",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 010-3217-9817. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/_equil",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2131106327",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Mangwon",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 13,
+        "distanceM": 856
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 망원역 (Line 6) to 평형: 856 m / 771 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/2131106327",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '음료와 디저트는 모두 비건, 글루텐프리입니다' (all drinks and desserts are vegan and gluten-free). That covers the drinks and desserts but not the two quiches (감자 키슈, 바질 토마토 키슈), which the statement does not mention — so `options`, not `full`. This settles the labelling doubt an earlier batch raised about its 카페오레. Still trading: Kakao-listed blog posts dated 2026-09-21, 2026-09-24 and 2026-09-28; menu edited 2026-09-22."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A quiet hand-drip coffee bar in Mangwon whose owner says every drink and dessert is vegan and gluten-free.",
+    "story": "Pyeonghyeong is a small hand-drip coffee bar whose owner says all its drinks and desserts are vegan and gluten-free. Desserts include a mugwort pound cake, cookies and soy yoghurt with Korean-grain granola. It also sells quiches, which the owner's statement does not cover, so ask about those. Pets are welcome. It is about a thirteen-minute walk from Mangwon Station.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "immu-bake-shop-hapjeong",
+    "name": "Immu Bake Shop (이뮤베이크샵)",
+    "zone": "Seogyo-dong, Mapo-gu, Seoul (Hapjeong)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5492460459879,
+        "lng": 126.917729792293
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '이뮤베이크샵' to 37.549246, 126.917730 (destination of the route from 합정역 (Line 2)); the place feed (place 767510099) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 202, 2F Gidan, 57-13 Yanghwa-ro 6-gil, Mapo-gu, Seoul (Seogyo-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/767510099",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 마포구 양화로6길 57-13 기단 2층 202호 (서교동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue closed; Wed closed; Thu 13:00–20:00; Fri 13:00–20:00; Sat 13:00–20:00; Sun 13:00–20:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [],
+          "wed": [],
+          "thu": [
+            {
+              "from": "13:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "13:00",
+              "to": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "13:00",
+              "to": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "13:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/767510099",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 휴무; 수(9/30) 휴무; 목(10/1) 13:00 ~ 20:00; 금(10/2) 13:00 ~ 20:00; 토(10/3) 13:00 ~ 20:00; 일(10/4) 13:00 ~ 20:00; 월(10/5) 휴무. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chocolate mud cake (초콜렛머드케이크)",
+          "price": null
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/767510099",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2026-04-23): 초콜렛머드케이크 (no price shown), plus americano, cold brew, milk tea, ades and herbal tea."
+    },
+    "phone": {
+      "value": "0503-7150-3945",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/767510099",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0503-7150-3945. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://instagram.com/immu_bake_shop",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/767510099",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Hapjeong",
+        "line": "Line 2 / Line 6",
+        "exit": null,
+        "walkingMinutes": 8,
+        "distanceM": 550
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 합정역 (Line 2) to 이뮤베이크샵: 550 m / 489 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/767510099",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line on its owner-registered Kakao listing (read twice, identical): '비건 ,글루텐프리 디저트 전문 / immu bake shop in seoul' (specialising in vegan, gluten-free desserts). The statement covers the desserts; the drinks list includes a 밀크티 without saying which milk, so the whole menu is not shown to be vegan: `options`. Still trading: Kakao-listed blog posts dated 2026-07-06, 2026-07-28 and 2026-09-07 ('비건 케이크 카페')."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small upstairs cake shop near Hapjeong Station specialising in vegan, gluten-free desserts.",
+    "story": "Immu Bake Shop says it specialises in vegan and gluten-free desserts, including whole cakes and a chocolate mud cake. The drinks list has a milk tea that does not say which milk is used, so ask. It is a second-floor shop about an eight-minute walk from Hapjeong Station, open Thursday to Sunday this week.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "goodness-club-yongsan",
+    "name": "Goodness Club (굿니스클럽)",
+    "zone": "Yongsan-dong 2-ga, Yongsan-gu, Seoul (Haebangchon)",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.54498048528224,
+        "lng": 126.98493307438363
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '굿니스클럽' to 37.544980, 126.984933 (destination of the route from 녹사평역 (Line 6)); the place feed (place 1210430692) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "B1, 99-9 Sinheung-ro, Yongsan-gu, Seoul (Yongsan-dong 2-ga)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1210430692",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 용산구 신흥로 99-9 지하1층 (용산동2가)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 11:00–20:00; Tue closed; Wed 11:00–20:00; Thu 11:00–20:00; Fri 11:00–24:00; Sat 11:00–24:00; Sun 11:00–20:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "24:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "20:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1210430692",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 휴무; 수(9/30) 11:00 ~ 20:00; 목(10/1) 11:00 ~ 20:00; 금(10/2) 11:00 ~ 24:00; 토(10/3) 11:00 ~ 24:00; 일(10/4) 11:00 ~ 20:00; 월(10/5) 11:00 ~ 20:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Signature bottle cake, vegan and gluten-free (시그니처보틀케이크 v/gf)",
+          "price": "9,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1210430692",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2025-08-08): '시그니처보틀케이크 (v/gf) 9500 — 비건/글루텐프리/ 오트밀시트에 코코넛다크 초코 프러스팅이 들어가요!'. Its sandwiches are not on the Kakao menu."
+    },
+    "phone": {
+      "value": "010-7357-5084",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1210430692",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 010-7357-5084. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/goodnessclub.seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1210430692",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Noksapyeong",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 25,
+        "distanceM": 1386
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 녹사평역 (Line 6) to 굿니스클럽: 1386 m / 1482 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1210430692",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own words on its owner-registered Kakao listing (read twice, identical): introduction 'It is a gluten-free and vegan-based bakery shop.' and Kakao channel line '글루텐 프리를 베이스로 비건 디저트를 판매하고 있습니다! 직접 구운 포카치아 샌드위치도 있어요!' (vegan desserts on a gluten-free base; also focaccia sandwiches). The owner-entered menu labels its bottle cake vegan. The sandwiches are not described as vegan, and a 2026-03-14 Kakao review mentions burrata, so `options`. Still trading: Kakao reviews dated 2026-05-01 and 2026-07-12; Kakao-listed blog posts dated 2026-08-31 and 2026-09-15."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A basement bakery by Sinheung Market in Haebangchon selling vegan, gluten-free desserts and focaccia sandwiches.",
+    "story": "Goodness Club calls itself a gluten-free, vegan-based bakery: its desserts are vegan, such as a bottle cake of oat sponge and coconut dark-chocolate frosting. It also sells focaccia sandwiches, which are not described as vegan; a recent reviewer mentions burrata, so ask. It is in a basement near Sinheung Market, about a 25-minute walk from Noksapyeong Station.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "haedeun-bueok-gwangmyeong",
+    "name": "Haedeun Bueok (해든부엌)",
+    "zone": "Iljik-dong, Gwangmyeong, Gyeonggi (near IKEA Gwangmyeong)",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.420964125291476,
+        "lng": 126.8816463130914
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '해든부엌' to 37.420964, 126.881646 (destination of the route from 광명역); the place feed (place 941493499) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "Unit 201, 2F, 24 Iljik-ro 12beon-gil, Gwangmyeong-si, Gyeonggi-do (Iljik-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/941493499",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 광명시 일직로12번길 24 2층 201호 (일직동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon closed; Tue 10:00–22:30; Wed 10:00–22:30; Thu 10:00–22:30; Fri 10:00–22:30; Sat 10:00–22:30; Sun 10:00–22:30 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/941493499",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 10:00 ~ 22:30; 수(9/30) 10:00 ~ 22:30; 목(10/1) 10:00 ~ 22:30; 금(10/2) 10:00 ~ 22:30; 토(10/3) 10:00 ~ 22:30; 일(10/4) 10:00 ~ 22:30; 월(10/5) 휴무. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "[Vegan] soy galbi salad ([비건] 콩갈비 샐러드)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "[Vegan] cashew cream pasta ([비건] 캐슈넛 크림 파스타)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "[Vegan] soy-meat and yuba pilaf ([비건] 콩고기 푸주 필라프)",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/941493499",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (these items edited 2026-03-16/17): '[비건] 콩갈비 샐러드 12000 — 간장 마리네이드 콩갈비…', '[비건] 캐슈넛 크림 파스타 12000', '[비건] 콩고기 푸주 필라프 12000'. The same menu lists bacon, sausage, steak, shrimp, egg and cheese dishes."
+    },
+    "phone": {
+      "value": "010-7268-0191",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/941493499",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 010-7268-0191. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account is linked from the Kakao listing."
+    },
+    "transit": {
+      "value": {
+        "station": "Gwangmyeong",
+        "line": "KTX / Line 1 (Gwangmyeong Shuttle)",
+        "exit": null,
+        "walkingMinutes": 17,
+        "distanceM": 977
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 광명역 to 해든부엌: 977 m / 992 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/941493499",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own words on its owner-registered Kakao listing (read twice, identical): introduction '이케아·코스트코 근처, 건강하고 맛있는 비건 양식을 제공하는 해든부엌입니다.' and Kakao channel line '광명시 일직동에 위치한 비건, 논비건 레스토랑 해든부엌입니다.' (a vegan and non-vegan restaurant). The owner-entered menu marks three dishes '[비건]' beside meat and egg dishes: `options`. Still trading: owner notice dated 2026-04-30; menu edited 2026-09-28; Kakao review dated 2026-09-05; Kakao-listed blog posts dated 2026-09-15 and 2026-09-24."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A family brunch and pasta restaurant near IKEA Gwangmyeong with a few dishes marked vegan.",
+    "story": "Haedeun Bueok describes itself as a restaurant for vegans and non-vegans alike, near IKEA and Costco in Gwangmyeong. Three dishes are marked vegan: a salad with soy-marinated plant-based galbi, a cashew and spinach cream pasta, and a pilaf with soy meat and yuba. The rest of the menu includes bacon, sausage, steak, shrimp and egg, so order from the marked dishes. It is about a sixteen-minute walk from Gwangmyeong KTX Station.",
+    "esg_point": null,
+    "image": "/images/pasta.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "kikicoco-mokdong",
+    "name": "Kikicoco (키키코코)",
+    "zone": "Mok-dong, Yangcheon-gu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.5406164650563,
+        "lng": 126.869038001905
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '키키코코' to 37.540616, 126.869038 (destination of the route from 염창역 (Line 9)); the place feed (place 2136159056) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 52 Mokdongjungangbon-ro, Yangcheon-gu, Seoul (Mok-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2136159056",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 양천구 목동중앙본로 52 1층 (목동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 11:00–15:00, 17:00–21:00; Wed 11:00–15:00, 17:00–21:00; Thu 11:00–15:00, 17:00–21:00; Fri 11:00–15:00, 17:00–22:00; Sat 11:00–15:00, 17:00–22:00; Sun 11:00–15:00, 17:00–21:00 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2136159056",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 수(9/30) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 목(10/1) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 금(10/2) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 토(10/3) 11:00 ~ 22:00 (15:00 ~ 17:00 브레이크타임); 일(10/4) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임); 월(10/5) 11:00 ~ 21:00 (15:00 ~ 17:00 브레이크타임). Kakao note: '라스트 오더 오후 8시 30분.\n브레이크 타임 15:00~17:00'. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Vegan soy-meat charcoal galbi with grilled mushrooms (비건 콩고기 숯불 갈비 & 버섯구이)",
+          "price": "19,900 KRW"
+        },
+        {
+          "name": "Vegan meatball spaghetti (비건 미트볼 스파게티)",
+          "price": "12,900 KRW"
+        },
+        {
+          "name": "Mok-sarang pasta; September: vegan soy-cream shiitake pasta (목사랑 파스타)",
+          "price": "9,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2136159056",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu: '비건 콩고기 숯불 갈비 & 버섯구이 19900' and '비건 미트볼 스파게티 12900 — … 식물성 미트볼' (edited 2026-07-09); '목사랑 파스타 9900 — 매달 … 새로워지는 파스타. * 9월 : 고소 담백한 비건 두유 크림 표고버섯 파스타' (edited 2026-09-02). The menu also has octopus and shrimp dishes and house wine."
+    },
+    "phone": {
+      "value": "0503-7154-3673",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2136159056",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0503-7154-3673. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account is linked from the Kakao listing."
+    },
+    "transit": {
+      "value": {
+        "station": "Yeomchang",
+        "line": "Line 9",
+        "exit": null,
+        "walkingMinutes": 16,
+        "distanceM": 1058
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 염창역 (Line 9) to 키키코코: 1058 m / 972 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/2136159056",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The shop's own Kakao Talk channel line on its owner-registered Kakao listing (read twice, identical): '목사랑시장 야채로 요리하는 목동 페스코&비건 웰니스 식당' (a pescatarian and vegan restaurant cooking with vegetables from Mok-sarang Market). The owner-entered menu names vegan dishes beside octopus and shrimp: `options`. An earlier batch left it out for want of dated trading evidence; there is now plenty. Still trading: Kakao reviews dated 2026-06-20 and 2026-07-03; Kakao-listed blog posts dated 2026-08-23 and 2026-09-19."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small pescatarian-and-vegan neighbourhood restaurant in Mok-dong cooking with market vegetables.",
+    "story": "Kikicoco calls itself a pescatarian and vegan restaurant, cooking with vegetables from the nearby Mok-sarang Market. Vegan dishes include soy-meat galbi grilled over charcoal with mushrooms, spaghetti with plant-based meatballs, and a monthly market pasta (in September a soy-cream shiitake pasta). Octopus and shrimp dishes are also served. It is about a sixteen-minute walk from Yeomchang Station on Line 9; there is a 15:00–17:00 break.",
+    "esg_point": "Cooks with vegetables bought at the neighbouring Mok-sarang Market.",
+    "image": "/images/pasta.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "boot-bread-eungam",
+    "name": "Boot Bread (부트브레드)",
+    "zone": "Eungam-dong, Eunpyeong-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5966658887539,
+        "lng": 126.918436291142
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '부트브레드' to 37.596666, 126.918436 (destination of the route from 응암역 (Line 6)); the place feed (place 1664950905) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 46 Eunpyeong-ro 8-gil, Eunpyeong-gu, Seoul (Eungam-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1664950905",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '서울 은평구 은평로8길 46 1층 (응암동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 00:00–24:00; Tue 00:00–24:00; Wed 00:00–24:00; Thu 00:00–24:00; Fri 00:00–24:00; Sat 00:00–24:00; Sun closed (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "00:00",
+              "to": "24:00"
+            }
+          ],
+          "sun": []
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1664950905",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 00:00 ~ 24:00; 수(9/30) 00:00 ~ 24:00; 목(10/1) 00:00 ~ 24:00; 금(10/2) 00:00 ~ 24:00; 토(10/3) 00:00 ~ 24:00; 일(10/4) 휴무; 월(10/5) 00:00 ~ 24:00. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "[Vegan] potato rice ciabatta ([비건]감자쌀치아바타)",
+          "price": "4,300 KRW"
+        },
+        {
+          "name": "[Vegan] rice salt bread ([비건]쌀소금빵)",
+          "price": "3,700 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1664950905",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2026-03-20): '[비건]감자쌀치아바타 4300 — 동물성재료,계란,유제품이 전혀 들어가지 않은 국내산쌀가루로 만든 …' and '[비건]쌀소금빵 3700'; 시나몬쌀식빵 and 초코쌀식빵 are listed without the label."
+    },
+    "phone": {
+      "value": "010-8040-8139",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1664950905",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 010-8040-8139. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/boot.bread/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1664950905",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Eungam",
+        "line": "Line 6",
+        "exit": null,
+        "walkingMinutes": 10,
+        "distanceM": 626
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 응암역 (Line 6) to 부트브레드: 626 m / 570 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/1664950905",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own introduction on its owner-registered Kakao listing (read twice, identical): '안녕하세요. 건강하고 이로운 비건빵을 만드는 부트브레드입니다' (we make healthy vegan bread). The owner-entered menu labels two breads '[비건]' (no animal ingredients, egg or dairy) and lists two rice loaves without the label; since the owner labels some items and not others, only the labelled ones are counted: `options`. Still trading: Kakao review dated 2026-07-28; Kakao-listed blog posts dated 2026-08-18 and 2026-09-11 ('24시 무인 비건빵집')."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A self-service rice-bread shop near Eungam Station, open around the clock, with breads labelled vegan.",
+    "story": "Boot Bread says it bakes healthy vegan bread, using Korean rice flour. Its potato rice ciabatta and rice salt bread are labelled vegan, made without animal ingredients, egg or dairy; its cinnamon and chocolate loaves are not labelled. The shop is unstaffed and, per Kakao, open 24 hours except Sundays. It is about a ten-minute walk from Eungam Station on Line 6.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "supumdang-gwangmyeong",
+    "name": "Supumdang (수품당)",
+    "zone": "Soha-dong, Gwangmyeong, Gyeonggi",
+    "category": "local-seasonal",
+    "coordinates": {
+      "value": {
+        "lat": 37.45563811482365,
+        "lng": 126.88277843392432
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route API resolves '수품당' to 37.455638, 126.882778 (destination of the route from 금천구청역 (Line 1)); the place feed (place 883143521) gives the same point. Naver cross-check unavailable, so this is Kakao-only."
+    },
+    "address": {
+      "value": "1F, 6-9 Hannae-ro 13beon-gil, Gwangmyeong-si, Gyeonggi-do (Soha-dong)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/883143521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place feed (read twice, identical): '경기 광명시 한내로13번길 6-9 1층 (소하동)'. The listing is registered to its owner (my-store status REGISTERED). No second source for the address.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Mon 08:30–22:30; Tue 08:30–22:30; Wed 08:30–22:30; Thu 08:30–22:30; Fri 08:30–22:30; Sat 08:30–22:30; Sun 08:30–22:30 (per Kakao Map, week of 29 Sep 2026)",
+        "weekly": {
+          "mon": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ],
+          "sun": [
+            {
+              "from": "08:30",
+              "to": "22:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/883143521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's hours for the current week: 화(9/29) 08:30 ~ 22:30; 수(9/30) 08:30 ~ 22:30; 목(10/1) 08:30 ~ 22:30; 금(10/2) 08:30 ~ 22:30; 토(10/3) 08:30 ~ 22:30; 일(10/4) 08:30 ~ 22:30; 월(10/5) 08:30 ~ 22:30. Single source."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Vegan rice loaf: Gureumsan, red yeast rice, sweet pumpkin or mugwort (비건쌀식빵)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "Black rice glutinous pie, vegan (흑미찹쌀파이 비건)",
+          "price": "3,800 KRW"
+        },
+        {
+          "name": "Jujube tea (대추차)",
+          "price": "8,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/883143521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered Kakao menu (edited 2025-10-17 to 2026-06-25): '쌀식빵, 비건식빵 6000 — 비건쌀식빵(구름산,홍국,단호박,쑥) 일반쌀식빵(오징어먹물,우유,유자,옥수수,흑미찹쌀,시나몬)', '흑미찹쌀파이(비건) 3800 — 99.9%두유와 찹쌀,흑미,…', '대추차 8000'. Its other items include butter, cheese and ham."
+    },
+    "phone": {
+      "value": "0502-5553-4669",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/883143521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: 0502-5553-4669. Single source."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website found; the Kakao listing links only social or shop pages."
+    },
+    "instagram": {
+      "value": "https://instagram.com/supumdang",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/883143521",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Linked from the owner-registered Kakao listing. Instagram could not be read without logging in, so the profile itself was not checked."
+    },
+    "transit": {
+      "value": {
+        "station": "Geumcheon-gu Office",
+        "line": "Line 1",
+        "exit": null,
+        "walkingMinutes": 24,
+        "distanceM": 1476
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 금천구청역 (Line 1) to 수품당: 1476 m / 1463 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "options",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://place.map.kakao.com/883143521",
+        "method": "Map service lookup",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The owner's own notice on its owner-registered Kakao listing, dated 2025-11-27 (read twice, identical): '✨ 단호박쌀식빵 (비건) … 오늘 갓 구운 비건 쌀식빵 … ✨ 홍국단호박쌀식빵 (비건)'. The owner-entered menu names four vegan rice loaves and a vegan black-rice pie beside non-vegan loaves (milk, squid ink) and a ham-and-cheese sandwich: `options`. Still trading: menu edited 2026-06-25; Kakao-listed blog post dated 2026-01-28 ('대추차 비건 빵 맛집')."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No halal information found in any source consulted. A vegan claim is not treated as evidence for halal."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A traditional tea house in Soha-dong, Gwangmyeong, known for jujube tea and rice breads, some of them vegan.",
+    "story": "Supumdang is a tea house that has served traditional Korean teas such as jujube, omija and ginger for over a decade, and bakes rice-flour breads and sweets. Its owner labels some of them vegan: rice loaves in sweet pumpkin, red yeast rice, mugwort and a 'Gureumsan' blend, and a black-rice glutinous pie made with soy milk. Other loaves and sweets contain milk, butter or cheese, so choose the labelled ones. It is about a 25-minute walk from Geumcheon-gu Office Station.",
+    "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
 ];
