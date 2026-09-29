@@ -59,7 +59,7 @@ export default {
     visitedPlaces: 'Visited Places',
     savedForLater: 'Saved for Later',
     emptyTitle: 'Your passport is empty',
-    emptyBody: 'Save places to your passport and track your Korean food journey.',
+    emptyBody: 'Save places you want to try. Mark them visited and each one is stamped here.',
     firstTaste: 'First Taste',
     plantBased: 'Plant Based',
     sample: 'Sample',

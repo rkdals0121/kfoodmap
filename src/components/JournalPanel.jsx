@@ -174,7 +174,8 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
               <span aria-hidden="true">⚠️</span> {t('profile.sessionEnded')}
             </p>
           )}
-          <div className="journal-empty__icon" aria-hidden="true">📕</div>
+          {/* An uncut seal: 여권, "passport". */}
+          <Seal chars={['여', '권']} cols={2} earned={false} size="sm" />
           <p className="journal-empty__title">{t('journal.emptyTitle')}</p>
           <p className="journal-empty__body">
             {t('journal.emptyBody')}

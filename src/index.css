@@ -1650,10 +1650,6 @@ button {
   padding: 8px 12px;
   max-width: 300px;
 }
-.journal-empty__icon {
-  font-size: 40px;
-  line-height: 1;
-}
 .journal-empty__title {
   font-size: 17px;
   font-weight: 700;
