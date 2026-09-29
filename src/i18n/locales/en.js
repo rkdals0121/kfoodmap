@@ -264,6 +264,9 @@ export default {
     updateReady: 'New places are available — tap to refresh',
     sidebarExpand: 'Expand sidebar',
     sidebarCollapse: 'Collapse sidebar',
+    sheetExpand: 'Show more of the list',
+    sheetExpandFull: 'Show the list full screen',
+    sheetCollapse: 'Show more of the map',
   },
   map: {
     clusterZoom: '{{count}} places here — tap to zoom in',

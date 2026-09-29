@@ -232,9 +232,16 @@ function AppShell() {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              <div className="sheet-handle-area" onClick={() => setSheetState(s => (s + 1) % 3)}>
-                <div className="sheet-handle-bar" />
-              </div>
+              {/* Dragging is not the only way to resize the sheet (WCAG 2.5.7):
+                  the handle is a button that steps through the three heights. */}
+              <button
+                type="button"
+                className="sheet-handle-area"
+                aria-label={t(['app.sheetExpand', 'app.sheetExpandFull', 'app.sheetCollapse'][sheetState])}
+                onClick={() => setSheetState(s => (s + 1) % 3)}
+              >
+                <span className="sheet-handle-bar" aria-hidden="true" />
+              </button>
 
               {/* Search + dietary filters */}
               <FilterBar

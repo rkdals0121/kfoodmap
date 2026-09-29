@@ -162,6 +162,9 @@ button {
   color: var(--muted);
 }
 
+.sheet-handle-area {
+  display: none; /* a phone-only control; the mobile rules below show it */
+}
 .chip-row {
   display: flex;
   gap: 8px;
@@ -2121,15 +2124,25 @@ button {
   .sidebar-region.sheet-state-2 { height: 95%; }
 
   .sheet-handle-area {
-    height: 24px;
+    height: 28px;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     flex-shrink: 0;
   }
+  .sheet-handle-area:focus-visible {
+    outline: 2px solid var(--green-strong);
+    outline-offset: -2px;
+    border-radius: var(--radius);
+  }
 
   .sheet-handle-bar {
+    display: block;
     width: 40px;
     height: 5px;
     border-radius: 4px;
