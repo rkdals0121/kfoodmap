@@ -182,7 +182,7 @@ export default defineConfig({
       manifest: {
         name: 'K-Food Map',
         short_name: 'K-Food Map',
-        description: 'A curated map of sustainable Korean dining across Korea.',
+        description: 'Vegan and halal places across Korea, each dietary claim marked with how sure we are.',
         theme_color: '#FFFFFF',
         background_color: '#FFFFFF',
         display: 'standalone',

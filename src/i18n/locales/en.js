@@ -150,7 +150,7 @@ export default {
     emailHint: 'Only used if we need to ask you a follow-up question. Never shown publicly.',
     send: 'Send',
     sending: 'Sending…',
-    sent: 'Thanks — we verify every submission before anything appears on the map.',
+    sent: 'Thanks — we check every submission against sources before anything appears on the map.',
     close: 'Close',
     failed: "Couldn't send. Your text stays here while this page is open — please try again.",
     offline: "You're offline. Your text stays here while this page is open — send it when you're back online.",
