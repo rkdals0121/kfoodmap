@@ -39053,13 +39053,13 @@ export const restaurants = [
     },
     "address": {
       "value": "#136, 1F, Songdo Millennium, 69 Convensia-daero, Yeonsu-gu, Incheon (Songdo-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/27467246",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '인천 연수구 컨벤시아대로 69 송도밀레니엄 1층 136호 (송도동)', jibun 송도동 3-1. HappyCow's list gives '69 Convensia-daero, Songdo 1(il)-dong, Yeonsu-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '인천광역시 연수구 컨벤시아대로 69 송도밀레니엄 1층 136호'. Kakao Map place panel (27467246): '인천 연수구 컨벤시아대로 69 송도밀레니엄 1층 136호 (송도동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 송도신도시점', phone 032-858-6288, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -39102,13 +39102,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-328586288) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27467246",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (27467246) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 송도신도시점'."
     },
     "instagram": {
       "value": null,
@@ -39236,13 +39236,13 @@ export const restaurants = [
       "evidence": "Kakao Map gives 010-9796-1258 and HappyCow gives +82-1099950808. The sources disagree, so the phone is left unknown."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links a litt.ly link page, not an operator website."
+      "value": "http://litt.ly/vishop_",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1150028734",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1150028734) links this as the venue's website. Opened 2026-09-29: the link page is titled '비건베이커리 비숍' and offers pickup and cake ordering; no address."
     },
     "instagram": {
       "value": null,
@@ -39931,13 +39931,13 @@ export const restaurants = [
     },
     "address": {
       "value": "#102, 1F, 105 Yuljeon-ro, Jangan-gu, Suwon, Gyeonggi-do (Yuljeon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1361763675",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/moanda_ve/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '경기 수원시 장안구 율전로 105 1층 102호 (율전동)', jibun 율전동 305-22. HappyCow's list gives '102-ho, 105, Yuljeon-ro, Jangan-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/moanda_ve/, read 2026-09-29): '🏡 수원시 장안구 율전로105, 모앤더비'. Kakao Map place panel (1361763675): '경기 수원시 장안구 율전로 105 1층 102호 (율전동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the unit."
     },
     "hours": {
       "value": null,
@@ -39976,13 +39976,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account found."
+      "value": "https://www.instagram.com/moanda_ve/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1361763675",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1361763675) links this as the venue's Instagram account. Opened 2026-09-29: the bio names the shop 모앤더비 and gives '수원시 장안구 율전로105'."
     },
     "transit": {
       "value": {
@@ -40110,13 +40110,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account found."
+      "value": "https://www.instagram.com/happybakery_st",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/187227345",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (187227345) links this as the venue's Instagram account. Opened 2026-09-29: the account is '해피 베이커리 Happy bakery', a gluten-free and vegan bakery near the Songtan US base ('송탄 미군부대 인근'); no street address in the bio."
     },
     "transit": {
       "value": {
@@ -40240,13 +40240,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account found."
+      "value": "https://instagram.com/ohnews",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/243407865",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (243407865) links this as the venue's Instagram account. Opened 2026-09-29: the account is '부천비건카페, 오뉴쓰'; no street address in the bio."
     },
     "transit": {
       "value": {
@@ -40312,13 +40312,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 30 Yeongchang-ro 193beon-gil, Icheon, Gyeonggi-do (Changjeon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1014937271",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/cafe.selah_/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '경기 이천시 영창로193번길 30 1층 (창전동)', jibun 창전동 135. HappyCow's list gives '30 Yeongchang-ro 193beon-gil'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/cafe.selah_/, read 2026-09-29): '👉🏻이천시 영창로193번길 30'. Kakao Map place panel (1014937271): '경기 이천시 영창로193번길 30 1층 (창전동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the floor."
     },
     "hours": {
       "value": null,
@@ -40366,13 +40366,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account found."
+      "value": "https://www.instagram.com/cafe.selah_/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1014937271",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1014937271) links this as the venue's Instagram account. Opened 2026-09-29: the bio gives '이천시 영창로193번길 30'."
     },
     "transit": {
       "value": {
@@ -40438,13 +40438,13 @@ export const restaurants = [
     },
     "address": {
       "value": "#128, 1F, Ungshin Art Plaza, 161 Gwangdeok-daero, Danwon-gu, Ansan, Gyeonggi-do (Gojan-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/484274617",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/newsual_inn/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '경기 안산시 단원구 광덕대로 161 웅신아트프라자 1층 128호 (고잔동)', jibun 고잔동 708. HappyCow's list gives '128, Ungshin Art Plaza, 161, Gwangdeok-daero, Danwon-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/newsual_inn/, read 2026-09-29): '* 고잔동 708번지 웅신아트프라자 1층 (요술당 옆)'. Kakao Map place panel (484274617): '경기 안산시 단원구 광덕대로 161 웅신아트프라자 1층 128호 (고잔동)', lot number '고잔동 708'. Agreement under case 2 of the 2026-09-29 ruling: the operator's lot-number address (고잔동 708) is identical to Kakao's lot-number address, and the building name (웅신아트프라자) and floor (1층) agree; only Kakao gives the unit (128호)."
     },
     "hours": {
       "value": null,
@@ -40500,13 +40500,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account found."
+      "value": "https://www.instagram.com/newsual_inn",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/484274617",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (484274617) links this as the venue's Instagram account. Opened 2026-09-29: the account is '뉴즈얼인 NEWSUAL INN' and the bio gives '고잔동 708번지 웅신아트프라자 1층'."
     },
     "transit": {
       "value": {
@@ -47357,13 +47357,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow give the same number (02-2269-5834)."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website found."
+      "value": "https://jihwajafood.co.kr",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27079616",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (27079616) links this as the venue's website. Opened 2026-09-29: the site is 주식회사 지화자's; its footer gives '서울특별시 종로구 자하문로 125, B1' and phone 82-2-2269-5834, the number Kakao lists."
     },
     "instagram": {
       "value": null,
@@ -50350,13 +50350,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 39-21 Poseok-ro 1050beon-gil, Gyeongju-si, Gyeongsangbuk-do (Hwangnam-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/81792570",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/daereung_won/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '경북 경주시 포석로1050번길 39-21 1층 (황남동)'. HappyCow's Gyeongju list gives '39-21 Poseok-ro 1050beon-gil, Hwangnam-dong'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/daereung_won/, read 2026-09-29): '위치: 경주시 포석로 1050번길 39-21 (대릉원 주차장옆)'. Kakao Map place panel (81792570): '경북 경주시 포석로1050번길 39-21 1층 (황남동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the floor."
     },
     "hours": {
       "value": null,
@@ -50408,13 +50408,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://www.instagram.com/daereung_won",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/81792570",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (81792570) links this as the venue's Instagram account. Opened 2026-09-29: the account is '대릉원본가' and the bio gives '경주시 포석로 1050번길 39-21'."
     },
     "transit": {
       "value": null,
@@ -50528,13 +50528,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://www.instagram.com/wonmajung",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1904524839",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1904524839) links this as the venue's Instagram account. Opened 2026-09-29: the account is '원마중' and the bio phone 054-771-7171 is the number Kakao lists; no street address in the bio."
     },
     "transit": {
       "value": null,
@@ -51003,13 +51003,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://www.instagram.com/zero_table_/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1308035379",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1308035379) links this as the venue's Instagram account. Opened 2026-09-29: the account is '비건베이커리 제로테이블', a Daegu vegan bakery; no street address in the bio."
     },
     "transit": {
       "value": {
@@ -51075,13 +51075,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 53 Cheongsu-ro 40-gil, Suseong-gu, Daegu (Hwanggeum-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/570800954",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://instagram.com/olibread_",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '대구 수성구 청수로40길 53 1층 (황금동)'. HappyCow's Daegu list gives '53 Cheongsu-ro 40-gil, Suseong-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://instagram.com/olibread_, read 2026-09-29): '대구 청수로40길 53 1층(황금동)'. Kakao Map place panel (570800954): '대구 수성구 청수로40길 53 1층 (황금동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
       "value": null,
@@ -51120,13 +51120,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://instagram.com/olibread_",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/570800954",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (570800954) links this as the venue's Instagram account. Opened 2026-09-29: the account is '올리브레드 : OliBREAD' and the bio gives '대구 청수로40길 53 1층(황금동)'."
     },
     "transit": {
       "value": {
@@ -51237,13 +51237,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://www.instagram.com/vegeloun_bakery/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1319521237",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1319521237) links this as the venue's Instagram account. Opened 2026-09-29: the account is '베지로운', a Daegu vegan bakery; no street address in the bio."
     },
     "transit": {
       "value": {
@@ -51309,13 +51309,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 53 Gongpyeong-ro, Jung-gu, Daegu (Gongpyeong-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/363032241",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/mushi_mushi_official/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '대구 중구 공평로 53 1층 (공평동)'. HappyCow's Daegu list gives 'Mushimushi, 대구 중구 공평로 53'. They agree. (HappyCow also has an older 'Mushi Mushi' listing at 72-2 Gongpyeong-dong, which is not this lot and is not used.) Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio of the brand account, which Kakao links; the phone in the bio (053-257-8555) is the number Kakao lists, https://www.instagram.com/mushi_mushi_official/, read 2026-09-29): '📍본점: 대구 광역시 중구 공평로53'. Kakao Map place panel (363032241): '대구 중구 공평로 53 1층 (공평동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the floor."
     },
     "hours": {
       "value": null,
@@ -51359,13 +51359,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://www.instagram.com/mushi_mushi_official/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/363032241",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (363032241) links this as the venue's Instagram account. Opened 2026-09-29: the brand account '무시무시 Mushi Mushi' gives '본점: 대구 광역시 중구 공평로53' and 053-257-8555, the number Kakao lists. Kakao also links @mushimushi4u5820 ('무시무시 동성로점')."
     },
     "transit": {
       "value": {
@@ -51467,13 +51467,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-535657782) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website found."
+      "value": "https://slbslb.com",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1664457686",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1664457686) links this as the venue's website. Opened 2026-09-29: the brand site, titled '한식X샐러드&포케 전문점 SLB'; branch details are not in the static page."
     },
     "instagram": {
       "value": null,
@@ -51593,13 +51593,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://www.instagram.com/bakery_yul_053/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1159874598",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1159874598) links this as the venue's Instagram account. Opened 2026-09-29: the account is '달서구 베이커리율'; no street address in the bio."
     },
     "transit": {
       "value": null,
@@ -51704,13 +51704,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://www.instagram.com/jinju_chinafood/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/792221607",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (792221607) links this as the venue's Instagram account. Opened 2026-09-29: the account is '진주 맛집 야래향', a vegan Chinese restaurant; no street address in the bio."
     },
     "transit": {
       "value": null,
@@ -52112,13 +52112,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 27 Geoma-ro 5beon-gil, Nam-gu, Ulsan (Ok-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/689729286",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/bakery_bobo",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '울산 남구 거마로5번길 27 1층 (옥동)'. HappyCow's Ulsan list gives '27 Geoma-ro 5beon-gil (at next to the military base)'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio; the phone in the bio (052-273-4368) is the number Kakao lists, https://www.instagram.com/bakery_bobo, read 2026-09-29): '울산 거마로 5번길 27(옥동)'. Kakao Map place panel (689729286): '울산 남구 거마로5번길 27 1층 (옥동)'. Road name and building number agree, and so does the floor/unit where both give one. The bio omits the district (남구); only Kakao gives the floor."
     },
     "hours": {
       "value": null,
@@ -52157,13 +52157,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened in this pass."
+      "value": "https://www.instagram.com/bakery_bobo",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/689729286",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (689729286) links this as the venue's Instagram account. Opened 2026-09-29: the account is '빵집보보' and the bio gives '울산 거마로 5번길 27(옥동)' and 052-273-4368, the number Kakao lists."
     },
     "transit": {
       "value": null,
@@ -52223,13 +52223,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 11 Samsanjung-ro 48beon-gil, Nam-gu, Ulsan (Samsan-dong 1478-7)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/12515651",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://zerousn3362.fordining.kr",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '울산 남구 삼산중로48번길 11 2층 (삼산동)', jibun 삼산동 1478-7. HappyCow's Ulsan list gives '1478-7 Samsan-dong, Nam-gu' and 'At 울산 남구 삼산동 1478-7', the same lot. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (the restaurant's own website footer; the site is titled 나마스까르 삼산점 and Kakao links it as the venue's homepage, http://zerousn3362.fordining.kr, read 2026-09-29): '울산 남구 삼산중로48번길 11 2층'. Kakao Map place panel (12515651): '울산 남구 삼산중로48번길 11 2층 (삼산동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
       "value": null,
@@ -52276,13 +52276,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-522613362) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website found."
+      "value": "http://zerousn3362.fordining.kr",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12515651",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (12515651) links this as the venue's website. Opened 2026-09-29: the site is titled 나마스까르 삼산점 and gives '울산 남구 삼산중로48번길 11 2층', TEL 052-261-3362, the number Kakao lists."
     },
     "instagram": {
       "value": null,
@@ -52608,13 +52608,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 116 Bomun-ro, Seongbuk-gu, Seoul (Bomun-dong 1-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/7902184",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 7902184): '서울 성북구 보문로 116 1층 (보문동1가)' (jibun 보문동1가 127). HappyCow's Seoul list gives '116 Bomun-ro, Seongbuk-gu'. They agree on the location. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 성북구 보문로 116 (보문동1가)'. Kakao Map place panel (7902184): '서울 성북구 보문로 116 1층 (보문동1가)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본죽 보문역점', phone 02-953-6228, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -52669,13 +52669,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-29536228) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7902184",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (7902184) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본죽 보문역점'."
     },
     "instagram": {
       "value": null,
@@ -52750,13 +52750,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 1741 Nambusunhwan-ro, Gwanak-gu, Seoul (Bongcheon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/875994158",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 875994158): '서울 관악구 남부순환로 1741 1층 (봉천동)' (jibun 봉천동 923-14). HappyCow's Seoul list gives '1741 Nambusunhwan-ro, Gwanak-gu'. They agree on the location. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 관악구 남부순환로 1741 (봉천동) 1층'. Kakao Map place panel (875994158): '서울 관악구 남부순환로 1741 1층 (봉천동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 봉천역점', phone 02-873-0352, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -52811,13 +52811,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-28730352) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/875994158",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (875994158) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 봉천역점'."
     },
     "instagram": {
       "value": null,
@@ -52892,13 +52892,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 38-1 Euncheon-ro, Gwanak-gu, Seoul (Bongcheon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/14593299",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 14593299): '서울 관악구 은천로 38-1 1층 (봉천동)' (jibun 봉천동 941-20). HappyCow's Seoul list gives '38-1 Euncheon-ro, Gwanak-gu'. They agree on the location. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 관악구 은천로 38-1 (봉천동) 1층'. Kakao Map place panel (14593299): '서울 관악구 은천로 38-1 1층 (봉천동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 봉일시장점', phone 02-885-6288, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -52953,13 +52953,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-28856288) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/14593299",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (14593299) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 봉일시장점'."
     },
     "instagram": {
       "value": null,
@@ -53034,13 +53034,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 502, 5F, CITYLEX, 399 Siheung-daero, Geumcheon-gu, Seoul (Doksan-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/7902996",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 7902996): '서울 금천구 시흥대로 399 시티렉스 5층 502호 (독산동)' (jibun 독산동 291-5). HappyCow's Seoul list gives '291-5, Doksan-dong, Geumcheon-gu (at the shopping centre next to Homeplus)'. HappyCow gives only the lot number, 291-5 Doksan-dong, which is the jibun Kakao gives for this listing; the phone numbers also match. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 금천구 시흥대로 399 (독산동, 시티렉스) 502호'. Kakao Map place panel (7902996): '서울 금천구 시흥대로 399 시티렉스 5층 502호 (독산동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 독산동ctlex점', phone 02-895-6288, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -53095,13 +53095,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-28956288) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7902996",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (7902996) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 독산동ctlex점'."
     },
     "instagram": {
       "value": null,
@@ -53176,13 +53176,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 30 Daehak-gil, Gwanak-gu, Seoul (Sillim-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/7900596",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 7900596): '서울 관악구 대학길 30 1층 (신림동)' (jibun 신림동 1517-16). HappyCow's Seoul list gives '30 Daehak-gil Gwanak-gu'. They agree on the location. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 관악구 대학길 30 (신림동)'. Kakao Map place panel (7900596): '서울 관악구 대학길 30 1층 (신림동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본죽 신림고시촌점', phone 02-887-6288, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -53237,13 +53237,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-28876288) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/7900596",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (7900596) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본죽 신림고시촌점'."
     },
     "instagram": {
       "value": null,
@@ -53318,13 +53318,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 219 Nangok-ro, Gwanak-gu, Seoul (Sillim-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/11054779",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 11054779): '서울 관악구 난곡로 219 1층 (신림동)' (jibun 신림동 726-1). HappyCow's Seoul list gives '219 Nangok-ro Miseong-dong Gwanak-gu'. They agree on the location. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 관악구 난곡로 219 (신림동)'. Kakao Map place panel (11054779): '서울 관악구 난곡로 219 1층 (신림동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본죽 난곡미성점', phone 02-862-6282, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -53379,13 +53379,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-28626282) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/11054779",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (11054779) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본죽 난곡미성점'."
     },
     "instagram": {
       "value": null,
@@ -53460,13 +53460,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 598 Hoam-ro, Gwanak-gu, Seoul (Sillim-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/839985292",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 839985292): '서울 관악구 호암로 598 1층 (신림동)' (jibun 신림동 1525-4). HappyCow's Seoul list gives '598 Hoam-ro Gwanak-gu'. They agree on the location. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 관악구 호암로 598 (신림동) 1층'. Kakao Map place panel (839985292): '서울 관악구 호암로 598 1층 (신림동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 신림녹두거리점', phone 02-888-6233, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -53521,13 +53521,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-28886233) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/839985292",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (839985292) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 신림녹두거리점'."
     },
     "instagram": {
       "value": null,
@@ -53602,13 +53602,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 166 Singil-ro, Yeongdeungpo-gu, Seoul (Singil-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1903846832",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1903846832): '서울 영등포구 신길로 166 1층 (신길동)' (jibun 신길동 232-17). HappyCow's Seoul list gives '166 Singil-ro, Yeongdeungpo-gu'. They agree on the location. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 영등포구 신길로 166 (신길동)'. Kakao Map place panel (1903846832): '서울 영등포구 신길로 166 1층 (신길동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본죽 신길사러가점', phone 02-834-4225, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -53663,13 +53663,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-28344225) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1903846832",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1903846832) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본죽 신길사러가점'."
     },
     "instagram": {
       "value": null,
@@ -54385,13 +54385,13 @@ export const restaurants = [
       "evidence": "Kakao Map gives 02-3789-9292; HappyCow gives no number. One source only."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site soonnam.com, not a branch page."
+      "value": "http://soonnam.com/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26853115",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (26853115) links this as the venue's website. Opened 2026-09-29: the brand site of 순남시래기; its static page does not give this branch's address."
     },
     "instagram": {
       "value": null,
@@ -54502,13 +54502,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-222721002) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site soonnam.com, not a branch page."
+      "value": "http://soonnam.com/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26829657",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (26829657) links this as the venue's website. Opened 2026-09-29: the brand site of 순남시래기; its static page does not give this branch's address."
     },
     "instagram": {
       "value": null,
@@ -54944,13 +54944,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 6, B1F Lotte Castle Empire, 127 Uisadang-daero, Yeongdeungpo-gu, Seoul (Yeouido-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/500850275",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://r167.realserver1.com/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 500850275): '서울 영등포구 의사당대로 127 롯데캐슬 엠파이어 지하1층 6호 (여의도동)' (jibun 여의도동 36). HappyCow's Seoul list gives '127 Uisadang-daero (at B1 F, Lotte Castle Arcade Bldg)'. They agree on the location.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (the business-information footer of the 운봉에덴식당 website, which Kakao links as the venue's homepage; the footer phone 02-786-3119 is the number Kakao lists, http://r167.realserver1.com/, read 2026-09-29): '서울특별시 영등포구 의사당대로 127 롯데캐슬 엠파이어 지하 1층'. Kakao Map place panel (500850275): '서울 영등포구 의사당대로 127 롯데캐슬 엠파이어 지하1층 6호 (여의도동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the unit (6호)."
     },
     "hours": {
       "value": null,
@@ -54989,13 +54989,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow give the same number (02-786-3119)."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website found."
+      "value": "http://r167.realserver1.com/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/500850275",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (500850275) links this as the venue's website. Opened 2026-09-29: the site is 운봉에덴식당's; its footer gives '의사당대로 127 롯데캐슬 엠파이어 지하 1층' and 02-786-3119, the number Kakao lists."
     },
     "instagram": {
       "value": null,
@@ -56174,13 +56174,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 1396 Baegok-daero, Cheoin-gu, Yongin, Gyeonggi-do (Yubang-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/2052263880",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://샤브올데이.com/board/index.php?board=map_01&sca=all",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map: '경기 용인시 처인구 백옥대로 1396 1층 (유방동)', jibun 유방동 308-2. HappyCow's list gives '308-2 Yubang-dong, Cheoin-gu'. They agree. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (the store list on the Shabu All Day brand website, which Kakao links as the venue's homepage, https://샤브올데이.com/board/index.php?board=map_01&sca=all, read 2026-09-29): '용인IC점 경기 용인시 처인구 백옥대로 1396'. Kakao Map place panel (2052263880): '경기 용인시 처인구 백옥대로 1396 1층 (유방동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the floor. The operator's list prints '공사중' (under construction) after this branch's address."
     },
     "hours": {
       "value": null,
@@ -56221,13 +56221,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-313282828) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map links https://샤브올데이.com, which was not opened in this pass, so it is not recorded."
+      "value": "https://샤브올데이.com",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2052263880",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (2052263880) links this as the venue's website. Opened 2026-09-29: the brand site's store list includes 용인IC점 at '경기 용인시 처인구 백옥대로 1396', marked '공사중'. It is the brand's site, not a branch page."
     },
     "instagram": {
       "value": null,
@@ -57042,13 +57042,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map links a misspelt address (www.instargram.com/breshavenue_master), so no account is recorded."
+      "value": "https://www.instagram.com/breshavenue_master/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/342175100",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (342175100) links this as the venue's Instagram account. Kakao's link is misspelt 'instargram.com/breshavenue_master'. The Instagram account @breshavenue_master, opened 2026-09-29, is '브레쉬에비뉴 베이커리 카페', a Gwacheon bakery café; no street address in the bio."
     },
     "transit": {
       "value": null,
@@ -57621,13 +57621,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow (+82-313058848) give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map links http://www.omfood.kr/index.php?url_link=om/index.php, which was not opened in this pass, so it is not recorded."
+      "value": "http://www.omfood.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1200216730",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1200216730) links this as the venue's website. Opened 2026-09-29: the page is titled 'Om Indian Restaurant :: 옴 레스토랑'. It is the brand's site and does not mention the Gwanggyo branch."
     },
     "instagram": {
       "value": null,
@@ -58429,13 +58429,13 @@ export const restaurants = [
       "evidence": "Kakao Map only; HappyCow gives no number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map links https://thetacobooth.com/, which was not opened in this pass, so it is not recorded."
+      "value": "https://thetacobooth.com/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1981353319",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1981353319) links this as the venue's website. Opened 2026-09-29: the brand site of (주)타코부스; its static page does not give the airport branch's address."
     },
     "instagram": {
       "value": null,
@@ -61788,7 +61788,16 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "http://www.samgyori.co.kr",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26436623",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (26436623) links this as the venue's website. Opened 2026-09-29: the brand site. Its store list, as downloaded, does not include the Chuncheon branch."
+    }
   },
   {
     "id": "nammae-sikdang-gangneung",
@@ -62600,7 +62609,16 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/ilfoom_top",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/532652868",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (532652868) links this as the venue's Instagram account. Opened 2026-09-29: the account is '일품순두부 탑동점'; no street address in the bio."
+    }
   },
   // HappyCow Seoul — Korean listings the first sweep never named.
   {
@@ -62622,13 +62640,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 20 Toegye-ro 20-gil, Jung-gu, Seoul (Namsan-dong 2-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/711503345",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "http://www.instagram.com/benjamin_pokesalad",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 711503345): '서울 중구 퇴계로20길 20 1층 (남산동2가)' (jibun 남산동2가 30-2). HappyCow's Seoul list gives '1st flr, 20 Toegye-ro 20-gil'. HappyCow's text also gives '서울 중구 퇴계로20길 20 1층', the same address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio; the phone in the bio (02-771-3328) is the number Kakao lists, http://www.instagram.com/benjamin_pokesalad, read 2026-09-29): '서울 중구 퇴계로20길 20 1층'. Kakao Map place panel (711503345): '서울 중구 퇴계로20길 20 1층 (남산동2가)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
       "value": null,
@@ -62672,13 +62690,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened."
+      "value": "http://www.instagram.com/benjamin_pokesalad",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/711503345",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (711503345) links this as the venue's Instagram account. Opened 2026-09-29: the bio gives '서울 중구 퇴계로20길 20 1층' and 02-771-3328, the number Kakao lists."
     },
     "transit": {
       "value": {
@@ -62794,13 +62812,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened."
+      "value": "https://www.instagram.com/otto_kimbab/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2053387119",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (2053387119) links this as the venue's Instagram account. Opened 2026-09-29: the account is 'OTTO [오토] HOMEMADE KIMBAB' and its phone 02 794 0110 is the number Kakao lists, but the bio gives '용산구 한남동 764-14' while Kakao's lot number is 이태원동 96-38. The bio address may be out of date."
     },
     "transit": {
       "value": {
@@ -62992,13 +63010,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 201, 2F, 27 Ewhayeodae 3-gil, Seodaemun-gu, Seoul (Daehyeon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1632596295",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/cafe.seasonsori",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1632596295): '서울 서대문구 이화여대3길 27 2층 201호 (대현동)' (jibun 대현동 90-13). HappyCow's Seoul list gives 'Rm 201, 27, Ewhayeodae 3-gil, Seodaemun-gu (at Ewha Womans University Station)'. They agree on the location. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/cafe.seasonsori, read 2026-09-29): '🌿이대 본점 … 이화여대3길 27, 201호'. Kakao Map place panel (1632596295): '서울 서대문구 이화여대3길 27 2층 201호 (대현동)'. Road name and building number agree, and so does the floor/unit where both give one. The bio gives no district; Kakao places 이화여대3길 27 in Seodaemun-gu. Only Kakao gives the floor."
     },
     "hours": {
       "value": null,
@@ -63050,13 +63068,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened."
+      "value": "https://www.instagram.com/cafe.seasonsori",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1632596295",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1632596295) links this as the venue's Instagram account. Opened 2026-09-29: the account is '계절의 목소리' and the bio gives '이대 본점 … 이화여대3길 27, 201호'."
     },
     "transit": {
       "value": {
@@ -63172,13 +63190,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened."
+      "value": "https://www.instagram.com/sobayyy999",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2114260452",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (2114260452) links this as the venue's Instagram account. Opened 2026-09-29: the account is named '소바연구소'; the bio is empty."
     },
     "transit": {
       "value": {
@@ -63676,13 +63694,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened."
+      "value": "https://www.instagram.com/beanteum",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1423394242",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1423394242) links this as the venue's Instagram account. Opened 2026-09-29: the account is '카페 빈틈' with phone 070-4120-8484; the bio gives no street address and does not say which branch it is."
     },
     "transit": {
       "value": {
@@ -63806,13 +63824,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened."
+      "value": "https://www.instagram.com/bronto_vegan",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/151355785",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (151355785) links this as the venue's Instagram account. Opened 2026-09-29: the account is '브론토ㅣ두 자매의 비건 쿠키집'; no street address in the bio."
     },
     "transit": {
       "value": {
@@ -64974,13 +64992,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow give the same number (02-2634-0122)."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website was opened."
+      "value": "http://www.abiko.kr",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26942456",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (26942456) links this as the venue's website. Opened 2026-09-29: the brand site's store list gives '타임스퀘어점 서울 영등포구 영중로 15 타임스퀘어 B1 B141 02-2634-0122'; the phone is the number Kakao lists."
     },
     "instagram": {
       "value": null,
@@ -65738,13 +65756,13 @@ export const restaurants = [
       "evidence": "Kakao Map gives 070-4337-5252; HappyCow gives +82-50713135254. The sources disagree."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website was opened."
+      "value": "http://www.saladbox.kr",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/613197379",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (613197379) links this as the venue's website. Opened 2026-09-29: the brand site of 샐러드박스; the static page gives only the head-office address."
     },
     "instagram": {
       "value": null,
@@ -66063,13 +66081,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 35 Donggyo-ro 38-gil, Mapo-gu, Seoul (Yeonnam-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1900893477",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.slowcali.co.kr/bbs/content.php?co_id=store",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1900893477): '서울 마포구 동교로38길 35 2층 (연남동)' (jibun 연남동 390-42). HappyCow's Seoul list gives '2F, 35 Donggyo-ro 38-gil, Mapo-gu'. They agree on the location.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (the store list on the Slow Cali brand website, which Kakao links as the venue's homepage, https://www.slowcali.co.kr/bbs/content.php?co_id=store, read 2026-09-29): '슬로우캘리 연남본점 주소 서울 마포구 동교로38길 35 2층 (연남동)'. Kakao Map place panel (1900893477): '서울 마포구 동교로38길 35 2층 (연남동)'. Road name and building number agree, and so does the floor/unit where both give one."
     },
     "hours": {
       "value": null,
@@ -66108,13 +66126,13 @@ export const restaurants = [
       "evidence": "Kakao Map gives 0502-5554-5255; HappyCow gives +82-23360688. The sources disagree."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website was opened."
+      "value": "https://www.slowcali.co.kr/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1900893477",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1900893477) links this as the venue's website. Opened 2026-09-29: the brand site's store list gives '슬로우캘리 연남본점 … 서울 마포구 동교로38길 35 2층 (연남동)'."
     },
     "instagram": {
       "value": null,
@@ -66311,13 +66329,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 18 Apgujeong-ro 60-gil, Gangnam-gu, Seoul (Cheongdam-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1779217087",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://dinehill.co.kr/restaurant/sunthebud/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1779217087): '서울 강남구 압구정로60길 18 1층 (청담동)' (jibun 청담동 83-16). HappyCow's Seoul list gives '18, Apgujeong-ro 60-gil, Gangnam-gu'. They agree on the location.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (the store page on operator Dinehill's website, which Kakao links as the venue's homepage, https://dinehill.co.kr/restaurant/sunthebud/, read 2026-09-29): '썬더버드 청담점 서울 강남구 압구정로60길 18 Tel. 02-2138-1377'. Kakao Map place panel (1779217087): '서울 강남구 압구정로60길 18 1층 (청담동)'. Road name and building number agree, and so does the floor/unit where both give one. Only Kakao gives the floor. The phone on the operator page is the number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -66356,13 +66374,13 @@ export const restaurants = [
       "evidence": "Kakao Map and HappyCow give the same number (02-2138-1377)."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator website was opened."
+      "value": "https://dinehill.co.kr/restaurant/sunthebud/",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1779217087",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1779217087) links this as the venue's website. Kakao links dinehill.co.kr, the operator group's site. Its Sun the Bud page, opened 2026-09-29, lists '썬더버드 청담점 서울 강남구 압구정로60길 18 Tel. 02-2138-1377'."
     },
     "instagram": {
       "value": null,
@@ -69922,13 +69940,13 @@ export const restaurants = [
       "evidence": "No operator website found."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No operator Instagram account was opened."
+      "value": "https://instagram.com/miltonia2020",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/299726194",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (299726194) links this as the venue's Instagram account. Opened 2026-09-29: the account is '밀토니아 miltonia'; no street address in the bio."
     },
     "transit": {
       "value": {
@@ -69994,13 +70012,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 95 Neungdong-ro, Gwangjin-gu, Seoul (Jayang-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/10459946",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 10459946): '서울 광진구 능동로 95 2층 (자양동)' (jibun 자양동 1-2). Seoul's vegetarian register gives '서울 광진구 능동로 95'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 광진구 능동로 95 (자양동) 2층'. Kakao Map place panel (10459946): '서울 광진구 능동로 95 2층 (자양동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 건대점', phone 02-469-6288, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -70043,13 +70061,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only the chain's own site exists, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/10459946",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (10459946) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 건대점'."
     },
     "instagram": {
       "value": null,
@@ -70124,13 +70142,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, Daehwa Building, 992 Dongil-ro, Nowon-gu, Seoul (Gongneung-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/755354039",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 755354039): '서울 노원구 동일로 992 대화빌딩 1층 (공릉동)' (jibun 공릉동 617-7). Seoul's vegetarian register gives '서울 노원구 동일로 992'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 노원구 동일로 992 (공릉동, 대화빌딩) 1층'. Kakao Map place panel (755354039): '서울 노원구 동일로 992 대화빌딩 1층 (공릉동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 태릉입구역점', phone 02-974-0101, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -70173,13 +70191,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only the chain's own site exists, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/755354039",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (755354039) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 태릉입구역점'."
     },
     "instagram": {
       "value": null,
@@ -70254,13 +70272,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 427-4 Cheonho-daero, Dongdaemun-gu, Seoul (Jangan-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/21394867",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 21394867): '서울 동대문구 천호대로 427-4 1층 (장안동)' (jibun 장안동 465-1). Seoul's vegetarian register gives '서울 동대문구 천호대로 427-4'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 동대문구 천호대로 427-4 (장안동)'. Kakao Map place panel (21394867): '서울 동대문구 천호대로 427-4 1층 (장안동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 장한평역점', phone 02-2244-6211, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -70303,13 +70321,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only the chain's own site exists, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/21394867",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (21394867) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 장한평역점'."
     },
     "instagram": {
       "value": null,
@@ -70384,13 +70402,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 20 Yonsei-ro, Seodaemun-gu, Seoul (Changcheon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/26556621",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 26556621): '서울 서대문구 연세로 20 2층 (창천동)' (jibun 창천동 9-20). Seoul's vegetarian register gives '서울 서대문구 연세로 20'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 서대문구 연세로 20 (창천동) 2층'. Kakao Map place panel (26556621): '서울 서대문구 연세로 20 2층 (창천동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 신촌점', phone 02-312-6288, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -70433,13 +70451,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only the chain's own site exists, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/26556621",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (26556621) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 신촌점'."
     },
     "instagram": {
       "value": null,
@@ -70514,13 +70532,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 18 Yeonhui-mat-ro, Seodaemun-gu, Seoul (Yeonhui-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/18299379",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 18299379): '서울 서대문구 연희맛로 18 1층 (연희동)' (jibun 연희동 188-65). Seoul's vegetarian register gives '서울 서대문구 연희맛로 18'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울 서대문구 연희맛로 18 (연희동, 우림조경) 1층 본죽&비빔밥 연희점'. Kakao Map place panel (18299379): '서울 서대문구 연희맛로 18 1층 (연희동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 연희점', phone 02-324-8866, the same number Kakao lists. The operator adds a building name in brackets that Kakao omits; only one source gives it, so it is not a conflict."
     },
     "hours": {
       "value": null,
@@ -70563,13 +70581,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only the chain's own site exists, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/18299379",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (18299379) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 연희점'."
     },
     "instagram": {
       "value": null,
@@ -70644,13 +70662,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 51 Bomun-ro 34-gil, Seongbuk-gu, Seoul (Dongseon-dong 1-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1717720309",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1717720309): '서울 성북구 보문로34길 51 1층 (동선동1가)' (jibun 동선동1가 56). Seoul's vegetarian register gives '서울 성북구 보문로34길 51'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 성북구 보문로34길 51 (동선동1가) 1층'. Kakao Map place panel (1717720309): '서울 성북구 보문로34길 51 1층 (동선동1가)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 성신여대점', phone 02-953-3500, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -70693,13 +70711,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only the chain's own site exists, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1717720309",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1717720309) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 성신여대점'."
     },
     "instagram": {
       "value": null,
@@ -70774,13 +70792,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 6-1 Arirang-ro, Seongbuk-gu, Seoul (Dongseon-dong 4-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/23825103",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 23825103): '서울 성북구 아리랑로 6-1 1층 (동선동4가)' (jibun 동선동4가 12). Seoul's vegetarian register gives '서울 성북구 아리랑로 6-1'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 성북구 아리랑로 6-1 (동선동4가)'. Kakao Map place panel (23825103): '서울 성북구 아리랑로 6-1 1층 (동선동4가)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 돈암동점', phone 02-928-8477, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -70823,13 +70841,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only the chain's own site exists, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/23825103",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (23825103) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 돈암동점'."
     },
     "instagram": {
       "value": null,
@@ -70904,13 +70922,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 10 Myeongdong 9-gil, Jung-gu, Seoul (Myeong-dong 1-ga)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/17693865",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 17693865): '서울 중구 명동9길 10 2층 (명동1가)' (jibun 명동1가 10-5). Seoul's vegetarian register gives '서울 중구 명동9길 10'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 중구 명동9길 10 (명동1가) 2층'. Kakao Map place panel (17693865): '서울 중구 명동9길 10 2층 (명동1가)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 명동2호점', phone 02-778-3562, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -70953,13 +70971,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Only the chain's own site exists, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17693865",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (17693865) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 명동2호점'."
     },
     "instagram": {
       "value": null,
@@ -71634,7 +71652,16 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "officialUrl": {
+      "value": "https://www.궁떡.com",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1691651399",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1691651399) links this as the venue's website. Opened 2026-09-29: the brand site of (주)대령숙수 (head office at 매산로 29, Suwon). Kakao also links @igayeong312, but that account is the brand's Dongtan branch, not this one, so it is not recorded."
+    }
   },
   {
     "id": "gung-janggijitteok-suwon-station",
@@ -71738,7 +71765,25 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/palace0721",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1562226604",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1562226604) links this as the venue's Instagram account. Opened 2026-09-29: the account is '궁잔기지떡 수원역' but has one post and no address."
+    },
+    "officialUrl": {
+      "value": "https://www.궁떡.com",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1562226604",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1562226604) links this as the venue's website. Opened 2026-09-29: the brand site of (주)대령숙수. Its footer gives the company at '경기도 수원시 팔달구 매산로 29, 2층', the same building as this shop (Kakao: 매산로 29 1층)."
+    }
   },
   {
     "id": "yellow-forest-gwanggyo",
@@ -71759,13 +71804,13 @@ export const restaurants = [
     },
     "address": {
       "value": "B1 #140, Amuse Square Bldg 1, 277 Gwanggyohosugongwon-ro, Yeongtong-gu, Suwon, Gyeonggi-do (Woncheon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1929590002",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/yellow_forest__/",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Suwon register row: '경기도 수원시 영통구 광교호수공원로 277, 지1층 140호(원천동, 광교중흥에스클래스)', jibun 원천동 589. Kakao Map (owner-registered listing 1929590002): '경기 수원시 영통구 광교호수공원로 277 어뮤즈스퀘어 1동 지하1층 140호 (원천동)', jibun 원천동 589 — the same number, floor and unit (Kakao names the Amuse Square mall inside the complex). Phone 031-212-9763 is the same in both.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Instagram bio, https://www.instagram.com/yellow_forest__/, read 2026-09-29): '위치 :수원시 영통구 광교호수공원로 277 어뮤즈 스퀘어 B1 140호'. Kakao Map place panel (1929590002): '경기 수원시 영통구 광교호수공원로 277 어뮤즈스퀘어 1동 지하1층 140호 (원천동)'. Road name and building number agree, and so does the floor/unit where both give one. B1 and 지하1층 are the same floor; only Kakao adds the block number (1동)."
     },
     "hours": {
       "value": null,
@@ -71850,7 +71895,16 @@ export const restaurants = [
     "traits": [],
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "instagram": {
+      "value": "https://www.instagram.com/yellow_forest__",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1929590002",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1929590002) links this as the venue's Instagram account. Opened 2026-09-29: the account is '비건/식물성 베이커리 옐로우 포레스트' and the bio gives '수원시 영통구 광교호수공원로 277 어뮤즈 스퀘어 B1 140호'."
+    }
   },
   {
     "id": "vegan-begins-gwanggyo",
@@ -72078,13 +72132,13 @@ export const restaurants = [
     },
     "address": {
       "value": "2F, 424 Seolleung-ro, Gangnam-gu, Seoul (Daechi-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/329258144",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 329258144): '서울 강남구 선릉로 424 2층 (대치동)' (jibun 대치동 897). Seoul's vegetarian-restaurant register gives '서울 강남구 선릉로 424' for '본죽&비빔밥cafe (선릉)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 강남구 선릉로 424'. Kakao Map place panel (329258144): '서울 강남구 선릉로 424 2층 (대치동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 선릉점', phone 02-566-7763, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -72127,13 +72181,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/329258144",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (329258144) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 선릉점'."
     },
     "instagram": {
       "value": null,
@@ -72208,13 +72262,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 18-1 Mabang-ro 10-gil, Seocho-gu, Seoul (Yangjae-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/10464279",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 10464279): '서울 서초구 마방로10길 18-1 남광빌딩 1층 (양재동)' (jibun 양재동 274). Seoul's vegetarian-restaurant register gives '서울 서초구 마방로10길 18-1' for '본죽&비빔밥cafe (포이)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 서초구 마방로10길 18-1 (양재동, 남광빌딩)'. Kakao Map place panel (10464279): '서울 서초구 마방로10길 18-1 남광빌딩 1층 (양재동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 포이점', phone 02-579-0888, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -72257,13 +72311,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/10464279",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (10464279) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 포이점'."
     },
     "instagram": {
       "value": null,
@@ -72338,13 +72392,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 201, 2F, 36 Seocho-daero 78-gil, Seocho-gu, Seoul (Seocho-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/8325023",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 8325023): '서울 서초구 서초대로78길 36 강남지웰타워 2층 201호 (서초동)' (jibun 서초동 1327-14). Seoul's vegetarian-restaurant register gives '서울 서초구 서초대로78길 36' for '본죽&비빔밥cafe (강남역)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 서초구 서초대로78길 36 (서초동, 강남지웰타워) 201호'. Kakao Map place panel (8325023): '서울 서초구 서초대로78길 36 강남지웰타워 2층 201호 (서초동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 강남역점', phone 02-525-6653, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -72387,13 +72441,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8325023",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (8325023) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 강남역점'."
     },
     "instagram": {
       "value": null,
@@ -72468,13 +72522,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 138 Seokchonhosu-ro, Songpa-gu, Seoul (Samjeon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/17696461",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 17696461): '서울 송파구 석촌호수로 138 1층 (삼전동)' (jibun 삼전동 22-1). Seoul's vegetarian-restaurant register gives '서울 송파구 석촌호수로 138' for '본죽&비빔밥cafe (잠실레이크팰리스)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 송파구 석촌호수로 138 (삼전동, 유시에셋) 1층'. Kakao Map place panel (17696461): '서울 송파구 석촌호수로 138 1층 (삼전동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 잠실레이크팰리스점', phone 02-418-6233, the same number Kakao lists. The operator adds a building name in brackets that Kakao omits; only one source gives it, so it is not a conflict."
     },
     "hours": {
       "value": null,
@@ -72517,13 +72571,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17696461",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (17696461) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 잠실레이크팰리스점'."
     },
     "instagram": {
       "value": null,
@@ -72598,13 +72652,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 105, 1F, 195 Sangam-ro, Gangdong-gu, Seoul (Myeongil-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/17696404",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 17696404): '서울 강동구 상암로 195 에이플러스 1층 105호 (명일동)' (jibun 명일동 344-15). Seoul's vegetarian-restaurant register gives '서울 강동구 상암로 195' for '본죽&비빔밥cafe (굽은다리역)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 강동구 상암로 195 (명일동, 에이플러스) 105호'. Kakao Map place panel (17696404): '서울 강동구 상암로 195 에이플러스 1층 105호 (명일동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 굽은다리역점', phone 02-442-6233, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -72647,13 +72701,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17696404",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (17696404) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 굽은다리역점'."
     },
     "instagram": {
       "value": null,
@@ -72728,13 +72782,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 101, 1F, 189 Jinhwangdo-ro, Gangdong-gu, Seoul (Dunchon-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1587585967",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1587585967): '서울 강동구 진황도로 189 1층 101호 (둔촌동)' (jibun 둔촌동 89). Seoul's vegetarian-restaurant register gives '서울 강동구 진황도로 189' for '본죽&비빔밥cafe (둔촌보훈병원)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 강동구 진황도로 189 (둔촌동) 1층 101호'. Kakao Map place panel (1587585967): '서울 강동구 진황도로 189 1층 101호 (둔촌동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 둔촌보훈병원점', phone 02-478-6288, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -72777,13 +72831,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1587585967",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1587585967) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 둔촌보훈병원점'."
     },
     "instagram": {
       "value": null,
@@ -72858,13 +72912,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Units 205–206, 2F, 42 Yeouinaru-ro, Yeongdeungpo-gu, Seoul (Yeouido-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/396419545",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 396419545): '서울 영등포구 여의나루로 42 여의도종합상가 2층 205~206호 (여의도동)' (jibun 여의도동 35-5). Seoul's vegetarian-restaurant register gives '서울 영등포구 여의나루로 42' for '본죽&비빔밥cafe (여의도역)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 영등포구 여의나루로 42 (여의도동, 여의도종합상가) 205,206호'. Kakao Map place panel (396419545): '서울 영등포구 여의나루로 42 여의도종합상가 2층 205~206호 (여의도동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 여의도역점', phone 02-780-6288, the same number Kakao lists. The operator writes the units as '205,206호' and Kakao as '205~206호': the same two units."
     },
     "hours": {
       "value": null,
@@ -72907,13 +72961,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/396419545",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (396419545) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 여의도역점'."
     },
     "instagram": {
       "value": null,
@@ -72988,13 +73042,13 @@ export const restaurants = [
     },
     "address": {
       "value": "1F, 619 Geumha-ro, Geumcheon-gu, Seoul (Siheung-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/8368604",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 8368604): '서울 금천구 금하로 619 1층 (시흥동)' (jibun 시흥동 999-48). Seoul's vegetarian-restaurant register gives '서울 금천구 금하로 619' for '본죽&비빔밥cafe (시흥사거리)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 금천구 금하로 619 (시흥동) 1층'. Kakao Map place panel (8368604): '서울 금천구 금하로 619 1층 (시흥동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 시흥사거리점', phone 02-808-6288, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -73037,13 +73091,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/8368604",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (8368604) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 시흥사거리점'."
     },
     "instagram": {
       "value": null,
@@ -73118,13 +73172,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 122, 1F, 78 Digital-ro 10-gil, Geumcheon-gu, Seoul (Gasan-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1716057538",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 1716057538): '서울 금천구 디지털로10길 78 가산테라타워 1층 122호 (가산동)' (jibun 가산동 219-5). Seoul's vegetarian-restaurant register gives '서울 금천구 디지털로10길 78' for '본죽&비빔밥cafe (가산테라타워)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 금천구 디지털로10길 78 (가산동) 가산테라타워 1층 122호'. Kakao Map place panel (1716057538): '서울 금천구 디지털로10길 78 가산테라타워 1층 122호 (가산동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 가산테라타워점', phone 02-6230-5522, the same number Kakao lists."
     },
     "hours": {
       "value": null,
@@ -73167,13 +73221,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1716057538",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1716057538) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 가산테라타워점'."
     },
     "instagram": {
       "value": null,
@@ -73297,13 +73351,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17696418",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (17696418) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 독산역점'."
     },
     "instagram": {
       "value": null,
@@ -73378,13 +73432,13 @@ export const restaurants = [
     },
     "address": {
       "value": "Unit 103, 1F, 81 Manyang-ro, Dongjak-gu, Seoul (Noryangjin-dong)",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/16090405",
-      "method": "Independent sources agree",
+      "confidence": "confirmed",
+      "source": "The restaurant",
+      "url": "https://www.bonif.co.kr/brand/store?brdCd=BF102",
+      "method": "Read from the operator’s own website",
       "lastCheckedAt": "2026-09-29",
-      "evidence": "Kakao Map (place 16090405): '서울 동작구 만양로 81 1층 103호 (노량진동)' (jibun 노량진동 120-6). Seoul's vegetarian-restaurant register gives '서울 동작구 만양로 81' for '본죽&비빔밥cafe (노량진)'. They agree on the street address. Naver is unreachable, so the address is not CONFIRMED.",
-      "precision": "street"
+      "precision": "street",
+      "evidence": "Operator (Bonjuk franchisor BonIF's store finder, read through its store-list API https://api.bonif.co.kr/store/v1/store-list, https://www.bonif.co.kr/brand/store?brdCd=BF102, read 2026-09-29): '서울특별시 동작구 만양로 81 (노량진동, 문화독서실)'. Kakao Map place panel (16090405): '서울 동작구 만양로 81 1층 103호 (노량진동)'. Road name and building number agree, and so does the floor/unit where both give one. The operator's store record is '본 죽&비빔밥 노량진점', phone 02-3280-6288, the same number Kakao lists. The operator adds a building name in brackets that Kakao omits; only one source gives it, so it is not a conflict."
     },
     "hours": {
       "value": null,
@@ -73427,13 +73481,13 @@ export const restaurants = [
       "evidence": "Kakao Map and Seoul's vegetarian-restaurant register give the same number."
     },
     "officialUrl": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao links the chain site bonif.co.kr, not a branch page."
+      "value": "https://www.bonif.co.kr/",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/16090405",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (16090405) links this as the venue's website. This is the franchisor BonIF's brand site, not a branch page. Its store finder lists this branch as '본 죽&비빔밥 노량진점'."
     },
     "instagram": {
       "value": null,
@@ -74356,13 +74410,13 @@ export const restaurants = [
       "evidence": "No operator website was sighted."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No Instagram account was sighted."
+      "value": "https://www.instagram.com/cherrygarden2hojeominsadong",
+      "confidence": "confirmed",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1515270467",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (1515270467) links this as the venue's Instagram account. Opened 2026-09-29: the account is '체리가든 2호점 인사동', describing its Insadong second branch; no street address in the bio."
     },
     "transit": {
       "value": {
@@ -74818,13 +74872,13 @@ export const restaurants = [
       "evidence": "No operator website was sighted."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No Instagram account was sighted."
+      "value": "https://www.instagram.com/saltbread.in.seaside",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/134679676",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (134679676) links this as the venue's Instagram account. Opened 2026-09-29: this is the brand account '자연도 소금빵', whose bio lists '자연도소금빵in성수/ in도산/ in연남[서울]' among its shops. It is shared by all branches and gives no street address."
     },
     "transit": {
       "value": {
@@ -74986,13 +75040,13 @@ export const restaurants = [
       "evidence": "No operator website was sighted."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No Instagram account was sighted."
+      "value": "https://www.instagram.com/saltbread.in.seaside",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/940858855",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (940858855) links this as the venue's Instagram account. Opened 2026-09-29: this is the brand account '자연도 소금빵', whose bio lists '자연도소금빵in성수/ in도산/ in연남[서울]' among its shops. It is shared by all branches and gives no street address."
     },
     "transit": {
       "value": {
@@ -75154,13 +75208,13 @@ export const restaurants = [
       "evidence": "No operator website was sighted."
     },
     "instagram": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No Instagram account was sighted."
+      "value": "https://www.instagram.com/saltbread.in.seaside",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/81925925",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place panel (81925925) links this as the venue's Instagram account. Opened 2026-09-29: this is the brand account '자연도 소금빵', whose bio lists '자연도소금빵in성수/ in도산/ in연남[서울]' among its shops. It is shared by all branches and gives no street address."
     },
     "transit": {
       "value": {
@@ -79475,6 +79529,198 @@ export const restaurants = [
     "vibe": "A traditional tea house in Soha-dong, Gwangmyeong, known for jujube tea and rice breads, some of them vegan.",
     "story": "Supumdang is a tea house that has served traditional Korean teas such as jujube, omija and ginger for over a decade, and bakes rice-flour breads and sweets. Its owner labels some of them vegan: rice loaves in sweet pumpkin, red yeast rice, mugwort and a 'Gureumsan' blend, and a black-rice glutinous pie made with soy milk. Other loaves and sweets contain milk, butter or cheese, so choose the labelled ones. It is about a 25-minute walk from Geumcheon-gu Office Station.",
     "esg_point": null,
+    "image": "/images/vegan_cafe.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  // little-gangster-hyochang: b6 address hold settled by its owner-registered Kakao listing (새창로12길 11-3).
+  {
+    "id": "little-gangster-hyochang",
+    "name": "Little Gangster (리틀갱스터)",
+    "zone": "Hyochang Park, Yongsan-gu, Seoul",
+    "category": "vegan-dining",
+    "coordinates": {
+      "value": {
+        "lat": 37.5391850180856,
+        "lng": 126.957897341651
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint to '리틀갱스터' (Kakao place 717790455, 서울 용산구 새창로12길 11-3) resolves the destination to 37.539185/126.957897. Naver is unreachable this session, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "Unit 104, 1F, 11-3 Saechang-ro 12-gil, Yongsan-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/717790455",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "precision": "street",
+      "evidence": "Kakao Map: '서울 용산구 새창로12길 11-3 (도원동)' (지번 도원동 3-6). DiningCode (rid=8YZyPLljSYPy): '서울특별시 용산구 새창로12길 11-3 1층 104호', 지번 도원동 3-6. They agree; the unit number is DiningCode's."
+    },
+    "hours": {
+      "value": {
+        "raw": "Wed–Sun 11:00–21:00, break 15:00–17:00 (last orders 14:20 and 20:20); closed Mon and Tue",
+        "weekly": {
+          "sun": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:20"
+            }
+          ],
+          "mon": [],
+          "tue": [],
+          "wed": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:20"
+            }
+          ],
+          "thu": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:20"
+            }
+          ],
+          "fri": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:20"
+            }
+          ],
+          "sat": [
+            {
+              "from": "11:00",
+              "to": "15:00",
+              "lastOrder": "14:20"
+            },
+            {
+              "from": "17:00",
+              "to": "21:00",
+              "lastOrder": "20:20"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/717790455",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's week view (29 Sep–5 Oct 2026): Tue and Mon '휴무일', Wed–Sun '11:00 ~ 21:00' with '15:00 ~ 17:00 브레이크타임'. DiningCode's week view agrees and adds '라스트오더: 14:20, 20:20'."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "김치스튜와 수제 결두부 튀김, 현미밥 (kimchi stew with house fried tofu and brown rice)",
+          "price": "18,500 KRW"
+        },
+        {
+          "name": "나물 담은 알리오 올리오 (aglio e olio with Korean namul)",
+          "price": "18,000 KRW"
+        },
+        {
+          "name": "시그니처 자연 담은 파스타 (signature seasonal pasta)",
+          "price": "18,000 KRW"
+        },
+        {
+          "name": "9월의 가을 배와 레몬그라스 가스파초 (September pear and lemongrass gazpacho)",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/717790455",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's menu list gives these items and prices; DiningCode lists the gazpacho at the same 11,000 KRW and marks it '무오신채 글루텐프리'. The menu changes monthly ('9월의 메뉴')."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map lists 02-3272-4058 while DiningCode lists 0507-1360-4058; the sources differ, so the field is left unknown."
+    },
+    "instagram": {
+      "value": "https://www.instagram.com/littlegangster_vegan/",
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://www.instagram.com/littlegangster_vegan/",
+      "method": "Read from the operator’s own website",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "The account's bio reads '리틀갱스터 Creative Vegan Kitchen'. Kakao Map links a differently spelled handle (instagram.com/vegan_littlegangster), which could not be read; the account cited here names the restaurant in its own bio."
+    },
+    "transit": {
+      "value": {
+        "station": "Hyochang Park",
+        "line": "Line 6 / Gyeongui–Jungang Line",
+        "exit": "6",
+        "walkingMinutes": 7,
+        "distanceM": 410
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 효창공원앞역 6번출구 to 리틀갱스터: 410 m / 448 s."
+    },
+    "dietary": {
+      "vegan": {
+        "value": "full",
+        "confidence": "supported",
+        "source": "The restaurant",
+        "url": "https://www.instagram.com/littlegangster_vegan/",
+        "method": "Independent sources agree",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "The operator's Instagram bio, fetched twice with the same text: '🪨 맛의 윤곽선이 진한 빅보스의 비건 레스토랑' (a vegan restaurant) and '🕊️ No alliums, Gluten Free, Vegan'. DiningCode's own category for the listing is '비건식당' (title '효창공원앞역 비건식당 맛집'). The owner's Kakao introduction adds '제철 채소와 무오신채, 글루텐프리'."
+      },
+      "halal": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source opened for this entry states anything about halal status; it is not inferred from the vegan level."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A small vegan restaurant near Hyochang Park that cooks a monthly menu without garlic, onions or gluten.",
+    "story": "Little Gangster calls itself a creative vegan kitchen and cooks without the five pungent vegetables of Buddhist cooking (garlic, onion and their relatives) and without gluten. The menu changes with the month; recent dishes include a kimchi stew served with house-made fried tofu and brown rice, an aglio e olio tossed with Korean namul, and a fruit gazpacho. It is about seven minutes' walk from exit 6 of Hyochang Park Station and closes on Mondays and Tuesdays.",
+    "esg_point": "A seasonal, fully plant-based menu built around Korean vegetables",
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
