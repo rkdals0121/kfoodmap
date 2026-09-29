@@ -689,6 +689,12 @@ button {
 .detail-content--no-hero {
   padding-top: 64px;
 }
+.detail-otherdiet {
+  margin-top: -20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
 .detail-traits {
   margin-top: -20px;
   font-size: 13px;

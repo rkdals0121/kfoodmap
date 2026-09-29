@@ -46,6 +46,10 @@ export default {
     halalCertified: 'Halal certified',
     halalFriendly: 'Halal-friendly',
     porkFree: 'Pork-free',
+    veganLabel: 'Vegan',
+    halalLabel: 'Halal',
+    veganNone: 'No vegan dishes',
+    halalNone: 'Not halal',
   },
   journal: {
     savedOn: 'saved {{date}}',

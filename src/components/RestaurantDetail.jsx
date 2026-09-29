@@ -10,11 +10,12 @@ import {
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName } from '../utils';
 import {
-  dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
+  dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, VEGAN, HALAL,
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
 import { CLAIM_CLASS } from './claim';
+import ClaimChip from './ClaimChip';
 
 // Keyed by the identifier as stored in restaurant.traits / compared in
 // App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
@@ -256,6 +257,22 @@ export default function RestaurantDetail({
                 ))}
               </ul>
             )}
+            {/* The diet this place has no claim for is said, not left out
+                (docs/UI-DIRECTION.md, P2): a Muslim visitor reading a vegan
+                café should see "Halal · Not known", not silence. A known
+                "no" (serves pork) is a claim with its own strength. */}
+            {(() => {
+              const shown = new Set(dietFacts.map(f => f.id));
+              const other = ['vegan', 'halal'].filter(k => !shown.has(k)).map(k => {
+                const f = place.dietary[k];
+                const none = isKnown(f) && f.value === (k === 'vegan' ? VEGAN.NONE : HALAL.NONE);
+                return none
+                  // No diet icon: a crescent beside "Not halal" reads as halal at a glance.
+                  ? <ClaimChip key={k} label={t(`dietary.${k}None`)} fact={f} />
+                  : <ClaimChip key={k} label={t(`dietary.${k}Label`)} level={t('trust.unknown')} tone="none" />;
+              });
+              return other.length > 0 && <p className="detail-otherdiet">{other}</p>;
+            })()}
             {/* Traits describe the place; they are not claims with a
                 confidence, so they are plain text, not chips. */}
             {traitFacts.length > 0 && (
