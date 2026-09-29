@@ -64,7 +64,9 @@ function AppShell() {
   );
 
   useEffect(() => {
-    if (id && !selectedRestaurant) navigate('/', { replace: true });
+    // An unknown or withdrawn place: say so on the map instead of silently
+    // showing the home screen.
+    if (id && !selectedRestaurant) navigate('/', { replace: true, state: { missingPlace: id } });
   }, [id, selectedRestaurant, navigate]);
   // State is the whole passport, tombstones included — a tombstone is the
   // only record that an unsave happened, and dropping it here would let the
@@ -309,6 +311,7 @@ function AppShell() {
                 activeFilters={selectedFilters}
                 searchQuery={searchQuery}
                 onClearFilters={() => { setSelectedFilters([]); setSearchQuery(''); }}
+                missingPlace={location.state?.missingPlace ?? null}
               />
             </section>
           </>

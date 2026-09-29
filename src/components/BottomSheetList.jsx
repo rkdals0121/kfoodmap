@@ -126,7 +126,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
-  sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters,
+  sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null,
 }) {
   const { t } = useTranslation();
   const sorted = useMemo(() =>
@@ -168,6 +168,10 @@ export default function BottomSheetList({
       {/* Said once for the whole list rather than on every card: the same
           caveat the detail page carries, so the lines below are never read as
           audited. */}
+      {missingPlace && (
+        <p className="section-note place-list__note" role="status">{t('list.missingPlace')}</p>
+      )}
+
       {/* Said while the Halal filter is on and no place listed holds a
           sighted certificate (true of every place today). */}
       {activeFilters.includes('Halal') && sorted.length > 0
