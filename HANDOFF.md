@@ -2063,6 +2063,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     online shows the generic badge text offline. Guard:
     scripts/tests/client-data.test.mjs fails if any other file starts
     reading `.evidence` — such a reader must fetch the record first.
+    **Extended the same day (651 places, 2.37 MB / 433 kB gzip):** the
+    detail-only fields `menus`, `transit`, `phone`, `officialUrl`,
+    `instagram` and `timeline` are also left out of the bundle
+    (DETAIL_ONLY in scripts/lib/client-data.mjs). RestaurantDetail renders
+    from the full record once `usePlaceRecord` has fetched it, and from the
+    bundled record until then — so those sections appear a moment after the
+    sheet opens, and are missing offline for a place never opened online.
+    After: 1.76 MB / 366 kB gzip. The test's reader guard now covers those
+    fields too. The service worker's precache limit was raised to 4 MiB
+    when the chunk first crossed 2 MiB (vite.config.js).
 
 
 ---

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router';
 import { useTranslation, Trans } from 'react-i18next';
 import PlaceImage from './PlaceImage';
@@ -13,7 +13,7 @@ import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
-import usePlaceEvidence from '../hooks/usePlaceEvidence';
+import usePlaceRecord from '../hooks/usePlaceRecord';
 
 // Keyed by the identifier as stored in restaurant.traits / compared in
 // App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
@@ -36,13 +36,8 @@ function SectionHead({ Icon, title, kr }) {
   );
 }
 
-// The bundled facts carry no evidence text; it is fetched per place when the
-// detail opens (hooks/usePlaceEvidence.js) and joined back on here.
-const EvidenceContext = createContext(null);
-
 function Trust({ fact }) {
-  const evidence = useContext(EvidenceContext)?.get(fact);
-  const { label, tone, detail } = trustBadge(evidence === undefined ? fact : { ...fact, evidence });
+  const { label, tone, detail } = trustBadge(fact);
   return <span className={`trust trust--${tone}`} title={detail}>{label}</span>;
 }
 
@@ -66,7 +61,9 @@ export default function RestaurantDetail({
   const [galleryOpen, setGalleryOpen] = useState(false);
   const storyRef = useRef(null);
   const sheetRef = useRef(null);
-  const evidence = usePlaceEvidence(restaurant);
+  // The bundle carries a lighter record; the full one (evidence, menus,
+  // transit, phone, links) is fetched when the detail opens.
+  const full = usePlaceRecord(restaurant);
 
   useEffect(() => {
     setCopied(false);
@@ -97,29 +94,31 @@ export default function RestaurantDetail({
 
   if (!restaurant) return null;
 
-  const name = restaurant.name.split('(')[0].trim();
-  const status = getOpenStatus(restaurant.hours);
-  const today = todaysHours(restaurant.hours);
-  const culture = getCulture(restaurant);
-  const coords = coordsOf(restaurant);
+  const place = full ?? restaurant;
+
+  const name = place.name.split('(')[0].trim();
+  const status = getOpenStatus(place.hours);
+  const today = todaysHours(place.hours);
+  const culture = getCulture(place);
+  const coords = coordsOf(place);
   const distance = mapCenter
     ? formatDistance(haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng))
     : null;
 
-  const dietFacts = dietaryBadges(restaurant).map(b => ({ id: b.key, Icon: DIETARY_ICON[b.key], label: b.label, fact: b.fact }));
-  const traitFacts = restaurant.traits.filter(id => TRAIT_META[id])
+  const dietFacts = dietaryBadges(place).map(b => ({ id: b.key, Icon: DIETARY_ICON[b.key], label: b.label, fact: b.fact }));
+  const traitFacts = place.traits.filter(id => TRAIT_META[id])
     .map(id => ({ id, Icon: TRAIT_META[id].Icon, label: t(TRAIT_META[id].labelKey), fact: null }));
   const facts = [...dietFacts, ...traitFacts];
-  const certClaim = restaurant.dietary.halalCertClaim;
-  const caveatKeys = DIET_CAVEAT_KEYS[dietaryConfidence(restaurant)] ?? DIET_CAVEAT_KEYS[CONFIDENCE.UNKNOWN];
+  const certClaim = place.dietary.halalCertClaim;
+  const caveatKeys = DIET_CAVEAT_KEYS[dietaryConfidence(place)] ?? DIET_CAVEAT_KEYS[CONFIDENCE.UNKNOWN];
   const caveat = { title: t(caveatKeys.titleKey), body: t(caveatKeys.bodyKey) };
   const lastChecked = [
-    restaurant.coordinates, restaurant.address, restaurant.hours, restaurant.menus,
-    restaurant.phone, restaurant.officialUrl, restaurant.instagram, restaurant.transit,
-    restaurant.dietary.vegan, restaurant.dietary.halal,
+    place.coordinates, place.address, place.hours, place.menus,
+    place.phone, place.officialUrl, place.instagram, place.transit,
+    place.dietary.vegan, place.dietary.halal,
   ].map(f => f?.lastCheckedAt).filter(Boolean).sort().at(-1);
 
-  const galleryImages = [restaurant.photo || restaurant.coverImage || restaurant.image].filter(Boolean);
+  const galleryImages = [place.photo || place.coverImage || place.image].filter(Boolean);
 
   const fallbackCopy = (text) => {
     const ta = document.createElement('textarea');
@@ -136,7 +135,7 @@ export default function RestaurantDetail({
 
   const handleCopy = async () => {
     let ok = false;
-    const address = restaurant.address.value;
+    const address = place.address.value;
     try {
       await navigator.clipboard.writeText(address);
       ok = true;
@@ -150,11 +149,11 @@ export default function RestaurantDetail({
   };
 
   const handleShare = async () => {
-    const shareText = `${restaurant.name} — ${restaurant.vibe}`;
+    const shareText = `${place.name} — ${place.vibe}`;
     const shareUrl = window.location.href;
     if (navigator.share) {
       try {
-        await navigator.share({ title: restaurant.name, text: shareText, url: shareUrl });
+        await navigator.share({ title: place.name, text: shareText, url: shareUrl });
         setShared(true);
         setTimeout(() => setShared(false), 2500);
       } catch { }
@@ -170,7 +169,7 @@ export default function RestaurantDetail({
   };
 
   return (
-    <EvidenceContext.Provider value={evidence}>
+    <>
       <div className="detail-backdrop" onClick={onClose} />
       <div className="detail-sheet" role="dialog" aria-modal="true" aria-label={name} ref={sheetRef} tabIndex={-1}>
         <button className="detail-close" aria-label={t('detail.close')} onClick={onClose}>
@@ -179,14 +178,14 @@ export default function RestaurantDetail({
 
         <div className="detail-scroll">
           {/* 1. Hero Image */}
-          <PlaceImage place={restaurant} variant="hero" onClick={() => setGalleryOpen(true)} />
+          <PlaceImage place={place} variant="hero" onClick={() => setGalleryOpen(true)} />
 
           <div className="detail-content">
             {/* 2. Restaurant Name */}
             <header className="detail-header">
-              <h2>{restaurant.name}</h2>
+              <h2>{place.name}</h2>
               <p className="detail-meta">
-                {restaurant.zone}
+                {place.zone}
                 {distance && <><span aria-hidden="true"> · </span>{distance}</>}
               </p>
             </header>
@@ -209,18 +208,18 @@ export default function RestaurantDetail({
             </div>
 
             {/* 4. Representative Menu */}
-            {isKnown(restaurant.menus) && (
+            {isKnown(place.menus) && (
               <section className="detail-section">
                 <SectionHead Icon={MenuIcon} title={t('detail.signatureMenu')} />
                 <div className="menu-rows">
-                  {restaurant.menus.value.map(m => (
+                  {place.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
                       <span>{m.name}</span>
                       <span className="menu-row__price">{m.price ?? t('detail.priceNotListed')}</span>
                     </div>
                   ))}
                 </div>
-                {needsCheck(restaurant.menus) && (
+                {needsCheck(place.menus) && (
                   <p className="section-note">{t('detail.menuUnverified')}</p>
                 )}
               </section>
@@ -241,35 +240,35 @@ export default function RestaurantDetail({
                 )}
               </div>
 
-              {isKnown(restaurant.transit) && (
+              {isKnown(place.transit) && (
                 <div className="practical-row">
                   <TrainIcon size={17} />
                   <span>
-                    {restaurant.transit.value.station} {restaurant.transit.value.line}
-                    {restaurant.transit.value.exit && t('detail.transitExit', { exit: restaurant.transit.value.exit })}
-                    {t('detail.transitWalk', { minutes: restaurant.transit.value.walkingMinutes })}
+                    {place.transit.value.station} {place.transit.value.line}
+                    {place.transit.value.exit && t('detail.transitExit', { exit: place.transit.value.exit })}
+                    {t('detail.transitWalk', { minutes: place.transit.value.walkingMinutes })}
                   </span>
                 </div>
               )}
 
-              {isKnown(restaurant.phone) && (
+              {isKnown(place.phone) && (
                 <div className="practical-row">
                   <PhoneIcon size={17} />
-                  <a className="practical-link" href={`tel:${restaurant.phone.value.replace(/-/g, '')}`}>
-                    {restaurant.phone.value}
+                  <a className="practical-link" href={`tel:${place.phone.value.replace(/-/g, '')}`}>
+                    {place.phone.value}
                   </a>
                 </div>
               )}
 
-              {(isKnown(restaurant.officialUrl) || isKnown(restaurant.instagram)) && (
+              {(isKnown(place.officialUrl) || isKnown(place.instagram)) && (
                 <div className="practical-row">
                   <LinkIcon size={17} />
                   <span className="practical-links">
-                    {isKnown(restaurant.officialUrl) && (
-                      <a className="practical-link" href={restaurant.officialUrl.value} target="_blank" rel="noreferrer noopener">{t('detail.website')}</a>
+                    {isKnown(place.officialUrl) && (
+                      <a className="practical-link" href={place.officialUrl.value} target="_blank" rel="noreferrer noopener">{t('detail.website')}</a>
                     )}
-                    {isKnown(restaurant.instagram) && (
-                      <a className="practical-link" href={restaurant.instagram.value} target="_blank" rel="noreferrer noopener">{t('detail.instagram')}</a>
+                    {isKnown(place.instagram) && (
+                      <a className="practical-link" href={place.instagram.value} target="_blank" rel="noreferrer noopener">{t('detail.instagram')}</a>
                     )}
                   </span>
                 </div>
@@ -279,7 +278,7 @@ export default function RestaurantDetail({
                 <button
                   className={`icon-btn icon-btn--lg${isBookmarked ? ' icon-btn--saved' : ''}`}
                   aria-label={isBookmarked ? t('list.removeAria', { name }) : t('list.saveAria', { name })}
-                  onClick={() => onToggleBookmark(restaurant.id)}
+                  onClick={() => onToggleBookmark(place.id)}
                 >
                   <HeartIcon size={21} filled={isBookmarked} />
                 </button>
@@ -287,7 +286,7 @@ export default function RestaurantDetail({
                   className={`icon-btn icon-btn--lg${isVisited ? ' icon-btn--visited' : ''}`}
                   aria-label={isVisited ? t('detail.visitedUnmark', { name }) : t('detail.visitedMark', { name })}
                   disabled={!isBookmarked}
-                  onClick={() => onToggleVisited(restaurant.id)}
+                  onClick={() => onToggleVisited(place.id)}
                 >
                   <CheckIcon size={21} />
                 </button>
@@ -305,15 +304,15 @@ export default function RestaurantDetail({
             {/* 6. Story & Hook */}
             <section className="detail-hook">
               <p className="detail-hook__label">{t('detail.whyItsSpecial')}</p>
-              <p className="detail-hook__quote">&ldquo;{restaurant.vibe}&rdquo;</p>
+              <p className="detail-hook__quote">&ldquo;{place.vibe}&rdquo;</p>
             </section>
             
             <section className="detail-section" ref={storyRef}>
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
-              <p className="detail-body">{restaurant.story}</p>
-              {restaurant.timeline?.length > 0 && (
+              <p className="detail-body">{place.story}</p>
+              {place.timeline?.length > 0 && (
                 <ol className="timeline">
-                  {restaurant.timeline.map(t => (
+                  {place.timeline.map(t => (
                     <li key={`${t.year}-${t.event}`} className="timeline__item">
                       <span className="timeline__year">{t.year}</span>
                       <span className="timeline__event">{t.event}</span>
@@ -334,8 +333,8 @@ export default function RestaurantDetail({
               <div className="practical-row">
                 <MapPinIcon size={17} />
                 <span>
-                  {restaurant.address.value}
-                  {restaurant.address.precision === 'area' && (
+                  {place.address.value}
+                  {place.address.precision === 'area' && (
                     <span className="practical-muted">{t('detail.areaOnly')}</span>
                   )}
                 </span>
@@ -345,17 +344,17 @@ export default function RestaurantDetail({
               </div>
 
               <div className="detail-directions">
-                <button className="btn-primary" onClick={() => window.open(directionsUrl(restaurant, mapCenter), '_blank')}>
+                <button className="btn-primary" onClick={() => window.open(directionsUrl(place, mapCenter), '_blank')}>
                   Google Maps
                 </button>
-                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(restaurant, mapCenter), '_blank')}>
+                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place, mapCenter), '_blank')}>
                   Naver Map
                 </button>
-                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(restaurant, mapCenter), '_blank')}>
+                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place, mapCenter), '_blank')}>
                   Kakao Map
                 </button>
               </div>
-              <Link className="detail-report" to={`/submit?place=${restaurant.id}`}>
+              <Link className="detail-report" to={`/submit?place=${place.id}`}>
                 {t('submit.reportLink')}
               </Link>
             </section>
@@ -384,8 +383,8 @@ export default function RestaurantDetail({
                 <div>
                   <dt>{t('detail.location')}</dt>
                   <dd>
-                    {sourceLabel(restaurant.coordinates.source)}
-                    {restaurant.address.precision === 'area' && t('detail.addressAreaLevel')}
+                    {sourceLabel(place.coordinates.source)}
+                    {place.address.precision === 'area' && t('detail.addressAreaLevel')}
                   </dd>
                 </div>
                 <div>
@@ -427,6 +426,6 @@ export default function RestaurantDetail({
           </div>
         </div>
       )}
-    </EvidenceContext.Provider>
+    </>
   );
 }

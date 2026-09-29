@@ -4,8 +4,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { restaurants } from '../../src/data/restaurants.js';
-import { withoutEvidence, clientModule, placeDataFile } from '../lib/client-data.mjs';
-import { pairEvidence } from '../../src/data/evidence-pairing.js';
+import { clientRecord, clientModule, placeDataFile, DETAIL_ONLY } from '../lib/client-data.mjs';
 
 const keysOf = (v, out = new Set()) => {
   if (Array.isArray(v)) v.forEach(x => keysOf(x, out));
@@ -13,41 +12,37 @@ const keysOf = (v, out = new Set()) => {
   return out;
 };
 
-test('the bundled copy carries no evidence text', () => {
-  assert.equal(keysOf(withoutEvidence(restaurants)).has('evidence'), false);
+test('the bundled copy carries no evidence text and no detail-only field', () => {
+  const slim = restaurants.map(clientRecord);
+  assert.equal(keysOf(slim).has('evidence'), false);
+  for (const r of slim) for (const k of DETAIL_ONLY) assert.equal(k in r, false, `${r.id}.${k}`);
 });
 
-test('the bundled module evaluates to the data minus evidence, nothing else changed', async () => {
-  const mod = await import('data:text/javascript,' + encodeURIComponent(clientModule(restaurants)));
-  assert.deepStrictEqual(mod.restaurants, withoutEvidence(restaurants));
-  assert.equal(mod.restaurants.length, restaurants.length);
-});
-
-test('every piece of evidence comes back when the full record is paired on', () => {
-  const slim = withoutEvidence(restaurants);
+test('everything the list, map and filters read is still in the bundle', () => {
   for (let i = 0; i < restaurants.length; i++) {
-    const full = JSON.parse(placeDataFile(restaurants[i]).source);
-    const map = pairEvidence(slim[i], full);
-    // Walk the original: every fact with evidence must be recoverable from
-    // the matching bundled object.
-    const walk = (orig, s) => {
-      if (!orig || typeof orig !== 'object') return;
-      if (!Array.isArray(orig) && typeof orig.evidence === 'string') {
-        assert.equal(map.get(s), orig.evidence, `${restaurants[i].id}: evidence lost`);
-      }
-      for (const k of Object.keys(orig)) if (k !== 'evidence') walk(orig[k], s[k]);
-    };
-    walk(restaurants[i], slim[i]);
+    const full = restaurants[i], slim = clientRecord(full);
+    for (const k of ['id', 'name', 'zone', 'category', 'traits', 'vibe', 'story']) assert.deepStrictEqual(slim[k], full[k], `${full.id}.${k}`);
+    assert.deepStrictEqual(slim.coordinates.value, full.coordinates.value);
+    assert.deepStrictEqual(slim.address.value, full.address.value);
+    assert.deepStrictEqual(slim.hours.value, full.hours.value);
+    assert.equal(slim.dietary.vegan.value, full.dietary.vegan.value);
+    assert.equal(slim.dietary.vegan.confidence, full.dietary.vegan.confidence);
+    assert.equal(slim.dietary.halal.value, full.dietary.halal.value);
+    assert.equal(slim.dietary.halal.confidence, full.dietary.halal.confidence);
+    assert.deepStrictEqual(slim.lifecycle, full.lifecycle === undefined ? undefined : clientRecord({ l: full.lifecycle }).l);
   }
 });
 
-test('a record for another place pairs nothing', () => {
-  const slim = withoutEvidence(restaurants);
-  const map = pairEvidence(slim[0], JSON.parse(placeDataFile(restaurants[1]).source));
-  assert.equal(map.get(slim[0].coordinates), undefined);
+test('the bundled module evaluates to exactly the slim records', async () => {
+  const mod = await import('data:text/javascript,' + encodeURIComponent(clientModule(restaurants)));
+  assert.deepStrictEqual(mod.restaurants, restaurants.map(clientRecord));
 });
 
-test('only the trust badge reads .evidence — anything new must fetch it first', () => {
+test('the per-place file is the whole record, evidence included', () => {
+  for (const r of restaurants) assert.deepStrictEqual(JSON.parse(placeDataFile(r).source), JSON.parse(JSON.stringify(r)));
+});
+
+test('only the detail view reads stripped fields — anything else must fetch the record first', () => {
   const files = [];
   const collect = (dir) => {
     for (const name of readdirSync(dir)) {
@@ -57,9 +52,10 @@ test('only the trust badge reads .evidence — anything new must fetch it first'
     }
   };
   collect(fileURLToPath(new URL('../../src', import.meta.url)));
-  const allowed = ['data/restaurants.js', 'data/verification.js', 'data/evidence-pairing.js'];
+  const allowed = ['data/restaurants.js', 'data/verification.js', 'components/RestaurantDetail.jsx'];
+  const pattern = new RegExp(`\\.(evidence|${DETAIL_ONLY.join('|')})\\b`);
   const readers = files
     .filter(f => !allowed.some(a => f.replaceAll('\\', '/').endsWith(a)))
-    .filter(f => /\.evidence\b/.test(readFileSync(f, 'utf8')));
+    .filter(f => pattern.test(readFileSync(f, 'utf8')));
   assert.deepEqual(readers, []);
 });
