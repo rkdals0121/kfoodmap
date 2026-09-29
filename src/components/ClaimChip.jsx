@@ -11,7 +11,8 @@ const ICON = { vegan: LeafIcon, halal: CrescentIcon };
 // or `level` + `tone` to draw an example (the prologue legend).
 export default function ClaimChip({ kind, label, fact, level, tone }) {
   const badge = fact ? trustBadge(fact) : { label: level, tone };
-  const Icon = ICON[kind];
+  // Pork-free is not halal: it never gets the crescent (same rule as pins).
+  const Icon = kind === 'halal' && fact?.value === 'porkFree' ? null : ICON[kind];
   return (
     <span className={`claim claim-chip claim--${CLAIM_CLASS[badge.tone]}`}>
       {Icon && <Icon size={12} aria-hidden="true" />}

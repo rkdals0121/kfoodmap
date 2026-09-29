@@ -242,7 +242,9 @@ function ProfileTab({
           onClick={() => onNavigate('journal')}
         >
           <span className="profile-custody__stat">
-            <strong>{savedCount}</strong> {t('journal.saved')}
+            {/* Same words and counts as the Journal: places still to visit,
+                and places visited. */}
+            <strong>{savedCount - visitedCount}</strong> {t('journal.toVisit')}
           </span>
           <span className="profile-custody__stat">
             <strong>{visitedCount}</strong> {t('journal.visited')}

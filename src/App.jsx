@@ -150,6 +150,11 @@ function AppShell() {
   };
 
   const handleToggleBookmark = (placeId) => {
+    // Unsaving a visited place also drops its visit (and its Journal seal),
+    // so ask first rather than erase a record silently.
+    const current = entries.find(e => e.id === placeId);
+    if (current && current.savedAt !== null && current.visitedAt !== null
+      && !window.confirm(t('journal.unsaveVisitedConfirm'))) return;
     const now = Date.now();
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
@@ -215,6 +220,9 @@ function AppShell() {
       {/* The page's one H1, for screen readers and outlines; the map screen
           has no visible title. */}
       <h1 className="visually-hidden">K-Food Map</h1>
+      {/* The map holds hundreds of focusable pins; the same places are in
+          the list, one Tab away with this link. */}
+      {activeTab === 'map' && <a className="skip-link" href="#place-list">{t('app.skipToList')}</a>}
       {/* Map is now at the base level */}
       <div className="map-region" inert={mapCovered || modalOpen || undefined}>
         {!isOnline && (
@@ -269,7 +277,7 @@ function AppShell() {
             </div>
 
             {/* Restaurant list */}
-            <section className="list-region" aria-label={t('app.restaurantList')}>
+            <section className="list-region" id="place-list" tabIndex={-1} aria-label={t('app.restaurantList')}>
               <BottomSheetList
                 restaurants={filteredRestaurants}
                 mapCenter={mapCenter}

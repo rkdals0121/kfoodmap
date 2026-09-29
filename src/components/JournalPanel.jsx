@@ -99,7 +99,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           </div>
           <div className="stat-box">
             <span className="stat-num">{neighborhoods.length}</span>
-            <span className="stat-label">{t('journal.areas')}</span>
+            <span className="stat-label">{t('journal.areasCount', { count: neighborhoods.length })}</span>
           </div>
         </div>
       </div>

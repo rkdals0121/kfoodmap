@@ -53,7 +53,7 @@ function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
         aria-controls={`claim-explain-${id}`}
         onClick={onToggle}
       >
-        <Icon size={16} aria-hidden="true" /> {label}
+        {Icon && <Icon size={16} aria-hidden="true" />} {label}
         <span className="claim-fact__level">{level}</span>
         <span className="claim-fact__why" aria-hidden="true"><InfoIcon size={14} /></span>
       </button>
@@ -97,6 +97,10 @@ export default function RestaurantDetail({
     return () => {
       if (opener && opener !== document.body && document.contains(opener) && typeof opener.focus === 'function') {
         opener.focus({ preventScroll: true });
+      } else {
+        // The opener can be gone (the list re-sorted while the detail was
+        // open beside the map); land on the list, not the page body.
+        document.getElementById('place-list')?.focus({ preventScroll: true });
       }
     };
   }, [placeId]);
@@ -142,7 +146,13 @@ export default function RestaurantDetail({
     ? formatDistance(haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng))
     : null;
 
-  const dietFacts = dietaryBadges(place).map(b => ({ id: b.key, Icon: DIETARY_ICON[b.key], label: b.label, fact: b.fact }));
+  // Pork-free is not halal, so it never carries the crescent.
+  const dietFacts = dietaryBadges(place).map(b => ({
+    id: b.key,
+    Icon: b.key === 'halal' && b.fact.value === HALAL.PORK_FREE ? null : DIETARY_ICON[b.key],
+    label: b.label,
+    fact: b.fact,
+  }));
   const traitFacts = place.traits.filter(id => TRAIT_META[id])
     .map(id => ({ id, Icon: TRAIT_META[id].Icon, label: t(TRAIT_META[id].labelKey), fact: null }));
   const facts = [...dietFacts, ...traitFacts];
@@ -274,7 +284,8 @@ export default function RestaurantDetail({
                 return none
                   // No diet icon: a crescent beside "Not halal" reads as halal at a glance.
                   ? <ClaimChip key={k} label={t(`dietary.${k}None`)} fact={f} />
-                  : <ClaimChip key={k} label={t(`dietary.${k}Label`)} level={t('trust.unknown')} tone="none" />;
+                  // One plain phrase: a bold "Halal" beside a small "Not known" read as yes.
+                  : <ClaimChip key={k} level={t(`dietary.${k}NotKnown`)} tone="none" />;
               });
               return other.length > 0 && <p className="detail-otherdiet">{other}</p>;
             })()}
@@ -313,13 +324,6 @@ export default function RestaurantDetail({
                 </p>
               )}
             </div>
-
-            {/* Menus, transit, phone and links arrive with the full record
-                (usePlaceRecord). Say so while it loads, so the sheet doesn't
-                look finished and then grow; offline the line never shows. */}
-            {!full && typeof navigator !== 'undefined' && navigator.onLine !== false && (
-              <p className="detail-loading" role="status">{t('detail.loadingDetails')}</p>
-            )}
 
             {/* 4. Quick Information (Hours, Transit, Links, Actions) */}
             <div className="practical">
@@ -398,6 +402,14 @@ export default function RestaurantDetail({
                 </button>
               </div>
             </div>
+
+            {/* Menus, transit, phone and links arrive with the full record
+                (usePlaceRecord). Say so while it loads, so the sheet doesn't
+                look finished and then grow; offline the line never shows. Below the
+                actions, so Save / Been here don't jump when it goes. */}
+            {!full && typeof navigator !== 'undefined' && navigator.onLine !== false && (
+              <p className="detail-loading" role="status">{t('detail.loadingDetails')}</p>
+            )}
 
             {/* 5. Directions / Address. Naver and Kakao first: they are the maps
                 visitors are told to use in Korea, where Google's coverage is thin. */}
@@ -510,7 +522,9 @@ export default function RestaurantDetail({
                 </div>
                 <div>
                   <dt>{t('detail.lastChecked')}</dt>
-                  <dd>{lastChecked ? formatLongDate(lastChecked, i18n.language) : t('detail.never')}</dd>
+                  {/* Dates arrive with the full record; until then say nothing
+                      rather than "Never". */}
+                  <dd>{lastChecked ? formatLongDate(lastChecked, i18n.language) : full ? t('detail.never') : '…'}</dd>
                 </div>
               </dl>
             </footer>

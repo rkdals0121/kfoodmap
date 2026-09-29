@@ -28,6 +28,7 @@
   --muted-strong: #616875;  /* muted text on a tinted fill, where AA needs more */
   --line: #E5E7EB;
   --line-hover: #C9CDD3;
+  --field-line: #8B919A;    /* input edges: 3.2:1 on white (WCAG 1.4.11) */
 
   /* Brand & status */
   --green: #0E9F6E;         /* pins, icons, accents */
@@ -145,7 +146,7 @@ button {
   height: 48px;
   padding: 0 14px;
   background: var(--fill);
-  border: 1px solid transparent;
+  border: 1px solid var(--field-line);
   border-radius: var(--radius);
   transition: border-color 0.15s ease, background 0.15s ease;
 }
@@ -2624,11 +2625,30 @@ button {
   color: var(--ink-title);
 }
 .stat-label {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--muted-strong);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 10001;
+  padding: 10px 14px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
 }
 
 .journal-section {
@@ -2754,7 +2774,7 @@ button {
   font-size: 16px; /* <16px makes iOS Safari zoom in on focus */
   color: var(--ink);
   background: var(--fill);
-  border: 1px solid transparent;
+  border: 1px solid var(--field-line);
   border-radius: var(--radius);
   transition: border-color 0.15s ease;
 }
