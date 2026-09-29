@@ -32464,7 +32464,7 @@ export const restaurants = [
         "statedBy": "Nami Island (the operator), English FAQ and FAQ list; also KTO's 'Muslim-Friendly Restaurants in Korea' guide, valid as of December 2021 ('Halal-certified' category)",
         "quote": "Certified Halal Restaurant ‘Dongmoon’ is delighted to welcome our Muslim visitors from around the globe.",
         "status": "KMF lists certificate KMFHC26-0160 (valid to 2027-03-16) for the company 주식회사남문 / NAMMOON, Inc.; the certificate does not name Dongmoon itself",
-        "note": "KMF lists a current certificate (KMFHC26-0160, valid to 16 March 2027) for NAMMOON, Inc., the company behind the island's restaurants; it does not name Dongmoon itself."
+        "note": "KMF lists a current certificate (KMFHC26-0160, valid to 16 March 2027) for the company NAMMOON, Inc. (주식회사남문); the certificate does not name Dongmoon itself."
       }
     },
     "imageLeads": [],
