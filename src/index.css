@@ -2243,9 +2243,33 @@ button {
   display: flex;
   align-items: center;
   gap: 16px;
+  width: 100%;
   padding: 16px 0;
+  background: none;
+  border: none;
   border-bottom: 1px solid var(--line);
+  font: inherit;
+  color: inherit;
+  text-align: left;
   cursor: pointer;
+}
+.settings-item:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Profile: full-width sections under the panel's own 24px gutter, rather
+   than centred boxes with a second inset of their own. */
+.profile-panel > .profile-custody,
+.profile-panel > .settings-list,
+.profile-panel > .profile-notice {
+  align-self: stretch;
+  margin-left: 0;
+  margin-right: 0;
+}
+.profile-panel > .settings-list {
+  padding-left: 0;
+  padding-right: 0;
 }
 .settings-item:last-child {
   border-bottom: none;

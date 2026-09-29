@@ -246,35 +246,35 @@ function ProfileTab({
 
       <div className="settings-list">
         {settings.map((item, idx) => (
-          <div key={idx} className="settings-item" onClick={item.action}>
+          <button type="button" key={idx} className="settings-item" onClick={item.action}>
             <span className="settings-icon">{item.icon}</span>
-            <div className="settings-text">
+            <span className="settings-text">
               <span className="settings-label">{item.label}</span>
-            </div>
+            </span>
             {item.value && <span className="settings-value">{item.value}</span>}
             <ChevronRightIcon size={18} />
-          </div>
+          </button>
         ))}
       </div>
 
       {session && (
         <div className="settings-list settings-list--account">
           <span className="settings-section-label">{t('profile.accountSection')}</span>
-          <div className="settings-item" onClick={onSignOut}>
+          <button type="button" className="settings-item" onClick={onSignOut}>
             <span className="settings-icon">🚪</span>
-            <div className="settings-text">
+            <span className="settings-text">
               <span className="settings-label">{t('profile.signOut')}</span>
-            </div>
+            </span>
             <span className="settings-value">{t('profile.signOutHint')}</span>
             <ChevronRightIcon size={18} />
-          </div>
-          <div className="settings-item settings-item--danger" onClick={confirmThenDelete}>
+          </button>
+          <button type="button" className="settings-item settings-item--danger" onClick={confirmThenDelete}>
             <span className="settings-icon">🗑️</span>
-            <div className="settings-text">
+            <span className="settings-text">
               <span className="settings-label">{t('profile.deleteRecords')}</span>
-            </div>
+            </span>
             <ChevronRightIcon size={18} />
-          </div>
+          </button>
         </div>
       )}
 
