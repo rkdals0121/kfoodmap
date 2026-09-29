@@ -240,9 +240,16 @@ button {
   transform: scale(0.97);
 }
 .chip.active {
-  background: var(--green-strong);
-  border-color: var(--green-strong);
-  color: #fff;
+  /* Tint + edge + check, not a solid fill: solid is reserved for the
+     Confirmed claim mark, and the check says "on" without colour. */
+  background: var(--green-tint);
+  border: 1.5px solid var(--green-strong);
+  color: var(--green-strong);
+  font-weight: 600;
+}
+.chip.active::before {
+  content: '✓' / '';
+  margin-right: 5px;
 }
 
 .map-region {
