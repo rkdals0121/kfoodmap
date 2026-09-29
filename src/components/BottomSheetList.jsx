@@ -129,14 +129,20 @@ export default function BottomSheetList({
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null,
 }) {
   const { t } = useTranslation();
-  const sorted = useMemo(() =>
-    restaurants
+  // Nearest first — but while searching, places whose area or address
+  // matches a search word come before places that only match by name, so
+  // "Busan korean" lists Busan before Seoul's "Busan Jib".
+  const sorted = useMemo(() => {
+    const words = searchQuery.trim().toLowerCase().split(/\s+/).filter(w => w.length >= 2);
+    const inArea = (r) => words.length > 0
+      && words.some(w => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase().includes(w));
+    return restaurants
       .map(r => {
         const { lat, lng } = coordsOf(r);
-        return { ...r, distanceKm: haversineKm(mapCenter[0], mapCenter[1], lat, lng) };
+        return { ...r, distanceKm: haversineKm(mapCenter[0], mapCenter[1], lat, lng), areaMatch: inArea(r) };
       })
-      .sort((a, b) => a.distanceKm - b.distanceKm),
-  [restaurants, mapCenter]);
+      .sort((a, b) => (b.areaMatch - a.areaMatch) || (a.distanceKm - b.distanceKm));
+  }, [restaurants, mapCenter, searchQuery]);
 
   // Draw the nearest PAGE cards and add more as the end of the list scrolls
   // into view. With 385 places, re-rendering every card on each map move
