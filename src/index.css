@@ -2797,7 +2797,7 @@ button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--green-strong);
   color: #fff;
   font-weight: 700;
   font-size: 15px;
@@ -2842,7 +2842,7 @@ button {
 }
 .k-cluster-popup button:hover,
 .k-cluster-popup button:focus-visible {
-  color: var(--green);
+  color: var(--green-strong);
 }
 
 /* "Show more" at the end of the place list; also the scroll sentinel that
@@ -2858,11 +2858,11 @@ button {
   font: inherit;
   font-size: 14px;
   font-weight: 600;
-  color: var(--green);
+  color: var(--green-strong);
   cursor: pointer;
 }
 .place-list__more:focus-visible {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--green-strong);
   outline-offset: 2px;
 }
 
