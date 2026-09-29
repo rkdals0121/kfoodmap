@@ -210,3 +210,18 @@ export function formatShortDate(ts, lang) {
   if (!ts) return null;
   return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'short', year: 'numeric' });
 }
+
+/**
+ * The name to show on cards, stamps and headings: the stored name without
+ * its Korean parenthetical, keeping anything after it. "Chick Peace (칙피스)
+ * Seongsu" → "Chick Peace Seongsu", so branches of one chain stay apart in
+ * the list; "Busan Jib KBBQ (Halal)" keeps its non-Korean parenthetical.
+ * Until 2026-09-29 this was name.split('(')[0], which dropped the branch.
+ */
+export function displayName(name) {
+  return String(name)
+    .replace(/\s*\([^)]*[가-힣][^)]*\)/g, '')
+    .replace(/\s+,/g, ',')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}

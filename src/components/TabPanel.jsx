@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { displayName } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -55,7 +56,7 @@ function DiscoverTab({ onNavigate }) {
                         <span className="journey-stop__num">{i + 1}</span>
                         <PlaceImage place={place} variant="thumb" className="journey-stop__img" />
                         <span className="journey-stop__text">
-                          <span className="journey-stop__name">{place.name.split('(')[0].trim()}</span>
+                          <span className="journey-stop__name">{displayName(place.name)}</span>
                           <span className="journey-stop__zone">{place.zone}</span>
                         </span>
                         <ChevronRightIcon size={16} />
@@ -80,7 +81,7 @@ function DiscoverTab({ onNavigate }) {
           <article key={place.id} className="story-card" onClick={() => onNavigate('map')}>
             <PlaceImage place={place} variant="hero" className="story-card-img" />
             <div className="story-card-content">
-              <h3>{place.name.split('(')[0].trim()}</h3>
+              <h3>{displayName(place.name)}</h3>
               <p>{place.story.split('.')[0] + '.'}</p>
               <button className="story-card-btn">{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
             </div>

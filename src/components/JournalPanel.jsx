@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN } from '../data/verification';
-import { formatShortDate } from '../utils';
+import { formatShortDate, displayName } from '../utils';
 
 // A small, fixed sample for the empty-passport preview — not the user's own
 // data, so every stamp below carries a "Sample" label instead of a date and
@@ -95,7 +95,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 <span className="stamp-ring">
                   <img src={place.image} alt="" />
                 </span>
-                <span className="stamp-name">{place.name.split('(')[0].trim()}</span>
+                <span className="stamp-name">{displayName(place.name)}</span>
                 <span className="stamp-zone">{place.zone}</span>
                 {visitedAt && <span className="stamp-date">{formatShortDate(visitedAt, i18n.language)}</span>}
               </button>
@@ -119,7 +119,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 <span className="stamp-ring">
                   <img src={place.image} alt="" />
                 </span>
-                <span className="stamp-name">{place.name.split('(')[0].trim()}</span>
+                <span className="stamp-name">{displayName(place.name)}</span>
                 <span className="stamp-zone">{place.zone}</span>
                 {savedAt && <span className="stamp-date">{formatShortDate(savedAt, i18n.language)}</span>}
               </button>
@@ -162,7 +162,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                     <span className="stamp-ring">
                       <img src={place.image} alt="" />
                     </span>
-                    <span className="stamp-name">{place.name.split('(')[0].trim()}</span>
+                    <span className="stamp-name">{displayName(place.name)}</span>
                     <span className="stamp-zone">{place.zone}</span>
                     <span className="stamp-sample-tag">{t('journal.sample')}</span>
                   </button>

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, directionsUrl, coordsOf, displayName } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import { TRAIT_GROUPS } from '../filters';
 
@@ -14,7 +14,7 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 
 function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, lens, mapCenter }) {
   const { t } = useTranslation();
-  const name = place.name.split('(')[0].trim();
+  const name = displayName(place.name);
   const status = getOpenStatus(place.hours);
   // Dietary badges say exactly what we know ("Vegan options" ≠ "Fully vegan");
   // traits are descriptive. Cards stay scannable, so cap the list.

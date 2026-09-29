@@ -8,7 +8,7 @@ import {
   BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, CheckIcon, ShareIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE,
 } from '../data/verification';
@@ -96,7 +96,7 @@ export default function RestaurantDetail({
 
   const place = full ?? restaurant;
 
-  const name = place.name.split('(')[0].trim();
+  const name = displayName(place.name);
   const status = getOpenStatus(place.hours);
   const today = todaysHours(place.hours);
   const culture = getCulture(place);

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { displayName } from '../utils';
 
 const getInitials = (name) => {
-  const cleanName = name.split('(')[0].trim();
+  const cleanName = displayName(name);
   return cleanName.substring(0, 1);
 };
 
