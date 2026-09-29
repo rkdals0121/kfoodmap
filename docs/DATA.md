@@ -117,7 +117,10 @@ vegan claim. Halal concerns slaughter, cross-contamination and certification —
 not just ingredients. It requires `confidence: CONFIRMED` **and** a `cert`
 reference; `validateDietary()` rejects anything less. Where a certificate is
 *claimed* but unsighted, record it as `halalCertClaim` and leave the level at
-`friendly`. The UI prints the claim as a claim.
+`friendly`. The UI prints the claim as a claim. Editorial copy follows the
+same rule: `validateCopy()` (run by check-data) rejects a `story` or `vibe`
+sentence that mentions certification without saying whose word it is,
+unless the halal level is `certified`.
 When a registry entry *was* sighted but does not settle the claim — it names
 the operating company rather than the outlet, or it has expired — say so in the
 claim's `note`; the UI then prints that sentence in place of "we have not

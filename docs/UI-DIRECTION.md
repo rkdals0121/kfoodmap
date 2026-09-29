@@ -39,6 +39,25 @@ word beside it. The same mark on list cards, detail, and anywhere a dietary
 claim appears. It is the one visual element the app is remembered by, and it
 *is* the product's promise. Everything around it stays quiet.
 
+In code: `src/components/ClaimChip.jsx` (one pill: diet icon, claim, level
+word) everywhere a claim is shown; on the detail page the same mark is a
+button (`ClaimFact`) that opens source, reasoning and date. The diet a
+place has no claim for is shown too — "Halal · Not known" (dotted), or a
+known no ("Not halal") with its own level — and "no" / "not known" chips
+never carry the diet icon. Nothing that is not a Confirmed claim is drawn
+solid; traits are plain text.
+
+## Decisions since (critique rounds, `.superpowers/ui-direction/CRITIQUE-*.md`)
+
+- Detail: no placeholder hero until photos exist; order = claims → hours /
+  transit → Naver / Kakao / Google → menu → story; worded Save / Been here /
+  Share (no checkmark near claims). From 768px the detail docks beside a
+  live map and is not modal; on a phone it is modal and the rest is inert.
+- The one Korean motif: dojang seals in the Journal (`Seal.jsx`, `--seal`).
+- Typeface: Pretendard GOV, self-hosted.
+- Copy: `validateCopy` (check-data) rejects story sentences that assert
+  certification without saying whose word it is.
+
 ## Avoid
 
 Checkmarks or shields on unconfirmed claims; traffic-light confidence; star
