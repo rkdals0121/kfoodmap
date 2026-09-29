@@ -675,6 +675,18 @@ export const restaurants = [
 
   {
     id: "chaeyuk-songdo",
+    // Quarantined 2026-09-29: gone from Kakao and DiningCode since July, still
+    // on the operator's branch list — existence unclear, see identity-check.md.
+    lifecycle: {
+      status: LIFECYCLE.QUARANTINE,
+      determination: fact(LIFECYCLE.QUARANTINE, {
+        confidence: CONFIDENCE.SUPPORTED,
+        source: SOURCE.DIRECTORY,
+        method: METHOD.DIRECTORY_LISTING,
+        lastCheckedAt: "2026-09-29",
+        evidence: "Identity check 2026-09-29: Kakao's walking-route lookup found it on 2026-07-17 but now returns 'Destination location not found', and its DiningCode profile (rid=1JiUmkYgrHx0) returns 404; the operator's branch page and a Daangn profile edited 2026-09-04 still list it. Dropped from both maps within two months points to a closure but does not prove one — withheld until a call to 032-833-1554 or a Naver check settles it.",
+      }),
+    },
     name: "Chaeyuk Sikdang Songdo (채육식당 송도점)",
     zone: "Songdo, Incheon",
     category: "vegan-dining",
@@ -3975,7 +3987,19 @@ export const restaurants = [
     "image": "/images/vegan_cafe.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "lifecycle": {
+      "status": "quarantine",
+      "determination": {
+        "value": "quarantine",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.polle.com",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Identity check 2026-09-29 (.superpowers/data-expansion/identity-check.md): Polle marks the shop 폐점 and tags it a pop-up, newest review about five years old; no Kakao or DiningCode listing exists and the only dated sources are 2020 press. Treated as closed; quarantined rather than deleted so the record stays auditable."
+      }
+    }
   },
   {
     "id": "le-vege-wang-yeouido",
@@ -20867,7 +20891,19 @@ export const restaurants = [
     "image": "/images/pasta.svg",
     "photo": null,
     "coverImage": null,
-    "gallery": []
+    "gallery": [],
+    "lifecycle": {
+      "status": "quarantine",
+      "determination": {
+        "value": "quarantine",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.diningcode.com",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Identity check 2026-09-29 (.superpowers/data-expansion/identity-check.md): no Kakao listing; the newest dated visit anywhere is a DiningCode review of 2025-04-22; Kakao now lists the cosmetics store Dear Dahlia on floors 1–2 at the address; the operator site is behind a challenge that was not bypassed. Trading cannot be established, so it is withheld until a call to 070-4482-0102 or a Naver check settles it."
+      }
+    }
   },
   {
     "id": "loving-hut-smile-gaepo",
