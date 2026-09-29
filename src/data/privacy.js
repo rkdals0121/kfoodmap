@@ -1,6 +1,6 @@
 // The privacy policy, in English and Korean, shown together on /privacy.
 //
-// Every statement here was measured against the code on 2026-09-28, not
+// Every statement here was measured against the code on 2026-09-29, not
 // assumed: localStorage keys (App.jsx, i18n/index.js, Prologue.jsx,
 // data/auth.js, data/passport.js), the hosts the browser contacts (index.css
 // @import, MapComponent TileLayer — OpenStreetMap since 2026-09-28, CARTO
@@ -18,7 +18,7 @@
 // inventing one. It is shown publicly on /privacy, which is the point.
 export const PRIVACY_CONTACT = 'rkdalsinha@gmail.com';
 
-export const PRIVACY_EFFECTIVE_DATE = '2026-09-28';
+export const PRIVACY_EFFECTIVE_DATE = '2026-09-29';
 
 // scripts/leads.mjs purge-emails removes contact_email from leads older
 // than this. The policy text below states the same number.
@@ -41,7 +41,7 @@ export const privacyPolicy = {
       },
       {
         heading: 'Stored on your device',
-        text: 'Signed out, the app keeps four things in your browser’s local storage: the places you saved or marked as visited, with the dates you did so — unsaving a place does not delete this entry, it keeps it marked as unsaved so the place does not quietly reappear later; whether you finished the welcome screens; your language choice; and, if a sign-in on this device has ended on its own — an expired or revoked sign-in, or a sign-out in another tab — a flag recording that, kept only so the app can explain why your saved places are gone, and removed the next time you sign in. None of it is sent to us. Pressing “Sign in” writes a fifth before any account session exists: a short-lived code the sign-in exchange needs (`kfm-auth-code-verifier`), removed when the sign-in completes and left behind until the next attempt if you abandon it. Once you are signed in, two more things are added: your Supabase session, and which account’s places are on this device — and the places, visits, and unsaved-place records you have are then kept in sync with your account, so signing out erases them from that device while your account keeps them. Clearing this site’s data in your browser deletes everything local storage holds, whether or not you are signed in. For offline use, the browser also stores the app’s own files — these contain no information about you.',
+        text: 'Signed out, the app keeps four things in your browser’s local storage: the places you saved or marked as visited, with the dates you did so — unsaving a place does not delete this entry, it keeps it marked as unsaved so the place does not quietly reappear later; whether you finished the welcome screens; your language choice; and, if a sign-in on this device has ended on its own — an expired or revoked sign-in, or a sign-out in another tab — a flag recording that, kept only so the app can explain why your saved places are gone, and removed the next time you sign in. None of it is sent to us. Pressing “Sign in” writes a fifth before any account session exists: a short-lived code the sign-in exchange needs (`kfm-auth-code-verifier`), removed when the sign-in completes and left behind until the next attempt if you abandon it. Once you are signed in, two more things are added: your Supabase session, and which account’s places are on this device — and the places, visits, and unsaved-place records you have are then kept in sync with your account, so signing out erases them from that device while your account keeps them. Clearing this site’s data in your browser deletes everything local storage holds, whether or not you are signed in. For offline use, the browser also stores the app’s own files, and the full details of the places you have opened or saved, so those pages work without a connection. These are the same public pages anyone can open; they stay on your device and are never sent to us, though together they show which places you looked at — clearing this site’s data removes them.',
       },
       {
         heading: 'Signing in',

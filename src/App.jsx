@@ -3,6 +3,7 @@ import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router
 import { useTranslation } from 'react-i18next';
 import { restaurants } from './data/restaurants';
 import MapComponent from './components/MapComponent';
+import { prefetchPlaceRecords } from './hooks/usePlaceRecord';
 import FilterBar from './components/FilterBar';
 import BottomSheetList from './components/BottomSheetList';
 import RestaurantDetail from './components/RestaurantDetail';
@@ -108,6 +109,8 @@ function AppShell() {
 
   const bookmarks = useMemo(() => savedOnly(entries), [entries]);
   const bookmarkedIds = useMemo(() => bookmarks.map(b => b.id), [bookmarks]);
+  // Saved places should open fully offline, detail included.
+  useEffect(() => { prefetchPlaceRecords(bookmarkedIds); }, [bookmarkedIds]);
   const visitedIds = useMemo(
     () => bookmarks.filter(b => b.visitedAt !== null).map(b => b.id),
     [bookmarks],
