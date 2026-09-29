@@ -4,6 +4,8 @@ import L from 'leaflet';
 import { useTranslation } from 'react-i18next';
 import { MAP_CENTER, coordsOf } from '../utils';
 import { clusterPoints, isSameSpot } from '../data/cluster';
+import { dietaryBadges } from '../data/verification';
+import { pinKind } from '../data/pin-kind';
 
 // Reports the map center upward after each pan/zoom so the list can re-sort by distance
 function CenterReporter({ onCenterChange }) {
@@ -31,13 +33,28 @@ function ResizeSync() {
   return null;
 }
 
+// What a pin says about the place, by shape rather than colour: a leaf for
+// vegan (full or options), a crescent for halal (certified or friendly),
+// both side by side, or the plain dot. Pork-free is not halal, so it never
+// gets the crescent. Same icons as the detail page's dietary facts.
+const LEAF = 'M20 4c0 8.5-5.5 15-15 15C5 10.5 11.5 4 20 4Z M5 19c3.5-5.5 7.5-9.5 11-12';
+const CRESCENT = 'M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 1 0 10.5 10.5Z';
+const glyph = (d, x, y, scale, colour) =>
+  `<path d="${d}" transform="translate(${x} ${y}) scale(${scale})" fill="none" stroke="${colour}" stroke-width="${2.4 / scale * 0.5}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const pinGlyph = (kind, colour) => {
+  if (kind === 'vegan') return glyph(LEAF, 10.4, 9.2, 0.55, colour);
+  if (kind === 'halal') return glyph(CRESCENT, 10.4, 9.2, 0.55, colour);
+  if (kind === 'both') return glyph(LEAF, 6.2, 11.2, 0.4, colour) + glyph(CRESCENT, 17, 11.2, 0.4, colour);
+  return `<circle cx="17" cy="15.8" r="5" fill="${colour}"/>`;
+};
+
 // Teardrop pin: white body with green outline, solid green when selected
-const makePinIcon = (selected) => L.divIcon({
-  className: `k-pin${selected ? ' k-pin--active' : ''}`,
+const makePinIcon = (kind, selected) => L.divIcon({
+  className: `k-pin k-pin--${kind}${selected ? ' k-pin--active' : ''}`,
   html: `<svg width="34" height="44" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg">
     <path d="M17 42.5C17 42.5 31.5 26.4 31.5 15.6C31.5 7.6 25 1.5 17 1.5C9 1.5 2.5 7.6 2.5 15.6C2.5 26.4 17 42.5 17 42.5Z"
       fill="${selected ? '#0E9F6E' : '#FFFFFF'}" stroke="${selected ? '#087F5B' : '#0E9F6E'}" stroke-width="2.5"/>
-    <circle cx="17" cy="15.8" r="5" fill="${selected ? '#FFFFFF' : '#0E9F6E'}"/>
+    ${pinGlyph(kind, selected ? '#FFFFFF' : '#087F5B')}
   </svg>`,
   iconSize: [34, 44],
   iconAnchor: [17, 42],
@@ -47,9 +64,14 @@ const makePinIcon = (selected) => L.divIcon({
 // object, and the map re-renders on every pan (the list's sort centre lives
 // in App state), so a fresh divIcon per render meant redrawing every pin in
 // the country after each drag.
-const PIN = makePinIcon(false);
-const PIN_ACTIVE = makePinIcon(true);
-const pinIcon = (selected) => (selected ? PIN_ACTIVE : PIN);
+const PINS = new Map();
+const pinIcon = (r, selected) => {
+  const key = `${pinKind(r)}:${selected}`;
+  if (!PINS.has(key)) PINS.set(key, makePinIcon(pinKind(r), selected));
+  return PINS.get(key);
+};
+// A pin's accessible name carries what it says: "EID · Halal-friendly".
+const pinLabel = (r) => [r.name, ...dietaryBadges(r).map(b => b.label)].join(' · ');
 
 // Count badge for pins that would overlap at this zoom (see data/cluster.js).
 const clusterIcons = new Map();
@@ -137,9 +159,9 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
             <Marker
               key={r.id}
               position={[latlng.lat, latlng.lng]}
-              icon={pinIcon(false)}
-              title={r.name}
-              alt={r.name}
+              icon={pinIcon(r, false)}
+              title={pinLabel(r)}
+              alt={pinLabel(r)}
               eventHandlers={{ click: () => onMarkerClick(r) }}
             />
           );
@@ -192,9 +214,9 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
         <Marker
           key={selected.id}
           position={[coordsOf(selected).lat, coordsOf(selected).lng]}
-          icon={pinIcon(true)}
-          title={selected.name}
-          alt={selected.name}
+          icon={pinIcon(selected, true)}
+          title={pinLabel(selected)}
+          alt={pinLabel(selected)}
           zIndexOffset={1000}
           eventHandlers={{ click: () => onMarkerClick(selected) }}
         />
