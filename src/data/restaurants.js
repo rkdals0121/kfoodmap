@@ -9737,13 +9737,30 @@ export const restaurants = [
       "evidence": "Seoul's official tourism site: \"Tue-Fri 10:00-17:00 Sat-Sun 10:00-18:00\"; the venue's own Instagram bio independently confirms \"Mon OFF\"."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu with prices was sighted."
+      "value": [
+        {
+          "name": "모닝 플레이트 (sourdough with soft-boiled egg, Gruyère and whipped butter)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "그래놀라 요거트 (granola with Greek yoghurt and rhubarb compote)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "더치베이비 (oven-baked pancake with mascarpone cream, maple syrup and blueberries)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "사과잼 바게트 (baguette with house-made apple jam and butter)",
+          "price": "8,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1930992262",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1930992262 (owner-registered listing, menu entered by the owner), panel3 menu block: 'MORNING PLATE 14,000 — 모닝 플레이트 사워도우, 반숙 계란, 그뤼에르, 휩 버터' (edited 2025-11-15); 'GRANOLA AND YOGURT 15,000 — 그래놀라 요거트 그래놀라, 그릭요거트, EVO, 루바브 콩포트,  바질' (edited 2026-01-09); 'DUTCH BABY 14,000 — 더치베이비 (오븐 팬케익) 오븐 팬케익, 마스카포네 크림, 메이플 시럽, 블루베리, 콘플라워' (edited 2026-01-09); '사과잼 바게트 8,000 — 바게트, 하우스 메이드 사과잼, 이즈니 버터' (edited 2026-01-12). Read twice, identical. The owner's vegan-changeable item, 참나물 치아바타 샌드위치&라페 ('기본 프로슈토 대신 버섯으로 비건 변경 가능'), is left out: the owner lists it at 1,400 while DiningCode lists it at 14,000, so its price is not settled. OMELETTE was last edited 2024-10-11 and is not used."
     },
     "phone": {
       "value": "+82-507-1483-0246",
@@ -9894,13 +9911,34 @@ export const restaurants = [
       "evidence": "Kakao Map place 1247915886 (panel3 opening-hours block): '화(9/29) 11:00 ~ 22:30; 수(9/30) 11:00 ~ 22:30; 목(10/1) 11:00 ~ 22:30; 금(10/2) 11:00 ~ 22:30; 토(10/3) 11:00 ~ 22:30; 일(10/4) 11:00 ~ 22:30; 월(10/5) 11:00 ~ 22:30; 연중무휴'. Read twice, identical. Kakao gives this as the week from 29 Sep 2026. DiningCode's listing agrees: 11:00–22:30 on every day shown. (diningcode.com/profile.php?rid=dlnY7S4WScIU, read twice, identical)"
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+      "value": [
+        {
+          "name": "탄두리치킨 한마리 (whole tandoor-roasted chicken)",
+          "price": "18,000 KRW"
+        },
+        {
+          "name": "치킨티카 (chicken tikka)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "치킨칠리 (chilli chicken)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "치킨탕그리 (tandoor-roasted chicken legs)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "램티카 (lamb tikka)",
+          "price": "16,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1247915886",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1247915886 (listing not owner-registered), panel3 menu block: '탄두리치킨한마리 18,000' (edited 2025-12-16); '치킨티카 14,000' (edited 2025-12-16); '치킨칠리 13,000' (edited 2025-12-16); '치킨탕그리 15,000' (edited 2025-12-16); '램티카 16,000' (edited 2025-12-16). Read twice, identical. DiningCode also has a menu (https://www.diningcode.com/profile.php?rid=dlnY7S4WScIU), but it is undated and only two of its dishes could be confirmed as current, so the Kakao menu is used; the one dish both list agrees ('탄두리치킨한마리 18,000 원')."
     },
     "phone": {
       "value": "031-243-1187",
@@ -10046,13 +10084,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 1210036773 (panel3 opening-hours block): '화(9/29) 11:00 ~ 22:00 21:30 라스트오더; 수(9/30) 11:00 ~ 22:00 21:30 라스트오더; 목(10/1) 11:00 ~ 22:00 21:30 라스트오더; 금(10/2) 11:00 ~ 22:00 21:30 라스트오더; 토(10/3) 11:00 ~ 22:00 21:30 라스트오더; 일(10/4) 11:00 ~ 22:00 21:30 라스트오더; 월(10/5) 11:00 ~ 22:00 21:30 라스트오더'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from 29 Sep 2026. DiningCode's listing agrees: 11:00–22:00, last order 21:30, every day shown. (diningcode.com/profile.php?rid=JnxPTV0vSQKl, read twice, identical)"
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+      "value": [
+        {
+          "name": "1인 탈리세트A (thali set for one: soup, salad, pickle, chicken leg, butter chicken with rice, plain lassi, garlic naan)",
+          "price": "17,000 KRW"
+        },
+        {
+          "name": "1인 베지탈리안세트 (vegetarian thali set for one: soup, salad, pickle, samosa, paneer butter masala with rice, plain lassi, garlic naan)",
+          "price": "16,000 KRW"
+        },
+        {
+          "name": "1인 탈리세트B (thali set for one: soup, salad, pickle, rice, chickpeas, chicken tikka, prawn masala, butter chicken, butter naan, plain lassi)",
+          "price": "14,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/1210036773",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1210036773 (owner-registered listing, menu entered by the owner), panel3 menu block: '1인 탈리세트A 17,000 — 수프,샐러드,피클,치킨레그1pcs,라이스버터치킨,플레인라씨,갈릭난' (edited 2026-08-03); '1인 베지탈리안세트(Veg.set A) 16,000 — 수프,샐러드,피클,사모사1pcs,라이스빠닐버터마살라,플레인라씨,갈릭난' (edited 2026-08-03); '1인 탈리세트B 14,500 — 수프,샐러드,피클,밥,병아리콩,플레인라씨,치킨티카,프라운마살라,버터치킨,버터난(난1 리필가능)' (edited 2026-08-03). Read twice, identical. The owner's other items (치킨 티카, 베지 플라우, 플레인 난, 치킨 마살라, 프라운 마살라) were last edited 2019–2021 and are not used; 스페셜 런치 탈리 세트 gives only its serving hours, not its contents."
     },
     "phone": {
       "value": "031-237-1090",
@@ -10290,13 +10341,34 @@ export const restaurants = [
       "evidence": "No source strong enough to quote gave hours."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+      "value": [
+        {
+          "name": "치킨 마크니 (butter chicken curry)",
+          "price": "12,500 KRW"
+        },
+        {
+          "name": "치킨 티카마살라 (chicken tikka masala curry)",
+          "price": "12,500 KRW"
+        },
+        {
+          "name": "소고기 키마 마크니 (minced beef in butter-tomato curry)",
+          "price": "13,500 KRW"
+        },
+        {
+          "name": "양고기 마크니 (lamb in butter-tomato curry)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "염소 카레 (goat curry)",
+          "price": "20,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1511929845",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1511929845 (listing not owner-registered), panel3 menu block: '치킨 마크니 12,500' (edited 2026-09-11); '치킨 티카마살라 12,500' (edited 2026-09-11); '소고기 키마 마크니 13,500' (edited 2026-09-11); '양고기 마크니 14,000' (edited 2026-09-11); '염소 카레 20,000' (edited 2026-09-11). Read twice, identical. DiningCode also has a menu (https://www.diningcode.com/profile.php?rid=SNDCqQIfugnM), but it is undated and only one of its dishes could be confirmed as current, so the Kakao menu is used; the one dish both list agrees ('버터치킨카레 (치킨마크니) 12,500 원')."
     },
     "phone": {
       "value": "031-254-0977",
@@ -10435,13 +10507,34 @@ export const restaurants = [
       "evidence": "Kakao Map place 25459728 (panel3 opening-hours block): '화(9/29) 11:00 ~ 21:00; 수(9/30) 11:00 ~ 21:00; 목(10/1) 11:00 ~ 21:00; 금(10/2) 11:00 ~ 21:00; 토(10/3) 11:00 ~ 21:00; 일(10/4) 11:00 ~ 21:00; 월(10/5) 11:00 ~ 21:00'. Read twice, identical. Kakao gives this as the week from 29 Sep 2026. DiningCode's listing agrees: 11:00–21:00 every day shown. (diningcode.com/profile.php?rid=EQIslA3KAvHe, read twice, identical)"
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+      "value": [
+        {
+          "name": "탄두리치킨 2pcs (tandoor-roasted chicken, two pieces)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "팔락파니르 (spinach curry with paneer cheese)",
+          "price": "13,500 KRW"
+        },
+        {
+          "name": "치킨마크니 (butter chicken curry)",
+          "price": "13,500 KRW"
+        },
+        {
+          "name": "비프말라이파산다 (beef curry in a creamy pasanda sauce)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "고스트카다이 (meat curry cooked in a kadai pan)",
+          "price": "14,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=EQIslA3KAvHe",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing (https://www.diningcode.com/profile.php?rid=EQIslA3KAvHe): '탄두리치킨2pcs 10,000 원'; '팔락파니르 13,500 원'; '치킨마크니 13,500 원'; '비프말라이파산다 14,000 원'; '고스트카다이 14,000 원'. Read twice, identical. Dated by Kakao Map place 25459728 (not owner-registered), whose menu lists all five at the same prices, edited 2025-09-01: '탄두리치킨 (2PCS) 10000', '팔락파니르 13500', '치킨마크니 13500', '비프말라이파산다 14000', '고스트카다이 14000'. No price disagreement between the two listings."
     },
     "phone": {
       "value": "031-722-0782",
@@ -10580,13 +10673,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 21574337 (panel3 opening-hours block): '[기본 영업시간] 매일 11:00 ~ 22:00; [공휴일] 11:00 ~ 22:00'. Read twice, identical. DiningCode's listing agrees: 11:00–22:00 every day shown. (diningcode.com/profile.php?rid=4t76QqlHsImK, read twice, identical)"
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+      "value": [
+        {
+          "name": "램(양고기) 브리야니 (lamb biryani, spiced rice)",
+          "price": "17,000 KRW"
+        },
+        {
+          "name": "치킨 마카니 (butter chicken curry)",
+          "price": "13,900 KRW"
+        },
+        {
+          "name": "머턴 커리 (mutton curry)",
+          "price": "13,900 KRW"
+        },
+        {
+          "name": "치킨 티카 마살라 (chicken tikka masala curry)",
+          "price": "13,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=4t76QqlHsImK",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing (https://www.diningcode.com/profile.php?rid=4t76QqlHsImK): '램(양고기) 브리야니 17,000 원 양고기로 만든 인도식 볶음밥'; '치킨 마카니 13,900 원 달콤하고 부드러운 크리미한 커리'; '머턴 커리 13,900 원 양고기과 양파, 토마토, 매운 향신료를 첨가 해 볶아 낸 커리'; '치킨 티카 마살라 13,900 원 양파, 마늘 , 토마토에 마살라와 크림을 넣어 만든 매콤한 커리'. Read twice, identical. Dated by Kakao Map place 21574337 (not owner-registered), whose menu lists all four at the same prices: '램(양고기) 브리야니 17000' (edited 2025-08-21), '치킨 마카니 13900' (2025-09-08), '머턴 커리 13900' (2025-08-21), '치킨 티카 마살라 13900' (2025-08-21). All 31 dishes the two listings share by name have the same price. The listing also shows soju and beer, not listed here."
     },
     "phone": {
       "value": "031-781-2177",
@@ -10763,13 +10873,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 2055952433 (panel3 opening-hours block): '화(9/29) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 수(9/30) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:30 ~ 21:00 15:30 ~ 17:00 브레이크타임; 일(10/4) 11:30 ~ 21:00 15:30 ~ 17:00 브레이크타임; 월(10/5) 11:00 ~ 21:00 15:00 ~ 17:00 브레이크타임; 평일 점심 14:00 신규 주문 마감 평일 저녁 20:00 신규 주문 마감 '. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from 29 Sep 2026. DiningCode's listing agrees: weekdays 11:00–21:00 with a 15:00–17:00 break, weekends 11:30–21:00 with a 15:30–17:00 break. (diningcode.com/profile.php?rid=63EZusHLuNSL, read twice, identical) Weekday last orders from the owner's note on the same listing: '평일 점심 14:00 신규 주문 마감 평일 저녁 20:00 신규 주문 마감'."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No menu with prices was sighted from the operator or a source specific enough to quote."
+      "value": [
+        {
+          "name": "런치세트 (weekday lunch set with a drink; curry choice of masala, tomato butter, palak, potato or red hot chilli)",
+          "price": "11,900 KRW"
+        },
+        {
+          "name": "LAMB CHOP (grilled lamb chops)",
+          "price": "39,900 KRW"
+        },
+        {
+          "name": "CHICKEN TIKKA MASALA (chicken tikka masala curry)",
+          "price": "14,900 KRW"
+        },
+        {
+          "name": "TOMATO BUTTER CHICKEN (tomato butter chicken curry)",
+          "price": "14,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/2055952433",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2055952433 (owner-registered listing, menu entered by the owner), panel3 menu block: '런치세트 11,900 — 평일 런치 음료 포함 다섯 가지 다양한 메뉴!!!! 마살라, 토마토버터, 팔락, 포테이토, 레드핫칠리' (edited 2025-03-05); 'LAMB CHOP 39,900' (edited 2025-03-05); 'CHICKEN TIKKA MASALA 14,900' (edited 2025-03-05); 'TOMATO BUTTER CHICKEN 14,900' (edited 2025-03-05). Read twice, identical. TANDOORI CHICKEN is left out: the owner lists 25,900 and DiningCode lists '24시간 숙성 탄두리 치킨 21,900 원'. DiningCode agrees on TOMATO BUTTER CHICKEN ('토마토 버터 치킨커리 14,900 원') and the lunch set ('LUNCH-PALAK 11,900 원')."
     },
     "phone": {
       "value": "031-708-7022",
@@ -11015,13 +11142,34 @@ export const restaurants = [
       "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "탄두리 치킨 (tandoor-roasted chicken, four pieces)",
+          "price": "24,000 KRW"
+        },
+        {
+          "name": "버터 난 (butter naan)",
+          "price": "3,700 KRW"
+        },
+        {
+          "name": "치킨 탕그리 (yoghurt-marinated chicken legs roasted in the tandoor)",
+          "price": "16,500 KRW"
+        },
+        {
+          "name": "치킨 말라이 (chicken in cashew cream sauce)",
+          "price": "17,600 KRW"
+        },
+        {
+          "name": "머튼 세꾸와 (Nepali-spiced mutton, tandoor-roasted then stir-fried with peppers, tomato and onion)",
+          "price": "17,600 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=pGWmsA5DiMMD",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing (https://www.diningcode.com/profile.php?rid=pGWmsA5DiMMD): '탄두리 치킨 (4Pieces) 24,000 원 전통의 향신료에 하룻밤 재운 치킨을 탄두에 구워낸 인도의 대표적인 바베큐'; '버터 난 3,700 원 탄두에서 구워낸 빵 위에 버터를 가미하여 만든 부드러운 맛의 빵'; '치킨 탕그리 16,500 원 생강, 마늘, 향신료를 요거트 소스에 절여 구워낸 닭다리 바베큐'; '치킨 말라이 17,600 원 닭 살코기를 캐슈넛 크림 소스에 우유와 치즈를 넣어 볶은 치킨'; '머튼 세꾸와 17,600 원 네팔 향신료에 절여 탄두에서 구워낸 양고기를 피망, 토마토, 양파와 함께 볶아낸 요리'. Read twice, identical. Dated by Kakao Map place 190917502 (not owner-registered), whose menu lists all five at the same prices, edited 2026-09-17: '탄두리 치킨 (4Pieces) 24000', '버터 난 3700', '치킨 탕그리 16500', '치킨 말라이 17600', '머튼 세꾸와 17600'. Every dish the two listings share has the same price."
     },
     "phone": {
       "value": "031-8072-8289",
@@ -11403,13 +11551,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 1194567292 (panel3 opening-hours block): '화(9/29) 11:00 ~ 22:00; 수(9/30) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 휴무일; 일(10/4) 휴무일; 월(10/5) 11:00 ~ 22:00'. Read twice, identical. Kakao gives this as the week from 29 Sep 2026. DiningCode's listing agrees: 11:00–22:00 Mon–Fri, Saturday and Sunday 휴무일. (diningcode.com/profile.php?rid=RHX3DN4ESZAl, read twice, identical)"
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "치킨타진 (chicken tajine)",
+          "price": "8,500 KRW"
+        },
+        {
+          "name": "치킨쿠스쿠스 (chicken couscous)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "양고기타진 (lamb tajine)",
+          "price": "8,500 KRW"
+        },
+        {
+          "name": "양고기 스테이크 (lamb steak)",
+          "price": "13,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=RHX3DN4ESZAl",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing (https://www.diningcode.com/profile.php?rid=RHX3DN4ESZAl): '치킨타진 8,500 원'; '치킨쿠스쿠스 10,000 원'; '양고기타진 8,500 원'; '양고기 스테이크 13,000 원'. Read twice, identical. Each dish is confirmed by a dated review on Kakao Map place 1194567292: 2025-07-21 review 13265855 ('치킨타진 먹음'); 2026-04-30 review 15378675 ('치킨 쿠스쿠스 먹음'); 2026-08-22 blog https://blog.naver.com/gazineee/224386441798 ('양고기 타진이 궁금하신 분들은'); 2025-03-09 review 12292710 ('양고기 스테이크 맛있어요'). Kakao's (non-owner) menu, last edited 2024-06-12, gives the same four prices."
     },
     "phone": {
       "value": "031-296-8327",
@@ -11548,13 +11713,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 942350327 (panel3 opening-hours block): '화(9/29) 10:00 ~ 22:00; 수(9/30) 10:00 ~ 22:00; 목(10/1) 10:00 ~ 22:00; 금(10/2) 10:00 ~ 22:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 10:00 ~ 22:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from 29 Sep 2026. DiningCode's listing agrees on 10:00–22:00 daily and adds a 21:30 last order, which Kakao does not state. (diningcode.com/profile.php?rid=p5vrGZ4dU7ry, read twice, identical)"
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "프리미엄 SINGLE (1인) (set for one: potato head, salad, tandoori chicken, curry, naan, rice, drink)",
+          "price": "29,800 KRW"
+        },
+        {
+          "name": "프리미엄 COUPLE (2인) (set for two: potato head, salad, tandoori chicken, curry, naan, rice, drinks)",
+          "price": "59,600 KRW"
+        },
+        {
+          "name": "프리미엄 TRIPLE (3인) (set for three: potato head, salad, tandoori chicken, curry, naan, rice, drinks)",
+          "price": "89,400 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/942350327",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 942350327 (owner-registered listing, menu entered by the owner), panel3 menu block: '프리미엄 SINGLE (1인) 29,800 — 포테이토헤드, 샐러드, 탄두리치킨, 커리, 난, 라이스, 음료' (edited 2026-05-15); '프리미엄 COUPLE (2인) 59,600 — 포테이토헤드, 샐러드, 탄두리치킨, 커리, 난, 라이스, 음료' (edited 2026-05-15); '프리미엄 TRIPLE (3인) 89,400 — 포테이토헤드, 샐러드, 탄두리치킨, 커리, 난, 라이스, 음료' (edited 2026-05-15). Read twice, identical. DiningCode lists the same sets at the same prices ('프리미엄 SINGLE (1인) 29,800 원 난&라이스&소프트드링크 무제한 제공')."
     },
     "phone": {
       "value": "031-690-1703",
@@ -11693,13 +11871,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 32292147 (panel3 opening-hours block): '화(9/29) 10:00 ~ 22:00; 수(9/30) 10:00 ~ 22:00; 목(10/1) 10:00 ~ 22:00; 금(10/2) 10:00 ~ 22:00; 토(10/3) 10:00 ~ 22:00; 일(10/4) 10:00 ~ 22:00; 월(10/5) 10:00 ~ 22:00; 연중 무휴(설날, 추석 당일 12시 오픈)'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from 29 Sep 2026. DiningCode's listing agrees on 10:00–22:00 daily and adds a 21:30 last order, which Kakao does not state. (diningcode.com/profile.php?rid=3aXEVn8jRmaO, read twice, identical)"
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "아그라 세트 (Agra set: potato head, salad, tandoori chicken, curry, rice, naan, drink)",
+          "price": "27,800 KRW"
+        },
+        {
+          "name": "겐지스 세트 (Ganges set: potato head, salad, curry, naan, rice, drink)",
+          "price": "23,500 KRW"
+        },
+        {
+          "name": "인디아 세트 (India set: salad, curry, naan, rice, drink)",
+          "price": "18,600 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/32292147",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 32292147 (owner-registered listing, menu entered by the owner), panel3 menu block: '아그라 세트 27,800' (edited 2026-01-22); '겐지스 세트 23,500' (edited 2026-01-22); '인디아 세트 18,600' (edited 2026-01-22). Read twice, identical. The owner's entries give set names and prices only; the contents are from DiningCode's listing of the same three sets at the same prices: '17주년 인디아 세트 18,600 원 샐러드, 커리, 난, 라이스, 음료'; '17주년 갠지스 세트 23,500 원 포테이토 헤드, 샐러드, 커리, 난, 라이스, 음료'; '17주년 아그라 무제한 세트 27,800 원 포테이토헤드, 샐러드, 탄두리치킨, 커리, 라이스, 난, 음료(난, 소프트드링크 무제한)' (https://www.diningcode.com/profile.php?rid=3aXEVn8jRmaO)."
     },
     "phone": {
       "value": "031-8092-1695",
@@ -11950,13 +12141,30 @@ export const restaurants = [
       "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "소고기물만두 (boiled beef dumplings)",
+          "price": null
+        },
+        {
+          "name": "전통양꼬치 (traditional lamb skewers)",
+          "price": null
+        },
+        {
+          "name": "케밥 (kebab)",
+          "price": null
+        },
+        {
+          "name": "볶음국수 (stir-fried noodles)",
+          "price": null
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1031433145",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1031433145 (listing not owner-registered), panel3 menu block: '소고기물만두 (no price)' (edited 2026-06-10); '전통양꼬치 (no price)' (edited 2026-06-10); '케밥 (no price)' (edited 2026-06-10); '볶음국수 (no price)' (edited 2026-06-10). Read twice, identical. The Kakao menu shows no prices."
     },
     "phone": {
       "value": "031-356-9777",
@@ -12468,13 +12676,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 139078998 (panel3 opening-hours block): '화(9/29) 10:00 ~ 23:00; 수(9/30) 10:00 ~ 23:00; 목(10/1) 10:00 ~ 23:00; 금(10/2) 10:00 ~ 23:00; 토(10/3) 10:00 ~ 23:00; 일(10/4) 10:00 ~ 23:00; 월(10/5) 10:00 ~ 23:00'. Read twice, identical. Kakao gives this as the week from 29 Sep 2026. No DiningCode listing was found for this address (searched '라이혼' and '라이혼 안산')."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "슈르파 (shurpa, meat and vegetable soup)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "추츠바라 (chuchvara, small dumplings)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "하슬라마 (khaslama, braised meat and vegetables)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "라그만 (lagman, hand-pulled noodles)",
+          "price": "9,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/139078998",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 139078998 (listing not owner-registered), panel3 menu block: '슈르파 10,000' (edited 2025-02-20); '추츠바라 8,000' (edited 2025-02-20); '하슬라마 10,000' (edited 2025-02-20); '라그만 9,000' (edited 2025-02-20). Read twice, identical."
     },
     "phone": {
       "value": "031-406-1914",
@@ -12857,13 +13082,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 1562813267 (panel3 opening-hours block): '화(9/29) 11:30 ~ 22:00; 수(9/30) 11:30 ~ 22:00; 목(10/1) 11:30 ~ 22:00; 금(10/2) 11:30 ~ 22:00; 토(10/3) 11:30 ~ 22:00; 일(10/4) 11:30 ~ 22:00; 월(10/5) 11:30 ~ 22:00'. Read twice, identical. Owner-entered on its registered Kakao listing. Kakao gives this as the week from Tue 29 Sep 2026, which includes the 3 Oct public holiday. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. DiningCode (rid PiCkMYioUj73) shows 11:30–21:00 on the days listed; Kakao's owner-entered 22:00 close is used."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "버터난 (butter naan)",
+          "price": "3,300 KRW"
+        },
+        {
+          "name": "갈릭난 (garlic naan)",
+          "price": "3,800 KRW"
+        },
+        {
+          "name": "치킨마크니 (butter chicken curry)",
+          "price": "12,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=PiCkMYioUj73",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing (https://www.diningcode.com/profile.php?rid=PiCkMYioUj73): '버터난(Butter Nan) 3,300 원 버터를 가미해 탄두에서 구워 낸 부드러운 맛의 인도식 전통 빵'; '갈릭난(Garlic Nan) 3,800 원'; '치킨마크니 (Chicken Makhni) (버터치킨) 12,500 원 토마토베이스에 크림,버터 그리고 다양한 종류의 향신료로 요리한 커리'. Read twice, identical. The Kakao listing (place 1562813267) is owner-registered, but the owner's menu was last edited 2023-07 to 2024-01, so it is not used; DiningCode's listing is. Its three dishes are confirmed by a dated review on Kakao Map: 2026-01-12 review 14582724 ('치킨마크니(버터치킨) 맵게 비프맛살라  버터난 갈릭난')."
     },
     "phone": {
       "value": "031-405-3368",
@@ -13096,13 +13334,34 @@ export const restaurants = [
       "evidence": "Hours were not taken: no two sources opened gave the same schedule, and none was the operator's own."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "치킨케밥 (chicken kebab wrap)",
+          "price": "6,900 KRW"
+        },
+        {
+          "name": "양케밥 (lamb kebab wrap)",
+          "price": "7,900 KRW"
+        },
+        {
+          "name": "팔라펠랩 (falafel wrap)",
+          "price": "6,900 KRW"
+        },
+        {
+          "name": "이스켄데르케밥 (İskender kebab)",
+          "price": "15,900 KRW"
+        },
+        {
+          "name": "메제플래터 (meze platter)",
+          "price": "11,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/251958364",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 251958364 (listing not owner-registered), panel3 menu block: '치킨케밥 6,900' (edited 2025-10-13); '양케밥 7,900' (edited 2025-10-13); '팔라펠랩 6,900' (edited 2026-06-29); '이스켄데르케밥 15,900' (edited 2025-10-13); '메제플래터 11,900' (edited 2025-10-13). Read twice, identical. DiningCode lists a single item, at the same price ('치킨 케밥 6,900 원'), so the fuller Kakao menu is used."
     },
     "phone": {
       "value": "010-3714-9508",
@@ -13204,13 +13463,34 @@ export const restaurants = [
       "evidence": "The operator's Instagram gives 11:30–22:00, closed Monday and Tuesday; DiningCode lists Sunday as 10:00–18:00. The sources disagree, so hours are left unknown."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No itemised menu from the operator or a source specific enough to quote was used; the map and directory menu lists were partial and differed from each other."
+      "value": [
+        {
+          "name": "레인보우랩 (rainbow wrap)",
+          "price": "19,800 KRW"
+        },
+        {
+          "name": "매콤로제스파게티 (spicy rosé spaghetti)",
+          "price": "22,000 KRW"
+        },
+        {
+          "name": "가지들깨 크림리조또 (aubergine and perilla-seed cream risotto)",
+          "price": "20,900 KRW"
+        },
+        {
+          "name": "깻잎페스토 스파게티 (perilla-leaf pesto spaghetti)",
+          "price": "22,900 KRW"
+        },
+        {
+          "name": "팔라펠 샐러드볼 (falafel salad bowl)",
+          "price": "20,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/24984567",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 24984567 (listing not owner-registered), panel3 menu block: '레인보우랩 19,800 — Rainbow wrap-vegan' (edited 2026-02-25); '매콤로제스파게티 22,000 — spicy rose spaghetti - vegan' (edited 2026-02-25); '가지들깨 크림리조또 20,900 — egg plant cream risotto - vegan' (edited 2026-02-25); '깻잎페스토 스파게티 22,900 — perilla leaf pesto spaghetti - vegan' (edited 2026-02-25); '팔라펠 샐러드볼 20,000 — falafel salad bowl - vegan' (edited 2026-02-25). Read twice, identical."
     },
     "phone": {
       "value": "010-8008-8358",
@@ -14451,13 +14731,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 1164647137 (panel3 opening-hours block): '[기본 영업시간] 매일 11:00 ~ 20:00 15:00 ~ 16:00 브레이크타임; 휴무: 1월1일, 설전날, 설당일, 설다음날, 어린이날, 추석전날, 추석당일, 추석다음날, 성탄절'. Read twice, identical. Owner-entered on its registered Kakao listing. Second-pass rule 1: owner-entered data on an owner-registered Kakao listing outranks other sources. HappyCow (undated) says Mon–Fri 11:00–20:00, Sat–Sun 11:00–16:00; stale per the second-pass ruling."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map's menu entries date from 2024 and name bowls without saying which are vegan; no current itemised menu was confirmed against a second source."
+      "value": [
+        {
+          "name": "살치볼 (salsa chicken poke bowl with oat rice and vegetables)",
+          "price": "11,500 KRW"
+        },
+        {
+          "name": "새아볼 (garlic-butter shrimp and avocado poke bowl)",
+          "price": "12,500 KRW"
+        },
+        {
+          "name": "연아볼 (raw salmon and avocado poke bowl)",
+          "price": "12,900 KRW"
+        },
+        {
+          "name": "두아볼 (tofu nugget and avocado poke bowl)",
+          "price": "11,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=5upIL7dm99V5",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing (https://www.diningcode.com/profile.php?rid=5upIL7dm99V5): '살치볼 (살사 치킨 포케) 11,500 원 귀리밥, 채소, 버섯과 구운 닭다리살, 레인보우슬로, 양파 후레이크, 살사믹서 샐러드볼'; '새아볼 (새우 아보카도 포케) 12,500 원 귀리밥, 채소, 갈릭버터에 구운 새우, 아보카도, 양파후레이크, 스위트칠리믹서 샐러드볼'; '연아볼 (연어 아보카도 포케) 12,900 원 귀리밥, 채소, 자몽향 양념에 텀블링한 생연어와 아보카도, 마늘쫑믹서가 들어간 샐러드볼'; '두아볼 (두부 아보카도볼 포케) 11,900 원 (비건)두부너겟, 아보카도, 오리엔탈 드레싱과 비건 마요로 만든 소이믹서 샐러드볼'. Read twice, identical. The Kakao listing (place 1164647137) is owner-registered, but the owner's menu was last edited 2024-04/05, so it is not used; DiningCode's listing is. Each bowl is confirmed by a dated review on Kakao Map: 2026-01-12 review 14582446 ('살치볼은'); 2026-09-28 blog https://blog.naver.com/yoojin0204/224425251943 ('새아볼 연아볼'); 2025-05-05 review 12705952 ('두부포케 ‘두아볼’'). DiningCode labels 두아볼 '(비건)'; the owner's stale 2024 menu listed 연아볼 at 12,500."
     },
     "phone": {
       "value": "+82-70-4130-0984",
@@ -15502,13 +15799,34 @@ export const restaurants = [
       "evidence": "Kakao Map gives 11:00-22:00 every day with a 15:30-17:30 break; DiningCode gives Mon-Sat 11:00-22:00 and Sunday 10:00-21:00. They disagree on Sunday, so hours are left unknown."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map and DiningCode list different items and prices with no overlap to cross-check, so no menu is stated."
+      "value": [
+        {
+          "name": "탄두리치킨 (tandoor-roasted chicken)",
+          "price": "25,000 KRW"
+        },
+        {
+          "name": "믹스 베지터블 빠고라 (mixed vegetable pakora fritters)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "탄두리치킨커리&샐러드 (tandoori chicken curry with salad)",
+          "price": "16,000 KRW"
+        },
+        {
+          "name": "믹스치킨케밥 (mixed chicken kebab platter)",
+          "price": "28,000 KRW"
+        },
+        {
+          "name": "머튼티카케밥 (mutton tikka kebab)",
+          "price": "29,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1803970712",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 1803970712 (listing not owner-registered), panel3 menu block: '탄두리치킨 25,000' (edited 2025-10-16); '믹스 베지터블 빠고라 12,000' (edited 2025-08-14); '탄두리치킨커리&샐러드 16,000' (edited 2025-08-14); '믹스치킨케밥 28,000' (edited 2025-08-14); '머튼티카케밥 29,000' (edited 2025-08-14). Read twice, identical. DiningCode also has a five-line menu (https://www.diningcode.com/profile.php?rid=ifkyMoQiH20C) that is undated and shares no dish with Kakao's, so the Kakao menu is used."
     },
     "phone": {
       "value": "031-949-9135",
@@ -19446,13 +19764,30 @@ export const restaurants = [
       "evidence": "The Google business panel reached through the operator's Linktree showed only the current day's opening time ('오전 11:00에 영업 시작'), and Kakao's listing has no hours. A full weekly schedule was not sighted."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No menu with prices was sighted on the operator-linked panel or on Kakao."
+      "value": [
+        {
+          "name": "후라이드치킨 (Korean fried chicken)",
+          "price": null
+        },
+        {
+          "name": "고추치킨 (chilli fried chicken)",
+          "price": null
+        },
+        {
+          "name": "갈릭치킨 (garlic fried chicken)",
+          "price": null
+        },
+        {
+          "name": "양념치킨 (fried chicken in sweet-spicy sauce)",
+          "price": null
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/2012271755",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map place 2012271755 (listing not owner-registered), panel3 menu block: '후라이드치킨 (no price)' (edited 2026-07-26); '고추치킨 (no price)' (edited 2026-07-26); '갈릭치킨 (no price)' (edited 2026-07-26); '양념치킨 (no price)' (edited 2026-07-26). Read twice, identical. The Kakao menu shows no prices."
     },
     "phone": {
       "value": "010-3142-0278",
@@ -59758,13 +60093,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 1319521237 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 12:00 ~ 19:00; 수(9/30) 12:00 ~ 19:00; 목(10/1) 12:00 ~ 19:00; 금(10/2) 12:00 ~ 19:00; 토(10/3) 12:00 ~ 19:00; 일(10/4) 휴무일; 월(10/5) 휴무일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid tXsHSVpg19G6, read twice, identical) regular hours ['화,수,목,금,토 12:00-19:00']; dated view: 9월 30일(수) 영업시간: 12:00 - 19:00; 10월 1일(목) 휴무일; 10월 2일(금) 영업시간: 12:00 - 19:00; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map shows no menu."
+      "value": [
+        {
+          "name": "코코과일케이크 (fruit cake)",
+          "price": null
+        },
+        {
+          "name": "바질베이글 (basil rice bagel)",
+          "price": null
+        },
+        {
+          "name": "채식햄버거 (vegetarian burger)",
+          "price": null
+        },
+        {
+          "name": "비건 크루아상 (croissant)",
+          "price": null
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=tXsHSVpg19G6",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 베지로운 (profile tXsHSVpg19G6, road address '대구광역시 동구 송라로16길 11 반도유보라아파트상가 1층 101호', matching the Kakao listing): '코코과일케이크 (no price) / 식물성휘핑크림을 사용하지 않고 우유알러지인 분들도 편하게 드실수 있는 과일 케이크입니다. 과일은 제철과일을 사용하여 케이크를 주문제작해 드립니다. 주문은 2~3일 전에 연락주세요'; '바질베이글 (no price) / 신선한 바질향을 느낄수 있는 쌀베이글로 쫄깃한 식감을 느낄수 있습니다'; '채식햄버거 (no price) / 당일 구운빵과 신선한채소 채식패티를 넣어 만든 맛있는 채식햄버거'; '비건 크루아상 (no price) / 비건 크루아상'. DiningCode shows no edit date. The owner-registered Kakao listing has no menu. DiningCode shows no prices, so price is null. Current: Kakao-listed blog 2026-07-01 '비건크루아상이 맛있는 베지로운 … 식빵, 쿠키, 파이, 베이글 다 비건입니다'. Read twice, identical."
     },
     "phone": {
       "value": "010-8852-3039",
@@ -60362,13 +60714,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 792221607 opening hours: '화(9/29) 11:30 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 수(9/30) 11:30 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 목(10/1) 11:30 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 금(10/2) 11:30 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 토(10/3) 11:30 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 일(10/4) 11:30 ~ 21:00, 15:00 ~ 17:00 브레이크타임; 월(10/5) 휴무일' — read twice, identical. DiningCode's week view gives 11:30–21:00, break 15:00–17:00, Monday 휴무일."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map's menu was last edited in 2022 (it lists a 채식 자장면, vegetarian black-bean noodles), so no prices are quoted."
+      "value": [
+        {
+          "name": "채식 (비건)고추잡채 (stir-fried peppers and vegetables)",
+          "price": "22,000 KRW (small)"
+        },
+        {
+          "name": "채식(비건)깐풍표고버섯 (crispy shiitake in sweet-spicy sauce)",
+          "price": "20,000 KRW (small)"
+        },
+        {
+          "name": "채식 라조두부 (fried tofu in chilli sauce)",
+          "price": "20,000 KRW (small)"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=ejlPXaGH3HGm",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 야래향 (profile ejlPXaGH3HGm, road address '경상남도 진주시 평거로26번길 9 1층', matching the Kakao listing): '채식 (비건)고추잡채 22,000 원 / 22,000/28,000'; '채식(비건)깐풍표고버섯 20,000 원 / 20,000/26,000'; '채식 라조두부 20,000 원 / 20,000/26,000'. DiningCode shows no edit date. Current: dated reviews name dishes on this list: Kakao review 2026-07-22 '짬뽕,짜장면,양장피,탕수육 모든 음식이 맛있음', DiningCode review 2026-03-14 '특히 냉짬뽕하고 광동식탕수육 추천', Kakao-listed blog 2026-09-24 '야래향 평거점 냉짬뽕 짜장 잡채밥'. Kakao's own menu (2022) is older and not used. Prices are for the smallest size; the listing gives '22,000/28,000' and '20,000/26,000'. The three dishes labelled 채식/비건 themselves are not named in a dated review. Read twice, identical."
     },
     "phone": {
       "value": "055-745-1100",
@@ -60537,13 +60902,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 1338258830 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 목(10/1) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 금(10/2) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 토(10/3) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 일(10/4) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임; 월(10/5) 08:00 ~ 20:00, 15:00 ~ 17:00 브레이크타임' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid 4GQJnKzNWBnb, read twice, identical) regular hours ['매일 08:00-20:00']; dated view: 9월 30일(수) 영업시간: 08:00 - 20:00; 10월 1일(목) 영업시간: 08:00 - 20:00; 10월 2일(금) 영업시간: 08:00 - 20:00; 10월 3일(토) 영업시간: 08:00 - 20:00; 10월 4일(일) 영업시간: 08:00 - 20:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Kakao Map's operator menu was last edited in 2024-07, so no prices are quoted. It lists 비빔밥, 비빔면 and a seafood soft-tofu stew among Korean and Western dishes."
+      "value": [
+        {
+          "name": "비빔면 (spicy cold mixed noodles)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "비빔밥 (rice bowl with mixed vegetables)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "그릭 샐러드 (Greek salad)",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=4GQJnKzNWBnb",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 수기의키친 (profile 4GQJnKzNWBnb, road address '경상남도 거제시 일운면 와현해변길 8 1층', matching the Kakao listing): '비빔면 9,000 원'; '비빔밥 9,000 원'; '그릭 샐러드 12,000 원'. DiningCode shows no edit date. The owner-registered Kakao listing's own menu was last edited 2024-07 (too old to use) but carries the same dishes at the same prices ('비빔면 9000', '비빔밥 9000', '그릭 샐러드 12000'). Current: Kakao-listed blog 2025-12-22 '메뉴는 치즈버거,돈까스,라면,볶음밥,퀘사디아 육개장'; Kakao review 2026-05-03 '문어라면 12000원' (DiningCode: '문어 라면 12,000원'). Read twice, identical."
     },
     "phone": {
       "value": "010-5293-3775",
@@ -63663,13 +64041,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 26853115 opening hours (owner-entered on its registered Kakao listing): '기본 영업시간: 매일 10:30 ~ 21:00 | 휴무: 설전날, 설당일, 추석전날, 추석당일' — read twice, identical. DiningCode's week view gives 10:30–21:00, last order 20:20, but marks Thu 10/1 and Fri 10/2 휴무일 — Kakao's 추석전날/추석당일 closure on the wrong dates (Kakao's week view shows them open); not a disagreement about regular hours. HappyCow gives no hours; soonnam.com returned no content."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow says there are vegan main dishes and sides but does not name them, so no dish is named here. The Kakao menu (edited 2025-09-02 and 2026-02-27) has dried-radish-greens soups and rice dishes beside boiled pork, bulgogi, cockle and tripe dishes; none is labelled vegan."
+      "value": [
+        {
+          "name": "도마수육정식 (boiled pork set meal with rice and radish-greens soup)",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "3대시래기국 (dried radish-greens soup)",
+          "price": "11,000 KRW"
+        },
+        {
+          "name": "얼큰시래기국 (spicy dried radish-greens soup)",
+          "price": "11,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/26853115",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered menu on the owner-registered Kakao Map listing (my-store status REGISTERED), read via place-api.map.kakao.com/places/panel3/26853115: '도마수육정식 13000' (edited 2025-09-02); '3대시래기국 11000' (edited 2025-09-02); '얼큰시래기국 11000' (edited 2025-09-02). Menu last edited 2026-02-27. DiningCode's undated menu for this branch agrees on these three prices ('도마수육정식 13,000원', '3대시래기국 11,000원', '얼큰시래기국 11,000원') but gives 씨앗된장시래기밥 and 순남묵비빔밥 at 13,000원 against the owner's 12,000원, so those two dishes are left out. Confirmed by a dated review: Kakao review 2026-09-16 '- 도마수육정식 - 부드럽고 식감 맛 모두 좋은 수육'. Read twice, identical."
     },
     "phone": {
       "value": "02-3789-9292",
@@ -63780,13 +64171,30 @@ export const restaurants = [
       "evidence": "HappyCow gives 'Mon-Sun 11:00am-10:00pm'; no second source was checked, so hours are left unknown. Check before visiting."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow names soups, glass noodles and pickled vegetables but not which soup, so no dish is named here. The Kakao menu (edited 2026-07-15) has dried-radish-greens soups and rice, a cockle set and hot-pot sets; side dishes are self-serve and not on the menu."
+      "value": [
+        {
+          "name": "시래기꼬막정식 (cockle and dried radish-greens set meal)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "씨앗된장시래기밥 (dried radish-greens rice with soybean paste)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "얼큰시래기국 (spicy dried radish-greens soup)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "3대시래기국 (dried radish-greens soup)",
+          "price": "9,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=gosQ4gZzy5vH",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 순남시래기 (profile gosQ4gZzy5vH, road address '서울특별시 중구 마른내로2길 8 1층', matching the Kakao listing): '시래기꼬막정식 12,000 원'; '씨앗된장시래기밥 10,000 원'; '얼큰시래기국 9,000 원'; '3대시래기국 9,000 원'. DiningCode shows no edit date. Current: Kakao's own menu for this listing (not owner-registered; edited 2026-07-15) gives the same four prices ('시래기꼬막정식(1인) 12000', '씨앗된장시래기밥 10000', '얼큰시래기국 9000', '3대시래기국 9000'), and Kakao review 2026-08-05 reads '시래기꼬막정식과 얼큰시래기국 모두 맛있었고'. Read twice, identical."
     },
     "phone": {
       "value": "02-2272-1002",
@@ -64231,7 +64639,7 @@ export const restaurants = [
       "evidence": "Kakao Map's walking-route API resolves '빠르크 한남점' to 37.537473, 126.999738 (destination point of the route from 한강진역 (Hangangjin Station)); the Kakao place record gives the same point. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
     },
     "address": {
-      "value": "1F, 26-5 Itaewon-ro 55ga-gil, Yongsan-gu, Seoul (Hannam-dong)",
+      "value": "26-5 Itaewon-ro 55ga-gil, Yongsan-gu, Seoul (Hannam-dong; floor unconfirmed — 2026 blogs describe it up a wooden stair)",
       "confidence": "supported",
       "source": "Naver Place / Kakao Map",
       "url": "https://place.map.kakao.com/21539210",
@@ -65159,13 +65567,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 1913306850 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 07:00 ~ 22:00; 수(9/30) 07:00 ~ 22:00; 목(10/1) 07:00 ~ 22:00; 금(10/2) 07:00 ~ 22:00; 토(10/3) 07:00 ~ 22:00; 일(10/4) 08:00 ~ 22:00; 월(10/5) 07:00 ~ 22:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid sgu0YiMPD1KJ, read twice, identical) regular hours ['월-금,토 07:00-22:00', '일 08:00-22:00']; dated view: 9월 30일(수) 영업시간: 07:00 - 22:00; 10월 1일(목) 영업시간: 07:00 - 22:00; 10월 2일(금) 영업시간: 07:00 - 22:00; 10월 3일(토) 영업시간: 07:00 - 22:00; 10월 4일(일) 영업시간: 08:00 - 22:00. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Fri 7:00am-10:00pm, Sat-Sun 9:00am-10:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow says only that vegan desserts, confectionery and drinks are offered, naming none; Kakao Map's menu (edited 2026-04-06) lists drinks only, several of them lattes. No item is named here."
+      "value": [
+        {
+          "name": "[신메뉴] 흑임자 이북인절미 (black-sesame injeolmi rice cake)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "[신메뉴] 망개떡 (rice cake wrapped in leaves)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "[신메뉴] 수리취 절편 (patterned rice cake with a mountain herb)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "이북인절미 (northern-style injeolmi rice cake)",
+          "price": "9,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=sgu0YiMPD1KJ",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 강정이 넘치는집 (profile sgu0YiMPD1KJ, road address '서울특별시 강남구 학동로 435 1층', matching the Kakao listing): '[신메뉴] 흑임자 이북인절미 10,000 원'; '[신메뉴] 망개떡 12,000 원'; '[신메뉴] 수리취 절편 8,000 원'; '이북인절미 9,000 원'. DiningCode shows no edit date. The owner-registered Kakao listing's own menu (edited 2026-04-06) lists drinks only; its prices match DiningCode's for the drinks both list ('홍차 7000' / '홍차 7,000원', '블랙유자 8000' / '블랙 유자티 8,000원', '레몬우롱 8000' / '레몬 우롱티 8,000원'). Current: Kakao-listed blog 2026-09-29 '말차빙수와 쌍화차 추천' (DiningCode: '쌍화차 13,000원'). None of the four rice cakes is labelled vegan. Read twice, identical."
     },
     "phone": {
       "value": "02-2201-0447",
@@ -65317,13 +65742,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 1542620826 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 07:00 ~ 18:00; 수(9/30) 07:00 ~ 18:00; 목(10/1) 07:00 ~ 18:00; 금(10/2) 07:00 ~ 18:00; 토(10/3) 07:00 ~ 18:00; 일(10/4) 휴무일; 월(10/5) 07:00 ~ 18:00' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid zLDkrqGDiEhV, read twice, identical) regular hours ['화-목 07:00-18:00']; dated view: 9월 30일(수) 영업시간: 07:00 - 18:00; 10월 1일(목) 영업시간: 07:00 - 18:00; 10월 2일(금) 휴무일; 10월 3일(토) 휴무일; 10월 4일(일) 휴무일. Earlier evidence (stale HappyCow or none): HappyCow gives 'Mon-Sat 6:00am-6:00pm'; no second source was checked, so hours are left unknown."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow says only 'Ask for the vegan options', and Kakao Map's menu (edited 2026-04-24) has a single item; no vegan item is named here."
+      "value": [
+        {
+          "name": "이티떡 3종(흰/쑥/흑임자) (chewy rice cakes: plain, mugwort or black sesame)",
+          "price": "2,800 KRW"
+        },
+        {
+          "name": "마스코바도 설기(5종) (steamed rice cake with muscovado sugar)",
+          "price": "2,800 KRW"
+        },
+        {
+          "name": "모듬영양찰떡 (mixed glutinous rice cake)",
+          "price": "2,800 KRW"
+        },
+        {
+          "name": "약 식 (sweet glutinous rice dessert)",
+          "price": "2,800 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=zLDkrqGDiEhV",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 경기떡집 (profile zLDkrqGDiEhV, road address '서울특별시 마포구 동교로9길 24', matching the Kakao listing): '이티떡 3종(흰/쑥/흑임자) 2,800 원'; '마스코바도 설기(5종) 2,800 원'; '모듬영양찰떡 2,800 원'; '약 식 2,800 원'. DiningCode shows no edit date. The owner-registered Kakao listing's own menu (edited 2026-04-24) lists only '이티떡 2800', the same price DiningCode gives. Current: Kakao reviews 2025-12-27 '쑥 이티떡 진짜 맛있어요' and 2026-02-02 '이티떡 존맛'; DiningCode review 2025-12-01 '이티떡이랑 흑임자 이티떡 먹어봤는데'. None is labelled vegan. Read twice, identical."
     },
     "phone": {
       "value": "02-333-8880",
@@ -66723,13 +67165,30 @@ export const restaurants = [
       "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "닭가슴살 스테이크 (chicken-breast steak)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "돈까스 (pork cutlet)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "새우볶음밥 (shrimp fried rice)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "김치볶음밥 (kimchi fried rice)",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=e0dPfvD1kpvG",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 가미정레스토랑 (profile e0dPfvD1kpvG, road address '전라남도 담양군 가사문학면 가사문학로 687-8', matching the Kakao listing): '닭가슴살 스테이크 15,000 원'; '돈까스 12,000 원'; '새우볶음밥 12,000 원'; '김치볶음밥 12,000 원'. DiningCode shows no edit date. Kakao's own menu (not owner-registered; edited 2025-08-04) lists drinks only, at the same prices DiningCode gives for them ('원두커피 5000', '카페라떼 5000', '카라멜마끼야또 5000', '더덕즙 7000'). Current: Kakao review 2025-12-28 '돈까스와 크림스파게티 먹었어요'; Kakao-listed blog 2026-03-16 '가미정 레스토랑 | 해물파스타 | 치즈돈까스'. None is labelled vegan; HappyCow says meat and egg can be swapped for beans on request. Read twice, identical."
     },
     "phone": {
       "value": null,
@@ -66875,13 +67334,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 1159684706, opening-hours block: '화(9/29) 12:00 ~ 20:00; 수(9/30) 12:00 ~ 20:00; 목(10/1) 12:00 ~ 20:00; 금(10/2) 12:00 ~ 20:00; 토(10/3) 12:00 ~ 20:00; 일(10/4) 12:00 ~ 20:00; 월(10/5) 휴무일'. Read twice, identical. DiningCode (rid AVS1JZgHcpDk) gives '화,수,목,금,토/일 12:00-20:00' — no conflict. DiningCode's dated view marks Sat 10/3 (a public holiday) closed; its regular hours agree. Kakao shows no separate holiday schedule for this listing."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "비건 통밀 쿠키 (wholewheat cookies)",
+          "price": null
+        },
+        {
+          "name": "통밀 마틸다 (wholewheat chocolate cupcake)",
+          "price": "4,500 KRW"
+        },
+        {
+          "name": "제주당근 (Jeju carrot cupcake)",
+          "price": "4,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=AVS1JZgHcpDk",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 쏘럭 디저트카페 (profile AVS1JZgHcpDk, road address '경기도 안산시 단원구 중앙대로 951 대주빌딩 104호', matching the Kakao listing): '비건 통밀 쿠키 (no price) / 100% 식물성 재료로 만든 다섯가지 종류의 비건 통밀쿠키ෆ'; '통밀 마틸다 4,500 원 / 꾸덕한 가나슈 프로스팅에 통밀과 발로나카카오를 넣어 만든 비건 컵케이크ෆ'; '제주당근 4,500 원 / 달고 신선한 제주 구좌 당근을 듬뿍 넣고, 비건크림치즈 프로스팅을 올린 비건 컵케이크ෆ'. DiningCode shows no edit date. Current: Kakao-listed blog 2025-09-21 '쏘럭을 선택한 이유는 비건 때문인데요 ! 통밀 당근과', and Kakao-listed blog 2026-04-23 on its lunchbox cakes (DiningCode: '당일 도시락케이크'). DiningCode gives no price for the cookies. Kakao's own menu (2022, drinks only) is too old. Read twice, identical."
     },
     "phone": {
       "value": "031-401-2516",
@@ -67327,13 +67799,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 342175100 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 07:30 ~ 23:00; 수(9/30) 07:30 ~ 23:00; 목(10/1) 07:30 ~ 23:00; 금(10/2) 07:30 ~ 23:00; 토(10/3) 09:00 ~ 22:00; 일(10/4) 09:00 ~ 22:00; 월(10/5) 07:30 ~ 23:00'. Read twice, identical. DiningCode (rid s6d2S8KNvIqC) gives '월-금 07:30-23:00', '토/일 09:00-22:00' — no conflict. Kakao shows no separate holiday schedule for this listing."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "소보로크림치즈 (streusel bun with cream cheese)",
+          "price": "5,500 KRW"
+        },
+        {
+          "name": "과일프레지에 (fruit fraisier cake)",
+          "price": "40,000 KRW"
+        },
+        {
+          "name": "당근케익 (carrot cake)",
+          "price": "36,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/342175100",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered menu on the owner-registered Kakao Map listing (my-store status REGISTERED), read via place-api.map.kakao.com/places/panel3/342175100: '소보로크림치즈 5500' (edited 2025-05-12); '과일프레지에 40000' (edited 2025-05-12); '당근케익 36000' (edited 2025-05-12). Menu last edited 2025-05-12. None of the three is labelled vegan on the menu. Read twice, identical."
     },
     "phone": {
       "value": "02-507-2727",
@@ -67832,13 +68317,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 767389877 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 10:00 ~ 19:00; 수(9/30) 10:00 ~ 19:00; 목(10/1) 10:00 ~ 19:00; 금(10/2) 휴무일; 일(10/4) 10:00 ~ 19:00; 월(10/5) 10:00 ~ 19:00' — read twice, identical. Kakao's week view marks Fri 10/2 휴무일 with no weekly rule and gives no Saturday; DiningCode's regular hours include Friday. Friday and Saturday are left out. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid oXCASAuTIbCm, read twice, identical) regular hours ['월-금,일 10:00-19:00']; dated view: 9월 30일(수) 영업시간: 10:00 - 19:00; 10월 1일(목) 영업시간: 10:00 - 19:00; 10월 2일(금) 영업시간: 10:00 - 19:00; 10월 3일(토) 휴무일; 10월 4일(일) 영업시간: 10:00 - 19:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "천마산스페셜 (bread leavened with Cheonmasan spring water)",
+          "price": "8,000 KRW"
+        },
+        {
+          "name": "해방촌캄파뉴 (wholewheat country loaf)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "아부지통밀바게트 (wholewheat baguette)",
+          "price": "3,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=oXCASAuTIbCm",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 민트씨빵가게 (profile oXCASAuTIbCm, road address '경기 남양주시 화도읍 마석로17번길 35-13', matching the Kakao listing): '천마산스페셜 8,000 원 / 천마산약수물로 발효종을 키워 만든 소화가 잘되는 빵(No 버터, 계란, 설탕, 우유)'; '해방촌캄파뉴 9,000 원 / 우리통밀을 천마산 약수 발효종으로 만든 유럽시골빵(NO 설탕 버터 우유 계란)'; '아부지통밀바게트 3,500 원 / 민트씨아버지가 직접 농사지은 우리밀을 통채로 갈아 넣어 만든 프랑스전통(?)바게트(VEG)'. DiningCode shows no edit date. The owner-registered Kakao listing's own menu is one item from 2022 ('천마산 스페셜 8000'), the same price. Current: Kakao review 2025-05-07 names '초코가호두두' (DiningCode: '초코가호두두 5,000원'); Kakao review 2026-09-11 '카이막이랑 통밀바게트 꼭 드셔보시길'. Read twice, identical."
     },
     "phone": {
       "value": "010-2971-3546",
@@ -68716,13 +69214,26 @@ export const restaurants = [
       "evidence": "Kakao Map place 1761324807, opening-hours block: '화(9/29) 휴무일; 수(9/30) 11:00 ~ 21:00 / 20:30 라스트오더; 목(10/1) 11:00 ~ 21:00 / 20:30 라스트오더; 금(10/2) 11:00 ~ 21:00 / 20:30 라스트오더; 월(10/5) 휴무일'. Read twice, identical. DiningCode (rid y1M2YgB11Ed9) gives '수-금 11:00-21:00', '토 11:30-21:00', '일 11:30-20:30' — no conflict. Kakao shows no separate holiday schedule for this listing. Days Kakao does not give (Sat, Sun) are left out."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "반미 (Bánh Mì) (Vietnamese baguette sandwich)",
+          "price": "12,500 KRW"
+        },
+        {
+          "name": "잠발라야 (Jambalaya) (Cajun rice dish)",
+          "price": "19,900 KRW"
+        },
+        {
+          "name": "크런치랩 (grilled folded tortilla wrap)",
+          "price": "13,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=y1M2YgB11Ed9",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 레니엡 (profile y1M2YgB11Ed9, road address '경기도 성남시 분당구 정자일로 121 더샾스타파크 상가1층 B-15/B-16', matching the Kakao listing): '반미 (Bánh Mì) 12,500 원'; '잠발라야 (Jambalaya) 19,900 원'; '크런치랩 13,900 원'. DiningCode shows no edit date. Kakao's own menu (not owner-registered; edited up to 2026-09-22) lists the same dishes by name without prices ('크런치랩', '베트남볶음밥', '비프스튜', '하드타코'). Current: Kakao reviews 2026-03-11 '비프 크런치랩을 맛있게 먹었습니다' and 2025-11-26 '크런치랩이 압도적으로 맛있음'. None is labelled vegan; HappyCow names a banh mi among the vegan choices. Read twice, identical."
     },
     "phone": {
       "value": "070-4214-5791",
@@ -69330,13 +69841,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 1826315435, opening-hours block: '화(9/29) 11:00 ~ 22:00; 수(9/30) 11:00 ~ 22:00; 목(10/1) 11:00 ~ 22:00; 금(10/2) 11:00 ~ 22:00; 토(10/3) 11:00 ~ 22:00; 일(10/4) 11:00 ~ 22:00; 월(10/5) 11:00 ~ 22:00'. Read twice, identical. DiningCode (rid WxBSUr0NRDcd) gives '매일 11:00-22:00' — no conflict. DiningCode's dated view marks Fri 10/2 closed; its regular hours ('매일') agree. Kakao shows no separate holiday schedule for this listing."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "치킨커리밥 (chicken curry with rice)",
+          "price": "9,500 KRW"
+        },
+        {
+          "name": "런치 탈리 세트 (lunch thali set)",
+          "price": "11,900 KRW"
+        },
+        {
+          "name": "치킨케밥 (chicken kebab)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "갈릭난 (garlic naan)",
+          "price": "3,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=WxBSUr0NRDcd",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 난 (profile WxBSUr0NRDcd, road address '경기도 수원시 팔달구 아주로 49-1 2층', matching the Kakao listing): '치킨커리밥 9,500 원'; '런치 탈리 세트 11,900 원 / 점심 시간에 런치 탈리 세트를 저렴한 가격에 이용할 수 있는 메뉴(AM 11:00~PM 3:00 운영)'; '치킨케밥 6,000 원'; '갈릭난 3,000 원'. DiningCode shows no edit date. Current: Kakao review 2025-09-17 '런치세트11900원, 커리에 닭고기 많이 넣어주고 난도 바삭함' (DiningCode: '런치 탈리 세트 11,900원'); Kakao review 2026-09-03 '항상 런치세트 먹었는데'; Kakao-listed blog 2025-04-12 '치킨커리 세트 난 갈릭 난'. Kakao's own menu (2021–22) is older and not used. Read twice, identical."
     },
     "phone": {
       "value": null,
@@ -69800,13 +70328,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 1797645798 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 11:30 ~ 15:00, 14:30 라스트오더; 수(9/30) 11:30 ~ 20:00; 목(10/1) 11:30 ~ 20:00; 금(10/2) 11:30 ~ 20:00; 토(10/3) 11:30 ~ 20:00; 일(10/4) 11:30 ~ 20:00; 월(10/5) 휴무일' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid cFgLnw80jayc, read twice, identical) regular hours ['화,수,목,금,토/일 11:30-20:00']; dated view: 9월 30일(수) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30; 10월 1일(목) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30; 10월 2일(금) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30; 10월 3일(토) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30; 10월 4일(일) 영업시간: 11:30 - 20:00 / 브레이크타임: 15:00 - 17:00 / 라스트오더: 19:30. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting. Tuesday left out: the owner week view shows only 11:30–15:00 that day, unlike every other day, which may be a one-off entry."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "화덕빵&리코타치즈+꿀 (wood-fired bread with ricotta and honey)",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "마리나라 (marinara pizza)",
+          "price": "16,000 KRW"
+        },
+        {
+          "name": "토마토파스타 (tomato pasta)",
+          "price": "16,000 KRW"
+        },
+        {
+          "name": "알리오올리오 (garlic and olive-oil pasta)",
+          "price": "16,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=cFgLnw80jayc",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 핏제리아436 (profile cFgLnw80jayc, road address '충청남도 아산시 신정로 436 1층', matching the Kakao listing): '화덕빵&리코타치즈+꿀 12,000 원 / 비건변경가능'; '마리나라 16,000 원 / 비건'; '토마토파스타 16,000 원 / 비건변경가능'; '알리오올리오 16,000 원 / 비건변경가능'. DiningCode shows no edit date. The owner-registered Kakao listing's own menu is a single 2024 item (마르게리따, no price). Current: DiningCode reviews 2026-05-24 '특히 토마토파스타는 소스가 너무 맛있어서' and 2026-02-25 '버섯크림파스타 추천합니다'; Kakao-listed blogs 2026-09-20 and 2026-09-25 name 알리오올리오. The listing marks 마리나라 '비건' and the bread, tomato pasta and aglio olio '비건변경가능' (can be made vegan). Read twice, identical."
     },
     "phone": {
       "value": "0507-1343-8764",
@@ -71661,13 +72206,30 @@ export const restaurants = [
       "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "초코시나몬식빵(비건) (chocolate-cinnamon loaf)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "초코식빵(비건) (chocolate loaf)",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "옥수수치즈식빵(비건) (corn and cheese loaf)",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "공주밤식빵(비건) (Gongju chestnut loaf)",
+          "price": "7,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=VgdyMS6BkQNo",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 커넥트윗 조치원정수장 (profile VgdyMS6BkQNo, road address '세종 조치원읍 수원지길 75-21 주1동, 주2동', matching the Kakao listing): '초코시나몬식빵(비건) 6,000 원 / 은은한 계피맛이 감도는 중독성 강한 초코 + 시나몬 조합 식빵입니다.'; '초코식빵(비건) 6,500 원 / 발로나 코코아 파우더 + 칼리바우트 다크 초콜릿이 들어간 초코 가득 식빵입니다.'; '옥수수치즈식빵(비건) 6,500 원 / non gmo 옥수수와 비건 체다 치즈가 들어간 중독성 강한 옥수수식빵입니다.'; '공주밤식빵(비건) 7,500 원 / 공주산 통밤이 가득 들어있는 밤 가득 식빵입니다.'. DiningCode shows no edit date. Kakao's own menu (not owner-registered; edited 2026-09-03) lists drinks and bingsu at the same prices DiningCode gives for every item both list (e.g. '팥빙수 14000', '말차플로트 7500', '아몬드크림라떼 6000', '자몽에이드 6000'); it has no breads. Current: Kakao-listed blog 2026-09-17 on the café; Kakao review 2026-04-21 names 자몽에이드. The breads themselves are not named in a dated review. Read twice, identical."
     },
     "phone": {
       "value": null,
@@ -71849,13 +72411,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 1067268738, opening-hours block: '화(9/29) 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임 / 21:00 라스트오더; 수(9/30) 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임 / 21:00 라스트오더; 목(10/1) 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임 / 21:00 라스트오더; 금(10/2) 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임 / 21:00 라스트오더; 토(10/3) 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임 / 21:00 라스트오더; 일(10/4) 11:30 ~ 22:00 / 15:00 ~ 17:00 브레이크타임 / 21:00 라스트오더; 월(10/5) 휴무일'. Read twice, identical. DiningCode (rid mFjRERgKJKeh) gives '화,수,목,금,토/일 11:30-22:00' — no conflict. Kakao shows no separate holiday schedule for this listing."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "치킨 마살라 카레(1~2인분) (chicken masala curry, for one or two)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "갈릭난 (garlic naan)",
+          "price": "3,500 KRW"
+        },
+        {
+          "name": "마살라 라이스 (spiced rice with nuts and dried fruit)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "믹스베지터블 카레(1~2인분) (mixed vegetable curry, for one or two)",
+          "price": "14,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=mFjRERgKJKeh",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 더인디아 (profile mFjRERgKJKeh, road address '전라남도 순천시 충효로 139 2층', matching the Kakao listing): 'Chicken masala 치킨 마살라 카레(1~2인분) 15,000 원 / 치킨을 매콤한 마살라 그레비에 넣어 만든 감칠맛 나는 커리 Cooked with fried onion. tomato ginger and garlic sauce.'; 'Garlic Naan 갈릭난 3,500 원 / 마늘과 함께 구운 인도 전통빵 Indian bread baked with garlic.'; 'Masala rice 마살라 라이스 6,000 원 / 견과류와 인도쌀로 볶은밥 Indian boiled rice with spices and dry fruits'; 'Mix vegetable 믹스베지터블 카레(1~2인분) 14,000 원 / 노란 그레비를 넣어 만든 야채 커리 Mix vegetable with yellow gravy'. DiningCode shows no edit date. Current: DiningCode review 2026-07-29 names 'Chicken masala 치킨 마살라 카레(1~2인분)', 'Garlic Naan 갈릭난' and 'Masala rice 마살라 라이스'; Kakao's own menu (not owner-registered; edited 2026-02-11) gives '탄두리치킨(한마리) 22000', matching DiningCode's 'Tandoori Chicken (8p) 탄두리 치킨(4인) 22,000원'. None is labelled vegan; HappyCow names mixed vegetable curry among the vegan choices. Read twice, identical."
     },
     "phone": {
       "value": "061-741-3422",
@@ -72242,13 +72821,26 @@ export const restaurants = [
       "evidence": "Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "순쌀식빵(비건) (rice-flour loaf)",
+          "price": "5,000 KRW"
+        },
+        {
+          "name": "누룽지바게트(무가당,비건) (scorched-rice baguette, no added sugar)",
+          "price": "4,500 KRW"
+        },
+        {
+          "name": "크림치즈감자식빵 (cream-cheese and potato loaf)",
+          "price": "5,300 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=nW9QGIGvdygA",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 외계인방앗간 전주도청점 (profile nW9QGIGvdygA, road address '전라북도 전주시 완산구 홍산1길 7 158호', matching the Kakao listing): '순쌀식빵(비건) 5,000 원'; '누룽지바게트(무가당,비건) 4,500 원'; '크림치즈감자식빵 5,300 원'. DiningCode shows no edit date. Current: DiningCode reviews 2025-08-11 '식빵 종류도 다양해요 ! 쌀케이크도 쥬문가능한가봐요' (DiningCode: '쌀케이크(글루텐프리) 30,000원') and 2025-12-01 '쌀빵이라니'. Kakao's own menu (2020–22) is older and not used. The three loaves are not individually named in a dated review. Read twice, identical."
     },
     "phone": {
       "value": "063-229-0445",
@@ -72394,13 +72986,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 708129703 opening hours (owner-entered on its registered Kakao listing): '화(9/29) 휴무일; 수(9/30) 11:00 ~ 21:00; 목(10/1) 11:00 ~ 21:00; 금(10/2) 11:00 ~ 21:00; 토(10/3) 12:00 ~ 21:00; 일(10/4) 12:00 ~ 21:00; 월(10/5) 11:00 ~ 21:00 | 매주 화요일 휴무' — read twice, identical. The operator's own entry outranks other sources (second-pass ruling 1). DiningCode (rid nGKPLGCdNS7U, read twice, identical) regular hours ['월,수,목,금,토/일 10:00-21:00']; dated view: 9월 30일(수) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 1일(목) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 2일(금) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 3일(토) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 4일(일) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00; 10월 5일(월) 영업시간: 10:00 - 21:00 / 브레이크타임: 15:00 - 17:00. Earlier evidence (stale HappyCow or none): Opening hours were not cross-checked between two sources in this pass, so they are left unknown. Check before visiting."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "No usable menu: see the evidence of the vegan field."
+      "value": [
+        {
+          "name": "레반트 후무스 (chickpea and tahini dip)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "구운 고추 후무스 (roasted red-pepper hummus)",
+          "price": "10,000 KRW"
+        },
+        {
+          "name": "팔라펠 (falafel sandwich)",
+          "price": "6,900 KRW"
+        },
+        {
+          "name": "팔라펠 VIP (falafel sandwich with extra vegetables)",
+          "price": "7,900 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=nGKPLGCdNS7U",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 레반트 (profile nGKPLGCdNS7U, road address '전라북도 전주시 덕진구 명륜4길 21-7', matching the Kakao listing): '레반트 후무스 levant hummus 9,000 원 / 레반트 지역에서 볼 수 있는 전통적인 전채 요리로 최상급 병아리콩과 수제 타히니로 만든 후무스입니다. 후무스란 잘 삶은 병아리콩에 참깨를 갈아 만든 진한 소스, 마늘, 레몬즙을 넣어 곱게 으깨 만든 중동식 고소한 소스입니다. 크림처럼 부드럽고 담백해서 빵이나 채소와 함께 찍어 먹기 좋습니다. 부담 없이 즐길 수 있는 건강한 메뉴입니다.'; '구운 고추 후무스 r. red pepper hummus 10,000 원 / 잘 구워진 고추를 갈아서 만든 전통적인 후무스입니다. 잘 삶은 병아리콩에 참깨를 갈아 만든 진한 소스, 마늘, 레몬즙을 넣어 곱게 으깨 만든 중동식 고소한 소스입니다. 크림처럼 부드럽고 담백해서 빵이나 채소와 함께 찍어 먹기 좋습니다. 부담 없이 즐길 수 있는 건강한 메뉴입니다.'; '팔라펠 falafel sandwich 6,900 원 / 튀긴 팔라펠로 속을 채운 빵에 비법 타히니 소스, 샐러드를 곁들인 샌드위치'; '팔라펠 VIP Falafel 7,900 원 / 튀긴 팔라펠과 다양한 채소를 넣은 빵에 비법 타히니 소스를 곁들인 샌드위치'. DiningCode shows no edit date. The owner-registered Kakao listing's own menu is one 2022 item ('Chicken shawarma hummus 12000'), matching DiningCode's '치킨 샤와르마 후무스 shawarma hummus 12,000원'. Current: Kakao-listed blog 2026-05-06 '전주 튀르키예 음식점 [레반트] - 후무스, 카이막 맛집' (DiningCode: '카이막 Kaymak(1~2 인) 6,900원'). None is labelled vegan; HappyCow names hummus and falafel among the vegan choices. Read twice, identical."
     },
     "phone": {
       "value": "070-7585-5888",
@@ -82398,13 +83007,30 @@ export const restaurants = [
       "evidence": "Kakao Map place 794691108 (owner-entered on its registered Kakao listing), opening-hours block: '화(9/29) 08:00 ~ 19:00; 수(9/30) 08:00 ~ 19:00; 목(10/1) 08:00 ~ 19:00; 금(10/2) 08:00 ~ 19:00; 토(10/3) 08:00 ~ 19:00; 일(10/4) 08:00 ~ 19:00; 월(10/5) 08:00 ~ 19:00'. Read twice, identical. DiningCode (rid la6oV7exLn86) gives '매일 08:00-19:00' — the same. HappyCow's earlier 'Mon-Sun 11:00am-7:00pm' (undated) is a stale source and does not block this (ruling 2)."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "HappyCow says there are many vegan smoothies but does not name them. Kakao Map's menu (edited 2026-08) has six smoothies, two described with almond-milk bases, and yogurt bowls made with dairy Greek yogurt; no item is marked vegan, so none is named here."
+      "value": [
+        {
+          "name": "스트로베리 드립 스무디 (딸기맛) (strawberry smoothie)",
+          "price": "9,800 KRW"
+        },
+        {
+          "name": "고망고 스무디 (망고맛) (mango smoothie)",
+          "price": "9,800 KRW"
+        },
+        {
+          "name": "아이스버그 스무디 (파인애플맛) (pineapple smoothie)",
+          "price": "9,800 KRW"
+        },
+        {
+          "name": "오렌지진 스무디 (오렌지맛) (orange and carrot smoothie)",
+          "price": "9,800 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/794691108",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered menu on the owner-registered Kakao Map listing (my-store status REGISTERED), read via place-api.map.kakao.com/places/panel3/794691108: '스트로베리 드립 스무디 (딸기맛) 9800 / 아몬드 우유의 고소함과 상큼한 딸기가 어우러져 새롭고 건강한 맛을 선사해요. 아보카도와 코코넛 크림이 부드러운 텍스처를 더하고, 대추와 메이플 시럽은 자연스러운 단맛을 강조합니다.' (edited 2026-08-01); '고망고 스무디 (망고맛) 9800 / 고망고 스무디는 아몬드 우유와 오렌지 쥬스로 상큼한 베이스를 만들어요. 그 위에 더해지는 바나나와 망고, 대추, 코코넛 크림은 리치함을 더해주죠.' (edited 2026-08-01); '아이스버그 스무디 (파인애플맛) 9800 / 아이스버그 스무디는 상큼한 파인애플의 노트, 바나나의 부드러움 그리고 푸른 바다를 담아서 드려요. 아이스버그와 함께 다가오는 여름 만나러가요.' (edited 2025-04-15); '오렌지진 스무디 (오렌지맛) 9800 / 당근과 오렌지의 상큼한 조화에, 망고와 파인애플로 톡쏘는 풍미를 더해요. 마지막으로 더해지는 흑후추와 비트 주스는 감칠 맛과 건강한 색채를 만들어냅니다.' (edited 2026-08-01). Menu last edited 2026-08-02. Smoothies chosen because the owner's descriptions give their ingredients (almond milk, fruit, vegetables); the coconut shake (honey) and the Greek-yogurt bowls were passed over. None is labelled vegan on the menu. Read twice, identical."
     },
     "phone": {
       "value": "070-8849-3333",
@@ -92548,13 +93174,30 @@ export const restaurants = [
       "evidence": "Kakao Map's hours for the current week: 화(9/29) 11:00 ~ 20:00; 수(9/30) 11:00 ~ 20:00; 목(10/1) 11:00 ~ 18:00; 금(10/2) 휴무; 토(10/3) 11:00 ~ 20:00; 일(10/4) 12:00 ~ 08:00; 월(10/5) 11:00 ~ 20:00. Sunday is shown as '12:00 ~ 08:00', which looks like an entry error, so Sunday is left out of the structured hours. Single source."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Unknown: the Kakao menu has one item last edited in 2024, which does not describe what is sold today."
+      "value": [
+        {
+          "name": "딥 초코칩 칙미쿠키 (dark-chocolate chip cookie)",
+          "price": "5,300 KRW"
+        },
+        {
+          "name": "블루베리 크림치즈 쿠키 (blueberry cream-cheese cookie)",
+          "price": "5,800 KRW"
+        },
+        {
+          "name": "두바이 피스타치오 쿠키 (Dubai-style pistachio cookie)",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "단호박 크림치즈 쿠키 (kabocha cream-cheese cookie)",
+          "price": "5,800 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=F2JLFgtGaTOp",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 원더칩스 (profile F2JLFgtGaTOp, road address '서울특별시 구로구 고척로30길 43 1층', matching the Kakao listing): '딥 초코칩 칙미쿠키 5,300 원 / 다크초콜릿과 아몬드의 진한 풍미가 어우러진 깊고 부드러운 초코칩 쿠키.'; '블루베리 크림치즈 쿠키 5,800 원 / 무가당 블루베리 콩포트와 비건 크림치즈가 듬뿍, 치즈케이크 느낌의 시그니처 쿠키!'; '두바이 피스타치오 쿠키 6,500 원 / 컴백 원더칩스 두바이 쿠키. 바삭함, 진함, 그리고 고소함이 한 입에'; '단호박 크림치즈 쿠키 5,800 원 / 부드럽고 달콤한 단호박 크림치즈가 입안 가득 퍼지며 꾸덕하게 남는 깊은 여운'. DiningCode shows no edit date. The owner-registered Kakao listing's own menu is one 2024 item ('말차두유앙금 5300'). Current: Kakao review 2025-10-12 '두바이 피스타치오 쿠키, 페레로쉐 초코쿠키, 말차 꾸덕 쿠키, 무화과 솔티카라멜 쿠키, 단호박 크림치즈 쿠키 추천'. Read twice, identical."
     },
     "phone": {
       "value": "0502-5551-7298",
@@ -93468,13 +94111,26 @@ export const restaurants = [
       "evidence": "Unknown: Kakao Map shows no opening hours, and the shop sells much of its range online, so opening days could not be checked."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "Unknown: the Kakao menu (three items) was last edited in 2023."
+      "value": [
+        {
+          "name": "쌀 소금빵 (rice-flour salt bread)",
+          "price": "2,900 KRW"
+        },
+        {
+          "name": "통밀 두유스콘 (wholewheat soy-milk scone)",
+          "price": "3,200 KRW"
+        },
+        {
+          "name": "통밀 초코칩 스콘 (wholewheat chocolate-chip scone)",
+          "price": "3,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=qBpmydFPAtgV",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's own menu listing for 영이제과 (profile qBpmydFPAtgV, road address '경기도 의정부시 오목로225번길 16-7 102호', matching the Kakao listing): '쌀 소금빵 2,900 원 / 쫄깃하고 속편한 쌀 소금빵. 진짜 맛있어요! 강력쌀가루,유기농 비건버터,말돈소금'; '통밀 두유스콘 3,200 원 / 유기농통밀가루,아몬드가루,두유'; '통밀 초코칩 스콘 3,500 원'. DiningCode shows no edit date. The owner-registered Kakao listing's own menu (2023) gives '비건쌀소금빵 2900', the same price. Current: Kakao-listed blog 2026-09-08 '의정부 빵집 영이제과 스콘 후기'. Read twice, identical."
     },
     "phone": {
       "value": "010-8678-0192",
@@ -104920,13 +105576,26 @@ export const restaurants = [
       "evidence": "Kakao Map's regular hours (기본 영업시간): 화 09:00 ~ 18:00; 수 09:00 ~ 18:00; 목 09:00 ~ 18:00; 금 09:00 ~ 18:00; 토 09:00 ~ 18:00. Kakao note: '휴무: 매주 월요일, 일요일, 추석당일'. Single source."
     },
     "menus": {
-      "value": null,
-      "confidence": "unknown",
-      "source": null,
-      "url": null,
-      "method": null,
-      "lastCheckedAt": null,
-      "evidence": "The owner-entered Kakao menu (last edited 2026-04-09) lists only two items, an iced latte and an olive & cheese canelé; not enough to describe the menu."
+      "value": [
+        {
+          "name": "바닐라 까눌레 (vanilla canelé)",
+          "price": "3,300 KRW"
+        },
+        {
+          "name": "바질 까눌레 (basil canelé)",
+          "price": "3,500 KRW"
+        },
+        {
+          "name": "올리브 & 치즈 까눌레 (olive and cheese canelé)",
+          "price": "3,800 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "The restaurant",
+      "url": "https://place.map.kakao.com/122173403",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Owner-entered menu on the owner-registered Kakao Map listing (my-store status REGISTERED), read via place-api.map.kakao.com/places/panel3/122173403: '바닐라 까눌레 3300 / 유제품과 달걀 없이 쌀가루로 만드는 겉바속쫀 바닐라 까눌레입니다_!' (edited 2026-04-07); '바질 까눌레 3500 / 유제품과 달걀 없이 쌀가루로 만드는 겉바속쫀 생바질 까눌레입니다_!' (edited 2026-04-09); '올리브 & 치즈 까눌레 3800 / 유제품과 달걀 없이 만드는 겉바속쫀 올리브 & 비건치즈 까눌레입니다_!' (edited 2026-04-07). Menu last edited 2026-04-09. The owner describes all three as made without dairy or egg. Read twice, identical."
     },
     "phone": {
       "value": "010-4207-5945",
@@ -104993,7 +105662,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A bakery near Ansan's Jungang Station with a dairy- and egg-free olive and vegan-cheese canelé.",
-    "story": "This small bakery lists an olive and cheese canelé that, in the owner's description, is made without dairy or egg and uses vegan cheese. Its other items are not listed. It is an eight-minute walk from Jungang Station on Line 4.",
+    "story": "This small bakery makes canelés. The owner lists vanilla and basil ones made with rice flour and an olive and cheese one made with vegan cheese, all described as made without dairy or egg. It is an eight-minute walk from Jungang Station on Line 4.",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
     "photo": null,

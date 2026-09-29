@@ -6,7 +6,7 @@ branch, Task 6: privacy policy rewrite, gates, docs — §2.1 "Passport sync").
 **This edit lands on `passport-sync`, not yet merged to master; the
 squash-merge, push, and deploy check are a separate, later step, pending
 operator approval.** No restaurant data changed.
-**Places:** 684 (679 active, 5 quarantined) — was 20 until the 2026-09-28 expansion (§7 #35); batch 6 on 2026-09-29 took it to 205 after removing 12 whose only halal evidence was a DiningCode search tag (RULINGS.md); batch 7 (regions) under way
+**Places:** 684 (676 active, 8 quarantined) — was 20 until the 2026-09-28 expansion (§7 #35); batch 6 on 2026-09-29 took it to 205 after removing 12 whose only halal evidence was a DiningCode search tag (RULINGS.md); batch 7 (regions) done; afternoon passes filled hours, phones, transit and menus and audited every pin and closure signal
 
 This document is the canonical handoff. It should be enough to continue work
 without reading any prior conversation. Where it states a number, that number
@@ -70,7 +70,7 @@ hero → quick facts ("can I eat here?") → practical (directions/hours/address
 | UI / UX | **Done.** Five approved steps; responsive mobile/tablet/desktop; AA contrast; no known regressions. |
 | Trust & evidence architecture | **Done.** Production-grade, validated, documented. |
 | Lifecycle (existence/publication state) | **MVP, uncommitted.** `ACTIVE`/`QUARANTINE` implemented and enforced by `check-data`; `ARCHIVED`/`DELETED` are named only, no logic. See §2.14. |
-| Data | **684 places (679 active, 5 quarantined) as of 2026-09-29.** Phase A had brought the original 20 to one confirmed field each. The 2026-09-28/29 expansion added 133 from written sources while Naver was unreachable, so **263 of 679 active places have a confirmed field and 416 do not** — their coordinates are Kakao-only and SUPPORTED until the Naver cross-check runs (§7 #35). Vegan filter 523, Halal filter 153; halal `certified` 0. Rulings per batch: docs/data-expansion/RULINGS.md. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown; many honestly unknown fields remain by design, not by omission.) |
+| Data | **684 places (676 active, 8 quarantined) as of 2026-09-29.** Phase A had brought the original 20 to one confirmed field each. The 2026-09-28/29 expansion added ~660 from written sources while Naver was unreachable, so **261 of 676 active places have a confirmed field and 415 do not** — their coordinates are Kakao-only and SUPPORTED until the Naver cross-check runs (§7 #35). Vegan filter 521, Halal filter 152; hours known for 533, phone 612, signature menu 580 (afternoon field-fill passes, RULINGS.md); halal `certified` 0. Rulings per batch: docs/data-expansion/RULINGS.md. (No single "% verified" figure is meaningful here — see §8 for the field-level breakdown; many honestly unknown fields remain by design, not by omission.) |
 | Evidence migration | **1 of 20** restaurants migrated (demonstration only). |
 | Content (stories) | **Draft quality.** Marketing tone in 13/20; one story corrected so far. |
 
