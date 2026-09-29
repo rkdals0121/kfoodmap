@@ -626,7 +626,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A sunlit courtyard of old roof tiles and artisan ceramics.",
-    story: "This artisanal haven breathes new life into the concept of whole-plant culinary art. Rejecting the modern throwaway culture, the chefs meticulously utilize every stem, root, and leaf to craft delicate, mild-tasting masterpieces. Their dedication to zero-waste cooking elevates humble, organic produce into an elegant celebration of sustainable Korean gastronomy.",
+    story: "Kkotbap Epida is a Korean restaurant in Bukchon with vegan dishes on a mixed menu. It also serves meat, including pork, so ask which dishes are vegan.",
     esg_point: "Zero-waste initiative focusing on utilizing every part of the organic vegetable",
 
     image: "/images/mild_soup.svg",
@@ -664,7 +664,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A tranquil sanctuary of paper doors and pine wood.",
-    story: "Maji stands as a pinnacle of inclusive, sustainable dining, offering a fully plant-based menu that naturally adheres to Halal standards. The soul of their cuisine lies in traditional 'Jang' (soy paste and sauce), fermented naturally in breathing clay pots for over three years. This uncompromising artisanal dedication guarantees a profoundly rich, earth-conscious culinary journey.",
+    story: "Maji serves a fully plant-based Korean menu in Seochon, near Jahamun-ro. No halal information has been found for it, so a plant-based menu should not be read as halal.",
     esg_point: "Plant-based inclusivity with naturally fermented soy sauces aged over 3 years",
 
     image: "/images/fermented_dish.svg",
@@ -954,7 +954,7 @@ export const restaurants = [
 
     dietary: {
       vegan: fact(VEGAN.OPTIONS, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.COMMUNITY, method: METHOD.CORROBORATED, lastCheckedAt: "2026-07-17", evidence: "Level unchanged, evidence replaced: two independent, methodical vegan-food blogs name specific vegan-orderable items (samosas, roti, chana-style curry) across this chain's branches, and a first-hand 2022 Songdo visit has staff proactively flag which dishes are vegetarian when ordering. The kitchen is meat-forward (tandoori, kebabs, lamb, prawn), so OPTIONS, not FULL" }),
-      halal: fact(HALAL.FRIENDLY, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, method: METHOD.GOV_LISTING, lastCheckedAt: "2026-07-17", evidence: "An official Busan Metropolitan City reference document classifies this chain's BIFC branch explicitly as \"무슬림 프렌들리\" (Muslim-friendly) — one tier below the document's own definition of \"한국이슬람교중앙회(KMF)로부터 할랄 인증을 획득한 식당\" (KMF-certified). Incheon's own tourism site separately selected the Songdo branch for the Korea Tourism Organization's 2021 Halal Restaurant Week, consistent with accommodating rather than certified. No Songdo-specific certificate sighted, so the level stays FRIENDLY, not CERTIFIED" }),
+      halal: unknownFact("Downgraded 2026-09-29 from FRIENDLY. The two sources behind it were chain-level and 2021-era: a Busan Metropolitan City document classing the chain's BIFC branch (in Busan, not this one) as 무슬림 프렌들리, and Incheon's selection of the Songdo branch for KTO's 2021 Halal Restaurant Week. Under the staleness ruling (docs/data-expansion/RULINGS.md, nimat) a 2021 listing cannot carry a halal level today, and a listing for another branch never could. The 2026 menu shows no pork; that alone is not a halal claim."),
     },
     traits: [],
 
@@ -962,7 +962,7 @@ export const restaurants = [
     // Rewritten 2026-07-17: "certified-meat cooking" implied a certification
     // never sighted, and the story leaned on the draft's now-dropped menu item.
     vibe: "A nationwide Indian chain's Songdo branch — meat-forward tandoori and curries, with vegan options for those who ask.",
-    story: "Bombay Brau is part of a national Indian restaurant chain with branches from Songdo to Busan, built around tandoori-oven cooking and buttery curries. The kitchen isn't vegan or halal-certified, but it accommodates both: staff will point out which dishes are vegetarian, and the chain has been recognized by Korea's tourism authorities as Muslim-friendly. It's a table where a halal diner and a vegan diner can sit down together, even if neither gets a dish made just for them.",
+    story: "Bombay Brau is part of an Indian restaurant chain with branches from Songdo to Busan, built around tandoori-oven cooking and curries. The kitchen is not vegan, but staff will point out which dishes are. Halal status for this branch is unknown: the only halal listings found are from 2021 or describe a different branch, so ask before ordering.",
     esg_point: "A Muslim-friendly, vegetarian-accommodating table — not certified, but genuinely welcoming",
 
     image: "/images/halal_meat.svg",
@@ -3672,7 +3672,7 @@ export const restaurants = [
         "url": "https://english.visitseoul.net/restaurants/CherryGarden/ENPocs07r",
         "method": "Read from a government listing",
         "lastCheckedAt": "2026-09-28",
-        "evidence": "Seoul's official tourism site describes it as serving 'halal Korean cuisine' with halal options available. A travel-news article (thetravelnews.co.kr) independently quotes the owner's own preparation practice: '할랄 식재료를 따로 준비하여' (halal ingredients are prepared separately). No source anywhere calls this 'certified', so no halalCertClaim is recorded — this is a plain friendly/self-prepared claim, not a certification claim."
+        "evidence": "Seoul's official tourism site describes it as serving 'halal Korean cuisine' with halal options available. A travel-news article (thetravelnews.co.kr) independently quotes the owner's own preparation practice: '할랄 식재료를 따로 준비하여' (halal ingredients are prepared separately). No source anywhere calls this 'certified', so no halalCertClaim is recorded — this is a plain friendly/self-prepared claim, not a certification claim. Re-checked 2026-09-29: Visit Seoul now shows \"Alcohol for Sale Ⓞ\" and \"Muslim Cooks Ⓧ\" for this branch; still trading (Kakao reviews to 2026-05)."
       }
     },
     "imageLeads": [],
