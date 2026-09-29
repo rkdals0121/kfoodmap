@@ -34,8 +34,13 @@ export default function PrivacySheet({ onClose }) {
   const { t } = useTranslation();
   const sheetRef = useRef(null);
 
+  // Focus in, and back to what opened the sheet (Profile's Privacy row) on close.
   useEffect(() => {
+    const opener = document.activeElement;
     sheetRef.current?.focus();
+    return () => {
+      if (opener && opener !== document.body && document.contains(opener)) opener.focus({ preventScroll: true });
+    };
   }, []);
 
   useEffect(() => {

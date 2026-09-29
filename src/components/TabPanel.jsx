@@ -77,7 +77,7 @@ function DiscoverTab() {
                     <li key={place.id}>
                       <button
                         className="journey-stop"
-                        onClick={() => navigate(`/place/${place.id}`)}
+                        onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover' } })}
                       >
                         <span className="journey-stop__num">{i + 1}</span>
                         {/* The page promises each stop says how sure we are:
@@ -111,7 +111,7 @@ function DiscoverTab() {
 
       <div className="story-grid">
         {cultureStories.map(place => (
-          <article key={place.id} className="story-card" onClick={() => navigate(`/place/${place.id}`)}>
+          <article key={place.id} className="story-card" onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover' } })}>
             <div className="story-card-content">
               <p className="story-card__kind">{t('discover.storyLabel')}</p>
               <h3>{displayName(place.name)}</h3>

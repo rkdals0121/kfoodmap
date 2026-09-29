@@ -75,7 +75,9 @@ function AppShell() {
   // Tabs have addresses (/discover, /journal, /profile), so reload and the
   // phone's Back button keep you where you were. A place, the report form
   // or the privacy page opens over whichever tab is active and returns to it.
-  const [activeTab, setActiveTab] = useState(() => PATH_TAB[location.pathname] ?? 'map');
+  // A place or sheet opened from the app records the tab it opened over in
+  // history state, so a reload there keeps that tab behind it.
+  const [activeTab, setActiveTab] = useState(() => PATH_TAB[location.pathname] ?? location.state?.tab ?? 'map');
   useEffect(() => {
     if (PATH_TAB[location.pathname]) setActiveTab(PATH_TAB[location.pathname]);
     else if (location.pathname === '/') setActiveTab('map');
@@ -133,11 +135,21 @@ function AppShell() {
   // Single choke point for every path that opens detail (map pin, card,
   // Journal stamp/next-stop) — a quarantined restaurant is a no-op here
   // rather than rendering unverified detail.
-  const openDetail = (r) => { if (isQuarantined(r)) return; if (r.id !== id) navigate(`/place/${r.id}`); };
-  const openStory = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`, { state: { focusStory: true } }); };
+  // Opening a place from inside the app marks the entry (fromApp) so Close
+  // can go back instead of stacking a new history entry — otherwise Android's
+  // Back reopened the place just closed. A second place opened over the
+  // first replaces it, so Close always returns to the tab.
+  const openPlace = (r, extra = {}) => {
+    if (isQuarantined(r)) return;
+    if (r.id === id && !extra.focusStory && !extra.focusDirections) return;
+    navigate(`/place/${r.id}`, { replace: Boolean(id), state: { fromApp: true, tab: activeTab, ...extra } });
+  };
+  const closePlace = () => (location.state?.fromApp ? navigate(-1) : navigate(tabPath));
+  const openDetail = (r) => openPlace(r);
+  const openStory = (r) => openPlace(r, { focusStory: true });
   // The card's directions button opens the place at its map-app buttons
   // (Naver and Kakao first), rather than straight to Google.
-  const openDirections = (r) => { if (isQuarantined(r)) return; navigate(`/place/${r.id}`, { state: { focusDirections: true } }); };
+  const openDirections = (r) => openPlace(r, { focusDirections: true });
 
   // Local first, always: the device is written before any request goes out
   // and is never rolled back by one that fails.
@@ -194,6 +206,10 @@ function AppShell() {
   // tap (a visit lives on a saved entry), rather than a disabled button
   // that never said why.
   const handleToggleVisited = (placeId) => {
+    // Taking a visit back removes its date and Journal seal: ask, as unsave does.
+    const current = entries.find(e => e.id === placeId);
+    if (current && current.savedAt !== null && current.visitedAt !== null
+      && !window.confirm(t('journal.unvisitConfirm'))) return;
     const now = Date.now();
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
@@ -310,7 +326,13 @@ function AppShell() {
                 sustainabilityLens={sustainabilityLens}
                 activeFilters={selectedFilters}
                 searchQuery={searchQuery}
-                onClearFilters={() => { setSelectedFilters([]); setSearchQuery(''); }}
+                onClearFilters={() => {
+                  setSelectedFilters([]);
+                  setSearchQuery('');
+                  // The button goes with the empty state; put focus where the
+                  // next search starts.
+                  document.querySelector('.search-field input')?.focus();
+                }}
                 missingPlace={location.state?.missingPlace ?? null}
               />
             </section>
@@ -362,7 +384,7 @@ function AppShell() {
       {/* Layer 2: Full-Screen Detail Modal */}
       <RestaurantDetail
         restaurant={selectedRestaurant}
-        onClose={() => navigate(tabPath)}
+        onClose={closePlace}
         isBookmarked={selectedRestaurant ? bookmarkedIds.includes(selectedRestaurant.id) : false}
         onToggleBookmark={handleToggleBookmark}
         isVisited={selectedRestaurant ? visitedIds.includes(selectedRestaurant.id) : false}

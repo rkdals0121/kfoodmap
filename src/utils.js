@@ -181,14 +181,15 @@ const toMercator = (lat, lng) => {
 export function naverMapUrl(place) {
   const { lat, lng } = coordsOf(place);
   const [x, y] = toMercator(lat, lng);
-  const name = encodeURIComponent(displayName(place.name));
+  // Commas separate fields in Naver's and Kakao's link paths: strip them from the name.
+  const name = encodeURIComponent(displayName(place.name).replace(/,/g, ' '));
   return `https://map.naver.com/p/directions/-/${x.toFixed(2)},${y.toFixed(2)},${name}/-/transit`;
 }
 
 // Kakao's route link starts from the phone's location too.
 export function kakaoMapUrl(place) {
   const { lat, lng } = coordsOf(place);
-  const name = encodeURIComponent(place.name);
+  const name = encodeURIComponent(displayName(place.name).replace(/,/g, ' '));
   return `https://map.kakao.com/link/to/${name},${lat},${lng}`;
 }
 

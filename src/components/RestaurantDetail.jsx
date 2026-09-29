@@ -460,13 +460,13 @@ export default function RestaurantDetail({
               </div>
 
               <div className="detail-directions">
-                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place), '_blank')}>
+                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place), '_blank', 'noopener,noreferrer')}>
                   Naver Map
                 </button>
-                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place), '_blank')}>
+                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place), '_blank', 'noopener,noreferrer')}>
                   Kakao Map
                 </button>
-                <button className="btn-primary btn-primary--google" onClick={() => window.open(directionsUrl(place), '_blank')}>
+                <button className="btn-primary btn-primary--google" onClick={() => window.open(directionsUrl(place), '_blank', 'noopener,noreferrer')}>
                   Google Maps
                 </button>
               </div>

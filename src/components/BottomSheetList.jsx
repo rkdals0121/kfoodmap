@@ -168,7 +168,7 @@ export default function BottomSheetList({
       {/* Said once for the whole list rather than on every card: the same
           caveat the detail page carries, so the lines below are never read as
           audited. */}
-      {missingPlace && (
+      {missingPlace && !searchQuery.trim() && activeFilters.length === 0 && (
         <p className="section-note place-list__note" role="status">{t('list.missingPlace')}</p>
       )}
 
@@ -224,7 +224,7 @@ export default function BottomSheetList({
               {t('list.clearAll')}
             </button>
           )}
-          <p className="place-list__hint-text">{t('list.noMatchHint')}</p>
+          <p className="place-list__hint-text">{t(activeFilters.length ? 'list.noMatchHint' : 'list.noMatchHintSearch')}</p>
         </div>
       )}
     </div>
