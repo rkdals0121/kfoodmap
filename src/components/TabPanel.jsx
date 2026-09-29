@@ -206,7 +206,9 @@ function ProfileTab({
   // app that refuses to show a dietary claim it cannot back, a control that
   // does nothing is the same class of untruth.
   const settings = [
-    { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: <GlobeIcon size={20} />, action: () => setLanguagePickerOpen(true) },
+    // A picker with one choice implies a choice that isn't there: until a
+    // second language ships, the row just states the language.
+    { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: <GlobeIcon size={20} />, action: LANGUAGES.length > 1 ? () => setLanguagePickerOpen(true) : null },
     { label: t('profile.suggestRestaurant'), value: '', icon: <MapPinIcon size={20} />, action: () => navigate('/submit') },
     // Shows the opening screen again: what the map is and how to read a claim.
     { label: t('profile.aboutApp'), value: '', icon: <InfoIcon size={20} />, action: () => { aboutOpener.current = document.activeElement; setAboutOpen(true); } },
@@ -276,7 +278,7 @@ function ProfileTab({
       )}
 
       <div className="settings-list">
-        {settings.map((item, idx) => (
+        {settings.map((item, idx) => (item.action ? (
           <button type="button" key={idx} className="settings-item" onClick={item.action}>
             <span className="settings-icon" aria-hidden="true">{item.icon}</span>
             <span className="settings-text">
@@ -285,7 +287,15 @@ function ProfileTab({
             {item.value && <span className="settings-value">{item.value}</span>}
             <ChevronRightIcon size={18} />
           </button>
-        ))}
+        ) : (
+          <div key={idx} className="settings-item settings-item--static">
+            <span className="settings-icon" aria-hidden="true">{item.icon}</span>
+            <span className="settings-text">
+              <span className="settings-label">{item.label}</span>
+            </span>
+            {item.value && <span className="settings-value">{item.value}</span>}
+          </div>
+        )))}
       </div>
 
       {session && (

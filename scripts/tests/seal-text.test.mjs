@@ -9,7 +9,7 @@ test('a seal carries the first Hangul word, cut like a seal', () => {
   assert.equal(sealText('Sanchon (산촌)').chars.join(''), '산촌');
 });
 
-test('no Korean name, or a word too long to cut, gives the initial', () => {
-  assert.deepEqual(sealText('Plant Cafe & Kitchen'), { chars: ['P'], cols: 1 });
+test('no Korean name gives 방문; a word too long to cut, its first character', () => {
+  assert.deepEqual(sealText('Plant Cafe & Kitchen'), { chars: ['방', '문'], cols: 2 });
   assert.deepEqual(sealText('X (가나다라마바사아자차)'), { chars: ['가'], cols: 1 });
 });

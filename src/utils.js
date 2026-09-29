@@ -22,7 +22,8 @@ export function haversineKm(lat1, lng1, lat2, lng2) {
 
 export function formatDistance(km) {
   if (!Number.isFinite(km)) return '';
-  if (km < 1) return `${Math.max(Math.round(km * 20) * 50, 50)} m`;
+  // Rounded to 50 m; 0.99 km would otherwise print as "1000 m".
+  if (km < 0.975) return `${Math.max(Math.round(km * 20) * 50, 50)} m`;
   if (km < 10) return `${km.toFixed(1)} km`;
   return `${Math.round(km)} km`;
 }
@@ -128,7 +129,8 @@ export function getOpenStatus(hoursFact, now = new Date()) {
 
   if (today.length === 0) {
     const next = nextOpening();
-    return { open: false, label: 'Closed', detail: next ? `closed today · ${next}` : 'closed today' };
+    // "Closed · opens tomorrow 5:00 PM" — the label already says closed.
+    return { open: false, label: 'Closed', detail: next ?? 'closed today' };
   }
 
   for (const slot of today) {

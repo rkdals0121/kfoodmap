@@ -24,7 +24,7 @@ export default function PlaceImage({ place, variant = 'thumb', className = '', o
         // Premium fallback instead of a blank box
         <div className="place-image__fallback">
           <div className="fallback-bg"></div>
-          <span className="fallback-initial">{getInitials(place.name)}</span>
+          <span className="fallback-initial" aria-hidden="true">{getInitials(place.name)}</span>
           <img className="fallback-illustration" src={place.image} alt="" />
         </div>
       )}

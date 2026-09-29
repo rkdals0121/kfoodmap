@@ -31,7 +31,7 @@ test("yesterday's late slot counts even if today is a closing day", () => {
   const w = every([{ from: '17:00', to: '02:00' }]);
   w.tue = [];
   assert.equal(getOpenStatus(hours(w), at(1, 0)).open, true);
-  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'closed today · opens tomorrow 5:00 PM');
+  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'opens tomorrow 5:00 PM');
 });
 
 test('last order after midnight is read against the late slot', () => {

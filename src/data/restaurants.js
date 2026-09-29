@@ -3032,7 +3032,7 @@ export const restaurants = [
   // (SUPPORTED) — Naver is unreachable from every tool available.
   {
     "id": "halal-busan-jib",
-    "name": "Busan Jib KBBQ (Halal)",
+    "name": "Busan Jib KBBQ (부산집)",
     "zone": "Myeongdong, Seoul",
     "category": "halal-korean",
     "coordinates": {
@@ -3221,7 +3221,7 @@ export const restaurants = [
   },
   {
     "id": "busan-jib-hongdae",
-    "name": "Busan Jib KBBQ Hongdae (Halal)",
+    "name": "Busan Jib KBBQ Hongdae (부산집)",
     "zone": "Hongdae, Seoul",
     "category": "halal-korean",
     "coordinates": {

@@ -197,12 +197,14 @@ export default function BottomSheetList({
               ].join(' + ')}
             </p>
           )}
-          <p>{t('list.noMatchHint')}</p>
+          {/* The way out comes before the hint, so it is visible in the
+              half-height sheet above the tab bar. */}
           {onClearFilters && (activeFilters.length > 0 || searchQuery.trim()) && (
             <button type="button" className="place-list__clear" onClick={onClearFilters}>
               {t('list.clearAll')}
             </button>
           )}
+          <p className="place-list__hint-text">{t('list.noMatchHint')}</p>
         </div>
       )}
     </div>

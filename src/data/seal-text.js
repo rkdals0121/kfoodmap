@@ -2,8 +2,8 @@
 // of its Korean name — "Balwoo Gongyang (발우공양)" → 발우공양, "Bonjuk
 // (본죽 송도신도시점)" → 본죽 — laid out the way a seal is cut: up to
 // three characters on one line, four as 2×2, five to nine in rows of three.
-// A place with no Korean name, or a first word too long to cut, gets its
-// initial.
+// A place with no Korean name gets 방문 ("visited"); a first word too
+// long to cut gets its first character.
 export function sealText(name) {
   const inParens = String(name).match(/\(([^)]*[가-힣][^)]*)\)/);
   const word = inParens
@@ -14,6 +14,8 @@ export function sealText(name) {
     const cols = n <= 3 ? n : n === 4 ? 2 : 3;
     return { chars: [...word], cols };
   }
-  const initial = (word ? word[0] : String(name).trim()[0] ?? '?').toUpperCase();
-  return { chars: [initial], cols: 1 };
+  // Latin initials in a seal looked like a template; a place with no
+  // usable Korean name is stamped 방문, "visited".
+  if (word) return { chars: [word[0]], cols: 1 };
+  return { chars: ['방', '문'], cols: 2 };
 }

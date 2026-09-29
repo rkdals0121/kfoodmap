@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, AttributionControl, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useTranslation } from 'react-i18next';
 import { MAP_CENTER, coordsOf } from '../utils';
 import { clusterPoints, isSameSpot } from '../data/cluster';
-import { dietaryBadges } from '../data/verification';
+import { dietaryBadges, trustBadge } from '../data/verification';
 import { pinKind } from '../data/pin-kind';
 
 // Reports the map center upward after each pan/zoom so the list can re-sort by distance
@@ -70,8 +70,13 @@ const pinIcon = (r, selected) => {
   if (!PINS.has(key)) PINS.set(key, makePinIcon(pinKind(r), selected));
   return PINS.get(key);
 };
-// A pin's accessible name carries what it says: "EID · Halal-friendly".
-const pinLabel = (r) => [r.name, ...dietaryBadges(r).map(b => b.label)].join(' · ');
+// A pin's accessible name carries what it says and how sure we are:
+// "EID · Halal-friendly, reported". The strength stays off the drawn pin,
+// which is too small to show it honestly.
+const pinLabel = (r) => [
+  r.name,
+  ...dietaryBadges(r).map(b => `${b.label}, ${trustBadge(b.fact).label.toLowerCase()}`),
+].join(' · ');
 
 // Count badge for pins that would overlap at this zoom (see data/cluster.js).
 const clusterIcons = new Map();
@@ -228,7 +233,11 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
 export default function MapComponent({ restaurants, onMarkerClick, selectedId, onCenterChange }) {
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
-      <MapContainer center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false}>
+      <MapContainer center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
+        {/* Top right, not Leaflet's bottom right: on a phone the list sheet
+            and tab bar cover the map's bottom edge, which hid the
+            OpenStreetMap credit its licence requires. */}
+        <AttributionControl position="topright" />
         {onCenterChange && <CenterReporter onCenterChange={onCenterChange} />}
         <ResizeSync />
         {/* This attribution is legally required credit markup for OpenStreetMap,

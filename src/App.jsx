@@ -210,7 +210,10 @@ function AppShell() {
   }
 
   return (
-    <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
+    <main className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
+      {/* The page's one H1, for screen readers and outlines; the map screen
+          has no visible title. */}
+      <h1 className="visually-hidden">K-Food Map</h1>
       {/* Map is now at the base level */}
       <div className="map-region" inert={mapCovered || modalOpen || undefined}>
         {!isOnline && (
@@ -345,7 +348,7 @@ function AppShell() {
       )}
       {isPrivacy && <PrivacySheet onClose={() => navigate('/', { replace: true })} />}
 
-    </div>
+    </main>
   );
 }
 
@@ -356,6 +359,9 @@ export default function App() {
       <Route path="/place/:id" element={<AppShell />} />
       <Route path="/submit" element={<AppShell />} />
       <Route path="/privacy" element={<AppShell />} />
+      {/* Anything else (/discover, an old link) lands on the map, not on a
+          blank page. */}
+      <Route path="*" element={<AppShell />} />
     </Routes>
   );
 }
