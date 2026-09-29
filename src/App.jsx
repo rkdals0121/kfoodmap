@@ -66,6 +66,20 @@ function AppShell() {
   // next sync resurrect the place. Children still receive only saved entries.
   const [entries, setEntries] = useState(loadLocalPassport);
   const [activeTab, setActiveTab] = useState('map');
+  // Below 768px a non-map tab covers the whole map. The map is then made
+  // inert, so Tab never lands on a pin nobody can see (WCAG 2.4.11). From
+  // 768px up the map stays visible beside the panel and stays usable.
+  const [isWide, setIsWide] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia?.('(min-width: 768px)').matches,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia?.('(min-width: 768px)');
+    if (!mq) return undefined;
+    const onChange = () => setIsWide(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  const mapCovered = activeTab !== 'map' && !isWide;
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
@@ -186,7 +200,7 @@ function AppShell() {
   return (
     <div className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
       {/* Map is now at the base level */}
-      <div className="map-region">
+      <div className="map-region" inert={mapCovered || undefined}>
         {!isOnline && (
           <div className="offline-banner" role="status">
             {t('app.offline')}
