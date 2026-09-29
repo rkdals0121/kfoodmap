@@ -824,7 +824,7 @@ export const restaurants = [
     // The history it rests on (2019 동인천, 2023 Cheongna, the vegan years) is
     // corroborated and kept.
     vibe: "A weekly-changing brunch buffet, in the room that was Incheon's best-known vegan restaurant.",
-    story: "Rim opened in 2019 on Dongincheon's Gaehang-ro as 더 비기닝 (The Beginning), moved to Cheongna in 2023, and spent years as the restaurant Incheon vegans named first — a Blue Ribbon kitchen where nothing on the plate came from an animal and the sauces were made in-house. In June 2026 it renovated into a brunch buffet with a menu that changes every week. Plant-based dishes are still the heart of it, but the buffet is no longer vegan-only: a chicken stew may sit on the same counter as the tofu salad. Worth knowing before you go, whichever way you eat.",
+    story: "Rim opened in 2019 on Dongincheon's Gaehang-ro as 더 비기닝 (The Beginning), moved to Cheongna in 2023, and spent years as a Blue Ribbon-listed vegan kitchen where nothing on the plate came from an animal and the sauces were made in-house. In June 2026 it renovated into a brunch buffet with a menu that changes every week. Plant-based dishes are still the heart of it, but the buffet is no longer vegan-only: a chicken stew may sit on the same counter as the tofu salad. Worth knowing before you go, whichever way you eat.",
     // Timeline events are drawn straight from the story above — all confirmed
     // during the 2026-07-17 verification (d24144c), none newly researched.
     timeline: [
