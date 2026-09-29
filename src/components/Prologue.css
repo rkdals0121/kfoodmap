@@ -3,38 +3,38 @@
   inset: 0;
   z-index: 10000;
   background: var(--bg);
+  overflow-y: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 24px;
 }
 
+/* margin: auto centres the column when it fits and lets it scroll from
+   the top when it doesn't (a centred flex child would spill off-screen). */
 .prologue-content {
   width: 100%;
   max-width: 400px;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  transition: opacity 0.3s ease;
+  animation: prologueIn 0.35s ease both;
 }
 
-.prologue-content.fade-in {
-  opacity: 1;
+@keyframes prologueIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
 }
 
-.prologue-content.fade-out {
-  opacity: 0;
+@media (prefers-reduced-motion: reduce) {
+  .prologue-content { animation: none; }
 }
 
-.prologue-step {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.prologue-step--center {
-  align-items: center;
-  text-align: center;
-  gap: 24px;
+.prologue-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-strong);
+  margin-bottom: 10px;
 }
 
 .prologue-title {
@@ -43,34 +43,61 @@
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--ink-title);
-  margin-bottom: 8px;
 }
 
 .prologue-subtitle {
+  margin-top: 12px;
   font-size: 16px;
   color: var(--ink-body);
   line-height: 1.5;
-  margin-bottom: 24px;
 }
 
-.prologue-trust {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
+.prologue-legend {
+  margin-top: 28px;
+  padding: 18px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.prologue-legend__title {
   font-size: 13px;
-  color: var(--muted-strong);
-  line-height: 1.45;
-  margin-top: -12px;
-  margin-bottom: 24px;
+  font-weight: 700;
+  color: var(--ink-title);
+  margin-bottom: 12px;
 }
 
-.prologue-trust svg {
-  flex-shrink: 0;
-  margin-top: 1px;
-  color: var(--green-strong);
+.prologue-legend ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prologue-legend__row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.prologue-legend__body {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-body);
+}
+
+.prologue-legend__note {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted-strong);
 }
 
 .prologue-btn {
+  margin-top: 24px;
   width: 100%;
   padding: 16px;
   background: var(--green-strong);
@@ -87,15 +114,7 @@
   opacity: 0.9;
 }
 
-.prologue-spinner {
-  width: 48px;
-  height: 48px;
-  border: 3px solid var(--line);
-  border-top-color: var(--green-strong);
-  border-radius: 50%;
-  animation: prologueSpin 1s linear infinite;
-}
-
-@keyframes prologueSpin {
-  to { transform: rotate(360deg); }
+.prologue-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
 }
