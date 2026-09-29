@@ -74351,4 +74351,1130 @@ export const restaurants = [
     "coverImage": null,
     "gallery": []
   },
+  // Zabihah nationwide sweep — 'Fully halal' listings with no open issue report.
+  {
+    "id": "cherry-garden-insadong",
+    "name": "Cherry Garden Insadong (체리가든 인사동점)",
+    "zone": "Insadong, Seoul",
+    "category": "halal-korean",
+    "coordinates": {
+      "value": {
+        "lat": 37.57324937820237,
+        "lng": 126.98581826736205
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1515270467",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's place record for '체리가든 인사동점' (place 1515270467) gives 37.573249, 126.985818. The walking-route endpoint resolves the name '체리가든' to the Jong-ro 326 branch instead, so the point is read from the place record. Zabihah's own pin (37.573243, 126.985770) is about 5 m away. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "3F, 29 Insadong-gil, Jongno-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1515270467",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '서울 종로구 인사동길 29 3층 (관훈동)', lot 관훈동 197-4. DiningCode (rid=t9wsTt6L7zrC): '서울특별시 종로구 인사동길 29 3층', lot '관훈동 197-4'. Zabihah gives only '3층, Insadong-gil, Seoul' with no building number, but its map pin sits about 5 m from Kakao's point. A 2026-08-15 blog post listed on the Kakao page also says '인사동길 29 3층'.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 10:00–22:00, last order 21:30",
+        "weekly": {
+          "sun": [
+            {
+              "from": "10:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "mon": [
+            {
+              "from": "10:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "tue": [
+            {
+              "from": "10:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "wed": [
+            {
+              "from": "10:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "thu": [
+            {
+              "from": "10:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "fri": [
+            {
+              "from": "10:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ],
+          "sat": [
+            {
+              "from": "10:00",
+              "to": "22:00",
+              "lastOrder": "21:30"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/1515270467",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: every day '10:00 ~ 22:00', '21:30 라스트오더'. DiningCode: '영업시간: 10:00 - 22:00 라스트오더: 21:30' for each day. Zabihah: Monday–Sunday 10:00 AM – 10:00 PM."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Halal samgyetang (삼계탕)",
+          "price": "15,000 KRW"
+        },
+        {
+          "name": "Halal dakgalbi (닭갈비)",
+          "price": "14,000 KRW"
+        },
+        {
+          "name": "Halal bulgogi (불고기)",
+          "price": "15,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=t9wsTt6L7zrC",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu (read twice, identical; undated): '삼계탕 Halal Samgyetang 15,000원', '닭갈비 (Halal Dalkgalb) 14,000원', '불고기 (Halal Bulgogi) 15,000원'. A 2026-08-15 blog post listed on the Kakao page quotes the same first item and price. Kakao shows no menu. A 2026-06-06 Kakao review also mentions bibimbap with a self-serve vegetable bar, which is not on DiningCode's list, so the list is probably partial."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "DiningCode gives 0507-1314-5264; Zabihah's page data gives 02-733-5264; Kakao lists none. The numbers differ, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website was sighted."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account was sighted."
+    },
+    "transit": {
+      "value": {
+        "station": "Anguk",
+        "line": "Line 3",
+        "exit": null,
+        "walkingMinutes": 9,
+        "distanceM": 618
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 안국역 3호선 to '서울 종로구 인사동길 29': 618 m / 540 s. The endpoint resolved the address to another tenant of the same building (destination 37.573242, 126.985764, about 5 m from Cherry Garden's point). Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "Zabihah says the restaurant 'accommodates both halal and vegetarian diets'. Vegetarian is not vegan, and no source opened names a vegan dish at this branch."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.zabihah.com/restaurants/4cdde2a7-b7c3-4a6e-a075-8b79d0d0e79e/cherry-garden-insadong-gil-seoul",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Zabihah (read twice as raw page text, identical): 'Cherry Garden serves authentic Korean cuisine prepared with halal-certified ingredients … The restaurant features a comfortable dining environment with prayer facilities'; halal summary 'Staff has given verbal assurance of halal status. All food at this restaurant is certified halal.' 'Fully halal', 'No alcohol allowed', HalalRank 79, 'Score reflects admin-confirmed halal status; no additional evidence on file yet.' No issue report is shown. Pork check: DiningCode's three-item menu labels every dish Halal (samgyetang, dakgalbi, bulgogi) and lists no pork and no alcohol. It is undated and probably partial, so pork is not fully ruled out. DiningCode also files the place under the category '순대' (sundae), which no menu item explains; its origin is unknown. Still trading: Kakao reviews dated 2026-06-06 and 2026-06-21, a Kakao-listed blog post dated 2026-08-15, and a Zabihah review dated Jul 7, 2026."
+      },
+      "halalCertClaim": {
+        "body": "an unnamed halal certifier (Zabihah says the food is 'certified halal' but names no authority)",
+        "statedBy": "Zabihah, a halal restaurant directory, not the operator",
+        "quote": "Staff has given verbal assurance of halal status. All food at this restaurant is certified halal.",
+        "status": "stated only by a directory-tier source; no certifying body named, no certificate number or expiry sighted"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A third-floor Korean kitchen on Insadong-gil with halal samgyetang, dakgalbi and bulgogi on its menu.",
+    "story": "Cherry Garden's Insadong branch is a small Korean restaurant on the third floor of a building on Insadong-gil. Its menu labels its samgyetang, dakgalbi and bulgogi as halal. The halal directory Zabihah lists it as fully halal with no alcohol, based on staff assurance, and mentions prayer facilities. Zabihah says the food is certified halal, but no certificate has been sighted and no certifying body is named.",
+    "esg_point": "Halal Korean dishes, samgyetang included, in the middle of Insadong",
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "jyoti-chungmuro",
+    "name": "Jyoti Indian Restaurant Chungmuro (죠티인도레스토랑 충무로지점)",
+    "zone": "Chungmuro, Jung-gu, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5612994036064,
+        "lng": 126.997958192927
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint resolves '죠티인도레스토랑 충무로지점' (place.map.kakao.com/27268075) to 37.561299, 126.997958 (route from 충무로역 3호선); Kakao's place record gives the same point. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "12-4 Seoae-ro, Jung-gu, Seoul (Chungmuro 5-ga 85-2)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27268075",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Zabihah: '85-2, Chungmuro 5 (o)ga, Jung-gu, Seoul'. Kakao Map (place 27268075): '서울 중구 서애로 12-4 (충무로5가)', lot '충무로5가 85-2', the same lot. DiningCode (rid=vnOkXE1ZnaQ7): '서애로 12-4 고려빌딩', lot '충무로5가 85-2'.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and DiningCode give 11:00–22:30 with a 15:00–17:00 break; Zabihah gives 12:00 PM – 10:00 PM daily. The sources disagree, so hours are left unknown."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Pani puri",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "Vegetable biryani",
+          "price": "11,000 KRW"
+        },
+        {
+          "name": "Lamb curry",
+          "price": "13,000 KRW"
+        },
+        {
+          "name": "Shrimp vindaloo",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Kadai lamb",
+          "price": "14,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/27268075",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's 14-item menu, last edited 2023-10-31 to 2023-12-29 (listing not owner-registered): '빠니푸리 6000', '베지터블브리야니 11000', '램커리 13000', '새우빈달루 12000', '카다이램 14000'. Prices are about three years old."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and Zabihah's page data give 02-2261-2912; DiningCode gives 0507-1400-7305. The sources disagree, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Zabihah links https://www.jyotifood.com, but the page returned no readable text, so nothing on it could be checked."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account was sighted."
+    },
+    "transit": {
+      "value": {
+        "station": "Chungmuro",
+        "line": "Line 3 / Line 4",
+        "exit": null,
+        "walkingMinutes": 7,
+        "distanceM": 421
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 충무로역 3호선 to 죠티인도레스토랑 충무로지점: 421 m / 408 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "DiningCode's menu names a '비건 케이티 롤' (vegan kati roll), but who wrote that menu is unknown and no directory classifies the restaurant as vegan-friendly. Left unknown."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.zabihah.com/restaurants/cb217e6f-7767-11ef-95ae-6045bdeb9f57/jyoti-jung-gu-seoul",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Zabihah (read twice as raw page text, identical): 'The owners are Muslim and have confirmed its halal status. All food at this restaurant is certified halal.' 'Fully halal', 'No alcohol allowed', HalalRank 83, 'Score reflects a halal certificate on file.' No issue report is shown. Pork check: Kakao's 14-item menu (edited 2023) lists lamb, shrimp and vegetable dishes and no pork; DiningCode's undated menu lists chicken, paneer and vegetable dishes and no pork; a 2026-03-22 Kakao review names 치킨빈달루 (chicken vindaloo). No alcohol on either menu. Both menus are old or partial, so pork is not fully ruled out. Still trading: Kakao reviews dated 2026-03-22, 2026-05-21 and 2026-08-06; Kakao-listed blog posts dated 2026-05-07 to 2026-09-06."
+      },
+      "halalCertClaim": {
+        "body": "an unnamed halal certifier (Zabihah says a certificate is on file but names no authority)",
+        "statedBy": "Zabihah, a halal restaurant directory, not the operator",
+        "quote": "The owners are Muslim and have confirmed its halal status. All food at this restaurant is certified halal. ... Score reflects a halal certificate on file.",
+        "status": "stated only by a directory-tier source; no certifying body named, no certificate number or expiry sighted"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "An Indian restaurant a few minutes' walk from Chungmuro Station, near Dongguk University.",
+    "story": "Jyoti is an Indian restaurant on Seoae-ro near Chungmuro Station, with lamb and shrimp curries, biryani and street snacks such as pani puri. The halal directory Zabihah lists it as fully halal with no alcohol and says the owners are Muslim. Zabihah also notes a certificate on file, but no certificate has been sighted and no certifying body is named.",
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "jyoti-sinchon",
+    "name": "Jyoti Indian Restaurant Sinchon (죠티인도레스토랑 신촌점)",
+    "zone": "Sinchon, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5549509106072,
+        "lng": 126.937954252432
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint resolves '죠티인도레스토랑 신촌점' (place.map.kakao.com/12570290) to 37.554951, 126.937954 (route from 신촌역 2호선); Kakao's place record gives the same point. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "3F, 6 Sinchon-ro 20-gil, Mapo-gu, Seoul (Nogosan-dong 31-4)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/12570290",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Zabihah: '31-4 Nogosan-dong, Mapo-gu, Seoul'. Kakao Map (place 12570290): '서울 마포구 신촌로20길 6 3층 (노고산동)', lot '노고산동 31-4', the same lot. DiningCode (rid=p9puxfCp1Qk1): '신촌로20길 6 3층', lot '노고산동 31-4'.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and DiningCode give 11:00–22:00 daily; Zabihah gives 12:00 PM – 10:00 PM daily. The opening times disagree, so hours are left unknown."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Chicken butter masala",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Palak paneer",
+          "price": "12,000 KRW"
+        },
+        {
+          "name": "Samosa",
+          "price": "5,000 KRW"
+        },
+        {
+          "name": "Pani puri",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "Lunch set",
+          "price": "10,500 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=p9puxfCp1Qk1",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode's menu (read twice, identical; undated): '치킨버터마살라 12,000 원', '팔락파니르 12,000 원', '사모사 5,000 원', '파니푸리 6,000 원', '점심세트 10,500 원'. Kakao's 7-item menu was last edited 2019–2022 with older prices, so DiningCode's list is used."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and Zabihah's page data give 02-703-3535; DiningCode gives 0507-1403-3536. The sources disagree, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Zabihah links https://www.jyotifood.com, but the page returned no readable text, so nothing on it could be checked."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account was sighted."
+    },
+    "transit": {
+      "value": {
+        "station": "Sinchon",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 2,
+        "distanceM": 136
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 신촌역 2호선 to 죠티인도레스토랑 신촌점: 136 m / 142 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "DiningCode's menu names a '비건야채 케이트 롤' (vegan vegetable kati roll) and a Kakao-listed 2025-08-17 blog title says '비건 가능한' (vegan possible), but no directory classifies the restaurant as vegan-friendly and the menu's author is unknown. Left unknown."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.zabihah.com/restaurants/cb217c1e-7767-11ef-95ae-6045bdeb9f57/jyoti-mapo-gu-seoul",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Zabihah (read twice as raw page text, identical): 'The owners are Muslim and have confirmed its halal status. All food at this restaurant is certified halal.' 'Fully halal', 'No alcohol allowed', HalalRank 83, 'Score reflects a halal certificate on file.' No issue report is shown. Pork check: DiningCode's undated menu and Kakao's 7-item menu (edited 2019–2022) list chicken, paneer, vegetable and momo dishes and no pork; no alcohol on either. Both menus are partial or old, so pork is not fully ruled out. Still trading: a Kakao review dated 2025-08-09 and Kakao-listed blog posts dated 2025-08-16 to 2025-12-09."
+      },
+      "halalCertClaim": {
+        "body": "an unnamed halal certifier (Zabihah says a certificate is on file but names no authority)",
+        "statedBy": "Zabihah, a halal restaurant directory, not the operator",
+        "quote": "The owners are Muslim and have confirmed its halal status. All food at this restaurant is certified halal. ... Score reflects a halal certificate on file.",
+        "status": "stated only by a directory-tier source; no certifying body named, no certificate number or expiry sighted"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A third-floor Indian restaurant a couple of minutes from Sinchon Station.",
+    "story": "Jyoti's Sinchon branch is an Indian restaurant on a third floor just off Sinchon Station, serving curries such as chicken butter masala and palak paneer, samosas and lunch sets. The halal directory Zabihah lists it as fully halal with no alcohol and says the owners are Muslim. Zabihah also notes a certificate on file, but no certificate has been sighted and no certifying body is named.",
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "jayeondo-sogeumppang-seongsu",
+    "name": "Jayeondo Sogeumppang Seongsu (자연도소금빵 in성수)",
+    "zone": "Seongsu-dong, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5423023667186,
+        "lng": 127.055457652937
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint resolves '자연도소금빵 in성수' (place.map.kakao.com/134679676) to 37.542302, 127.055458 (route from 성수역 2호선); Kakao's place record gives the same point. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 56-1 Yeonmujang-gil, Seongdong-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/134679676",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Zabihah: '56-1 Yeonmujang-gil, Seongdong-gu, Seoul'. Kakao Map (place 134679676): '서울 성동구 연무장길 56-1 1층 (성수동2가)'. DiningCode (rid=jftm0RNQyfDp): '연무장길 56-1 1층'. All agree.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 09:00–22:00",
+        "weekly": {
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/134679676",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '09:00 ~ 22:00' every day. Zabihah: Monday–Sunday 09:00 AM – 10:00 PM. DiningCode: '영업시간: 09:00 - 22:00' each day."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Salt bread, set of 4 (소금빵 4개)",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/134679676",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao's menu (edited 2023-09-27): '소금빵4개 12000'. Zabihah's description says the branch sells salt bread only, in sets of four; a Zabihah review dated Mar 6, 2026 is on the same listing."
+    },
+    "phone": {
+      "value": "02-463-2245",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=jftm0RNQyfDp",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode: '02-463-2245'. Zabihah's page data: '02-463-2245'. Kakao lists no number."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website was sighted."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account was sighted."
+    },
+    "transit": {
+      "value": {
+        "station": "Seongsu",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 422
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 성수역 2호선 to 자연도소금빵 in성수: 422 m / 379 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source mentions vegan items; Zabihah and Kakao reviews describe the salt bread as buttery."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.zabihah.com/restaurants/b72d1bc0-28d5-4712-a696-61fae49e190d/jayeondo-sogeumppang-salt-bread-seongdong-gu-seoul",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Zabihah (read twice as raw page text, identical): 'Staff has given verbal assurance of halal status. Featured by Instagram channel @halalornothing.' 'Fully halal', 'No alcohol allowed', HalalRank 78, 'Score reflects admin-confirmed halal status; no additional evidence on file yet.' No issue report is shown. No certificate is claimed. Pork check: the only product is salt bread (Kakao's menu (edited 2023-09-27): '소금빵4개 12000'); no pork and no alcohol on the menu. Still trading: Kakao reviews dated 2026-04-22 to 2026-07-28 and Kakao-listed blog posts dated 2026-09-21 to 2026-09-26, plus a Zabihah review dated Mar 6, 2026."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A single-product salt-bread bakery on Seongsu's Yeonmujang-gil.",
+    "story": "Jayeondo's Seongsu branch is a takeaway salt-bread bakery on Yeonmujang-gil that sells one thing: salt bread, in sets of four. You order at a kiosk and collect at the counter. Zabihah, a halal restaurant directory, lists it as fully halal with no alcohol, based on the staff's assurance. No certificate has been sighted.",
+    "esg_point": null,
+    "image": "/images/fallback.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "jayeondo-sogeumppang-yeonnam",
+    "name": "Jayeondo Sogeumppang Yeonnam (자연도소금빵 in연남)",
+    "zone": "Yeonnam-dong, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5596633177838,
+        "lng": 126.924374438302
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint resolves '자연도소금빵in연남' (place.map.kakao.com/940858855) to 37.559663, 126.924374 (route from 홍대입구역 2호선); Kakao's place record gives the same point. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 33 Yanghwa-ro 21-gil, Mapo-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/940858855",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Zabihah gives '1 층, Yanghwa-ro 21-gil, Seoul' without a building number; its pin (37.559649, 126.924361) is about 2 m from Kakao's point. Kakao Map (place 940858855): '서울 마포구 양화로21길 33 1층 (동교동)'. DiningCode (rid=hotEbRz5p6pH): '양화로21길 33 1층'.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 09:00–22:00",
+        "weekly": {
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/940858855",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '09:00 ~ 22:00' every day. Zabihah: Monday–Sunday 09:00 AM – 10:00 PM. DiningCode: '영업시간: 09:00 - 22:00' each day."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Salt bread, set of 4 (소금빵 4개)",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/940858855",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao's menu (edited 2025-05-12): '자연도소금빵 12000'. Zabihah's description says the branch sells salt bread only, in sets of four; a Zabihah review dated Jun 2, 2026 is on the same listing."
+    },
+    "phone": {
+      "value": "02-336-2245",
+      "confidence": "supported",
+      "source": "Restaurant directory listing",
+      "url": "https://www.diningcode.com/profile.php?rid=hotEbRz5p6pH",
+      "method": "Read from a directory listing",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "DiningCode: '02-336-2245'. Kakao and Zabihah list no number; not cross-checked."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website was sighted."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account was sighted."
+    },
+    "transit": {
+      "value": {
+        "station": "Hongik University",
+        "line": "Line 2",
+        "exit": null,
+        "walkingMinutes": 6,
+        "distanceM": 399
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 홍대입구역 2호선 to 자연도소금빵in연남: 399 m / 360 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source mentions vegan items; Zabihah and Kakao reviews describe the salt bread as buttery."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.zabihah.com/restaurants/c1fb7fa4-89cb-4cf6-a639-813b812e59b0/jayeondo-sogeumppang-salt-bread-yanghwa-ro-21-gil-seoul",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Zabihah (read twice as raw page text, identical): 'Staff has given verbal assurance of halal status. Featured by Instagram channel @halalornothing.' 'Fully halal', 'No alcohol allowed', HalalRank 78, 'Score reflects admin-confirmed halal status; no additional evidence on file yet.' No issue report is shown. No certificate is claimed. Pork check: the only product is salt bread (Kakao's menu (edited 2025-05-12): '자연도소금빵 12000'); no pork and no alcohol on the menu. Still trading: Kakao reviews dated 2026-02-21 to 2026-04-03 and Kakao-listed blog posts dated 2026-09-17 to 2026-09-20, plus a Zabihah review dated Jun 2, 2026."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A kiosk-order salt-bread bakery between Hongdae and Yeonnam-dong.",
+    "story": "Jayeondo's Yeonnam branch is a salt-bread bakery a short walk from Hongik University Station, selling salt bread in sets of four from a kiosk. Zabihah, a halal restaurant directory, lists it as fully halal with no alcohol, based on the staff's assurance. No certificate has been sighted.",
+    "esg_point": null,
+    "image": "/images/fallback.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "jayeondo-sogeumppang-dosan",
+    "name": "Jayeondo Sogeumppang Dosan (자연도소금빵 도산점)",
+    "zone": "Apgujeong Rodeo, Gangnam-gu, Seoul",
+    "category": "brunch-bakery",
+    "coordinates": {
+      "value": {
+        "lat": 37.5257095839891,
+        "lng": 127.03689909603
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint resolves '자연도소금빵 도산점' (place.map.kakao.com/81925925) to 37.525710, 127.036899 (route from 압구정로데오역); Kakao's place record gives the same point. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 41 Dosan-daero 49-gil, Gangnam-gu, Seoul",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/81925925",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Zabihah gives 'Dosan-daero 49-gil, Gangnam, Seoul' without a building number; its pin (37.525727, 127.036895) is about 2 m from Kakao's point. Kakao Map (place 81925925): '서울 강남구 도산대로49길 41 1층 (신사동)'. DiningCode (rid=CT99woKgI1Un): '도산대로49길 41 1층'.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": {
+        "raw": "Daily 09:00–22:00",
+        "weekly": {
+          "sun": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "mon": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "from": "09:00",
+              "to": "22:00"
+            }
+          ]
+        }
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/81925925",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '09:00 ~ 22:00' every day. Zabihah: Monday–Sunday 09:00 AM – 10:00 PM. DiningCode: '영업시간: 09:00 - 22:00' each day."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Salt bread, set of 4 (소금빵 4개)",
+          "price": "12,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/81925925",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao's menu (edited 2023-12-13): '소금빵 (4개) 12000'. Zabihah's description says the branch sells salt bread only, in sets of four; a Zabihah review dated May 4, 2026 is on the same listing."
+    },
+    "phone": {
+      "value": "02-512-2245",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/81925925",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map: '02-512-2245'. DiningCode: '02-512-2245'."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website was sighted."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account was sighted."
+    },
+    "transit": {
+      "value": {
+        "station": "Apgujeong Rodeo",
+        "line": "Suin–Bundang Line",
+        "exit": null,
+        "walkingMinutes": 8,
+        "distanceM": 542
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 압구정로데오역 to 자연도소금빵 도산점: 542 m / 480 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "No source mentions vegan items; Zabihah and Kakao reviews describe the salt bread as buttery."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.zabihah.com/restaurants/03146d3c-7ea1-4a58-8c28-212e2dd060e6/jayeondo-sogeumppang-salt-bread-gangnam-seoul",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Zabihah (read twice as raw page text, identical): 'Staff has given verbal assurance of halal status. Featured by Instagram channel @halalornothing.' 'Fully halal', 'No alcohol allowed', HalalRank 78, 'Score reflects admin-confirmed halal status; no additional evidence on file yet.' No issue report is shown. No certificate is claimed. Pork check: the only product is salt bread (Kakao's menu (edited 2023-12-13): '소금빵 (4개) 12000'); no pork and no alcohol on the menu. Still trading: Kakao reviews dated 2025-09-16 to 2026-01-25 and Kakao-listed blog posts dated 2026-02-09 to 2026-02-24, plus a Zabihah review dated May 4, 2026."
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A takeaway salt-bread bakery in the Apgujeong Rodeo side streets.",
+    "story": "Jayeondo's Dosan branch is a takeaway salt-bread bakery in the Apgujeong Rodeo side streets, selling salt bread warm in sets of four. Zabihah, a halal restaurant directory, lists it as fully halal with no alcohol, based on the staff's assurance. No certificate has been sighted.",
+    "esg_point": null,
+    "image": "/images/fallback.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
+  {
+    "id": "adnan-kebab-hoehyeon",
+    "name": "Adnan Kebab (아드난 케밥)",
+    "zone": "Namdaemun Market, Jung-gu, Seoul",
+    "category": "world-halal",
+    "coordinates": {
+      "value": {
+        "lat": 37.5590521530169,
+        "lng": 126.978355684326
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's walking-route endpoint resolves '아드난 케밥' (place.map.kakao.com/17908634) to 37.559052, 126.978356 (route from 회현역 4호선); Kakao's place record gives the same point. Naver is unreachable, so this is Kakao-only and held at SUPPORTED."
+    },
+    "address": {
+      "value": "1F, 57 Toegye-ro, Jung-gu, Seoul (Namchang-dong 46-14)",
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17908634",
+      "method": "Independent sources agree",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Zabihah: '46-14 Namchang Dong, Jung-gu, Seoul'. Kakao Map (place 17908634): '서울 중구 퇴계로 57 1층 (남창동)', lot '남창동 46-14', the same lot. DiningCode (rid=yBdcd4OIFxU0): '서울특별시 중구 퇴계로 57', lot '남창동 46-14'. Zabihah's map pin is misplaced (about 1.9 km east), but its written address matches.",
+      "precision": "street"
+    },
+    "hours": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map gives 11:00–20:00 Monday–Saturday with no Sunday hours; Zabihah gives 11:00 AM – 10:00 PM every day; DiningCode says hours need checking. The sources disagree, so hours are left unknown."
+    },
+    "menus": {
+      "value": [
+        {
+          "name": "Lamb kebab (양고기케밥)",
+          "price": "7,000 KRW"
+        },
+        {
+          "name": "Chicken kebab (치킨케밥)",
+          "price": "6,000 KRW"
+        },
+        {
+          "name": "Royal kebab (로얄케밥)",
+          "price": "6,500 KRW"
+        },
+        {
+          "name": "Rice chicken kebab (라이스치킨케밥)",
+          "price": "9,000 KRW"
+        },
+        {
+          "name": "Falafel & hummus (팔라펠&호우스)",
+          "price": "10,000 KRW"
+        }
+      ],
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": "https://place.map.kakao.com/17908634",
+      "method": "Map service lookup",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map's 8-item menu, edited 2026-04-22 to 2026-06-29 (listing not owner-registered): '양고기케밥 7000', '치킨케밥 6000', '로얄케밥 6500', '라이스치킨케밥 9000', '팔라펠&호우스 10000'. DiningCode's undated menu lists the same dishes at lower, older prices."
+    },
+    "phone": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "Kakao Map and DiningCode give 02-776-6904; Zabihah's page data gives +82 10 3131 1764. The sources disagree, so the phone is left unknown."
+    },
+    "officialUrl": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No operator website was sighted."
+    },
+    "instagram": {
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "No Instagram account was sighted."
+    },
+    "transit": {
+      "value": {
+        "station": "Hoehyeon",
+        "line": "Line 4",
+        "exit": null,
+        "walkingMinutes": 4,
+        "distanceM": 254
+      },
+      "confidence": "supported",
+      "source": "Naver Place / Kakao Map",
+      "url": null,
+      "method": "Map service routing API",
+      "lastCheckedAt": "2026-09-29",
+      "evidence": "Kakao Map walking route from 회현역 4호선 to 아드난 케밥: 254 m / 249 s. Exit not given by the routing API."
+    },
+    "dietary": {
+      "vegan": {
+        "value": null,
+        "confidence": "unknown",
+        "source": null,
+        "url": null,
+        "method": null,
+        "lastCheckedAt": null,
+        "evidence": "Falafel is on the menu, but no source says whether the falafel wraps or sauces are vegan."
+      },
+      "halal": {
+        "value": "friendly",
+        "confidence": "supported",
+        "source": "Restaurant directory listing",
+        "url": "https://www.zabihah.com/restaurants/cb1d3ff0-7767-11ef-95ae-6045bdeb9f57/adnan-kebab-jung-gu-seoul",
+        "method": "Read from a directory listing",
+        "lastCheckedAt": "2026-09-29",
+        "evidence": "Zabihah (read twice as raw page text, identical): 'Iraqi kebabs and falafel.' Halal summary: 'Staff has given verbal assurance of halal status. All food at this restaurant is certified halal.' 'Fully halal', 'No alcohol allowed', HalalRank 78, 'Score reflects a halal certificate on file.' No issue report is shown. Zabihah's only review is dated Nov 26, 2014. Pork check: Kakao's current 8-item menu (edited April–June 2026) lists lamb, chicken and falafel only, with no pork and no alcohol; a 2025-06-21 Kakao review says the spit-roasted meat is chicken. Still trading: menu edits dated 2026-04-22 to 2026-06-29 and Kakao-listed blog posts dated 2026-04-16 to 2026-06-09."
+      },
+      "halalCertClaim": {
+        "body": "an unnamed halal certifier (Zabihah says a certificate is on file but names no authority)",
+        "statedBy": "Zabihah, a halal restaurant directory, not the operator",
+        "quote": "Staff has given verbal assurance of halal status. All food at this restaurant is certified halal. ... Score reflects a halal certificate on file.",
+        "status": "stated only by a directory-tier source; no certifying body named, no certificate number or expiry sighted"
+      }
+    },
+    "imageLeads": [],
+    "traits": [],
+    "vibe": "A takeaway kebab counter on Toegye-ro at the edge of Namdaemun Market, by Hoehyeon Station.",
+    "story": "Adnan Kebab is a small takeaway counter at the Namdaemun Market end of Toegye-ro, a few minutes' walk from Hoehyeon Station, selling lamb and chicken kebabs, rice kebabs and falafel. The halal directory Zabihah lists it as fully halal with no alcohol, based on staff assurance, and notes a certificate on file, but no certificate has been sighted and no certifying body is named.",
+    "esg_point": null,
+    "image": "/images/halal_meat.svg",
+    "photo": null,
+    "coverImage": null,
+    "gallery": []
+  },
 ];
