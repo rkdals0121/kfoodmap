@@ -2,8 +2,8 @@
 //
 // Every statement here was measured against the code on 2026-09-29, not
 // assumed: localStorage keys (App.jsx, i18n/index.js, Prologue.jsx,
-// data/auth.js, data/passport.js), the hosts the browser contacts (index.css
-// @import, MapComponent TileLayer — OpenStreetMap since 2026-09-28, CARTO
+// data/auth.js, data/passport.js), the hosts the browser contacts (the
+// typeface is self-hosted since 2026-09-29 — no font host; MapComponent TileLayer — OpenStreetMap since 2026-09-28, CARTO
 // before that, SubmitSheet, Supabase Auth for sign-in and passport sync),
 // and the absence of analytics, cookies and geolocation. If the app starts
 // storing or sending something new, this file must change in the same
@@ -33,7 +33,7 @@ export const privacyPolicy = {
       {
         heading: 'In short',
         items: [
-          'You can use K-Food Map without an account. If you don’t sign in, nothing below about accounts or signing in applies — the rest of this page still does, because sending a report, hosting, fonts and map images do not wait for an account.',
+          'You can use K-Food Map without an account. If you don’t sign in, nothing below about accounts or signing in applies — the rest of this page still does, because sending a report, hosting and map images do not wait for an account.',
           'We do not use your location, run analytics, show ads, or set cookies.',
           'If you sign in with Google, Supabase (our authentication provider) stores your email address and account ID, and your account holds which places you saved or marked visited, and when — never your name, coordinates, photos, or location.',
           'We also receive personal information if you choose to send a report and include your email address.',
@@ -62,7 +62,7 @@ export const privacyPolicy = {
           'Kakao Corp. (Republic of Korea) provides the restaurant search shown while you type a name in the report form. The text you have typed is relayed to Kakao by our server, not sent directly from your browser, so Kakao does not receive your IP address.',
           'Supabase Inc. (United States) stores the reports you send, and — if you sign in — your account (email address, account ID) and the places you saved or marked visited. Your browser also asks Supabase directly, even signed out, whether Google sign-in is turned on, which sends Supabase your IP address but no other information about you.',
           'Google LLC (United States), through Supabase, is who you sign in with if you choose to. Google gives Supabase your email address and account ID; we never see your Google password.',
-          'Google Fonts (Google LLC, United States) provides the typeface, and OpenStreetMap provides the map images. Your browser requests these directly, which sends them your IP address.',
+          'OpenStreetMap provides the map images. Your browser requests them directly, which sends OpenStreetMap your IP address. The typeface (Pretendard GOV) is served from this site itself, not from a font service.',
           'Links to Google Maps, Naver Map, Kakao Map, and restaurant websites take you to those services; their own privacy policies apply there.',
         ],
       },
@@ -84,7 +84,7 @@ export const privacyPolicy = {
       {
         heading: '요약',
         items: [
-          'K-Food Map은 회원가입 없이 이용할 수 있습니다. 로그인하지 않으면 계정·로그인에 관한 아래 내용은 해당하지 않지만, 그 밖의 내용은 그대로 적용됩니다 — 제보 전송, 호스팅, 글꼴과 지도 이미지는 계정과 무관하게 이루어집니다.',
+          'K-Food Map은 회원가입 없이 이용할 수 있습니다. 로그인하지 않으면 계정·로그인에 관한 아래 내용은 해당하지 않지만, 그 밖의 내용은 그대로 적용됩니다 — 제보 전송, 호스팅과 지도 이미지는 계정과 무관하게 이루어집니다.',
           '위치 정보를 사용하지 않으며, 이용 분석 도구·광고·쿠키를 사용하지 않습니다.',
           'Google 계정으로 로그인하면 인증을 담당하는 Supabase가 이메일 주소와 계정 ID를 저장하며, 계정에는 이용자가 저장하거나 방문 표시한 장소와 그 시각이 함께 보관됩니다 — 이름·좌표·사진·위치 정보는 포함되지 않습니다.',
           '이용자가 제보를 보내면서 이메일 주소를 적은 경우에도 개인정보를 받습니다.',
@@ -113,7 +113,7 @@ export const privacyPolicy = {
           '카카오 주식회사(대한민국)가 제보 양식에서 식당 이름을 입력하는 동안 보여지는 장소 검색을 제공합니다. 입력한 글자는 이용자의 브라우저가 아니라 저희 서버를 통해 카카오로 전달되므로, 카카오는 이용자의 IP 주소를 받지 않습니다.',
           'Supabase Inc.(미국)가 이용자가 보낸 제보를 저장하며, 로그인한 경우에는 계정 정보(이메일 주소, 계정 ID)와 저장·방문 표시한 장소도 저장합니다. 로그인하지 않은 상태에서도 브라우저는 Google 로그인이 켜져 있는지 확인하기 위해 Supabase에 직접 요청을 보내며, 이때 IP 주소가 전달되지만 그 밖의 정보는 전달되지 않습니다.',
           'Google LLC(미국)는 Supabase를 통해 이용자가 로그인을 선택할 경우의 로그인 제공자입니다. Google은 Supabase에 이메일 주소와 계정 ID를 전달하며, 저희는 이용자의 Google 비밀번호를 알 수 없습니다.',
-          'Google Fonts(Google LLC, 미국)가 글꼴을, OpenStreetMap이 지도 이미지를 제공합니다. 브라우저가 이를 직접 불러오므로 해당 서비스에 IP 주소가 전달됩니다.',
+          'OpenStreetMap이 지도 이미지를 제공합니다. 브라우저가 이를 직접 불러오므로 OpenStreetMap에 IP 주소가 전달됩니다. 글꼴(Pretendard GOV)은 글꼴 서비스가 아니라 이 사이트에서 직접 제공합니다.',
           'Google 지도, 네이버 지도, 카카오맵, 식당 웹사이트로 연결되는 링크를 누르면 해당 서비스로 이동하며, 그곳에서는 각 서비스의 개인정보처리방침이 적용됩니다.',
         ],
       },
