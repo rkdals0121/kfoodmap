@@ -2092,6 +2092,25 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     **Naver is still unavailable**: the PlayMCP Naver tool is suspended by
     its provider and the user cannot re-enable it; coordinates can only be
     CONFIRMED once a Naver source returns.
+40. **Halal certificates: KMF's own registry, 2026-09-29.** kmfhalal.or.kr/cert
+    links a public Google Sheet of every KMF certificate (1,121 rows, only 5
+    restaurants). Dongmoon (Nami Island) has a current one (KMFHC26-0160, to
+    2027-03-16), but it is held by the company 주식회사남문, not the outlet,
+    so the level stays `friendly`; Busan Jib's two expired 2026-04-14; EID and
+    Kervan have no row. `halalCertClaim.note` (new, optional) replaces "we
+    have not sighted the certificate" when a registry row was seen but does
+    not settle the claim (docs/DATA.md; ruling in RULINGS.md). No place is
+    `certified` yet. Indonesia's BPJPH registry (Jeju) was down all day.
+41. **Phone-width UI fixes, 2026-09-29 late afternoon.** Discover and Profile
+    were centred in a fixed box with no overflow, so on a phone the top
+    ~1,800px of Discover (heading, first journeys) and the bottom of Profile
+    could not be reached; they now stack from the top and scroll. Culture
+    stories are picked by id (name lookups had stopped matching three of
+    four) and open their place. List cards: status and distance on one line,
+    hours on the next, names wrap to two lines, and a tap on the thumbnail
+    opens the place (the placeholder sat above the stretched link). Detail:
+    no place has a photo yet, so the placeholder hero is a 5:2 band and no
+    longer opens a gallery. Profile settings rows are real buttons.
 
 
 ---
