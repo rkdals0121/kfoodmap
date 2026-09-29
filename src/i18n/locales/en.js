@@ -86,7 +86,9 @@ export default {
   },
   discover: {
     journeysTitle: 'Food Journeys',
-    journeysSubtitle: 'Themed half-days through already-verified restaurants.',
+    journeysSubtitle: 'Themed half-days through places on this map. Each stop says how sure we are.',
+    journeyClaims: 'Dietary claims across these stops: {{summary}}.',
+    storyLabel: 'Story',
     cultureTitle: 'Culture Hub',
     cultureSubtitle: 'Explore the history and traditions behind Korean food.',
     readStory: 'Read Story',

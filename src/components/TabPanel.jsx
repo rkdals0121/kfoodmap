@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { SparkleIcon, UserIcon, ChevronRightIcon, CompassIcon } from './Icons';
 import { restaurants } from '../data/restaurants';
-import { isQuarantined } from '../data/verification';
+import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
 import PlaceImage from './PlaceImage';
 import { LANGUAGE_STORAGE_KEY } from '../i18n/index.js';
@@ -31,6 +31,23 @@ const cultureStories = CULTURE_STORY_IDS
 const resolvedJourneys = journeys
   .map(j => ({ ...j, stops: j.stopIds.map(id => byId[id]) }))
   .filter(j => j.stops.every(place => place && !isQuarantined(place)));
+
+// How sure the map is about a journey's dietary claims, counted across its
+// stops, so being curated never lends a place more certainty than its own
+// record has (docs/UI-DIRECTION.md). Words, in the claim-mark vocabulary.
+function claimSummary(stops, t) {
+  const order = ['strong', 'medium', 'weak'];
+  const counts = {};
+  for (const place of stops) {
+    for (const b of dietaryBadges(place)) {
+      const { label, tone } = trustBadge(b.fact);
+      counts[tone] = counts[tone] ?? { label, n: 0 };
+      counts[tone].n += 1;
+    }
+  }
+  const parts = order.filter(k => counts[k]).map(k => `${counts[k].n} ${counts[k].label.toLowerCase()}`);
+  return parts.length ? t('discover.journeyClaims', { summary: parts.join(', ') }) : null;
+}
 
 function DiscoverTab() {
   const { t } = useTranslation();
@@ -69,6 +86,9 @@ function DiscoverTab() {
                     </li>
                   ))}
                 </ol>
+                {claimSummary(journey.stops, t) && (
+                  <p className="journey-card__claims">{claimSummary(journey.stops, t)}</p>
+                )}
               </article>
             ))}
           </div>
@@ -86,6 +106,7 @@ function DiscoverTab() {
           <article key={place.id} className="story-card" onClick={() => navigate(`/place/${place.id}`)}>
             <PlaceImage place={place} variant="hero" className="story-card-img" />
             <div className="story-card-content">
+              <p className="story-card__kind">{t('discover.storyLabel')}</p>
               <h3>{displayName(place.name)}</h3>
               <p>{place.story.split('.')[0] + '.'}</p>
               <button className="story-card-btn">{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
