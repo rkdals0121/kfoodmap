@@ -2201,7 +2201,7 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
 47. **Map declutter, 2026-09-30 06:07 and 09:30** (owner: the desktop map
     was "a carpet of dark count circles and pins"). A Seoul overview at
     1400x860 showed ~60 markers. Now: below zoom 14 a single place is a
-    12 px ringed dot (`.k-dot`, 24 px tap area) and only dots that would
+    12 px ringed dot (`.k-dot`, 32 px tap area) and only dots that would
     touch are grouped (`DOT_CLUSTER_RADIUS_PX` 40); from zoom 14 full
     28x36 pins with leaf/crescent, grouped at `CLUSTER_RADIUS_PX` 64. Count
     circles are light (tint fill, green ring) and sized by count

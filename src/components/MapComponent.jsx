@@ -89,13 +89,14 @@ const makePinIcon = (kind, selected) => L.divIcon({
 // scale a field of tall pins reads as clutter (2026-09-30), and what the
 // overview has to say is where the food is, not what each place serves.
 // Full pins, with their leaf / crescent, from DOT_BELOW_ZOOM up. The dot
-// keeps a 24 px tap area around its 12 px mark.
+// keeps a 32 px tap area around its 12 px mark (dots are
+// grouped 40 px apart, so tap areas never overlap).
 const DOT_BELOW_ZOOM = 14;
 const makeDotIcon = (kind) => L.divIcon({
   className: `k-dot k-dot--${kind}`,
   html: '<span aria-hidden="true"></span>',
-  iconSize: [24, 24],
-  iconAnchor: [12, 12],
+  iconSize: [32, 32],
+  iconAnchor: [16, 16],
 });
 const DOTS = new Map();
 const dotIcon = (r) => {
