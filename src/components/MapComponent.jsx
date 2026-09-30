@@ -7,14 +7,39 @@ import { clusterPoints, isSameSpot, CLUSTER_RADIUS_PX, DOT_CLUSTER_RADIUS_PX } f
 import { dietaryBadges, trustBadge } from '../data/verification';
 import { pinKind } from '../data/pin-kind';
 
-// Reports the map center upward after each pan/zoom so the list can re-sort by distance
+// The middle of the part of the map a person can see. On a phone the list
+// sheet covers the lower half, so the map's own centre sits under the sheet.
+function visibleCenter(map) {
+  const size = map.getSize();
+  return map.containerPointToLatLng([size.x / 2, (size.y - sheetOverlap(map)) / 2]);
+}
+
+// Reports the visible centre upward after each pan/zoom so the list can
+// re-sort by distance from what is on screen, not from a point hidden
+// under the sheet.
 function CenterReporter({ onCenterChange }) {
   useMapEvents({
     moveend: (e) => {
-      const c = e.target.getCenter();
+      const c = visibleCenter(e.target);
       onCenterChange([c.lat, c.lng]);
     },
   });
+  return null;
+}
+
+// Opening on a phone, the start point (central Seoul) was the map's own
+// centre — just under the sheet's top edge — so the strip above it showed
+// the empty mountains north of the city (2026-09-30). Shift the first view
+// so the start point sits in the middle of the visible strip.
+function StartInView() {
+  const map = useMap();
+  useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      const overlap = sheetOverlap(map);
+      if (overlap > 0) map.panBy([0, overlap / 2], { animate: false });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [map]);
   return null;
 }
 
@@ -301,6 +326,7 @@ export default function MapComponent({ restaurants, onMarkerClick, selectedId, o
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <StartInView />
         <FollowResults restaurants={restaurants} />
         <ClusteredMarkers
           restaurants={restaurants}
