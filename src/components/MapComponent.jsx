@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, AttributionControl, useMapEvent
 import L from 'leaflet';
 import { useTranslation } from 'react-i18next';
 import { MAP_CENTER, coordsOf } from '../utils';
-import { clusterPoints, isSameSpot } from '../data/cluster';
+import { clusterPoints, isSameSpot, CLUSTER_RADIUS_PX, DOT_CLUSTER_RADIUS_PX } from '../data/cluster';
 import { dietaryBadges, trustBadge } from '../data/verification';
 import { pinKind } from '../data/pin-kind';
 
@@ -60,6 +60,25 @@ const makePinIcon = (kind, selected) => L.divIcon({
   iconAnchor: [14, 35],
 });
 
+// Zoomed out, a single place is a small dot rather than a pin: at city
+// scale a field of tall pins reads as clutter (2026-09-30), and what the
+// overview has to say is where the food is, not what each place serves.
+// Full pins, with their leaf / crescent, from DOT_BELOW_ZOOM up. The dot
+// keeps a 24 px tap area around its 12 px mark.
+const DOT_BELOW_ZOOM = 14;
+const makeDotIcon = (kind) => L.divIcon({
+  className: `k-dot k-dot--${kind}`,
+  html: '<span aria-hidden="true"></span>',
+  iconSize: [24, 24],
+  iconAnchor: [12, 12],
+});
+const DOTS = new Map();
+const dotIcon = (r) => {
+  const kind = pinKind(r);
+  if (!DOTS.has(kind)) DOTS.set(kind, makeDotIcon(kind));
+  return DOTS.get(kind);
+};
+
 // Built once. react-leaflet calls setIcon whenever the icon prop is a new
 // object, and the map re-renders on every pan (the list's sort centre lives
 // in App state), so a fresh divIcon per render meant redrawing every pin in
@@ -83,10 +102,11 @@ const clusterIcons = new Map();
 const clusterIcon = (count) => {
   if (!clusterIcons.has(count)) {
     // Sized by how many places it holds, so the map reads at a glance
-    // where the food is, without every group shouting the same.
-    const size = count < 10 ? 30 : count < 50 ? 36 : 44;
+    // where the food is, without every group shouting the same. A handful
+    // is barely bigger than a dot, so the big groups carry the picture.
+    const size = count < 5 ? 22 : count < 10 ? 26 : count < 50 ? 34 : 42;
     clusterIcons.set(count, L.divIcon({
-      className: 'k-cluster',
+      className: `k-cluster${count < 5 ? ' k-cluster--few' : ''}`,
       html: `<span aria-hidden="true" style="width:${size}px;height:${size}px">${count}</span>`,
       iconSize: [size, size],
       iconAnchor: [size / 2, size / 2],
@@ -162,7 +182,9 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
         const p = map.project([c.lat, c.lng], zoom);
         return { x: p.x, y: p.y, r, latlng: c };
       });
-    return clusterPoints(points);
+    // Dots are small, so they only need grouping when they would touch;
+    // pins are tall and need the wider radius.
+    return clusterPoints(points, zoom < DOT_BELOW_ZOOM ? DOT_CLUSTER_RADIUS_PX : CLUSTER_RADIUS_PX);
   }, [restaurants, selectedId, zoom, map]);
 
   const atMaxZoom = zoom >= map.getMaxZoom();
@@ -187,7 +209,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
             <Marker
               key={r.id}
               position={[latlng.lat, latlng.lng]}
-              icon={pinIcon(r, false)}
+              icon={zoom < DOT_BELOW_ZOOM ? dotIcon(r) : pinIcon(r, false)}
               title={pinLabel(r)}
               alt={pinLabel(r)}
               eventHandlers={{ click: () => onMarkerClick(r) }}

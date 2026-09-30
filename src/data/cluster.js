@@ -13,6 +13,10 @@
 // 64, not the 40 a pin's width needs: at 40 a Seoul view still showed ~60
 // markers, a carpet of dark count circles and pins (2026-09-30).
 export const CLUSTER_RADIUS_PX = 64;
+// Zoomed out, single places are 12 px dots (MapComponent), which can sit
+// much closer before they touch; a group of dots only needs a count once
+// they would merge into a blob.
+export const DOT_CLUSTER_RADIUS_PX = 40;
 
 export function clusterPoints(points, radius = CLUSTER_RADIUS_PX) {
   const r2 = radius * radius;

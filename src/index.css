@@ -3162,6 +3162,10 @@ button {
   box-sizing: border-box;
   transition: transform 0.15s ease;
 }
+.k-cluster--few span {
+  font-size: 11px;
+  border-width: 1.5px;
+}
 .k-cluster:hover span {
   transform: scale(1.08);
 }
@@ -3272,4 +3276,29 @@ button {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+}
+
+/* Zoomed-out marker for a single place (MapComponent, below zoom 14): a
+   small white dot ringed in green, so the overview shows where the food is
+   without a field of pins. The leaf and crescent come back with the full
+   pin when zoomed in; the dot's name still says what the place serves. */
+.k-dot {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.k-dot span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--green-strong);
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.3);
+  transition: transform 0.15s ease;
+}
+.k-dot:hover span,
+.k-dot:focus-visible span {
+  transform: scale(1.3);
 }
