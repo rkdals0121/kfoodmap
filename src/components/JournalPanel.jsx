@@ -7,6 +7,7 @@ import ClaimChip from './ClaimChip';
 import { ChevronRightIcon } from './Icons';
 import Seal from './Seal';
 import { sealText } from '../data/seal-text';
+import { groupByRegion } from '../data/region';
 
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
@@ -21,7 +22,7 @@ function SavedRow({ place, savedAt, onOpen }) {
           <span className="saved-row__name">{displayName(place.name)}</span>
           <span className="saved-row__where">
             {place.zone}
-            {savedAt && <> · {t('journal.savedOn', { date: formatShortDate(savedAt, i18n.language) })}</>}
+            {savedAt > 0 && <> · {t('journal.savedOn', { date: formatShortDate(savedAt, i18n.language) })}</>}
           </span>
           <span className="saved-row__status">
             {status ? (
@@ -64,6 +65,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
 
   const visitedList = stamped.filter(s => s.visitedAt != null);
   const savedList = stamped.filter(s => s.visitedAt == null);
+  const savedGroups = groupByRegion(savedList);
 
   const neighborhoods = useMemo(() => {
     const zones = new Set(visitedList.map(s => s.place.zone));
@@ -134,7 +136,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 <Seal {...sealText(place.name)} />
                 <span className="stamp-name">{displayName(place.name)}</span>
                 <span className="stamp-zone">{place.zone}</span>
-                {visitedAt && <span className="stamp-date">{formatShortDate(visitedAt, i18n.language)}</span>}
+                {visitedAt > 0 && <span className="stamp-date">{formatShortDate(visitedAt, i18n.language)}</span>}
               </button>
             ))}
           </div>
@@ -146,11 +148,29 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           <div className="journal-section-header">
             <h3>{t('journal.savedForLater')}</h3>
           </div>
-          <ul className="saved-list">
-            {savedList.map(({ place, savedAt }) => (
-              <SavedRow key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
-            ))}
-          </ul>
+          {savedGroups.length > 1 ? (
+            // Saved across a trip: one list per region, so the Busan
+            // places are together on the day in Busan.
+            savedGroups.map(({ region, items }) => (
+              <section key={region ?? 'other'} className="saved-group" aria-label={region ?? t('journal.otherRegion')}>
+                <h4 className="saved-group__title">
+                  {region ?? t('journal.otherRegion')}
+                  <span className="saved-group__count"> · {items.length}</span>
+                </h4>
+                <ul className="saved-list">
+                  {items.map(({ place, savedAt }) => (
+                    <SavedRow key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
+                  ))}
+                </ul>
+              </section>
+            ))
+          ) : (
+            <ul className="saved-list">
+              {savedList.map(({ place, savedAt }) => (
+                <SavedRow key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
+              ))}
+            </ul>
+          )}
         </div>
       )}
 

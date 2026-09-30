@@ -2209,6 +2209,10 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     basemap is not an option (keyless access withdrawn, see MapComponent);
     a cleaner base map means a keyed provider and a privacy.js change.
     Also since #46: "Busan korean" now lists Busan first (60f573e).
+    Journal "Saved for Later" is grouped by region when it spans more than
+    one (`src/data/region.js`, read from the address's province — every
+    place resolves; test in `scripts/tests/region.test.mjs`). Fixed a stray
+    "0" after the area on legacy saved rows (savedAt 0 rendered by `&&`).
 
 
 ---

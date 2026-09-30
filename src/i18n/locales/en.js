@@ -67,6 +67,7 @@ export default {
     badgesEarned: '{{count}} Earned',
     visitedPlaces: 'Visited Places',
     savedForLater: 'Saved for Later',
+    otherRegion: 'Other',
     emptyTitle: 'Your passport is empty',
     emptyBody: 'Save places you want to try. Mark them visited and each one is stamped here.',
     firstTaste: 'First Taste',

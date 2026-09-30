@@ -1777,6 +1777,21 @@ button {
   flex-direction: column;
   gap: 10px;
 }
+/* Saved places spread over more than one region are listed per region
+   (JournalPanel). */
+.saved-group + .saved-group {
+  margin-top: 18px;
+}
+.saved-group__title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-title);
+}
+.saved-group__count {
+  font-weight: 500;
+  color: var(--muted-strong);
+}
 .saved-row {
   width: 100%;
   display: flex;
