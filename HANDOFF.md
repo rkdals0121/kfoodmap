@@ -2198,6 +2198,17 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     ID) is undocumented — try it once on a phone; "Busan korean" ranks
     Seoul's "Busan Jib" first (distance sort); saved list not grouped by
     city (zone strings are too irregular).
+47. **Map declutter, 2026-09-30 06:07 and 09:30** (owner: the desktop map
+    was "a carpet of dark count circles and pins"). A Seoul overview at
+    1400x860 showed ~60 markers. Now: below zoom 14 a single place is a
+    12 px ringed dot (`.k-dot`, 24 px tap area) and only dots that would
+    touch are grouped (`DOT_CLUSTER_RADIUS_PX` 40); from zoom 14 full
+    28x36 pins with leaf/crescent, grouped at `CLUSTER_RADIUS_PX` 64. Count
+    circles are light (tint fill, green ring) and sized by count
+    (22/26/34/42 px). Tiles desaturated (`saturate(0.25)`). CARTO's paler
+    basemap is not an option (keyless access withdrawn, see MapComponent);
+    a cleaner base map means a keyed provider and a privacy.js change.
+    Also since #46: "Busan korean" now lists Busan first (60f573e).
 
 
 ---
