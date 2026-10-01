@@ -57,6 +57,13 @@ solid; traits are plain text.
 - Typeface: Pretendard GOV, self-hosted.
 - Copy: `validateCopy` (check-data) rejects story sentences that assert
   certification without saying whose word it is.
+- Map (2026-09-30/10-01, after the owner called the city view clutter):
+  the map is the quiet layer, the list and detail carry the claims. Below
+  zoom 14 a place is a small ringed dot; pins with leaf / crescent from
+  zoom 14; count circles are light and sized by count; tiles desaturated;
+  the open place's pin is a size up. Markers are not tab stops — the list
+  is the keyboard route. Judge the map at a real desktop size, not only
+  on a phone.
 
 ## Avoid
 
