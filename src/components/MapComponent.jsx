@@ -76,13 +76,15 @@ const pinGlyph = (kind, colour) => {
 // Teardrop pin: white body with green outline, solid green when selected
 const makePinIcon = (kind, selected) => L.divIcon({
   className: `k-pin k-pin--${kind}${selected ? ' k-pin--active' : ''}`,
-  html: `<svg width="28" height="36" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg">
+  html: `<svg width="${selected ? 38 : 28}" height="${selected ? 49 : 36}" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg">
     <path d="M17 42.5C17 42.5 31.5 26.4 31.5 15.6C31.5 7.6 25 1.5 17 1.5C9 1.5 2.5 7.6 2.5 15.6C2.5 26.4 17 42.5 17 42.5Z"
       fill="${selected ? '#0E9F6E' : '#FFFFFF'}" stroke="${selected ? '#087F5B' : '#0E9F6E'}" stroke-width="2.5"/>
     ${pinGlyph(kind, selected ? '#FFFFFF' : '#087F5B')}
   </svg>`,
-  iconSize: [28, 36],
-  iconAnchor: [14, 35],
+  // The open place's pin is a size up: at a city view it sits among dots
+  // and count circles, and has to be the one thing the eye finds.
+  iconSize: selected ? [38, 49] : [28, 36],
+  iconAnchor: selected ? [19, 48] : [14, 35],
 });
 
 // Zoomed out, a single place is a small dot rather than a pin: at city
