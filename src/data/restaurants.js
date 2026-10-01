@@ -15248,7 +15248,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A small vegan salad-and-sandwich counter in a basement shopping arcade near Dangsan Park.",
-    "story": "Rudy's Vegan makes salads, wraps and sandwiches from vegetables, grains, beans, tofu, tempeh and plant-based bulgogi, with Korean touches such as perilla, gondre (a mountain green) and a doenjang dressing, and a truffle burdock rice on the side. It sits in the basement arcade of the Hyundai apartments on Dangsan-ro, about an eight-minute walk from Yeongdeungpo-gu Office Station. Opening days vary, so check before going.",
+    "story": "Rudy's Vegan makes salads, wraps and sandwiches from vegetables, grains, beans, tofu, tempeh and plant-based bulgogi, with Korean touches such as perilla, gondre (a mountain green) and a doenjang dressing, and a truffle burdock rice on the side. It sits in the basement arcade of the Hyundai apartments on Dangsan-ro, about a 7-minute walk from Yeongdeungpo-gu Office Station. Opening days vary, so check before going.",
     "esg_point": "Plant proteins (tofu, tempeh, beans) in place of meat across the menu",
     "image": "/images/vegan_cafe.svg",
     "photo": null,
@@ -23622,7 +23622,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A Loving Hut vegan kitchen in Gaepo-dong cooking Korean comfort food like gimbap, jajangmyeon and soy 'fried chicken'.",
-    "story": "Loving Hut Smile is a branch of the Loving Hut chain, whose Korean site says all of its food is made from completely vegan ingredients. This Gaepo-dong kitchen, formerly called Loving Hut Land, cooks Korean everyday dishes without animal products: vegan gimbap, black-bean jajangmyeon, tteokbokki, bibimbap and a soy-protein take on Korean fried chicken. Several dishes are made with the five pungent vegetables (garlic, onion and relatives) that Buddhist temple cooking leaves out; the menu asks diners who avoid them to say so when ordering. It is in a residential area about a 20-minute walk from the nearest subway station.",
+    "story": "Loving Hut Smile is a branch of the Loving Hut chain, whose Korean site says all of its food is made from completely vegan ingredients. This Gaepo-dong kitchen, formerly called Loving Hut Land, cooks Korean everyday dishes without animal products: vegan gimbap, black-bean jajangmyeon, tteokbokki, bibimbap and a soy-protein take on Korean fried chicken. Several dishes are made with the five pungent vegetables (garlic, onion and relatives) that Buddhist temple cooking leaves out; the menu asks diners who avoid them to say so when ordering. It is in a residential area about a 19-minute walk from the nearest subway station.",
     "esg_point": "An entirely animal-free kitchen, with gluten-free versions of several dishes.",
     "image": "/images/vegan_cafe.svg",
     "photo": null,
@@ -23787,7 +23787,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "Pulmuone's vegan restaurant on the fourth floor of a Godeok shopping mall, serving Korean-leaning plant-based noodles, dumplings and tofu dishes.",
-    "story": "Plantude is the vegan restaurant brand of Pulmuone's food-service company, and this is its third branch, on the fourth floor of the IPARK The River Mall in Godeok. According to Pulmuone's own announcement, every item on the menu carries vegan certification from the Korea Agency of Vegan Certification, as at the other branches. The menu leans Korean: warm noodles with gyoza, crisp-fried tofu and mushroom gangjeong, dumplings stuffed with shiitake and tofu, and tofu stews, alongside pastas and kids' dishes. It is about a 25-minute walk from Godeok Station.",
+    "story": "Plantude is the vegan restaurant brand of Pulmuone's food-service company, and this is its third branch, on the fourth floor of the IPARK The River Mall in Godeok. According to Pulmuone's own announcement, every item on the menu carries vegan certification from the Korea Agency of Vegan Certification, as at the other branches. The menu leans Korean: warm noodles with gyoza, crisp-fried tofu and mushroom gangjeong, dumplings stuffed with shiitake and tofu, and tofu stews, alongside pastas and kids' dishes. It is about a 26-minute walk from Godeok Station.",
     "esg_point": "A certified all-vegan menu built largely on tofu, mushrooms and other Korean plant ingredients.",
     "image": "/images/vegan_cafe.svg",
     "photo": null,
@@ -36154,7 +36154,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A vegan bakery baking without butter, eggs or milk, near Gimhae's Yeonji Park.",
-    "story": "Gimye Mebbangso is a bakery café in Nae-dong, Gimhae, that HappyCow lists as fully vegan. The owner describes it as baking with no butter, eggs, milk, white flour or white sugar, and its Kakao Map menu lists vegan sandwiches, scones, cookies and thin-skinned rice breads filled with red bean or chickpea paste. It also runs vegan baking classes. Opening days differ between sources, so check before going. It is about a fifteen-minute walk from Yeonji Park Station on the Busan–Gimhae Light Rail.",
+    "story": "Gimye Mebbangso is a bakery café in Nae-dong, Gimhae, that HappyCow lists as fully vegan. The owner describes it as baking with no butter, eggs, milk, white flour or white sugar, and its Kakao Map menu lists vegan sandwiches, scones, cookies and thin-skinned rice breads filled with red bean or chickpea paste. It also runs vegan baking classes. Opening days differ between sources, so check before going. It is about a 16-minute walk from Yeonji Park Station on the Busan–Gimhae Light Rail.",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
     "photo": null,
@@ -39172,7 +39172,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "Home-style Korean vegan set meals with stew and many side dishes, a short walk from Dongdaesin Station.",
-    "story": "Soban Vegan calls itself a vegan restaurant, and HappyCow lists it as one serving home-style Korean meals with soup and many side dishes. Its menu is built around Korean set meals: soft-tofu or soybean-paste stew, soy bulgogi and lotus-leaf rice, with soy chicken on the side. It is an eight-minute walk from Dongdaesin Station on Line 1. It closes on Wednesdays and Sundays.",
+    "story": "Soban Vegan calls itself a vegan restaurant, and HappyCow lists it as one serving home-style Korean meals with soup and many side dishes. Its menu is built around Korean set meals: soft-tofu or soybean-paste stew, soy bulgogi and lotus-leaf rice, with soy chicken on the side. It is a 7-minute walk from Dongdaesin Station on Line 1. It closes on Wednesdays and Sundays.",
     "esg_point": "A fully plant-based Korean home-cooking kitchen.",
     "image": "/images/fermented_dish.svg",
     "photo": null,
@@ -39572,7 +39572,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A MICHELIN-listed, fully vegan kitchen in Yeongdo, just across the bridge from Nampo.",
-    "story": "ARP takes its name, according to the MICHELIN Guide, from 'around plants', and the Guide says its menu is 100% vegan. The cooking mixes Korean ingredients with other cuisines: a pasta made with dried bracken and mushrooms is the Guide's named signature, alongside a vegan burger and seasonal plates. House-made rice wine is served. From Nampo Station it is about a 20-minute walk across Yeongdo Bridge.",
+    "story": "ARP takes its name, according to the MICHELIN Guide, from 'around plants', and the Guide says its menu is 100% vegan. The cooking mixes Korean ingredients with other cuisines: a pasta made with dried bracken and mushrooms is the Guide's named signature, alongside a vegan burger and seasonal plates. House-made rice wine is served. From Nampo Station it is about a 22-minute walk across Yeongdo Bridge.",
     "esg_point": "A fully plant-based menu, including a coconut-oil vegan cheese made in-house.",
     "image": "/images/pasta.svg",
     "photo": null,
@@ -43004,7 +43004,7 @@ export const restaurants = [
       }
     },
     "vibe": "An acorn-cooking restaurant in Suncheon with vegan pancakes, soups and tofu dishes.",
-    "story": "Nanulteo specialises in acorn cooking: acorn jelly salads and bibimbap, acorn noodles and acorn pancakes, plus a perilla-seed soup. HappyCow lists vegan dishes including acorn pancakes, soups and tofu dishes; some sets come with meat, so ask which dishes are vegan. It is about a 30-minute walk from Suncheon Station.",
+    "story": "Nanulteo specialises in acorn cooking: acorn jelly salads and bibimbap, acorn noodles and acorn pancakes, plus a perilla-seed soup. HappyCow lists vegan dishes including acorn pancakes, soups and tofu dishes; some sets come with meat, so ask which dishes are vegan. It is about a 32-minute walk from Suncheon Station.",
     "image": "/images/noodles.svg"
   },
   // KTO-2021 revival (07:40 ruling): porkFree on an owner-entered, complete, current menu.
@@ -44224,7 +44224,7 @@ export const restaurants = [
       }
     },
     "vibe": "A neighbourhood tofu house in Anyang’s Dongpyeon village that makes its own tofu from Korean soybeans.",
-    "story": "Urikong Sondubu makes its own tofu and serves it in soft-tofu stews, soybean-paste stews and, in summer, kongguksu, cold noodles in soybean broth. HappyCow lists vegan options here. The menu also has clam, oyster and beef dishes, so tell the staff you eat no meat, fish or egg and ask which stew suits you. It is about a 15-minute walk from Indeogwon station.",
+    "story": "Urikong Sondubu makes its own tofu and serves it in soft-tofu stews, soybean-paste stews and, in summer, kongguksu, cold noodles in soybean broth. HappyCow lists vegan options here. The menu also has clam, oyster and beef dishes, so tell the staff you eat no meat, fish or egg and ask which stew suits you. It is about a 14-minute walk from Indeogwon station.",
     "image": "/images/mild_soup.svg"
   },
   {
@@ -44432,7 +44432,7 @@ export const restaurants = [
       }
     },
     "vibe": "The original branch of a spicy bibim-guksu noodle shop, five minutes from Indeogwon station.",
-    "story": "This is the Anyang main branch of Indeogwon Bibimguksu, a noodle shop known for bibim-guksu, thin wheat noodles tossed in a sweet, spicy chilli sauce. HappyCow says that dish is the vegan choice and that the other dishes are not vegan. Ask for it without egg or other toppings. It is a five-minute walk from Indeogwon station.",
+    "story": "This is the Anyang main branch of Indeogwon Bibimguksu, a noodle shop known for bibim-guksu, thin wheat noodles tossed in a sweet, spicy chilli sauce. HappyCow says that dish is the vegan choice and that the other dishes are not vegan. Ask for it without egg or other toppings. It is a 6-minute walk from Indeogwon station.",
     "image": "/images/noodles.svg"
   },
   {
@@ -44806,7 +44806,7 @@ export const restaurants = [
       }
     },
     "vibe": "A small, old-fashioned tofu and barley-rice house near Ganseok five-way junction.",
-    "story": "Gapyeong Sundubu is a small Korean restaurant serving boribap, barley rice mixed with seasoned vegetables, with soft tofu and doenjang stew alongside. HappyCow lists vegan options: pan-fried tofu, potato pancake and the rice bowl, ordered with no egg. The menu also has boiled pork, fermented skate and dried pollock, and the stews are not described as vegan, so say what you avoid when you order. It is a ten-minute walk from Ganseogogeori station.",
+    "story": "Gapyeong Sundubu is a small Korean restaurant serving boribap, barley rice mixed with seasoned vegetables, with soft tofu and doenjang stew alongside. HappyCow lists vegan options: pan-fried tofu, potato pancake and the rice bowl, ordered with no egg. The menu also has boiled pork, fermented skate and dried pollock, and the stews are not described as vegan, so say what you avoid when you order. It is an 11-minute walk from Ganseogogeori station.",
     "image": "/images/mild_soup.svg"
   },
   {
@@ -45179,7 +45179,7 @@ export const restaurants = [
       }
     },
     "vibe": "A busy tofu house in Singal, Yongin, with a tofu cutlet alongside soft-tofu stews.",
-    "story": "This Samdaejjae Sondubu in Singal makes its own tofu. HappyCow lists a few dishes that are or can be made vegan: the tofu cutlet (dubu-man donkkaseu), soft-tofu stew, pan-fried tofu and kongguksu. The menu is otherwise heavy on pork, beef and seafood hotpots, so say you want the dish without meat, seafood or egg. It is a 25-minute walk from Giheung station.",
+    "story": "This Samdaejjae Sondubu in Singal makes its own tofu. HappyCow lists a few dishes that are or can be made vegan: the tofu cutlet (dubu-man donkkaseu), soft-tofu stew, pan-fried tofu and kongguksu. The menu is otherwise heavy on pork, beef and seafood hotpots, so say you want the dish without meat, seafood or egg. It is a 26-minute walk from Giheung station.",
     "image": "/images/mild_soup.svg"
   },
   {
@@ -45897,7 +45897,7 @@ export const restaurants = [
       }
     },
     "vibe": "A Songdo branch of the Bonjuk porridge chain, with mung bean, red bean and pumpkin porridge.",
-    "story": "This Songdo branch of Bonjuk, a Korean rice-porridge chain, is in the Songdo Millennium building on Convensia-daero. HappyCow names three vegan porridges: mung bean, red bean with rice, and sweet pumpkin. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap, and HappyCow's note covers this branch only. It is a 25-minute walk from Incheon National University station.",
+    "story": "This Songdo branch of Bonjuk, a Korean rice-porridge chain, is in the Songdo Millennium building on Convensia-daero. HappyCow names three vegan porridges: mung bean, red bean with rice, and sweet pumpkin. Most of the menu is abalone, beef, seafood or chicken porridge and meat bibimbap, and HappyCow's note covers this branch only. It is a 27-minute walk from Incheon National University station.",
     "image": "/images/mild_soup.svg"
   },
   {
@@ -46236,7 +46236,7 @@ export const restaurants = [
       }
     },
     "vibe": "An all-vegan rice-bread bakery near Daehwa station in Ilsan.",
-    "story": "RafeulRafeul bakes only vegan bread, made with Korean rice flour and plant ingredients, as its owner states. Expect rice loaves, sugar-free rice baguettes and ciabatta, chestnut bread, red-bean buns and a salt bread made with the bakery's own vegan butter. It is a ten-minute walk from Daehwa station.",
+    "story": "RafeulRafeul bakes only vegan bread, made with Korean rice flour and plant ingredients, as its owner states. Expect rice loaves, sugar-free rice baguettes and ciabatta, chestnut bread, red-bean buns and a salt bread made with the bakery's own vegan butter. It is an 11-minute walk from Daehwa station.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -47339,7 +47339,7 @@ export const restaurants = [
       }
     },
     "vibe": "A vegan-baking café in Bucheon; the cakes are plant-based, but some drinks use dairy or honey.",
-    "story": "OhNew's is a bakery café in Yakdae-dong, Bucheon, whose owner calls it a vegan bakery café. HappyCow says its cakes, cookies, crumbles and scones are vegan, but dairy and honey are used in some drinks. The current menu marks items such as its banana pudding and Victoria cake as vegan. It is a 30-minute walk from Sinjung-dong station.",
+    "story": "OhNew's is a bakery café in Yakdae-dong, Bucheon, whose owner calls it a vegan bakery café. HappyCow says its cakes, cookies, crumbles and scones are vegan, but dairy and honey are used in some drinks. The current menu marks items such as its banana pudding and Victoria cake as vegan. It is a 33-minute walk from Sinjung-dong station.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -48231,7 +48231,7 @@ export const restaurants = [
       }
     },
     "vibe": "A small vegan bakery in Cheongyang town, a short walk from the bus terminal.",
-    "story": "Cheongchun Jeppangso is a small vegan bakery in Cheongyang town that HappyCow describes as set up to bake healthy bread for an ageing population. It sells bread and sweet baked goods. Hours are unconfirmed, so it is worth calling ahead; it is about a 20-minute walk from Cheongyang's intercity bus terminal.",
+    "story": "Cheongchun Jeppangso is a small vegan bakery in Cheongyang town that HappyCow describes as set up to bake healthy bread for an ageing population. It sells bread and sweet baked goods. Hours are unconfirmed, so it is worth calling ahead; it is about a 21-minute walk from Cheongyang's intercity bus terminal.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -51564,7 +51564,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "An American burger joint in Gyeongju that keeps a separate line of vegan dishes.",
-    "story": "YELLA! is a small American-style burger restaurant on a side street near Gyeongju's old downtown, a short walk from the tomb park area. Alongside smash cheeseburgers and buffalo wings, it serves dishes it labels vegan: a vegan taco wrap and vegan chicken with fries. The kitchen also cooks meat, so this is a place with vegan options rather than a vegan restaurant. It is about a 25-minute walk from Gyeongju's intercity bus terminal, and closed on Sundays.",
+    "story": "YELLA! is a small American-style burger restaurant on a side street near Gyeongju's old downtown, a short walk from the tomb park area. Alongside smash cheeseburgers and buffalo wings, it serves dishes it labels vegan: a vegan taco wrap and vegan chicken with fries. The kitchen also cooks meat, so this is a place with vegan options rather than a vegan restaurant. It is about a 23-minute walk from Gyeongju's intercity bus terminal, and closed on Sundays.",
     "esg_point": null,
     "image": "/images/fallback.svg",
     "photo": null,
@@ -55694,7 +55694,7 @@ export const restaurants = [
       }
     },
     "vibe": "A second-floor vegan café near Hyehwa with soy fried chicken, banh mi and soy-milk drinks.",
-    "story": "Dalyang is a vegan café on Hyehwa-ro, a 15-minute walk from Hyehwa Station. HappyCow lists it as vegan, serving Western and Asian fusion food. The menu on its map listing includes soy-based fried chicken, vegan banh mi and soy-milk lattes. That menu listing was last edited in 2024, so dishes and prices may have changed.",
+    "story": "Dalyang is a vegan café on Hyehwa-ro, a 16-minute walk from Hyehwa Station. HappyCow lists it as vegan, serving Western and Asian fusion food. The menu on its map listing includes soy-based fried chicken, vegan banh mi and soy-milk lattes. That menu listing was last edited in 2024, so dishes and prices may have changed.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -58539,7 +58539,7 @@ export const restaurants = [
       }
     },
     "vibe": "A Korean set-meal restaurant near City Hall with a vegan menu on request.",
-    "story": "Hangaram serves Korean set meals (jeongsik), most of them built around meat or seafood. HappyCow says a vegan menu is available if you ask for it, and that reservations are required, so book ahead and say you need the vegan menu. It is an eight-minute walk from City Hall Station.",
+    "story": "Hangaram serves Korean set meals (jeongsik), most of them built around meat or seafood. HappyCow says a vegan menu is available if you ask for it, and that reservations are required, so book ahead and say you need the vegan menu. It is a 9-minute walk from City Hall Station.",
     "image": "/images/fermented_dish.svg"
   },
   {
@@ -59187,7 +59187,7 @@ export const restaurants = [
       }
     },
     "vibe": "A tiny reading café near Hongjecheon with filter coffee, plant-milk lattes and vegan bread plates.",
-    "story": "Cafe Yeorm is a small coffee roastery and reading café. Its menu says every food item is vegan and that lattes are made with oat or pea milk instead of cow's milk. Food is light: rye bread or ciabatta with jams and pickles, and HappyCow mentions baguettes with mushrooms and tofu mayo. It is set up for one or two people per table and asks groups of four or more not to come together. It is a 25-minute walk from Gajwa Station, so a bus is easier.",
+    "story": "Cafe Yeorm is a small coffee roastery and reading café. Its menu says every food item is vegan and that lattes are made with oat or pea milk instead of cow's milk. Food is light: rye bread or ciabatta with jams and pickles, and HappyCow mentions baguettes with mushrooms and tofu mayo. It is set up for one or two people per table and asks groups of four or more not to come together. It is a 26-minute walk from Gajwa Station, so a bus is easier.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -60337,7 +60337,7 @@ export const restaurants = [
       }
     },
     "vibe": "A home-style Korean buffet near Daegu's herbal-medicine market, with many vegetable side dishes.",
-    "story": "Cheongram is a Korean home-style buffet in central Daegu, near the Yangnyeongsi herbal-medicine market. HappyCow says its range of vegetable side dishes, rice and noodles lets you make a fully vegan plate. The buffet also has meat and fish dishes, and seasoned vegetables and kimchi can contain fish sauce or anchovy, so ask the staff which dishes are plant-only. It is about a 15-minute walk from Banwoldang station.",
+    "story": "Cheongram is a Korean home-style buffet in central Daegu, near the Yangnyeongsi herbal-medicine market. HappyCow says its range of vegetable side dishes, rice and noodles lets you make a fully vegan plate. The buffet also has meat and fish dishes, and seasoned vegetables and kimchi can contain fish sauce or anchovy, so ask the staff which dishes are plant-only. It is about a 14-minute walk from Banwoldang station.",
     "esg_point": null,
     "image": "/images/fermented_dish.svg",
     "imageLeads": [],
@@ -60881,7 +60881,7 @@ export const restaurants = [
       }
     },
     "vibe": "A vegan rice-flour bakery in Daegu’s Hwanggeum-dong.",
-    "story": "Oli Bread is a vegan bakery in Daegu's Suseong district that bakes mostly with rice flour. HappyCow lists cream-filled buns and cookies as well as plainer breads such as ciabatta and toast loaves. It is about a 15-minute walk from Hwanggeum station on Line 3.",
+    "story": "Oli Bread is a vegan bakery in Daegu's Suseong district that bakes mostly with rice flour. HappyCow lists cream-filled buns and cookies as well as plainer breads such as ciabatta and toast loaves. It is about a 14-minute walk from Hwanggeum station on Line 3.",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
     "imageLeads": [],
@@ -79189,7 +79189,7 @@ export const restaurants = [
       }
     },
     "vibe": "A brunch café on Huam-ro with labelled vegan soups, sourdough and soy yoghurt.",
-    "story": "Aum is a two-floor brunch café in Huam-dong, below Namsan. HappyCow says its vegan options are labelled, and names sourdough, seasonal fruit with soy yoghurt, tomato soup, corn gazpacho and a natto-avocado dish, all on the current menu. Other dishes use chicken, anchovies or cheese, and plant milk is available for coffee. It is about a 20-minute walk from Sookmyung Women's University Station.",
+    "story": "Aum is a two-floor brunch café in Huam-dong, below Namsan. HappyCow says its vegan options are labelled, and names sourdough, seasonal fruit with soy yoghurt, tomato soup, corn gazpacho and a natto-avocado dish, all on the current menu. Other dishes use chicken, anchovies or cheese, and plant milk is available for coffee. It is about a 22-minute walk from Sookmyung Women's University Station.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -82035,7 +82035,7 @@ export const restaurants = [
       }
     },
     "vibe": "A small gluten-free vegan bakery in a Seongnae-dong apartment arcade, open three days a week.",
-    "story": "Taengmilli is a gluten-free vegan bakery. Its own site calls it a gluten-free vegan bakery and labels every product vegan: pound cakes, cookies, scones, doughnuts and whole cakes, with a line-up that changes. It also serves coffee, tea, ades and a multigrain soy latte. The shop is open Thursday to Saturday, 11:00 to 19:00, for take-out and pick-up of online orders. It is a seven-minute walk from Gangdong-gu Office Station on Line 8.",
+    "story": "Taengmilli is a gluten-free vegan bakery. Its own site calls it a gluten-free vegan bakery and labels every product vegan: pound cakes, cookies, scones, doughnuts and whole cakes, with a line-up that changes. It also serves coffee, tea, ades and a multigrain soy latte. The shop is open Thursday to Saturday, 11:00 to 19:00, for take-out and pick-up of online orders. It is a 6-minute walk from Gangdong-gu Office Station on Line 8.",
     "image": "/images/vegan_cafe.svg"
   },
   {
@@ -94636,7 +94636,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A small vegan, gluten-free cookie and dessert shop in Gaebong-dong.",
-    "story": "Wonder Chips calls itself a vegan and gluten-free dessert specialist. It sells thick cookies, financiers and other baked goods, many of them online. It is about an eighteen-minute walk from Oryu-dong Station on Line 1.",
+    "story": "Wonder Chips calls itself a vegan and gluten-free dessert specialist. It sells thick cookies, financiers and other baked goods, many of them online. It is about a 17-minute walk from Oryu-dong Station on Line 1.",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
     "photo": null,
@@ -96734,7 +96734,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A family brunch and pasta restaurant near IKEA Gwangmyeong with a few dishes marked vegan.",
-    "story": "Haedeun Bueok describes itself as a restaurant for vegans and non-vegans alike, near IKEA and Costco in Gwangmyeong. Three dishes are marked vegan: a salad with soy-marinated plant-based galbi, a cashew and spinach cream pasta, and a pilaf with soy meat and yuba. The rest of the menu includes bacon, sausage, steak, shrimp and egg, so order from the marked dishes. It is about a sixteen-minute walk from Gwangmyeong KTX Station.",
+    "story": "Haedeun Bueok describes itself as a restaurant for vegans and non-vegans alike, near IKEA and Costco in Gwangmyeong. Three dishes are marked vegan: a salad with soy-marinated plant-based galbi, a cashew and spinach cream pasta, and a pilaf with soy meat and yuba. The rest of the menu includes bacon, sausage, steak, shrimp and egg, so order from the marked dishes. It is about a 17-minute walk from Gwangmyeong KTX Station.",
     "esg_point": null,
     "image": "/images/pasta.svg",
     "photo": null,
@@ -97271,7 +97271,7 @@ export const restaurants = [
     "imageLeads": [],
     "traits": [],
     "vibe": "A traditional tea house in Soha-dong, Gwangmyeong, known for jujube tea and rice breads, some of them vegan.",
-    "story": "Supumdang is a tea house that has served traditional Korean teas such as jujube, omija and ginger for over a decade, and bakes rice-flour breads and sweets. Its owner labels some of them vegan: rice loaves in sweet pumpkin, red yeast rice, mugwort and a 'Gureumsan' blend, and a black-rice glutinous pie made with soy milk. Other loaves and sweets contain milk, butter or cheese, so choose the labelled ones. It is about a 25-minute walk from Geumcheon-gu Office Station.",
+    "story": "Supumdang is a tea house that has served traditional Korean teas such as jujube, omija and ginger for over a decade, and bakes rice-flour breads and sweets. Its owner labels some of them vegan: rice loaves in sweet pumpkin, red yeast rice, mugwort and a 'Gureumsan' blend, and a black-rice glutinous pie made with soy milk. Other loaves and sweets contain milk, butter or cheese, so choose the labelled ones. It is about a 24-minute walk from Geumcheon-gu Office Station.",
     "esg_point": null,
     "image": "/images/vegan_cafe.svg",
     "photo": null,

@@ -53,6 +53,7 @@ export default {
   },
   journal: {
     savedOn: 'saved {{date}}',
+    visitedOn: 'Visited {{date}}',
     ariaLabel: 'Journal',
     title: 'Your Food Passport',
     visited: 'Visited',
@@ -222,6 +223,7 @@ export default {
     certificationClaimedNote: 'Certification claimed: {{body}} — {{note}}',
     signatureMenu: 'Signature menu',
     menuUnverified: "Dish names and prices are the restaurant's own, unverified, and may have changed.",
+    menuNotAllVegan: 'Not every dish here is vegan: this place offers vegan options.',
     hoursUnknown: 'Opening hours unknown — check before you go',
     website: 'Website',
     instagram: 'Instagram',

@@ -497,6 +497,12 @@ export default function RestaurantDetail({
                     </div>
                   ))}
                 </div>
+                {/* A pork dish listed under "Vegan options" read as a
+                    contradiction (critique 3); the menu is the restaurant's
+                    own, so say what it is rather than filter it. */}
+                {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && (
+                  <p className="section-note">{t('detail.menuNotAllVegan')}</p>
+                )}
                 {needsCheck(place.menus) && (
                   <p className="section-note">{t('detail.menuUnverified')}</p>
                 )}

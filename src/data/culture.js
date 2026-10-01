@@ -26,8 +26,8 @@ export const cultureByCategory = {
     didYouKnow:
       "Korea's plant-based scene is powered by a very old idea: 나물 (namul), the art of seasoning wild greens. Long before 'vegan' was a word, a proper Korean table was already built around dozens of vegetable dishes.",
     diningTips: [
-      "Try the soy-meat dishes even if you're skeptical — Korean kitchens have refined the texture through decades of temple cooking.",
-      'Side dishes (banchan) are usually refillable. Asking for more is a compliment to the kitchen, not a faux pas.',
+      "Say it when you order: '저는 비건이에요' (jeoneun bigeon-ieyo — \"I'm vegan\") is the simplest way to flag it.",
+      'In Korean cooking the usual hidden animal ingredients are fish sauce (액젓), anchovy stock (멸치 육수) and egg in batters — worth asking about wherever a place offers vegan options rather than an all-vegan menu.',
     ],
   },
   'halal-korean': {
@@ -69,7 +69,6 @@ export const cultureByCategory = {
       "Korean cooking follows 제철 (jecheol) — 'the season's turn.' Menus quietly change as ingredients come into season, which is why locals ask 'what's good today?' instead of reading the menu.",
     diningTips: [
       'Ask what is seasonal — the best dish is often not on the printed menu.',
-      'With food mileage this low, the vegetables on your plate were likely harvested within a day or two.',
     ],
   },
 };

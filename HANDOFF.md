@@ -2233,6 +2233,22 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     two temple kitchens are our reading, Jeonju says "reported". The "Not
     halal chip is not tappable" note in #44 was stale — it is a ClaimFact
     button. Still open: long privacy bullets.
+50. **Critique 3, 2026-10-01** (`CRITIQUE-3` = agent report in session,
+    12 findings). Fixed: "halal"/"vegan" typed = the chip (41 → 152);
+    an area search moves the map to that area and the list says "In the
+    searched area first"; claim word 12px/600; small count circles 32px
+    tap area; no "from map centre" distance on a detail opened from a
+    link; dietary source names the site ("The restaurant
+    (mahinavegan.com)"); "Not every dish here is vegan" over menus of
+    vegan-options places; vegan-dining tips no longer assume banchan /
+    soy meat; removed the "food mileage this low … harvested within a day
+    or two" tip shown on all 187 local-seasonal places (unsourced claim);
+    26 stories' walk times now equal the routed transit fact; stamps say
+    "Visited <date>". Selected pin is a size up. Not done, by choice:
+    colour-coding halal vs vegan markers (pins carry leaf/crescent; dots
+    are deliberately neutral — never colour alone); Gonghwachun has no
+    diet claim on its card (both levels unknown — consider dropping it
+    from the default map, owner call).
 
 
 ---

@@ -136,7 +136,8 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 <Seal {...sealText(place.name)} />
                 <span className="stamp-name">{displayName(place.name)}</span>
                 <span className="stamp-zone">{place.zone}</span>
-                {visitedAt > 0 && <span className="stamp-date">{formatShortDate(visitedAt, i18n.language)}</span>}
+                {/* "Visited …" in words: the seal says 방문, which most readers can't. */}
+                {visitedAt > 0 && <span className="stamp-date">{t('journal.visitedOn', { date: formatShortDate(visitedAt, i18n.language) })}</span>}
               </button>
             ))}
           </div>
