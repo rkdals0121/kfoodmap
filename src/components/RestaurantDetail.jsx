@@ -482,6 +482,19 @@ export default function RestaurantDetail({
             <section className="detail-section" ref={directionsRef}>
               <SectionHead Icon={CompassIcon} title={t('detail.locationDirections')} />
               
+              {/* The map buttons before the address: on a 375x812 phone they
+                  started just below the first screen (walkthrough 2). */}
+              <div className="detail-directions">
+                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place), '_blank', 'noopener,noreferrer')}>
+                  Naver Map
+                </button>
+                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place), '_blank', 'noopener,noreferrer')}>
+                  Kakao Map
+                </button>
+                <button className="btn-primary btn-primary--google" onClick={() => window.open(directionsUrl(place), '_blank', 'noopener,noreferrer')}>
+                  Google Maps
+                </button>
+              </div>
               <div className="practical-row">
                 <MapPinIcon size={17} />
                 <span>
@@ -492,18 +505,6 @@ export default function RestaurantDetail({
                 </span>
                 <button className="practical-copy" onClick={handleCopy}>
                   {copied ? t('detail.copied') : t('detail.copy')}
-                </button>
-              </div>
-
-              <div className="detail-directions">
-                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place), '_blank', 'noopener,noreferrer')}>
-                  Naver Map
-                </button>
-                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place), '_blank', 'noopener,noreferrer')}>
-                  Kakao Map
-                </button>
-                <button className="btn-primary btn-primary--google" onClick={() => window.open(directionsUrl(place), '_blank', 'noopener,noreferrer')}>
-                  Google Maps
                 </button>
               </div>
               <Link className="detail-report" to={`/submit?place=${place.id}`}>

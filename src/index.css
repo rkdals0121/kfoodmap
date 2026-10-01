@@ -1002,8 +1002,13 @@ button {
 }
 
 /* The row of map-app buttons under the address. */
+/* The map buttons come straight after the section heading, then the
+   address with its Copy button. */
+.detail-directions + .practical-row {
+  margin-top: 14px;
+}
 .detail-directions {
-  margin-top: 16px;
+  margin-top: 12px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
