@@ -35,29 +35,55 @@ const squash = (s) => s.toLowerCase().replace(/[\s-]+/g, '');
 const DIET_WORDS = { halal: 'Halal', vegan: 'Vegan' };
 const dietWordMatch = (r, w) => DIET_WORDS[w] !== undefined && matchesDietary(r, DIET_WORDS[w]);
 
+// A search word has to start a word in the text, not sit inside one:
+// "Seomyeon" matched Wanju's "Iseo-myeon" and nothing in Seomyeon itself
+// (walkthrough 2, 2026-10-01). Hyphens and spaces stay optional, so
+// "mapo gu" still finds "Mapo-gu". Hangul has no such word edge to lean
+// on, so a Korean query matches anywhere.
+const escapeRe = (c) => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function startsWord(text, q) {
+  if (typeof text !== 'string' || q === '') return false;
+  if (!/^[a-z0-9]/.test(q)) return squash(text).includes(q);
+  const re = new RegExp('(?:^|[^a-z0-9])' + [...q].map(escapeRe).join('[\\s-]*'));
+  return re.test(text.toLowerCase());
+}
+
+// Areas visitors name that addresses don't: Seomyeon is Bujeon-dong (and
+// the Jeonpo café street beside it), Hongdae is the streets around Hongik
+// University. Matched against the area and address only.
+const AREA_ALIASES = {
+  seomyeon: ['bujeon-dong', 'jeonpo-dong'],
+  hongdae: ['seogyo-dong', 'donggyo-dong', 'sangsu-dong'],
+};
+const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
+const aliasMatch = (r, w) => (AREA_ALIASES[w] ?? []).some(a => areaText(r).includes(a));
+
 export function matchesSearch(r, query) {
   const q = squash(query ?? '');
   if (q === '') return true;
-  if (dietWordMatch(r, q)) return true;
+  if (dietWordMatch(r, q) || aliasMatch(r, q)) return true;
   // The halal level is searchable too, so "pork-free" finds every pork-free
   // place (the Halal filter leaves them out: pork-free is not halal).
   const halal = r.dietary?.halal;
   const fields = [r.name, r.vibe, r.zone, r.address?.value,
     halal && halal.confidence !== 'unknown' ? halal.value : null];
-  if (fields.some(f => typeof f === 'string' && squash(f).includes(q))) return true;
+  if (fields.some(f => startsWord(f, q))) return true;
   // Several words ("Busan korean", "itaewon vegan bakery"): every word must
   // appear somewhere in the place's name, area, address or story.
   const words = String(query).trim().split(/\s+/).map(squash).filter(w => w.length >= 2);
   if (words.length < 2) return false;
-  const haystack = squash([...fields, r.story].filter(f => typeof f === 'string').join(' '));
-  return words.every(w => haystack.includes(w) || dietWordMatch(r, w));
+  const haystack = [...fields, r.story].filter(f => typeof f === 'string').join(' ');
+  return words.every(w => startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w));
 }
 
 // Does a search word name this place's area (neighbourhood or address)?
 // While searching, these places come first in the list and are where the
 // map goes, so "Busan" shows Busan rather than Seoul's "Busan Jib".
 export function matchesArea(r, query) {
-  const words = String(query ?? '').trim().toLowerCase().split(/\s+/).filter(w => w.length >= 2);
-  return words.length > 0
-    && words.some(w => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase().includes(w));
+  // The whole query first ("mapo gu" is Mapo-gu), then its longer words:
+  // a two-letter "gu" or "ro" starts a word in nearly every address.
+  const whole = squash(query ?? '');
+  if (whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole))) return true;
+  const words = String(query ?? '').trim().split(/\s+/).map(squash).filter(w => w.length >= 3);
+  return words.some(w => startsWord(areaText(r), w) || aliasMatch(r, w));
 }

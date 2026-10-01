@@ -2249,6 +2249,20 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     are deliberately neutral — never colour alone); Gonghwachun has no
     diet claim on its card (both levels unknown — consider dropping it
     from the default map, owner call).
+51. **Visitor walkthrough 2, 2026-10-01** (4 personas). Fixed: search words
+    must start a word ("Seomyeon" no longer matches Wanju's "Iseo-myeon")
+    with area aliases Seomyeon → Bujeon/Jeonpo-dong and Hongdae →
+    Seogyo/Donggyo/Sangsu-dong (`src/filters.js`, tests in
+    `search.test.mjs`); two-letter words ("gu") no longer make every
+    address an area match; notes when Vegan + Halal are both on (AND) and
+    that Vegan includes "options" places; tab title names the open place;
+    bare prices read "11,000 KRW", placeholder prices "not listed";
+    stations over 15 min away add "a bus or taxi may be easier". Not done
+    (new features, roadmap frozen — owner call): "Open now" filter,
+    locate-me / distance from you, journey "next stop" navigation. Also
+    open: directions buttons start just below the fold on a 375×812
+    phone; EID's story voice ("dedicated Korean Muslim family") is surer
+    than its Reported mark — needs its source checked before rewording.
 
 
 ---

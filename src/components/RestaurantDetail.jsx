@@ -39,6 +39,16 @@ function SectionHead({ Icon, title, kr }) {
   );
 }
 
+// Menu prices as one format: most records say "14,000 KRW", 91 dishes carry
+// a bare "11000", and a few carry a placeholder word ("unknown") that is
+// not a price.
+function formatPrice(price) {
+  const p = typeof price === 'number' ? String(price) : (price ?? '').trim();
+  if (/^\d+$/.test(p)) return `${Number(p).toLocaleString('en-US')} KRW`;
+  if (p === '' || /^(unknown|price not listed)$/i.test(p)) return null;
+  return p;
+}
+
 // Where a claim was read, by site: "The restaurant (mahinavegan.com)" and
 // "The restaurant (instagram.com)" are different grades of the same source,
 // and the page has to show why one is Confirmed and the other Reported.
@@ -129,6 +139,19 @@ export default function RestaurantDetail({
       }
     };
   }, [placeId]);
+
+  // The tab title names the open place, as the prerendered page for the
+  // same URL does; bookmarks and history read it.
+  const placeName = restaurant ? displayName(restaurant.name) : null;
+  useEffect(() => {
+    if (!placeName) return undefined;
+    // Opened by a shared link, the page already carried this title; closing
+    // then returns to the app's own.
+    const own = `${placeName} · K-Food Map`;
+    const before = document.title === own ? 'K-Food Map · Vegan & Halal Food in Korea' : document.title;
+    document.title = own;
+    return () => { document.title = before; };
+  }, [placeName]);
 
   useEffect(() => {
     setCopied(false);
@@ -383,6 +406,9 @@ export default function RestaurantDetail({
                     {place.transit.value.station} {place.transit.value.line}
                     {place.transit.value.exit && t('detail.transitExit', { exit: place.transit.value.exit })}
                     {t('detail.transitWalk', { minutes: place.transit.value.walkingMinutes })}
+                    {/* Past a quarter of an hour the "nearest station" is not
+                        near; say so rather than imply it. */}
+                    {place.transit.value.walkingMinutes > 15 && t('detail.transitFar')}
                   </span>
                 </div>
               )}
@@ -493,7 +519,7 @@ export default function RestaurantDetail({
                   {place.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
                       <span><KoText>{m.name}</KoText></span>
-                      <span className="menu-row__price">{m.price ?? t('detail.priceNotListed')}</span>
+                      <span className="menu-row__price">{formatPrice(m.price) ?? t('detail.priceNotListed')}</span>
                     </div>
                   ))}
                 </div>

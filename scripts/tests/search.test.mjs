@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { matchesSearch } from '../../src/filters.js';
+import { matchesSearch, matchesArea } from '../../src/filters.js';
 
 const place = {
   name: 'Kervan Turkish Restaurant (케르반) COEX',
@@ -38,4 +38,27 @@ test('several words match across fields, each somewhere', () => {
   assert.equal(matchesSearch(busan, 'Busan korean'), true);
   assert.equal(matchesSearch(busan, 'Busan halal'), false);
   assert.equal(matchesSearch(place, 'Turkish Samseong'), true);
+});
+
+const at = (zone, address, name = 'X') => ({ name, zone, address: { value: address }, dietary: {}, traits: [] });
+
+test('a search word must start a word, not sit inside one', () => {
+  assert.equal(matchesSearch(at('Iseo-myeon, Wanju', '1 Gil, Iseo-myeon, Wanju-gun'), 'Seomyeon'), false);
+  assert.equal(matchesSearch(at('Mapo-gu, Seoul', '1 Ro, Mapo-gu, Seoul'), 'mapo gu'), true);
+  assert.equal(matchesSearch(at('Mapo-gu, Seoul', '1 Ro, Mapo-gu, Seoul'), 'mapogu'), true);
+});
+
+test('Seomyeon and Hongdae find the places their addresses name differently', () => {
+  assert.equal(matchesSearch(at('Jeonpo-dong, Busanjin-gu, Busan', '2 Ro, Busanjin-gu, Busan (Jeonpo-dong)'), 'Seomyeon'), true);
+  assert.equal(matchesArea(at('Seogyo-dong, Mapo-gu, Seoul', '3 Ro, Mapo-gu, Seoul (Seogyo-dong)'), 'hongdae'), true);
+});
+
+test('two-letter words do not make every address an area match', () => {
+  assert.equal(matchesArea(at('Jung-gu, Seoul', '1 Ro, Jung-gu, Seoul'), 'mapo gu'), false);
+});
+
+test('a diet word finds what its chip finds', () => {
+  const p = { name: 'Y', zone: 'Z', address: { value: 'A' }, traits: [],
+    dietary: { halal: { value: 'friendly', confidence: 'supported', source: 'x' } } };
+  assert.equal(matchesSearch(p, 'halal'), true);
 });

@@ -91,6 +91,8 @@ export default {
     noMatchHintSearch: 'Try a different name or area.',
     clearAll: 'Clear search and filters',
     missingPlace: "That place isn't on the map any more, or the link is wrong. It may have closed, or failed a check. Search below for another.",
+    bothDietsNote: 'Showing places that are both vegan and halal. Turn one chip off to see every place of the other kind.',
+    veganOptionsNote: 'Includes places with vegan options on a mixed menu. There, ask about fish sauce, anchovy stock and egg.',
     halalCaveat: "None of these places has a halal certificate we could sight. 'Halal-friendly' is what a source reports — open a place to see which source, and ask staff. Pork-free places (no pork, meat not halal) are not in this filter; search \"pork-free\" to find them.",
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',
     readStoryAria: 'Read story: {{name}}',
@@ -270,6 +272,7 @@ export default {
     // Leading space is load-bearing — see areaOnly above; rendered right
     // after transitExit (or the station/line text) with no separator supplied by the JSX.
     transitWalk: ' · {{minutes}} min walk',
+    transitFar: ' — a bus or taxi may be easier',
     actionSave: 'Save',
     savedNote: 'Saved to your Journal.',
     removedNote: 'Removed from your Journal.',

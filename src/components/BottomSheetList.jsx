@@ -183,6 +183,17 @@ export default function BottomSheetList({
 
       {/* Said while the Halal filter is on and no place listed holds a
           sighted certificate (true of every place today). */}
+      {/* Chips combine as AND; with both diets on, say so — someone after
+          "halal places and vegan places" otherwise loses most of both. */}
+      {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
+        <p className="section-note place-list__note">{t('list.bothDietsNote')}</p>
+      )}
+      {/* The Vegan chip includes "vegan options" places, as the Halal chip
+          has its own caveat. */}
+      {activeFilters.includes('Vegan') && !activeFilters.includes('Halal') && sorted.length > 0
+        && sorted.some(r => r.dietary?.vegan?.value === 'options') && (
+        <p className="section-note place-list__note">{t('list.veganOptionsNote')}</p>
+      )}
       {activeFilters.includes('Halal') && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
         <p className="section-note place-list__note">{t('list.halalCaveat')}</p>
