@@ -191,6 +191,11 @@ function FollowResults({ restaurants }) {
   return null;
 }
 
+// Markers are not tab stops (keyboard={false}): at a city view that was
+// dozens to hundreds of stops between the search box and the tab bar, each
+// reached again in the list, which holds every place on the map and is the
+// keyboard and screen-reader route (CRITIQUE-2 #12). Pointer and touch are
+// unchanged.
 function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
   const map = useMap();
   const { t } = useTranslation();
@@ -236,6 +241,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
               key={r.id}
               position={[latlng.lat, latlng.lng]}
               icon={zoom < DOT_BELOW_ZOOM ? dotIcon(r) : pinIcon(r, false)}
+              keyboard={false}
               title={pinLabel(r)}
               alt={pinLabel(r)}
               eventHandlers={{ click: () => onMarkerClick(r) }}
@@ -251,7 +257,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
         if (atMaxZoom || isSameSpot(latlngs)) {
           const label = t('map.clusterList', { count: members.length });
           return (
-            <Marker key={key} position={[lat, lng]} icon={clusterIcon(members.length)} title={label} alt={label}>
+            <Marker key={key} position={[lat, lng]} icon={clusterIcon(members.length)} keyboard={false} title={label} alt={label}>
               <Popup className="k-cluster-popup" closeButton={false}>
                 <p className="k-cluster-popup__title">{label}</p>
                 <ul>
@@ -273,6 +279,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
             key={key}
             position={[lat, lng]}
             icon={clusterIcon(members.length)}
+            keyboard={false}
             title={label}
             alt={label}
             eventHandlers={{
@@ -289,6 +296,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
           key={selected.id}
           position={[coordsOf(selected).lat, coordsOf(selected).lng]}
           icon={pinIcon(selected, true)}
+          keyboard={false}
           title={pinLabel(selected)}
           alt={pinLabel(selected)}
           zIndexOffset={1000}

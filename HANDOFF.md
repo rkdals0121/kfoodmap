@@ -2226,6 +2226,13 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     chain-wide menu) predates the rule; by it, its vegan level would be
     `supported`. Left as is for the owner to decide — its "Not halal"
     (pork on the chain menu) is the useful half.
+49. **Critique leftovers, 2026-10-01.** Map markers are no longer tab
+    stops (`keyboard={false}`; 319 markers → 0 stops, click unchanged) —
+    the list is the keyboard route. Journey copy now matches the stops'
+    marks: "Busan: Vegan Korean Cooking" (was "Fully Vegan"), Jongno says
+    two temple kitchens are our reading, Jeonju says "reported". The "Not
+    halal chip is not tappable" note in #44 was stale — it is a ClaimFact
+    button. Still open: long privacy bullets.
 
 
 ---

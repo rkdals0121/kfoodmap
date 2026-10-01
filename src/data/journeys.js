@@ -26,7 +26,7 @@ export const journeys = [
     id: 'jongno-temple-food',
     title: 'Jongno & Insadong: Korean Temple Food',
     description:
-      'Three kitchens a short walk apart in central Seoul that this map records as fully vegan, two of them cooking in the Buddhist temple-food tradition — no meat, no fish, and in temple cooking none of the five pungent vegetables either.',
+      'Three kitchens a short walk apart in central Seoul, two of them cooking in the Buddhist temple-food tradition — no meat, no fish, and none of the five pungent vegetables either. One is reported as fully vegan; for the two temple kitchens, fully vegan is our reading of the tradition, not something they state.',
     stopIds: ['balwoo', 'sanchon', 'osegyehyang'],
   },
   {
@@ -40,14 +40,14 @@ export const journeys = [
     id: 'jeonju-plant-based',
     title: 'Jeonju Beyond Bibimbap',
     description:
-      'Two fully vegan kitchens and a fully vegan café in Jeonju, finishing with bibimbap at a Hanok Village house that offers vegan options. Check each stop\'s hours before you set out.',
+      'Two kitchens and a café in Jeonju reported as fully vegan, finishing with bibimbap at a Hanok Village house reported to offer vegan options. Check each stop\'s hours before you set out.',
     stopIds: ['gamloheon-jeonju', 'loving-hut-seosin-jeonju', 'present-vegan-cafe-jeonju', 'pungnamjeong-jeonju'],
   },
   {
     id: 'busan-vegan-korean',
-    title: 'Busan: Fully Vegan Korean Cooking',
+    title: 'Busan: Vegan Korean Cooking',
     description:
-      'Temple food near Gwangalli beach and Korean home cooking in Seo-gu and Buk-gu — three kitchens this map records as fully vegan. They are far apart; take one a day.',
+      'Temple food near Gwangalli beach and Korean home cooking in Seo-gu and Buk-gu — three kitchens reported as fully vegan, not yet confirmed. They are far apart; take one a day.',
     stopIds: ['vegenarang-gwangalli', 'soban-vegan-dongdaesin', 'pyeonhan-jipbap-mandeok'],
   },
   {
