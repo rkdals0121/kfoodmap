@@ -1103,8 +1103,10 @@ button {
 }
 .claim__level,
 .claim-fact__level {
-  font-size: 11px;
-  font-weight: 500;
+  /* How sure is the point of the mark, so it is not the faintest text on
+     the card: same size and weight as the diet word, only greyer. */
+  font-size: 12px;
+  font-weight: 600;
   color: var(--muted-strong);
 }
 .claim__level::before,
@@ -3160,6 +3162,10 @@ button {
 .k-cluster {
   background: none;
   border: none;
+  /* The tap area can be larger than the drawn circle (MapComponent). */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .k-cluster span {
   /* A light count, not a dark disc: the pins are the content, a group is

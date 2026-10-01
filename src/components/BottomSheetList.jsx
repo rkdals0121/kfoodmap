@@ -7,6 +7,7 @@ import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
+import { matchesArea } from '../filters';
 
 const CHIP_LABEL_KEY = Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey]));
 
@@ -133,9 +134,7 @@ export default function BottomSheetList({
   // matches a search word come before places that only match by name, so
   // "Busan korean" lists Busan before Seoul's "Busan Jib".
   const sorted = useMemo(() => {
-    const words = searchQuery.trim().toLowerCase().split(/\s+/).filter(w => w.length >= 2);
-    const inArea = (r) => words.length > 0
-      && words.some(w => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase().includes(w));
+    const inArea = (r) => matchesArea(r, searchQuery);
     return restaurants
       .map(r => {
         const { lat, lng } = coordsOf(r);
@@ -168,7 +167,11 @@ export default function BottomSheetList({
       <div className="place-list__header">
         {/* Announced politely when a filter or search changes the count. */}
         <h3><span aria-live="polite">{t('list.placeCount', { count: sorted.length })}</span></h3>
-        {sorted.length > 1 && <span className="place-list__hint">{t('list.nearestFirst')}</span>}
+        {sorted.length > 1 && (
+          <span className="place-list__hint">
+            {sorted[0].areaMatch ? t('list.areaFirst') : t('list.nearestFirst')}
+          </span>
+        )}
       </div>
 
       {/* Said once for the whole list rather than on every card: the same

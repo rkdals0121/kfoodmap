@@ -82,6 +82,7 @@ export default {
     placeCount_one: '{{count}} place',
     placeCount_other: '{{count}} places',
     nearestFirst: 'Nearest the map centre',
+    areaFirst: 'In the searched area first',
     fromMapCentre: 'from the map centre',
     hoursUnknown: 'Hours not recorded',
     noMatch: 'No places match',

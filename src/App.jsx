@@ -278,6 +278,7 @@ function AppShell() {
             onMarkerClick={openDetail}
             selectedId={selectedRestaurant?.id}
             onCenterChange={setMapCenter}
+            searchQuery={searchQuery}
           />
         </MapErrorBoundary>
       </div>
@@ -389,7 +390,10 @@ function AppShell() {
         onToggleBookmark={handleToggleBookmark}
         isVisited={selectedRestaurant ? visitedIds.includes(selectedRestaurant.id) : false}
         onToggleVisited={handleToggleVisited}
-        mapCenter={mapCenter}
+        // A distance "from map centre" only means something to someone who
+        // was looking at the map; from a shared link it measured from a
+        // default centre they never saw.
+        mapCenter={location.state?.fromApp ? mapCenter : null}
         focusStory={focusStory}
         focusDirections={focusDirections}
         docked={isWide}

@@ -39,6 +39,16 @@ function SectionHead({ Icon, title, kr }) {
   );
 }
 
+// Where a claim was read, by site: "The restaurant (mahinavegan.com)" and
+// "The restaurant (instagram.com)" are different grades of the same source,
+// and the page has to show why one is Confirmed and the other Reported.
+// The URL arrives with the full record; until then the source alone.
+function sourceWithSite(f) {
+  let host = null;
+  try { host = f.url ? new URL(f.url).hostname.replace(/^www\./, '') : null; } catch { host = null; }
+  return host ? `${sourceLabel(f.source)} (${host})` : sourceLabel(f.source);
+}
+
 // A dietary fact is a button: tapping it opens the source and reasoning
 // below the row. This used to live in a hover tooltip, which a phone
 // never shows.
@@ -330,7 +340,7 @@ export default function RestaurantDetail({
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   <p><strong>{label} · {level}.</strong> {/[.!?]$/.test(detail) ? detail : `${detail}.`}</p>
                   <p className="claim-explain__meta">
-                    {t('detail.claimSource', { source: sourceLabel(f.source) })}
+                    {t('detail.claimSource', { source: sourceWithSite(f) })}
                     {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
                   </p>
                 </div>
@@ -546,7 +556,7 @@ export default function RestaurantDetail({
                   <dt>{t('detail.dietary')}</dt>
                   <dd>
                     {dietFacts.length > 0
-                      ? [...new Set(dietFacts.map(f => sourceLabel(f.fact.source)))].join(' · ')
+                      ? [...new Set(dietFacts.map(f => sourceWithSite(f.fact)))].join(' · ')
                       : t('detail.notRecorded')}
                   </dd>
                 </div>

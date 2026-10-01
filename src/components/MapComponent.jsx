@@ -6,6 +6,7 @@ import { MAP_CENTER, coordsOf } from '../utils';
 import { clusterPoints, isSameSpot, CLUSTER_RADIUS_PX, DOT_CLUSTER_RADIUS_PX } from '../data/cluster';
 import { dietaryBadges, trustBadge } from '../data/verification';
 import { pinKind } from '../data/pin-kind';
+import { matchesArea } from '../filters';
 
 // The middle of the part of the map a person can see. On a phone the list
 // sheet covers the lower half, so the map's own centre sits under the sheet.
@@ -136,8 +137,9 @@ const clusterIcon = (count) => {
     clusterIcons.set(count, L.divIcon({
       className: `k-cluster${count < 5 ? ' k-cluster--few' : ''}`,
       html: `<span aria-hidden="true" style="width:${size}px;height:${size}px">${count}</span>`,
-      iconSize: [size, size],
-      iconAnchor: [size / 2, size / 2],
+      // At least the 32 px tap area a dot has, whatever the drawn size.
+      iconSize: [Math.max(size, 32), Math.max(size, 32)],
+      iconAnchor: [Math.max(size, 32) / 2, Math.max(size, 32) / 2],
     }));
   }
   return clusterIcons.get(count);
@@ -174,8 +176,13 @@ function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
 // When a search or filter leaves nothing on screen — someone types "Busan"
 // while the map shows Seoul — move the map to what was found. Only then: if
 // any result is already visible, the map stays where the person put it.
-function FollowResults({ restaurants }) {
+// When the search names an area, the places in that area are the ones to
+// show: "Busan" also finds Seoul's "Busan Jib", which used to keep the map
+// on Seoul because one result was already in view.
+function FollowResults({ restaurants: all, searchQuery }) {
   const map = useMap();
+  const inArea = all.filter(r => matchesArea(r, searchQuery));
+  const restaurants = inArea.length > 0 ? inArea : all;
   const key = restaurants.map(r => r.id).join(',');
   const first = useRef(true);
   useEffect(() => {
@@ -309,7 +316,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
   );
 }
 
-export default function MapComponent({ restaurants, onMarkerClick, selectedId, onCenterChange }) {
+export default function MapComponent({ restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '' }) {
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
       <MapContainer center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
@@ -338,7 +345,7 @@ export default function MapComponent({ restaurants, onMarkerClick, selectedId, o
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <StartInView />
-        <FollowResults restaurants={restaurants} />
+        <FollowResults restaurants={restaurants} searchQuery={searchQuery} />
         <ClusteredMarkers
           restaurants={restaurants}
           selectedId={selectedId}
