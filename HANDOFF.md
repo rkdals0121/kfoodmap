@@ -2261,8 +2261,9 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     (new features, roadmap frozen — owner call): "Open now" filter,
     locate-me / distance from you, journey "next stop" navigation. Also
     open: directions buttons start just below the fold on a 375×812
-    phone; EID's story voice ("dedicated Korean Muslim family") is surer
-    than its Reported mark — needs its source checked before rewording.
+    phone. EID's story lost "run by a dedicated Korean Muslim family"
+    and "bridges … Islamic dietary law" (no source in the record; surer
+    than its Reported mark); the attributed KMF sentence stays.
 
 
 ---

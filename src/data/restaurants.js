@@ -390,7 +390,7 @@ export const restaurants = [
     // Reworded: both lines used to assert KMF certification as fact while the
     // dietary record deliberately declines to confirm it — the page contradicted
     // itself. The claim is now attributed to the source that makes it.
-    story: "Run by a dedicated Korean Muslim family beside the Seoul Central Mosque, EID has been described by Seoul's tourism office as the only Korean restaurant certified by the Korea Muslim Federation, though KMF's own certificate list for 2023–2026 has no entry for it. They offer the comfort of home-cooked Korean meals, like mild Bulgogi and Samgyetang, in a warm space that bridges Korean heritage and Islamic dietary law.",
+    story: "EID sits beside the Seoul Central Mosque. Seoul's tourism office has described it as the only Korean restaurant certified by the Korea Muslim Federation, though KMF's own certificate list for 2023–2026 has no entry for it. It serves home-style Korean dishes such as mild bulgogi and samgyetang.",
     esg_point: "Family-run kitchen serving inclusive Korean home cooking by the Central Mosque",
 
     image: "/images/halal_meat.svg",
