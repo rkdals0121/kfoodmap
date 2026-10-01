@@ -30,3 +30,19 @@ test('places in one building are the same spot; places a street apart are not', 
   assert.equal(isSameSpot([{ lat: 37.5345, lng: 126.9946 }, { lat: 37.53455, lng: 126.99462 }]), true);
   assert.equal(isSameSpot([{ lat: 37.5345, lng: 126.9946 }, { lat: 37.5360, lng: 126.9946 }]), false);
 });
+
+test('single dots left by the dot radius never share a 32 px tap area', async () => {
+  const { DOT_CLUSTER_RADIUS_PX } = await import('../../src/data/cluster.js');
+  assert.ok(DOT_CLUSTER_RADIUS_PX >= 32);
+  // A dense, irregular field: every pair of points left on their own must
+  // be further apart than the radius, whatever order they come in.
+  const pts = [];
+  for (let i = 0; i < 400; i++) pts.push({ x: (i * 37) % 500, y: (i * 53) % 500 });
+  const singles = clusterPoints(pts, DOT_CLUSTER_RADIUS_PX).filter(g => g.length === 1).map(g => g[0]);
+  for (let a = 0; a < singles.length; a++) {
+    for (let b = a + 1; b < singles.length; b++) {
+      const d = Math.hypot(singles[a].x - singles[b].x, singles[a].y - singles[b].y);
+      assert.ok(d > DOT_CLUSTER_RADIUS_PX, `${d}`);
+    }
+  }
+});
