@@ -2213,6 +2213,19 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     one (`src/data/region.js`, read from the address's province — every
     place resolves; test in `scripts/tests/region.test.mjs`). Fixed a stray
     "0" after the area on legacy saved rows (savedAt 0 rendered by `&&`).
+48. **Levels audit, 2026-10-01** (the #45 data follow-up). 141 dietary
+    facts were operator-sourced but `supported`. Most stay so by rule (now
+    written in DATA.md › Confidence): Instagram bios and one-line Kakao
+    intros, chain-wide statements, dated press releases, and every halal
+    self-description. Branch-specific vegan statements on a current
+    operator web page were re-fetched as raw HTML; the six still saying the
+    same became `confirmed` (bina-anam, mahina-vegan-table, plant-yeonnam,
+    plant-bakery-haebangchon, seivegan-daejeon, kkotbap-epida-insadong).
+    bebab-hongdae's site did not answer (TLS) — left `supported`.
+    Open: chaeyuk-songdo (confirmed 2026-07-17 from chaeyuk.com, a
+    chain-wide menu) predates the rule; by it, its vegan level would be
+    `supported`. Left as is for the owner to decide — its "Not halal"
+    (pork on the chain menu) is the useful half.
 
 
 ---

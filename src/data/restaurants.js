@@ -14726,12 +14726,12 @@ export const restaurants = [
     "dietary": {
       "vegan": {
         "value": "options",
-        "confidence": "supported",
+        "confidence": "confirmed",
         "source": "The restaurant",
         "url": "https://binacurry.co.kr/menu/%ec%99%84%ec%a0%84-%ec%b1%84%ec%8b%9d-%eb%a9%94%eb%89%b4-vegan/",
         "method": "Read from the operator’s own website",
-        "lastCheckedAt": "2026-09-29",
-        "evidence": "The operator's own website has a menu section titled '완전 채식 메뉴 Vegan Menu' with the note '(Other dishes can also be made Vegan on request)', alongside chicken, lamb and seafood curries. Still trading: Kakao Map shows menu updates dated 2026-05-19 and blog reviews through 2026-09-16."
+        "lastCheckedAt": "2026-10-01",
+        "evidence": "The operator's own website has a menu section titled '완전 채식 메뉴 Vegan Menu' with the note '(Other dishes can also be made Vegan on request)', alongside chicken, lamb and seafood curries. Still trading: Kakao Map shows menu updates dated 2026-05-19 and blog reviews through 2026-09-16. Re-read on 2026-10-01 as raw HTML: '완전 채식 메뉴 Vegan Menu' still on the page, so this is confirmed from the operator's own site (DATA.md)."
       },
       "halal": {
         "value": "friendly",
@@ -23316,12 +23316,12 @@ export const restaurants = [
     "dietary": {
       "vegan": {
         "value": "full",
-        "confidence": "supported",
+        "confidence": "confirmed",
         "source": "The restaurant",
         "url": "https://mahinavegan.com/ko/",
         "method": "Read from the operator’s own website",
-        "lastCheckedAt": "2026-09-29",
-        "evidence": "The operator's own site describes itself: '서울 가로수길의 마히나 비건 테이블은 모든 메뉴를 100% 식물성으로 선보이는 비건 레스토랑입니다' (every menu item is 100% plant-based). Read twice from the page's description, identical both times. The page body adds '파스타·버거·피자·리소토 등 익숙한 요리를 식물성 재료로 만듭니다', and Seoul's vegetarian-restaurant register marks every listed dish '(비건)'."
+        "lastCheckedAt": "2026-10-01",
+        "evidence": "The operator's own site describes itself: '서울 가로수길의 마히나 비건 테이블은 모든 메뉴를 100% 식물성으로 선보이는 비건 레스토랑입니다' (every menu item is 100% plant-based). Read twice from the page's description, identical both times. The page body adds '파스타·버거·피자·리소토 등 익숙한 요리를 식물성 재료로 만듭니다', and Seoul's vegetarian-restaurant register marks every listed dish '(비건)'. Re-read on 2026-10-01 as raw HTML: '모든 메뉴를 100% 식물성으로 선보이는 비건 레스토랑입니다' still on the page, so this is confirmed from the operator's own site (DATA.md)."
       },
       "halal": {
         "value": null,
@@ -26020,12 +26020,12 @@ export const restaurants = [
     "dietary": {
       "vegan": {
         "value": "full",
-        "confidence": "supported",
+        "confidence": "confirmed",
         "source": "The restaurant",
         "url": "https://plantcafeseoul.com/",
         "method": "Read from the operator’s own website",
-        "lastCheckedAt": "2026-09-29",
-        "evidence": "The operator's home page (read as raw HTML): 'We are a 100% vegan restaurant and bakery cafe located in the heart of Seoul.' Its Locations menu lists 'Plant Itaewon | Plant Yeonnam | Plant Bakery Cafe (New!)'. DiningCode files this branch under '비건, 팔라펠'."
+        "lastCheckedAt": "2026-10-01",
+        "evidence": "The operator's home page (read as raw HTML): 'We are a 100% vegan restaurant and bakery cafe located in the heart of Seoul.' Its Locations menu lists 'Plant Itaewon | Plant Yeonnam | Plant Bakery Cafe (New!)'. DiningCode files this branch under '비건, 팔라펠'. Re-read on 2026-10-01 as raw HTML: '100% vegan restaurant and bakery cafe' and the Plant Yeonnam location still on the page, so this is confirmed from the operator's own site (DATA.md)."
       },
       "halal": {
         "value": null,
@@ -26162,12 +26162,12 @@ export const restaurants = [
     "dietary": {
       "vegan": {
         "value": "full",
-        "confidence": "supported",
+        "confidence": "confirmed",
         "source": "The restaurant",
         "url": "https://plantcafeseoul.com/",
         "method": "Read from the operator’s own website",
-        "lastCheckedAt": "2026-09-29",
-        "evidence": "The operator's home page: 'We are a 100% vegan restaurant and bakery cafe located in the heart of Seoul.' The same site lists 'Plant Bakery Cafe (New!)' among its locations and gives this address on its page. Kakao Map tags the listing '비건베이커리', '비건카페'."
+        "lastCheckedAt": "2026-10-01",
+        "evidence": "The operator's home page: 'We are a 100% vegan restaurant and bakery cafe located in the heart of Seoul.' The same site lists 'Plant Bakery Cafe (New!)' among its locations and gives this address on its page. Kakao Map tags the listing '비건베이커리', '비건카페'. Re-read on 2026-10-01 as raw HTML: '100% vegan restaurant and bakery cafe' and 'Plant Bakery Cafe (New!)' still on the page, so this is confirmed from the operator's own site (DATA.md)."
       },
       "halal": {
         "value": null,
@@ -43677,12 +43677,12 @@ export const restaurants = [
     "dietary": {
       "vegan": {
         "value": "full",
-        "confidence": "supported",
+        "confidence": "confirmed",
         "source": "The restaurant",
         "url": "https://www.seivegan.com",
         "method": "Read from the operator’s own website",
-        "lastCheckedAt": "2026-09-29",
-        "evidence": "The operator's own website, read twice with identical text: '글루텐 프리 비건 베이커리 세이 비건입니다. ... 세이 비건의 모든 제품은 글루텐 프리이며 견과류가 사용되지 않은 채식입니다. 밀가루, 글루텐 X (gluten free) 유제품 X (dairy free) 계란 X (egg free) 견과류 X (nut free)'. The operator's Instagram bio, read twice as raw page text: '❌밀가루, 글루텐, 견과류, 우유, 달걀 글루텐프리 비건 빵집 ... GlutenFree NutFree Vegan bakery'. Every product is stated to be free of dairy and eggs, and the bakery calls itself vegan. Still trading: blog reviews dated 2026-05-21, 2026-04-27 and 2026-02-26."
+        "lastCheckedAt": "2026-10-01",
+        "evidence": "The operator's own website, read twice with identical text: '글루텐 프리 비건 베이커리 세이 비건입니다. ... 세이 비건의 모든 제품은 글루텐 프리이며 견과류가 사용되지 않은 채식입니다. 밀가루, 글루텐 X (gluten free) 유제품 X (dairy free) 계란 X (egg free) 견과류 X (nut free)'. The operator's Instagram bio, read twice as raw page text: '❌밀가루, 글루텐, 견과류, 우유, 달걀 글루텐프리 비건 빵집 ... GlutenFree NutFree Vegan bakery'. Every product is stated to be free of dairy and eggs, and the bakery calls itself vegan. Still trading: blog reviews dated 2026-05-21, 2026-04-27 and 2026-02-26. Re-read on 2026-10-01 as raw HTML: '글루텐 프리 비건 베이커리 세이 비건입니다' and '유제품 X (dairy free)' still on the page, so this is confirmed from the operator's own site (DATA.md)."
       },
       "halal": {
         "value": null,
@@ -93297,12 +93297,12 @@ export const restaurants = [
     "dietary": {
       "vegan": {
         "value": "options",
-        "confidence": "supported",
+        "confidence": "confirmed",
         "source": "The restaurant",
         "url": "https://www.goodbab.co.kr",
         "method": "Read from the operator’s own website",
-        "lastCheckedAt": "2026-09-29",
-        "evidence": "The operator's own site (raw page read twice, identical): '인사동과 북촌 모두 비건 채식인들도 마음 편하게 드실 수 있도록 밥, 국, 반찬을 비롯한 모든 사이드들은 비건식으로 준비하고 있습니다. 더불어 100% Grass-Fed 풀로만 한우나 … 무항생제 자연양돈 등 최선의 축산물들이나 우럭찜 등 해산물도 선택할 수 있어서 비건과 일반인들이 함께 편안히 즐기실 수 있습니다.' (At both Insadong and Bukchon, rice, soup, banchan and all sides are prepared vegan; meat and seafood mains are also offered.) The owner-entered Kakao menu (2026-05-05) lists two vegan courses and a meatless 채개장. A mixed kitchen, so `options`. Still trading: Kakao-listed blog posts dated 2026-02-17 ('꽃밥에 피다 비건풀코스') and 2026-03-22; owner notice dated 2026-09-19."
+        "lastCheckedAt": "2026-10-01",
+        "evidence": "The operator's own site (raw page read twice, identical): '인사동과 북촌 모두 비건 채식인들도 마음 편하게 드실 수 있도록 밥, 국, 반찬을 비롯한 모든 사이드들은 비건식으로 준비하고 있습니다. 더불어 100% Grass-Fed 풀로만 한우나 … 무항생제 자연양돈 등 최선의 축산물들이나 우럭찜 등 해산물도 선택할 수 있어서 비건과 일반인들이 함께 편안히 즐기실 수 있습니다.' (At both Insadong and Bukchon, rice, soup, banchan and all sides are prepared vegan; meat and seafood mains are also offered.) The owner-entered Kakao menu (2026-05-05) lists two vegan courses and a meatless 채개장. A mixed kitchen, so `options`. Still trading: Kakao-listed blog posts dated 2026-02-17 ('꽃밥에 피다 비건풀코스') and 2026-03-22; owner notice dated 2026-09-19. Re-read on 2026-10-01 as raw HTML: '비건식으로 준비하고 있습니다' still on the page, so this is confirmed from the operator's own site (DATA.md)."
       },
       "halal": {
         "value": null,

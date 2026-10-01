@@ -45,7 +45,16 @@ valueless fact is `unknown` — the two can never disagree.
 
 - **`confirmed`** — checked against a primary source: a registry, the operator,
   or an on-site visit. Requires `lastCheckedAt`. Rare: a handful of dietary
-  claims read from the operator's own site or menu (2026-09-30).
+  claims read from the operator's own site or menu (2026-09-30), six more
+  re-read on 2026-10-01. What counts as "the operator's own site or menu"
+  (levels audit, 2026-10-01): a current web page that states it for this
+  branch, re-read with the date in `lastCheckedAt`. These stay `supported`
+  even though the operator wrote them: an Instagram bio or a one-line
+  map-listing intro (a slogan, not a menu); a chain-wide statement that does
+  not name the branch (Loving Hut, Chaeyuk); a dated press release (Plantude,
+  2023–25), which says what was true at opening; and **any halal
+  self-description** — a venue calling itself halal is its own claim, and
+  without a sighted certificate it is not a check.
 - **`supported`** — a source states it outright ("100% vegan meals"; a menu
   lists it), but nobody has checked it.
 - **`inferred`** — our reading of context: the kind of kitchen, or how the venue
