@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
@@ -7,6 +8,24 @@ import { areaSuggestions } from '../data/area-names';
 export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange }) {
   const { t, i18n } = useTranslation();
 
+  // "/" puts the cursor in the search box, as on most map and search sites.
+  // Not while typing somewhere, and not with a modifier held.
+  const searchRef = useRef(null);
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+      const el = e.target;
+      if (el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName))) return;
+      // Only on the map itself: a place or a sheet open over it keeps its
+      // own focus.
+      if (!searchRef.current || searchRef.current.offsetParent === null || window.location.pathname !== '/') return;
+      e.preventDefault();
+      searchRef.current.focus();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   return (
     <header className="home-header">
       <div className="search-field">
@@ -15,6 +34,8 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
           <path d="m20 20-3.5-3.5" />
         </svg>
         <input
+          ref={searchRef}
+          aria-keyshortcuts="/"
           type="search"
           placeholder={t('filters.searchPlaceholder')}
           aria-label={t('filters.searchPlaceholder')}

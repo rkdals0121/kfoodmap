@@ -25,7 +25,7 @@ const PAGE = 40;
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 
-function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens }) {
+function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0 }) {
   const { t } = useTranslation();
   const name = displayName(place.name);
   const status = getOpenStatus(place.hours);
@@ -55,6 +55,8 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
         {/* Stretched link: the name button's ::after covers the whole card */}
         <h3 className="place-card__name">
           <button className="place-card__open-btn" onClick={() => onOpen(place)}>
+            {/* In a journey, the same number as the stop's mark on the map. */}
+            {stop > 0 && <span className="place-card__stop">{stop}</span>}
             {name}
           </button>
         </h3>
@@ -274,6 +276,7 @@ export default function BottomSheetList({
         <PlaceCard
           key={r.id}
           place={r}
+          stop={journeyOrder ? sharedIds.indexOf(r.id) + 1 : 0}
           bookmarked={bookmarkedIds.includes(r.id)}
           onOpen={onRestaurantClick}
           onReadStory={onReadStory}

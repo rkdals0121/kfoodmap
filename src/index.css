@@ -4021,3 +4021,20 @@ a.btn-primary:focus-visible {
 .k-stop:hover span {
   transform: scale(1.12);
 }
+
+/* A journey stop's number on its list card (the same as on the map). */
+.place-card__stop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--green-strong);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: 2px;
+}
