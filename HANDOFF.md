@@ -2458,6 +2458,10 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     column, so the search box and chips are reachable only after closing
     the place (Google-Maps-like; a layout change was too large for the
     session's end).
+    The App clock now ticks every minute regardless of filters, so the
+    open/closed labels on cards and the open place stay current; only
+    "Open now" re-filters on the tick (`filterClock`), so the map is not
+    regrouped every minute.
 
 
 ---
