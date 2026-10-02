@@ -3743,3 +3743,58 @@ button {
   outline: 2px solid var(--green-strong);
   outline-offset: -2px;
 }
+
+/* A shared list opened from a link (BottomSheetList), and the Journal's
+   "Share this list" button. */
+.shared-list-note {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  background: var(--green-tint);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--ink);
+}
+.shared-list-note__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.shared-list-note__btn {
+  min-height: 40px;
+  padding: 0 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.shared-list-note__btn--primary {
+  background: var(--green-strong);
+  border-color: var(--green-strong);
+  color: #fff;
+}
+.shared-list-note__btn:focus-visible,
+.journal-share:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.shared-list-note__done {
+  font-weight: 600;
+  color: var(--green-strong);
+}
+.journal-share {
+  min-height: 36px;
+  padding: 0 4px;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-strong);
+  cursor: pointer;
+}

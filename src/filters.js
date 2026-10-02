@@ -25,6 +25,28 @@ export const OPEN_NOW = 'Open now';
 // they are). Answered from the passport on this device, not from place data.
 export const SAVED_ONLY = 'Saved';
 
+// A list someone shared: /?list=id,id,id opens the map on just those
+// places. The ids are public place ids chosen by the sender; nothing about
+// the sender travels with them.
+export const SHARED_LIST = 'Shared list';
+export const MAX_SHARED = 60;
+
+/** The ids in a ?list= value that name a place we have, in order, no repeats. */
+export function parseSharedList(value, knownIds) {
+  if (typeof value !== 'string' || value === '') return [];
+  const known = knownIds instanceof Set ? knownIds : new Set(knownIds);
+  const out = [];
+  for (const id of value.split(',')) {
+    const clean = id.trim();
+    if (/^[a-z0-9-]{1,80}$/.test(clean) && known.has(clean) && !out.includes(clean)) out.push(clean);
+    if (out.length >= MAX_SHARED) break;
+  }
+  return out;
+}
+
+/** The link for a list of place ids. */
+export const sharedListUrl = (origin, ids) => `${origin}/?list=${ids.slice(0, MAX_SHARED).join(',')}`;
+
 // "Fully vegan": only kitchens recorded as all-vegan, leaving out places
 // that offer vegan options on a mixed menu — the distinction HappyCow draws
 // between "Vegan" and "Veg-options", and the one that spares a strict vegan

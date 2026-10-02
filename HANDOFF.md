@@ -2343,6 +2343,13 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     provenance methods said 확인 (collides with 확인됨); "treat an unsure
     answer as a no" was ambiguous with the literal answer "no" in three
     languages. Still not read by a native speaker.
+55. **2026-10-03 small hours.** **Area names in other scripts**
+    (`src/data/area-names.js`): 釜山 / 明洞 / ソウル / 이태원 are mapped to
+    the romanised area before searching. **Shared lists**: Journal →
+    "Share this list" makes `/?list=id,id,…` (place ids only, capped at
+    60, `parseSharedList` in filters.js); opening it shows those places
+    with "Save all" and "Show all places" (`SHARED_LIST`). README and
+    CHANGELOG now describe the app as it is.
 
 
 ---

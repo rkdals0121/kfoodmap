@@ -87,3 +87,15 @@ test('an area and a diet word in another language combine', () => {
   assert.equal(matchesSearch(p, '부산 비건'), true);
   assert.equal(matchesSearch(p, '釜山 ハラール'), false);
 });
+
+test('a shared list keeps only real place ids, in order, once each, and is capped', async () => {
+  const { parseSharedList, sharedListUrl, MAX_SHARED } = await import('../../src/filters.js');
+  const known = ['balwoo', 'eid', 'plant-cafe'];
+  assert.deepEqual(parseSharedList('eid,balwoo,eid,nope, plant-cafe ', known), ['eid', 'balwoo', 'plant-cafe']);
+  assert.deepEqual(parseSharedList('', known), []);
+  assert.deepEqual(parseSharedList(null, known), []);
+  assert.deepEqual(parseSharedList('<script>,../etc,EID', known), []);
+  const many = Array.from({ length: 200 }, (_, i) => `p${i}`);
+  assert.equal(parseSharedList(many.join(','), many).length, MAX_SHARED);
+  assert.equal(sharedListUrl('https://x.test', ['a', 'b']), 'https://x.test/?list=a,b');
+});

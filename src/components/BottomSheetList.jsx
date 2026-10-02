@@ -7,7 +7,7 @@ import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN } from '../filters';
+import { matchesArea, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST } from '../filters';
 
 const CHIP_LABEL_KEY = Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey]));
 
@@ -128,7 +128,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null,
+  userLocation = null, sharedIds = [], onSaveShared, onCloseShared,
 }) {
   const { t } = useTranslation();
   // Nearest first — but while searching, places whose area or address
@@ -191,6 +191,19 @@ export default function BottomSheetList({
 
       {/* Said while the Halal filter is on and no place listed holds a
           sighted certificate (true of every place today). */}
+      {/* A list someone shared (/?list=…): say what this is, and offer the
+          two things a reader does with it — keep it, or leave it. */}
+      {activeFilters.includes(SHARED_LIST) && (
+        <div className="shared-list-note" role="status">
+          <p>{t('list.sharedNote', { count: sharedIds.length })}</p>
+          <div className="shared-list-note__actions">
+            {sharedIds.every(id => bookmarkedIds.includes(id))
+              ? <span className="shared-list-note__done">{t('list.sharedSaved')}</span>
+              : <button type="button" className="shared-list-note__btn shared-list-note__btn--primary" onClick={onSaveShared}>{t('list.sharedSaveAll')}</button>}
+            <button type="button" className="shared-list-note__btn" onClick={onCloseShared}>{t('list.sharedClose')}</button>
+          </div>
+        </div>
+      )}
       {/* "Open now" hides places whose hours we never recorded; say how many,
           so an empty or short list is not read as "nothing else exists". */}
       {activeFilters.includes(OPEN_NOW) && (

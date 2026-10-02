@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
@@ -8,6 +8,7 @@ import { ChevronRightIcon } from './Icons';
 import Seal from './Seal';
 import { sealText } from '../data/seal-text';
 import { groupByRegion } from '../data/region';
+import { sharedListUrl } from '../filters';
 
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
@@ -66,6 +67,18 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
   const visitedList = stamped.filter(s => s.visitedAt != null);
   const savedList = stamped.filter(s => s.visitedAt == null);
   const savedGroups = groupByRegion(savedList);
+  // The link carries the place ids only (filters.js sharedListUrl).
+  const [listShared, setListShared] = useState(false);
+  const shareList = async () => {
+    const url = sharedListUrl(window.location.origin, savedList.map(s => s.place.id));
+    const title = t('journal.shareListTitle');
+    const done = () => { setListShared(true); setTimeout(() => setListShared(false), 2500); };
+    if (navigator.share) {
+      try { await navigator.share({ title, url }); } catch { /* dismissed */ }
+      return;
+    }
+    try { await navigator.clipboard.writeText(url); done(); } catch { window.prompt(title, url); }
+  };
 
   const neighborhoods = useMemo(() => {
     const zones = new Set(visitedList.map(s => s.place.zone));
@@ -148,6 +161,10 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
         <div className="journal-section">
           <div className="journal-section-header">
             <h3>{t('journal.savedForLater')}</h3>
+            {/* A link to this list, for whoever you are travelling with. */}
+            <button type="button" className="journal-share" onClick={shareList}>
+              {listShared ? t('journal.listCopied') : t('journal.shareList')}
+            </button>
           </div>
           {savedGroups.length > 1 ? (
             // Saved across a trip: one list per region, so the Busan

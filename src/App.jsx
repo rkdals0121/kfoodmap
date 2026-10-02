@@ -25,7 +25,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList } from './filters';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -49,7 +49,13 @@ function AppShell() {
   const isOnline = useOnlineStatus();
   const { updateReady, reload } = useAppUpdate();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  // A shared list (/?list=a,b,c) opens the map on those places only, as a
+  // filter the reader can close. Read once, on arrival.
+  const [sharedIds] = useState(() => parseSharedList(
+    new URLSearchParams(window.location.search).get('list'),
+    activeRestaurants.map(r => r.id),
+  ));
+  const [selectedFilters, setSelectedFilters] = useState(() => (sharedIds.length > 0 ? [SHARED_LIST] : []));
   // The URL is the source of truth for which restaurant is open — no
   // separate state to keep in sync. activeRestaurants already excludes
   // quarantined places, so an id that's quarantined or simply doesn't
@@ -244,6 +250,23 @@ function AppShell() {
   // "Been here" on a place not yet saved saves it and marks the visit in one
   // tap (a visit lives on a saved entry), rather than a disabled button
   // that never said why.
+  // "Save all" on a shared list: every place not already saved, in one go.
+  // An unsaved place's tombstone is revived, as a tap on its heart would.
+  const saveMany = (ids) => {
+    const now = Date.now();
+    setEntries(prev => {
+      const next = prev.map(e => (ids.includes(e.id) && e.savedAt === null
+        ? { ...e, savedAt: now, visitedAt: null, updatedAt: now }
+        : e));
+      const held = new Set(prev.map(e => e.id));
+      return [...next, ...ids.filter(pid => !held.has(pid)).map(pid => ({ id: pid, savedAt: now, visitedAt: null, updatedAt: now }))];
+    });
+  };
+  const closeSharedList = () => {
+    setSelectedFilters(prev => prev.filter(f => f !== SHARED_LIST));
+    navigate('/', { replace: true });
+  };
+
   const handleToggleVisited = (placeId) => {
     // Taking a visit back removes its date and Journal seal: ask, as unsave does.
     const current = entries.find(e => e.id === placeId);
@@ -285,6 +308,7 @@ function AppShell() {
       const matchesChips = selectedFilters.every(f => {
         if (f === OPEN_NOW) return true; // asked last, below
         if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
+        if (f === SHARED_LIST) return sharedIds.includes(r.id);
         if (f === FULLY_VEGAN) return matchesFullyVegan(r);
         if (DIETARY_CHIPS.includes(f)) return matchesDietary(r, f);
         const group = TRAIT_GROUPS[f];
@@ -300,7 +324,7 @@ function AppShell() {
       return status?.open === true && status.orderable !== false;
     });
     return { filteredRestaurants: list, unknownHours: unknown };
-  }, [selectedFilters, searchQuery, openNowOn, clock, bookmarkedIds]);
+  }, [selectedFilters, searchQuery, openNowOn, clock, bookmarkedIds, sharedIds]);
 
   if (!prologueCompleted) {
     return (
@@ -342,7 +366,7 @@ function AppShell() {
             selectedId={selectedRestaurant?.id}
             onCenterChange={setMapCenter}
             searchQuery={searchQuery}
-            fitAll={selectedFilters.includes(SAVED_ONLY)}
+            fitAll={selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST)}
             userLocation={userLocation}
             locateState={locateState}
             onLocate={locate}
@@ -395,6 +419,9 @@ function AppShell() {
                 sustainabilityLens={sustainabilityLens}
                 activeFilters={selectedFilters}
                 unknownHours={unknownHours}
+                sharedIds={sharedIds}
+                onSaveShared={() => saveMany(sharedIds)}
+                onCloseShared={closeSharedList}
                 searchQuery={searchQuery}
                 onClearFilters={() => {
                   setSelectedFilters([]);
