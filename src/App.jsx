@@ -231,8 +231,16 @@ function AppShell() {
     const stop = sharedJourney && selectedFilters.includes(SHARED_LIST) ? sharedJourney.stopIds.indexOf(r.id) : -1;
     openPlace(r, stop >= 0 ? { journey: { id: sharedJourney.id, index: stop } } : {});
   };
-  // What else is close to the open place (data/nearby.js).
-  const nearby = useMemo(() => nearbyPlaces(selectedRestaurant, activeRestaurants), [selectedRestaurant]);
+  // What else is close to the open place (data/nearby.js) — under the
+  // diet chips in force, so someone looking for halal is not offered the
+  // pork restaurant next door. Search and "Open now" do not narrow it.
+  const dietChips = selectedFilters.filter(f => DIETARY_CHIPS.includes(f) || f === FULLY_VEGAN);
+  const dietKey = dietChips.join(',');
+  const nearby = useMemo(() => nearbyPlaces(
+    selectedRestaurant,
+    activeRestaurants.filter(r => dietChips.every(f => (f === FULLY_VEGAN ? matchesFullyVegan(r) : matchesDietary(r, f)))),
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  ), [selectedRestaurant, dietKey]);
   // A place opened from a journey (Discover) remembers which journey and
   // which stop, so the detail can offer the stop before and after. A stale
   // link, or a journey that lost a stop, is simply no journey.
@@ -584,6 +592,7 @@ function AppShell() {
         journey={journey}
         onJourneyStop={openJourneyStop}
         nearby={nearby}
+        nearbyDiet={dietChips}
         onOpenPlace={openDetail}
         focusStory={focusStory}
         focusDirections={focusDirections}

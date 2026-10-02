@@ -250,6 +250,7 @@ export default {
     koreanName: 'Nama dalam bahasa Korea',
     nearbyTitle: 'Di sekitar sini',
     nearbyAway: 'berjarak {{distance}}, dalam garis lurus',
+    nearbyFiltered: 'Hanya tempat yang sesuai filter makanan Anda.',
     showLarge: 'Perbesar',
     closeLarge: 'Tutup tampilan besar',
     tapToClose: 'Ketuk untuk menutup',

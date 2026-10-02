@@ -252,6 +252,7 @@ export default {
     koreanName: '韓国語の店名',
     nearbyTitle: '近くのお店',
     nearbyAway: '直線で {{distance}}',
+    nearbyFiltered: '食事の条件フィルターに合うお店だけを表示しています。',
     showLarge: '大きく表示',
     closeLarge: '拡大表示を閉じる',
     tapToClose: 'タップして閉じる',

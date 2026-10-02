@@ -4102,3 +4102,8 @@ a.btn-primary:focus-visible {
   font-weight: 600;
   color: var(--danger);
 }
+
+.nearby-filtered {
+  margin: -4px 0 8px;
+  font-size: 13px;
+}

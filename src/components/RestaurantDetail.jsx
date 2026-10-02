@@ -100,7 +100,7 @@ const DIET_CAVEAT_KEYS = {
 
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null,
-  journey = null, onJourneyStop, nearby = [], onOpenPlace,
+  journey = null, onJourneyStop, nearby = [], nearbyDiet = [], onOpenPlace,
   mapCenter, focusStory, focusDirections = false, docked = false, belowSearch = false,
 }) {
   const { t, i18n } = useTranslation();
@@ -657,6 +657,9 @@ export default function RestaurantDetail({
             {nearby.length > 0 && (
               <section className="detail-section">
                 <SectionHead Icon={MapPinIcon} title={t('detail.nearbyTitle')} />
+                {nearbyDiet.length > 0 && (
+                  <p className="practical-muted nearby-filtered">{t('detail.nearbyFiltered')}</p>
+                )}
                 <ul className="saved-list">
                   {nearby.map(({ place: other, km }) => {
                     const otherStatus = getOpenStatus(other.hours);

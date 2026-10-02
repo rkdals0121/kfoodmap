@@ -247,6 +247,7 @@ export default {
     koreanName: '韩语店名',
     nearbyTitle: '附近还有',
     nearbyAway: '直线距离 {{distance}}',
+    nearbyFiltered: '仅显示符合你饮食筛选条件的地点。',
     showLarge: '放大显示',
     closeLarge: '关闭放大视图',
     tapToClose: '轻点关闭',

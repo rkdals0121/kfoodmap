@@ -246,6 +246,7 @@ export default {
     koreanName: '한국어 이름',
     nearbyTitle: '근처의 다른 곳',
     nearbyAway: '직선거리 {{distance}}',
+    nearbyFiltered: '켜 둔 식단 필터에 맞는 곳만 보여요.',
     showLarge: '크게 보기',
     closeLarge: '크게 보기 닫기',
     tapToClose: '누르면 닫혀요',
