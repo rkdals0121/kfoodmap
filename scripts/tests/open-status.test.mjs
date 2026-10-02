@@ -120,3 +120,21 @@ test('weekHours lists Monday to Sunday, marks today in Korea, and never guesses 
   assert.deepEqual(week.filter(d => d.today).map(d => d.key), ['sat']);
   assert.equal(weekHours({ value: { raw: '11:00 – 21:00' }, confidence: 'supported', source: 'x' }), null);
 });
+
+test('"Closes soon" within 30 minutes of the last order, or of closing when none is recorded', async () => {
+  const { getOpenStatus, statusClass } = await import('../../src/utils.js');
+  const fact = (slot) => ({ value: { weekly: { sat: [slot] } }, confidence: 'supported', source: 'x' });
+  // Saturday in Korea: 2026-10-03 is a Saturday; 20:40 KST = 11:40 UTC.
+  const at = (hhmm) => new Date(`2026-10-03T${hhmm}:00+09:00`);
+  const withLo = fact({ from: '11:00', to: '22:00', lastOrder: '21:00' });
+  assert.equal(getOpenStatus(withLo, at('20:00')).soon, false);
+  const s = getOpenStatus(withLo, at('20:40'));
+  assert.equal(s.soon, true);
+  assert.equal(s.label, 'Closes soon');
+  assert.equal(statusClass(s), 'is-soon');
+  assert.equal(getOpenStatus(withLo, at('21:10')).orderable, false);   // past last order: not "soon", gone
+  const noLo = fact({ from: '11:00', to: '22:00' });
+  assert.equal(getOpenStatus(noLo, at('21:20')).soon, false);
+  assert.equal(getOpenStatus(noLo, at('21:35')).soon, true);
+  assert.equal(statusClass(getOpenStatus(noLo, at('12:00'))), 'is-open');
+});

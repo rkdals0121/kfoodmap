@@ -490,6 +490,7 @@ export default {
   // Kata-kata jam buka (src/utils.js getOpenStatus / todaysHours).
   hours: {
     open: 'Buka',
+    closingSoon: 'Segera tutup',
     closed: 'Tutup',
     until: 'sampai {{time}}',
     untilLastOrder: 'sampai {{time}} · pesanan terakhir {{lastOrder}}',

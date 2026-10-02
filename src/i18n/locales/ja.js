@@ -493,6 +493,7 @@ export default {
   // Opening-hours wording (src/utils.js getOpenStatus / todaysHours).
   hours: {
     open: '営業中',
+    closingSoon: 'まもなく閉店',
     closed: '営業時間外',
     until: '{{time}} まで',
     untilLastOrder: '{{time}} まで · ラストオーダー {{lastOrder}}',

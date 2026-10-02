@@ -89,6 +89,11 @@ function statusFromRaw(raw, cur) {
     : { open: false, label: tr('closed'), detail: tr('opens', { time: parts[0] }) };
 }
 
+export const CLOSING_SOON_MIN = 30;
+
+/** The class for an open/closed label: green, amber when closing soon, grey. */
+export const statusClass = (status) => (status.soon ? 'is-soon' : status.open ? 'is-open' : 'is-closed');
+
 /**
  * hoursFact → { open, label, detail } | null when we can't say.
  *
@@ -121,9 +126,14 @@ export function getOpenStatus(hoursFact, now = new Date()) {
       // "Open now" filter leaves these out).
       return { open: true, orderable: false, label: tr('open'), detail: tr('lastOrderPassed', { time: fromMinutes(t) }) };
     }
+    // Within half an hour of the last order (or of closing, where no last
+    // order is recorded) "Open" alone sends people to a kitchen that is
+    // about to stop: say so. Still open, still orderable.
+    const soon = (lo ?? t) - at <= CLOSING_SOON_MIN;
     return {
       open: true,
-      label: tr('open'),
+      soon,
+      label: tr(soon ? 'closingSoon' : 'open'),
       detail: lo != null
         ? tr('untilLastOrder', { time: fromMinutes(t), lastOrder: fromMinutes(lo) })
         : tr('until', { time: fromMinutes(t) }),

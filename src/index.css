@@ -4043,3 +4043,9 @@ a.btn-primary:focus-visible {
   color: var(--muted-strong);
   font-weight: 400;
 }
+
+/* Open, but within half an hour of the last order or of closing. */
+.is-soon {
+  color: var(--orange-strong);
+  font-weight: 700;
+}

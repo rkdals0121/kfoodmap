@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, statusClass } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
@@ -80,7 +80,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
         <p className="place-card__meta">
           {status ? (
             <>
-              <span className={status.open ? 'is-open' : 'is-closed'}>{status.label}</span>
+              <span className={statusClass(status)}>{status.label}</span>
               {status.detail && <> · {status.detail}</>}
             </>
           ) : (

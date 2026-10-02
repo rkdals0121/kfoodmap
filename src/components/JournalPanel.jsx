@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
-import { formatShortDate, displayName, getOpenStatus } from '../utils';
+import { formatShortDate, displayName, getOpenStatus, statusClass } from '../utils';
 import ClaimChip from './ClaimChip';
 import { ChevronRightIcon, ShareIcon } from './Icons';
 import Seal from './Seal';
@@ -27,7 +27,7 @@ function SavedRow({ place, savedAt, onOpen }) {
           </span>
           <span className="saved-row__status">
             {status ? (
-              <><span className={status.open ? 'is-open' : 'is-closed'}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
+              <><span className={statusClass(status)}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
             ) : (
               <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
             )}

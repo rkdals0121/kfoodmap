@@ -10,7 +10,7 @@ import {
   ChevronLeftIcon, ChevronRightIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, VEGAN, HALAL,
 } from '../data/verification';
@@ -388,7 +388,7 @@ export default function RestaurantDetail({
                 {/* Open/closed up here too, as on the list card: it is the first thing
                     a traveller acts on. The detail stays in the hours row below. */}
                 {status && (
-                  <><span aria-hidden="true"> · </span><strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong></>
+                  <><span aria-hidden="true"> · </span><strong className={statusClass(status)}>{status.label}</strong></>
                 )}
               </p>
             </header>
@@ -476,7 +476,7 @@ export default function RestaurantDetail({
                 <ClockIcon size={17} />
                 {status ? (
                   <span>
-                    <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
+                    <strong className={statusClass(status)}>{status.label}</strong>
                     {' '}· {status.detail}{' '}
                     {today && <span className="practical-muted practical-today">{t('detail.todayHours', { hours: today })}</span>}
                     {/* A device on another clock (planning from abroad): say
@@ -664,7 +664,7 @@ export default function RestaurantDetail({
                             <span className="saved-row__where">{t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
                             {otherStatus && (
                               <span className="saved-row__status">
-                                <span className={otherStatus.open ? 'is-open' : 'is-closed'}>{otherStatus.label}</span>
+                                <span className={statusClass(otherStatus)}>{otherStatus.label}</span>
                                 {otherStatus.detail && <> · {otherStatus.detail}</>}
                               </span>
                             )}

@@ -503,6 +503,7 @@ export default {
   // Opening-hours wording (src/utils.js getOpenStatus / todaysHours).
   hours: {
     open: 'Open',
+    closingSoon: 'Closes soon',
     closed: 'Closed',
     until: 'until {{time}}',
     untilLastOrder: 'until {{time}} · last order {{lastOrder}}',

@@ -487,6 +487,7 @@ export default {
   // 营业时间用语（src/utils.js getOpenStatus / todaysHours）。
   hours: {
     open: '营业中',
+    closingSoon: '即将打烊',
     closed: '未营业',
     until: '至 {{time}}',
     untilLastOrder: '至 {{time}} · 最后点餐 {{lastOrder}}',
