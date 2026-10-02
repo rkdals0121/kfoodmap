@@ -2350,6 +2350,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     60, `parseSharedList` in filters.js); opening it shows those places
     with "Save all" and "Show all places" (`SHARED_LIST`). README and
     CHANGELOG now describe the app as it is.
+    **Korean names for 13 early records** that had none (so "Name in
+    Korean" and the Journal seal had nothing to show): eight read from
+    Kakao Map on 2026-10-03 by searching the name and matching the
+    record's street address (플랜트 이태원 131087887, 몽크스부처 이태원
+    1701160594, 이드 26533982, 캄풍쿠 523907573, 노노샵 & 카페 1821435324,
+    아라베스크 송도점 20621475, 봄베이브로이 송도점 779977436, 사마르칸트시티
+    1081607002 — place.map.kakao.com ids), five already quoted in the
+    record's own evidence (유알티, 페르시안궁전, 비건키친, 스타사마르칸트,
+    타쉬켄트케밥). HAJJ Korea Halal Food is registered in Latin letters
+    on Kakao, so it stays without one.
 
 
 ---

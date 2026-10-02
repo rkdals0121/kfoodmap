@@ -171,7 +171,7 @@ export const restaurants = [
 
   {
     id: "plant-cafe",
-    name: "Plant Cafe & Kitchen",
+    name: "Plant Cafe & Kitchen (플랜트 이태원)",
     zone: "Itaewon, Seoul",
     category: "vegan-dining",
 
@@ -226,7 +226,7 @@ export const restaurants = [
 
   {
     id: "monks-butcher",
-    name: "Monk's Butcher",
+    name: "Monk's Butcher (몽크스부처 이태원)",
     zone: "Itaewon, Seoul",
     category: "vegan-dining",
 
@@ -335,7 +335,7 @@ export const restaurants = [
 
   {
     id: "eid",
-    name: "EID Halal Korean Food",
+    name: "EID Halal Korean Food (이드)",
     zone: "Itaewon, Seoul",
     category: "halal-korean",
 
@@ -466,7 +466,7 @@ export const restaurants = [
 
   {
     id: "kampungku",
-    name: "Kampungku",
+    name: "Kampungku (캄풍쿠)",
     // Corrected 2026-07-17, from "Itaewon, Seoul". Naver Place and Kakao Map
     // both place this in Jung-gu, near Myeongdong — ~4 km from Usadan-ro, a
     // different part of Seoul entirely. A search specifically for a Kampungku
@@ -532,7 +532,7 @@ export const restaurants = [
 
   {
     id: "nono-shop",
-    name: "Nono Shop & Cafe",
+    name: "Nono Shop & Cafe (노노샵 & 카페)",
     // Corrected 2026-07-17. Not a draft error like kampungku's — this is the
     // `rim` pattern: accurate when written, then went stale. Nine independent,
     // dated blog posts (2026-06-01 through 2026-07-14) document a real,
@@ -888,7 +888,7 @@ export const restaurants = [
 
   {
     id: "arabesque",
-    name: "Arabesque",
+    name: "Arabesque (아라베스크 송도점)",
     // Verified end-to-end 2026-07-17. District (Yeonsu-gu) was already
     // correct. Coordinates were ~700 m off, in the wrong part of the
     // district. Older sources for this venue cite 옥련동 (Ongnyeon-dong);
@@ -944,7 +944,7 @@ export const restaurants = [
 
   {
     id: "bombay-brau",
-    name: "Bombay Brau",
+    name: "Bombay Brau (봄베이브로이 송도점)",
     // Verified end-to-end 2026-07-17. Zone/district was already correct —
     // unlike the last three Incheon records, no wrong-district defect here.
     zone: "Songdo, Incheon",
@@ -2649,7 +2649,7 @@ export const restaurants = [
   },
   {
     "id": "urt",
-    "name": "URT",
+    "name": "URT (유알티)",
     "zone": "Hongdae, Seoul",
     "category": "vegan-dining",
     "coordinates": {
@@ -2855,7 +2855,7 @@ export const restaurants = [
   },
   {
     "id": "persian-palace",
-    "name": "Persian Palace",
+    "name": "Persian Palace (페르시안궁전)",
     "zone": "Jongno, Seoul",
     "category": "world-halal",
     "coordinates": {
@@ -3362,7 +3362,7 @@ export const restaurants = [
   },
   {
     "id": "vegan-kitchen-myeongdong",
-    "name": "Vegan Kitchen",
+    "name": "Vegan Kitchen (비건키친)",
     "zone": "Myeongdong, Seoul",
     "category": "vegan-dining",
     "coordinates": {
@@ -8036,7 +8036,7 @@ export const restaurants = [
   },
   {
     "id": "star-samarkand-dongdaemun",
-    "name": "Star Samarkand",
+    "name": "Star Samarkand (스타사마르칸트)",
     "zone": "Dongdaemun, Seoul",
     "category": "world-halal",
     "coordinates": {
@@ -8190,7 +8190,7 @@ export const restaurants = [
   },
   {
     "id": "samarkand-city-dongdaemun",
-    "name": "Samarkand City",
+    "name": "Samarkand City (사마르칸트시티)",
     "zone": "Dongdaemun, Seoul",
     "category": "world-halal",
     "coordinates": {
@@ -8344,7 +8344,7 @@ export const restaurants = [
   },
   {
     "id": "tashkent-kebab-dongdaemun",
-    "name": "Tashkent Kebab",
+    "name": "Tashkent Kebab (타쉬켄트케밥)",
     "zone": "Dongdaemun, Seoul",
     "category": "world-halal",
     "coordinates": {
