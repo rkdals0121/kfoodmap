@@ -496,6 +496,8 @@ export default {
     closedToday: '本日休業',
     closedForToday: '本日の営業は終了',
     closedWord: '休業',
+    timeAm: '午前{{time}}',
+    timePm: '午後{{time}}',
     day: { sun: '日', mon: '月', tue: '火', wed: '水', thu: '木', fri: '金', sat: '土' },
   },
   map: {

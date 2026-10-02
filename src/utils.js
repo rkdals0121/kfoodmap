@@ -70,8 +70,8 @@ const fromMinutes = (total) => {
   const mins = ((total % 1440) + 1440) % 1440;
   const h = Math.floor(mins / 60);
   const m = String(mins % 60).padStart(2, '0');
-  const suffix = h < 12 ? 'AM' : 'PM';
-  return `${((h + 11) % 12) + 1}:${m} ${suffix}`;
+  // The 12-hour reading, worded by the locale: "10:30 AM", "오전 10:30".
+  return tr(h < 12 ? 'timeAm' : 'timePm', { time: `${((h + 11) % 12) + 1}:${m}` });
 };
 
 // Fall back to reading a free-text range like "11:30 AM – 9:30 PM". Only used

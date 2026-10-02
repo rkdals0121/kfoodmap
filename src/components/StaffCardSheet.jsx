@@ -10,7 +10,10 @@ import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-
 //    size readable across a counter, with nothing else on it.
 // Works offline: everything here ships in the bundle.
 export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // A Korean reader needs no gloss of the Korean: the meaning lines would
+  // repeat the sentence above them.
+  const gloss = i18n.language !== 'ko';
   const sheetRef = useRef(null);
   const [cardId, setCardId] = useState(() => cardById(initialCard).id);
   // What is on the big screen: an array of Korean lines, or null.
@@ -92,12 +95,12 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <button type="button" className="staff-card__large-btn" onClick={() => openLarge(card.statement.map(l => l.ko))}>
                 {t('cards.showLarge')}
               </button>
-              <details className="staff-card__meaning" open>
+              {gloss && <details className="staff-card__meaning" open>
                 <summary>{t('cards.whatItSays')}</summary>
                 <ul>
                   {card.statement.map(line => <li key={line.ko}>{t(`cardText.${line.key}`)}</li>)}
                 </ul>
-              </details>
+              </details>}
             </section>
 
             <section>
@@ -107,7 +110,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 {card.questions.map(q => (
                   <li key={q.ko}>
                     <button type="button" className="staff-question" onClick={() => openLarge([q.ko])}>
-                      <span className="staff-question__en">{t(`cardText.${q.key}`)}</span>
+                      {gloss && <span className="staff-question__en">{t(`cardText.${q.key}`)}</span>}
                       <span className="staff-question__ko" lang="ko">{q.ko}</span>
                       <span className="staff-question__roman">{q.roman}</span>
                     </button>

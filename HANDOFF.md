@@ -2398,6 +2398,19 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     A second translation review (journeys, culture tips, Korean cards)
     applied 34 more corrections; the vegan card's third line was reworded
     in Korean (it left "것" pointing at nothing).
+58. **Final regression pass on live, 2026-10-03 ~01:00** (agent, phone
+    then desktop, flows A–N): no high-severity failure, no console
+    errors, no horizontal overflow. Fixed from it: a new search or filter
+    kept the list's scroll offset (now starts at the top; saving does
+    not); clock times follow the language (`hours.timeAm/timePm`: 오전
+    10:30, 午前10:30); in Korean the staff cards no longer print each
+    sentence twice; /privacy has its own tab title; "Ask in Korean" stays
+    while a claim explanation is open; the three map buttons are links
+    (`<a target=_blank>`), not buttons calling window.open. Seen once and
+    not reproduced: a place opened right after a build change showed no
+    "Name in Korean" row (a stale bundle with the pre-rename record is the
+    likely cause). Not verifiable in a hidden pane: the blue dot and map
+    recentring after "My location" — check once on a real phone.
 
 
 ---

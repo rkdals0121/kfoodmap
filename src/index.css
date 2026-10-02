@@ -3904,3 +3904,12 @@ button {
   border: 1px solid var(--green-strong);
   border-radius: 999px;
 }
+
+/* The map buttons are links now. */
+a.btn-primary {
+  text-decoration: none;
+}
+a.btn-primary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

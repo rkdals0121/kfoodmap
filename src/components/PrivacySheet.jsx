@@ -48,6 +48,12 @@ export default function PrivacySheet({ onClose }) {
   const { t, i18n } = useTranslation();
   const sheetRef = useRef(null);
 
+  useEffect(() => {
+    const before = document.title;
+    document.title = `${t('profile.privacyPolicy')} · K-Food Map`;
+    return () => { document.title = before; };
+  }, [t]);
+
   // The reader's own language, when the policy has been translated into it.
   const [translated, setTranslated] = useState(null);
   useEffect(() => {

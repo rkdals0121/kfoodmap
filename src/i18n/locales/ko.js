@@ -487,6 +487,8 @@ export default {
     closedToday: '오늘 휴무',
     closedForToday: '오늘 영업 종료',
     closedWord: '휴무',
+    timeAm: '오전 {{time}}',
+    timePm: '오후 {{time}}',
     day: { sun: '일', mon: '월', tue: '화', wed: '수', thu: '목', fri: '금', sat: '토' },
   },
   map: {

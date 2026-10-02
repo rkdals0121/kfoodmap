@@ -97,7 +97,7 @@ function AppShell() {
   // The tab title names the screen, in the reader's language. A place and
   // the staff cards set their own while open (and restore this on close).
   useEffect(() => {
-    if (id || location.pathname === '/cards') return;
+    if (id || location.pathname === '/cards' || location.pathname === '/privacy') return;
     const titles = {
       discover: t('discover.journeysTitle'),
       journal: t('journal.title'),
@@ -323,6 +323,14 @@ function AppShell() {
       document.removeEventListener('visibilitychange', onVisible);
     };
   }, [openNowOn]);
+
+  // A new search or filter is read from its first result. The list is its
+  // own scroller and kept its offset, so "Busan" typed halfway down a long
+  // list opened near the end of the Busan results. Saving a place does not
+  // come through here, so it keeps its position.
+  useEffect(() => {
+    document.getElementById('place-list')?.scrollTo?.({ top: 0 });
+  }, [selectedFilters, searchQuery]);
 
   // unknownHours: places that match everything else but have no recorded
   // hours for now — hidden by "Open now", and the list says how many.

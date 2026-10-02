@@ -506,6 +506,8 @@ export default {
     closedToday: 'closed today',
     closedForToday: 'closed for today',
     closedWord: 'closed',
+    timeAm: '{{time}} AM',
+    timePm: '{{time}} PM',
     day: { sun: 'Sun', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat' },
   },
   map: {

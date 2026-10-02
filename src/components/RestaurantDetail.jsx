@@ -177,7 +177,7 @@ export default function RestaurantDetail({
       storyRef.current.scrollIntoView({ block: 'start' });
     } else if (focusDirections && directionsRef.current) {
       directionsRef.current.scrollIntoView({ block: 'start' });
-      directionsRef.current.querySelector('.detail-directions button')?.focus({ preventScroll: true });
+      directionsRef.current.querySelector('.detail-directions a')?.focus({ preventScroll: true });
     } else {
       sheetRef.current?.focus();
     }
@@ -444,13 +444,13 @@ export default function RestaurantDetail({
               );
             })}
 
-            {(openClaim === null || certClaim) && (
+            {(
             <div className="diet-note">
               {/* An open claim explanation already says this, with its source. */}
               {openClaim === null && <p><strong>{caveat.title}</strong> {caveat.body}</p>}
               {/* "Ask staff" needs a way to ask: the Korean cards, on the
                   card that fits this place's claims. */}
-              {openClaim === null && (
+              {(
                 <Link
                   className="diet-note__ask"
                   to={`/cards?card=${cardForPlace(place)}`}
@@ -573,15 +573,17 @@ export default function RestaurantDetail({
               {/* The map buttons before the address: on a 375x812 phone they
                   started just below the first screen (walkthrough 2). */}
               <div className="detail-directions">
-                <button className="btn-primary btn-primary--naver" onClick={() => window.open(naverMapUrl(place), '_blank', 'noopener,noreferrer')}>
+                {/* Links, not buttons: they leave the app, and a link can be
+                    long-pressed, copied or opened in a new tab. */}
+                <a className="btn-primary btn-primary--naver" href={naverMapUrl(place)} target="_blank" rel="noopener noreferrer">
                   Naver Map
-                </button>
-                <button className="btn-primary btn-primary--kakao" onClick={() => window.open(kakaoMapUrl(place), '_blank', 'noopener,noreferrer')}>
+                </a>
+                <a className="btn-primary btn-primary--kakao" href={kakaoMapUrl(place)} target="_blank" rel="noopener noreferrer">
                   Kakao Map
-                </button>
-                <button className="btn-primary btn-primary--google" onClick={() => window.open(directionsUrl(place), '_blank', 'noopener,noreferrer')}>
+                </a>
+                <a className="btn-primary btn-primary--google" href={directionsUrl(place)} target="_blank" rel="noopener noreferrer">
                   Google Maps
-                </button>
+                </a>
               </div>
               <div className="practical-row">
                 <MapPinIcon size={17} />

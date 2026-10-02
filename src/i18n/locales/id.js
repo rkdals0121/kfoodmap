@@ -493,6 +493,8 @@ export default {
     closedToday: 'tutup hari ini',
     closedForToday: 'sudah tutup hari ini',
     closedWord: 'tutup',
+    timeAm: '{{time}} AM',
+    timePm: '{{time}} PM',
     day: { sun: 'Min', mon: 'Sen', tue: 'Sel', wed: 'Rab', thu: 'Kam', fri: 'Jum', sat: 'Sab' },
   },
   map: {

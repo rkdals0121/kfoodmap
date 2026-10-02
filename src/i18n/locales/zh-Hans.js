@@ -490,6 +490,8 @@ export default {
     closedToday: '今日休息',
     closedForToday: '今日已打烊',
     closedWord: '休息',
+    timeAm: '上午{{time}}',
+    timePm: '下午{{time}}',
     day: { sun: '周日', mon: '周一', tue: '周二', wed: '周三', thu: '周四', fri: '周五', sat: '周六' },
   },
   map: {
