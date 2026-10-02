@@ -244,6 +244,8 @@ export default {
     askInKorean: '韓国語で尋ねる:お店で見せるカード',
     contentInEnglish: 'ストーリー、メニュー、お店の説明は英語で表示されます。',
     koreanName: '韓国語の店名',
+    nearbyTitle: '近くのお店',
+    nearbyAway: '直線で {{distance}}',
     showLarge: '大きく表示',
     closeLarge: '拡大表示を閉じる',
     tapToClose: 'タップして閉じる',

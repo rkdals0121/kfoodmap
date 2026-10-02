@@ -238,6 +238,8 @@ export default {
     askInKorean: '한국어로 물어보기: 직원에게 보여 줄 카드',
     contentInEnglish: '이야기, 메뉴, 장소 설명은 영어로 나와요.',
     koreanName: '한국어 이름',
+    nearbyTitle: '근처의 다른 곳',
+    nearbyAway: '직선거리 {{distance}}',
     showLarge: '크게 보기',
     closeLarge: '크게 보기 닫기',
     tapToClose: '누르면 닫혀요',

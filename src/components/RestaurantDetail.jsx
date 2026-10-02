@@ -100,7 +100,7 @@ const DIET_CAVEAT_KEYS = {
 
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null,
-  journey = null, onJourneyStop,
+  journey = null, onJourneyStop, nearby = [], onOpenPlace,
   mapCenter, focusStory, focusDirections = false, docked = false,
 }) {
   const { t, i18n } = useTranslation();
@@ -627,6 +627,40 @@ export default function RestaurantDetail({
                 {t('submit.reportLink')}
               </Link>
             </section>
+
+            {/* Other places within a short walk: if this one is shut or
+                full, the next option is one tap away. Nearest first; the
+                distance is a straight line and says so. */}
+            {nearby.length > 0 && (
+              <section className="detail-section">
+                <SectionHead Icon={MapPinIcon} title={t('detail.nearbyTitle')} />
+                <ul className="saved-list">
+                  {nearby.map(({ place: other, km }) => {
+                    const otherStatus = getOpenStatus(other.hours);
+                    return (
+                      <li key={other.id}>
+                        <button type="button" className="saved-row" onClick={() => onOpenPlace(other)}>
+                          <span className="saved-row__main">
+                            <span className="saved-row__name">{displayName(other.name)}</span>
+                            <span className="saved-row__where">{t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
+                            {otherStatus && (
+                              <span className="saved-row__status">
+                                <span className={otherStatus.open ? 'is-open' : 'is-closed'}>{otherStatus.label}</span>
+                                {otherStatus.detail && <> · {otherStatus.detail}</>}
+                              </span>
+                            )}
+                            <span className="saved-row__claims">
+                              {dietaryBadges(other).map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}
+                            </span>
+                          </span>
+                          <ChevronRightIcon size={16} />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            )}
             
             {/* 6. Representative Menu */}
             {isKnown(place.menus) && (

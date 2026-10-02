@@ -21,6 +21,7 @@ import { MAP_CENTER, getOpenStatus } from './utils';
 import { readPosition, readError } from './data/locate';
 import { journeys } from './data/journeys';
 import { journeyNav } from './data/journey-nav';
+import { nearbyPlaces } from './data/nearby';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
@@ -195,6 +196,8 @@ function AppShell() {
   };
   const closePlace = () => (location.state?.fromApp ? navigate(-1) : navigate(tabPath));
   const openDetail = (r) => openPlace(r);
+  // What else is close to the open place (data/nearby.js).
+  const nearby = useMemo(() => nearbyPlaces(selectedRestaurant, activeRestaurants), [selectedRestaurant]);
   // A place opened from a journey (Discover) remembers which journey and
   // which stop, so the detail can offer the stop before and after. A stale
   // link, or a journey that lost a stop, is simply no journey.
@@ -532,6 +535,8 @@ function AppShell() {
         userLocation={userLocation}
         journey={journey}
         onJourneyStop={openJourneyStop}
+        nearby={nearby}
+        onOpenPlace={openDetail}
         focusStory={focusStory}
         focusDirections={focusDirections}
         docked={isWide}

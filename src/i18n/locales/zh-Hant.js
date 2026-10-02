@@ -239,6 +239,8 @@ export default {
     askInKorean: '用韓語問：給店員看的卡片',
     contentInEnglish: '故事、菜單和店家介紹為英文。',
     koreanName: '韓語店名',
+    nearbyTitle: '附近還有',
+    nearbyAway: '直線距離 {{distance}}',
     showLarge: '放大顯示',
     closeLarge: '關閉放大檢視',
     tapToClose: '點一下關閉',
