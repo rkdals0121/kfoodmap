@@ -136,7 +136,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], onSaveShared, onCloseShared,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared,
 }) {
   const { t } = useTranslation();
   // Nearest first — but while searching, places whose area or address
@@ -207,7 +207,11 @@ export default function BottomSheetList({
           two things a reader does with it — keep it, or leave it. */}
       {activeFilters.includes(SHARED_LIST) && (
         <div className="shared-list-note" role="status">
-          <p>{t('list.sharedNote', { count: sharedIds.length })}</p>
+          <p>
+            {sharedJourney
+              ? t('list.journeyNote', { title: sharedJourney.title, count: sharedIds.length })
+              : t('list.sharedNote', { count: sharedIds.length })}
+          </p>
           <div className="shared-list-note__actions">
             {sharedIds.every(id => bookmarkedIds.includes(id))
               ? <span className="shared-list-note__done">{t('list.sharedSaved')}</span>

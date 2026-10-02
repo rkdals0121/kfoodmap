@@ -3939,3 +3939,22 @@ a.btn-primary:focus-visible {
 .k-saved:hover span {
   transform: scale(1.12);
 }
+
+/* Discover → a journey's stops on the map. */
+.journey-card__map {
+  margin-top: 10px;
+  min-height: 40px;
+  padding: 0 14px;
+  background: var(--surface);
+  border: 1px solid var(--green-strong);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-strong);
+  cursor: pointer;
+}
+.journey-card__map:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+}

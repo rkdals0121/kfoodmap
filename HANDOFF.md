@@ -2411,6 +2411,15 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     "Name in Korean" row (a stale bundle with the pre-rename record is the
     likely cause). Not verifiable in a hidden pane: the blue dot and map
     recentring after "My location" — check once on a real phone.
+59. **2026-10-03 morning.** **"Also nearby"** on a place page
+    (`src/data/nearby.js`: up to three other places within 800 m, nearest
+    first, straight-line distance). **Saved places are hearts on the
+    map** at every zoom, never folded into a count (`SAVED_ICON`,
+    `savedIds` → ClusteredMarkers). **A journey's stops on the map**:
+    Discover → "Show these stops on the map" goes to
+    `/?list=…&journey=<id>`; the list in the address is now followed as
+    the address changes (`sharedList` state synced on `/`), not read once
+    at start.
 
 
 ---

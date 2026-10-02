@@ -50,12 +50,19 @@ function AppShell() {
   const isOnline = useOnlineStatus();
   const { updateReady, reload } = useAppUpdate();
   const [searchQuery, setSearchQuery] = useState('');
-  // A shared list (/?list=a,b,c) opens the map on those places only, as a
-  // filter the reader can close. Read once, on arrival.
-  const [sharedIds] = useState(() => parseSharedList(
-    new URLSearchParams(window.location.search).get('list'),
-    activeRestaurants.map(r => r.id),
-  ));
+  // A list in the address (/?list=a,b,c) opens the map on those places
+  // only, as a filter the reader can close: a list someone shared, or a
+  // journey's stops from Discover (&journey=<id> names it). Followed as the
+  // address changes, so it also works when reached from inside the app.
+  const readList = () => {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      ids: parseSharedList(params.get('list'), activeRestaurants.map(r => r.id)),
+      journeyId: params.get('journey'),
+    };
+  };
+  const [sharedList, setSharedList] = useState(readList);
+  const sharedIds = sharedList.ids;
   const [selectedFilters, setSelectedFilters] = useState(() => (sharedIds.length > 0 ? [SHARED_LIST] : []));
   // The URL is the source of truth for which restaurant is open — no
   // separate state to keep in sync. activeRestaurants already excludes
@@ -108,6 +115,19 @@ function AppShell() {
       ? `${titles[activeTab]} · K-Food Map`
       : `K-Food Map · ${t('prologue.title').replace(/[.。]$/, '')}`;
   }, [activeTab, id, location.pathname, i18n.language, t]);
+  // Only the map's own address decides the list: while a place or a sheet
+  // is open over it, the list in force stays.
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+    const next = readList();
+    setSharedList(prev => (prev.ids.join(',') === next.ids.join(',') && prev.journeyId === next.journeyId ? prev : next));
+    setSelectedFilters(prev => {
+      const on = prev.includes(SHARED_LIST);
+      if (next.ids.length > 0) return on ? prev : [...prev, SHARED_LIST];
+      return on ? prev.filter(f => f !== SHARED_LIST) : prev;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname, location.search]);
   const tabPath = TAB_PATH[activeTab] ?? '/';
   const selectTab = (tab) => navigate(TAB_PATH[tab] ?? '/');
   // Below 768px a non-map tab covers the whole map. The map is then made
@@ -460,6 +480,7 @@ function AppShell() {
                 activeFilters={selectedFilters}
                 unknownHours={unknownHours}
                 sharedIds={sharedIds}
+                sharedJourney={journeys.find(j => j.id === sharedList.journeyId) ?? null}
                 onSaveShared={() => saveMany(sharedIds)}
                 onCloseShared={closeSharedList}
                 searchQuery={searchQuery}

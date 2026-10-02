@@ -116,6 +116,15 @@ function DiscoverTab() {
                 {claimSummary(journey.stops, t) && (
                   <p className="journey-card__claims">{claimSummary(journey.stops, t)}</p>
                 )}
+                {/* The stops alone on the map: how far apart they really
+                    are is easier seen than read. */}
+                <button
+                  type="button"
+                  className="journey-card__map"
+                  onClick={() => navigate(`/?list=${journey.stops.map(p => p.id).join(',')}&journey=${journey.id}`)}
+                >
+                  {t('discover.showOnMap')}
+                </button>
               </article>
             ))}
           </div>
