@@ -62,3 +62,28 @@ test('a diet word finds what its chip finds', () => {
     dietary: { halal: { value: 'friendly', confidence: 'supported', source: 'x' } } };
   assert.equal(matchesSearch(p, 'halal'), true);
 });
+
+test('an area typed in Korean, Japanese or Chinese finds the romanised area', async () => {
+  const { romaniseQuery, romanisedArea, AREA_NAMES } = await import('../../src/data/area-names.js');
+  const busan = at('Jeonpo-dong, Busanjin-gu, Busan', '2 Ro, Busanjin-gu, Busan');
+  for (const q of ['부산', '釜山', 'プサン']) {
+    assert.equal(matchesSearch(busan, q), true, q);
+    assert.equal(matchesArea(busan, q), true, q);
+  }
+  assert.equal(matchesSearch(at('Myeongdong, Seoul', '1 Ro, Jung-gu, Seoul'), '明洞'), true);
+  assert.equal(matchesSearch(at('Myeongdong, Seoul', '1 Ro, Jung-gu, Seoul'), '釜山'), false);
+  assert.equal(romanisedArea('首爾'), 'Seoul');
+  assert.equal(romaniseQuery('Busan vegan'), null);
+  assert.equal(romaniseQuery('釜山 ヴィーガン'), 'Busan ヴィーガン');
+  // No name is listed under two areas.
+  const all = Object.values(AREA_NAMES).flat();
+  assert.equal(new Set(all).size, all.length);
+});
+
+test('an area and a diet word in another language combine', () => {
+  const p = { name: 'Y', zone: 'Seomyeon, Busan', address: { value: '1 Ro, Busanjin-gu, Busan' }, traits: [],
+    dietary: { vegan: { value: 'full', confidence: 'supported', source: 'x' } } };
+  assert.equal(matchesSearch(p, '釜山 ヴィーガン'), true);
+  assert.equal(matchesSearch(p, '부산 비건'), true);
+  assert.equal(matchesSearch(p, '釜山 ハラール'), false);
+});

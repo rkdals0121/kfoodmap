@@ -10,6 +10,7 @@
 // Dietary chips are answered by the structured dietary record (never a tag
 // string); the rest are descriptive traits.
 import { matchesDietary } from './data/verification.js';
+import { romaniseQuery } from './data/area-names.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 
@@ -99,7 +100,7 @@ const AREA_ALIASES = {
 const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
 const aliasMatch = (r, w) => (AREA_ALIASES[w] ?? []).some(a => areaText(r).includes(a));
 
-export function matchesSearch(r, query) {
+function searchCore(r, query) {
   const q = squash(query ?? '');
   if (q === '') return true;
   if (dietWordMatch(r, q) || aliasMatch(r, q)) return true;
@@ -120,11 +121,26 @@ export function matchesSearch(r, query) {
 // Does a search word name this place's area (neighbourhood or address)?
 // While searching, these places come first in the list and are where the
 // map goes, so "Busan" shows Busan rather than Seoul's "Busan Jib".
-export function matchesArea(r, query) {
+function areaCore(r, query) {
   // The whole query first ("mapo gu" is Mapo-gu), then its longer words:
   // a two-letter "gu" or "ro" starts a word in nearly every address.
   const whole = squash(query ?? '');
   if (whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole))) return true;
   const words = String(query ?? '').trim().split(/\s+/).map(squash).filter(w => w.length >= 3);
   return words.some(w => startsWord(areaText(r), w) || aliasMatch(r, w));
+}
+
+// A query is tried as typed and, when it contains a place name written in
+// Korean, Japanese or Chinese, again with that name romanised (area-names.js)
+// — "釜山 ヴィーガン" finds what "Busan vegan" finds.
+export function matchesSearch(r, query) {
+  if (searchCore(r, query)) return true;
+  const roman = romaniseQuery(query);
+  return roman !== null && searchCore(r, roman);
+}
+
+export function matchesArea(r, query) {
+  if (areaCore(r, query)) return true;
+  const roman = romaniseQuery(query);
+  return roman !== null && areaCore(r, roman);
 }
