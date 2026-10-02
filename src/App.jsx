@@ -341,12 +341,15 @@ function AppShell() {
     });
   };
 
-  // "Open now" is answered by the clock, so while it is on the list is
-  // re-asked every minute (a place closing at 9:00 leaves at 9:00).
+  // The clock ticks every minute whatever is on, so "Open", "Last order
+  // soon" and "Closed" on the cards and the open place stay true while the
+  // app is left open, and are right at once when a phone wakes it. Only
+  // "Open now" re-filters on the tick (filterClock): otherwise the list is
+  // the same places and the map is not regrouped every minute.
   const openNowOn = selectedFilters.includes(OPEN_NOW);
   const [clock, setClock] = useState(() => Date.now());
+  const filterClock = openNowOn ? clock : 0;
   useEffect(() => {
-    if (!openNowOn) return undefined;
     const tick = () => setClock(Date.now());
     tick();
     // On the minute, so a place closing at 9:00 leaves at 9:00; and at once
@@ -360,7 +363,7 @@ function AppShell() {
       if (interval) clearInterval(interval);
       document.removeEventListener('visibilitychange', onVisible);
     };
-  }, [openNowOn]);
+  }, []);
 
   // A new search or filter is read from its first result. The list is its
   // own scroller and kept its offset, so "Busan" typed halfway down a long
@@ -373,7 +376,7 @@ function AppShell() {
   // unknownHours: places that match everything else but have no recorded
   // hours for now — hidden by "Open now", and the list says how many.
   const { filteredRestaurants, unknownHours } = useMemo(() => {
-    const now = new Date(clock);
+    const now = new Date(filterClock || Date.now());
     let unknown = 0;
     const list = activeRestaurants.filter(r => {
       // 1. Filter chips (AND across chips). A dietary chip only matches on
@@ -398,7 +401,7 @@ function AppShell() {
       return status?.open === true && status.orderable !== false;
     });
     return { filteredRestaurants: list, unknownHours: unknown };
-  }, [selectedFilters, searchQuery, openNowOn, clock, bookmarkedIds, sharedIds]);
+  }, [selectedFilters, searchQuery, openNowOn, filterClock, bookmarkedIds, sharedIds]);
 
   if (!prologueCompleted) {
     return (

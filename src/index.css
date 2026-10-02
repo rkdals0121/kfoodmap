@@ -4039,11 +4039,6 @@ a.btn-primary:focus-visible {
   vertical-align: 2px;
 }
 
-.week-hours__last {
-  color: var(--muted-strong);
-  font-weight: 400;
-}
-
 /* Open, but within half an hour of the last order or of closing. */
 .is-soon {
   color: var(--orange-strong);
