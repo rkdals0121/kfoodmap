@@ -119,6 +119,21 @@ const SAVED_ICON = L.divIcon({
   iconAnchor: [16, 16],
 });
 
+// A journey's stop: its number in the route, so the order can be read off
+// the map. Like a saved place it is never folded into a count.
+const STOPS = new Map();
+const stopIcon = (n) => {
+  if (!STOPS.has(n)) {
+    STOPS.set(n, L.divIcon({
+      className: 'k-stop',
+      html: `<span aria-hidden="true">${n}</span>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+    }));
+  }
+  return STOPS.get(n);
+};
+
 // Built once. react-leaflet calls setIcon whenever the icon prop is a new
 // object, and the map re-renders on every pan (the list's sort centre lives
 // in App state), so a fresh divIcon per render meant redrawing every pin in
@@ -220,7 +235,7 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
 // reached again in the list, which holds every place on the map and is the
 // keyboard and screen-reader route (CRITIQUE-2 #12). Pointer and touch are
 // unchanged.
-function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds }) {
+function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, stopIds }) {
   const map = useMap();
   const { t } = useTranslation();
   const [zoom, setZoom] = useState(() => map.getZoom());
@@ -232,10 +247,14 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds }) 
   const savedKey = (savedIds ?? []).join(',');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const savedSet = useMemo(() => new Set(savedIds ?? []), [savedKey]);
-  const savedPlaces = restaurants.filter(r => savedSet.has(r.id) && r.id !== selectedId);
+  const stopKey = (stopIds ?? []).join(',');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const stopNumber = useMemo(() => new Map((stopIds ?? []).map((id, i) => [id, i + 1])), [stopKey]);
+  const stopPlaces = restaurants.filter(r => stopNumber.has(r.id) && r.id !== selectedId);
+  const savedPlaces = restaurants.filter(r => savedSet.has(r.id) && !stopNumber.has(r.id) && r.id !== selectedId);
   const groups = useMemo(() => {
     const points = restaurants
-      .filter(r => r.id !== selectedId && !savedSet.has(r.id))
+      .filter(r => r.id !== selectedId && !savedSet.has(r.id) && !stopNumber.has(r.id))
       .map(r => {
         const c = coordsOf(r);
         const p = map.project([c.lat, c.lng], zoom);
@@ -244,7 +263,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds }) 
     // Dots are small, so they only need grouping when they would touch;
     // pins are tall and need the wider radius.
     return clusterPoints(points, zoom < DOT_BELOW_ZOOM ? DOT_CLUSTER_RADIUS_PX : CLUSTER_RADIUS_PX);
-  }, [restaurants, selectedId, zoom, map, savedSet]);
+  }, [restaurants, selectedId, zoom, map, savedSet, stopNumber]);
 
   const atMaxZoom = zoom >= map.getMaxZoom();
 
@@ -329,6 +348,24 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds }) 
             icon={SAVED_ICON}
             keyboard={false}
             zIndexOffset={500}
+            title={label}
+            alt={label}
+            eventHandlers={{ click: () => onMarkerClick(r) }}
+          />
+        );
+      })}
+      {stopPlaces.map(r => {
+        const c = coordsOf(r);
+        const n = stopNumber.get(r.id);
+        const label = `${t('detail.journeyPrev', { index: n })} · ${pinLabel(r)}`;
+        return (
+          <Marker
+            key={`stop:${r.id}`}
+            position={[c.lat, c.lng]}
+            icon={stopIcon(n)}
+            keyboard={false}
+            // Earlier stops on top where two share a corner.
+            zIndexOffset={700 - n}
             title={label}
             alt={label}
             eventHandlers={{ click: () => onMarkerClick(r) }}
@@ -449,7 +486,7 @@ function LocateControl({ state, location, onLocate }) {
 
 export default function MapComponent({
   restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
-  userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [],
+  userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [],
 }) {
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
@@ -487,6 +524,7 @@ export default function MapComponent({
           selectedId={selectedId}
           onMarkerClick={onMarkerClick}
           savedIds={savedIds}
+          stopIds={stopIds}
         />
       </MapContainer>
     </div>

@@ -42,6 +42,8 @@ const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
 const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile: '/profile' };
 const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': 'profile' };
 
+const NO_STOPS = [];
+
 function AppShell() {
   const { t, i18n } = useTranslation();
   const { id } = useParams();
@@ -63,6 +65,7 @@ function AppShell() {
   };
   const [sharedList, setSharedList] = useState(readList);
   const sharedIds = sharedList.ids;
+  const sharedJourney = journeys.find(j => j.id === sharedList.journeyId) ?? null;
   const [selectedFilters, setSelectedFilters] = useState(() => (sharedIds.length > 0 ? [SHARED_LIST] : []));
   // The URL is the source of truth for which restaurant is open — no
   // separate state to keep in sync. activeRestaurants already excludes
@@ -427,6 +430,7 @@ function AppShell() {
             searchQuery={searchQuery}
             fitAll={selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST)}
             savedIds={bookmarkedIds}
+            stopIds={sharedJourney && selectedFilters.includes(SHARED_LIST) ? sharedIds : NO_STOPS}
             userLocation={userLocation}
             locateState={locateState}
             onLocate={locate}
@@ -480,7 +484,7 @@ function AppShell() {
                 activeFilters={selectedFilters}
                 unknownHours={unknownHours}
                 sharedIds={sharedIds}
-                sharedJourney={journeys.find(j => j.id === sharedList.journeyId) ?? null}
+                sharedJourney={sharedJourney}
                 onSaveShared={() => saveMany(sharedIds)}
                 onCloseShared={closeSharedList}
                 searchQuery={searchQuery}

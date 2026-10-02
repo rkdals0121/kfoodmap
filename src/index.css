@@ -3993,3 +3993,31 @@ a.btn-primary:focus-visible {
   font-weight: 700;
   color: var(--ink);
 }
+
+/* A journey's stops on the map, numbered in route order. */
+.k-stop {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.k-stop span {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--green-strong);
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 1px 4px rgba(16, 24, 40, 0.35);
+  transition: transform 0.15s ease;
+}
+.k-stop:hover span {
+  transform: scale(1.12);
+}
