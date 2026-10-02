@@ -2282,6 +2282,22 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     the straight-line distance (said to be one — no routing call), and
     Discover prints each leg. Next/previous replace the history entry, so
     Close still returns to Discover.
+53. **Comparable-app research and what came of it, 2026-10-02 night**
+    (HappyCow, Zabihah, Halal Navi, HalalTrip, Equal Eats, Find Me Gluten
+    Free, KTO/Visit Seoul, Naver; agent report in session). Built:
+    **Korean cards to show staff** (`/cards`, `StaffCardSheet`,
+    `src/data/staff-cards.js`: a vegan card and a Muslim card, questions
+    about hidden ingredients, likely answers, words to look for; "Show
+    large" puts the Korean alone on the whole screen; linked from each
+    place's dietary caveat and from Profile; prerendered and indexable).
+    The Korean was written in this session — **the owner should read it
+    once**. **"Saved" chip** (`SAVED_ONLY`): the shortlist on the map,
+    framed. Hours say "Korean time" on a device elsewhere. Decided against
+    (no capacity to moderate, or false precision): reviews, photos,
+    ratings, a 0–100 trust score, barcode scanning, prayer times.
+    Candidates not yet built: "fully vegan only" sub-filter, Korean name
+    in large type for taxi/Naver search, alcohol-served flag (no data),
+    prayer rooms (unverifiable), more UI languages.
 
 
 ---

@@ -14,6 +14,7 @@ import JournalPanel from './components/JournalPanel';
 import Prologue from './components/Prologue';
 import SubmitSheet from './components/SubmitSheet';
 import PrivacySheet from './components/PrivacySheet';
+import StaffCardSheet from './components/StaffCardSheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
 import { MAP_CENTER, getOpenStatus } from './utils';
@@ -61,6 +62,8 @@ function AppShell() {
   const focusDirections = Boolean(location.state?.focusDirections);
   const isSubmit = location.pathname === '/submit';
   const isPrivacy = location.pathname === '/privacy';
+  // /cards: Korean text to show restaurant staff (StaffCardSheet).
+  const isCards = location.pathname === '/cards';
   const submitPlace = useMemo(
     () => (isSubmit ? resolvePlace(new URLSearchParams(location.search).get('place'), activeRestaurants) : null),
     [isSubmit, location.search],
@@ -105,7 +108,7 @@ function AppShell() {
   // phone, where it covers the map: while one is open what lies behind it is
   // inert, so Tab stays inside. From 768px up the detail docks beside a
   // live map instead, and is not modal.
-  const modalOpen = (Boolean(selectedRestaurant) && !isWide) || isSubmit || isPrivacy;
+  const modalOpen = (Boolean(selectedRestaurant) && !isWide) || isSubmit || isPrivacy || isCards;
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   // "My location" (data/locate.js): asked once per tap, kept in memory for
   // this visit only. `at` changes with every answer so the map knows to go
@@ -474,6 +477,13 @@ function AppShell() {
         />
       )}
       {isPrivacy && <PrivacySheet onClose={() => navigate(tabPath, { replace: true })} />}
+      {/* Opened from a place, the cards close back to that place. */}
+      {isCards && (
+        <StaffCardSheet
+          initialCard={new URLSearchParams(location.search).get('card')}
+          onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(tabPath, { replace: true }))}
+        />
+      )}
 
     </main>
   );
@@ -486,6 +496,7 @@ export default function App() {
       <Route path="/place/:id" element={<AppShell />} />
       <Route path="/submit" element={<AppShell />} />
       <Route path="/privacy" element={<AppShell />} />
+      <Route path="/cards" element={<AppShell />} />
       {/* Anything else (/discover, an old link) lands on the map, not on a
           blank page. */}
       <Route path="*" element={<AppShell />} />

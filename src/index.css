@@ -3490,3 +3490,192 @@ button {
   font-size: 13px;
   color: var(--muted-strong);
 }
+
+/* ---------- Korean cards to show staff (StaffCardSheet, /cards) ---------- */
+.staff-cards section {
+  margin-top: 24px;
+}
+.staff-cards__intro {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-body);
+}
+.staff-cards__tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+.staff-cards__heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-title);
+  margin-bottom: 8px;
+}
+.staff-cards__hint {
+  font-size: 13px;
+  color: var(--muted-strong);
+  margin-bottom: 10px;
+}
+/* The card itself: paper white with an ink edge, Korean large enough to
+   read across a counter. No green: this is not the app speaking, it is the
+   visitor. */
+.staff-card__paper {
+  padding: 18px 16px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-lg);
+}
+.staff-card__ko {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #111;
+  word-break: keep-all;
+}
+.staff-card__ko + .staff-card__ko {
+  margin-top: 8px;
+}
+.staff-card__large-btn {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 48px;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.staff-card__large-btn:focus-visible,
+.staff-question:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+}
+.staff-card__meaning {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--ink-body);
+}
+.staff-card__meaning summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 6px 0;
+}
+.staff-card__meaning ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  line-height: 1.55;
+}
+.staff-questions {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.staff-question {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.staff-question:hover {
+  border-color: var(--line-hover);
+}
+.staff-question__en {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.staff-question__ko {
+  font-size: 16px;
+  color: var(--ink);
+  word-break: keep-all;
+}
+.staff-question__roman {
+  font-size: 12px;
+  color: var(--muted-strong);
+}
+.staff-words > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.staff-words > div:first-child {
+  border-top: none;
+}
+.staff-words dt {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.staff-words__roman {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted-strong);
+}
+.staff-words dd {
+  margin: 0;
+  flex: 1 1 180px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-body);
+}
+.staff-cards__note {
+  margin-top: 24px;
+}
+/* "Show large": the Korean alone, on the whole screen, black on white at
+   the largest size that fits; the phone is handed across the counter. */
+.staff-large {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 28px 22px;
+  background: #fff;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  overflow-y: auto;
+}
+.staff-large__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  font-size: clamp(24px, 6.4vw, 44px);
+  font-weight: 700;
+  line-height: 1.4;
+  color: #000;
+  text-align: left;
+  word-break: keep-all;
+  max-width: 900px;
+}
+.staff-large__close {
+  font-size: 13px;
+  color: #616875;
+}
+/* The "Ask in Korean" link under the dietary caveat on a place page. */
+.diet-note__ask {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--green-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

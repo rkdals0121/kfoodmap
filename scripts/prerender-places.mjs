@@ -117,6 +117,7 @@ for (const place of active) {
 // screens: noindex.
 for (const [slug, title, index] of [
   ['discover', 'Food journeys and stories · K-Food Map', true],
+  ['cards', 'Korean cards to show restaurant staff — vegan and Muslim travellers · K-Food Map', true],
   ['journal', 'Your food passport · K-Food Map', false],
   ['profile', 'Profile · K-Food Map', false],
 ]) {
@@ -162,4 +163,4 @@ writeFileSync(
 );
 
 console.log(`Prerendered ${active.length} place page(s) into dist/place/ (of ${restaurants.length} total).`);
-console.log(`Wrote submit/, privacy/, discover/, journal/, profile/ index.html, sitemap.xml (${active.length + 1} URLs) and robots.txt.`);
+console.log(`Wrote submit/, privacy/, discover/, cards/, journal/, profile/ index.html, sitemap.xml (${active.length + 1} URLs) and robots.txt.`);

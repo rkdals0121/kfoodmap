@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { useTranslation, Trans } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import {
@@ -16,6 +16,7 @@ import {
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
 import { CLAIM_CLASS } from './claim';
+import { cardForPlace } from '../data/staff-cards';
 import ClaimChip from './ClaimChip';
 import KoText from './KoText';
 
@@ -98,6 +99,7 @@ export default function RestaurantDetail({
   mapCenter, focusStory, focusDirections = false, docked = false,
 }) {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
@@ -411,6 +413,17 @@ export default function RestaurantDetail({
             <div className="diet-note">
               {/* An open claim explanation already says this, with its source. */}
               {openClaim === null && <p><strong>{caveat.title}</strong> {caveat.body}</p>}
+              {/* "Ask staff" needs a way to ask: the Korean cards, on the
+                  card that fits this place's claims. */}
+              {openClaim === null && (
+                <Link
+                  className="diet-note__ask"
+                  to={`/cards?card=${cardForPlace(place)}`}
+                  state={{ fromApp: true, tab: location.state?.tab }}
+                >
+                  {t('detail.askInKorean')}
+                </Link>
+              )}
               {certClaim && (
                 <p className="diet-note__cert">
                   {certClaim.note

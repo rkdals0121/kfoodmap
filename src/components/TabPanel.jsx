@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
-  SparkleIcon, UserIcon, ChevronRightIcon, BowlIcon, GlobeIcon, MapPinIcon, InfoIcon, LockIcon, LogOutIcon, TrashIcon,
+  SparkleIcon, UserIcon, ChevronRightIcon, BowlIcon, GlobeIcon, MapPinIcon, InfoIcon, LockIcon, LogOutIcon, TrashIcon, BookIcon,
 } from './Icons';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
@@ -219,6 +219,7 @@ function ProfileTab({
     // A picker with one choice implies a choice that isn't there: until a
     // second language ships, the row just states the language.
     { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: <GlobeIcon size={20} />, action: LANGUAGES.length > 1 ? () => setLanguagePickerOpen(true) : null },
+    { label: t('profile.staffCards'), value: '', icon: <BookIcon size={20} />, action: () => navigate('/cards', { state: { fromApp: true, tab: 'profile' } }) },
     { label: t('profile.suggestRestaurant'), value: '', icon: <MapPinIcon size={20} />, action: () => navigate('/submit') },
     // Shows the opening screen again: what the map is and how to read a claim.
     { label: t('profile.aboutApp'), value: '', icon: <InfoIcon size={20} />, action: () => { aboutOpener.current = document.activeElement; setAboutOpen(true); } },
