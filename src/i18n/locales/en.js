@@ -510,6 +510,7 @@ export default {
     untilLastOrder: 'until {{time}} · last order {{lastOrder}}',
     lastOrderPassed: 'last order passed, closes {{time}}',
     lastOrderAt: 'last order {{time}}',
+    allDay: '24 hours',
     opens: 'opens {{time}}',
     opensTomorrow: 'opens tomorrow {{time}}',
     opensDay: 'opens {{day}} {{time}}',

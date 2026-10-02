@@ -503,10 +503,7 @@ export default function RestaurantDetail({
                     {week.map(d => (
                       <div key={d.key} className={d.today ? 'is-today' : undefined}>
                         <dt>{d.day}</dt>
-                        <dd>
-                          {d.text ?? t('detail.notRecorded')}
-                          {d.lastOrder && <span className="week-hours__last"> · {d.lastOrder}</span>}
-                        </dd>
+                        <dd>{d.text ?? t('detail.notRecorded')}</dd>
                       </div>
                     ))}
                   </dl>

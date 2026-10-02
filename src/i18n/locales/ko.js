@@ -491,6 +491,7 @@ export default {
     untilLastOrder: '{{time}}까지 · 주문 마감 {{lastOrder}}',
     lastOrderPassed: '주문 마감됨, {{time}}에 닫아요',
     lastOrderAt: '주문 마감 {{time}}',
+    allDay: '24시간',
     opens: '{{time}}에 열어요',
     opensTomorrow: '내일 {{time}}에 열어요',
     opensDay: '{{day}}요일 {{time}}에 열어요',

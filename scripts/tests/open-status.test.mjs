@@ -112,17 +112,19 @@ test('weekHours lists Monday to Sunday, marks today in Korea, and never guesses 
   const week = weekHours(h, new Date('2026-10-02T16:00:00Z'));
   assert.deepEqual(week.map(d => d.key), ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']);
   assert.equal(week[0].text, '11:00 AM – 3:00 PM, 5:00 PM – 9:00 PM');
-  assert.equal(week[0].lastOrder, null);
   const lo = weekHours({ value: { weekly: { mon: [{ from: '11:00', to: '21:00', lastOrder: '20:30' }] } }, confidence: 'supported', source: 'x' });
-  assert.equal(lo[0].lastOrder, 'last order 8:30 PM');
+  assert.equal(lo[0].text, '11:00 AM – 9:00 PM (last order 8:30 PM)');
+  // Lunch and dinner each keep their own last order.
+  const two = weekHours({ value: { weekly: { mon: [{ from: '11:30', to: '15:00', lastOrder: '14:30' }, { from: '16:00', to: '19:30', lastOrder: '19:00' }] } }, confidence: 'supported', source: 'x' });
+  assert.equal(two[0].text, '11:30 AM – 3:00 PM (last order 2:30 PM), 4:00 PM – 7:30 PM (last order 7:00 PM)');
   assert.equal(week[1].text, null);          // Tuesday: not recorded
-  assert.equal(week[5].text, 'closed');      // Saturday: recorded as closed
+  assert.equal(week[5].text, 'Closed');      // Saturday: recorded as closed
   assert.deepEqual(week.filter(d => d.today).map(d => d.key), ['sat']);
   assert.equal(weekHours({ value: { raw: '11:00 – 21:00' }, confidence: 'supported', source: 'x' }), null);
 });
 
 test('"Closes soon" within 30 minutes of the last order, or of closing when none is recorded', async () => {
-  const { getOpenStatus, statusClass } = await import('../../src/utils.js');
+  const { getOpenStatus, statusClass, weekHours } = await import('../../src/utils.js');
   const fact = (slot) => ({ value: { weekly: { sat: [slot] } }, confidence: 'supported', source: 'x' });
   // Saturday in Korea: 2026-10-03 is a Saturday; 20:40 KST = 11:40 UTC.
   const at = (hhmm) => new Date(`2026-10-03T${hhmm}:00+09:00`);
@@ -142,6 +144,10 @@ test('"Closes soon" within 30 minutes of the last order, or of closing when none
   const allDay = { from: '00:00', to: '24:00' };
   const always = { value: { weekly: { fri: [allDay], sat: [allDay], sun: [allDay] } }, confidence: 'supported', source: 'x' };
   assert.equal(getOpenStatus(always, at('23:45')).soon, false);
+  assert.equal(getOpenStatus(always, at('23:45')).detail, '24 hours');
+  assert.equal(weekHours(always, at('12:00'))[4].text, '24 hours');
+  // Past the last order: still open, but amber, never a plain green "Open".
+  assert.equal(statusClass(getOpenStatus(withLo, at('21:10'))), 'is-soon');
   // Nor is a midnight close whose next day is not recorded.
   const satOnly = { value: { weekly: { sat: [{ from: '18:00', to: '00:00' }] } }, confidence: 'supported', source: 'x' };
   assert.equal(getOpenStatus(satOnly, at('23:45')).soon, false);

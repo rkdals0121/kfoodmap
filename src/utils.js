@@ -129,11 +129,17 @@ export function getOpenStatus(hoursFact, now = new Date()) {
     if (!Array.isArray(next)) return t % 1440 === 0;
     return next.some(sl => toMinutes(sl.from) === t % 1440);
   };
-  const openResult = (t, lo, at, day) => {
+  const openResult = (t, lo, at, day, from) => {
     if (lo != null && at >= lo) {
       // orderable: false — the doors are open, the kitchen is not (the
-      // "Open now" filter leaves these out).
-      return { open: true, orderable: false, label: tr('open'), detail: tr('lastOrderPassed', { time: fromMinutes(t) }) };
+      // "Open now" filter leaves these out). Amber, like "Last order soon":
+      // a green "Open" here read as safer than a place with no last order.
+      return { open: true, orderable: false, soon: true, label: tr('open'), detail: tr('lastOrderPassed', { time: fromMinutes(t) }) };
+    }
+    // A whole-day slot ("00:00–24:00") that the next day continues is a
+    // 24-hour place: "until 12:00 AM" read as closing at midnight.
+    if (from != null && t - from >= 1440 && continuesAt(day, t)) {
+      return { open: true, soon: false, label: tr('open'), detail: tr('allDay') };
     }
     // Within half an hour of the last order, or of closing where no last
     // order is recorded, "Open" alone sends people to a kitchen that is
@@ -155,7 +161,7 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   const yesterday = weekly[DAY_KEYS[(k.getUTCDay() + 6) % 7]];
   for (const slot of Array.isArray(yesterday) ? yesterday : []) {
     const sp = span(slot);
-    if (sp && sp.to > 1440 && cur + 1440 < sp.to) return openResult(sp.to, sp.lo, cur + 1440, (k.getUTCDay() + 6) % 7);
+    if (sp && sp.to > 1440 && cur + 1440 < sp.to) return openResult(sp.to, sp.lo, cur + 1440, (k.getUTCDay() + 6) % 7, sp.from);
   }
 
   const today = weekly[DAY_KEYS[k.getUTCDay()]];
@@ -185,7 +191,7 @@ export function getOpenStatus(hoursFact, now = new Date()) {
 
   for (const slot of today) {
     const sp = span(slot);
-    if (sp && cur >= sp.from && cur < sp.to) return openResult(sp.to, sp.lo, cur, k.getUTCDay());
+    if (sp && cur >= sp.from && cur < sp.to) return openResult(sp.to, sp.lo, cur, k.getUTCDay(), sp.from);
   }
 
   const next = today
@@ -196,6 +202,15 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   return { open: false, label: tr('closed'), detail: nextOpening() ?? tr('closedForToday') };
 }
 
+// One slot as printed: "11:30 AM – 3:00 PM", or "24 hours" for a whole day
+// ("00:00–24:00", which printed as "12:00 AM – 12:00 AM").
+const slotText = (sl) => {
+  const from = toMinutes(sl.from);
+  const to = toMinutes(sl.to);
+  if (from != null && to != null && (to - from >= 1440 || (from === 0 && (to === 0 || to === 1440)))) return tr('allDay');
+  return `${fromMinutes(from)} – ${fromMinutes(to)}`;
+};
+
 /** Today's printed hours, e.g. "11:30 AM – 3:00 PM, 6:00 PM – 8:20 PM". */
 export function todaysHours(hoursFact, now = new Date()) {
   if (!isKnown(hoursFact)) return null;
@@ -204,7 +219,7 @@ export function todaysHours(hoursFact, now = new Date()) {
   const today = weekly[DAY_KEYS[inKorea(now).getUTCDay()]];
   if (!today) return null;
   if (today.length === 0) return tr('closedWord');
-  return today.map(s => `${fromMinutes(toMinutes(s.from))} – ${fromMinutes(toMinutes(s.to))}`).join(', ');
+  return today.map(slotText).join(', ');
 }
 
 /**
@@ -220,16 +235,16 @@ export function weekHours(hoursFact, now = new Date()) {
   const todayKey = DAY_KEYS[inKorea(now).getUTCDay()];
   return ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].map((key) => {
     const slots = weekly[key];
+    // Each slot's last order where the record has one (lunch and dinner
+    // each have their own): what someone arriving late needs.
     const text = !Array.isArray(slots)
       ? null
       : slots.length === 0
-        ? tr('closedWord')
-        : slots.map(sl => `${fromMinutes(toMinutes(sl.from))} – ${fromMinutes(toMinutes(sl.to))}`).join(', ');
-    // The day's last order, where the record has one: what someone
-    // arriving late needs, and the closing time alone would mislead.
-    const last = Array.isArray(slots) && slots.length > 0 ? slots[slots.length - 1].lastOrder : null;
-    const lastOrder = last ? tr('lastOrderAt', { time: fromMinutes(toMinutes(last)) }) : null;
-    return { key, day: tr(`day.${key}`), text, lastOrder, today: key === todayKey };
+        ? tr('closed')
+        : slots.map(sl => (sl.lastOrder
+          ? `${slotText(sl)} (${tr('lastOrderAt', { time: fromMinutes(toMinutes(sl.lastOrder)) })})`
+          : slotText(sl))).join(', ');
+    return { key, day: tr(`day.${key}`), text, today: key === todayKey };
   });
 }
 

@@ -494,6 +494,7 @@ export default {
     untilLastOrder: '至 {{time}} · 最后点餐 {{lastOrder}}',
     lastOrderPassed: '已过最后点餐，{{time}} 打烊',
     lastOrderAt: '最后点餐 {{time}}',
+    allDay: '24小时',
     opens: '{{time}} 开门',
     opensTomorrow: '明天 {{time}} 开门',
     opensDay: '{{day}} {{time}} 开门',
