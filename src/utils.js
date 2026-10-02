@@ -202,6 +202,13 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   return { open: false, label: tr('closed'), detail: nextOpening() ?? tr('closedForToday') };
 }
 
+/** True only when today (in Korea) is recorded as a day off. */
+export function closedAllDay(hoursFact, now = new Date()) {
+  if (!isKnown(hoursFact)) return false;
+  const day = hoursFact.value.weekly?.[DAY_KEYS[inKorea(now).getUTCDay()]];
+  return Array.isArray(day) && day.length === 0;
+}
+
 // One slot as printed: "11:30 AM – 3:00 PM", or "24 hours" for a whole day
 // ("00:00–24:00", which printed as "12:00 AM – 12:00 AM").
 const slotText = (sl) => {

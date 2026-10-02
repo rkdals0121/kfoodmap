@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { displayName, formatDistance, getOpenStatus, statusClass } from '../utils';
+import { displayName, formatDistance, getOpenStatus, statusClass, closedAllDay } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -83,6 +83,14 @@ function DiscoverTab() {
               <article key={journey.id} className="journey-card">
                 <h3 className="journey-card__title">{journey.text.title}</h3>
                 <p className="journey-card__description">{journey.text.description}</p>
+                {/* A day off recorded for today, said before the stops: the
+                    plan for today needs it first. Never guessed from
+                    missing hours. */}
+                {journey.stops.some(p => closedAllDay(p.hours)) && (
+                  <p className="journey-card__closed">
+                    {t('discover.closedToday', { closed: journey.stops.filter(p => closedAllDay(p.hours)).length, total: journey.stops.length })}
+                  </p>
+                )}
                 <ol className="journey-card__stops">
                   {journey.stops.map((place, i) => (
                     <li key={place.id}>

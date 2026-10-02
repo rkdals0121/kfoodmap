@@ -130,6 +130,7 @@ export default {
     journeyClaims: 'Dietary claims across these stops: {{summary}}.',
     legFromPrevious: '{{distance}} from stop {{stop}}, in a straight line',
     showOnMap: 'Show these stops on the map',
+    closedToday: 'Closed today: {{closed}} of {{total}} stops',
     storyLabel: 'Story',
     cultureTitle: 'Food stories',
     cultureSubtitle: 'Explore the history and traditions behind Korean food.',

@@ -123,6 +123,7 @@ export default {
     journeyClaims: '各站的飲食資訊：{{summary}}。',
     legFromPrevious: '距第 {{stop}} 站直線 {{distance}}',
     showOnMap: '在地圖上查看這些地點',
+    closedToday: '今日休息：{{total}} 站中 {{closed}} 站',
     storyLabel: '故事',
     cultureTitle: '美食故事',
     cultureSubtitle: '了解韓國飲食背後的歷史與傳統。',

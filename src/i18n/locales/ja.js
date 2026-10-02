@@ -128,6 +128,7 @@ export default {
     journeyClaims: 'このコースの食に関する表示:{{summary}}。',
     legFromPrevious: '{{stop}} か所目から直線で {{distance}}',
     showOnMap: 'このコースを地図で見る',
+    closedToday: '本日休業: {{total}} か所中 {{closed}} か所',
     storyLabel: 'ストーリー',
     cultureTitle: '食のストーリー',
     cultureSubtitle: '韓国料理の背景にある歴史と伝統をたどります。',

@@ -125,6 +125,7 @@ export default {
     journeyClaims: 'Klaim diet di perhentian-perhentian ini: {{summary}}.',
     legFromPrevious: '{{distance}} dari perhentian {{stop}}, dalam garis lurus',
     showOnMap: 'Lihat perhentian ini di peta',
+    closedToday: 'Tutup hari ini: {{closed}} dari {{total}} perhentian',
     storyLabel: 'Cerita',
     cultureTitle: 'Cerita kuliner',
     cultureSubtitle: 'Jelajahi sejarah dan tradisi di balik makanan Korea.',

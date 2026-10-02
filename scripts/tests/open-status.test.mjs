@@ -152,3 +152,13 @@ test('"Closes soon" within 30 minutes of the last order, or of closing when none
   const satOnly = { value: { weekly: { sat: [{ from: '18:00', to: '00:00' }] } }, confidence: 'supported', source: 'x' };
   assert.equal(getOpenStatus(satOnly, at('23:45')).soon, false);
 });
+
+test('closedAllDay is true only for a day recorded as off', async () => {
+  const { closedAllDay } = await import('../../src/utils.js');
+  const sat = new Date('2026-10-03T12:00:00+09:00');
+  const f = (weekly) => ({ value: { weekly }, confidence: 'supported', source: 'x' });
+  assert.equal(closedAllDay(f({ sat: [] }), sat), true);
+  assert.equal(closedAllDay(f({ sat: [{ from: '11:00', to: '20:00' }] }), sat), false);
+  assert.equal(closedAllDay(f({ sun: [] }), sat), false);   // Saturday not recorded: not "closed"
+  assert.equal(closedAllDay(null, sat), false);
+});

@@ -4094,3 +4094,11 @@ a.btn-primary:focus-visible {
   font-size: 13px;
   color: var(--muted-strong);
 }
+
+/* Discover: stops recorded as closed today. */
+.journey-card__closed {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--danger);
+}
