@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, AttributionControl, useMapEvents, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Circle, AttributionControl, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useTranslation } from 'react-i18next';
 import { MAP_CENTER, coordsOf } from '../utils';
@@ -7,6 +7,7 @@ import { clusterPoints, isSameSpot, CLUSTER_RADIUS_PX, DOT_CLUSTER_RADIUS_PX } f
 import { dietaryBadges, trustBadge } from '../data/verification';
 import { pinKind } from '../data/pin-kind';
 import { matchesArea } from '../filters';
+import { isCoarse } from '../data/locate';
 
 // The middle of the part of the map a person can see. On a phone the list
 // sheet covers the lower half, so the map's own centre sits under the sheet.
@@ -316,9 +317,110 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
   );
 }
 
-export default function MapComponent({ restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '' }) {
+// The visitor's own position: a blue dot, the one mark on the map that is
+// not a place, so it uses the one colour no place uses. The ring is the
+// accuracy the device reported; a coarse fix (desktop Wi-Fi, kilometres
+// off) is drawn hollow and named "about here".
+const youIcon = (coarse) => L.divIcon({
+  className: `k-you${coarse ? ' k-you--coarse' : ''}`,
+  html: '<span aria-hidden="true"></span>',
+  iconSize: [22, 22],
+  iconAnchor: [11, 11],
+});
+const YOU_ICON = youIcon(false);
+const YOU_ICON_COARSE = youIcon(true);
+
+function UserLocation({ location }) {
+  const map = useMap();
+  const { t } = useTranslation();
+  const at = location?.at;
+  // Go there on every answer (the button pressed again brings the map
+  // back), fitted into the part of the map the list sheet leaves showing.
+  useEffect(() => {
+    if (!location) return;
+    safeFlyToBounds(map, [[location.lat, location.lng]], [56, 56], [56, 56 + sheetOverlap(map)], { maxZoom: 15, duration: 0.6 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [at, map]);
+  if (!location) return null;
+  const coarse = isCoarse(location);
+  const label = coarse ? t('map.youAreAbout') : t('map.youAreHere');
+  return (
+    <>
+      {location.accuracy > 30 && (
+        <Circle
+          center={[location.lat, location.lng]}
+          radius={location.accuracy}
+          interactive={false}
+          pathOptions={{ color: '#1D6FE0', weight: 1, opacity: 0.5, fillColor: '#1D6FE0', fillOpacity: 0.08 }}
+        />
+      )}
+      <Marker
+        position={[location.lat, location.lng]}
+        icon={coarse ? YOU_ICON_COARSE : YOU_ICON}
+        keyboard={false}
+        interactive={false}
+        zIndexOffset={900}
+        title={label}
+        alt={label}
+      />
+    </>
+  );
+}
+
+const LOCATE_MESSAGE = {
+  denied: 'map.locateDenied',
+  unavailable: 'map.locateUnavailable',
+  outside: 'map.locateOutside',
+};
+
+// "My location" button, outside the Leaflet container so it is an ordinary
+// button in the page's tab order. What happened is said in words beside it
+// (and to screen readers), not only by the dot appearing.
+function LocateControl({ state, location, onLocate }) {
+  const { t } = useTranslation();
+  const answerKey = LOCATE_MESSAGE[state] ?? (state === 'located' && isCoarse(location) ? 'map.locateCoarse' : null);
+  const asking = state === 'asking';
+  // The message covers part of the map, so it leaves after a few seconds;
+  // pressing the button again says it again.
+  const [shown, setShown] = useState(true);
+  const at = location?.at;
+  useEffect(() => {
+    setShown(true);
+    if (!answerKey) return undefined;
+    const id = setTimeout(() => setShown(false), 8000);
+    return () => clearTimeout(id);
+  }, [state, at, answerKey]);
+  const messageKey = shown ? answerKey : null;
+  return (
+    <div className="map-locate">
+      <p className="map-locate__status" role="status">
+        {asking ? <span className="visually-hidden">{t('map.locateAsking')}</span> : messageKey && <span className="map-locate__message">{t(messageKey)}</span>}
+      </p>
+      <button
+        type="button"
+        className={`map-locate__btn${state === 'located' ? ' is-on' : ''}${asking ? ' is-asking' : ''}`}
+        onClick={onLocate}
+        disabled={asking}
+        aria-label={state === 'located' ? t('map.locateAgain') : t('map.locate')}
+        title={state === 'located' ? t('map.locateAgain') : t('map.locate')}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="7" />
+          <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none" />
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+export default function MapComponent({
+  restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
+  userLocation = null, locateState = 'idle', onLocate,
+}) {
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
+      {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} />}
       <MapContainer center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
         {/* Top right, not Leaflet's bottom right: on a phone the list sheet
             and tab bar cover the map's bottom edge, which hid the
@@ -345,6 +447,7 @@ export default function MapComponent({ restaurants, onMarkerClick, selectedId, o
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <StartInView />
+        <UserLocation location={userLocation} />
         <FollowResults restaurants={restaurants} searchQuery={searchQuery} />
         <ClusteredMarkers
           restaurants={restaurants}

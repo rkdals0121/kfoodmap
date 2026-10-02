@@ -57,12 +57,12 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
           <span className="place-card__zone">{place.zone}</span>
           {/* Past 50 km a distance from the map centre means nothing to a
               visitor (a shared link opens over Seoul), so it is left out. */}
-          {place.distanceKm <= 50 && (
+          {(place.fromYou || place.distanceKm <= 50) && (
             <>
               <span aria-hidden="true"> · </span>
               <span className="place-card__distance">
                 {formatDistance(place.distanceKm)}
-                <span className="visually-hidden"> {t('list.fromMapCentre')}</span>
+                <span className="visually-hidden"> {place.fromYou ? t('list.fromYou') : t('list.fromMapCentre')}</span>
               </span>
             </>
           )}
@@ -128,6 +128,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
+  userLocation = null,
 }) {
   const { t } = useTranslation();
   // Nearest first — but while searching, places whose area or address
@@ -138,10 +139,16 @@ export default function BottomSheetList({
     return restaurants
       .map(r => {
         const { lat, lng } = coordsOf(r);
-        return { ...r, distanceKm: haversineKm(mapCenter[0], mapCenter[1], lat, lng), areaMatch: inArea(r) };
+        // The list follows the map (sortKm: nearest the map centre), so it
+        // still works when someone in Seoul looks at Busan. The distance
+        // printed is from the visitor once "My location" has answered, as
+        // on Naver and Kakao; until then it is from the map centre.
+        const sortKm = haversineKm(mapCenter[0], mapCenter[1], lat, lng);
+        const distanceKm = userLocation ? haversineKm(userLocation.lat, userLocation.lng, lat, lng) : sortKm;
+        return { ...r, sortKm, distanceKm, fromYou: Boolean(userLocation), areaMatch: inArea(r) };
       })
-      .sort((a, b) => (b.areaMatch - a.areaMatch) || (a.distanceKm - b.distanceKm));
-  }, [restaurants, mapCenter, searchQuery]);
+      .sort((a, b) => (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm));
+  }, [restaurants, mapCenter, searchQuery, userLocation]);
 
   // Draw the nearest PAGE cards and add more as the end of the list scrolls
   // into view. With 385 places, re-rendering every card on each map move
@@ -170,6 +177,7 @@ export default function BottomSheetList({
         {sorted.length > 1 && (
           <span className="place-list__hint">
             {sorted[0].areaMatch ? t('list.areaFirst') : t('list.nearestFirst')}
+            {userLocation && <> · {t('list.distanceFromYou')}</>}
           </span>
         )}
       </div>

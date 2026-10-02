@@ -17,6 +17,7 @@ import PrivacySheet from './components/PrivacySheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
 import { MAP_CENTER, getOpenStatus } from './utils';
+import { readPosition, readError } from './data/locate';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
@@ -104,6 +105,25 @@ function AppShell() {
   // live map instead, and is not modal.
   const modalOpen = (Boolean(selectedRestaurant) && !isWide) || isSubmit || isPrivacy;
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
+  // "My location" (data/locate.js): asked once per tap, kept in memory for
+  // this visit only. `at` changes with every answer so the map knows to go
+  // there again when the button is pressed a second time.
+  const [userLocation, setUserLocation] = useState(null);
+  const [locateState, setLocateState] = useState('idle'); // idle | asking | located | outside | denied | unavailable
+  const locate = () => {
+    if (!('geolocation' in navigator)) { setLocateState('unavailable'); return; }
+    setLocateState('asking');
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const answer = readPosition(position);
+        setLocateState(answer.state);
+        setUserLocation(answer.state === 'located' ? { ...answer.location, at: Date.now() } : null);
+      },
+      (error) => { setLocateState(readError(error).state); setUserLocation(null); },
+      // A recent fix is fine for "what is near me"; do not hold the radio on.
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 },
+    );
+  };
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
   const [prologueCompleted, setPrologueCompleted] = useState(
@@ -300,6 +320,9 @@ function AppShell() {
             selectedId={selectedRestaurant?.id}
             onCenterChange={setMapCenter}
             searchQuery={searchQuery}
+            userLocation={userLocation}
+            locateState={locateState}
+            onLocate={locate}
           />
         </MapErrorBoundary>
       </div>
@@ -340,6 +363,7 @@ function AppShell() {
               <BottomSheetList
                 restaurants={filteredRestaurants}
                 mapCenter={mapCenter}
+                userLocation={userLocation}
                 bookmarkedIds={bookmarkedIds}
                 onRestaurantClick={openDetail}
                 onReadStory={openStory}
@@ -416,6 +440,7 @@ function AppShell() {
         // was looking at the map; from a shared link it measured from a
         // default centre they never saw.
         mapCenter={location.state?.fromApp ? mapCenter : null}
+        userLocation={userLocation}
         focusStory={focusStory}
         focusDirections={focusDirections}
         docked={isWide}

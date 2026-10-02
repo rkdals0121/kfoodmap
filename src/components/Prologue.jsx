@@ -10,7 +10,8 @@ const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
 // One screen: what this map is, and how to read the claim mark that sits on
 // every dietary claim in it (docs/UI-DIRECTION.md). It replaced three steps,
 // the last a 1.5 s "Opening the map…" spinner that loaded nothing. There is
-// deliberately no location step: the app never requests the device's location.
+// deliberately no location step: location is asked only when someone presses
+// “My location” on the map (data/locate.js), never on arrival.
 const LEGEND = [
   { tone: 'strong', kind: 'vegan', chipKey: 'prologue.legendConfirmedChip', levelKey: 'trust.confirmed', bodyKey: 'prologue.legendConfirmed' },
   { tone: 'medium', kind: 'halal', chipKey: 'prologue.legendReportedChip', levelKey: 'trust.reported', bodyKey: 'prologue.legendReported' },

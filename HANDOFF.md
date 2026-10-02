@@ -2264,6 +2264,18 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     phone. EID's story lost "run by a dedicated Korean Muslim family"
     and "bridges … Islamic dietary law" (no source in the record; surer
     than its Reported mark); the attributed KMF sentence stays.
+52. **New features, 2026-10-02 night** (owner: "these are all good, build
+    them without asking" — the freeze is lifted for these three).
+    **Open now** chip (`OPEN_NOW` in filters.js, answered in App.jsx by
+    `getOpenStatus`; unknown hours never match and the list says how many
+    were left out; re-asked each minute). **Hours are read on Korean
+    time** (`inKorea` in utils.js) — they were read on the device clock.
+    **My location** (`src/data/locate.js`, `locate` in App.jsx,
+    `LocateControl` / `UserLocation` in MapComponent): asked once per
+    press, memory only, never stored or sent; outside the Korea box it is
+    not used; the list still sorts by the map centre but prints distance
+    from you; privacy.js updated in the same commit (effective
+    2026-10-02).
 
 
 ---

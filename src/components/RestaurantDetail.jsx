@@ -92,7 +92,7 @@ const DIET_CAVEAT_KEYS = {
 };
 
 export default function RestaurantDetail({
-  restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited,
+  restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null,
   mapCenter, focusStory, focusDirections = false, docked = false,
 }) {
   const { t, i18n } = useTranslation();
@@ -195,8 +195,12 @@ export default function RestaurantDetail({
   const coords = coordsOf(place);
   // Past 50 km, a distance from the map centre is noise (a shared link
   // opens the map over Seoul), so it is not shown.
-  const km = mapCenter ? haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng) : null;
-  const distance = km != null && km <= 50 ? formatDistance(km) : null;
+  // From the visitor once "My location" has answered (any distance: "320
+  // km from you" is true and useful); otherwise from the map centre.
+  const km = userLocation
+    ? haversineKm(userLocation.lat, userLocation.lng, coords.lat, coords.lng)
+    : mapCenter ? haversineKm(mapCenter[0], mapCenter[1], coords.lat, coords.lng) : null;
+  const distance = km != null && (userLocation || km <= 50) ? formatDistance(km) : null;
 
   // Pork-free is not halal, so it never carries the crescent.
   const dietFacts = dietaryBadges(place).map(b => ({
@@ -309,7 +313,7 @@ export default function RestaurantDetail({
               <h2><KoText>{place.name}</KoText></h2>
               <p className="detail-meta">
                 {place.zone}
-                {distance && <><span aria-hidden="true"> · </span>{t('detail.fromMapCentre', { distance })}</>}
+                {distance && <><span aria-hidden="true"> · </span>{userLocation ? t('detail.fromYou', { distance }) : t('detail.fromMapCentre', { distance })}</>}
                 {/* Open/closed up here too, as on the list card: it is the first thing
                     a traveller acts on. The detail stays in the hours row below. */}
                 {status && (
