@@ -86,6 +86,7 @@ export default {
     placeCount_one: '{{count}} place',
     placeCount_other: '{{count}} places',
     nearestFirst: 'Nearest the map centre',
+    nearestYou: 'Nearest to you',
     areaFirst: 'In the searched area first',
     fromMapCentre: 'from the map centre',
     fromYou: 'from you',

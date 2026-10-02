@@ -81,6 +81,7 @@ export default {
     placeCount_one: '{{count}} 家',
     placeCount_other: '{{count}} 家',
     nearestFirst: '離地圖中心最近的優先',
+    nearestYou: '離你最近的在前',
     areaFirst: '搜尋區域內的優先',
     fromMapCentre: '（從地圖中心算起）',
     fromYou: '（從你的位置算起）',

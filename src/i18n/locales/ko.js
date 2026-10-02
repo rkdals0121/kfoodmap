@@ -83,6 +83,7 @@ export default {
     placeCount_one: '{{count}}곳',
     placeCount_other: '{{count}}곳',
     nearestFirst: '지도 중심에서 가까운 순',
+    nearestYou: '내 위치에서 가까운 순',
     areaFirst: '검색한 지역 먼저',
     fromMapCentre: '(지도 중심 기준)',
     fromYou: '(내 위치 기준)',

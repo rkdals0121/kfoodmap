@@ -82,6 +82,7 @@ export default {
     placeCount_one: '{{count}} tempat',
     placeCount_other: '{{count}} tempat',
     nearestFirst: 'Terdekat dari pusat peta',
+    nearestYou: 'Terdekat dari Anda',
     areaFirst: 'Area yang dicari lebih dulu',
     fromMapCentre: 'dari pusat peta',
     fromYou: 'dari Anda',

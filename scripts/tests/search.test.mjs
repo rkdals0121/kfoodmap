@@ -116,3 +116,15 @@ test('a one-letter word is dropped, not required', () => {
   assert.equal(matchesSearch(busan, '釜山市'), true);
   assert.equal(matchesSearch(busan, 'seoul v'), false);
 });
+
+test('every suggested area finds places, in English and in Korean', async () => {
+  const { areaSuggestions } = await import('../../src/data/area-names.js');
+  const { restaurants } = await import('../../src/data/restaurants.js');
+  const { isQuarantined } = await import('../../src/data/verification.js');
+  const active = restaurants.filter(r => !isQuarantined(r));
+  for (const lang of ['en', 'ko']) {
+    for (const area of areaSuggestions(lang)) {
+      assert.ok(active.filter(r => matchesSearch(r, area)).length >= 3, `${lang}: ${area}`);
+    }
+  }
+});

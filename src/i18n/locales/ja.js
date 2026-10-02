@@ -85,6 +85,7 @@ export default {
     placeCount_one: '{{count}} 件',
     placeCount_other: '{{count}} 件',
     nearestFirst: '地図の中心から近い順',
+    nearestYou: '現在地から近い順',
     areaFirst: '検索したエリアを優先',
     fromMapCentre: '地図の中心から',
     fromYou: '現在地から',

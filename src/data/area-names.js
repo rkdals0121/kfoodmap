@@ -69,3 +69,12 @@ export function romaniseQuery(query) {
 }
 
 export const AREA_NAMES = AREAS;
+
+// Areas offered as suggestions under the search box (FilterBar): the cities
+// and districts with the most places, so a first-time visitor sees that
+// the map is nationwide and what can be typed. Korean readers get the
+// Korean name (always the first in each list above); everyone else the
+// romanised one, which is what the records and street signs use.
+const SUGGESTED = ['Seoul', 'Itaewon', 'Myeongdong', 'Hongdae', 'Gangnam', 'Insadong', 'Seongsu',
+  'Busan', 'Incheon', 'Daegu', 'Daejeon', 'Gwangju', 'Ulsan', 'Jeju', 'Suwon', 'Jeonju', 'Gyeongju', 'Gangneung', 'Ansan'];
+export const areaSuggestions = (lang) => SUGGESTED.map(a => (lang === 'ko' ? AREAS[a][0] : a));

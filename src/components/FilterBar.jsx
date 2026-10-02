@@ -2,9 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { OPEN_NOW, SAVED_ONLY, FULLY_VEGAN } from '../filters';
+import { areaSuggestions } from '../data/area-names';
 
 export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <header className="home-header">
@@ -19,7 +20,14 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
           aria-label={t('filters.searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
+          list="area-suggestions"
+          autoComplete="off"
         />
+        {/* Native suggestions: the areas with the most places. They show
+            that the map covers the country and what a search can be. */}
+        <datalist id="area-suggestions">
+          {areaSuggestions(i18n.language).map(a => <option key={a} value={a} />)}
+        </datalist>
       </div>
 
       <div className="chip-row no-scrollbar">

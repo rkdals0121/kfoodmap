@@ -139,6 +139,8 @@ export default function BottomSheetList({
   userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared,
 }) {
   const { t } = useTranslation();
+  const centredOnYou = Boolean(userLocation)
+    && haversineKm(mapCenter[0], mapCenter[1], userLocation.lat, userLocation.lng) < 0.3;
   // Nearest first — but while searching, places whose area or address
   // matches a search word come before places that only match by name, so
   // "Busan korean" lists Busan before Seoul's "Busan Jib".
@@ -188,8 +190,13 @@ export default function BottomSheetList({
         <h2><span aria-live="polite">{t('list.placeCount', { count: sorted.length })}</span></h2>
         {sorted.length > 1 && (
           <span className="place-list__hint">
-            {sorted[0].areaMatch ? t('list.areaFirst') : t('list.nearestFirst')}
-            {userLocation && <> · {t('list.distanceFromYou')}</>}
+            {/* While the map is still centred on the visitor, the order and
+                the distances are the same thing: say just that. Once the
+                map is moved they part, and the label says both. */}
+            {sorted[0].areaMatch
+              ? t('list.areaFirst')
+              : centredOnYou ? t('list.nearestYou') : t('list.nearestFirst')}
+            {userLocation && !centredOnYou && <> · {t('list.distanceFromYou')}</>}
           </span>
         )}
       </div>
