@@ -204,7 +204,11 @@ export function weekHours(hoursFact, now = new Date()) {
       : slots.length === 0
         ? tr('closedWord')
         : slots.map(sl => `${fromMinutes(toMinutes(sl.from))} – ${fromMinutes(toMinutes(sl.to))}`).join(', ');
-    return { key, day: tr(`day.${key}`), text, today: key === todayKey };
+    // The day's last order, where the record has one: what someone
+    // arriving late needs, and the closing time alone would mislead.
+    const last = Array.isArray(slots) && slots.length > 0 ? slots[slots.length - 1].lastOrder : null;
+    const lastOrder = last ? tr('lastOrderAt', { time: fromMinutes(toMinutes(last)) }) : null;
+    return { key, day: tr(`day.${key}`), text, lastOrder, today: key === todayKey };
   });
 }
 

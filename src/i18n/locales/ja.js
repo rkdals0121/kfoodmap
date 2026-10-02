@@ -497,6 +497,7 @@ export default {
     until: '{{time}} まで',
     untilLastOrder: '{{time}} まで · ラストオーダー {{lastOrder}}',
     lastOrderPassed: 'ラストオーダー終了、{{time}} 閉店',
+    lastOrderAt: 'ラストオーダー {{time}}',
     opens: '{{time}} 開店',
     opensTomorrow: '明日 {{time}} 開店',
     opensDay: '{{day}} {{time}} 開店',

@@ -112,6 +112,9 @@ test('weekHours lists Monday to Sunday, marks today in Korea, and never guesses 
   const week = weekHours(h, new Date('2026-10-02T16:00:00Z'));
   assert.deepEqual(week.map(d => d.key), ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']);
   assert.equal(week[0].text, '11:00 AM – 3:00 PM, 5:00 PM – 9:00 PM');
+  assert.equal(week[0].lastOrder, null);
+  const lo = weekHours({ value: { weekly: { mon: [{ from: '11:00', to: '21:00', lastOrder: '20:30' }] } }, confidence: 'supported', source: 'x' });
+  assert.equal(lo[0].lastOrder, 'last order 8:30 PM');
   assert.equal(week[1].text, null);          // Tuesday: not recorded
   assert.equal(week[5].text, 'closed');      // Saturday: recorded as closed
   assert.deepEqual(week.filter(d => d.today).map(d => d.key), ['sat']);

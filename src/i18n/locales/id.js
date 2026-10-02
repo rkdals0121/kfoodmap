@@ -494,6 +494,7 @@ export default {
     until: 'sampai {{time}}',
     untilLastOrder: 'sampai {{time}} · pesanan terakhir {{lastOrder}}',
     lastOrderPassed: 'pesanan terakhir sudah lewat, tutup {{time}}',
+    lastOrderAt: 'pesanan terakhir {{time}}',
     opens: 'buka {{time}}',
     opensTomorrow: 'buka besok {{time}}',
     opensDay: 'buka {{day}} {{time}}',
