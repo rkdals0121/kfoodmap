@@ -24,6 +24,18 @@ export const OPEN_NOW = 'Open now';
 // they are). Answered from the passport on this device, not from place data.
 export const SAVED_ONLY = 'Saved';
 
+// "Fully vegan": only kitchens recorded as all-vegan, leaving out places
+// that offer vegan options on a mixed menu — the distinction HappyCow draws
+// between "Vegan" and "Veg-options", and the one that spares a strict vegan
+// from asking about every dish. The level is the record's own value at
+// whatever confidence it holds; the claim mark on each card still says how
+// sure that is.
+export const FULLY_VEGAN = 'Fully vegan';
+export const matchesFullyVegan = (r) => {
+  const v = r.dietary?.vegan;
+  return Boolean(v) && v.confidence !== 'unknown' && v.value === 'full';
+};
+
 // A group chip matches *any* trait in its set, which is the one place chips
 // are not AND-ed. Sustainability exists because its two members are narrow
 // enough that selecting both returns nothing — the group is the way to browse

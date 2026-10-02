@@ -7,7 +7,7 @@ import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, SAVED_ONLY } from '../filters';
+import { matchesArea, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN } from '../filters';
 
 const CHIP_LABEL_KEY = Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey]));
 
@@ -205,9 +205,14 @@ export default function BottomSheetList({
       )}
       {/* The Vegan chip includes "vegan options" places, as the Halal chip
           has its own caveat. */}
-      {activeFilters.includes('Vegan') && !activeFilters.includes('Halal') && sorted.length > 0
+      {activeFilters.includes('Vegan') && !activeFilters.includes('Halal') && !activeFilters.includes(FULLY_VEGAN) && sorted.length > 0
         && sorted.some(r => r.dietary?.vegan?.value === 'options') && (
         <p className="section-note place-list__note">{t('list.veganOptionsNote')}</p>
+      )}
+      {/* "Fully vegan" is the record's level, not a certificate: say what
+          it rests on, since most are Reported. */}
+      {activeFilters.includes(FULLY_VEGAN) && sorted.length > 0 && (
+        <p className="section-note place-list__note">{t('list.fullyVeganNote')}</p>
       )}
       {activeFilters.includes('Halal') && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (

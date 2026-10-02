@@ -25,7 +25,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, SAVED_ONLY } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan } from './filters';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -285,6 +285,7 @@ function AppShell() {
       const matchesChips = selectedFilters.every(f => {
         if (f === OPEN_NOW) return true; // asked last, below
         if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
+        if (f === FULLY_VEGAN) return matchesFullyVegan(r);
         if (DIETARY_CHIPS.includes(f)) return matchesDietary(r, f);
         const group = TRAIT_GROUPS[f];
         return group ? r.traits.some(t => group.includes(t)) : r.traits.includes(f);

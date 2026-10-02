@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { OPEN_NOW, SAVED_ONLY } from '../filters';
+import { OPEN_NOW, SAVED_ONLY, FULLY_VEGAN } from '../filters';
 
 export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange }) {
   const { t } = useTranslation();
@@ -46,14 +46,25 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
             {group.chips.map(chip => {
               const isActive = selectedFilters.includes(chip.id);
               return (
-                <button
-                  key={chip.id}
-                  className={`chip${isActive ? ' active' : ''}`}
-                  aria-pressed={isActive}
-                  onClick={() => onToggleFilter(chip.id)}
-                >
-                  {t(chip.labelKey)}
-                </button>
+                <React.Fragment key={chip.id}>
+                  <button
+                    className={`chip${isActive ? ' active' : ''}`}
+                    aria-pressed={isActive}
+                    onClick={() => onToggleFilter(chip.id)}
+                  >
+                    {t(chip.labelKey)}
+                  </button>
+                  {/* Beside Vegan: all-vegan kitchens only (filters.js). */}
+                  {chip.id === 'Vegan' && (
+                    <button
+                      className={`chip${selectedFilters.includes(FULLY_VEGAN) ? ' active' : ''}`}
+                      aria-pressed={selectedFilters.includes(FULLY_VEGAN)}
+                      onClick={() => onToggleFilter(FULLY_VEGAN)}
+                    >
+                      {t('filters.fullyVegan')}
+                    </button>
+                  )}
+                </React.Fragment>
               );
             })}
           </div>
