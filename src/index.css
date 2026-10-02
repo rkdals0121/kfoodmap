@@ -3943,7 +3943,7 @@ a.btn-primary:focus-visible {
 /* Discover → a journey's stops on the map. */
 .journey-card__map {
   margin-top: 10px;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 14px;
   background: var(--surface);
   border: 1px solid var(--green-strong);
@@ -3967,7 +3967,7 @@ a.btn-primary:focus-visible {
 }
 .week-hours summary {
   cursor: pointer;
-  min-height: 32px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   font-weight: 600;
@@ -4056,4 +4056,31 @@ a.btn-primary:focus-visible {
   margin-top: 2px;
   font-size: 12px;
   color: var(--ink-body);
+}
+
+/* A flex summary loses the browser's disclosure triangle: draw a chevron
+   so the row reads as something that opens. */
+.week-hours summary {
+  list-style: none;
+  gap: 8px;
+}
+.week-hours summary::-webkit-details-marker {
+  display: none;
+}
+.week-hours summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.15s ease;
+}
+.week-hours[open] summary::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+.week-hours summary:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
