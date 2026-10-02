@@ -30,3 +30,25 @@ test('emailPurgeCutoff refuses a non-positive period, so a typo cannot purge eve
   assert.throws(() => emailPurgeCutoff(new Date(), -5));
   assert.throws(() => emailPurgeCutoff(new Date(), Number.NaN));
 });
+
+test('each translated policy mirrors the English section by section', async () => {
+  const { PRIVACY_EFFECTIVE_DATE } = await import('../../src/data/privacy.js');
+  for (const code of ['ja', 'zh-Hans', 'zh-Hant', 'id']) {
+    const policy = (await import(`../../src/data/privacy.${code}.js`)).default;
+    const { en } = privacyPolicy;
+    assert.equal(policy.sections.length, en.sections.length, code);
+    en.sections.forEach((section, i) => {
+      assert.equal(Boolean(section.text), Boolean(policy.sections[i].text), `${code} section ${i} text`);
+      assert.equal(section.items?.length, policy.sections[i].items?.length, `${code} section ${i} items`);
+      assert.ok(policy.sections[i].heading, `${code} section ${i} heading`);
+    });
+    // It must say it is a translation, and carry the same effective date.
+    assert.ok(policy.translationNote && policy.translationNote.length > 10, `${code} translationNote`);
+    assert.ok(policy.effective.includes(PRIVACY_EFFECTIVE_DATE), `${code} effective date`);
+    // Names that must not be translated away.
+    const text = JSON.stringify(policy);
+    for (const name of ['Supabase', 'Vercel', 'OpenStreetMap', 'Google', 'kfm-auth-code-verifier']) {
+      assert.ok(text.includes(name), `${code}: ${name}`);
+    }
+  }
+});

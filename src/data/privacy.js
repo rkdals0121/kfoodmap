@@ -53,7 +53,7 @@ export const privacyPolicy = {
       },
       {
         heading: 'Signing in',
-        text: 'Signing in is optional and uses your Google account, through Supabase Auth. Supabase stores the email address and account ID Google gives us. While you are signed in, your account holds which places you saved or marked visited, and when — nothing else: no name, no coordinates, no photos, no location. If you saved places on this device before signing in, they join your account the first time you sign in — which is also why signing out clears the device: on a shared or borrowed device, without that, the next person to sign in would inherit them too. Unsaving a place does not remove it from your account: it keeps a row recording that you unsaved it, and when, so the place cannot quietly reappear later — that row is kept until you delete it. Signing out, on this device or by a session simply ending (an expired or revoked sign-in, or signing out on another tab or device), erases those places from this device; your account keeps them until you delete them. Profile’s “Delete my saved places” deletes every saved, visited, and unsaved-place record your account holds, and clears this device. It cannot reach another device: one where you are still signed in keeps its own copy and will upload it to your account on its next sync, so sign out there first if you want the account to stay empty. This does not delete your Google account — only the sign-in record this app holds for it — and doing that is a request to the operator: write to the address below.',
+        text: 'Signing in is optional and uses your Google account, through Supabase Auth. Supabase stores the email address and account ID Google gives us. While you are signed in, your account holds which places you saved or marked visited, and when — nothing else: no name, no coordinates, no photos, no location. If you saved places on this device before signing in, they join your account the first time you sign in — which is also why signing out clears the device: on a shared or borrowed device, without that, the next person to sign in would inherit them too. Unsaving a place does not remove it from your account: it keeps a row recording that you unsaved it, and when, so the place cannot quietly reappear later — that row is kept until you delete it. Signing out, on this device or by a session simply ending (an expired or revoked sign-in, or signing out on another tab or device), erases those places from this device; your account keeps them until you delete them. Profile’s “Delete my saved places” deletes every saved, visited, and unsaved-place record your account holds, and clears this device. It cannot reach another device: one where you are still signed in keeps its own copy and will upload it to your account on its next sync, so sign out there first if you want the account to stay empty. This does not delete your Google account, and it does not delete the sign-in record this app holds for it (your email address and account ID): to have that record removed, write to the address below.',
       },
       {
         heading: 'When you send a report',
@@ -76,7 +76,7 @@ export const privacyPolicy = {
       },
       {
         heading: 'Your choices',
-        text: 'You can ask us to show, correct, or delete a report you sent or the email address attached to it. You can delete everything stored on your device yourself at any time. If you are signed in, Profile’s “Delete my saved places” deletes your saved, visited, and unsaved-place records from your account and this device — but another device where you are still signed in can upload what it still holds, so sign out there first. That does not delete your Google account — only the sign-in record this app holds for it — and removing that is a request to the operator: write to the address below.',
+        text: 'You can ask us to show, correct, or delete a report you sent or the email address attached to it. You can delete everything stored on your device yourself at any time. If you are signed in, Profile’s “Delete my saved places” deletes your saved, visited, and unsaved-place records from your account and this device — but another device where you are still signed in can upload what it still holds, so sign out there first. That does not delete your Google account, and it does not delete the sign-in record this app holds for it (your email address and account ID): to have that record removed, write to the address below.',
       },
       {
         heading: 'Changes',
@@ -110,7 +110,7 @@ export const privacyPolicy = {
       },
       {
         heading: '로그인',
-        text: '로그인은 선택 사항이며, Supabase Auth를 통한 Google 계정 로그인만 지원합니다. Supabase는 Google이 제공하는 이메일 주소와 계정 ID를 저장합니다. 로그인한 동안 계정에는 저장하거나 방문 표시한 장소와 그 시각만 보관됩니다 — 이름, 좌표, 사진, 위치 정보는 없습니다. 로그인하기 전 이 기기에서 저장한 장소가 있다면, 처음 로그인할 때 그 장소들이 계정에 합쳐집니다 — 로그아웃하면 기기가 비워지는 것도 같은 이유입니다: 그렇지 않으면 공용이거나 남에게 빌린 기기에서 다음 사람이 로그인할 때 그 장소들을 그대로 물려받게 됩니다. 장소를 저장 해제해도 계정에서 곧바로 삭제되지는 않습니다 — 언제 저장 해제했는지를 기록한 행이 남아, 그 장소가 조용히 다시 나타나지 않도록 합니다. 그 기록은 삭제하기 전까지 계속 남아 있습니다. 이 기기에서 로그아웃하거나 세션이 스스로 종료되면(로그인 만료·해지, 또는 다른 탭·기기에서의 로그아웃) 그 장소들은 이 기기에서 지워지며, 삭제하기 전까지는 계정에 남아 있습니다. 프로필의 "내 저장 장소 삭제"는 저장·방문·저장 해제 기록을 포함해 계정이 가진 모든 장소 기록을 삭제하고 이 기기도 함께 비웁니다. 다만 다른 기기에는 미치지 않습니다: 그쪽에서 여전히 로그인되어 있으면 그 기기가 보관한 기록이 다음 동기화 때 계정으로 다시 올라갑니다. 계정을 비운 상태로 두려면 그 기기에서 먼저 로그아웃해 주세요. 이는 이용자의 Google 계정 자체를 삭제하지 않으며, 이 앱이 보관 중인 로그인 기록만 삭제합니다 — 이는 운영자에게 요청해야 하며, 아래 주소로 연락하면 됩니다.',
+        text: '로그인은 선택 사항이며, Supabase Auth를 통한 Google 계정 로그인만 지원합니다. Supabase는 Google이 제공하는 이메일 주소와 계정 ID를 저장합니다. 로그인한 동안 계정에는 저장하거나 방문 표시한 장소와 그 시각만 보관됩니다 — 이름, 좌표, 사진, 위치 정보는 없습니다. 로그인하기 전 이 기기에서 저장한 장소가 있다면, 처음 로그인할 때 그 장소들이 계정에 합쳐집니다 — 로그아웃하면 기기가 비워지는 것도 같은 이유입니다: 그렇지 않으면 공용이거나 남에게 빌린 기기에서 다음 사람이 로그인할 때 그 장소들을 그대로 물려받게 됩니다. 장소를 저장 해제해도 계정에서 곧바로 삭제되지는 않습니다 — 언제 저장 해제했는지를 기록한 행이 남아, 그 장소가 조용히 다시 나타나지 않도록 합니다. 그 기록은 삭제하기 전까지 계속 남아 있습니다. 이 기기에서 로그아웃하거나 세션이 스스로 종료되면(로그인 만료·해지, 또는 다른 탭·기기에서의 로그아웃) 그 장소들은 이 기기에서 지워지며, 삭제하기 전까지는 계정에 남아 있습니다. 프로필의 "내 저장 장소 삭제"는 저장·방문·저장 해제 기록을 포함해 계정이 가진 모든 장소 기록을 삭제하고 이 기기도 함께 비웁니다. 다만 다른 기기에는 미치지 않습니다: 그쪽에서 여전히 로그인되어 있으면 그 기기가 보관한 기록이 다음 동기화 때 계정으로 다시 올라갑니다. 계정을 비운 상태로 두려면 그 기기에서 먼저 로그아웃해 주세요. 이때 이용자의 Google 계정은 삭제되지 않으며, 이 앱이 보관 중인 로그인 기록(이메일 주소, 계정 ID)도 삭제되지 않습니다 — 로그인 기록을 삭제하려면 아래 주소로 운영자에게 요청해 주세요.',
       },
       {
         heading: '제보를 보낼 때 받는 정보',
@@ -133,7 +133,7 @@ export const privacyPolicy = {
       },
       {
         heading: '이용자의 권리',
-        text: '보낸 제보나 함께 적은 이메일 주소의 열람, 정정, 삭제를 요청할 수 있습니다. 기기에 저장된 정보는 언제든 직접 삭제할 수 있습니다. 로그인한 경우, 프로필의 "내 저장 장소 삭제"는 저장·방문·저장 해제 기록을 포함해 계정과 이 기기의 장소 기록을 모두 삭제합니다 — 다만 여전히 로그인된 다른 기기가 보관한 기록을 다시 올릴 수 있으므로, 그 기기에서 먼저 로그아웃해 주세요. 이용자의 Google 계정 자체는 삭제되지 않습니다 — 이 앱이 보관 중인 로그인 기록만 삭제하려면 아래 주소로 연락해 주세요.',
+        text: '보낸 제보나 함께 적은 이메일 주소의 열람, 정정, 삭제를 요청할 수 있습니다. 기기에 저장된 정보는 언제든 직접 삭제할 수 있습니다. 로그인한 경우, 프로필의 "내 저장 장소 삭제"는 저장·방문·저장 해제 기록을 포함해 계정과 이 기기의 장소 기록을 모두 삭제합니다 — 다만 여전히 로그인된 다른 기기가 보관한 기록을 다시 올릴 수 있으므로, 그 기기에서 먼저 로그아웃해 주세요. 이용자의 Google 계정 자체는 삭제되지 않으며, 이 앱이 보관 중인 로그인 기록(이메일 주소, 계정 ID)도 그대로 남습니다 — 로그인 기록을 삭제하려면 아래 주소로 연락해 주세요.',
       },
       {
         heading: '방침의 변경',

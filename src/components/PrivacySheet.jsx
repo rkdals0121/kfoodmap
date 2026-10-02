@@ -1,13 +1,27 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
 import { privacyPolicy, PRIVACY_CONTACT } from '../data/privacy';
+
+// The policy is written in English and Korean (data/privacy.js), kept in step
+// by scripts/tests/privacy.test.mjs. Readers of the app's other languages
+// get a translation for convenience, fetched when the page opens and shown
+// first, with a line saying the English and Korean texts are the ones that
+// count. If it cannot be fetched, the note alone says which languages the
+// policy is in.
+const TRANSLATIONS = {
+  ja: () => import('../data/privacy.ja.js'),
+  'zh-Hans': () => import('../data/privacy.zh-Hans.js'),
+  'zh-Hant': () => import('../data/privacy.zh-Hant.js'),
+  id: () => import('../data/privacy.id.js'),
+};
 
 function PolicyVersion({ lang, policy }) {
   return (
     <section className="privacy-version" lang={lang}>
       <h2 className="submit-title">{policy.title}</h2>
       <p className="privacy-effective">{policy.effective}</p>
+      {policy.translationNote && <p className="section-note privacy-language-note">{policy.translationNote}</p>}
       {policy.sections.map(section => (
         <div className="privacy-section" key={section.heading}>
           <h3>{section.heading}</h3>
@@ -33,6 +47,17 @@ function PolicyVersion({ lang, policy }) {
 export default function PrivacySheet({ onClose }) {
   const { t, i18n } = useTranslation();
   const sheetRef = useRef(null);
+
+  // The reader's own language, when the policy has been translated into it.
+  const [translated, setTranslated] = useState(null);
+  useEffect(() => {
+    const loader = TRANSLATIONS[i18n.language];
+    setTranslated(null);
+    if (!loader) return undefined;
+    let live = true;
+    loader().then(mod => { if (live) setTranslated({ lang: i18n.language, policy: mod.default }); }).catch(() => {});
+    return () => { live = false; };
+  }, [i18n.language]);
 
   // Focus in, and back to what opened the sheet (Profile's Privacy row) on close.
   useEffect(() => {
@@ -60,9 +85,11 @@ export default function PrivacySheet({ onClose }) {
           <div className="detail-content submit-content privacy-content">
             {/* The policy is a legal text and is kept in the two languages it
                 was written in; a reader of another language is told so. */}
-            {!['en', 'ko'].includes(i18n.language) && (
-              <p className="section-note privacy-language-note">{t('profile.privacyLanguageNote')}</p>
-            )}
+            {translated?.lang === i18n.language
+              ? <PolicyVersion lang={document.documentElement.lang || i18n.language} policy={translated.policy} />
+              : !['en', 'ko'].includes(i18n.language) && (
+                <p className="section-note privacy-language-note">{t('profile.privacyLanguageNote')}</p>
+              )}
             <PolicyVersion lang="en" policy={privacyPolicy.en} />
             <PolicyVersion lang="ko" policy={privacyPolicy.ko} />
           </div>

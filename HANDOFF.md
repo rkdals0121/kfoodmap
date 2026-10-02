@@ -2383,6 +2383,21 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     padding. Not changed: evidence text shown to visitors contains audit
     phrases ("fetched twice, identical") — it is the audit trail; the
     Naver/Kakao brand colours on the map buttons.
+57. **Privacy policy readable in every language, 2026-10-03 ~00:45.**
+    `src/data/privacy.{ja,zh-Hans,zh-Hant,id}.js`: convenience
+    translations, fetched when /privacy opens and shown above the English
+    and Korean texts, each saying those two are authoritative.
+    `privacy.test.mjs` holds them to the English section by section.
+    **When privacy.js changes, these four must change in the same
+    commit** (the test checks shape and date, not wording). Both
+    translators independently tripped on one English sentence ("This does
+    not delete your Google account — only the sign-in record … — and
+    doing that is a request to the operator"); it and its Korean twin now
+    say plainly that the sign-in record (email, account ID) is not deleted
+    by the button and how to have it removed. Same facts, same date.
+    A second translation review (journeys, culture tips, Korean cards)
+    applied 34 more corrections; the vegan card's third line was reworded
+    in Korean (it left "것" pointing at nothing).
 
 
 ---
