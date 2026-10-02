@@ -136,6 +136,7 @@ export default {
     staffCards: 'お店で見せる韓国語カード',
     suggestRestaurant: 'お店を提案する',
     privacyPolicy: 'プライバシーポリシー',
+    privacyLanguageNote: 'このポリシーは英語と韓国語で書かれています。',
     settingsTitle: 'プロフィール',
     settingsSubtitle: 'パスポート、言語、この地図のしくみ。',
     aboutApp: 'K-Food Map について',

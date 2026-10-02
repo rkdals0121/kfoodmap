@@ -70,6 +70,12 @@ function DiscoverTab() {
             <span className="panel-icon" aria-hidden="true"><BowlIcon size={24} /></span>
             <h2>{t('discover.journeysTitle')}</h2>
             <p>{t('discover.journeysSubtitle')}</p>
+            {/* The cards are the most useful thing here for someone standing
+                in a restaurant; Profile alone hid them. */}
+            <button type="button" className="discover-cards-link" onClick={() => navigate('/cards', { state: { fromApp: true, tab: 'discover' } })}>
+              <span>{t('cards.title')}</span>
+              <ChevronRightIcon size={16} />
+            </button>
           </div>
 
           <div className="journey-list">

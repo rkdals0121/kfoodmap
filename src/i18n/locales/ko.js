@@ -132,6 +132,7 @@ export default {
     staffCards: '직원에게 보여 줄 한국어 카드',
     suggestRestaurant: '식당 제보하기',
     privacyPolicy: '개인정보 처리방침',
+    privacyLanguageNote: '이 방침은 영어와 한국어로 제공돼요.',
     settingsTitle: '프로필',
     settingsSubtitle: '여권, 언어, 그리고 이 지도가 만들어지는 방식.',
     aboutApp: 'K-Food Map 소개',

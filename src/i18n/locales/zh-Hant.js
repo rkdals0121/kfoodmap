@@ -131,6 +131,7 @@ export default {
     staffCards: '給店員看的韓語卡片',
     suggestRestaurant: '推薦餐廳',
     privacyPolicy: '隱私權政策',
+    privacyLanguageNote: '本隱私權政策以英文和韓文撰寫。',
     settingsTitle: '我的',
     settingsSubtitle: '你的護照、語言，以及這張地圖的運作方式。',
     aboutApp: '關於 K-Food Map',

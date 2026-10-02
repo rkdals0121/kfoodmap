@@ -42,7 +42,7 @@ const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile
 const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': 'profile' };
 
 function AppShell() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -94,6 +94,19 @@ function AppShell() {
     if (PATH_TAB[location.pathname]) setActiveTab(PATH_TAB[location.pathname]);
     else if (location.pathname === '/') setActiveTab('map');
   }, [location.pathname]);
+  // The tab title names the screen, in the reader's language. A place and
+  // the staff cards set their own while open (and restore this on close).
+  useEffect(() => {
+    if (id || location.pathname === '/cards') return;
+    const titles = {
+      discover: t('discover.journeysTitle'),
+      journal: t('journal.title'),
+      profile: t('profile.settingsTitle'),
+    };
+    document.title = titles[activeTab]
+      ? `${titles[activeTab]} · K-Food Map`
+      : `K-Food Map · ${t('prologue.title').replace(/[.。]$/, '')}`;
+  }, [activeTab, id, location.pathname, i18n.language, t]);
   const tabPath = TAB_PATH[activeTab] ?? '/';
   const selectTab = (tab) => navigate(TAB_PATH[tab] ?? '/');
   // Below 768px a non-map tab covers the whole map. The map is then made

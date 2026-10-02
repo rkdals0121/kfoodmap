@@ -9,7 +9,15 @@ import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST } from '../filters';
 
-const CHIP_LABEL_KEY = Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey]));
+const CHIP_LABEL_KEY = {
+  ...Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey])),
+  // The chips that are not traits (filters.js) are named by the same keys
+  // the chip row uses, so the "nothing matches" summary is in one language.
+  [OPEN_NOW]: 'filters.openNow',
+  [SAVED_ONLY]: 'filters.savedOnly',
+  [FULLY_VEGAN]: 'filters.fullyVegan',
+  [SHARED_LIST]: 'journal.shareListTitle',
+};
 
 // How many cards the list draws at a time (see BottomSheetList).
 const PAGE = 40;

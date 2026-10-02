@@ -430,7 +430,7 @@ export default function RestaurantDetail({
               const { label: level, detail } = trustBadge(f);
               return (
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
-                  <p><strong>{label} · {level}.</strong> {/[.!?]$/.test(detail) ? detail : `${detail}.`}</p>
+                  <p><strong>{label} · {level}</strong> — {detail}</p>
                   <p className="claim-explain__meta">
                     {t('detail.claimSource', { source: sourceWithSite(f) })}
                     {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}

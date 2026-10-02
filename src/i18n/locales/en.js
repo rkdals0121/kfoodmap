@@ -138,6 +138,7 @@ export default {
     staffCards: 'Korean cards to show staff',
     suggestRestaurant: 'Suggest a restaurant',
     privacyPolicy: 'Privacy Policy',
+    privacyLanguageNote: 'This policy is written in English and Korean.',
     settingsTitle: 'Profile',
     settingsSubtitle: 'Your passport, language, and how this map works.',
     aboutApp: 'About K-Food Map',

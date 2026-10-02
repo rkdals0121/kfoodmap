@@ -31,7 +31,7 @@ function PolicyVersion({ lang, policy }) {
 // The sheet for /privacy. Both languages are shown in full, one after the
 // other: the readers are visitors from abroad, the operator is in Korea.
 export default function PrivacySheet({ onClose }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const sheetRef = useRef(null);
 
   // Focus in, and back to what opened the sheet (Profile's Privacy row) on close.
@@ -52,12 +52,17 @@ export default function PrivacySheet({ onClose }) {
   return (
     <>
       <div className="detail-backdrop" onClick={onClose} />
-      <div className="detail-sheet" role="dialog" aria-modal="true" aria-label={privacyPolicy.en.title} ref={sheetRef} tabIndex={-1}>
+      <div className="detail-sheet" role="dialog" aria-modal="true" aria-label={t('profile.privacyPolicy')} ref={sheetRef} tabIndex={-1}>
         <button className="detail-close" aria-label={t('submit.close')} onClick={onClose}>
           <XIcon size={18} />
         </button>
         <div className="detail-scroll">
           <div className="detail-content submit-content privacy-content">
+            {/* The policy is a legal text and is kept in the two languages it
+                was written in; a reader of another language is told so. */}
+            {!['en', 'ko'].includes(i18n.language) && (
+              <p className="section-note privacy-language-note">{t('profile.privacyLanguageNote')}</p>
+            )}
             <PolicyVersion lang="en" policy={privacyPolicy.en} />
             <PolicyVersion lang="ko" policy={privacyPolicy.ko} />
           </div>

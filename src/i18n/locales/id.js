@@ -133,6 +133,7 @@ export default {
     staffCards: 'Kartu bahasa Korea untuk staf',
     suggestRestaurant: 'Usulkan restoran',
     privacyPolicy: 'Kebijakan Privasi',
+    privacyLanguageNote: 'Kebijakan ini ditulis dalam bahasa Inggris dan Korea.',
     settingsTitle: 'Profil',
     settingsSubtitle: 'Paspor Anda, bahasa, dan cara kerja peta ini.',
     aboutApp: 'Tentang K-Food Map',
