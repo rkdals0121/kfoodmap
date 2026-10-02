@@ -97,6 +97,7 @@ export default {
     sharedNote_one: '{{count}} place from a shared list.',
     sharedNote_other: '{{count}} places from a shared list.',
     journeyNote: '{{title}} — {{count}} stops.',
+    journeyOrder: 'In the order of the journey',
     sharedSaveAll: 'Save all',
     sharedSaved: 'All saved to your Journal',
     sharedClose: 'Show all places',
@@ -311,6 +312,7 @@ export default {
     // after the source label with no separator supplied by the JSX.
     addressAreaLevel: ' · address is area-level',
     todayHours: 'Today: {{hours}}',
+    weekHours: 'Hours for the week',
     koreaTime: 'Korean time — it is {{time}} there now',
     transitExit: ', exit {{exit}}',
     // Leading space is load-bearing — see areaOnly above; rendered right

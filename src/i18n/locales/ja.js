@@ -96,6 +96,7 @@ export default {
     sharedNote_one: '共有されたリストの {{count}} 件です。',
     sharedNote_other: '共有されたリストの {{count}} 件です。',
     journeyNote: '{{title}} — {{count}} か所。',
+    journeyOrder: 'コースの順',
     sharedSaveAll: 'すべて保存',
     sharedSaved: 'すべてジャーナルに保存しました',
     sharedClose: 'すべてのお店を表示',
@@ -304,6 +305,7 @@ export default {
     // Leading space is load-bearing — see areaOnly above.
     addressAreaLevel: ' · 住所はエリア単位',
     todayHours: '本日:{{hours}}',
+    weekHours: '1週間の営業時間',
     koreaTime: '韓国時間 — 現地は今 {{time}} です',
     transitExit: ', {{exit}} 番出口',
     // Leading space is load-bearing — see areaOnly above; rendered right

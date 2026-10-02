@@ -3958,3 +3958,38 @@ a.btn-primary:focus-visible {
   outline: 2px solid var(--green-strong);
   outline-offset: 2px;
 }
+
+/* The week's hours under today's line on a place page. */
+.week-hours {
+  margin: -4px 0 4px 27px;
+  font-size: 13px;
+  color: var(--ink-body);
+}
+.week-hours summary {
+  cursor: pointer;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--green-strong);
+}
+.week-hours dl {
+  margin-top: 4px;
+}
+.week-hours dl > div {
+  display: flex;
+  gap: 12px;
+  padding: 4px 0;
+}
+.week-hours dt {
+  flex: 0 0 3.2em;
+  color: var(--muted-strong);
+}
+.week-hours dd {
+  margin: 0;
+}
+.week-hours .is-today dt,
+.week-hours .is-today dd {
+  font-weight: 700;
+  color: var(--ink);
+}

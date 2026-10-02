@@ -93,6 +93,7 @@ export default {
     sharedNote_one: '{{count}} tempat dari daftar yang dibagikan.',
     sharedNote_other: '{{count}} tempat dari daftar yang dibagikan.',
     journeyNote: '{{title}} — {{count}} perhentian.',
+    journeyOrder: 'Sesuai urutan rute',
     sharedSaveAll: 'Simpan semua',
     sharedSaved: 'Semua tersimpan di Jurnal Anda',
     sharedClose: 'Tampilkan semua tempat',
@@ -302,6 +303,7 @@ export default {
     // Spasi di awal wajib dipertahankan — lihat areaOnly.
     addressAreaLevel: ' · alamat hanya tingkat area',
     todayHours: 'Hari ini: {{hours}}',
+    weekHours: 'Jam buka seminggu',
     koreaTime: 'Waktu Korea — di sana sekarang pukul {{time}}',
     transitExit: ', pintu keluar {{exit}}',
     // Spasi di awal wajib dipertahankan — lihat areaOnly.

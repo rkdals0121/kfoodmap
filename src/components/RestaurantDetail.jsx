@@ -10,7 +10,7 @@ import {
   ChevronLeftIcon, ChevronRightIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, VEGAN, HALAL,
 } from '../data/verification';
@@ -210,6 +210,7 @@ export default function RestaurantDetail({
   const name = displayName(place.name);
   const status = getOpenStatus(place.hours);
   const today = todaysHours(place.hours);
+  const week = weekHours(place.hours);
   const culture = getCulture(place);
   const coords = coordsOf(place);
   const koName = koreanName(place.name);
@@ -486,6 +487,21 @@ export default function RestaurantDetail({
                   <span className="practical-muted">{t('detail.hoursUnknown')}</span>
                 )}
               </div>
+              {/* The whole week, for planning tomorrow or the weekend. A day
+                  the record does not cover is said to be not recorded. */}
+              {week && (
+                <details className="week-hours">
+                  <summary>{t('detail.weekHours')}</summary>
+                  <dl>
+                    {week.map(d => (
+                      <div key={d.key} className={d.today ? 'is-today' : undefined}>
+                        <dt>{d.day}</dt>
+                        <dd>{d.text ?? t('detail.notRecorded')}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </details>
+              )}
 
               {isKnown(place.transit) && (
                 <div className="practical-row">

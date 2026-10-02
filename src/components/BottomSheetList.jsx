@@ -144,8 +144,12 @@ export default function BottomSheetList({
   // Nearest first — but while searching, places whose area or address
   // matches a search word come before places that only match by name, so
   // "Busan korean" lists Busan before Seoul's "Busan Jib".
+  // A journey's stops keep the journey's own order: it is a route, and
+  // "nearest the map centre" shuffled it.
+  const journeyOrder = Boolean(sharedJourney) && activeFilters.includes(SHARED_LIST);
   const sorted = useMemo(() => {
     const inArea = (r) => matchesArea(r, searchQuery);
+    const stop = (r) => sharedIds.indexOf(r.id);
     return restaurants
       .map(r => {
         const { lat, lng } = coordsOf(r);
@@ -157,8 +161,11 @@ export default function BottomSheetList({
         const distanceKm = userLocation ? haversineKm(userLocation.lat, userLocation.lng, lat, lng) : sortKm;
         return { ...r, sortKm, distanceKm, fromYou: Boolean(userLocation), areaMatch: inArea(r) };
       })
-      .sort((a, b) => (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm));
-  }, [restaurants, mapCenter, searchQuery, userLocation]);
+      .sort((a, b) => (journeyOrder
+        ? stop(a) - stop(b)
+        : (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [restaurants, mapCenter, searchQuery, userLocation, journeyOrder, sharedIds.join(',')]);
 
   // Draw the nearest PAGE cards and add more as the end of the list scrolls
   // into view. With 385 places, re-rendering every card on each map move
@@ -193,9 +200,11 @@ export default function BottomSheetList({
             {/* While the map is still centred on the visitor, the order and
                 the distances are the same thing: say just that. Once the
                 map is moved they part, and the label says both. */}
-            {sorted[0].areaMatch
-              ? t('list.areaFirst')
-              : centredOnYou ? t('list.nearestYou') : t('list.nearestFirst')}
+            {journeyOrder
+              ? t('list.journeyOrder')
+              : sorted[0].areaMatch
+                ? t('list.areaFirst')
+                : centredOnYou ? t('list.nearestYou') : t('list.nearestFirst')}
             {userLocation && !centredOnYou && <> · {t('list.distanceFromYou')}</>}
           </span>
         )}

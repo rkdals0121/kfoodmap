@@ -186,6 +186,28 @@ export function todaysHours(hoursFact, now = new Date()) {
   return today.map(s => `${fromMinutes(toMinutes(s.from))} – ${fromMinutes(toMinutes(s.to))}`).join(', ');
 }
 
+/**
+ * The week's hours, Monday first, for the detail page: one row per day with
+ * its printed hours, "closed", or null where that day is not recorded (said
+ * as such, never guessed). `today` marks the current day in Korea. Null when
+ * the record has no day-by-day schedule.
+ */
+export function weekHours(hoursFact, now = new Date()) {
+  if (!isKnown(hoursFact)) return null;
+  const { weekly } = hoursFact.value;
+  if (!weekly) return null;
+  const todayKey = DAY_KEYS[inKorea(now).getUTCDay()];
+  return ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].map((key) => {
+    const slots = weekly[key];
+    const text = !Array.isArray(slots)
+      ? null
+      : slots.length === 0
+        ? tr('closedWord')
+        : slots.map(sl => `${fromMinutes(toMinutes(sl.from))} – ${fromMinutes(toMinutes(sl.to))}`).join(', ');
+    return { key, day: tr(`day.${key}`), text, today: key === todayKey };
+  });
+}
+
 // Directions deep links. They name only the destination, so the map app
 // routes from where the phone actually is. They used to pass the app's map
 // centre as the origin, which is not the visitor's position: after a pan,

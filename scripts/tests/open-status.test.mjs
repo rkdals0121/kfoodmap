@@ -104,3 +104,16 @@ test('language detection maps the browser list to a language we have', async () 
   assert.equal(detectLanguage(['th-TH']), 'en');
   assert.equal(detectLanguage(undefined), 'en');
 });
+
+test('weekHours lists Monday to Sunday, marks today in Korea, and never guesses a day', async () => {
+  const { weekHours } = await import('../../src/utils.js');
+  const h = { value: { weekly: { mon: [{ from: '11:00', to: '15:00' }, { from: '17:00', to: '21:00' }], sat: [] } }, confidence: 'supported', source: 'x' };
+  // 2026-10-02 16:00 UTC is Saturday 01:00 in Korea.
+  const week = weekHours(h, new Date('2026-10-02T16:00:00Z'));
+  assert.deepEqual(week.map(d => d.key), ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']);
+  assert.equal(week[0].text, '11:00 AM – 3:00 PM, 5:00 PM – 9:00 PM');
+  assert.equal(week[1].text, null);          // Tuesday: not recorded
+  assert.equal(week[5].text, 'closed');      // Saturday: recorded as closed
+  assert.deepEqual(week.filter(d => d.today).map(d => d.key), ['sat']);
+  assert.equal(weekHours({ value: { raw: '11:00 – 21:00' }, confidence: 'supported', source: 'x' }), null);
+});

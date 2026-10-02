@@ -92,6 +92,7 @@ export default {
     sharedNote_one: '來自分享清單的 {{count}} 家店。',
     sharedNote_other: '來自分享清單的 {{count}} 家店。',
     journeyNote: '{{title}}——共 {{count}} 站。',
+    journeyOrder: '按路線順序',
     sharedSaveAll: '全部收藏',
     sharedSaved: '已全部收藏到手帳',
     sharedClose: '顯示所有店家',
@@ -298,6 +299,7 @@ export default {
     // 開頭的空格不可省略——同上；緊接在來源標籤之後算繪。
     addressAreaLevel: ' · 地址僅精確到區域',
     todayHours: '今天：{{hours}}',
+    weekHours: '一週營業時間',
     koreaTime: '韓國時間——當地現在是 {{time}}',
     transitExit: '，{{exit}} 號出口',
     // 開頭的空格不可省略——同上；緊接在 transitExit（或車站/路線文字）之後算繪。
