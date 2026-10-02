@@ -91,7 +91,8 @@ const DIET_WORDS = {
 // so it is reached by typing it — in any of these wordings.
 const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '포크프리']);
 const dietWordMatch = (r, w) => {
-  if (DIET_WORDS[w] !== undefined) return matchesDietary(r, DIET_WORDS[w]);
+  // Object.hasOwn: typing "constructor" must not find Object.prototype's.
+  if (Object.hasOwn(DIET_WORDS, w)) return matchesDietary(r, DIET_WORDS[w]);
   if (PORK_FREE_WORDS.has(w)) {
     const h = r.dietary?.halal;
     return Boolean(h) && h.confidence !== 'unknown' && h.value === 'porkFree';
@@ -120,7 +121,7 @@ const AREA_ALIASES = {
   hongdae: ['seogyo-dong', 'donggyo-dong', 'sangsu-dong'],
 };
 const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
-const aliasMatch = (r, w) => (AREA_ALIASES[w] ?? []).some(a => areaText(r).includes(a));
+const aliasMatch = (r, w) => Object.hasOwn(AREA_ALIASES, w) && AREA_ALIASES[w].some(a => areaText(r).includes(a));
 
 function searchCore(r, query) {
   const q = squash(query ?? '');
@@ -135,8 +136,16 @@ function searchCore(r, query) {
   // Several words ("Busan korean", "itaewon vegan bakery"): every word must
   // appear somewhere in the place's name, area, address or story.
   const words = String(query).trim().split(/\s+/).map(squash).filter(w => w.length >= 2);
-  if (words.length < 2) return false;
+  // Words of one letter are dropped, not required: "busan v" (mid-typing)
+  // and "제주도" (split into Jeju + 도) are then judged on what is left.
+  if (words.length === 0) return false;
   const haystack = [...fields, r.story].filter(f => typeof f === 'string').join(' ');
+  if (words.length === 1) {
+    // A single remaining word that the whole-query check above did not
+    // match can only match here if the query had dropped words.
+    const dropped = String(query).trim().split(/\s+/).length > 1;
+    return dropped && (fields.some(f => startsWord(f, words[0])) || dietWordMatch(r, words[0]) || aliasMatch(r, words[0]));
+  }
   return words.every(w => startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w));
 }
 

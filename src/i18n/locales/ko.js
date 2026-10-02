@@ -296,6 +296,7 @@ export default {
     transitWalk: ' · 걸어서 {{minutes}}분',
     transitFar: ' — 버스나 택시가 편할 수 있어요',
     actionSave: '저장',
+    actionSaved: '저장됨',
     savedNote: '저널에 저장했어요.',
     removedNote: '저널에서 뺐어요.',
     actionBeenHere: '다녀옴',

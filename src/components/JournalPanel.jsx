@@ -4,7 +4,7 @@ import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
 import { formatShortDate, displayName, getOpenStatus } from '../utils';
 import ClaimChip from './ClaimChip';
-import { ChevronRightIcon } from './Icons';
+import { ChevronRightIcon, ShareIcon } from './Icons';
 import Seal from './Seal';
 import { sealText } from '../data/seal-text';
 import { groupByRegion } from '../data/region';
@@ -163,6 +163,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
             <h3>{t('journal.savedForLater')}</h3>
             {/* A link to this list, for whoever you are travelling with. */}
             <button type="button" className="journal-share" onClick={shareList}>
+              <ShareIcon size={14} />
               {listShared ? t('journal.listCopied') : t('journal.shareList')}
             </button>
           </div>

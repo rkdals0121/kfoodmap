@@ -306,6 +306,7 @@ export default {
     transitWalk: ' · 徒歩 {{minutes}} 分',
     transitFar: ' — バスかタクシーのほうが便利かもしれません',
     actionSave: '保存',
+    actionSaved: '保存済み',
     savedNote: 'ジャーナルに保存しました。',
     removedNote: 'ジャーナルから削除しました。',
     actionBeenHere: '行った',

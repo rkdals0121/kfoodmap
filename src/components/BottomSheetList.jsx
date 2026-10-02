@@ -164,7 +164,11 @@ export default function BottomSheetList({
   // A new search or filter starts from the top again; a map move keeps what
   // has been opened so far.
   const [shown, setShown] = useState(PAGE);
-  useEffect(() => { setShown(PAGE); }, [restaurants]);
+  // Keyed on which places are listed, not on the array: saving a place or
+  // the "Open now" minute tick rebuilds the array with the same places, and
+  // resetting then threw the reader back to the first page.
+  const listKey = restaurants.map(r => r.id).join(',');
+  useEffect(() => { setShown(PAGE); }, [listKey]);
   const sentinelRef = useRef(null);
   const hasMore = shown < sorted.length;
   useEffect(() => {

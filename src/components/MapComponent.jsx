@@ -187,7 +187,9 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
   const key = restaurants.map(r => r.id).join(',');
   const first = useRef(true);
   useEffect(() => {
-    if (first.current) { first.current = false; return; }
+    // The first run is the app opening, where the map keeps its start
+    // view — unless it opened on a list to frame (a shared list).
+    if (first.current) { first.current = false; if (!fitAll) return; }
     if (restaurants.length === 0) return;
     const latlngs = restaurants.map(r => { const c = coordsOf(r); return L.latLng(c.lat, c.lng); });
     const size = map.getSize();
@@ -402,7 +404,6 @@ function LocateControl({ state, location, onLocate }) {
         type="button"
         className={`map-locate__btn${state === 'located' ? ' is-on' : ''}${asking ? ' is-asking' : ''}`}
         onClick={onLocate}
-        disabled={asking}
         aria-label={state === 'located' ? t('map.locateAgain') : t('map.locate')}
         title={state === 'located' ? t('map.locateAgain') : t('map.locate')}
       >

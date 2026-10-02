@@ -2360,6 +2360,29 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     record's own evidence (유알티, 페르시안궁전, 비건키친, 스타사마르칸트,
     타쉬켄트케밥). HAJJ Korea Halal Food is registered in Latin letters
     on Kakao, so it stays without one.
+56. **Code review and desktop review of the night's work, 2026-10-03
+    ~00:40** (two agents, report-only). Fixed from the code review:
+    typing `constructor` / `__proto__` in search crashed the app
+    (`AREA_ALIASES[w]` hit Object.prototype — now `Object.hasOwn`); the
+    list fell back to its first 40 cards whenever a place was saved or
+    the Open-now minute ticked (paging reset keyed on array identity —
+    now on the ids); a shared list did not frame itself on arrival
+    (FollowResults skipped its first run); "제주도", "서울시", "釜山市"
+    and mid-typing "busan v" found nothing (a one-letter word was
+    required — now dropped); "My location" could stay disabled after a
+    dismissed permission prompt (own 20 s give-up); a slow first language
+    could overwrite a second choice; the first paint waited on the locale
+    chunk without limit (now 2.5 s); the Korean-name Copy had no clipboard
+    fallback; Tab left the full-screen Korean; Open-now ticks on the
+    minute and on wake; "Clear all" left `?list=` in the address.
+    From the desktop review: **the chip row wraps from 768px up** (a mouse
+    wheel cannot scroll a horizontal row: six of ten chips, Halal among
+    them, were unreachable on a desktop); language picker centred on wide
+    screens; "Show large" is green, not ink; Save reads "Saved" once
+    saved; "Share this list" is an outlined pill; map buttons have side
+    padding. Not changed: evidence text shown to visitors contains audit
+    phrases ("fetched twice, identical") — it is the audit trail; the
+    Naver/Kakao brand colours on the map buttons.
 
 
 ---

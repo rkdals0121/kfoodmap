@@ -3854,3 +3854,53 @@ button {
   outline: 2px solid var(--green-strong);
   outline-offset: 2px;
 }
+
+/* From tablet width up the chips wrap instead of scrolling sideways. A
+   mouse wheel does not scroll a horizontal row, so on a desktop six of the
+   ten chips — Halal among them — could not be reached (desktop review,
+   2026-10-03). A phone keeps the swipeable row. */
+@media (min-width: 768px) {
+  .chip-row {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    row-gap: 8px;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .chip-row::after {
+    content: none;
+  }
+  /* The groups dissolve into one flow of chips (three rows, not one row
+     per group); the group is still a group to a screen reader. */
+  .chip-group {
+    display: contents;
+  }
+  /* The language picker is a centred dialog here, not a bottom sheet. */
+  .language-picker-overlay {
+    align-items: center;
+  }
+  .language-picker {
+    border-radius: var(--radius-xl);
+  }
+}
+/* "Google Maps" touched both edges of its button. */
+.detail-directions .btn-primary {
+  padding-inline: 8px;
+  font-size: 15px;
+  white-space: nowrap;
+}
+/* The staff card's "Show large": brand green — solid ink is the Confirmed
+   claim mark's alone (docs/UI-DIRECTION.md). */
+.staff-card__large-btn {
+  background: var(--green-strong);
+}
+/* Journal "Share this list": an outlined pill with the share glyph, so it
+   reads as an action and not as a caption. */
+.journal-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 1px solid var(--green-strong);
+  border-radius: 999px;
+}

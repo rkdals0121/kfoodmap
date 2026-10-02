@@ -303,6 +303,7 @@ export default {
     transitWalk: ' · {{minutes}} mnt jalan kaki',
     transitFar: ' — mungkin lebih mudah naik bus atau taksi',
     actionSave: 'Simpan',
+    actionSaved: 'Tersimpan',
     savedNote: 'Disimpan ke Jurnal Anda.',
     removedNote: 'Dihapus dari Jurnal Anda.',
     actionBeenHere: 'Sudah ke sini',

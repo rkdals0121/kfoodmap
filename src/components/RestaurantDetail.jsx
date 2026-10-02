@@ -219,7 +219,12 @@ export default function RestaurantDetail({
       setNameCopied(true);
       setTimeout(() => setNameCopied(false), 2000);
     } catch {
-      // Clipboard blocked: the name is on screen to read or show large.
+      // No async clipboard (an in-app browser, plain http): the same
+      // fallback the address uses. If that fails too, the name is on screen.
+      if (fallbackCopy(koName)) {
+        setNameCopied(true);
+        setTimeout(() => setNameCopied(false), 2000);
+      }
     }
   };
   // Past 50 km, a distance from the map centre is noise (a shared link
@@ -530,7 +535,7 @@ export default function RestaurantDetail({
                   onClick={() => onToggleBookmark(place.id)}
                 >
                   <HeartIcon size={20} filled={isBookmarked} />
-                  <span>{t('detail.actionSave')}</span>
+                  <span>{isBookmarked ? t('detail.actionSaved') : t('detail.actionSave')}</span>
                 </button>
                 <button
                   type="button"
@@ -608,7 +613,7 @@ export default function RestaurantDetail({
                   {nameLarge && createPortal(
                     // No aria-label: it would replace the Korean a screen
                     // reader should read out; the visible hint names the action.
-                    <button type="button" className="staff-large" autoFocus onClick={closeNameLarge}>
+                    <button type="button" className="staff-large" autoFocus onClick={closeNameLarge} onKeyDown={(e) => { if (e.key === 'Tab') e.preventDefault(); }}>
                       <span className="staff-large__text staff-large__text--name" lang="ko"><span>{koName}</span></span>
                       <span className="staff-large__close">{t('detail.tapToClose')}</span>
                     </button>,

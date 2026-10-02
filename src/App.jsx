@@ -137,13 +137,18 @@ function AppShell() {
   const locate = () => {
     if (!('geolocation' in navigator)) { setLocateState('unavailable'); return; }
     setLocateState('asking');
+    // A permission prompt dismissed without an answer calls neither
+    // callback, and `timeout` does not count the time spent on the prompt:
+    // stop "asking" ourselves so the button is never stuck.
+    const giveUp = setTimeout(() => setLocateState(s => (s === 'asking' ? 'unavailable' : s)), 20000);
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        clearTimeout(giveUp);
         const answer = readPosition(position);
         setLocateState(answer.state);
         setUserLocation(answer.state === 'located' ? { ...answer.location, at: Date.now() } : null);
       },
-      (error) => { setLocateState(readError(error).state); setUserLocation(null); },
+      (error) => { clearTimeout(giveUp); setLocateState(readError(error).state); setUserLocation(null); },
       // A recent fix is fine for "what is near me"; do not hold the radio on.
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 },
     );
@@ -304,9 +309,19 @@ function AppShell() {
   const [clock, setClock] = useState(() => Date.now());
   useEffect(() => {
     if (!openNowOn) return undefined;
-    setClock(Date.now());
-    const id = setInterval(() => setClock(Date.now()), 60000);
-    return () => clearInterval(id);
+    const tick = () => setClock(Date.now());
+    tick();
+    // On the minute, so a place closing at 9:00 leaves at 9:00; and at once
+    // when the screen wakes, where timers have been asleep.
+    let interval = null;
+    const align = setTimeout(() => { tick(); interval = setInterval(tick, 60000); }, 60000 - (Date.now() % 60000));
+    const onVisible = () => { if (document.visibilityState === 'visible') tick(); };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      clearTimeout(align);
+      if (interval) clearInterval(interval);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
   }, [openNowOn]);
 
   // unknownHours: places that match everything else but have no recorded
@@ -437,6 +452,9 @@ function AppShell() {
                 onCloseShared={closeSharedList}
                 searchQuery={searchQuery}
                 onClearFilters={() => {
+                  // A shared list lives in the address too; clear it there,
+                  // or a reload brings the filter back.
+                  if (selectedFilters.includes(SHARED_LIST)) navigate('/', { replace: true });
                   setSelectedFilters([]);
                   setSearchQuery('');
                   // The button goes with the empty state; put focus where the

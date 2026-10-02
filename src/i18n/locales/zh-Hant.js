@@ -299,6 +299,7 @@ export default {
     transitWalk: ' · 步行 {{minutes}} 分鐘',
     transitFar: ' — 搭公車或計程車可能更方便',
     actionSave: '收藏',
+    actionSaved: '已收藏',
     savedNote: '已收藏到手帳。',
     removedNote: '已從手帳移除。',
     actionBeenHere: '去過',

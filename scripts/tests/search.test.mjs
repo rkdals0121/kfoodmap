@@ -99,3 +99,20 @@ test('a shared list keeps only real place ids, in order, once each, and is cappe
   assert.equal(parseSharedList(many.join(','), many).length, MAX_SHARED);
   assert.equal(sharedListUrl('https://x.test', ['a', 'b']), 'https://x.test/?list=a,b');
 });
+
+test('words that name Object.prototype members are just words', () => {
+  const p = at('Itaewon, Seoul', '1 Ro, Yongsan-gu, Seoul');
+  for (const q of ['constructor', '__proto__', 'toString', 'seoul constructor', 'hasOwnProperty']) {
+    assert.doesNotThrow(() => matchesSearch(p, q), q);
+    assert.doesNotThrow(() => matchesArea(p, q), q);
+  }
+  assert.equal(matchesSearch(p, 'constructor'), false);
+});
+
+test('a one-letter word is dropped, not required', () => {
+  const busan = at('Seomyeon, Busan', '1 Ro, Busanjin-gu, Busan');
+  assert.equal(matchesSearch(busan, 'busan v'), true);
+  assert.equal(matchesSearch(busan, '부산시'), true);
+  assert.equal(matchesSearch(busan, '釜山市'), true);
+  assert.equal(matchesSearch(busan, 'seoul v'), false);
+});

@@ -313,6 +313,7 @@ export default {
     transitWalk: ' · {{minutes}} min walk',
     transitFar: ' — a bus or taxi may be easier',
     actionSave: 'Save',
+    actionSaved: 'Saved',
     savedNote: 'Saved to your Journal.',
     removedNote: 'Removed from your Journal.',
     actionBeenHere: 'Been here',

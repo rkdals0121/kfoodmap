@@ -77,13 +77,18 @@ i18next.use(initReactI18next).init({
  * (offline, a stale tab after a deploy) leaves the app in the language it
  * was in rather than half-switched. Resolves to the language now in use.
  */
+let latestRequest = 0;
 export async function setLanguage(code, { remember = true } = {}) {
   const lang = byCode(code) ?? byCode('en');
+  // Two choices in quick succession: a slow chunk for the first must not
+  // arrive late and undo the second.
+  const request = ++latestRequest;
   try {
     if (lang.load && !i18next.hasResourceBundle(lang.code, 'translation')) {
       const mod = await lang.load();
       i18next.addResourceBundle(lang.code, 'translation', mod.default, true, true);
     }
+    if (request !== latestRequest) return i18next.language;
     await i18next.changeLanguage(lang.code);
   } catch {
     return i18next.language;

@@ -153,6 +153,9 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
           className="staff-large"
           ref={largeRef}
           onClick={closeLarge}
+          // The only control on the screen: Tab stays on it rather than
+          // moving to the sheet hidden behind.
+          onKeyDown={(e) => { if (e.key === 'Tab') e.preventDefault(); }}
         >
           <span className="staff-large__text" lang="ko">
             {large.map(line => <span key={line}>{line}</span>)}
