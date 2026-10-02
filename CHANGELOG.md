@@ -17,6 +17,8 @@
 - **A journey on the map** — its stops alone, numbered in route order on the map and in the list.
 - **The week's hours** on a place page; a day the record does not cover says so.
 - **Area suggestions** in the search box, and "/" to reach it from the keyboard.
+- **"Last order soon" / "Closes soon"** in amber; 24-hour places say "24 hours".
+- **Older spellings** in search — Pusan, Cheju, Kangnam, Myungdong.
 - **Search in other scripts** — areas typed in Korean, Japanese or Chinese (釜山, 明洞, 이태원), and the diet words of each language.
 
 ### Changed

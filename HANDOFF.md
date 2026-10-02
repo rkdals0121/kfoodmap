@@ -2444,6 +2444,20 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     tab) keeps `?list=&journey=` (`pathOf` in App); a place opened from
     another starts scrolled to its top; journey stop numbers are read as
     "Stop 1:" by screen readers.
+62. **2026-10-03 ~07:50–08:05.** A journey stop opened from the map or the
+    list (journey on the map) gets the same "Stop 2 of 3 · previous / next"
+    bar as from Discover (`openDetail` passes `journey`). Saved hearts in
+    one building sit side by side (`savedIcon(shift)`). Search takes older
+    and informal Latin spellings — Pusan, Cheju, Kangnam, Myungdong, Jongro…
+    (`LATIN_VARIANTS` in area-names.js; the typed query is tried first).
+    Live QA fixes: whole-day slots ("00:00–24:00") read "24 hours" (status,
+    today's line, week table) and are never "closing"; the week table
+    prints every slot's own last order (lunch and dinner); once the last
+    order has passed the label is amber, not green; "Closed" capitalised.
+    Known and left: from 768 px the docked place panel takes the list
+    column, so the search box and chips are reachable only after closing
+    the place (Google-Maps-like; a layout change was too large for the
+    session's end).
 
 
 ---
