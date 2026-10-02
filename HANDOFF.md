@@ -2460,6 +2460,8 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     (`handleSearchChange`), and "/" reaches it (FilterBar now checks the box
     is actually visible with `elementFromPoint`, not the path). The chips
     are still under the panel; from Discover the panel stays full height.
+    The list says when a search was also read as another spelling ("Also
+    searched as “Busan”" for Pusan or 釜山; `list.searchedAs`).
     The App clock now ticks every minute regardless of filters, so the
     open/closed labels on cards and the open place stay current; only
     "Open now" re-filters on the tick (`filterClock`), so the map is not
