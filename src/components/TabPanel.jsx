@@ -90,7 +90,8 @@ function DiscoverTab() {
                         className="journey-stop"
                         onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover', journey: { id: journey.id, index: i } } })}
                       >
-                        <span className="journey-stop__num">{i + 1}</span>
+                        <span className="journey-stop__num" aria-hidden="true">{i + 1}</span>
+                        <span className="visually-hidden">{t('detail.journeyPrev', { index: i + 1 })}: </span>
                         {/* The page promises each stop says how sure we are:
                             so each stop carries its claim marks. */}
                         <span className="journey-stop__text">

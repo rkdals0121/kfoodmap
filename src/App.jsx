@@ -225,7 +225,12 @@ function AppShell() {
     navigate(`/place/${r.id}`, { replace: Boolean(id), state: { fromApp: true, tab: activeTab, ...extra } });
   };
   const closePlace = () => (location.state?.fromApp ? navigate(-1) : navigate(tabPath));
-  const openDetail = (r) => openPlace(r);
+  // While a journey's stops are on the map, a stop opened from the map or
+  // the list is opened as that stop, with the stop before and after.
+  const openDetail = (r) => {
+    const stop = sharedJourney && selectedFilters.includes(SHARED_LIST) ? sharedJourney.stopIds.indexOf(r.id) : -1;
+    openPlace(r, stop >= 0 ? { journey: { id: sharedJourney.id, index: stop } } : {});
+  };
   // What else is close to the open place (data/nearby.js).
   const nearby = useMemo(() => nearbyPlaces(selectedRestaurant, activeRestaurants), [selectedRestaurant]);
   // A place opened from a journey (Discover) remembers which journey and
@@ -241,7 +246,7 @@ function AppShell() {
   const journey = journeyStops && journeyStops.stops[journeyState.index]?.id === id
     ? journeyNav(journeyStops.journey, journeyStops.stops, journeyState.index)
     : null;
-  const openJourneyStop = (place, index) => openPlace(place, { tab: 'discover', journey: { id: journeyState.id, index } });
+  const openJourneyStop = (place, index) => openPlace(place, { tab: location.state?.tab ?? 'discover', journey: { id: journeyState.id, index } });
   const openStory = (r) => openPlace(r, { focusStory: true });
   // The card's directions button opens the place at its map-app buttons
   // (Naver and Kakao first), rather than straight to Google.
