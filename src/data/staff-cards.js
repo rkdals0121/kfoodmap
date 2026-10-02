@@ -29,7 +29,7 @@ export const STAFF_CARDS = [
     statement: [
       { ko: '안녕하세요. 저는 비건(완전 채식)입니다.', roman: 'Annyeonghaseyo. Jeoneun bigeon (wanjeon chaesik) imnida.', key: 'veganS1' },
       { ko: '고기, 생선, 해산물, 달걀, 우유·유제품, 꿀을 먹지 않습니다.', roman: 'Gogi, saengseon, haesanmul, dalgyal, uyu·yujepum, kkureul meokji anseumnida.', key: 'veganS2' },
-      { ko: '육수나 양념에 들어간 것도 먹지 않습니다. (예: 멸치 육수, 액젓, 새우젓)', roman: 'Yuksuna yangnyeome deureogan geotdo meokji anseumnida. (ye: myeolchi yuksu, aekjeot, saeujeot)', key: 'veganS3' },
+      { ko: '육수나 양념에 동물성 재료가 들어간 음식도 먹지 않습니다. (예: 멸치 육수, 액젓, 새우젓)', roman: 'Yuksuna yangnyeome dongmulseong jaeryoga deureogan eumsikdo meokji anseumnida. (ye: myeolchi yuksu, aekjeot, saeujeot)', key: 'veganS3' },
       { ko: '제가 먹을 수 있는 메뉴가 있을까요?', roman: 'Jega meogeul su inneun menyuga isseulkkayo?', key: 'veganS4' },
     ],
     questions: [

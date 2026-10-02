@@ -362,7 +362,7 @@ export default {
       didYouKnow: 'Masakan kuil Korea melarang bawang putih, bawang bombai, kucai, bawang prei, dan daun bawang — \'lima sayuran beraroma tajam\' — karena para biksu percaya bahan-bahan itu membangkitkan emosi yang kuat. Setiap rasa mendalam yang Anda cicipi di sini justru berasal dari fermentasi dan kesabaran.',
       tips: [
         'Makanlah seperti biksu: menghabiskan semua isi mangkuk adalah intinya — praktik yang disebut 발우공양 (balwoo gongyang) tidak menyisakan sebutir nasi pun.',
-        'Cicipi hidangan kecil satu per satu. Setiap banchan dibumbui untuk dimakan bersama nasi, bukan sendirian.',
+        'Cicipi hidangan kecil satu per satu. Setiap banchan dibumbui untuk dimakan bersama nasi, bukan dimakan tersendiri.',
         'Makan di sini tenang dan tidak terburu-buru — warga setempat menganggapnya meditasi, bukan sekadar makan siang.',
       ],
     },
@@ -371,7 +371,7 @@ export default {
       tips: [
         'Aduk saus kacang hitam hingga rata dengan mi sebelum suapan pertama — dan makanlah dengan cepat, sebelum minya mengembang.',
         'Acar lobak kuning (danmuji) di sampingnya berfungsi menyeimbangkan rasa yang berat. Makanlah bergantian.',
-        'Menyeruput mi sangat sopan di sini — cara itu mendinginkan mi dan menandakan Anda menikmatinya.',
+        'Menyeruput mi sama sekali tidak dianggap kurang sopan di sini — cara itu mendinginkan mi dan menandakan Anda menikmatinya.',
       ],
     },
     'vegan-dining': {
@@ -384,14 +384,14 @@ export default {
     'halal-korean': {
       didYouKnow: 'Kuliner Korea halal di Seoul tumbuh di Usadan-ro, jalan menanjak di samping Masjid Pusat Seoul — kawasan yang telah menyambut pedagang dan pelancong Muslim sejak 1970-an. Di luar kawasan itu, masakan Korea halal masih jarang, dan karena itulah peta ini juga menandai tempat makan Korea yang tanpa babi.',
       tips: [
-        'Baca labelnya: "tanpa babi" berarti tidak ada babi di menu, bukan daging sembelihan halal atau dapur halal.',
+        'Baca labelnya: "tanpa babi" berarti tidak ada babi di menu, bukan berarti dagingnya disembelih secara halal atau dapurnya halal.',
         'Bulgogi dan samgyetang adalah perkenalan paling lembut dengan cita rasa Korea — sangat gurih, tanpa kejutan pedas.',
         'Makan ala Korea itu bersama-sama: hidangan diletakkan di tengah meja dan semua orang berbagi.',
         'Jika sertifikasi resmi penting bagi Anda, mintalah untuk melihat sertifikatnya dan periksa siapa yang menerbitkannya serta kapan masa berlakunya habis — sertifikat bisa kedaluwarsa, dan tanda di dinding bisa bertahan lebih lama daripada sertifikatnya.',
       ],
     },
     'world-halal': {
-      didYouKnow: 'Dapur ramah halal di Korea kebanyakan menyajikan masakan India, Nepal, Turki, Uzbek, Indonesia, dan Timur Tengah, berkumpul di sekitar masjid, universitas, dan kawasan multikultural seperti Itaewon dan Wongok-dong di Ansan. Setiap lencana di peta ini menunjukkan sejauh mana status halal tempat itu sudah diperiksa — selama belum tertulis Terkonfirmasi, tanyakan kepada staf.',
+      didYouKnow: 'Dapur ramah halal di Korea kebanyakan menyajikan masakan India, Nepal, Turki, Uzbek, Indonesia, dan Timur Tengah, dan berkumpul di sekitar masjid, universitas, serta kawasan multikultural seperti Itaewon dan Wongok-dong di Ansan. Setiap tanda di peta ini menunjukkan sejauh mana status halal tempat itu sudah diperiksa — selama belum tertulis Terkonfirmasi, tanyakan kepada staf.',
       tips: [
         'Porsinya dibuat untuk berbagi — pesan beberapa hidangan untuk satu meja, ala Korea.',
         'Banyak kedai menyajikan acar ala Korea bersama kari dan kebab — kebiasaan fusi lokal kecil yang layak dicoba.',
@@ -412,7 +412,7 @@ export default {
       ],
     },
     'local-seasonal': {
-      didYouKnow: 'Masakan Korea mengikuti 제철 (jecheol) — \'pergantian musim\'. Menu berubah diam-diam seiring bahan memasuki musimnya, dan karena itulah warga setempat bertanya \'apa yang enak hari ini?\' alih-alih membaca menu.',
+      didYouKnow: 'Masakan Korea mengikuti 제철 (jecheol) — \'saat musimnya tiba\'. Menu berubah diam-diam seiring bahan memasuki musimnya, dan karena itulah warga setempat bertanya \'apa yang enak hari ini?\' alih-alih membaca menu.',
       tips: [
         'Tanyakan apa yang sedang musim — hidangan terbaik sering kali tidak ada di menu cetak.',
       ],
@@ -421,7 +421,7 @@ export default {
   cardText: {
     veganS1: 'Halo. Saya vegan (sepenuhnya nabati).',
     veganS2: 'Saya tidak makan daging, ikan, makanan laut, telur, susu atau produk susu, maupun madu.',
-    veganS3: 'Saya juga tidak memakannya jika ada di dalam kaldu atau bumbu (misalnya kaldu ikan teri, kecap ikan, udang asin fermentasi).',
+    veganS3: 'Saya juga tidak makan hidangan yang kaldu atau bumbunya mengandung bahan hewani (misalnya kaldu ikan teri, kecap ikan, udang asin fermentasi).',
     veganS4: 'Apakah ada menu yang bisa saya makan?',
     veganQ1: 'Apakah makanan ini mengandung daging atau makanan laut?',
     veganQ2: 'Kaldunya dibuat dari apa? (ikan teri, daging, katsuobushi/cakalang kering)',

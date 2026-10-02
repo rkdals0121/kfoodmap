@@ -434,7 +434,7 @@ export default {
   cardText: {
     veganS1: 'Hello. I am vegan (fully plant-based).',
     veganS2: 'I do not eat meat, fish, seafood, eggs, milk or dairy, or honey.',
-    veganS3: 'I do not eat them in stock or seasoning either (for example anchovy stock, fish sauce, salted shrimp).',
+    veganS3: 'I also do not eat food with animal ingredients in its stock or seasoning (for example anchovy stock, fish sauce, salted shrimp).',
     veganS4: 'Is there a dish I can eat?',
     veganQ1: 'Is there meat or seafood in this dish?',
     veganQ2: 'What is the stock made from? (anchovy, meat, bonito)',
