@@ -15,18 +15,32 @@ checked, or presents a contested commercial claim as national heritage, is a
 different category of failure. Restaurant discovery is the entry point;
 cultural storytelling — and being trustworthy about it — is the product.
 
-The primary audience is first-time international visitors to Seoul and
-Incheon with a dietary constraint and no Korean.
+The primary audience is first-time international visitors to Korea with a
+dietary constraint and no Korean. About 680 places nationwide (October 2026).
 
 ## Features
 
-- **Map** — Leaflet-based discovery view, search, and list
-- **Filter** — dietary chips (vegan, halal, mild, fermented, zero-waste, local sourcing)
-- **Detail** — practical info, menu, food story, sustainability, dining tips
-- **Story** — the cultural narrative behind each restaurant
-- **Journal / Passport** — bookmarked places as dated stamps, with a "next stop" suggestion
-- **Bookmark** — persisted locally, no account required
-- **Responsive** — mobile / tablet / desktop, AA contrast
+- **Map** — every place as a dot or pin, grouped where they crowd; "My
+  location" centres the map on you and shows distances from you (asked once
+  per press, never stored or sent)
+- **Search** — by name or area, in English or with the area typed in Korean,
+  Japanese or Chinese; "halal", "vegan" and "pork-free" find what the chips find
+- **Filter** — Open now (on Korean time), Saved, Vegan, Fully vegan, Halal,
+  sustainability and dining chips
+- **Claim marks** — every dietary claim says how sure it is: Confirmed,
+  Reported, Our reading, or Not known, with its source one tap away
+- **Detail** — hours, nearest station, phone, Naver / Kakao / Google
+  directions, the name in Korean to copy or show large, menu, food story
+- **Korean cards to show staff** (`/cards`) — "I am vegan" / "I am Muslim" in
+  polite Korean, questions about hidden ingredients, shown large across a
+  counter; works offline
+- **Food journeys** — themed sets of places, followed stop by stop
+- **Journal / Passport** — saved places and dated visit stamps; no account
+  required, optional Google sign-in to sync
+- **Six languages** — English, 日本語, 简体中文, 繁體中文, Bahasa Indonesia,
+  한국어 (place names, stories and menus stay in English)
+- **Responsive, installable, offline-capable** — mobile / tablet / desktop,
+  AA contrast, PWA
 - **Evidence Layer** — sourced, versioned, tamper-evident provenance for facts
 - **Confidence Model** — every field is graded, not just stated
 - **Lifecycle** — restaurants that can't be confirmed to exist or to still be open are quarantined out of every discovery surface, not deleted
@@ -83,8 +97,9 @@ summary. Six phases, each gating the next:
 5. **Version 1.0** — every visible claim is verified or honestly unknown
 6. **Feature Phase 2** — multilingual support, nearby route, passport expansion, and more
 
-**Feature Phase 2 begins only after v1.0 ships.** No new feature work happens
-before then.
+Feature Phase 2 was meant to begin only after v1.0. On 2026-10-02 the owner
+lifted that freeze for features that serve the concept; multilingual support
+and several others have shipped since (see `CHANGELOG.md` and `HANDOFF.md` §7).
 
 ## Technology
 

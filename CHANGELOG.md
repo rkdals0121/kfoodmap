@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased — 2026-10-02 / 10-03
+
+### Added
+
+- **Open now** filter. Opening hours are read on Korean time, whatever the device's time zone; places past last order are left out, and the list says how many places have no recorded hours.
+- **My location** — centres the map on you and shows distances from you. Asked once per press, used only in the browser, never stored or sent (the privacy policy was updated in the same change).
+- **Saved** filter (your shortlist on the map, framed) and **Fully vegan** filter (all-vegan kitchens only).
+- **Food journeys can be followed** — "Stop 2 of 3", previous and next stop, straight-line distances between stops.
+- **Korean cards to show restaurant staff** (`/cards`) — a vegan card and a Muslim card in polite Korean, questions about hidden ingredients, likely answers, words to look for; "Show large" for handing the phone across a counter.
+- **Name in Korean** on each place, to copy or show large.
+- **Six languages** — English, Japanese, Simplified and Traditional Chinese, Indonesian, Korean. Detected from the browser on a first visit; chosen in Profile or on the welcome screen. Journeys, dining tips and the staff cards' meanings are translated; place names, stories and menus stay in English.
+- **Search in other scripts** — areas typed in Korean, Japanese or Chinese (釜山, 明洞, 이태원), and the diet words of each language.
+
+### Changed
+
+- A place's dietary source names the site it was read from ("The restaurant (mahinavegan.com)").
+- Menus of places with vegan options say that not every dish is vegan.
+- Map buttons come before the address on a place page.
+
+### Fixed
+
+- Open / closed was computed on the device clock, wrong for anyone planning from another time zone.
+- Search matched inside words ("Seomyeon" found Wanju's "Iseo-myeon").
+- An unsourced "food mileage" tip shown on 187 places was removed; 26 stories' walking times now match the routed figure on the same page.
+
+Translations were drafted and cross-reviewed by automated agents with a fixed glossary for the four claim words; they have not yet been read by native speakers.
+
 ## v1.0.0
 
 **Release Date:** 2026-07-18
