@@ -24,7 +24,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, SAVED_ONLY } from './filters';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -281,6 +281,7 @@ function AppShell() {
       // someone somewhere we can't vouch for. A group chip ORs within itself.
       const matchesChips = selectedFilters.every(f => {
         if (f === OPEN_NOW) return true; // asked last, below
+        if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
         if (DIETARY_CHIPS.includes(f)) return matchesDietary(r, f);
         const group = TRAIT_GROUPS[f];
         return group ? r.traits.some(t => group.includes(t)) : r.traits.includes(f);
@@ -294,7 +295,7 @@ function AppShell() {
       return status?.open === true;
     });
     return { filteredRestaurants: list, unknownHours: unknown };
-  }, [selectedFilters, searchQuery, openNowOn, clock]);
+  }, [selectedFilters, searchQuery, openNowOn, clock, bookmarkedIds]);
 
   if (!prologueCompleted) {
     return (
@@ -336,6 +337,7 @@ function AppShell() {
             selectedId={selectedRestaurant?.id}
             onCenterChange={setMapCenter}
             searchQuery={searchQuery}
+            fitAll={selectedFilters.includes(SAVED_ONLY)}
             userLocation={userLocation}
             locateState={locateState}
             onLocate={locate}

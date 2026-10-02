@@ -19,6 +19,11 @@ export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 // filter promises "open", and unknown is not open.
 export const OPEN_NOW = 'Open now';
 
+// "Saved": only the places this visitor has saved, so a trip's shortlist
+// can be seen on the map (the Journal lists them; it could not show where
+// they are). Answered from the passport on this device, not from place data.
+export const SAVED_ONLY = 'Saved';
+
 // A group chip matches *any* trait in its set, which is the one place chips
 // are not AND-ed. Sustainability exists because its two members are narrow
 // enough that selecting both returns nothing — the group is the way to browse

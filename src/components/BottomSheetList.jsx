@@ -7,7 +7,7 @@ import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW } from '../filters';
+import { matchesArea, OPEN_NOW, SAVED_ONLY } from '../filters';
 
 const CHIP_LABEL_KEY = Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey]));
 
@@ -259,7 +259,11 @@ export default function BottomSheetList({
               {t('list.clearAll')}
             </button>
           )}
-          <p className="place-list__hint-text">{t(activeFilters.length ? 'list.noMatchHint' : 'list.noMatchHintSearch')}</p>
+          <p className="place-list__hint-text">
+            {t(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0
+              ? 'list.noSavedYet'
+              : activeFilters.length ? 'list.noMatchHint' : 'list.noMatchHintSearch')}
+          </p>
         </div>
       )}
     </div>

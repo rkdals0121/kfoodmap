@@ -9,7 +9,7 @@ import {
   ChevronLeftIcon, ChevronRightIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, VEGAN, HALAL,
 } from '../data/verification';
@@ -430,6 +430,9 @@ export default function RestaurantDetail({
                     <strong className={status.open ? 'is-open' : 'is-closed'}>{status.label}</strong>
                     {' '}· {status.detail}{' '}
                     {today && <span className="practical-muted practical-today">{t('detail.todayHours', { hours: today })}</span>}
+                    {/* A device on another clock (planning from abroad): say
+                        whose time this is, and what time it is there. */}
+                    {!deviceOnKoreaTime() && <span className="practical-muted practical-today">{t('detail.koreaTime', { time: koreaClock() })}</span>}
                   </span>
                 ) : (
                   <span className="practical-muted">{t('detail.hoursUnknown')}</span>

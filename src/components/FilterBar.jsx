@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { OPEN_NOW } from '../filters';
+import { OPEN_NOW, SAVED_ONLY } from '../filters';
 
 export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange }) {
   const { t } = useTranslation();
@@ -32,6 +32,13 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
             onClick={() => onToggleFilter(OPEN_NOW)}
           >
             {t('filters.openNow')}
+          </button>
+          <button
+            className={`chip${selectedFilters.includes(SAVED_ONLY) ? ' active' : ''}`}
+            aria-pressed={selectedFilters.includes(SAVED_ONLY)}
+            onClick={() => onToggleFilter(SAVED_ONLY)}
+          >
+            {t('filters.savedOnly')}
           </button>
         </div>
         {CHIP_GROUPS.map(group => (

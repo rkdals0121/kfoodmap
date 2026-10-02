@@ -180,7 +180,7 @@ function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
 // When the search names an area, the places in that area are the ones to
 // show: "Busan" also finds Seoul's "Busan Jib", which used to keep the map
 // on Seoul because one result was already in view.
-function FollowResults({ restaurants: all, searchQuery }) {
+function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
   const map = useMap();
   const inArea = all.filter(r => matchesArea(r, searchQuery));
   const restaurants = inArea.length > 0 ? inArea : all;
@@ -193,11 +193,13 @@ function FollowResults({ restaurants: all, searchQuery }) {
     const size = map.getSize();
     const overlap = sheetOverlap(map);
     const visible = L.bounds([0, 0], [size.x, Math.max(1, size.y - overlap)]);
-    if (latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
+    // fitAll ("Saved"): the point is to see the whole shortlist, so frame
+    // all of it even when part is already in view.
+    if (!fitAll && latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
     safeFlyToBounds(map, latlngs, [56, 56], [56, 56 + overlap], { maxZoom: 15, duration: 0.6 });
     // key stands in for restaurants: same places, same key, no move.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, map]);
+  }, [key, map, fitAll]);
   return null;
 }
 
@@ -416,7 +418,7 @@ function LocateControl({ state, location, onLocate }) {
 
 export default function MapComponent({
   restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
-  userLocation = null, locateState = 'idle', onLocate,
+  userLocation = null, locateState = 'idle', onLocate, fitAll = false,
 }) {
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
@@ -448,7 +450,7 @@ export default function MapComponent({
         />
         <StartInView />
         <UserLocation location={userLocation} />
-        <FollowResults restaurants={restaurants} searchQuery={searchQuery} />
+        <FollowResults restaurants={restaurants} searchQuery={searchQuery} fitAll={fitAll} />
         <ClusteredMarkers
           restaurants={restaurants}
           selectedId={selectedId}

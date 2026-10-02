@@ -90,6 +90,7 @@ export default {
     hoursUnknown: 'Hours not recorded',
     noMatch: 'No places match',
     noMatchHint: 'Try removing a filter or searching a different name or area.',
+    noSavedYet: 'You have not saved a place yet. Tap the heart on a place to keep it here and in your Journal.',
     noMatchHintSearch: 'Try a different name or area.',
     clearAll: 'Clear search and filters',
     missingPlace: "That place isn't on the map any more, or the link is wrong. It may have closed, or failed a check. Search below for another.",
@@ -191,8 +192,9 @@ export default {
     },
   },
   filters: {
-    groupNow: 'Opening hours filter',
+    groupNow: 'Open now and saved places',
     openNow: 'Open now',
+    savedOnly: 'Saved',
     groupDietary: 'Dietary filters',
     groupSustainability: 'Sustainability filters',
     groupDining: 'Dining filters',
@@ -283,6 +285,7 @@ export default {
     // after the source label with no separator supplied by the JSX.
     addressAreaLevel: ' · address is area-level',
     todayHours: 'Today: {{hours}}',
+    koreaTime: 'Korean time — it is {{time}} there now',
     transitExit: ', exit {{exit}}',
     // Leading space is load-bearing — see areaOnly above; rendered right
     // after transitExit (or the station/line text) with no separator supplied by the JSX.

@@ -38,6 +38,12 @@ export const DAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const KST_OFFSET_MIN = 540;
 const inKorea = (now) => new Date(now.getTime() + KST_OFFSET_MIN * 60000);
 
+/** The time in Korea now, as "9:05 PM" — for a visitor whose device is elsewhere. */
+export function koreaClock(now = new Date()) {
+  const k = inKorea(now);
+  return fromMinutes(k.getUTCHours() * 60 + k.getUTCMinutes());
+}
+
 /** Is this device's clock on Korean time? If not, hours need saying so. */
 export const deviceOnKoreaTime = (now = new Date()) => now.getTimezoneOffset() === -KST_OFFSET_MIN;
 const WEEKDAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
