@@ -2420,6 +2420,20 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     `/?list=…&journey=<id>`; the list in the address is now followed as
     the address changes (`sharedList` state synced on `/`), not read once
     at start.
+60. **2026-10-03 morning, continued.** **Search suggests areas** (native
+    datalist, `areaSuggestions`); the list says **"Nearest to you"** while
+    the map is still centred on the visitor. **The week's hours** on a
+    place page (`weekHours` in `utils.js`, a `<details>` under today's
+    line; a day the record does not cover reads "Not recorded", never a
+    guess). **Journey on the map is a route**: the list keeps the
+    journey's order (`journeyOrder` in BottomSheetList), the stops are
+    numbered marks on the map (`stopIds` → ClusteredMarkers, `.k-stop`,
+    never clustered) and the cards carry the same number. **"/" focuses
+    the search box** on the map screen (FilterBar). QA agent on live found
+    no functional failure; its "tab title lags" note was the hidden test
+    pane throttling timers, re-checked. Left as they are, on purpose:
+    nearby distances rounded to 50 m (the coordinates do not justify
+    finer), and two saved hearts in one building overlap.
 
 
 ---
