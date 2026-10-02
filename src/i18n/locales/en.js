@@ -124,6 +124,8 @@ export default {
   profile: {
     language: 'Language',
     languageEnglish: 'English',
+    chooseLanguage: 'Choose a language',
+    languageNote: 'Translations are new and may have mistakes. Place names, stories and menus stay in English.',
     staffCards: 'Korean cards to show staff',
     suggestRestaurant: 'Suggest a restaurant',
     privacyPolicy: 'Privacy Policy',
@@ -235,6 +237,7 @@ export default {
     fromMapCentre: '{{distance}} from map centre',
     fromYou: '{{distance}} from you',
     askInKorean: 'Ask in Korean: cards to show staff',
+    contentInEnglish: 'Stories, menus and place descriptions are in English.',
     koreanName: 'Name in Korean',
     showLarge: 'Show large',
     closeLarge: 'Close the large view',
@@ -335,6 +338,21 @@ export default {
     note: 'Written in Korean by the K-Food Map project. A card says what you eat; it cannot tell you what a kitchen does. This page works offline once the app has loaded.',
     closeLarge: 'Close the large view',
     tapToClose: 'Tap to close',
+  },
+  // Opening-hours wording (src/utils.js getOpenStatus / todaysHours).
+  hours: {
+    open: 'Open',
+    closed: 'Closed',
+    until: 'until {{time}}',
+    untilLastOrder: 'until {{time}} · last order {{lastOrder}}',
+    lastOrderPassed: 'last order passed, closes {{time}}',
+    opens: 'opens {{time}}',
+    opensTomorrow: 'opens tomorrow {{time}}',
+    opensDay: 'opens {{day}} {{time}}',
+    closedToday: 'closed today',
+    closedForToday: 'closed for today',
+    closedWord: 'closed',
+    day: { sun: 'Sun', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat' },
   },
   map: {
     locate: 'Show my location',

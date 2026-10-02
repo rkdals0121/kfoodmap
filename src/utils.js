@@ -1,7 +1,14 @@
 // Shared helpers for distance and opening hours.
 
 // Extension is explicit so data QA scripts can import this under plain Node.
+import i18next from 'i18next';
+// Initialises i18next for Node callers too (see src/i18n/index.js's header).
+import './i18n/index.js';
 import { isKnown } from './data/verification.js';
+
+// Opening-hours wording comes from the locale files (hours.*), so it follows
+// the chosen language. Read at call time, never at module load.
+const tr = (key, params) => i18next.t(`hours.${key}`, params);
 
 // Initial map view: frames the Seoul cluster (Jongno down to Itaewon)
 export const MAP_CENTER = [37.5540, 126.9880];
@@ -46,7 +53,6 @@ export function koreaClock(now = new Date()) {
 
 /** Is this device's clock on Korean time? If not, hours need saying so. */
 export const deviceOnKoreaTime = (now = new Date()) => now.getTimezoneOffset() === -KST_OFFSET_MIN;
-const WEEKDAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 // "11:30 AM" or "11:30" → minutes since midnight, null if unparseable
 function toMinutes(str) {
@@ -79,8 +85,8 @@ function statusFromRaw(raw, cur) {
   // A close at or before the opening time runs past midnight ("6:00 PM – 2:00 AM").
   const isOpen = closes > opens ? cur >= opens && cur < closes : cur >= opens || cur < closes;
   return isOpen
-    ? { open: true, label: 'Open', detail: `until ${parts[1]}` }
-    : { open: false, label: 'Closed', detail: `opens ${parts[0]}` };
+    ? { open: true, label: tr('open'), detail: tr('until', { time: parts[1] }) }
+    : { open: false, label: tr('closed'), detail: tr('opens', { time: parts[0] }) };
 }
 
 /**
@@ -111,12 +117,14 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   };
   const openResult = (t, lo, at) => {
     if (lo != null && at >= lo) {
-      return { open: true, label: 'Open', detail: `last order passed, closes ${fromMinutes(t)}` };
+      return { open: true, label: tr('open'), detail: tr('lastOrderPassed', { time: fromMinutes(t) }) };
     }
     return {
       open: true,
-      label: 'Open',
-      detail: lo != null ? `until ${fromMinutes(t)} · last order ${fromMinutes(lo)}` : `until ${fromMinutes(t)}`,
+      label: tr('open'),
+      detail: lo != null
+        ? tr('untilLastOrder', { time: fromMinutes(t), lastOrder: fromMinutes(lo) })
+        : tr('until', { time: fromMinutes(t) }),
     };
   };
 
@@ -139,8 +147,9 @@ export function getOpenStatus(hoursFact, now = new Date()) {
       if (!Array.isArray(day)) return null;
       const first = day.map(s => toMinutes(s.from)).filter(m => m != null).sort((a, b) => a - b)[0];
       if (first == null) continue;
-      const when = d === 1 ? 'tomorrow' : WEEKDAY_SHORT[(k.getUTCDay() + d) % 7];
-      return `opens ${when} ${fromMinutes(first)}`;
+      return d === 1
+        ? tr('opensTomorrow', { time: fromMinutes(first) })
+        : tr('opensDay', { day: tr(`day.${DAY_KEYS[(k.getUTCDay() + d) % 7]}`), time: fromMinutes(first) });
     }
     return null;
   };
@@ -148,7 +157,7 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   if (today.length === 0) {
     const next = nextOpening();
     // "Closed · opens tomorrow 5:00 PM" — the label already says closed.
-    return { open: false, label: 'Closed', detail: next ?? 'closed today' };
+    return { open: false, label: tr('closed'), detail: next ?? tr('closedToday') };
   }
 
   for (const slot of today) {
@@ -160,8 +169,8 @@ export function getOpenStatus(hoursFact, now = new Date()) {
     .map(s => toMinutes(s.from))
     .filter(m => m != null && m > cur)
     .sort((a, b) => a - b)[0];
-  if (next != null) return { open: false, label: 'Closed', detail: `opens ${fromMinutes(next)}` };
-  return { open: false, label: 'Closed', detail: nextOpening() ?? 'closed for today' };
+  if (next != null) return { open: false, label: tr('closed'), detail: tr('opens', { time: fromMinutes(next) }) };
+  return { open: false, label: tr('closed'), detail: nextOpening() ?? tr('closedForToday') };
 }
 
 /** Today's printed hours, e.g. "11:30 AM – 3:00 PM, 6:00 PM – 8:20 PM". */
@@ -171,7 +180,7 @@ export function todaysHours(hoursFact, now = new Date()) {
   if (!weekly) return hoursFact.value.raw ?? null;
   const today = weekly[DAY_KEYS[inKorea(now).getUTCDay()]];
   if (!today) return null;
-  if (today.length === 0) return 'closed';
+  if (today.length === 0) return tr('closedWord');
   return today.map(s => `${fromMinutes(toMinutes(s.from))} – ${fromMinutes(toMinutes(s.to))}`).join(', ');
 }
 
