@@ -2434,6 +2434,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     pane throttling timers, re-checked. Left as they are, on purpose:
     nearby distances rounded to 50 m (the coordinates do not justify
     finer), and two saved hearts in one building overlap.
+61. **2026-10-03 ~07:40–07:50.** Each day's **last order** in the week
+    table; **"Last order soon" / "Closes soon"** within 30 minutes
+    (`CLOSING_SOON_MIN`, `statusClass` → `.is-soon`; a 24-hour place whose
+    next slot starts at its close, or a midnight close whose next day is
+    not recorded, is never "closing"); nearby rows and Discover stops say
+    open/closed or "Hours not recorded". Code-review fixes: returning to
+    the map (closing a place, a filter tapped with a place open, the Map
+    tab) keeps `?list=&journey=` (`pathOf` in App); a place opened from
+    another starts scrolled to its top; journey stop numbers are read as
+    "Stop 1:" by screen readers.
 
 
 ---

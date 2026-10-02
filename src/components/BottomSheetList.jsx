@@ -56,7 +56,13 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
         <h3 className="place-card__name">
           <button className="place-card__open-btn" onClick={() => onOpen(place)}>
             {/* In a journey, the same number as the stop's mark on the map. */}
-            {stop > 0 && <span className="place-card__stop">{stop}</span>}
+            {/* Read as "Stop 1: EID…", not "1EID…". */}
+            {stop > 0 && (
+              <>
+                <span className="place-card__stop" aria-hidden="true">{stop}</span>
+                <span className="visually-hidden">{t('detail.journeyPrev', { index: stop })}: </span>
+              </>
+            )}
             {name}
           </button>
         </h3>
