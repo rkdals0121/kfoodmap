@@ -8,6 +8,7 @@ import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST } from '../filters';
+import { romaniseQuery } from '../data/area-names';
 
 const CHIP_LABEL_KEY = {
   ...Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey])),
@@ -217,6 +218,12 @@ export default function BottomSheetList({
           </span>
         )}
       </div>
+
+      {/* "Pusan" or "釜山" was also searched as "Busan": say so, so the
+          results are not a mystery and the spelling on signs is learned. */}
+      {searchQuery.trim() && romaniseQuery(searchQuery) && (
+        <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(searchQuery) })}</p>
+      )}
 
       {/* Said once for the whole list rather than on every card: the same
           caveat the detail page carries, so the lines below are never read as

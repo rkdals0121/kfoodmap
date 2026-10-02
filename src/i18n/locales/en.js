@@ -88,6 +88,7 @@ export default {
     nearestFirst: 'Nearest the map centre',
     nearestYou: 'Nearest to you',
     areaFirst: 'In the searched area first',
+    searchedAs: 'Also searched as “{{query}}”',
     fromMapCentre: 'from the map centre',
     fromYou: 'from you',
     distanceFromYou: 'distance from you',

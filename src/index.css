@@ -4087,3 +4087,10 @@ a.btn-primary:focus-visible {
   top: 80px;
   height: auto;
 }
+
+/* Under the count: the spelling a search was also read as ("Busan"). */
+.place-list__searched-as {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--muted-strong);
+}
