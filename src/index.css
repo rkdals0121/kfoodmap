@@ -3913,3 +3913,29 @@ a.btn-primary:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* A saved place on the map: white badge, heart in the Save button's colour.
+   Shape (the heart) carries the meaning; the colour only echoes the button. */
+.k-saved {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.k-saved span {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--orange-strong);
+  color: var(--orange-strong);
+  box-shadow: 0 1px 4px rgba(16, 24, 40, 0.3);
+  transition: transform 0.15s ease;
+}
+.k-saved:hover span {
+  transform: scale(1.12);
+}

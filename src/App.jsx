@@ -406,6 +406,7 @@ function AppShell() {
             onCenterChange={setMapCenter}
             searchQuery={searchQuery}
             fitAll={selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST)}
+            savedIds={bookmarkedIds}
             userLocation={userLocation}
             locateState={locateState}
             onLocate={locate}

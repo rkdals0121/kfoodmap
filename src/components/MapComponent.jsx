@@ -109,6 +109,16 @@ const dotIcon = (r) => {
   return DOTS.get(kind);
 };
 
+// A saved place: a round badge with a heart, at every zoom and never folded
+// into a count, so a trip's shortlist can be read off the map without
+// turning a filter on. The heart is the same glyph as the Save button.
+const SAVED_ICON = L.divIcon({
+  className: 'k-saved',
+  html: '<span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>',
+  iconSize: [32, 32],
+  iconAnchor: [16, 16],
+});
+
 // Built once. react-leaflet calls setIcon whenever the icon prop is a new
 // object, and the map re-renders on every pan (the list's sort centre lives
 // in App state), so a fresh divIcon per render meant redrawing every pin in
@@ -210,7 +220,7 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
 // reached again in the list, which holds every place on the map and is the
 // keyboard and screen-reader route (CRITIQUE-2 #12). Pointer and touch are
 // unchanged.
-function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
+function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds }) {
   const map = useMap();
   const { t } = useTranslation();
   const [zoom, setZoom] = useState(() => map.getZoom());
@@ -219,9 +229,13 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
   // The open place always keeps its own pin, so it never disappears into a
   // count while its detail is on screen.
   const selected = restaurants.find(r => r.id === selectedId);
+  const savedKey = (savedIds ?? []).join(',');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const savedSet = useMemo(() => new Set(savedIds ?? []), [savedKey]);
+  const savedPlaces = restaurants.filter(r => savedSet.has(r.id) && r.id !== selectedId);
   const groups = useMemo(() => {
     const points = restaurants
-      .filter(r => r.id !== selectedId)
+      .filter(r => r.id !== selectedId && !savedSet.has(r.id))
       .map(r => {
         const c = coordsOf(r);
         const p = map.project([c.lat, c.lng], zoom);
@@ -230,7 +244,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
     // Dots are small, so they only need grouping when they would touch;
     // pins are tall and need the wider radius.
     return clusterPoints(points, zoom < DOT_BELOW_ZOOM ? DOT_CLUSTER_RADIUS_PX : CLUSTER_RADIUS_PX);
-  }, [restaurants, selectedId, zoom, map]);
+  }, [restaurants, selectedId, zoom, map, savedSet]);
 
   const atMaxZoom = zoom >= map.getMaxZoom();
 
@@ -302,6 +316,22 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick }) {
                 duration: 0.5,
               }),
             }}
+          />
+        );
+      })}
+      {savedPlaces.map(r => {
+        const c = coordsOf(r);
+        const label = `${pinLabel(r)} · ${t('filters.savedOnly')}`;
+        return (
+          <Marker
+            key={`saved:${r.id}`}
+            position={[c.lat, c.lng]}
+            icon={SAVED_ICON}
+            keyboard={false}
+            zIndexOffset={500}
+            title={label}
+            alt={label}
+            eventHandlers={{ click: () => onMarkerClick(r) }}
           />
         );
       })}
@@ -419,7 +449,7 @@ function LocateControl({ state, location, onLocate }) {
 
 export default function MapComponent({
   restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
-  userLocation = null, locateState = 'idle', onLocate, fitAll = false,
+  userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [],
 }) {
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
@@ -456,6 +486,7 @@ export default function MapComponent({
           restaurants={restaurants}
           selectedId={selectedId}
           onMarkerClick={onMarkerClick}
+          savedIds={savedIds}
         />
       </MapContainer>
     </div>
