@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { displayName, formatDistance } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
@@ -12,7 +12,7 @@ import { journeys } from '../data/journeys';
 import { legDistances } from '../data/journey-nav';
 import Prologue from './Prologue';
 import ClaimChip from './ClaimChip';
-import { LANGUAGE_STORAGE_KEY } from '../i18n/index.js';
+import { LANGUAGES, setLanguage } from '../i18n/index.js';
 
 // Stories for Discover's culture section, by id: the old name lookups had
 // quietly stopped matching three of four places, leaving one card. A place
@@ -135,19 +135,18 @@ function DiscoverTab() {
   );
 }
 
-// Only English exists today -- LANGUAGES grows when a second locale file
-// is added under src/i18n/locales/ and registered in src/i18n/index.js.
-// The picker is built to scale to that list without a component change.
-const LANGUAGES = [{ code: 'en', labelKey: 'profile.languageEnglish' }];
-
 function LanguagePicker({ onClose }) {
   const { t, i18n } = useTranslation();
 
-  const selectLanguage = (code) => {
-    i18n.changeLanguage(code);
-    localStorage.setItem(LANGUAGE_STORAGE_KEY, code);
-    onClose();
-  };
+  // The strings are fetched on demand (i18n/index.js); close once the
+  // language has actually changed, or stay as it was if it could not.
+  const selectLanguage = (code) => { setLanguage(code).finally(onClose); };
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
   // Rendered via a portal to document.body rather than in place: .tab-panel
   // is `position: fixed; z-index: 12` (src/index.css), which establishes its
@@ -162,16 +161,22 @@ function LanguagePicker({ onClose }) {
   // resolves the way the rule's own comment intends.
   return createPortal(
     <div className="language-picker-overlay" onClick={onClose}>
-      <div className="language-picker" onClick={(e) => e.stopPropagation()}>
-        {LANGUAGES.map(lang => (
+      <div className="language-picker" role="dialog" aria-modal="true" aria-label={t('profile.chooseLanguage')} onClick={(e) => e.stopPropagation()}>
+        {/* Each language in its own name and marked with its own lang, so
+            it reads (and is spoken) correctly whatever the current one is. */}
+        {LANGUAGES.map((lang, i) => (
           <button
             key={lang.code}
+            lang={lang.html}
+            autoFocus={i18n.language === lang.code || (i === 0 && !LANGUAGES.some(l => l.code === i18n.language))}
             className={`language-picker__option${i18n.language === lang.code ? ' active' : ''}`}
+            aria-pressed={i18n.language === lang.code}
             onClick={() => selectLanguage(lang.code)}
           >
-            {t(lang.labelKey)}
+            {lang.name}
           </button>
         ))}
+        <p className="language-picker__note">{t('profile.languageNote')}</p>
       </div>
     </div>,
     document.body,
@@ -218,7 +223,7 @@ function ProfileTab({
   const settings = [
     // A picker with one choice implies a choice that isn't there: until a
     // second language ships, the row just states the language.
-    { label: t('profile.language'), value: t(currentLanguage.labelKey), icon: <GlobeIcon size={20} />, action: LANGUAGES.length > 1 ? () => setLanguagePickerOpen(true) : null },
+    { label: t('profile.language'), value: currentLanguage.name, icon: <GlobeIcon size={20} />, action: () => setLanguagePickerOpen(true) },
     { label: t('profile.staffCards'), value: '', icon: <BookIcon size={20} />, action: () => navigate('/cards', { state: { fromApp: true, tab: 'profile' } }) },
     { label: t('profile.suggestRestaurant'), value: '', icon: <MapPinIcon size={20} />, action: () => navigate('/submit') },
     // Shows the opening screen again: what the map is and how to read a claim.

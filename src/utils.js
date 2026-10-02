@@ -3,7 +3,7 @@
 // Extension is explicit so data QA scripts can import this under plain Node.
 import i18next from 'i18next';
 // Initialises i18next for Node callers too (see src/i18n/index.js's header).
-import './i18n/index.js';
+import { dateLocale } from './i18n/index.js';
 import { isKnown } from './data/verification.js';
 
 // Opening-hours wording comes from the locale files (hours.*), so it follows
@@ -117,7 +117,9 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   };
   const openResult = (t, lo, at) => {
     if (lo != null && at >= lo) {
-      return { open: true, label: tr('open'), detail: tr('lastOrderPassed', { time: fromMinutes(t) }) };
+      // orderable: false — the doors are open, the kitchen is not (the
+      // "Open now" filter leaves these out).
+      return { open: true, orderable: false, label: tr('open'), detail: tr('lastOrderPassed', { time: fromMinutes(t) }) };
     }
     return {
       open: true,
@@ -227,9 +229,8 @@ export function kakaoMapUrl(place) {
 // same tag the two former hardcoded call sites used, so today's rendered
 // output is unchanged; a future language can add its own entry here (or, if
 // its i18next code is already a correct locale tag, needs no entry at all).
-const DATE_LOCALES = { en: 'en-GB' };
 
-const localeForDates = (lang) => DATE_LOCALES[lang] ?? lang;
+const localeForDates = (lang) => dateLocale(lang);
 
 // A malformed/unmapped language tag (e.g. 'en_US' instead of 'en-US') makes
 // Intl's locale matching throw RangeError rather than degrade — letting that

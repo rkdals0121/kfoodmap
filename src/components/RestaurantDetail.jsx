@@ -108,6 +108,9 @@ export default function RestaurantDetail({
   // The Korean name on the whole screen, to show a driver or a passer-by.
   const [nameLarge, setNameLarge] = useState(false);
   const [nameCopied, setNameCopied] = useState(false);
+  const nameLargeBtn = useRef(null);
+  // Closing gives focus back to the button that opened it.
+  const closeNameLarge = () => { setNameLarge(false); nameLargeBtn.current?.focus(); };
   // Say where a save went. Driven by the saved state actually changing, not
   // the tap (unsaving a visited place can be cancelled), and only while the
   // same place stays open.
@@ -143,7 +146,7 @@ export default function RestaurantDetail({
       } else {
         // The opener can be gone (the list re-sorted while the detail was
         // open beside the map); land on the list, not the page body.
-        document.getElementById('place-list')?.focus({ preventScroll: true });
+        (document.getElementById('place-list') ?? document.querySelector('.journey-stop'))?.focus({ preventScroll: true });
       }
     };
   }, [placeId]);
@@ -180,7 +183,11 @@ export default function RestaurantDetail({
     if (!restaurant) return undefined;
     const onKey = (e) => { 
       if (e.key === 'Escape') {
-        if (galleryOpen) {
+        if (nameLarge) {
+          // The large Korean name is on top: Escape closes it, not the place.
+          e.stopPropagation();
+          closeNameLarge();
+        } else if (galleryOpen) {
           e.stopPropagation();
           setGalleryOpen(false);
         } else {
@@ -190,7 +197,7 @@ export default function RestaurantDetail({
     };
     window.addEventListener('keydown', onKey, true);
     return () => window.removeEventListener('keydown', onKey, true);
-  }, [restaurant, onClose, galleryOpen]);
+  }, [restaurant, onClose, galleryOpen, nameLarge]);
 
   if (!restaurant) return null;
 
@@ -339,7 +346,12 @@ export default function RestaurantDetail({
                 </p>
                 <div className="journey-nav__buttons">
                   {journey.prev && (
-                    <button type="button" className="journey-nav__btn journey-nav__btn--prev" onClick={() => onJourneyStop(journey.prev, journey.index - 1)}>
+                    <button
+                      type="button"
+                      className="journey-nav__btn journey-nav__btn--prev"
+                      aria-label={`${t('detail.journeyPrev', { index: journey.index })}: ${displayName(journey.prev.name)}`}
+                      onClick={() => onJourneyStop(journey.prev, journey.index - 1)}
+                    >
                       <ChevronLeftIcon size={16} />
                       <span>{t('detail.journeyPrev', { index: journey.index })}</span>
                     </button>
@@ -583,16 +595,18 @@ export default function RestaurantDetail({
                   <button type="button" className="practical-copy" onClick={copyKoName}>
                     {nameCopied ? t('detail.copied') : t('detail.copy')}
                   </button>
-                  <button type="button" className="practical-copy" onClick={() => setNameLarge(true)}>
+                  <button type="button" className="practical-copy" ref={nameLargeBtn} onClick={() => setNameLarge(true)}>
                     {t('detail.showLarge')}
                   </button>
                   {/* On the body, not inside the sheet: the sheet is
                       transformed on wide screens, which would trap a
                       fixed-position overlay inside it. */}
                   {nameLarge && createPortal(
-                    <button type="button" className="staff-large" autoFocus onClick={() => setNameLarge(false)} aria-label={t('detail.closeLarge')}>
+                    // No aria-label: it would replace the Korean a screen
+                    // reader should read out; the visible hint names the action.
+                    <button type="button" className="staff-large" autoFocus onClick={closeNameLarge}>
                       <span className="staff-large__text staff-large__text--name" lang="ko"><span>{koName}</span></span>
-                      <span className="staff-large__close" aria-hidden="true">{t('detail.tapToClose')}</span>
+                      <span className="staff-large__close">{t('detail.tapToClose')}</span>
                     </button>,
                     document.body,
                   )}

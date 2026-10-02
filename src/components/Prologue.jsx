@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined } from '../data/verification';
 import ClaimChip from './ClaimChip';
+import { LANGUAGES, setLanguage } from '../i18n/index.js';
 import './Prologue.css';
 
 const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
@@ -22,7 +23,7 @@ const LEGEND = [
 // Also opened later from Profile → About, as a dialog (`dialog`), where the
 // button closes it rather than opening the map.
 export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologue.continue' }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const ctaRef = useRef(null);
   const onCompleteRef = useRef(onComplete);
   useEffect(() => { onCompleteRef.current = onComplete; });
@@ -42,6 +43,24 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
       {...(dialog ? { role: 'dialog', 'aria-modal': true, 'aria-labelledby': 'prologue-title' } : {})}
     >
       <Wrapper className="prologue-content">
+        {/* First run only: someone who cannot read this screen needs the
+            switch here, not three taps away in Profile. */}
+        {!dialog && (
+          <div className="prologue-languages" role="group" aria-label={t('profile.chooseLanguage')}>
+            {LANGUAGES.map(lang => (
+              <button
+                key={lang.code}
+                type="button"
+                lang={lang.html}
+                className={`prologue-language${i18n.language === lang.code ? ' is-current' : ''}`}
+                aria-pressed={i18n.language === lang.code}
+                onClick={() => setLanguage(lang.code)}
+              >
+                {lang.name}
+              </button>
+            ))}
+          </div>
+        )}
         <p className="prologue-eyebrow">K-Food Map</p>
         <h1 id="prologue-title" className="prologue-title">{t('prologue.title')}</h1>
         <p className="prologue-subtitle">{t('prologue.subtitle', { activeCount })}</p>

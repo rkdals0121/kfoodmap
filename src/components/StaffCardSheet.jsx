@@ -9,13 +9,31 @@ import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-
 //  - staff read the Korean, which "Show large" puts on the whole screen at a
 //    size readable across a counter, with nothing else on it.
 // Works offline: everything here ships in the bundle.
-export default function StaffCardSheet({ initialCard, onClose }) {
+export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
   const { t } = useTranslation();
   const sheetRef = useRef(null);
   const [cardId, setCardId] = useState(() => cardById(initialCard).id);
   // What is on the big screen: an array of Korean lines, or null.
   const [large, setLarge] = useState(null);
   const largeRef = useRef(null);
+  // What opened the big screen, to give focus back when it closes.
+  const largeOpener = useRef(null);
+  const openLarge = (lines) => { largeOpener.current = document.activeElement; setLarge(lines); };
+  const closeLarge = () => {
+    setLarge(null);
+    const opener = largeOpener.current;
+    if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+  };
+  // The address follows the card, so a reload or a shared link shows the
+  // same one.
+  const chooseCard = (id) => { setCardId(id); onCardChange?.(id); };
+
+  // The tab title names the page, as place pages do.
+  useEffect(() => {
+    const before = document.title;
+    document.title = `${t('cards.title')} · K-Food Map`;
+    return () => { document.title = before; };
+  }, [t]);
   const card = cardById(cardId);
 
   useEffect(() => {
@@ -30,7 +48,7 @@ export default function StaffCardSheet({ initialCard, onClose }) {
   useEffect(() => {
     const onKey = (e) => {
       if (e.key !== 'Escape') return;
-      if (large) setLarge(null); else onClose();
+      if (large) closeLarge(); else onClose();
     };
     window.addEventListener('keydown', onKey, true);
     return () => window.removeEventListener('keydown', onKey, true);
@@ -57,7 +75,7 @@ export default function StaffCardSheet({ initialCard, onClose }) {
                   type="button"
                   className={`chip${c.id === cardId ? ' active' : ''}`}
                   aria-pressed={c.id === cardId}
-                  onClick={() => setCardId(c.id)}
+                  onClick={() => chooseCard(c.id)}
                 >
                   {t(c.labelKey)}
                 </button>
@@ -71,7 +89,7 @@ export default function StaffCardSheet({ initialCard, onClose }) {
                   <p key={line.ko} className="staff-card__ko" lang="ko">{line.ko}</p>
                 ))}
               </div>
-              <button type="button" className="staff-card__large-btn" onClick={() => setLarge(card.statement.map(l => l.ko))}>
+              <button type="button" className="staff-card__large-btn" onClick={() => openLarge(card.statement.map(l => l.ko))}>
                 {t('cards.showLarge')}
               </button>
               <details className="staff-card__meaning" open>
@@ -88,7 +106,7 @@ export default function StaffCardSheet({ initialCard, onClose }) {
               <ul className="staff-questions">
                 {card.questions.map(q => (
                   <li key={q.ko}>
-                    <button type="button" className="staff-question" onClick={() => setLarge([q.ko])}>
+                    <button type="button" className="staff-question" onClick={() => openLarge([q.ko])}>
                       <span className="staff-question__en">{q.en}</span>
                       <span className="staff-question__ko" lang="ko">{q.ko}</span>
                       <span className="staff-question__roman">{q.roman}</span>
@@ -134,13 +152,12 @@ export default function StaffCardSheet({ initialCard, onClose }) {
           type="button"
           className="staff-large"
           ref={largeRef}
-          onClick={() => setLarge(null)}
-          aria-label={t('cards.closeLarge')}
+          onClick={closeLarge}
         >
           <span className="staff-large__text" lang="ko">
             {large.map(line => <span key={line}>{line}</span>)}
           </span>
-          <span className="staff-large__close" aria-hidden="true">{t('cards.tapToClose')}</span>
+          <span className="staff-large__close">{t('cards.tapToClose')}</span>
         </button>
       )}
     </>

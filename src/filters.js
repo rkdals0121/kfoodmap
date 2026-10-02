@@ -55,8 +55,26 @@ const squash = (s) => s.toLowerCase().replace(/[\s-]+/g, '');
 // Typing a diet word finds what its chip finds. Most visitors type "halal"
 // rather than tap the chip, and the word alone matched only places with it
 // in their name: 41 against the chip's 152 (critique 3, 2026-10-01).
-const DIET_WORDS = { halal: 'Halal', vegan: 'Vegan' };
-const dietWordMatch = (r, w) => DIET_WORDS[w] !== undefined && matchesDietary(r, DIET_WORDS[w]);
+// The same words in the languages the app speaks, so a reader who types
+// the label they see on a chip finds what the chip finds. Compared after
+// squash(), so no spaces or hyphens.
+const DIET_WORDS = {
+  halal: 'Halal', vegan: 'Vegan',
+  'ハラール': 'Halal', 'ハラル': 'Halal', 'ヴィーガン': 'Vegan', 'ビーガン': 'Vegan',
+  '清真': 'Halal', '纯素': 'Vegan', '純素': 'Vegan',
+  '할랄': 'Halal', '비건': 'Vegan',
+};
+// "Pork-free" is a halal level the Halal chip leaves out (it is not halal),
+// so it is reached by typing it — in any of these wordings.
+const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉']);
+const dietWordMatch = (r, w) => {
+  if (DIET_WORDS[w] !== undefined) return matchesDietary(r, DIET_WORDS[w]);
+  if (PORK_FREE_WORDS.has(w)) {
+    const h = r.dietary?.halal;
+    return Boolean(h) && h.confidence !== 'unknown' && h.value === 'porkFree';
+  }
+  return false;
+};
 
 // A search word has to start a word in the text, not sit inside one:
 // "Seomyeon" matched Wanju's "Iseo-myeon" and nothing in Seomyeon itself

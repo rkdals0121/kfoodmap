@@ -247,7 +247,8 @@ export default function BottomSheetList({
       {sorted.length === 0 && (
         <div className="place-list__empty">
           <MapPinIcon size={26} />
-          <p><strong>{t('list.noMatch')}</strong></p>
+          {/* "Saved" with nothing saved is not a failed search. */}
+          <p><strong>{t(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0 ? 'list.noSavedTitle' : 'list.noMatch')}</strong></p>
           {/* Say which conditions produced nothing, so the way out is obvious. */}
           {(activeFilters.length > 0 || searchQuery.trim()) && (
             <p className="place-list__criteria">

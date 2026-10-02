@@ -77,3 +77,26 @@ test('"open now" is asked of the clock in Korea, whatever the device time zone',
   // 2026-10-02 16:00 UTC is already Saturday 01:00 in Korea.
   assert.equal(getOpenStatus(hours, new Date('2026-10-02T16:00:00Z')).detail, 'closed today');
 });
+
+test('open but past last order is marked not orderable', () => {
+  const h = { value: { weekly: { fri: [{ from: '11:00', to: '22:00', lastOrder: '21:00' }] } }, confidence: 'supported', source: 'x' };
+  // Friday 21:30 in Korea.
+  const late = getOpenStatus(h, new Date('2026-10-02T12:30:00Z'));
+  assert.equal(late.open, true);
+  assert.equal(late.orderable, false);
+  // Friday 20:00 in Korea: open and orderable (the field is simply absent).
+  const early = getOpenStatus(h, new Date('2026-10-02T11:00:00Z'));
+  assert.equal(early.open, true);
+  assert.notEqual(early.orderable, false);
+});
+
+test('language detection maps the browser list to a language we have', async () => {
+  const { detectLanguage } = await import('../../src/i18n/index.js');
+  assert.equal(detectLanguage(['ja-JP', 'en-US']), 'ja');
+  assert.equal(detectLanguage(['zh-TW', 'en']), 'zh-Hans');
+  assert.equal(detectLanguage(['id']), 'id');
+  assert.equal(detectLanguage(['ms-MY', 'en']), 'en');
+  assert.equal(detectLanguage(['fr-FR', 'ja']), 'ja');
+  assert.equal(detectLanguage(['ko-KR']), 'en');
+  assert.equal(detectLanguage(undefined), 'en');
+});

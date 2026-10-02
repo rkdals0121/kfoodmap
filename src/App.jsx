@@ -296,7 +296,8 @@ function AppShell() {
       if (!openNowOn) return true;
       const status = getOpenStatus(r.hours, now);
       if (status === null) unknown += 1;
-      return status?.open === true;
+      // Open but past last order is no use to someone who wants to eat now.
+      return status?.open === true && status.orderable !== false;
     });
     return { filteredRestaurants: list, unknownHours: unknown };
   }, [selectedFilters, searchQuery, openNowOn, clock, bookmarkedIds]);
@@ -483,6 +484,7 @@ function AppShell() {
         <StaffCardSheet
           initialCard={new URLSearchParams(location.search).get('card')}
           onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(tabPath, { replace: true }))}
+          onCardChange={(card) => navigate(`/cards?card=${card}`, { replace: true, state: location.state })}
         />
       )}
 

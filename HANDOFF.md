@@ -2298,6 +2298,31 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     Candidates not yet built: "fully vegan only" sub-filter, Korean name
     in large type for taxi/Naver search, alcohol-served flag (no data),
     prayer rooms (unverifiable), more UI languages.
+54. **Four languages, 2026-10-03 00:00** (roadmap Phase 6 #1, brought
+    forward by the owner's delegation). English, 日本語, 简体中文, Bahasa
+    Indonesia. `src/i18n/index.js`: `LANGUAGES` (own-language names),
+    `setLanguage` (non-English locales are separate chunks fetched on
+    demand), `detectLanguage` (browser language on first visit; Chinese →
+    Simplified, Malay stays English), `startLanguage` awaited in main.jsx
+    before the first paint. Picker in Profile and on the first-run screen.
+    `scripts/tests/locales.test.mjs` holds every locale to English's
+    keys, placeholders and tags — **add a key to en.js and the test fails
+    until all locales have it**. Opening-hours wording moved to `hours.*`.
+    ja / zh-Hans use system fonts (Pretendard's partial Hanja mixed two
+    designs in one word); Korean inside them keeps Pretendard via
+    `lang="ko"`. Search understands the diet words in each language.
+    **Not translated**: place names, zones, stories, menus, journeys,
+    culture tips, the English meanings on /cards, the privacy policy
+    (en + ko). The picker says so. Translations were machine-drafted by
+    this session's agents with a fixed glossary for the four claim words
+    (確認済み/情報あり/当サイトの推定/不明; 已确认/有来源称/本站推断/未知;
+    Terkonfirmasi/Dilaporkan/Perkiraan kami/Tidak diketahui) and **have
+    not been read by a native speaker**.
+    QA of the night's features (agent, live): no high-severity defect;
+    fixed Escape closing the place under the large Korean name, focus
+    return from large views, "Open now" listing places past last order
+    (`orderable: false`), /cards URL and title following the card, a
+    Saved-specific empty heading, previous-stop aria-label.
 
 
 ---
