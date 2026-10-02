@@ -2454,10 +2454,12 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     today's line, week table) and are never "closing"; the week table
     prints every slot's own last order (lunch and dinner); once the last
     order has passed the label is amber, not green; "Closed" capitalised.
-    Known and left: from 768 px the docked place panel takes the list
-    column, so the search box and chips are reachable only after closing
-    the place (Google-Maps-like; a layout change was too large for the
-    session's end).
+    From 768 px, a place opened over the map's list docks below the search
+    box (`.detail-sheet--below-search`, `belowSearch` = map tab), which
+    stays usable: typing a search closes the place and shows the results
+    (`handleSearchChange`), and "/" reaches it (FilterBar now checks the box
+    is actually visible with `elementFromPoint`, not the path). The chips
+    are still under the panel; from Discover the panel stays full height.
     The App clock now ticks every minute regardless of filters, so the
     open/closed labels on cards and the open place stay current; only
     "Open now" re-filters on the tick (`filterClock`), so the map is not

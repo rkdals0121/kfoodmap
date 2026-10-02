@@ -4079,3 +4079,11 @@ a.btn-primary:focus-visible {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* Over the map's list, a docked place starts below the search box, which
+   stays usable while a place is open (as on Google and Naver maps): a new
+   search closes the place. 16 + 48 + 16 px: the box and its margins. */
+.detail-sheet--docked.detail-sheet--below-search {
+  top: 80px;
+  height: auto;
+}

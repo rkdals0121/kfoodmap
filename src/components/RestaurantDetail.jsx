@@ -101,7 +101,7 @@ const DIET_CAVEAT_KEYS = {
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null,
   journey = null, onJourneyStop, nearby = [], onOpenPlace,
-  mapCenter, focusStory, focusDirections = false, docked = false,
+  mapCenter, focusStory, focusDirections = false, docked = false, belowSearch = false,
 }) {
   const { t, i18n } = useTranslation();
   const location = useLocation();
@@ -331,7 +331,7 @@ export default function RestaurantDetail({
           not modal. On a phone it is a modal sheet over the map. */}
       {!docked && <div className="detail-backdrop" onClick={onClose} />}
       <div
-        className={`detail-sheet${docked ? ' detail-sheet--docked' : ''}`}
+        className={`detail-sheet${docked ? ' detail-sheet--docked' : ''}${docked && belowSearch ? ' detail-sheet--below-search' : ''}`}
         role="dialog"
         aria-modal={docked ? undefined : 'true'}
         aria-label={name}

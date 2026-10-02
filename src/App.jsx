@@ -274,6 +274,13 @@ function AppShell() {
     [selectedFilters],
   );
 
+  // Typing a search with a place open (the search box stays in view beside
+  // a docked place) shows the results: the place gives way, as for a filter.
+  const handleSearchChange = (q) => {
+    setSearchQuery(q);
+    if (id) navigate(tabPath, { replace: true });
+  };
+
   const handleToggleFilter = (filter) => {
     setSelectedFilters(prev =>
       prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]
@@ -478,7 +485,7 @@ function AppShell() {
               {/* Search + dietary filters */}
               <FilterBar
                 searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
+                onSearchChange={handleSearchChange}
                 selectedFilters={selectedFilters}
                 onToggleFilter={handleToggleFilter}
               />
@@ -581,6 +588,7 @@ function AppShell() {
         focusStory={focusStory}
         focusDirections={focusDirections}
         docked={isWide}
+        belowSearch={activeTab === 'map'}
       />
 
       {isSubmit && (

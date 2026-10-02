@@ -16,9 +16,13 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
       if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
       const el = e.target;
       if (el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName))) return;
-      // Only on the map itself: a place or a sheet open over it keeps its
-      // own focus.
-      if (!searchRef.current || searchRef.current.offsetParent === null || window.location.pathname !== '/') return;
+      // Only when the box can be seen: a place or a sheet over it (a phone's
+      // place page, the cards) keeps its own focus; beside a docked place it
+      // stays in view and "/" still reaches it.
+      const box = searchRef.current;
+      if (!box || box.offsetParent === null) return;
+      const r = box.getBoundingClientRect();
+      if (document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2) !== box) return;
       e.preventDefault();
       searchRef.current.focus();
     };
