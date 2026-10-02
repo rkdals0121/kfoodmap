@@ -2330,6 +2330,19 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     locale files, so each language says what the Korean says in its own
     words. Claim words: 已確認/有來源稱/本站推斷/未知; 확인됨/출처 있음/
     추정/알 수 없음.
+    **Journeys and culture tips are translated too**: their English moved
+    from journeys.js / culture.js into `journeyText.*` / `cultureText.*`
+    (journeys.js keeps ids and stops; `title` / `description` are getters
+    that read the locale — do not spread a journey object at module load,
+    it freezes the language). **Translation review**: one reviewer agent
+    per language read each file against English for claims made stronger;
+    68 replacements applied (`scratchpad/apply_review.py`). The ones that
+    mattered: ja ハラール対応 → ハラールフレンドリー (the first reads as
+    "serves halal food"); zh 口味清淡 → 不太辣 (清淡 means bland, not
+    mild); zh/zh-Hant halal caveat presupposed certificates exist; ko
+    provenance methods said 확인 (collides with 확인됨); "treat an unsure
+    answer as a no" was ambiguous with the literal answer "no" in three
+    languages. Still not read by a native speaker.
 
 
 ---

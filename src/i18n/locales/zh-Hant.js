@@ -79,8 +79,8 @@ export default {
     placeCount_other: '{{count}} 家',
     nearestFirst: '離地圖中心最近的優先',
     areaFirst: '搜尋區域內的優先',
-    fromMapCentre: '距地圖中心',
-    fromYou: '距你',
+    fromMapCentre: '（從地圖中心算起）',
+    fromYou: '（從你的位置算起）',
     distanceFromYou: '與你的距離',
     hoursUnknown: '營業時間未記錄',
     noMatch: '沒有符合條件的地方',
@@ -91,12 +91,12 @@ export default {
     clearAll: '清除搜尋和篩選',
     missingPlace: '這家店已不在地圖上，或連結有誤。它可能已歇業，或未通過查核。請在下方搜尋其他地方。',
     bothDietsNote: '目前顯示同時符合純素和清真的地方。關掉其中一個標籤，可查看另一類的全部地方。',
-    veganOptionsNote: '包括在一般菜單中提供純素選項的店——在這類店請問清楚魚露、鯷魚高湯和雞蛋。「全純素」只顯示全純素廚房。',
-    fullyVeganNote: '記錄為全純素的廚房。每個標示都說明把握有多大：多數為「有來源稱」——有來源這樣說——並未經我們查證。',
+    veganOptionsNote: '包括菜單葷素皆有、但提供純素選項的店——在這類店請問清楚是否用了魚露、鯷魚高湯和雞蛋。「全純素」只顯示全純素廚房。',
+    fullyVeganNote: '記錄為全純素的廚房。每個標示都說明把握有多大：多數為「有來源稱」，也就是有來源這樣說，但未經我們查證。',
     openNowNote_one: '依韓國時間，現在營業中。另有 {{count}} 家符合條件，但沒有營業時間紀錄，故未顯示。',
     openNowNote_other: '依韓國時間，現在營業中。另有 {{count}} 家符合條件，但沒有營業時間紀錄，故未顯示。',
     openNowNoteNone: '依韓國時間，現在營業中。營業時間可能有變，遠道前往請先致電確認。',
-    halalCaveat: '這些地方的清真證書，我們一家都未能親眼看到。「清真友善」只是來源的說法——點開店家可查看是哪個來源，並請詢問店員。「不含豬肉」的店（不用豬肉，但肉類非清真）不在此篩選內；搜尋「不含豬肉」可找到它們。',
+    halalCaveat: '這些地方當中，沒有任何一家有我們能親眼確認的清真證書。「清真友善」是來源的說法——點開店家可查看是哪個來源，並請詢問店員。「不含豬肉」的店（不用豬肉，但肉類非清真）不在此篩選內；搜尋「不含豬肉」可找到它們。',
     esgCaveat: '依據餐廳自述和我們的調查；未經獨立稽核。',
     readStoryAria: '閱讀故事：{{name}}',
     directionsAria: '查看前往{{name}}的路線',
@@ -199,7 +199,7 @@ export default {
     sustainability: '永續',
     zeroWaste: '零浪費',
     localSourcing: '在地食材',
-    mildTaste: '口味清淡',
+    mildTaste: '不太辣',
     fermented: '發酵食品',
     searchPlaceholder: '搜尋店名或地區',
   },
@@ -240,8 +240,8 @@ export default {
     journeyLast: '本路線的最後一站',
     journeyNavLabel: '美食路線',
     claimChecked: '上次查核：{{date}}',
-    certificationClaimed: '自稱獲得認證：{{body}}——我們未見到證書。',
-    certificationClaimedNote: '自稱獲得認證：{{body}}——{{note}}',
+    certificationClaimed: '據稱獲得認證：{{body}}——我們未親眼見到證書。',
+    certificationClaimedNote: '據稱獲得認證：{{body}}——{{note}}',
     signatureMenu: '招牌菜',
     menuUnverified: '菜名和價格由餐廳提供，未經查證，可能已有變動。',
     menuNotAllVegan: '這裡的餐點並非全部純素：本店提供純素選項。',
@@ -266,7 +266,7 @@ export default {
     notRecorded: '未記錄',
     never: '從未',
     suggestEdit: '資訊有誤？請使用上方的「{{link}}」。',
-    traitMildTaste: '口味清淡',
+    traitMildTaste: '不太辣',
     traitFermented: '發酵食品',
     traitZeroWaste: '零浪費',
     traitLocallySourced: '在地食材',
@@ -307,12 +307,108 @@ export default {
     sheetExpandFull: '全螢幕顯示列表',
     sheetCollapse: '多顯示一些地圖',
   },
+  // 美食路線（id 和各站在 src/data/journeys.js）。說明文字只能寫各站紀錄
+  // 本身寫到的內容：飲食等級照紀錄原樣，除非親眼看過證書，否則絕不寫
+  // 「認證」。譯文須維持同樣的強度。
+  journeyText: {
+    'itaewon-dietary-diversity': {
+      title: 'Itaewon：半日多元飲食之旅',
+      description: '三家 Itaewon 餐廳，對應三種不同飲食——Seoul Central Mosque 旁的清真友善韓式家常菜、一家純素咖啡廳兼烘焙坊，以及肉舖料理的植物性版本——全都在同一個街區內。',
+    },
+    'jongno-temple-food': {
+      title: 'Jongno 與 Insadong：韓國寺院料理',
+      description: '首爾市中心三家相距不遠、步行可達的廚房，其中兩家依循佛教寺院料理的傳統——不用肉、不用魚，也不用五辛。一家有來源稱為全純素；至於兩家寺院料理廚房，全純素是本站依其傳統所做的推斷，並非店家自己的說法。',
+    },
+    'myeongdong-halal-korean': {
+      title: 'Myeongdong：清真友善的韓國料理',
+      description: '韓式烤肉、韓定食套餐和韓式炸雞，彼此只隔幾條街，在本地圖上都記錄為清真友善。紀錄上沒有任何一家持有目前有效的清真認證——Busan Jib 的 KMF 證書已於 2026 年 4 月到期——所以點餐前請先向店員詢問肉品的情況。',
+    },
+    'jeonju-plant-based': {
+      title: 'Jeonju：不只有拌飯',
+      description: 'Jeonju 的兩家廚房和一家咖啡廳，有來源稱為全純素；最後一站是 Hanok Village 一家老屋裡的拌飯，有來源稱該店有純素選項。出發前請先確認每一站的營業時間。',
+    },
+    'busan-vegan-korean': {
+      title: 'Busan：純素韓國料理',
+      description: 'Gwangalli 海灘附近的寺院料理，以及 Seo-gu 和 Buk-gu 的韓式家常菜——三家廚房都有來源稱為全純素，但尚未確認。三家相距很遠，一天去一家就好。',
+    },
+    'jeju-halal-friendly': {
+      title: 'Jeju：清真友善的餐桌',
+      description: '先到兩家韓式餐廳吃蔘雞湯和雪蟹——媒體報導這兩家持有印尼的清真認證（本站未親眼見到證書），再到 Jeju City 品嚐葉門和印度料理。四家都記錄為清真友善；島上沒有鐵路。',
+    },
+    'ansan-wongok-muslim-friendly': {
+      title: 'Ansan Wongok-dong：多元文化街',
+      description: 'Ansan 多元文化街上的烏茲別克、印尼和尼泊爾印度料理廚房，每一家都列在 Gyeonggi Tourism Organization 的穆斯林友善餐廳資料集中。有些店供應酒類，也沒有任何一家的證書經本站親眼見過——每一站的頁面都寫明了目前已知的情況。',
+    },
+  },
+  // 依類別介紹韓國飲食文化（src/data/culture.js）：先一句引子，再幾則
+  // 簡短的用餐小提示。是一般性的提示，不是關於某家店的事實。
+  cultureText: {
+    'temple': {
+      didYouKnow: '韓國寺院料理不用蒜、洋蔥、韭菜、韭蔥和青蔥——也就是「五辛」——因為僧人相信它們會擾動強烈的情緒。你在這裡嚐到的每一分深厚滋味，都來自發酵與耐心的等待。',
+      tips: [
+        '像僧人一樣用餐：把碗裡的食物全部吃完才是重點——這種稱為 발우공양（balwoo gongyang）的修行，連一粒米都不留。',
+        '小菜請一道一道慢慢品嚐。每道小菜的調味都是為了配飯，而不是單吃。',
+        '這裡的用餐安靜而從容——當地人把它當作冥想，而不只是一頓午餐。',
+      ],
+    },
+    'korean-chinese': {
+      didYouKnow: '炸醬麵約在 1905 年誕生於 Incheon 的中華街，由離鄉背井的華人碼頭工人所創。如今韓國人每天要吃掉數百萬碗——而且它至今仍是傳統的「搬家日」餐點，直接外送到你新家的地板上。',
+      tips: [
+        '吃第一口之前，先把黑豆醬和麵條徹底拌勻——而且要快點吃，免得麵條泡脹。',
+        '旁邊附的黃色醃蘿蔔（danmuji）是用來解膩的。和麵條交替著吃。',
+        '在這裡吸麵出聲完全不失禮——既能讓麵條降溫，也表示你吃得很開心。',
+      ],
+    },
+    'vegan-dining': {
+      didYouKnow: '韓國植物性飲食的背後，是一個非常古老的概念：나물（namul），也就是替野菜調味的手藝。早在「純素」這個詞出現之前，一桌像樣的韓國菜就已經是以數十道蔬菜料理為主角。',
+      tips: [
+        '點餐時直接說：「저는 비건이에요」（jeoneun bigeon-ieyo——「我是純素食者」）是最簡單的表達方式。',
+        '韓國料理中常見的隱藏動物性食材是魚露（액젓）、鯷魚高湯（멸치 육수）和麵衣裡的雞蛋——只要店家是有純素選項、而不是全純素菜單，就值得問一下。',
+      ],
+    },
+    'halal-korean': {
+      didYouKnow: '首爾的清真韓國料理發源於 Usadan-ro，也就是 Seoul Central Mosque 旁的那條坡道——這個街區自 1970 年代起就迎接著穆斯林商人與旅客。出了這一帶，清真韓國料理仍然少見，所以本地圖也標示了不含豬肉的韓國餐廳。',
+      tips: [
+        '請看清楚標示：「不含豬肉」是指菜單上沒有豬肉，不代表肉品經清真屠宰，也不代表廚房是清真廚房。',
+        '韓式烤牛肉（bulgogi）和蔘雞湯是認識韓國風味最溫和的入門——滋味濃郁鮮美，不會辣得措手不及。',
+        '韓國人用餐講究共享：菜餚放在桌子中央，大家一起分著吃。',
+        '如果你在意正式認證，請要求看證書，並確認發證單位和到期日——證書會過期，而牆上的標示可能比證書留得更久。',
+      ],
+    },
+    'world-halal': {
+      didYouKnow: '韓國的清真友善廚房多半是印度、尼泊爾、土耳其、烏茲別克、印尼和中東料理，聚集在清真寺、大學以及 Itaewon、Ansan 的 Wongok-dong 等多元文化街區周邊。本地圖上的每個標記都說明該店的清真狀態查證到什麼程度——只要不是「已確認」，就請向店員詢問。',
+      tips: [
+        '份量是為了分享而設計的——照韓國人的方式，替整桌點幾道菜。',
+        '許多店家會在咖哩和烤肉串旁附上韓式醃菜——一個值得一試的在地融合小習慣。',
+      ],
+    },
+    'zero-waste': {
+      didYouKnow: '韓國依法回收約 95% 的廚餘——每個家庭都要把廚餘分類丟進專用的桶子。零廢棄咖啡廳更進一步：從一開始就不讓任何一次性用品越過櫃檯。',
+      tips: [
+        '自備隨行杯或容器——大多數零廢棄商店會因此給一點小折扣。',
+        '從根到葉的料理方式，代表盤子裡可能出現你不熟悉的蔬菜部位。相信廚房吧。',
+      ],
+    },
+    'brunch-bakery': {
+      didYouKnow: '首爾是全球咖啡廳密度最高的城市之一，週末早午餐與其說是一頓飯，不如說是一種儀式。韓國的早午餐偏重當季蔬菜和慢工烘焙，而不是濃重的醬汁。',
+      tips: [
+        '在韓國，咖啡廳是可以久坐的空間——點一杯飲料，就能自在地坐上一個下午。',
+        '問問今天烤了什麼；小量製作的烘焙坊，最好的品項往往中午前就賣完。',
+      ],
+    },
+    'local-seasonal': {
+      didYouKnow: '韓國料理講究 제철（jecheol）——「當令」。菜單會隨著食材進入產季而悄悄改變，所以當地人不看菜單，而是問「今天什麼好吃？」',
+      tips: [
+        '問問現在什麼是當季的——最好的那道菜往往不在印好的菜單上。',
+      ],
+    },
+  },
   // 店員卡片上每句韓語的意思（韓語原文和鍵在 src/data/staff-cards.js）。
   // 是原意，不是意譯：讀者必須確切知道自己出示的是什麼。
   cardText: {
     veganS1: '您好。我是純素食者（完全素食）。',
     veganS2: '我不吃肉、魚、海鮮、雞蛋、牛奶和乳製品、蜂蜜。',
-    veganS3: '高湯或調味料裡含有這些的，我也不吃。（例如：鯷魚高湯、魚露、蝦醬（醃蝦））',
+    veganS3: '高湯或調味料裡含有這些的，我也不吃。（例如：鯷魚高湯、魚露、醃蝦醬）',
     veganS4: '有我能吃的餐點嗎？',
     veganQ1: '這道菜裡有肉或海鮮嗎？',
     veganQ2: '高湯是用什麼做的？（鯷魚、肉、柴魚）',
@@ -321,12 +417,12 @@ export default {
     veganQ5: '你們有用蠔油或 dasida（牛肉調味粉）嗎？',
     veganQ6: '可以不放肉和雞蛋做嗎？',
     muslimS1: '您好。我是穆斯林。',
-    muslimS2: '基於宗教因素，我不吃豬肉，也不碰酒。',
+    muslimS2: '基於宗教因素，我不吃豬肉，也不喝酒。',
     muslimS3: '火腿、培根、香腸、豬油、豬肉高湯我也不吃。',
     muslimS4: '有我能吃的餐點嗎？',
     muslimQ1: '這道菜裡有豬肉嗎？（包括火腿、培根、香腸）',
     muslimQ2: '你們有用豬肉高湯或豬油嗎？',
-    muslimQ3: '料理時有加酒嗎？（料理酒、味醂、清酒）',
+    muslimQ3: '料理時有加酒嗎？（料理酒、味醂、清酒（米酒））',
     muslimQ4: '這個肉是清真肉嗎？',
     muslimQ5: '可以看一下清真認證證書嗎？',
     muslimQ6: '有不放肉、用海鮮或蔬菜做的餐點嗎？',
@@ -374,7 +470,7 @@ export default {
   // 營業時間用語（src/utils.js getOpenStatus / todaysHours）。
   hours: {
     open: '營業中',
-    closed: '已打烊',
+    closed: '休息中',
     until: '至 {{time}}',
     untilLastOrder: '至 {{time}} · 最後點餐 {{lastOrder}}',
     lastOrderPassed: '已過最後點餐，{{time}} 打烊',

@@ -81,9 +81,9 @@ export default {
     placeCount_other: '{{count}}곳',
     nearestFirst: '지도 중심에서 가까운 순',
     areaFirst: '검색한 지역 먼저',
-    fromMapCentre: '지도 중심에서',
-    fromYou: '내 위치에서',
-    distanceFromYou: '내 위치에서 거리',
+    fromMapCentre: '(지도 중심 기준)',
+    fromYou: '(내 위치 기준)',
+    distanceFromYou: '내 위치 기준 거리',
     hoursUnknown: '영업시간 정보 없음',
     noMatch: '조건에 맞는 곳이 없어요',
     noSavedTitle: '저장한 곳이 아직 없어요',
@@ -107,7 +107,7 @@ export default {
     showMore: '{{count}}곳 더 보기',
   },
   discover: {
-    journeysTitle: '푸드 여정',
+    journeysTitle: '푸드 코스',
     journeysSubtitle: '지도 속 장소를 테마별로 엮은 반나절 코스예요. 장소마다 얼마나 확실한지 알려 드려요.',
     journeyClaims: '이 코스의 식이 정보: {{summary}}.',
     legFromPrevious: '{{stop}}번째 장소에서 직선거리 {{distance}}',
@@ -128,7 +128,7 @@ export default {
     settingsSubtitle: '여권, 언어, 그리고 이 지도가 만들어지는 방식.',
     aboutApp: 'K-Food Map 소개',
     signInGoogle: 'Google로 로그인',
-    signInFailed: '로그인이 끝나지 않았어요. 저장한 곳은 이 기기에 그대로 있으니 편할 때 다시 시도해 주세요.',
+    signInFailed: '로그인이 완료되지 않았어요. 저장한 곳은 이 기기에 그대로 있으니 편할 때 다시 시도해 주세요.',
     passport: '여권',
     custodyDevice: '이 기기에만 저장됨',
     custodyDeviceHint: '로그인하면 다른 기기에서도 볼 수 있어요.',
@@ -139,7 +139,7 @@ export default {
     deleteRecords: '저장한 곳 삭제',
     deleteRecordsConfirm: '저장·방문·저장 취소 기록을 계정에서 삭제하고 이 기기에서도 지워요. 아직 로그인된 다른 기기가 있으면 거기 남은 기록이 다시 올라올 수 있으니, 그 기기에서 먼저 로그아웃해 주세요.',
     syncFailed: '동기화하지 못했어요. 기록은 이 기기에 그대로 있어요',
-    sessionEnded: '로그인이 끝났어요. 다시 로그인하면 저장한 곳을 불러와요',
+    sessionEnded: '로그인이 만료됐어요. 다시 로그인하면 저장한 곳을 불러와요',
   },
   submit: {
     titleNew: '식당 제보하기',
@@ -214,10 +214,10 @@ export default {
     methodMapCrosscheck: '네이버 플레이스와 카카오맵이 일치',
     methodMapLookup: '지도 서비스 조회',
     methodRouting: '지도 서비스 길찾기 API',
-    methodOperatorSite: '식당 공식 웹사이트에서 확인',
-    methodGovListing: '정부 등록 정보에서 확인',
+    methodOperatorSite: '식당 공식 웹사이트에서 가져옴',
+    methodGovListing: '정부 등록 정보에서 가져옴',
     methodIndependent: '서로 독립된 출처가 일치',
-    methodDirectory: '디렉터리 등록 정보에서 확인',
+    methodDirectory: '디렉터리 등록 정보에서 가져옴',
   },
   detail: {
     loadingDetails: '메뉴, 교통, 연락처를 불러오는 중…',
@@ -237,10 +237,10 @@ export default {
     journeyNext: '다음 장소',
     journeyNextKm: '직선거리 {{distance}}',
     journeyLast: '이 코스의 마지막 장소',
-    journeyNavLabel: '푸드 여정',
+    journeyNavLabel: '푸드 코스',
     claimChecked: '마지막 확인 {{date}}',
-    certificationClaimed: '인증받았다고 밝힌 기관: {{body}} — 인증서를 저희가 직접 보지는 못했어요.',
-    certificationClaimedNote: '인증받았다고 밝힌 기관: {{body}} — {{note}}',
+    certificationClaimed: '인증받았다는 주장: {{body}} — 인증서를 저희가 직접 보지는 못했어요.',
+    certificationClaimedNote: '인증받았다는 주장: {{body}} — {{note}}',
     signatureMenu: '대표 메뉴',
     menuUnverified: '메뉴 이름과 가격은 식당이 밝힌 내용이에요. 확인하지 못했고, 바뀌었을 수 있어요.',
     menuNotAllVegan: '여기 메뉴가 모두 비건은 아니에요. 비건 메뉴가 있는 곳이에요.',
@@ -304,6 +304,103 @@ export default {
     sheetExpandFull: '목록 전체 화면으로 보기',
     sheetCollapse: '지도 더 크게 보기',
   },
+  // Food journeys (src/data/journeys.js holds the ids and the stops). A
+  // description may say only what the stops' own records say: a dietary
+  // level exactly as recorded, never "certified" unless a certificate was
+  // sighted. Translations keep that strength.
+  journeyText: {
+    'itaewon-dietary-diversity': {
+      title: '이태원: 반나절에 만나는 다양한 식단',
+      description: '식단이 서로 다른 세 사람을 위한 이태원 식당 세 곳이에요. 서울중앙성원 옆 할랄 프렌들리 한식 가정식, 비건 카페 겸 베이커리, 정육점 메뉴를 식물성으로 풀어낸 집까지 모두 한 동네에 있어요.',
+    },
+    'jongno-temple-food': {
+      title: '종로·인사동: 한국 사찰음식',
+      description: '서울 도심에서 걸어서 오갈 수 있는 세 곳이에요. 그중 두 곳은 불교 사찰음식 전통대로 고기와 생선은 물론 오신채도 쓰지 않아요. 한 곳은 완전 비건이라는 출처가 있어요. 사찰음식 두 곳이 완전 비건이라는 것은 그 전통에 비춘 저희의 추정이고, 가게가 직접 밝힌 내용은 아니에요.',
+    },
+    'myeongdong-halal-korean': {
+      title: '명동: 할랄 프렌들리 한식',
+      description: '고기구이, 한정식, 한국식 치킨을 몇 골목 안에서 만날 수 있고, 세 곳 모두 이 지도에 할랄 프렌들리로 기록돼 있어요. 다만 현재 유효한 할랄 인증서가 기록된 곳은 없어요. 부산집의 KMF 인증서는 2026년 4월에 만료됐어요. 주문하기 전에 고기에 대해 직원에게 물어보세요.',
+    },
+    'jeonju-plant-based': {
+      title: '전주, 비빔밥 그 너머',
+      description: '완전 비건이라는 출처가 있는 전주의 식당 두 곳과 카페 한 곳을 돌고, 비건 메뉴가 있다는 출처가 있는 한옥마을 식당에서 비빔밥으로 마무리해요. 출발하기 전에 각 장소의 영업시간을 확인하세요.',
+    },
+    'busan-vegan-korean': {
+      title: '부산: 비건 한식',
+      description: '광안리 해변 근처의 사찰음식, 서구와 북구의 한식 가정식이에요. 세 곳 모두 완전 비건이라는 출처는 있지만 아직 확인하지 못했어요. 서로 멀리 떨어져 있으니 하루에 한 곳씩 가 보세요.',
+    },
+    'jeju-halal-friendly': {
+      title: '제주: 할랄 프렌들리 식탁',
+      description: '인도네시아 할랄 인증을 받았다고 언론에 보도된(인증서를 저희가 직접 보지는 못한) 한식당 두 곳에서 삼계탕과 대게를 맛보고, 제주 시내에서 예멘 요리와 인도 요리로 이어 가요. 네 곳 모두 할랄 프렌들리로 기록돼 있어요. 제주에는 철도가 없어요.',
+    },
+    'ansan-wongok-muslim-friendly': {
+      title: '안산 원곡동: 다문화 거리',
+      description: '안산 다문화 거리의 우즈베크, 인도네시아, 네팔·인도 식당이에요. 모두 경기관광공사의 무슬림 친화 식당 데이터에 올라 있어요. 술을 파는 곳도 있고, 인증서를 저희가 직접 본 곳은 없어요. 알려진 내용은 각 장소 페이지에 적혀 있어요.',
+    },
+  },
+  // Korean food culture by category (src/data/culture.js): one hook, then
+  // short dining tips. General tips, not facts about a place.
+  cultureText: {
+    'temple': {
+      didYouKnow: '한국 사찰음식은 마늘, 양파, 부추, 달래, 파, 이른바 \'오신채\'를 쓰지 않아요. 스님들은 이 채소들이 마음을 들뜨게 한다고 여기거든요. 여기서 느끼는 깊은 맛은 모두 발효와 느긋한 기다림에서 나와요.',
+      tips: [
+        '스님처럼 먹어 보세요. 그릇에 담긴 것을 남김없이 먹는 것이 핵심이에요. 발우공양에서는 밥알 한 톨도 남기지 않아요.',
+        '작은 반찬을 하나씩 맛보세요. 반찬은 따로 먹기보다 밥과 함께 먹도록 간을 맞춘 거예요.',
+        '이곳의 식사는 조용하고 느긋해요. 한국 사람들은 그저 한 끼가 아니라 명상처럼 여겨요.',
+      ],
+    },
+    'korean-chinese': {
+      didYouKnow: '짜장면은 1905년 무렵 인천 차이나타운에서, 고향을 멀리 떠나온 중국인 부두 노동자들이 만들어 냈어요. 지금 한국에서는 하루에 수백만 그릇이 팔리고, 여전히 \'이삿날\' 하면 떠오르는 음식이에요. 새집 바닥까지 배달해 줘요.',
+      tips: [
+        '첫 입을 먹기 전에 짜장 소스를 면에 골고루 비비세요. 그리고 면이 불기 전에 빨리 드세요.',
+        '곁들여 나오는 노란 단무지는 느끼함을 잡아 줘요. 번갈아 가며 드세요.',
+        '여기서는 후루룩 소리 내며 먹어도 전혀 실례가 아니에요. 면을 식혀 주고, 맛있게 먹고 있다는 표시도 돼요.',
+      ],
+    },
+    'vegan-dining': {
+      didYouKnow: '한국의 채식 문화는 아주 오래된 발상에서 힘을 얻어요. 바로 들나물과 산나물에 양념을 하는 나물이에요. \'비건\'이라는 말이 생기기 훨씬 전부터, 제대로 차린 한국 밥상에는 이미 수십 가지 채소 반찬이 올랐어요.',
+      tips: [
+        '주문할 때 말해 주세요. \'저는 비건이에요\'라고 하는 것이 가장 간단해요.',
+        '한식에 흔히 숨어 있는 동물성 재료는 액젓, 멸치 육수, 그리고 튀김옷·반죽에 들어가는 달걀이에요. 메뉴 전체가 비건인 곳이 아니라 비건 메뉴가 있는 곳이라면 꼭 물어볼 만해요.',
+      ],
+    },
+    'halal-korean': {
+      didYouKnow: '서울의 할랄 한식은 서울중앙성원 옆 비탈길인 우사단로에서 자랐어요. 1970년대부터 무슬림 상인과 여행자를 맞아 온 동네예요. 이곳을 벗어나면 할랄 한식은 아직 드물어요. 그래서 이 지도는 돼지고기 없음인 한식당도 표시해요.',
+      tips: [
+        '표시를 잘 읽어 보세요. "돼지고기 없음"은 메뉴에 돼지고기가 없다는 뜻이지, 할랄 방식으로 도축한 고기나 할랄 주방이라는 뜻이 아니에요.',
+        '불고기와 삼계탕은 한국의 맛에 가장 부드럽게 입문하는 메뉴예요. 감칠맛은 깊고, 맵지 않아 놀랄 일이 없어요.',
+        '한국의 식사는 함께 나누는 자리예요. 음식이 식탁 가운데에 놓이고 모두 같이 먹어요.',
+        '공식 인증이 중요하다면 인증서를 보여 달라고 하고, 어느 기관이 발급했는지와 언제 만료되는지 확인하세요. 인증은 만료되기도 하고, 벽에 붙은 표지는 인증이 끝난 뒤에도 남아 있을 수 있어요.',
+      ],
+    },
+    'world-halal': {
+      didYouKnow: '한국의 할랄 프렌들리 식당은 대부분 인도, 네팔, 튀르키예, 우즈베크, 인도네시아, 중동 음식점이고, 모스크와 대학가, 이태원이나 안산 원곡동 같은 다문화 동네에 모여 있어요. 이 지도의 표시는 그 장소의 할랄 여부가 어디까지 확인됐는지를 알려 줘요. ‘확인됨’이 아니라면 직원에게 물어보세요.',
+      tips: [
+        '양이 나눠 먹기 좋게 나와요. 한국식으로 여러 가지를 시켜서 같이 드세요.',
+        '커리나 케밥에 한국식 피클을 곁들여 내는 가게가 많아요. 한번 맛볼 만한 작은 현지식 퓨전이에요.',
+      ],
+    },
+    'zero-waste': {
+      didYouKnow: '한국은 법에 따라 음식물 쓰레기의 약 95%를 재활용해요. 집집마다 전용 수거함에 따로 분리해 버려요. 제로 웨이스트 카페는 여기서 한 걸음 더 나아가요. 일회용품이 애초에 카운터를 넘어오지 않아요.',
+      tips: [
+        '텀블러나 용기를 가져가세요. 제로 웨이스트 가게는 대부분 조금 할인해 줘요.',
+        '뿌리부터 잎까지 다 쓰는 요리라서 채소의 낯선 부위가 접시에 오를 수 있어요. 주방을 믿어 보세요.',
+      ],
+    },
+    'brunch-bakery': {
+      didYouKnow: '서울은 세계에서 카페가 가장 촘촘한 도시 가운데 하나이고, 주말 브런치는 식사라기보다 의식에 가까워요. 한국식 브런치는 진한 소스보다 제철 채소와 천천히 구운 빵에 기대요.',
+      tips: [
+        '한국에서 카페는 오래 머무는 공간이에요. 음료 한 잔이면 오후 내내 편하게 앉아 있을 수 있어요.',
+        '오늘 구운 것이 무엇인지 물어보세요. 소량만 굽는 빵집은 인기 메뉴가 정오 전에 다 팔려요.',
+      ],
+    },
+    'local-seasonal': {
+      didYouKnow: '한국 요리는 제철을 따라요. 재료가 제철을 맞으면 메뉴도 조용히 바뀌어요. 그래서 한국 사람들은 메뉴판을 읽는 대신 \'오늘 뭐가 좋아요?\' 하고 물어요.',
+      tips: [
+        '제철 메뉴가 무엇인지 물어보세요. 가장 맛있는 요리는 메뉴판에 없을 때가 많아요.',
+      ],
+    },
+  },
   // What each Korean line on the staff cards says, in plain Korean.
   cardText: {
     veganS1: '안녕하세요. 저는 비건(완전 채식)이에요.',
@@ -350,7 +447,7 @@ export default {
   },
   cards: {
     title: '직원에게 보여 줄 한국어 카드',
-    intro: '식당 직원은 대부분 영어를 읽지 않고, ‘비건’과 ‘할랄’은 한국 주방에서 흔히 쓰는 말이 아니에요. 한국어 문장을 보여 주세요. 함께 나오는 풀이는 그 문장의 뜻 그대로예요.',
+    intro: '식당 직원은 대부분 영어를 잘 읽지 못하고, ‘비건’과 ‘할랄’은 한국 주방에서 흔히 쓰는 말이 아니에요. 한국어 문장을 보여 주세요. 함께 나오는 풀이는 그 문장의 뜻 그대로예요.',
     chooseCard: '카드 선택',
     veganLabel: '저는 비건이에요',
     muslimLabel: '저는 무슬림이에요',
@@ -362,7 +459,7 @@ export default {
     answers: '직원이 할 수 있는 대답',
     answersHint: '확실하지 않다는 대답은 ‘아니요’로 받아들이는 편이 좋아요.',
     menuWords: '눈여겨볼 단어',
-    menuWordsHint: '메뉴판이나 포장지에서 찾아보세요. 적힌 음식에 흔히 들어가지만 빼고 만드는 곳도 있어요. 그건 주방만 알아요.',
+    menuWordsHint: '메뉴판이나 포장지에서 찾아보세요. 옆에 적힌 음식에 흔히 들어가지만 빼고 만드는 곳도 있어요. 그건 주방만 알아요.',
     note: '한국어 문장은 K-Food Map 프로젝트가 썼어요. 카드는 내가 무엇을 먹는지 알릴 뿐, 주방이 어떻게 조리하는지는 알려 주지 못해요. 앱을 한 번 불러오면 이 페이지는 오프라인에서도 열려요.',
     closeLarge: '크게 보기 닫기',
     tapToClose: '누르면 닫혀요',

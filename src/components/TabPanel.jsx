@@ -33,7 +33,10 @@ const cultureStories = CULTURE_STORY_IDS
   .map(id => byId[id])
   .filter(place => place && !isQuarantined(place));
 const resolvedJourneys = journeys
-  .map(j => ({ ...j, stops: j.stopIds.map(id => byId[id]) }))
+  // `text` keeps the journey object itself: its title and description are
+  // read from the locale at render time, and a spread here would freeze
+  // them in whatever language was loaded first.
+  .map(j => ({ id: j.id, text: j, stops: j.stopIds.map(id => byId[id]) }))
   .filter(j => j.stops.every(place => place && !isQuarantined(place)))
   .map(j => ({ ...j, legs: legDistances(j.stops) }));
 
@@ -72,8 +75,8 @@ function DiscoverTab() {
           <div className="journey-list">
             {resolvedJourneys.map(journey => (
               <article key={journey.id} className="journey-card">
-                <h3 className="journey-card__title">{journey.title}</h3>
-                <p className="journey-card__description">{journey.description}</p>
+                <h3 className="journey-card__title">{journey.text.title}</h3>
+                <p className="journey-card__description">{journey.text.description}</p>
                 <ol className="journey-card__stops">
                   {journey.stops.map((place, i) => (
                     <li key={place.id}>

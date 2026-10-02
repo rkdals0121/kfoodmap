@@ -79,8 +79,8 @@ export default {
     placeCount_other: '{{count}} 家',
     nearestFirst: '离地图中心最近的优先',
     areaFirst: '搜索区域内的优先',
-    fromMapCentre: '距地图中心',
-    fromYou: '距你',
+    fromMapCentre: '（从地图中心算起）',
+    fromYou: '（从你的位置算起）',
     distanceFromYou: '与你的距离',
     hoursUnknown: '营业时间未记录',
     noMatch: '没有符合条件的地方',
@@ -91,12 +91,12 @@ export default {
     clearAll: '清除搜索和筛选',
     missingPlace: '这家店已不在地图上，或链接有误。它可能已停业，或未通过核查。请在下方搜索其他地方。',
     bothDietsNote: '当前显示同时符合纯素和清真的地方。关掉其中一个标签，可查看另一类的全部地方。',
-    veganOptionsNote: '包括在混合菜单中提供纯素选项的店——在这类店请问清鱼露、鳀鱼高汤和鸡蛋。“全纯素”只显示全纯素后厨。',
-    fullyVeganNote: '记录为全纯素的后厨。每个标记都说明把握有多大：多数为“有来源称”——有来源这样说——并未经我们核实。',
+    veganOptionsNote: '包括在混合菜单中提供纯素选项的店——在这类店请问清是否用了鱼露、鳀鱼高汤和鸡蛋。“全纯素”只显示后厨全纯素的店。',
+    fullyVeganNote: '记录为全纯素的后厨。每个标记都说明把握有多大：多数为“有来源称”，即有来源这样说，但未经我们核实。',
     openNowNote_one: '按韩国时间，现在营业中。另有 {{count}} 家符合条件，但没有营业时间记录，故未显示。',
     openNowNote_other: '按韩国时间，现在营业中。另有 {{count}} 家符合条件，但没有营业时间记录，故未显示。',
     openNowNoteNone: '按韩国时间，现在营业中。营业时间可能有变，远道前往请先致电确认。',
-    halalCaveat: '这些地方的清真证书，我们一家都未能亲眼看到。“清真友好”只是来源的说法——点开店铺可查看是哪个来源，并请询问店员。“不含猪肉”的店（不用猪肉，但肉类非清真）不在此筛选内；搜索“不含猪肉”可找到它们。',
+    halalCaveat: '这些地方中，没有一家有我们亲眼见到的清真证书。“清真友好”只是来源的说法——点开店铺可查看是哪个来源，并请询问店员。“不含猪肉”的店（不用猪肉，但肉类非清真）不在此筛选内；搜索“不含猪肉”可找到它们。',
     esgCaveat: '依据餐厅自述和我们的调查；未经独立审核。',
     readStoryAria: '阅读故事：{{name}}',
     directionsAria: '查看前往{{name}}的路线',
@@ -199,7 +199,7 @@ export default {
     sustainability: '可持续',
     zeroWaste: '零浪费',
     localSourcing: '本地食材',
-    mildTaste: '口味清淡',
+    mildTaste: '不太辣',
     fermented: '发酵食品',
     searchPlaceholder: '搜索店名或地区',
   },
@@ -240,8 +240,8 @@ export default {
     journeyLast: '本路线的最后一站',
     journeyNavLabel: '美食路线',
     claimChecked: '上次核查：{{date}}',
-    certificationClaimed: '自称获得认证：{{body}}——我们未见到证书。',
-    certificationClaimedNote: '自称获得认证：{{body}}——{{note}}',
+    certificationClaimed: '据称获得认证：{{body}}——我们未见到证书。',
+    certificationClaimedNote: '据称获得认证：{{body}}——{{note}}',
     signatureMenu: '招牌菜',
     menuUnverified: '菜名和价格由餐厅提供，未经核实，可能已有变动。',
     menuNotAllVegan: '这里的菜品并非全部纯素：本店提供纯素选项。',
@@ -259,14 +259,14 @@ export default {
     aboutThisInformation: '关于这些信息',
     provenanceOfficialSentence: '<0>已确认</0>指已对照第一手来源核实——餐厅官网或菜单、官方记录，或位置信息一致的多个地图服务；',
     provenanceReportedSentence: '<0>有来源称</0>指某个来源这样说；',
-    provenanceInferredSentence: '<0>本站推断</0>指我们根据上下文作出的判断；<1>未知</1>指我们未能查明。营业时间、价格和饮食信息会变——请仅作参考的起点。',
+    provenanceInferredSentence: '<0>本站推断</0>指我们根据上下文作出的判断；<1>未知</1>指我们未能查明。营业时间、价格和饮食信息会变——请把这些信息当作起点，而非定论。',
     location: '位置',
     dietary: '饮食',
     lastChecked: '上次核查',
     notRecorded: '未记录',
     never: '从未',
     suggestEdit: '信息有误？请使用上方的“{{link}}”。',
-    traitMildTaste: '口味清淡',
+    traitMildTaste: '不太辣',
     traitFermented: '发酵食品',
     traitZeroWaste: '零浪费',
     traitLocallySourced: '本地食材',
@@ -307,15 +307,111 @@ export default {
     sheetExpandFull: '全屏显示列表',
     sheetCollapse: '多显示一些地图',
   },
+  // 美食路线（id 和各站在 src/data/journeys.js）。简介只能说各站自身记录
+  // 所说的内容：饮食等级照记录原样写，未见到证书就绝不写“已认证”。
+  // 译文保持同样的力度。
+  journeyText: {
+    'itaewon-dietary-diversity': {
+      title: 'Itaewon：半日尝遍多元饮食',
+      description: 'Itaewon 的三家餐厅，对应三种不同的饮食需求——Seoul Central Mosque 旁清真友好的韩式家常菜、一家纯素咖啡烘焙店，以及把肉铺菜式做成植物基版本的餐厅——都在同一个街区内。',
+    },
+    'jongno-temple-food': {
+      title: 'Jongno 与 Insadong：韩国寺院料理',
+      description: '首尔市中心相距几步路的三家后厨，其中两家沿用佛教寺院料理的传统——不用肉，不用鱼，也不用五辛。一家有来源称为全纯素；两家寺院料理后厨的“全纯素”是本站根据这一传统作出的推断，并非店家自己的说法。',
+    },
+    'myeongdong-halal-korean': {
+      title: 'Myeongdong：清真友好的韩餐',
+      description: '韩式烤肉、成套上桌的韩定食和韩式炸鸡，相隔不过几条街，在本地图上均记录为清真友好。记录中没有一家持有有效期内的清真认证证书——Busan Jib 的 KMF 证书已于 2026 年 4 月到期——所以点餐前请先向店员问清肉的情况。',
+    },
+    'jeonju-plant-based': {
+      title: 'Jeonju：不止拌饭',
+      description: 'Jeonju 的两家后厨和一家咖啡店，有来源称为全纯素；最后一站是 Hanok Village 的一家店，有来源称有纯素选项，可以在那里吃拌饭。出发前请先查好每一站的营业时间。',
+    },
+    'busan-vegan-korean': {
+      title: 'Busan：纯素韩餐',
+      description: 'Gwangalli 海滩附近的寺院料理，以及 Seo-gu 和 Buk-gu 的韩式家常菜——三家后厨有来源称为全纯素，尚未确认。三家相距很远，一天去一家为宜。',
+    },
+    'jeju-halal-friendly': {
+      title: 'Jeju：清真友好的餐桌',
+      description: '先到两家韩餐厅吃参鸡汤和雪蟹，媒体报道称它们持有印度尼西亚的清真认证证书（我们未见到证书）；再到 Jeju City 吃也门菜和印度菜。四家均记录为清真友好；岛上没有轨道交通。',
+    },
+    'ansan-wongok-muslim-friendly': {
+      title: 'Ansan Wongok-dong：多元文化街',
+      description: 'Ansan 多元文化街上的乌兹别克、印度尼西亚和尼泊尔-印度后厨，每一家都列在 Gyeonggi Tourism Organization 的穆斯林友好餐厅数据集中。有些店供应酒类，且没有一家的证书为我们所见——每一站的页面会说明目前已知的情况。',
+    },
+  },
+  // 按类别介绍韩国饮食文化（src/data/culture.js）：一句引子，再加几条
+  // 简短的用餐提示。是一般性提示，不是关于某家店的事实。
+  cultureText: {
+    'temple': {
+      didYouKnow: '韩国寺院料理不用大蒜、洋葱、韭菜、大葱和小葱——即“五辛”——因为僧人认为它们会搅动强烈的情绪。你在这里尝到的每一分醇厚滋味，都来自发酵和慢工细活。',
+      tips: [
+        '像僧人一样吃：把碗里的东西吃干净正是要义——这种叫作 발우공양（balwoo gongyang）的修行，连一粒米都不剩。',
+        '小菜要一样一样地尝。每道小菜的调味都是为了配饭，而不是单吃。',
+        '这里的一餐安静而从容——当地人把它当作冥想，而不只是一顿午饭。',
+      ],
+    },
+    'korean-chinese': {
+      didYouKnow: '炸酱面大约在 1905 年诞生于 Incheon 的唐人街，由远离家乡的中国码头工人创制。如今韩国人每天要吃掉数百万碗——它也仍是传统的“搬家饭”，直接送到你新公寓的地板上。',
+      tips: [
+        '吃第一口之前，先把黑豆酱和面条彻底拌匀——而且要快吃，别等面条泡胀。',
+        '配的黄色腌萝卜（danmuji）是用来解腻的。一口面一口萝卜，交替着吃。',
+        '在这里吸溜着吃面完全不失礼——既能让面凉一点，也表示你吃得很香。',
+      ],
+    },
+    'vegan-dining': {
+      didYouKnow: '韩国植物基饮食的底气来自一个非常古老的理念：나물（namul），即调拌野菜的手艺。早在“纯素”这个词出现之前，一桌像样的韩餐就已经是围绕几十道蔬菜菜肴摆开的了。',
+      tips: [
+        '点餐时直接说：“저는 비건이에요”（jeoneun bigeon-ieyo，意思是“我是纯素食者”）是最简单的表明方式。',
+        '韩餐里常见的隐藏动物性食材是鱼露（액젓）、鳀鱼高汤（멸치 육수）和面糊里的鸡蛋——凡是只标“有纯素选项”而非整份菜单全纯素的店，都值得问一问。',
+      ],
+    },
+    'halal-korean': {
+      didYouKnow: '首尔的清真韩餐是在 Usadan-ro 发展起来的，这条坡道就在 Seoul Central Mosque 旁边——这片街区自 20 世纪 70 年代起就迎来穆斯林商人和旅行者。出了这里，清真韩餐仍然少见，所以本地图也标出了不含猪肉的韩餐店。',
+      tips: [
+        '看清标签：“不含猪肉”是指菜单上没有猪肉，并不代表肉是按清真方式屠宰的，也不代表后厨是清真后厨。',
+        '烤肉和参鸡汤是认识韩国味道最温和的入门——鲜香浓郁，没有突如其来的辣。',
+        '韩国人吃饭讲究共享：菜摆在桌子中间，大家一起吃。',
+        '如果你看重正式认证，请要求看一下证书，并核对发证机构和到期日——证书会过期，而墙上的标牌可能比证书留得更久。',
+      ],
+    },
+    'world-halal': {
+      didYouKnow: '韩国的清真友好后厨多为印度、尼泊尔、土耳其、乌兹别克、印度尼西亚和中东风味，聚集在清真寺、大学以及 Itaewon、Ansan 的 Wongok-dong 等多元文化街区周边。本地图上的每个标记都说明该店的清真情况核实到了哪一步——只要不是“已确认”，就请问店员。',
+      tips: [
+        '分量是按共享来做的——照韩国人的吃法，为一桌人点几道菜。',
+        '不少店会在咖喱和烤肉串旁配上韩式腌菜——一种小小的本地融合习惯，值得一试。',
+      ],
+    },
+    'zero-waste': {
+      didYouKnow: '韩国依法回收约 95% 的厨余——每户人家都把它分开投进专用垃圾桶。零浪费咖啡店更进一步：从一开始就没有任何一次性用品越过柜台。',
+      tips: [
+        '自带随行杯或容器——多数零浪费店铺会因此给一点小折扣。',
+        '“从根到叶”的做法意味着盘子里可能出现你不熟悉的蔬菜部位。相信后厨吧。',
+      ],
+    },
+    'brunch-bakery': {
+      didYouKnow: '首尔是全球咖啡店密度最高的城市之一，周末早午餐与其说是一顿饭，不如说是一种仪式。韩国的早午餐偏重时令蔬菜和慢工烘焙，而不是浓重的酱汁。',
+      tips: [
+        '在韩国，咖啡店是可以久坐的地方——点一杯饮品，就能安心坐上一下午。',
+        '问问今天烤了什么；小批量烘焙店最好的品类往往不到中午就卖完了。',
+      ],
+    },
+    'local-seasonal': {
+      didYouKnow: '韩国料理讲究 제철（jecheol）——“时令”。菜单会随着食材当季而悄悄变化，所以当地人不看菜单，而是问一句“今天什么好吃？”。',
+      tips: [
+        '问问什么是当季的——最好的那道菜往往不在印好的菜单上。',
+      ],
+    },
+  },
   // 店员卡片上每句韩语的意思（韩语原文和键在 src/data/staff-cards.js）。
   // 是原意，不是意译：读者必须确切知道自己出示的是什么。
   cardText: {
     veganS1: '您好。我是纯素食者（完全素食）。',
     veganS2: '我不吃肉、鱼、海鲜、鸡蛋、牛奶和乳制品、蜂蜜。',
-    veganS3: '高汤或调料里含有这些的，我也不吃。（例如：鳀鱼高汤、鱼露、虾酱（腌虾））',
+    veganS3: '高汤或调料里含有这些的，我也不吃（例如：鳀鱼高汤、鱼露、腌虾酱）。',
     veganS4: '有我能吃的菜吗？',
     veganQ1: '这道菜里有肉或海鲜吗？',
-    veganQ2: '高汤是用什么做的？（鳀鱼、肉、鲣鱼）',
+    veganQ2: '高汤是用什么做的？（鳀鱼、肉、鲣鱼干）',
     veganQ3: '泡菜里放鱼露或虾酱（腌虾）吗？',
     veganQ4: '里面有鸡蛋、牛奶、黄油或奶酪吗？',
     veganQ5: '你们用蚝油或 dasida（牛肉调味粉）吗？',
@@ -349,7 +445,7 @@ export default {
     word9: '鸡蛋（两种说法都在用）',
     word10: '牛奶 / 黄油 / 奶酪',
     word11: '料酒——腌肉、腌鱼的调料里常用',
-    word12: '清酒（米酒），做菜时也会用',
+    word12: '清酒（韩式米酒），做菜时也会用',
     word13: '明胶——见于包装标签；店员很少知道它的来源',
   },
   cards: {
@@ -364,7 +460,7 @@ export default {
     questions: '可以问的问题',
     questionsHint: '轻点问题即可放大显示。',
     answers: '店员可能的回答',
-    answersHint: '回答含糊时，最好当作“不行”。',
+    answersHint: '店员说不确定时，最好当作不能吃。',
     menuWords: '需要留意的词',
     menuWordsHint: '出现在菜单或包装上。所列菜品通常会用到这些食材，但后厨也可能不放——放没放只有后厨知道。',
     note: '韩语由 K-Food Map 项目撰写。卡片说明的是你吃什么，无法告诉你后厨怎么做。应用加载完成后，本页可离线使用。',
@@ -374,7 +470,7 @@ export default {
   // 营业时间用语（src/utils.js getOpenStatus / todaysHours）。
   hours: {
     open: '营业中',
-    closed: '已打烊',
+    closed: '未营业',
     until: '至 {{time}}',
     untilLastOrder: '至 {{time}} · 最后点餐 {{lastOrder}}',
     lastOrderPassed: '已过最后点餐，{{time}} 打烊',

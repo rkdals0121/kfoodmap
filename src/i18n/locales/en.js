@@ -321,6 +321,103 @@ export default {
     sheetExpandFull: 'Show the list full screen',
     sheetCollapse: 'Show more of the map',
   },
+  // Food journeys (src/data/journeys.js holds the ids and the stops). A
+  // description may say only what the stops' own records say: a dietary
+  // level exactly as recorded, never "certified" unless a certificate was
+  // sighted. Translations keep that strength.
+  journeyText: {
+    'itaewon-dietary-diversity': {
+      title: 'Itaewon: A Half-Day of Dietary Diversity',
+      description: 'Three Itaewon restaurants for three different diets — halal-friendly Korean home cooking beside the Seoul Central Mosque, a vegan café and bakery, and plant-based versions of butcher-shop dishes — all within one neighbourhood.',
+    },
+    'jongno-temple-food': {
+      title: 'Jongno & Insadong: Korean Temple Food',
+      description: 'Three kitchens a short walk apart in central Seoul, two of them cooking in the Buddhist temple-food tradition — no meat, no fish, and none of the five pungent vegetables either. One is reported as fully vegan; for the two temple kitchens, fully vegan is our reading of the tradition, not something they state.',
+    },
+    'myeongdong-halal-korean': {
+      title: 'Myeongdong: Korean Food, Halal-Friendly',
+      description: 'Korean barbecue, set-course hanjeongsik and Korean fried chicken within a few streets of each other, each recorded on this map as halal-friendly. None has a current halal certificate on record — Busan Jib’s KMF certificates expired in April 2026 — so ask staff about the meat before ordering.',
+    },
+    'jeonju-plant-based': {
+      title: 'Jeonju Beyond Bibimbap',
+      description: 'Two kitchens and a café in Jeonju reported as fully vegan, finishing with bibimbap at a Hanok Village house reported to offer vegan options. Check each stop\'s hours before you set out.',
+    },
+    'busan-vegan-korean': {
+      title: 'Busan: Vegan Korean Cooking',
+      description: 'Temple food near Gwangalli beach and Korean home cooking in Seo-gu and Buk-gu — three kitchens reported as fully vegan, not yet confirmed. They are far apart; take one a day.',
+    },
+    'jeju-halal-friendly': {
+      title: 'Jeju: Halal-Friendly Tables',
+      description: 'Samgyetang and snow crab from two Korean restaurants the press reports as holding an Indonesian halal certificate (not sighted by us), then Yemeni and Indian cooking in Jeju City. All four are recorded as halal-friendly; there is no rail on the island.',
+    },
+    'ansan-wongok-muslim-friendly': {
+      title: 'Ansan Wongok-dong: A Multicultural Street',
+      description: 'Uzbek, Indonesian and Nepali-Indian kitchens on Ansan\'s multicultural street, each listed in the Gyeonggi Tourism Organization\'s Muslim-friendly restaurant dataset. Some serve alcohol, and none has a sighted certificate — each stop\'s page says what is known.',
+    },
+  },
+  // Korean food culture by category (src/data/culture.js): one hook, then
+  // short dining tips. General tips, not facts about a place.
+  cultureText: {
+    'temple': {
+      didYouKnow: 'Korean temple cuisine bans garlic, onions, chives, leeks and green onions — the \'five pungent vegetables\' — because monks believe they stir up strong emotions. Every deep flavor you taste here comes from fermentation and slow patience instead.',
+      tips: [
+        'Eat like a monk: finishing everything in your bowl is the point — the practice called 발우공양 (balwoo gongyang) leaves not a single grain of rice behind.',
+        'Taste the small dishes one by one. Each banchan is seasoned to be eaten with rice, not on its own.',
+        'Meals here are quiet and unhurried — locals treat them as meditation, not just lunch.',
+      ],
+    },
+    'korean-chinese': {
+      didYouKnow: 'Jajangmyeon was born in Incheon\'s Chinatown around 1905, invented by Chinese dockworkers far from home. Today Koreans eat millions of bowls a day — and it is still the traditional \'moving day\' meal, delivered to your new apartment floor.',
+      tips: [
+        'Mix the black bean sauce into the noodles thoroughly before your first bite — and eat fast, before the noodles swell.',
+        'The yellow pickled radish (danmuji) on the side is there to cut the richness. Alternate bites.',
+        'Slurping is perfectly polite here — it cools the noodles and signals you\'re enjoying them.',
+      ],
+    },
+    'vegan-dining': {
+      didYouKnow: 'Korea\'s plant-based scene is powered by a very old idea: 나물 (namul), the art of seasoning wild greens. Long before \'vegan\' was a word, a proper Korean table was already built around dozens of vegetable dishes.',
+      tips: [
+        'Say it when you order: \'저는 비건이에요\' (jeoneun bigeon-ieyo — "I\'m vegan") is the simplest way to flag it.',
+        'In Korean cooking the usual hidden animal ingredients are fish sauce (액젓), anchovy stock (멸치 육수) and egg in batters — worth asking about wherever a place offers vegan options rather than an all-vegan menu.',
+      ],
+    },
+    'halal-korean': {
+      didYouKnow: 'Seoul\'s halal Korean food scene grew up on Usadan-ro, the sloped street beside the Seoul Central Mosque — a neighborhood that has welcomed Muslim traders and travelers since the 1970s. Outside it, halal Korean food is still rare, which is why this map also marks Korean places that are pork-free.',
+      tips: [
+        'Read the label: "pork-free" means no pork on the menu, not halal-slaughtered meat or a halal kitchen.',
+        'Bulgogi and samgyetang are the gentlest introductions to Korean flavors — deeply savory, no spice shock.',
+        'Korean dining is communal: dishes land in the middle of the table and everyone shares.',
+        'If formal certification matters to you, ask to see the certificate and check who issued it and when it expires — certificates lapse, and a sign on the wall can outlive one.',
+      ],
+    },
+    'world-halal': {
+      didYouKnow: 'Korea\'s halal-friendly kitchens are mostly Indian, Nepali, Turkish, Uzbek, Indonesian and Middle Eastern, clustered around mosques, universities and multicultural neighbourhoods such as Itaewon and Ansan\'s Wongok-dong. Each mark on this map says how far that place\'s halal status has been checked — unless it says Confirmed, ask staff.',
+      tips: [
+        'Portions are made for sharing — order a few dishes for the table, Korean style.',
+        'Many shops serve Korean-style pickles alongside curry and kebab — a small local fusion habit worth trying.',
+      ],
+    },
+    'zero-waste': {
+      didYouKnow: 'Korea recycles about 95% of its food waste by law — every household separates it into dedicated bins. Zero-waste cafes take the next step: nothing disposable crosses the counter in the first place.',
+      tips: [
+        'Bring your own tumbler or container — most zero-waste shops offer a small discount for it.',
+        'Root-to-leaf cooking means unfamiliar parts of vegetables may appear on your plate. Trust the kitchen.',
+      ],
+    },
+    'brunch-bakery': {
+      didYouKnow: 'Seoul has one of the highest cafe densities on earth, and the weekend brunch is closer to a ritual than a meal. Korea\'s version leans on seasonal vegetables and slow baking rather than heavy sauces.',
+      tips: [
+        'Cafes are lingering spaces in Korea — one drink comfortably buys you the seat for the afternoon.',
+        'Ask what was baked today; small-batch bakeries sell out of their best items before noon.',
+      ],
+    },
+    'local-seasonal': {
+      didYouKnow: 'Korean cooking follows 제철 (jecheol) — \'the season\'s turn.\' Menus quietly change as ingredients come into season, which is why locals ask \'what\'s good today?\' instead of reading the menu.',
+      tips: [
+        'Ask what is seasonal — the best dish is often not on the printed menu.',
+      ],
+    },
+  },
   // What each Korean line on the staff cards says (src/data/staff-cards.js
   // holds the Korean and the key). A meaning, not a paraphrase: the reader
   // must know exactly what they are showing.
