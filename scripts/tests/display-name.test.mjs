@@ -19,3 +19,12 @@ test('no two active places share a display name in the same area', () => {
     seen.set(key, r.id);
   }
 });
+
+test('koreanName reads the Korean name out of the brackets, or nothing', async () => {
+  const { koreanName } = await import('../../src/utils.js');
+  assert.equal(koreanName('Mahina Vegan Table (마히나 비건 테이블)'), '마히나 비건 테이블');
+  assert.equal(koreanName('Kervan Turkish Restaurant (케르반) COEX'), '케르반');
+  assert.equal(koreanName('Plant Cafe & Kitchen'), null);
+  assert.equal(koreanName('Bakery (Seoul)'), null);
+  assert.equal(koreanName(undefined), null);
+});

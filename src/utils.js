@@ -252,6 +252,17 @@ export function formatShortDate(ts, lang) {
  * the list; "Busan Jib KBBQ (Halal)" keeps its non-Korean parenthetical.
  * Until 2026-09-29 this was name.split('(')[0], which dropped the branch.
  */
+/**
+ * The Korean name a place's record carries in brackets — "Mahina Vegan Table
+ * (마히나 비건 테이블)" → "마히나 비건 테이블" — or null. It is the name on the
+ * sign and the one Naver Map, Kakao Map and a taxi driver know; the English
+ * name often finds nothing there.
+ */
+export function koreanName(name) {
+  const m = String(name ?? '').match(/\(([^)]*[가-힣][^)]*)\)/);
+  return m ? m[1].trim() : null;
+}
+
 export function displayName(name) {
   return String(name)
     .replace(/\s*\([^)]*[가-힣][^)]*\)/g, '')

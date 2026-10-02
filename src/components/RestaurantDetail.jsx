@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router';
 import { useTranslation, Trans } from 'react-i18next';
 import PlaceImage from './PlaceImage';
@@ -9,7 +10,7 @@ import {
   ChevronLeftIcon, ChevronRightIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, VEGAN, HALAL,
 } from '../data/verification';
@@ -104,6 +105,9 @@ export default function RestaurantDetail({
   const [shared, setShared] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [openClaim, setOpenClaim] = useState(null);
+  // The Korean name on the whole screen, to show a driver or a passer-by.
+  const [nameLarge, setNameLarge] = useState(false);
+  const [nameCopied, setNameCopied] = useState(false);
   // Say where a save went. Driven by the saved state actually changing, not
   // the tap (unsaving a visited place can be cancelled), and only while the
   // same place stays open.
@@ -197,6 +201,16 @@ export default function RestaurantDetail({
   const today = todaysHours(place.hours);
   const culture = getCulture(place);
   const coords = coordsOf(place);
+  const koName = koreanName(place.name);
+  const copyKoName = async () => {
+    try {
+      await navigator.clipboard.writeText(koName);
+      setNameCopied(true);
+      setTimeout(() => setNameCopied(false), 2000);
+    } catch {
+      // Clipboard blocked: the name is on screen to read or show large.
+    }
+  };
   // Past 50 km, a distance from the map centre is noise (a shared link
   // opens the map over Seoul), so it is not shown.
   // From the visitor once "My location" has answered (any distance: "320
@@ -560,6 +574,30 @@ export default function RestaurantDetail({
                   {copied ? t('detail.copied') : t('detail.copy')}
                 </button>
               </div>
+              {/* The name as the sign, the Korean map apps and a taxi driver
+                  have it. Records without a Korean name show nothing here. */}
+              {koName && (
+                <div className="practical-row ko-name">
+                  <span className="ko-name__label">{t('detail.koreanName')}</span>
+                  <span className="ko-name__value" lang="ko">{koName}</span>
+                  <button type="button" className="practical-copy" onClick={copyKoName}>
+                    {nameCopied ? t('detail.copied') : t('detail.copy')}
+                  </button>
+                  <button type="button" className="practical-copy" onClick={() => setNameLarge(true)}>
+                    {t('detail.showLarge')}
+                  </button>
+                  {/* On the body, not inside the sheet: the sheet is
+                      transformed on wide screens, which would trap a
+                      fixed-position overlay inside it. */}
+                  {nameLarge && createPortal(
+                    <button type="button" className="staff-large" autoFocus onClick={() => setNameLarge(false)} aria-label={t('detail.closeLarge')}>
+                      <span className="staff-large__text staff-large__text--name" lang="ko"><span>{koName}</span></span>
+                      <span className="staff-large__close" aria-hidden="true">{t('detail.tapToClose')}</span>
+                    </button>,
+                    document.body,
+                  )}
+                </div>
+              )}
               <Link className="detail-report" to={`/submit?place=${place.id}`}>
                 {t('submit.reportLink')}
               </Link>
