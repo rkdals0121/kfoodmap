@@ -6,6 +6,7 @@ import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
   BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, SealIcon, ShareIcon, InfoIcon,
+  ChevronLeftIcon, ChevronRightIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName } from '../utils';
@@ -93,6 +94,7 @@ const DIET_CAVEAT_KEYS = {
 
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null,
+  journey = null, onJourneyStop,
   mapCenter, focusStory, focusDirections = false, docked = false,
 }) {
   const { t, i18n } = useTranslation();
@@ -309,6 +311,37 @@ export default function RestaurantDetail({
 
           <div className={`detail-content${galleryImages.length > 0 ? '' : ' detail-content--no-hero'}`}>
             {/* 2. Restaurant Name */}
+            {/* Opened from a food journey: which stop this is, and the way to
+                the one before and after — the journey could be read but not
+                followed (walkthrough 2). Above the name, where a "back to
+                the list" would sit. */}
+            {journey && (
+              <nav className="journey-nav" aria-label={t('detail.journeyNavLabel')}>
+                <p className="journey-nav__where">
+                  <span className="journey-nav__position">{t('detail.journeyPosition', { index: journey.index + 1, total: journey.total })}</span>
+                  <span className="journey-nav__title"> · {journey.title}</span>
+                </p>
+                <div className="journey-nav__buttons">
+                  {journey.prev && (
+                    <button type="button" className="journey-nav__btn journey-nav__btn--prev" onClick={() => onJourneyStop(journey.prev, journey.index - 1)}>
+                      <ChevronLeftIcon size={16} />
+                      <span>{t('detail.journeyPrev', { index: journey.index })}</span>
+                    </button>
+                  )}
+                  {journey.next ? (
+                    <button type="button" className="journey-nav__btn journey-nav__btn--next" onClick={() => onJourneyStop(journey.next, journey.index + 1)}>
+                      <span className="journey-nav__next-text">
+                        <span className="journey-nav__next-label">{t('detail.journeyNext')}: {displayName(journey.next.name)}</span>
+                        <span className="journey-nav__next-km">{t('detail.journeyNextKm', { distance: formatDistance(journey.nextKm) })}</span>
+                      </span>
+                      <ChevronRightIcon size={16} />
+                    </button>
+                  ) : (
+                    <span className="journey-nav__end">{t('detail.journeyLast')}</span>
+                  )}
+                </div>
+              </nav>
+            )}
             <header className="detail-header">
               <h2><KoText>{place.name}</KoText></h2>
               <p className="detail-meta">

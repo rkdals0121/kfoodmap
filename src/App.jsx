@@ -18,6 +18,8 @@ import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
 import { MAP_CENTER, getOpenStatus } from './utils';
 import { readPosition, readError } from './data/locate';
+import { journeys } from './data/journeys';
+import { journeyNav } from './data/journey-nav';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
@@ -166,6 +168,20 @@ function AppShell() {
   };
   const closePlace = () => (location.state?.fromApp ? navigate(-1) : navigate(tabPath));
   const openDetail = (r) => openPlace(r);
+  // A place opened from a journey (Discover) remembers which journey and
+  // which stop, so the detail can offer the stop before and after. A stale
+  // link, or a journey that lost a stop, is simply no journey.
+  const journeyState = location.state?.journey;
+  const journeyStops = useMemo(() => {
+    const j = journeys.find(x => x.id === journeyState?.id);
+    if (!j) return null;
+    const stops = j.stopIds.map(sid => restaurants.find(r => r.id === sid));
+    return stops.every(p => p && !isQuarantined(p)) ? { journey: j, stops } : null;
+  }, [journeyState?.id]);
+  const journey = journeyStops && journeyStops.stops[journeyState.index]?.id === id
+    ? journeyNav(journeyStops.journey, journeyStops.stops, journeyState.index)
+    : null;
+  const openJourneyStop = (place, index) => openPlace(place, { tab: 'discover', journey: { id: journeyState.id, index } });
   const openStory = (r) => openPlace(r, { focusStory: true });
   // The card's directions button opens the place at its map-app buttons
   // (Naver and Kakao first), rather than straight to Google.
@@ -441,6 +457,8 @@ function AppShell() {
         // default centre they never saw.
         mapCenter={location.state?.fromApp ? mapCenter : null}
         userLocation={userLocation}
+        journey={journey}
+        onJourneyStop={openJourneyStop}
         focusStory={focusStory}
         focusDirections={focusDirections}
         docked={isWide}

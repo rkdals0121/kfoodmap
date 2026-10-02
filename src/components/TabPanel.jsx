@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { displayName } from '../utils';
+import { displayName, formatDistance } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ import {
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
+import { legDistances } from '../data/journey-nav';
 import Prologue from './Prologue';
 import ClaimChip from './ClaimChip';
 import { LANGUAGE_STORAGE_KEY } from '../i18n/index.js';
@@ -33,7 +34,8 @@ const cultureStories = CULTURE_STORY_IDS
   .filter(place => place && !isQuarantined(place));
 const resolvedJourneys = journeys
   .map(j => ({ ...j, stops: j.stopIds.map(id => byId[id]) }))
-  .filter(j => j.stops.every(place => place && !isQuarantined(place)));
+  .filter(j => j.stops.every(place => place && !isQuarantined(place)))
+  .map(j => ({ ...j, legs: legDistances(j.stops) }));
 
 // How sure the map is about a journey's dietary claims, counted across its
 // stops, so being curated never lends a place more certainty than its own
@@ -77,14 +79,22 @@ function DiscoverTab() {
                     <li key={place.id}>
                       <button
                         className="journey-stop"
-                        onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover' } })}
+                        onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover', journey: { id: journey.id, index: i } } })}
                       >
                         <span className="journey-stop__num">{i + 1}</span>
                         {/* The page promises each stop says how sure we are:
                             so each stop carries its claim marks. */}
                         <span className="journey-stop__text">
                           <span className="journey-stop__name">{displayName(place.name)}</span>
-                          <span className="journey-stop__zone">{place.zone}</span>
+                          <span className="journey-stop__zone">
+                            {place.zone}
+                            {/* How far apart the stops are, so "a half-day"
+                                can be judged before setting out. A straight
+                                line, and said to be one. */}
+                            {journey.legs[i] != null && (
+                              <> · {t('discover.legFromPrevious', { distance: formatDistance(journey.legs[i]), stop: i })}</>
+                            )}
+                          </span>
                           <span className="journey-stop__claims">
                             {dietaryBadges(place).map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}
                           </span>

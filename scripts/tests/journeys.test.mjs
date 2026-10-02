@@ -26,3 +26,23 @@ test('a journey never calls its stops certified', () => {
   // No place in the data is halal-certified; editorial copy must not say so.
   for (const j of journeys) assert.doesNotMatch(j.description, /\bcertified\b(?! by us)/i, j.id);
 });
+
+test('journeyNav places a stop in its journey, with its neighbours', async () => {
+  const { journeyNav, legDistances } = await import('../../src/data/journey-nav.js');
+  const j = journeys[0];
+  const stops = j.stopIds.map(id => byId[id]);
+  const first = journeyNav(j, stops, 0);
+  assert.equal(first.prev, null);
+  assert.equal(first.next.id, j.stopIds[1]);
+  assert.equal(first.total, stops.length);
+  assert.ok(first.nextKm > 0);
+  const last = journeyNav(j, stops, stops.length - 1);
+  assert.equal(last.next, null);
+  assert.equal(last.nextKm, null);
+  assert.equal(last.prev.id, j.stopIds[stops.length - 2]);
+  // A stale or broken link is no journey, not a crash.
+  assert.equal(journeyNav(j, stops, 99), null);
+  assert.equal(journeyNav(j, stops, -1), null);
+  assert.equal(journeyNav(null, stops, 0), null);
+  assert.equal(legDistances(stops)[0], null);
+});

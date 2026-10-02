@@ -2276,6 +2276,12 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     not used; the list still sorts by the map centre but prints distance
     from you; privacy.js updated in the same commit (effective
     2026-10-02).
+    **Journeys can be followed** (`src/data/journey-nav.js`): a stop
+    opened from Discover carries `state.journey = { id, index }`; the
+    detail shows "Stop 2 of 3", the previous stop and "Next stop: …" with
+    the straight-line distance (said to be one — no routing call), and
+    Discover prints each leg. Next/previous replace the history entry, so
+    Close still returns to Discover.
 
 
 ---

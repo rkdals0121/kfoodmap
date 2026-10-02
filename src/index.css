@@ -3415,3 +3415,78 @@ button {
   background: #fff;
   border-color: #1D6FE0;
 }
+
+/* Journey position and previous / next stop, above a place's name when it
+   was opened from a food journey (RestaurantDetail). */
+.journey-nav {
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background: var(--green-tint);
+  border-radius: var(--radius);
+}
+.journey-nav__where {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-body);
+}
+.journey-nav__position {
+  font-weight: 700;
+  color: var(--green-strong);
+}
+.journey-nav__buttons {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.journey-nav__btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 6px 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.journey-nav__btn:hover {
+  border-color: var(--line-hover);
+}
+.journey-nav__btn:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+}
+.journey-nav__btn--prev {
+  flex-shrink: 0;
+}
+.journey-nav__btn--next {
+  flex: 1;
+  min-width: 0;
+  justify-content: space-between;
+}
+.journey-nav__next-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.journey-nav__next-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.journey-nav__next-km {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted-strong);
+}
+.journey-nav__end {
+  align-self: center;
+  font-size: 13px;
+  color: var(--muted-strong);
+}
