@@ -93,10 +93,14 @@ test('open but past last order is marked not orderable', () => {
 test('language detection maps the browser list to a language we have', async () => {
   const { detectLanguage } = await import('../../src/i18n/index.js');
   assert.equal(detectLanguage(['ja-JP', 'en-US']), 'ja');
-  assert.equal(detectLanguage(['zh-TW', 'en']), 'zh-Hans');
+  assert.equal(detectLanguage(['zh-TW', 'en']), 'zh-Hant');
+  assert.equal(detectLanguage(['zh-Hant-HK']), 'zh-Hant');
+  assert.equal(detectLanguage(['zh-CN']), 'zh-Hans');
+  assert.equal(detectLanguage(['zh']), 'zh-Hans');
   assert.equal(detectLanguage(['id']), 'id');
   assert.equal(detectLanguage(['ms-MY', 'en']), 'en');
   assert.equal(detectLanguage(['fr-FR', 'ja']), 'ja');
-  assert.equal(detectLanguage(['ko-KR']), 'en');
+  assert.equal(detectLanguage(['ko-KR']), 'ko');
+  assert.equal(detectLanguage(['th-TH']), 'en');
   assert.equal(detectLanguage(undefined), 'en');
 });

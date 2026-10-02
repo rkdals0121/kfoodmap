@@ -95,7 +95,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <details className="staff-card__meaning" open>
                 <summary>{t('cards.whatItSays')}</summary>
                 <ul>
-                  {card.statement.map(line => <li key={line.ko}>{line.en}</li>)}
+                  {card.statement.map(line => <li key={line.ko}>{t(`cardText.${line.key}`)}</li>)}
                 </ul>
               </details>
             </section>
@@ -107,7 +107,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 {card.questions.map(q => (
                   <li key={q.ko}>
                     <button type="button" className="staff-question" onClick={() => openLarge([q.ko])}>
-                      <span className="staff-question__en">{q.en}</span>
+                      <span className="staff-question__en">{t(`cardText.${q.key}`)}</span>
                       <span className="staff-question__ko" lang="ko">{q.ko}</span>
                       <span className="staff-question__roman">{q.roman}</span>
                     </button>
@@ -123,7 +123,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 {STAFF_ANSWERS.map(a => (
                   <div key={a.ko}>
                     <dt><span lang="ko">{a.ko}</span> <span className="staff-words__roman">{a.roman}</span></dt>
-                    <dd>{a.en}</dd>
+                    <dd>{t(`cardText.${a.key}`)}</dd>
                   </div>
                 ))}
               </dl>
@@ -136,7 +136,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 {MENU_WORDS.map(w => (
                   <div key={w.ko}>
                     <dt><span lang="ko">{w.ko}</span> <span className="staff-words__roman">{w.roman}</span></dt>
-                    <dd>{w.en}</dd>
+                    <dd>{t(`cardText.${w.key}`)}</dd>
                   </div>
                 ))}
               </dl>

@@ -20,7 +20,10 @@ export const LANGUAGES = [
   { code: 'en', name: 'English', dates: 'en-GB', html: 'en' },
   { code: 'ja', name: '日本語', dates: 'ja-JP', html: 'ja', load: () => import('./locales/ja.js') },
   { code: 'zh-Hans', name: '简体中文', dates: 'zh-CN', html: 'zh-Hans', load: () => import('./locales/zh-Hans.js') },
+  { code: 'zh-Hant', name: '繁體中文', dates: 'zh-TW', html: 'zh-Hant', load: () => import('./locales/zh-Hant.js') },
   { code: 'id', name: 'Bahasa Indonesia', dates: 'id-ID', html: 'id', load: () => import('./locales/id.js') },
+  // For the Korean friend, host or guide helping a visitor.
+  { code: 'ko', name: '한국어', dates: 'ko-KR', html: 'ko', load: () => import('./locales/ko.js') },
 ];
 const byCode = (code) => LANGUAGES.find(l => l.code === code);
 
@@ -41,17 +44,19 @@ function storedLanguage() {
 }
 
 /**
- * The browser's preferred language, if it is one we have. Chinese maps to
- * Simplified whatever the region: there is no Traditional file yet, and
- * Simplified is closer for a Traditional reader than English is. Malay is
- * left on English rather than given Indonesian — close, but not the same
- * language, and not ours to choose for the reader.
+ * The browser's preferred language, if it is one we have. Chinese is
+ * Traditional for Taiwan, Hong Kong and Macau (and an explicit Hant tag),
+ * Simplified otherwise. Malay is left on English rather than given
+ * Indonesian — close, but not the same language, and not ours to choose
+ * for the reader.
  */
 export function detectLanguage(preferred) {
   for (const tag of preferred ?? []) {
     const t = String(tag).toLowerCase();
     if (t === 'ja' || t.startsWith('ja-')) return 'ja';
+    if (/^zh-(hant|tw|hk|mo)/.test(t)) return 'zh-Hant';
     if (t === 'zh' || t.startsWith('zh-')) return 'zh-Hans';
+    if (t === 'ko' || t.startsWith('ko-')) return 'ko';
     if (t === 'id' || t.startsWith('id-') || t === 'in') return 'id';
     if (t === 'en' || t.startsWith('en-')) return 'en';
   }

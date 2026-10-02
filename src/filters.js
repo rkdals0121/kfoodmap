@@ -66,7 +66,7 @@ const DIET_WORDS = {
 };
 // "Pork-free" is a halal level the Halal chip leaves out (it is not halal),
 // so it is reached by typing it — in any of these wordings.
-const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉']);
+const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '포크프리']);
 const dietWordMatch = (r, w) => {
   if (DIET_WORDS[w] !== undefined) return matchesDietary(r, DIET_WORDS[w]);
   if (PORK_FREE_WORDS.has(w)) {

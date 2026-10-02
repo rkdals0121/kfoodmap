@@ -34,6 +34,10 @@ const TRAIT_META = {
 const DIETARY_ICON = { vegan: LeafIcon, halal: CrescentIcon };
 
 function SectionHead({ Icon, title, kr }) {
+  const { i18n } = useTranslation();
+  // The Korean gloss beside a heading is for readers of other languages; in
+  // Korean it would only repeat the heading.
+  if (i18n.language === 'ko') kr = null;
   return (
     <div className="section-head">
       <span className="section-head__icon" aria-hidden="true"><Icon size={17} /></span>
@@ -645,7 +649,10 @@ export default function RestaurantDetail({
             
             <section className="detail-section" ref={storyRef}>
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
-              <p className="detail-body">{place.story}</p>
+              {/* The UI is translated; a place's own text is not. Say so once,
+                  where the English starts, and mark it for screen readers. */}
+              {i18n.language !== 'en' && <p className="section-note">{t('detail.contentInEnglish')}</p>}
+              <p className="detail-body" lang="en">{place.story}</p>
               {place.timeline?.length > 0 && (
                 <ol className="timeline">
                   {place.timeline.map(t => (

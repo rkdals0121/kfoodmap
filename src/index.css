@@ -86,7 +86,11 @@
 :root:lang(zh-Hans) {
   --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', sans-serif;
 }
+:root:lang(zh-Hant) {
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang TC', 'Microsoft JhengHei UI', 'Microsoft JhengHei', 'Noto Sans TC', 'Noto Sans CJK TC', sans-serif;
+}
 :root:lang(ja) [lang='ko'],
+:root:lang(zh-Hant) [lang='ko'],
 :root:lang(zh-Hans) [lang='ko'] {
   font-family: 'Pretendard GOV Variable', 'Pretendard GOV', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 }

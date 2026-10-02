@@ -2323,6 +2323,13 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     return from large views, "Open now" listing places past last order
     (`orderable: false`), /cards URL and title following the card, a
     Saved-specific empty heading, previous-stop aria-label.
+    **Later the same night: six languages** — 繁體中文 (Taiwan usage;
+    detected for zh-TW/HK/MO/Hant) and 한국어 (for the Korean friend or
+    host helping a visitor) were added, and the staff cards' meanings
+    moved from `en:` fields in staff-cards.js to `cardText.*` in the
+    locale files, so each language says what the Korean says in its own
+    words. Claim words: 已確認/有來源稱/本站推斷/未知; 확인됨/출처 있음/
+    추정/알 수 없음.
 
 
 ---
