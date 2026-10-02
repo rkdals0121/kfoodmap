@@ -247,7 +247,9 @@ export function weekHours(hoursFact, now = new Date()) {
     const text = !Array.isArray(slots)
       ? null
       : slots.length === 0
-        ? tr('closed')
+        // The day-off word ("휴무", "定休日"), capitalised where the script
+        // has capitals ("Closed"), not the "closed now" label.
+        ? tr('closedWord').charAt(0).toUpperCase() + tr('closedWord').slice(1)
         : slots.map(sl => (sl.lastOrder
           ? `${slotText(sl)} (${tr('lastOrderAt', { time: fromMinutes(toMinutes(sl.lastOrder)) })})`
           : slotText(sl))).join(', ');
