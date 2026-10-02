@@ -4049,3 +4049,11 @@ a.btn-primary:focus-visible {
   color: var(--orange-strong);
   font-weight: 700;
 }
+
+/* Discover: each journey stop's open/closed line. */
+.journey-stop__status {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ink-body);
+}

@@ -488,6 +488,7 @@ export default {
   hours: {
     open: '营业中',
     closingSoon: '即将打烊',
+    lastOrderSoon: '即将停止点餐',
     closed: '未营业',
     until: '至 {{time}}',
     untilLastOrder: '至 {{time}} · 最后点餐 {{lastOrder}}',

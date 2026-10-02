@@ -504,6 +504,7 @@ export default {
   hours: {
     open: 'Open',
     closingSoon: 'Closes soon',
+    lastOrderSoon: 'Last order soon',
     closed: 'Closed',
     until: 'until {{time}}',
     untilLastOrder: 'until {{time}} · last order {{lastOrder}}',

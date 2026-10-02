@@ -120,20 +120,31 @@ export function getOpenStatus(hoursFact, now = new Date()) {
     if (lo != null && lo < from) lo += 1440;
     return { from, to, lo };
   };
-  const openResult = (t, lo, at) => {
+  // Does another slot start the moment this one ends (a 24-hour place's
+  // "00:00–24:00" followed by the next day's "00:00")? Then it is not
+  // closing. A midnight close whose next day is not recorded is not called
+  // "soon" either: we do not know that it shuts.
+  const continuesAt = (day, t) => {
+    const next = weekly[DAY_KEYS[(day + Math.floor(t / 1440)) % 7]];
+    if (!Array.isArray(next)) return t % 1440 === 0;
+    return next.some(sl => toMinutes(sl.from) === t % 1440);
+  };
+  const openResult = (t, lo, at, day) => {
     if (lo != null && at >= lo) {
       // orderable: false — the doors are open, the kitchen is not (the
       // "Open now" filter leaves these out).
       return { open: true, orderable: false, label: tr('open'), detail: tr('lastOrderPassed', { time: fromMinutes(t) }) };
     }
-    // Within half an hour of the last order (or of closing, where no last
-    // order is recorded) "Open" alone sends people to a kitchen that is
-    // about to stop: say so. Still open, still orderable.
-    const soon = (lo ?? t) - at <= CLOSING_SOON_MIN;
+    // Within half an hour of the last order, or of closing where no last
+    // order is recorded, "Open" alone sends people to a kitchen that is
+    // about to stop: say which of the two it is. Still open, still orderable.
+    const soon = lo != null
+      ? lo - at <= CLOSING_SOON_MIN
+      : t - at <= CLOSING_SOON_MIN && !continuesAt(day, t);
     return {
       open: true,
       soon,
-      label: tr(soon ? 'closingSoon' : 'open'),
+      label: tr(!soon ? 'open' : lo != null ? 'lastOrderSoon' : 'closingSoon'),
       detail: lo != null
         ? tr('untilLastOrder', { time: fromMinutes(t), lastOrder: fromMinutes(lo) })
         : tr('until', { time: fromMinutes(t) }),
@@ -144,7 +155,7 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   const yesterday = weekly[DAY_KEYS[(k.getUTCDay() + 6) % 7]];
   for (const slot of Array.isArray(yesterday) ? yesterday : []) {
     const sp = span(slot);
-    if (sp && sp.to > 1440 && cur + 1440 < sp.to) return openResult(sp.to, sp.lo, cur + 1440);
+    if (sp && sp.to > 1440 && cur + 1440 < sp.to) return openResult(sp.to, sp.lo, cur + 1440, (k.getUTCDay() + 6) % 7);
   }
 
   const today = weekly[DAY_KEYS[k.getUTCDay()]];
@@ -174,7 +185,7 @@ export function getOpenStatus(hoursFact, now = new Date()) {
 
   for (const slot of today) {
     const sp = span(slot);
-    if (sp && cur >= sp.from && cur < sp.to) return openResult(sp.to, sp.lo, cur);
+    if (sp && cur >= sp.from && cur < sp.to) return openResult(sp.to, sp.lo, cur, k.getUTCDay());
   }
 
   const next = today

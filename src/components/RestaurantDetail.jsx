@@ -130,6 +130,13 @@ export default function RestaurantDetail({
     return () => clearTimeout(timer);
   }, [isBookmarked, restaurant?.id]);
   const storyRef = useRef(null);
+  // Opening another place from this one ("Also nearby", a journey's next
+  // stop) reuses this sheet: start the new place at its top, not wherever
+  // the last one was scrolled to.
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  }, [restaurant?.id]);
   const directionsRef = useRef(null);
   const sheetRef = useRef(null);
   // The bundle carries a lighter record; the full one (evidence, menus,
@@ -335,7 +342,7 @@ export default function RestaurantDetail({
           <XIcon size={18} />
         </button>
 
-        <div className="detail-scroll">
+        <div className="detail-scroll" ref={scrollRef}>
           {/* 1. Hero image — only when there is a photo. No place has one yet,
               and a placeholder band pushed the decision facts down. */}
           {galleryImages.length > 0 && (

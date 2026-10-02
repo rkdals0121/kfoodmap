@@ -130,11 +130,19 @@ test('"Closes soon" within 30 minutes of the last order, or of closing when none
   assert.equal(getOpenStatus(withLo, at('20:00')).soon, false);
   const s = getOpenStatus(withLo, at('20:40'));
   assert.equal(s.soon, true);
-  assert.equal(s.label, 'Closes soon');
+  assert.equal(s.label, 'Last order soon');   // the kitchen stops, not the doors
   assert.equal(statusClass(s), 'is-soon');
   assert.equal(getOpenStatus(withLo, at('21:10')).orderable, false);   // past last order: not "soon", gone
   const noLo = fact({ from: '11:00', to: '22:00' });
   assert.equal(getOpenStatus(noLo, at('21:20')).soon, false);
   assert.equal(getOpenStatus(noLo, at('21:35')).soon, true);
+  assert.equal(getOpenStatus(noLo, at('21:35')).label, 'Closes soon');
   assert.equal(statusClass(getOpenStatus(noLo, at('12:00'))), 'is-open');
+  // A 24-hour place is never "closing": the next day's 00:00 slot follows on.
+  const allDay = { from: '00:00', to: '24:00' };
+  const always = { value: { weekly: { fri: [allDay], sat: [allDay], sun: [allDay] } }, confidence: 'supported', source: 'x' };
+  assert.equal(getOpenStatus(always, at('23:45')).soon, false);
+  // Nor is a midnight close whose next day is not recorded.
+  const satOnly = { value: { weekly: { sat: [{ from: '18:00', to: '00:00' }] } }, confidence: 'supported', source: 'x' };
+  assert.equal(getOpenStatus(satOnly, at('23:45')).soon, false);
 });

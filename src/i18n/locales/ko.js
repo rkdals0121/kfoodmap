@@ -484,7 +484,8 @@ export default {
   // Opening-hours wording (src/utils.js getOpenStatus / todaysHours).
   hours: {
     open: '영업 중',
-    closingSoon: '곧 마감',
+    closingSoon: '곧 영업 종료',
+    lastOrderSoon: '곧 주문 마감',
     closed: '영업 종료',
     until: '{{time}}까지',
     untilLastOrder: '{{time}}까지 · 주문 마감 {{lastOrder}}',

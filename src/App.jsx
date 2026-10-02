@@ -131,8 +131,15 @@ function AppShell() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, location.search]);
-  const tabPath = TAB_PATH[activeTab] ?? '/';
-  const selectTab = (tab) => navigate(TAB_PATH[tab] ?? '/');
+  // The map's address carries a list in force (a shared list, a journey),
+  // so going back to the map — closing a place, a filter tapped with a
+  // place open, the Map tab — keeps it instead of dropping it.
+  const listQuery = selectedFilters.includes(SHARED_LIST) && sharedIds.length > 0
+    ? `?list=${sharedIds.join(',')}${sharedList.journeyId ? `&journey=${encodeURIComponent(sharedList.journeyId)}` : ''}`
+    : '';
+  const pathOf = (tab) => (tab === 'map' ? `/${listQuery}` : TAB_PATH[tab] ?? '/');
+  const tabPath = pathOf(activeTab);
+  const selectTab = (tab) => navigate(pathOf(tab));
   // Below 768px a non-map tab covers the whole map. The map is then made
   // inert, so Tab never lands on a pin nobody can see (WCAG 2.4.11). From
   // 768px up the map stays visible beside the panel and stays usable.

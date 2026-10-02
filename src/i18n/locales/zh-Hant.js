@@ -488,6 +488,7 @@ export default {
   hours: {
     open: '營業中',
     closingSoon: '即將打烊',
+    lastOrderSoon: '即將停止點餐',
     closed: '休息中',
     until: '至 {{time}}',
     untilLastOrder: '至 {{time}} · 最後點餐 {{lastOrder}}',

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { displayName, formatDistance } from '../utils';
+import { displayName, formatDistance, getOpenStatus, statusClass } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -103,6 +103,16 @@ function DiscoverTab() {
                             {journey.legs[i] != null && (
                               <> · {t('discover.legFromPrevious', { distance: formatDistance(journey.legs[i]), stop: i })}</>
                             )}
+                          </span>
+                          {/* Open now or not, so a stop shut today is seen
+                              before setting out rather than at its door. */}
+                          <span className="journey-stop__status">
+                            {(() => {
+                              const status = getOpenStatus(place.hours);
+                              return status
+                                ? <><span className={statusClass(status)}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
+                                : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>;
+                            })()}
                           </span>
                           <span className="journey-stop__claims">
                             {dietaryBadges(place).map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}

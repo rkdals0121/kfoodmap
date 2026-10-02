@@ -491,6 +491,7 @@ export default {
   hours: {
     open: 'Buka',
     closingSoon: 'Segera tutup',
+    lastOrderSoon: 'Pesanan terakhir segera',
     closed: 'Tutup',
     until: 'sampai {{time}}',
     untilLastOrder: 'sampai {{time}} · pesanan terakhir {{lastOrder}}',

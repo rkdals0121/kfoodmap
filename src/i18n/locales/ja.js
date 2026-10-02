@@ -494,6 +494,7 @@ export default {
   hours: {
     open: '営業中',
     closingSoon: 'まもなく閉店',
+    lastOrderSoon: 'まもなくラストオーダー',
     closed: '営業時間外',
     until: '{{time}} まで',
     untilLastOrder: '{{time}} まで · ラストオーダー {{lastOrder}}',
