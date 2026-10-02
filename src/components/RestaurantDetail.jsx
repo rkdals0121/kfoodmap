@@ -662,12 +662,18 @@ export default function RestaurantDetail({
                           <span className="saved-row__main">
                             <span className="saved-row__name">{displayName(other.name)}</span>
                             <span className="saved-row__where">{t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
-                            {otherStatus && (
-                              <span className="saved-row__status">
-                                <span className={statusClass(otherStatus)}>{otherStatus.label}</span>
-                                {otherStatus.detail && <> · {otherStatus.detail}</>}
-                              </span>
-                            )}
+                            {/* As on the list cards: no hours on record is
+                                said, so a missing line is not read as open. */}
+                            <span className="saved-row__status">
+                              {otherStatus ? (
+                                <>
+                                  <span className={statusClass(otherStatus)}>{otherStatus.label}</span>
+                                  {otherStatus.detail && <> · {otherStatus.detail}</>}
+                                </>
+                              ) : (
+                                <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
+                              )}
+                            </span>
                             <span className="saved-row__claims">
                               {dietaryBadges(other).map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}
                             </span>
