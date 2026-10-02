@@ -16,12 +16,12 @@ import SubmitSheet from './components/SubmitSheet';
 import PrivacySheet from './components/PrivacySheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
-import { MAP_CENTER } from './utils';
+import { MAP_CENTER, getOpenStatus } from './utils';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW } from './filters';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -223,21 +223,42 @@ function AppShell() {
     });
   };
 
-  const filteredRestaurants = useMemo(() => {
-    return activeRestaurants.filter(r => {
+  // "Open now" is answered by the clock, so while it is on the list is
+  // re-asked every minute (a place closing at 9:00 leaves at 9:00).
+  const openNowOn = selectedFilters.includes(OPEN_NOW);
+  const [clock, setClock] = useState(() => Date.now());
+  useEffect(() => {
+    if (!openNowOn) return undefined;
+    setClock(Date.now());
+    const id = setInterval(() => setClock(Date.now()), 60000);
+    return () => clearInterval(id);
+  }, [openNowOn]);
+
+  // unknownHours: places that match everything else but have no recorded
+  // hours for now — hidden by "Open now", and the list says how many.
+  const { filteredRestaurants, unknownHours } = useMemo(() => {
+    const now = new Date(clock);
+    let unknown = 0;
+    const list = activeRestaurants.filter(r => {
       // 1. Filter chips (AND across chips). A dietary chip only matches on
       // evidence — an unknown dietary record never matches, so we never send
       // someone somewhere we can't vouch for. A group chip ORs within itself.
-      const matchesChips = selectedFilters.length === 0 || selectedFilters.every(f => {
+      const matchesChips = selectedFilters.every(f => {
+        if (f === OPEN_NOW) return true; // asked last, below
         if (DIETARY_CHIPS.includes(f)) return matchesDietary(r, f);
         const group = TRAIT_GROUPS[f];
         return group ? r.traits.some(t => group.includes(t)) : r.traits.includes(f);
       });
 
       // 2. Free-text search: name, vibe, area and street address.
-      return matchesChips && matchesSearch(r, searchQuery);
+      if (!matchesChips || !matchesSearch(r, searchQuery)) return false;
+      if (!openNowOn) return true;
+      const status = getOpenStatus(r.hours, now);
+      if (status === null) unknown += 1;
+      return status?.open === true;
     });
-  }, [selectedFilters, searchQuery]);
+    return { filteredRestaurants: list, unknownHours: unknown };
+  }, [selectedFilters, searchQuery, openNowOn, clock]);
 
   if (!prologueCompleted) {
     return (
@@ -326,6 +347,7 @@ function AppShell() {
                 onToggleBookmark={handleToggleBookmark}
                 sustainabilityLens={sustainabilityLens}
                 activeFilters={selectedFilters}
+                unknownHours={unknownHours}
                 searchQuery={searchQuery}
                 onClearFilters={() => {
                   setSelectedFilters([]);

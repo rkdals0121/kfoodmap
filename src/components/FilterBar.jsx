@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
+import { OPEN_NOW } from '../filters';
 
 export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange }) {
   const { t } = useTranslation();
@@ -22,6 +23,17 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
       </div>
 
       <div className="chip-row no-scrollbar">
+        {/* First in the row: "is it open?" is the question a hungry visitor
+            asks before any other. */}
+        <div className="chip-group" role="group" aria-label={t('filters.groupNow')}>
+          <button
+            className={`chip${selectedFilters.includes(OPEN_NOW) ? ' active' : ''}`}
+            aria-pressed={selectedFilters.includes(OPEN_NOW)}
+            onClick={() => onToggleFilter(OPEN_NOW)}
+          >
+            {t('filters.openNow')}
+          </button>
+        </div>
         {CHIP_GROUPS.map(group => (
           <div key={group.labelKey} className="chip-group" role="group" aria-label={t(group.labelKey)}>
             {group.chips.map(chip => {

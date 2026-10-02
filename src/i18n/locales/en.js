@@ -93,6 +93,9 @@ export default {
     missingPlace: "That place isn't on the map any more, or the link is wrong. It may have closed, or failed a check. Search below for another.",
     bothDietsNote: 'Showing places that are both vegan and halal. Turn one chip off to see every place of the other kind.',
     veganOptionsNote: 'Includes places with vegan options on a mixed menu. There, ask about fish sauce, anchovy stock and egg.',
+    openNowNote_one: 'Open now, by Korean time. {{count}} more place matches but has no recorded hours, so it is not shown.',
+    openNowNote_other: 'Open now, by Korean time. {{count}} more places match but have no recorded hours, so they are not shown.',
+    openNowNoteNone: 'Open now, by Korean time. Hours can change; call ahead for a long trip.',
     halalCaveat: "None of these places has a halal certificate we could sight. 'Halal-friendly' is what a source reports — open a place to see which source, and ask staff. Pork-free places (no pork, meat not halal) are not in this filter; search \"pork-free\" to find them.",
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',
     readStoryAria: 'Read story: {{name}}',
@@ -185,6 +188,8 @@ export default {
     },
   },
   filters: {
+    groupNow: 'Opening hours filter',
+    openNow: 'Open now',
     groupDietary: 'Dietary filters',
     groupSustainability: 'Sustainability filters',
     groupDining: 'Dining filters',

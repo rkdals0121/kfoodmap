@@ -13,6 +13,12 @@ import { matchesDietary } from './data/verification.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 
+// "Open now" is a chip like the others (AND-ed, cleared with them) but it is
+// answered by the clock, not by a trait, so it stays out of CHIP_GROUPS and
+// its data test. A place whose hours are not recorded never matches: the
+// filter promises "open", and unknown is not open.
+export const OPEN_NOW = 'Open now';
+
 // A group chip matches *any* trait in its set, which is the one place chips
 // are not AND-ed. Sustainability exists because its two members are narrow
 // enough that selecting both returns nothing — the group is the way to browse

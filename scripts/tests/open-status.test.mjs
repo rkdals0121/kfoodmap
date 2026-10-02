@@ -66,3 +66,14 @@ test('an unrecorded day stops the look-ahead rather than being skipped', () => {
   w.tue = [];
   assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'closed today');
 });
+
+test('"open now" is asked of the clock in Korea, whatever the device time zone', () => {
+  const hours = { value: { weekly: { fri: [{ from: '11:00', to: '15:00' }], sat: [] } }, confidence: 'supported', source: 'x' };
+  // 2026-10-02 04:00 UTC is Friday 13:00 in Korea: open.
+  assert.equal(getOpenStatus(hours, new Date('2026-10-02T04:00:00Z')).open, true);
+  // 2026-10-02 12:00 UTC is Friday 21:00 in Korea: closed, though it is
+  // lunchtime in London.
+  assert.equal(getOpenStatus(hours, new Date('2026-10-02T12:00:00Z')).open, false);
+  // 2026-10-02 16:00 UTC is already Saturday 01:00 in Korea.
+  assert.equal(getOpenStatus(hours, new Date('2026-10-02T16:00:00Z')).detail, 'closed today');
+});

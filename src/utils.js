@@ -29,6 +29,17 @@ export function formatDistance(km) {
 }
 
 export const DAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+// Opening hours are Korean wall-clock times, so "open now" is asked of the
+// clock in Korea, not the device: someone planning from London at 1 pm was
+// told a Seoul lunch place was open when it was 9 pm there (2026-10-02).
+// Korea has no daylight saving, so UTC+9 is exact. Returns a Date whose UTC
+// fields read as Korean local time; use only the getUTC* getters on it.
+const KST_OFFSET_MIN = 540;
+const inKorea = (now) => new Date(now.getTime() + KST_OFFSET_MIN * 60000);
+
+/** Is this device's clock on Korean time? If not, hours need saying so. */
+export const deviceOnKoreaTime = (now = new Date()) => now.getTimezoneOffset() === -KST_OFFSET_MIN;
 const WEEKDAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 // "11:30 AM" or "11:30" → minutes since midnight, null if unparseable
@@ -75,7 +86,8 @@ function statusFromRaw(raw, cur) {
 export function getOpenStatus(hoursFact, now = new Date()) {
   if (!isKnown(hoursFact)) return null;
   const { raw, weekly } = hoursFact.value;
-  const cur = now.getHours() * 60 + now.getMinutes();
+  const k = inKorea(now);
+  const cur = k.getUTCHours() * 60 + k.getUTCMinutes();
 
   if (!weekly) return raw ? statusFromRaw(raw, cur) : null;
 
@@ -103,13 +115,13 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   };
 
   // Just after midnight, yesterday's late slot may still be running.
-  const yesterday = weekly[DAY_KEYS[(now.getDay() + 6) % 7]];
+  const yesterday = weekly[DAY_KEYS[(k.getUTCDay() + 6) % 7]];
   for (const slot of Array.isArray(yesterday) ? yesterday : []) {
     const sp = span(slot);
     if (sp && sp.to > 1440 && cur + 1440 < sp.to) return openResult(sp.to, sp.lo, cur + 1440);
   }
 
-  const today = weekly[DAY_KEYS[now.getDay()]];
+  const today = weekly[DAY_KEYS[k.getUTCDay()]];
   if (!today) return null; // day not recorded — say nothing
 
   // When it next opens, looking ahead day by day. Stops at the first day
@@ -117,11 +129,11 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   // rather than skip over it to a later day.
   const nextOpening = () => {
     for (let d = 1; d <= 7; d++) {
-      const day = weekly[DAY_KEYS[(now.getDay() + d) % 7]];
+      const day = weekly[DAY_KEYS[(k.getUTCDay() + d) % 7]];
       if (!Array.isArray(day)) return null;
       const first = day.map(s => toMinutes(s.from)).filter(m => m != null).sort((a, b) => a - b)[0];
       if (first == null) continue;
-      const when = d === 1 ? 'tomorrow' : WEEKDAY_SHORT[(now.getDay() + d) % 7];
+      const when = d === 1 ? 'tomorrow' : WEEKDAY_SHORT[(k.getUTCDay() + d) % 7];
       return `opens ${when} ${fromMinutes(first)}`;
     }
     return null;
@@ -151,7 +163,7 @@ export function todaysHours(hoursFact, now = new Date()) {
   if (!isKnown(hoursFact)) return null;
   const { weekly } = hoursFact.value;
   if (!weekly) return hoursFact.value.raw ?? null;
-  const today = weekly[DAY_KEYS[now.getDay()]];
+  const today = weekly[DAY_KEYS[inKorea(now).getUTCDay()]];
   if (!today) return null;
   if (today.length === 0) return 'closed';
   return today.map(s => `${fromMinutes(toMinutes(s.from))} – ${fromMinutes(toMinutes(s.to))}`).join(', ');

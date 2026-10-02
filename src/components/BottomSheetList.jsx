@@ -7,7 +7,7 @@ import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea } from '../filters';
+import { matchesArea, OPEN_NOW } from '../filters';
 
 const CHIP_LABEL_KEY = Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey]));
 
@@ -127,7 +127,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
-  sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null,
+  sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
 }) {
   const { t } = useTranslation();
   // Nearest first — but while searching, places whose area or address
@@ -183,6 +183,13 @@ export default function BottomSheetList({
 
       {/* Said while the Halal filter is on and no place listed holds a
           sighted certificate (true of every place today). */}
+      {/* "Open now" hides places whose hours we never recorded; say how many,
+          so an empty or short list is not read as "nothing else exists". */}
+      {activeFilters.includes(OPEN_NOW) && (
+        <p className="section-note place-list__note" role="status">
+          {unknownHours > 0 ? t('list.openNowNote', { count: unknownHours }) : t('list.openNowNoteNone')}
+        </p>
+      )}
       {/* Chips combine as AND; with both diets on, say so — someone after
           "halal places and vegan places" otherwise loses most of both. */}
       {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
