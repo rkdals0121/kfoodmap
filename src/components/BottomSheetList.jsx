@@ -53,11 +53,11 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
     <article className={`place-card${hasPhoto ? '' : ' place-card--text'}`}>
       <div className="place-card__body">
         {/* Stretched link: the name button's ::after covers the whole card */}
-        <h4 className="place-card__name">
+        <h3 className="place-card__name">
           <button className="place-card__open-btn" onClick={() => onOpen(place)}>
             {name}
           </button>
-        </h4>
+        </h3>
 
         {/* Where, then when. Distance is from the map centre (the list
             header says so). Unknown hours are said, not left blank. */}
@@ -181,7 +181,7 @@ export default function BottomSheetList({
     <div className="place-list">
       <div className="place-list__header">
         {/* Announced politely when a filter or search changes the count. */}
-        <h3><span aria-live="polite">{t('list.placeCount', { count: sorted.length })}</span></h3>
+        <h2><span aria-live="polite">{t('list.placeCount', { count: sorted.length })}</span></h2>
         {sorted.length > 1 && (
           <span className="place-list__hint">
             {sorted[0].areaMatch ? t('list.areaFirst') : t('list.nearestFirst')}

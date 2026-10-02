@@ -329,7 +329,7 @@ button {
   justify-content: space-between;
   padding: 12px 0 4px;
 }
-.place-list__header h3 {
+.place-list__header h2 {
   font-size: 16px;
   font-weight: 600;
 }
