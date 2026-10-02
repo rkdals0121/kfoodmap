@@ -112,12 +112,22 @@ const dotIcon = (r) => {
 // A saved place: a round badge with a heart, at every zoom and never folded
 // into a count, so a trip's shortlist can be read off the map without
 // turning a filter on. The heart is the same glyph as the Save button.
-const SAVED_ICON = L.divIcon({
-  className: 'k-saved',
-  html: '<span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>',
-  iconSize: [32, 32],
-  iconAnchor: [16, 16],
-});
+// Two saved places in one building would draw one heart on top of the
+// other, and only one could be tapped: each further heart at the same spot
+// is shifted sideways (`shift`), the first stays on its point.
+const SAVED_ICONS = new Map();
+const savedIcon = (shift = 0) => {
+  if (!SAVED_ICONS.has(shift)) {
+    SAVED_ICONS.set(shift, L.divIcon({
+      className: 'k-saved',
+      html: '<span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>',
+      iconSize: [32, 32],
+      iconAnchor: [16 - shift * 28, 16],
+    }));
+  }
+  return SAVED_ICONS.get(shift);
+};
+const HEART_OVERLAP_PX = 24;
 
 // A journey's stop: its number in the route, so the order can be read off
 // the map. Like a saved place it is never folded into a count.
@@ -338,14 +348,20 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, st
           />
         );
       })}
-      {savedPlaces.map(r => {
+      {savedPlaces.map((r, i) => {
         const c = coordsOf(r);
         const label = `${pinLabel(r)} · ${t('filters.savedOnly')}`;
+        // How many earlier hearts sit on this one at the current zoom.
+        const p = map.project([c.lat, c.lng], zoom);
+        const shift = savedPlaces.slice(0, i).filter(o => {
+          const oc = coordsOf(o);
+          return map.project([oc.lat, oc.lng], zoom).distanceTo(p) < HEART_OVERLAP_PX;
+        }).length;
         return (
           <Marker
             key={`saved:${r.id}`}
             position={[c.lat, c.lng]}
-            icon={SAVED_ICON}
+            icon={savedIcon(shift)}
             keyboard={false}
             zIndexOffset={500}
             title={label}
