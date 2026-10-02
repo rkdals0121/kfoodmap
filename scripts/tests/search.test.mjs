@@ -128,3 +128,18 @@ test('every suggested area finds places, in English and in Korean', async () => 
     }
   }
 });
+
+test('older Latin spellings find the area: Pusan, Cheju, Kangnam, Myungdong', async () => {
+  const { romaniseQuery } = await import('../../src/data/area-names.js');
+  const { matchesSearch } = await import('../../src/filters.js');
+  const at = (area, address) => ({ id: 'x', name: 'Somewhere', zone: area, address: { value: address }, dietary: {}, traits: [] });
+  assert.equal(romaniseQuery('Pusan'), 'Busan');
+  assert.equal(romaniseQuery('cheju vegan'), 'Jeju vegan');
+  assert.equal(romaniseQuery('KANGNAM'), 'Gangnam');
+  // The current spelling is not "romanised" again.
+  assert.equal(romaniseQuery('Busan'), null);
+  assert.equal(romaniseQuery('myeongdong'), null);
+  assert.equal(matchesSearch(at('Haeundae, Busan', '1 Ro, Haeundae-gu, Busan'), 'Pusan'), true);
+  assert.equal(matchesSearch(at('Myeongdong, Seoul', '1 Ro, Jung-gu, Seoul'), 'Myungdong'), true);
+  assert.equal(matchesSearch(at('Myeongdong, Seoul', '1 Ro, Jung-gu, Seoul'), 'Pusan'), false);
+});

@@ -46,6 +46,36 @@ const TO_ROMAN = new Map(
   Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
 );
 
+// Older and informal Latin spellings still on maps, guidebooks and signs
+// from before the 2000 Revised Romanization ("Pusan", "Cheju") or written
+// by ear ("Myungdong"), mapped to the spelling the records use. Matched
+// whole-word and case-blind; the query as typed is always tried first.
+const LATIN_VARIANTS = new Map(Object.entries({
+  pusan: 'Busan',
+  inchon: 'Incheon',
+  taegu: 'Daegu',
+  taejon: 'Daejeon',
+  kwangju: 'Gwangju',
+  cheju: 'Jeju',
+  sogwipo: 'Seogwipo',
+  chonju: 'Jeonju',
+  kyongju: 'Gyeongju',
+  kyeongju: 'Gyeongju',
+  kangnung: 'Gangneung',
+  kangneung: 'Gangneung',
+  kangnam: 'Gangnam',
+  myungdong: 'Myeongdong',
+  myeongdong: 'Myeongdong',
+  jongro: 'Jongno',
+  chongno: 'Jongno',
+  shinchon: 'Sinchon',
+  sungsu: 'Seongsu',
+  seongsoo: 'Seongsu',
+  dongdaemoon: 'Dongdaemun',
+  haewundae: 'Haeundae',
+  yongsan: 'Yongsan',
+}).filter(([v, roman]) => v !== roman.toLowerCase()));
+
 /** The romanised area a typed word names, or null: "釜山" → "Busan". */
 export const romanisedArea = (word) => TO_ROMAN.get(String(word ?? '').trim()) ?? null;
 
@@ -58,7 +88,7 @@ export function romaniseQuery(query) {
   const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
   let changed = false;
   const out = words.flatMap((w) => {
-    const whole = TO_ROMAN.get(w);
+    const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
     if (whole) { changed = true; return [whole]; }
     for (const [name, roman] of TO_ROMAN) {
       if (w.length > name.length && w.startsWith(name)) { changed = true; return [roman, w.slice(name.length)]; }
