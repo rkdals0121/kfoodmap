@@ -144,7 +144,9 @@ for (const [slug, title, index] of [
 // point at, and listing an unverified venue for crawlers is the same
 // discovery-surface exposure §2.14 excludes them from everywhere else.
 function sitemapXml() {
-  const urls = ['', ...active.map(place => `place/${place.id}`)];
+  // The two public pages that are not places: the journeys and the staff
+  // cards. Journal and Profile are a visitor's own screens (noindex).
+  const urls = ['', 'discover', 'cards', ...active.map(place => `place/${place.id}`)];
   const entries = urls
     .map(p => `  <url><loc>${SITE_URL}/${p}</loc></url>`)
     .join('\n');
@@ -163,4 +165,4 @@ writeFileSync(
 );
 
 console.log(`Prerendered ${active.length} place page(s) into dist/place/ (of ${restaurants.length} total).`);
-console.log(`Wrote submit/, privacy/, discover/, cards/, journal/, profile/ index.html, sitemap.xml (${active.length + 1} URLs) and robots.txt.`);
+console.log(`Wrote submit/, privacy/, discover/, cards/, journal/, profile/ index.html, sitemap.xml (${active.length + 3} URLs) and robots.txt.`);
