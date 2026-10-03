@@ -10,6 +10,7 @@ import { restaurants } from '../data/restaurants';
 import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
 import { legDistances } from '../data/journey-nav';
+import useInstall from '../hooks/useInstall';
 import Prologue from './Prologue';
 import ClaimChip from './ClaimChip';
 import { LANGUAGES, setLanguage } from '../i18n/index.js';
@@ -172,6 +173,14 @@ function DiscoverTab() {
   );
 }
 
+// A phone with a plus: "put this on the home screen".
+const HomeAddIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="6" y="2" width="12" height="20" rx="2.5" />
+    <path d="M12 9v6M9 12h6" />
+  </svg>
+);
+
 function LanguagePicker({ onClose }) {
   const { t, i18n } = useTranslation();
 
@@ -231,6 +240,8 @@ function ProfileTab({
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const aboutOpener = useRef(null);
+  const { state: installable, install } = useInstall();
+  const [iosHelp, setIosHelp] = useState(false);
   const navigate = useNavigate();
   const currentLanguage = LANGUAGES.find(l => l.code === i18n.language) ?? LANGUAGES[0];
 
@@ -262,6 +273,14 @@ function ProfileTab({
     // second language ships, the row just states the language.
     { label: t('profile.language'), value: currentLanguage.name, icon: <GlobeIcon size={20} />, action: () => setLanguagePickerOpen(true) },
     { label: t('profile.staffCards'), value: '', icon: <BookIcon size={20} />, action: () => navigate('/cards', { state: { fromApp: true, tab: 'profile' } }) },
+    // Only where it can do something: a browser that offered the install,
+    // or iOS, where the row explains the two taps it takes.
+    ...(installable === 'prompt' || installable === 'ios' ? [{
+      label: t('profile.install'),
+      value: t('profile.installHint'),
+      icon: <HomeAddIcon />,
+      action: installable === 'prompt' ? install : () => setIosHelp(v => !v),
+    }] : []),
     { label: t('profile.suggestRestaurant'), value: '', icon: <MapPinIcon size={20} />, action: () => navigate('/submit') },
     // Shows the opening screen again: what the map is and how to read a claim.
     { label: t('profile.aboutApp'), value: '', icon: <InfoIcon size={20} />, action: () => { aboutOpener.current = document.activeElement; setAboutOpen(true); } },
@@ -374,6 +393,9 @@ function ProfileTab({
         </div>
       )}
 
+      {installable === 'ios' && iosHelp && (
+        <p className="profile-notice" role="status">{t('profile.installIos')}</p>
+      )}
       {languagePickerOpen && <LanguagePicker onClose={() => setLanguagePickerOpen(false)} />}
       {aboutOpen && createPortal(
         <Prologue dialog ctaKey="prologue.close" onComplete={() => { setAboutOpen(false); aboutOpener.current?.focus(); }} />,

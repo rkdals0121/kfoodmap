@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router'
 import 'leaflet/dist/leaflet.css'
 import './index.css'
 import { startLanguage } from './i18n'
+import './hooks/useInstall'
 import App from './App.jsx'
 
 // The reader's language is loaded before the first paint, so the app does
