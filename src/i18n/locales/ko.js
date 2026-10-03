@@ -68,6 +68,7 @@ export default {
     shareList: '이 목록 공유',
     listCopied: '링크를 복사했어요',
     shareListTitle: '내 K-Food Map 목록',
+    offlineNote: '저장한 곳의 페이지는 이 기기에 보관되어 인터넷 없이도 열려요. 지도 배경은 연결이 필요해요.',
     otherRegion: '기타',
     emptyTitle: '여권이 아직 비어 있어요',
     emptyBody: '가 보고 싶은 곳을 저장해 보세요. 다녀옴으로 표시하면 여기에 도장이 찍혀요.',

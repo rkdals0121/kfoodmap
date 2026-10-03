@@ -70,6 +70,7 @@ export default {
     shareList: 'このリストを共有',
     listCopied: 'リンクをコピーしました',
     shareListTitle: 'わたしの K-Food Map リスト',
+    offlineNote: '保存したお店のページはこの端末に保存され、オフラインでも開けます。地図の背景の表示には通信が必要です。',
     otherRegion: 'その他',
     emptyTitle: 'パスポートはまだ空です',
     emptyBody: '気になるお店を保存しましょう。訪問済みにすると、ここにスタンプが押されます。',

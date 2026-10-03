@@ -167,6 +167,10 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
               {listShared ? t('journal.listCopied') : t('journal.shareList')}
             </button>
           </div>
+          {/* What saving buys on a trip with patchy data: the pages are kept
+              on the phone (usePlaceRecord prefetch). The map's own tiles
+              are not, and it says so. */}
+          <p className="journal-offline-note">{t('journal.offlineNote')}</p>
           {savedGroups.length > 1 ? (
             // Saved across a trip: one list per region, so the Busan
             // places are together on the day in Busan.

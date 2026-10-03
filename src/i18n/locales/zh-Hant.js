@@ -66,6 +66,7 @@ export default {
     shareList: '分享這份清單',
     listCopied: '連結已複製',
     shareListTitle: '我的 K-Food Map 清單',
+    offlineNote: '已收藏地點的頁面會保存在此裝置上，離線也能開啟。地圖底圖仍需連線。',
     otherRegion: '其他',
     emptyTitle: '你的護照還是空的',
     emptyBody: '收藏想去的店，去過後標記一下，每一家都會在這裡蓋上印章。',
