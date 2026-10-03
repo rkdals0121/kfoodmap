@@ -2505,6 +2505,26 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     more than 5 h between slots is "Closed", not "On a break"; the install
     copy no longer says the whole app works offline. Translation review of
     the day's strings applied (14 corrections).
+65. **2026-10-03 15:35–16:00. Found on the web, and by area.**
+    `scripts/prerender-places.mjs` now writes (a) **49 area guides**,
+    `/find/<halal|vegan>-<area>` for every area in `AREA_NAMES` with three
+    or more places: a real page with the list as links, each claim in the
+    app's words with its confidence, and links to the other areas; in the
+    sitemap (728 URLs); (b) **a body for every place page** (name, area,
+    claims with confidence, the one-line description, address) in place of
+    the loading screen, plus schema.org `Restaurant` JSON-LD with name,
+    address and coordinates only — the diet is left out because the
+    vocabulary cannot say "reported". In the app the guide route just sets
+    the view (`findView` in App.jsx) and becomes `/#q=Busan&f=Halal`.
+    **Discover → Browse by area** shows the same sets with counts
+    (`browse()` in TabPanel, counted on first use) and opens the map on
+    them (`onBrowse`, `toMap` ref). **Fragment sync rewritten** after live
+    QA found that two chips tapped faster than the router updated could
+    revert the first: the write-back now reads `window.location`, and a
+    fragment is adopted only on a real `hashchange` / `popstate`. "Saved"
+    is never written to the address. With "Open at…" on, a place page
+    shows that time's status under the current one; the phone sheet opens
+    fully when the pickers appear.
     The App clock now ticks every minute regardless of filters, so the
     open/closed labels on cards and the open place stay current; only
     "Open now" re-filters on the tick (`filterClock`), so the map is not

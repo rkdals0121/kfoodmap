@@ -10,7 +10,7 @@ import {
   ChevronLeftIcon, ChevronRightIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock } from '../utils';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, VEGAN, HALAL,
 } from '../data/verification';
@@ -100,7 +100,7 @@ const DIET_CAVEAT_KEYS = {
 
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null,
-  journey = null, onJourneyStop, nearby = [], nearbyDiet = [], onOpenPlace,
+  journey = null, onJourneyStop, nearby = [], nearbyDiet = [], onOpenPlace, planAt = null, planDate = null,
   mapCenter, focusStory, focusDirections = false, docked = false, belowSearch = false,
 }) {
   const { t, i18n } = useTranslation();
@@ -218,6 +218,8 @@ export default function RestaurantDetail({
   const status = getOpenStatus(place.hours);
   const today = todaysHours(place.hours);
   const week = weekHours(place.hours);
+  const planStatus = planDate && planAt ? getOpenStatus(place.hours, planDate) : null;
+  const planWhen = planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : '';
   const culture = getCulture(place);
   const coords = coordsOf(place);
   const koName = koreanName(place.name);
@@ -495,6 +497,18 @@ export default function RestaurantDetail({
                   <span className="practical-muted">{t('detail.hoursUnknown')}</span>
                 )}
               </div>
+              {/* With "Open at…" on, the list answered for that time; this
+                  page's line above is about now. Say both, each labelled. */}
+              {planStatus && (
+                <div className="practical-row practical-row--plan">
+                  <span aria-hidden="true" style={{ width: 17 }} />
+                  <span>
+                    <span className="practical-muted">{planWhen}: </span>
+                    <strong className={statusClass(planStatus)}>{planStatus.label}</strong>
+                    {planStatus.detail && <> · {planStatus.detail}</>}
+                  </span>
+                </div>
+              )}
               {/* The whole week, for planning tomorrow or the weekend. A day
                   the record does not cover is said to be not recorded. */}
               {week && (

@@ -24,6 +24,7 @@
 - **Wide screens** — list, place and map side by side from 1200 px.
 - **Your search and filters survive a reload** and can be shared as a link; the welcome screen can start the map on Vegan or Halal.
 - **Copy your saved list as text** — names in Korean, addresses, links.
+- **Browse by area** in Discover, and area guides on the web (`/find/halal-busan` …) with every place linked.
 - **Search in other scripts** — areas typed in Korean, Japanese or Chinese (釜山, 明洞, 이태원), and the diet words of each language.
 
 ### Changed

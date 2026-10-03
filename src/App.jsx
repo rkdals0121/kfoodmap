@@ -686,6 +686,8 @@ function AppShell() {
         onJourneyStop={openJourneyStop}
         nearby={nearby}
         nearbyDiet={dietChips}
+        planAt={planAt}
+        planDate={planDate}
         onOpenPlace={openDetail}
         focusStory={focusStory}
         focusDirections={focusDirections}
