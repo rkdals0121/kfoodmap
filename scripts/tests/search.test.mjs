@@ -143,3 +143,15 @@ test('older Latin spellings find the area: Pusan, Cheju, Kangnam, Myungdong', as
   assert.equal(matchesSearch(at('Myeongdong, Seoul', '1 Ro, Jung-gu, Seoul'), 'Myungdong'), true);
   assert.equal(matchesSearch(at('Myeongdong, Seoul', '1 Ro, Jung-gu, Seoul'), 'Pusan'), false);
 });
+
+test('the view survives a round trip through the address fragment', async () => {
+  const { viewHash, parseViewHash, OPEN_NOW, OPEN_AT, SHARED_LIST } = await import('../../src/filters.js');
+  const valid = ['Vegan', 'Halal', OPEN_NOW, OPEN_AT];
+  assert.equal(viewHash({ q: '', filters: [], planAt: null }), '');
+  const h = viewHash({ q: ' 釜山 vegan ', filters: [SHARED_LIST, 'Halal', OPEN_AT], planAt: { day: 0, minutes: 750 } });
+  assert.ok(h.startsWith('#') && !h.includes('Shared'));
+  assert.deepEqual(parseViewHash(h, valid), { q: '釜山 vegan', filters: ['Halal', OPEN_AT], planAt: { day: 0, minutes: 750 } });
+  // A link is not trusted: unknown chips go, both "open" chips cannot be on, a bad time is no time.
+  assert.deepEqual(parseViewHash('#f=Halal,constructor,Open+now,Open+at&at=9-99999', valid), { q: '', filters: ['Halal', OPEN_NOW], planAt: null });
+  assert.deepEqual(parseViewHash('', valid), { q: '', filters: [], planAt: null });
+});

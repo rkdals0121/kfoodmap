@@ -173,6 +173,9 @@ test('between two of today\'s slots is a break, not just closed', async () => {
   assert.equal(brk.detail, 'opens 5:30 PM');
   assert.equal(getOpenStatus(f, at('09:00')).label, 'Closed');   // before the first slot
   assert.equal(getOpenStatus(f, at('22:00')).label, 'Closed');   // after the last
+  // A long gap is not a break: a late night written as two slots.
+  const late = { value: { weekly: { sat: [{ from: '00:00', to: '02:00' }, { from: '18:00', to: '24:00' }] } }, confidence: 'supported', source: 'x' };
+  assert.equal(getOpenStatus(late, at('10:00')).label, 'Closed');
 });
 
 test('koreaDateAt names a weekday and time in Korea, whatever the device clock', async () => {

@@ -4193,3 +4193,11 @@ a.btn-primary:focus-visible {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* The sidebar's fold handle sits on the seam between the list and a place
+   docked beside it: keep it above the panel, or half of it is covered. */
+@media (min-width: 1200px) {
+  .border-region {
+    z-index: 212;
+  }
+}

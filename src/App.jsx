@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from './data/restaurants';
@@ -20,13 +20,14 @@ import useAppUpdate from './hooks/useAppUpdate';
 import { MAP_CENTER, getOpenStatus, koreaDateAt, koreaToday } from './utils';
 import { readPosition, readError } from './data/locate';
 import { journeys } from './data/journeys';
+import { CHIP_GROUPS } from './i18n/labels';
 import { journeyNav } from './data/journey-nav';
 import { nearbyPlaces } from './data/nearby';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -43,6 +44,8 @@ const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile
 const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': 'profile' };
 
 const NO_STOPS = [];
+// Every chip a link may name (filters.js parseViewHash).
+const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => g.chips.map(c => c.id))];
 
 function AppShell() {
   const { t, i18n } = useTranslation();
@@ -51,7 +54,10 @@ function AppShell() {
   const location = useLocation();
   const isOnline = useOnlineStatus();
   const { updateReady, reload } = useAppUpdate();
-  const [searchQuery, setSearchQuery] = useState('');
+  // The view named in the address fragment, read once: a reload, a tab the
+  // phone dropped, or a link someone sent opens on the same search and chips.
+  const [startView] = useState(() => parseViewHash(window.location.hash, VIEW_CHIPS));
+  const [searchQuery, setSearchQuery] = useState(startView.q);
   // A list in the address (/?list=a,b,c) opens the map on those places
   // only, as a filter the reader can close: a list someone shared, or a
   // journey's stops from Discover (&journey=<id> names it). Followed as the
@@ -66,7 +72,7 @@ function AppShell() {
   const [sharedList, setSharedList] = useState(readList);
   const sharedIds = sharedList.ids;
   const sharedJourney = journeys.find(j => j.id === sharedList.journeyId) ?? null;
-  const [selectedFilters, setSelectedFilters] = useState(() => (sharedIds.length > 0 ? [SHARED_LIST] : []));
+  const [selectedFilters, setSelectedFilters] = useState(() => [...(sharedIds.length > 0 ? [SHARED_LIST] : []), ...startView.filters]);
   // The URL is the source of truth for which restaurant is open — no
   // separate state to keep in sync. activeRestaurants already excludes
   // quarantined places, so an id that's quarantined or simply doesn't
@@ -371,7 +377,30 @@ function AppShell() {
   // "Open at…": a weekday and a time in Korea, for planning tomorrow's
   // lunch or Sunday's dinner. Starts at noon tomorrow.
   const openAtOn = selectedFilters.includes(OPEN_AT);
-  const [planAt, setPlanAt] = useState(() => ({ day: (koreaToday() + 1) % 7, minutes: 720 }));
+  const [planAt, setPlanAt] = useState(() => startView.planAt ?? { day: (koreaToday() + 1) % 7, minutes: 720 });
+  // …and written back as the view changes, on whatever page is showing, so
+  // a reload from a place page returns to the same list. Replaces the
+  // entry: typing a search does not fill the Back button.
+  const wantHash = viewHash({ q: searchQuery, filters: selectedFilters, planAt });
+  const lastHash = useRef(viewHash(startView));
+  useEffect(() => {
+    const view = parseViewHash(location.hash, VIEW_CHIPS);
+    const has = viewHash(view);
+    if (has === wantHash) { lastHash.current = has; return; }
+    // A fragment this app did not write — a link pasted into the open tab —
+    // is a view to show. (An empty one is just a navigation inside the app,
+    // which names no fragment; the view in force is written back onto it.)
+    if (has !== '' && has !== lastHash.current) {
+      lastHash.current = has;
+      setSearchQuery(view.q);
+      setSelectedFilters(prev => [...prev.filter(f => f === SHARED_LIST), ...view.filters]);
+      if (view.planAt) setPlanAt(view.planAt);
+      return;
+    }
+    lastHash.current = wantHash;
+    navigate({ pathname: location.pathname, search: location.search, hash: wantHash }, { replace: true, state: location.state });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wantHash, location.pathname, location.search, location.hash]);
   const planDate = useMemo(
     () => (openAtOn ? koreaDateAt(planAt.day, planAt.minutes) : null),
     [openAtOn, planAt],
@@ -398,7 +427,7 @@ function AppShell() {
   // come through here, so it keeps its position.
   useEffect(() => {
     document.getElementById('place-list')?.scrollTo?.({ top: 0 });
-  }, [selectedFilters, searchQuery]);
+  }, [selectedFilters, searchQuery, planAt]);
 
   // unknownHours: places that match everything else but have no recorded
   // hours for now — hidden by "Open now", and the list says how many.

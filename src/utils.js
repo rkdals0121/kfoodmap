@@ -90,6 +90,7 @@ function statusFromRaw(raw, cur) {
 }
 
 export const CLOSING_SOON_MIN = 30;
+const MAX_BREAK_MIN = 300;
 
 /** The class for an open/closed label: green, amber when closing soon, grey. */
 export const statusClass = (status) => (status.soon ? 'is-soon' : status.open ? 'is-open' : 'is-closed');
@@ -213,7 +214,10 @@ export function getOpenStatus(hoursFact, now = new Date()) {
   if (next != null) {
     // Between two of today's slots (lunch over, dinner to come) is a break,
     // the word on the door ("브레이크 타임"), not a place shut for the day.
-    const onBreak = today.some(s => { const sp = span(s); return sp && sp.to <= cur; });
+    // Only a real break: a gap of a few hours. A record that writes a late
+    // night as "00:00–02:00" and "18:00–24:00" is closed all afternoon.
+    const ended = Math.max(...today.map(s => span(s)).filter(sp => sp && sp.to <= cur).map(sp => sp.to), -1);
+    const onBreak = ended >= 0 && next - ended <= MAX_BREAK_MIN;
     return { open: false, onBreak, label: tr(onBreak ? 'onBreak' : 'closed'), detail: tr('opens', { time: fromMinutes(next) }) };
   }
   return { open: false, label: tr('closed'), detail: nextOpening() };

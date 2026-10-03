@@ -307,7 +307,8 @@ export default function RestaurantDetail({
 
   const handleShare = async () => {
     const shareText = `${place.name} — ${place.vibe}`;
-    const shareUrl = window.location.href;
+    // The place, not the sharer's own search and chips (the fragment).
+    const shareUrl = window.location.origin + window.location.pathname;
     if (navigator.share) {
       try {
         await navigator.share({ title: place.name, text: shareText, url: shareUrl });

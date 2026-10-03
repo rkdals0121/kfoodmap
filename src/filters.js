@@ -177,3 +177,31 @@ export function matchesArea(r, query) {
   const roman = romaniseQuery(query);
   return roman !== null && areaCore(r, roman);
 }
+
+// The view — search text, chips, the "Open at…" time — kept in the address
+// after the "#". A phone drops a background tab while the visitor is in
+// Naver Map; coming back reloaded the app with every filter gone. In the
+// fragment, not the query: a fragment is never sent to the server, so what
+// someone searches for and which diet they filter by still leave the device
+// only if they share the link themselves.
+export function viewHash({ q = '', filters = [], planAt = null }) {
+  const p = new URLSearchParams();
+  if (q.trim()) p.set('q', q.trim());
+  const f = filters.filter(id => id !== SHARED_LIST);   // the list is in ?list=
+  if (f.length > 0) p.set('f', f.join(','));
+  if (f.includes(OPEN_AT) && planAt) p.set('at', `${planAt.day}-${planAt.minutes}`);
+  const out = p.toString();
+  return out ? `#${out}` : '';
+}
+
+/** The view a fragment names. Unknown chips are dropped, never trusted. */
+export function parseViewHash(hash, validIds) {
+  const p = new URLSearchParams(String(hash ?? '').replace(/^#/, ''));
+  const q = (p.get('q') ?? '').slice(0, 80);
+  let filters = [...new Set((p.get('f') ?? '').split(',').filter(id => validIds.includes(id)))];
+  if (filters.includes(OPEN_NOW)) filters = filters.filter(id => id !== OPEN_AT);
+  const m = /^([0-6])-(\d{1,4})$/.exec(p.get('at') ?? '');
+  const minutes = m ? Number(m[2]) : NaN;
+  const planAt = m && minutes < 1440 && minutes % 30 === 0 ? { day: Number(m[1]), minutes } : null;
+  return { q, filters, planAt };
+}
