@@ -11,6 +11,10 @@ import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
 import { legDistances } from '../data/journey-nav';
 import useInstall from '../hooks/useInstall';
+import { matchesArea } from '../filters';
+import { matchesDietary } from '../data/verification';
+import { AREA_NAMES } from '../data/area-names';
+import { CHIP_GROUPS } from '../i18n/labels';
 import Prologue from './Prologue';
 import ClaimChip from './ClaimChip';
 import { LANGUAGES, setLanguage } from '../i18n/index.js';
@@ -58,9 +62,33 @@ function claimSummary(stops, t) {
   return parts.length ? t('discover.journeyClaims', { summary: parts.join(', ') }) : null;
 }
 
-function DiscoverTab() {
-  const { t } = useTranslation();
+// "Halal in Busan", "Vegan in Jeju": how many places each well-known area
+// has for each diet, most first — the same sets as the web's area guides
+// (scripts/prerender-places.mjs), counted once from the bundled records.
+const BROWSE_MIN = 3;
+const BROWSE_MAX = 12;
+// Counted on first use, not at start-up: only Discover needs it.
+let browseCache = null;
+const browse = () => browseCache ?? (browseCache = CHIP_GROUPS.flatMap(g => g.chips)
+  .filter(c => c.id === 'Vegan' || c.id === 'Halal')
+  .map(chip => ({
+    chip,
+    areas: Object.keys(AREA_NAMES)
+      .map(area => ({
+        area,
+        count: restaurants.filter(r => !isQuarantined(r) && matchesDietary(r, chip.id) && matchesArea(r, area)).length,
+      }))
+      .filter(a => a.count >= BROWSE_MIN)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, BROWSE_MAX),
+  })));
+
+function DiscoverTab({ onBrowse }) {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  // Korean readers get the Korean name (first in each list); everyone else
+  // the romanised one, as on signs and in the records.
+  const areaName = (area) => (i18n.language === 'ko' ? AREA_NAMES[area][0] : area);
 
   return (
     <section className="tab-panel discover-panel">
@@ -78,6 +106,31 @@ function DiscoverTab() {
               <ChevronRightIcon size={16} />
             </button>
           </div>
+
+          {onBrowse && (
+            <div className="browse-areas">
+              <h3 className="browse-areas__title">{t('discover.byArea')}</h3>
+              {browse().map(({ chip, areas }) => (
+                <div key={chip.id} className="browse-areas__row" role="group" aria-label={t(chip.labelKey)}>
+                  <span className="browse-areas__diet">{t(chip.labelKey)}</span>
+                  <div className="browse-areas__links">
+                    {areas.map(({ area, count }) => (
+                      // A real address (the web's area guide), opened in the
+                      // app as that search and chip on the map.
+                      <a
+                        key={area}
+                        className="browse-areas__link"
+                        href={`/find/${chip.id.toLowerCase()}-${area.toLowerCase()}`}
+                        onClick={(e) => { e.preventDefault(); onBrowse(chip.id, areaName(area)); }}
+                      >
+                        {areaName(area)} <span className="browse-areas__count">{count}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="journey-list">
             {resolvedJourneys.map(journey => (
@@ -407,9 +460,9 @@ function ProfileTab({
 
 export default function TabPanel({
   tab, onNavigate, session, googleReady, onSignIn, onSignOut, onDeleteRecords,
-  lastSyncFailed, sessionEnded, signInFailed, savedCount, visitedCount,
+  lastSyncFailed, sessionEnded, signInFailed, savedCount, visitedCount, onBrowse,
 }) {
-  if (tab === 'discover') return <DiscoverTab />;
+  if (tab === 'discover') return <DiscoverTab onBrowse={onBrowse} />;
   if (tab === 'profile') {
     return (
       <ProfileTab

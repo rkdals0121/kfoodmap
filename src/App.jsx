@@ -50,7 +50,7 @@ const findView = (pathname) => {
   return { q: m[2][0].toUpperCase() + m[2].slice(1), filters: [m[1] === 'vegan' ? 'Vegan' : 'Halal'], planAt: null };
 };
 // Every chip a link may name (filters.js parseViewHash).
-const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => g.chips.map(c => c.id))];
+const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => g.chips.map(c => c.id))];
 
 function AppShell() {
   const { t, i18n } = useTranslation();
@@ -311,6 +311,9 @@ function AppShell() {
       const other = filter === OPEN_NOW ? OPEN_AT : filter === OPEN_AT ? OPEN_NOW : null;
       return [...prev.filter(f => f !== other), filter];
     });
+    // The day and time pickers take most of a phone's half-height sheet:
+    // open it fully so the results are in view under them.
+    if (filter === OPEN_AT && !selectedFilters.includes(OPEN_AT)) setSheetState(2);
     if (id) navigate(tabPath, { replace: true });
   };
 
@@ -390,28 +393,50 @@ function AppShell() {
   // a reload from a place page returns to the same list. Replaces the
   // entry: typing a search does not fill the Back button.
   const wantHash = viewHash({ q: searchQuery, filters: selectedFilters, planAt });
-  const lastHash = useRef(viewHash(startView));
+  // Set by a change of view that should also land on the map (Discover →
+  // an area): the write below then goes to "/", in one navigation, instead
+  // of racing a separate navigate() against this effect.
+  const toMap = useRef(false);
   useEffect(() => {
+    // Read from the window, not from the router's `location`: navigate()
+    // updates the address at once but the router's state a render later, and
+    // a second chip tapped in between was judged against the old address
+    // and undone (live QA, 2026-10-03).
+    const here = window.location;
     // A guide's address has done its work once the view is set: it becomes
     // the map's own address, with the view in its fragment.
-    const onGuide = location.pathname.startsWith('/find/');
-    const view = parseViewHash(location.hash, VIEW_CHIPS);
-    const has = viewHash(view);
-    if (has === wantHash && !onGuide) { lastHash.current = has; return; }
-    // A fragment this app did not write — a link pasted into the open tab —
-    // is a view to show. (An empty one is just a navigation inside the app,
-    // which names no fragment; the view in force is written back onto it.)
-    if (!onGuide && has !== '' && has !== lastHash.current) {
-      lastHash.current = has;
-      setSearchQuery(view.q);
-      setSelectedFilters(prev => [...prev.filter(f => f === SHARED_LIST), ...view.filters]);
-      if (view.planAt) setPlanAt(view.planAt);
-      return;
-    }
-    lastHash.current = wantHash;
-    navigate({ pathname: onGuide ? '/' : location.pathname, search: location.search, hash: wantHash }, { replace: true, state: location.state });
+    const onGuide = here.pathname.startsWith('/find/');
+    const goMap = onGuide || toMap.current;
+    toMap.current = false;
+    if (!goMap && viewHash(parseViewHash(here.hash, VIEW_CHIPS)) === wantHash) return;
+    navigate(
+      { pathname: goMap ? '/' : here.pathname, search: goMap ? '' : here.search, hash: wantHash },
+      { replace: onGuide || !goMap, state: goMap ? null : (window.history.state?.usr ?? null) },
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wantHash, location.pathname, location.search, location.hash]);
+  // A fragment typed or pasted into the open tab, or the one on the entry
+  // Back or Forward lands on, is a view to show. Only the browser's own
+  // events say so (the app's writes fire neither). `popstate` as well as
+  // `hashchange`: it comes first, and the write-back above could otherwise
+  // run in between and put the old view back over the new address.
+  const wantHashRef = useRef(wantHash);
+  useEffect(() => { wantHashRef.current = wantHash; });
+  useEffect(() => {
+    const onHashChange = () => {
+      const view = parseViewHash(window.location.hash, VIEW_CHIPS);
+      if (viewHash(view) === wantHashRef.current) return;
+      setSearchQuery(view.q);
+      setSelectedFilters(prev => [...prev.filter(f => f === SHARED_LIST || f === SAVED_ONLY), ...view.filters]);
+      if (view.planAt) setPlanAt(view.planAt);
+    };
+    window.addEventListener('hashchange', onHashChange);
+    window.addEventListener('popstate', onHashChange);
+    return () => {
+      window.removeEventListener('hashchange', onHashChange);
+      window.removeEventListener('popstate', onHashChange);
+    };
+  }, []);
   const planDate = useMemo(
     () => (openAtOn ? koreaDateAt(planAt.day, planAt.minutes) : null),
     [openAtOn, planAt],
@@ -612,6 +637,14 @@ function AppShell() {
             signInFailed={signInFailed}
             savedCount={bookmarks.length}
             visitedCount={visitedIds.length}
+            onBrowse={(chip, area) => {
+              // Discover → an area: the map on that search and that chip alone.
+              const next = viewHash({ q: area, filters: [chip], planAt });
+              if (next === wantHash) { navigate({ pathname: '/', hash: wantHash }); return; }
+              toMap.current = true;
+              setSearchQuery(area);
+              setSelectedFilters([chip]);
+            }}
           />
         )}
 

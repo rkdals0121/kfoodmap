@@ -187,7 +187,9 @@ export function matchesArea(r, query) {
 export function viewHash({ q = '', filters = [], planAt = null }) {
   const p = new URLSearchParams();
   if (q.trim()) p.set('q', q.trim());
-  const f = filters.filter(id => id !== SHARED_LIST);   // the list is in ?list=
+  // Not the shared list (it is in ?list=) and not "Saved": that is the
+  // reader's own places, and the address may be copied to someone else.
+  const f = filters.filter(id => id !== SHARED_LIST && id !== SAVED_ONLY);
   if (f.length > 0) p.set('f', f.join(','));
   if (f.includes(OPEN_AT) && planAt) p.set('at', `${planAt.day}-${planAt.minutes}`);
   const out = p.toString();

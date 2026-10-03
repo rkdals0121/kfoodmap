@@ -137,6 +137,7 @@ export default {
     journeyClaims: 'このコースの食に関する表示:{{summary}}。',
     legFromPrevious: '{{stop}} か所目から直線で {{distance}}',
     showOnMap: 'このコースを地図で見る',
+    byArea: 'エリアから探す',
     closedToday: '本日休業: {{total}} か所中 {{closed}} か所',
     storyLabel: 'ストーリー',
     cultureTitle: '食のストーリー',

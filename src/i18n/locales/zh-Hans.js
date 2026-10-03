@@ -132,6 +132,7 @@ export default {
     journeyClaims: '各站的饮食信息：{{summary}}。',
     legFromPrevious: '距第 {{stop}} 站直线 {{distance}}',
     showOnMap: '在地图上查看这些地点',
+    byArea: '按地区浏览',
     closedToday: '今日休息：{{total}} 站中 {{closed}} 站',
     storyLabel: '故事',
     cultureTitle: '美食故事',

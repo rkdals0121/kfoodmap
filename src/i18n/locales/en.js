@@ -139,6 +139,7 @@ export default {
     journeyClaims: 'Dietary claims across these stops: {{summary}}.',
     legFromPrevious: '{{distance}} from stop {{stop}}, in a straight line',
     showOnMap: 'Show these stops on the map',
+    byArea: 'Browse by area',
     closedToday: 'Closed today: {{closed}} of {{total}} stops',
     storyLabel: 'Story',
     cultureTitle: 'Food stories',

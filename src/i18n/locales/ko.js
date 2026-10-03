@@ -133,6 +133,7 @@ export default {
     journeyClaims: '이 코스의 식이 정보: {{summary}}.',
     legFromPrevious: '{{stop}}번째 장소에서 직선거리 {{distance}}',
     showOnMap: '이 코스를 지도에서 보기',
+    byArea: '지역별로 보기',
     closedToday: '오늘 휴무: {{total}}곳 중 {{closed}}곳',
     storyLabel: '이야기',
     cultureTitle: '음식 이야기',

@@ -4140,7 +4140,7 @@ a.btn-primary:focus-visible {
   gap: 6px;
 }
 .plan-row select {
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 28px 0 10px;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -4223,4 +4223,57 @@ a.btn-primary:focus-visible {
   outline: 2px solid var(--green-strong);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* Discover: places by diet and area, as links to the map. */
+.browse-areas {
+  padding: 16px 20px 0;
+}
+.browse-areas__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-title);
+  margin-bottom: 10px;
+}
+.browse-areas__row {
+  margin-bottom: 12px;
+}
+.browse-areas__diet {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+  margin-bottom: 6px;
+}
+.browse-areas__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.browse-areas__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.browse-areas__link:hover {
+  border-color: var(--green-strong);
+}
+.browse-areas__link:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+}
+.browse-areas__count {
+  font-weight: 500;
+  color: var(--muted-strong);
 }
