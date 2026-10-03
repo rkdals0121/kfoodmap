@@ -261,7 +261,8 @@ export default function BottomSheetList({
         </p>
       )}
       {activeFilters.includes(OPEN_AT) && planAt && (() => {
-        const when = `${t(`hours.day.${DAY_KEYS[planAt.day]}`)} ${formatClock(planAt.minutes)}`;
+        // Worded by the locale: "Sun 12:00 PM", "일요일 오후 12:00".
+        const when = t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) });
         return (
           <p className="section-note place-list__note" role="status">
             {unknownHours > 0 ? t('list.openAtNote', { count: unknownHours, when }) : t('list.openAtNoteNone', { when })}

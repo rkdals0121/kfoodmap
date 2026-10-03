@@ -223,6 +223,7 @@ export default {
     openNow: 'Open now',
     openAt: 'Open at…',
     openAtSet: 'Open {{day}} {{time}}',
+    dayTime: '{{day}} {{time}}',
     openAtDay: 'Day',
     openAtTime: 'Time',
     koreanTime: 'Korean time',
