@@ -312,4 +312,31 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // Three files instead of one. The entry chunk used to carry the
+        // place data (most of its bytes) and the libraries, so every deploy
+        // that touched one line of code made a returning visitor — on
+        // roaming data, in the street — download all ~400 kB gzip again.
+        // Split by how often each part changes: the libraries almost never,
+        // the places when data is edited, the app code on most deploys. The
+        // three are still fetched together on a first visit (modulepreload)
+        // and still precached; nothing is loaded later than before.
+        //
+        // The library list is explicit, not "everything in node_modules":
+        // @supabase must stay out, in its on-demand auth chunk (see
+        // assertAuthChunkName above, which fails the build if it moves).
+        codeSplitting: {
+          groups: [
+            { name: 'places', test: /[\\/]src[\\/]data[\\/]restaurants\.js$/ },
+            {
+              name: 'vendor',
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|react-router|leaflet|react-leaflet|@react-leaflet|i18next|react-i18next)[\\/]/,
+            },
+          ],
+        },
+      },
+    },
+  },
 })
