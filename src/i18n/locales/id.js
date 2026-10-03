@@ -68,6 +68,8 @@ export default {
     listCopied: 'Tautan disalin',
     shareListTitle: 'Daftar K-Food Map saya',
     offlineNote: 'Halaman tempat yang disimpan tetap bisa dibuka tanpa koneksi — disimpan di perangkat ini. Latar peta tetap memerlukan koneksi.',
+    copyList: 'Salin daftar sebagai teks (nama Korea, alamat)',
+    copyListDone: 'Daftar disalin',
     otherRegion: 'Lainnya',
     emptyTitle: 'Paspor Anda masih kosong',
     emptyBody: 'Simpan tempat yang ingin Anda coba. Tandai sudah dikunjungi, dan tiap tempat akan dicap di sini.',

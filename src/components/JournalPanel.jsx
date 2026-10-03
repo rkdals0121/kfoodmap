@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
-import { formatShortDate, displayName, getOpenStatus, statusClass } from '../utils';
+import { formatShortDate, displayName, getOpenStatus, statusClass, koreanName } from '../utils';
 import ClaimChip from './ClaimChip';
 import { ChevronRightIcon, ShareIcon } from './Icons';
 import Seal from './Seal';
@@ -78,6 +78,22 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
       return;
     }
     try { await navigator.clipboard.writeText(url); done(); } catch { window.prompt(title, url); }
+  };
+
+  // The same list as plain text, for a notes app or a chat: the name as
+  // written here, the Korean name to paste into Naver or show a driver,
+  // the recorded address, and the place's page. Nothing leaves the device
+  // but what the person then pastes.
+  const [listCopied, setListCopied] = useState(false);
+  const copyListText = async () => {
+    const lines = savedList.map(({ place }) => [
+      [displayName(place.name), koreanName(place.name)].filter(Boolean).join(' · '),
+      isKnown(place.address) ? place.address.value : null,
+      `${window.location.origin}/place/${place.id}`,
+    ].filter(Boolean).join('\n'));
+    const text = lines.join('\n\n');
+    const done = () => { setListCopied(true); setTimeout(() => setListCopied(false), 2500); };
+    try { await navigator.clipboard.writeText(text); done(); } catch { window.prompt(t('journal.copyList'), text); }
   };
 
   const neighborhoods = useMemo(() => {
@@ -167,6 +183,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
               {listShared ? t('journal.listCopied') : t('journal.shareList')}
             </button>
           </div>
+          <button type="button" className="journal-copy" onClick={copyListText}>
+            {listCopied ? t('journal.copyListDone') : t('journal.copyList')}
+          </button>
           {/* What saving buys on a trip with patchy data: the pages are kept
               on the phone (usePlaceRecord prefetch). The map's own tiles
               are not, and it says so. */}

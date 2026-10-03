@@ -72,6 +72,8 @@ export default {
     listCopied: 'Link copied',
     shareListTitle: 'My K-Food Map list',
     offlineNote: 'Saved places open without a connection — their pages are kept on this device. The map background still needs one.',
+    copyList: 'Copy the list as text (names in Korean, addresses)',
+    copyListDone: 'List copied',
     otherRegion: 'Other',
     emptyTitle: 'Your passport is empty',
     emptyBody: 'Save places you want to try. Mark them visited and each one is stamped here.',

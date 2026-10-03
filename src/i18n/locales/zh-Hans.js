@@ -67,6 +67,8 @@ export default {
     listCopied: '链接已复制',
     shareListTitle: '我的 K-Food Map 清单',
     offlineNote: '已收藏地点的页面会保存在此设备上，离线也能打开。地图底图仍需联网。',
+    copyList: '以文字复制清单（含韩文店名和地址）',
+    copyListDone: '清单已复制',
     otherRegion: '其他',
     emptyTitle: '你的护照还是空的',
     emptyBody: '收藏想去的店，去过后标记一下，每一家都会在这里盖上印章。',

@@ -71,6 +71,8 @@ export default {
     listCopied: 'リンクをコピーしました',
     shareListTitle: 'わたしの K-Food Map リスト',
     offlineNote: '保存したお店のページはこの端末に保存され、オフラインでも開けます。地図の背景の表示には通信が必要です。',
+    copyList: 'リストをテキストでコピー（韓国語の店名・住所つき）',
+    copyListDone: 'リストをコピーしました',
     otherRegion: 'その他',
     emptyTitle: 'パスポートはまだ空です',
     emptyBody: '気になるお店を保存しましょう。訪問済みにすると、ここにスタンプが押されます。',
