@@ -92,6 +92,7 @@ export default {
     nearestYou: 'Nearest to you',
     areaFirst: 'In the searched area first',
     searchedAs: 'Also searched as “{{query}}”',
+    shareView: 'Share this search',
     fromMapCentre: 'from the map centre',
     fromYou: 'from you',
     distanceFromYou: 'distance from you',

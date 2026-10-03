@@ -88,6 +88,7 @@ export default {
     nearestYou: 'Terdekat dari Anda',
     areaFirst: 'Area yang dicari lebih dulu',
     searchedAs: 'Juga dicari sebagai “{{query}}”',
+    shareView: 'Bagikan pencarian ini',
     fromMapCentre: 'dari pusat peta',
     fromYou: 'dari Anda',
     distanceFromYou: 'jarak dari Anda',

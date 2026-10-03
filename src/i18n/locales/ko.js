@@ -89,6 +89,7 @@ export default {
     nearestYou: '내 위치에서 가까운 순',
     areaFirst: '검색한 지역 먼저',
     searchedAs: '“{{query}}”(으)로도 검색했어요',
+    shareView: '이 검색 공유',
     fromMapCentre: '(지도 중심 기준)',
     fromYou: '(내 위치 기준)',
     distanceFromYou: '내 위치 기준 거리',

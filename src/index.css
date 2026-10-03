@@ -4201,3 +4201,26 @@ a.btn-primary:focus-visible {
     z-index: 212;
   }
 }
+
+/* Under the count: the search and chips as a link to send. */
+.place-list__share {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  margin: -4px 0 6px;
+  padding: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.place-list__share:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

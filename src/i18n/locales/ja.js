@@ -91,6 +91,7 @@ export default {
     nearestYou: '現在地から近い順',
     areaFirst: '検索したエリアを優先',
     searchedAs: '「{{query}}」でも検索しました',
+    shareView: 'この検索を共有',
     fromMapCentre: '地図の中心から',
     fromYou: '現在地から',
     distanceFromYou: '現在地からの距離',

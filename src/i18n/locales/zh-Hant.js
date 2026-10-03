@@ -87,6 +87,7 @@ export default {
     nearestYou: '離你最近的優先',
     areaFirst: '搜尋區域內的優先',
     searchedAs: '同時按「{{query}}」搜尋',
+    shareView: '分享此搜尋',
     fromMapCentre: '（從地圖中心算起）',
     fromYou: '（從你的位置算起）',
     distanceFromYou: '與你的距離',

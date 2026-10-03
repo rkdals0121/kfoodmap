@@ -7,7 +7,7 @@ import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST } from '../filters';
+import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
 import { romaniseQuery } from '../data/area-names';
 
 const CHIP_LABEL_KEY = {
@@ -178,6 +178,28 @@ export default function BottomSheetList({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurants, mapCenter, searchQuery, userLocation, journeyOrder, sharedIds.join(',')]);
 
+  // "Halal in Busan" as a link for whoever is travelling too. The link names
+  // the search and the chips (filters.js viewHash) — never "Saved", which
+  // would be the other person's saved places, nor a shared list, which has
+  // its own link.
+  const shareable = activeFilters.filter(f => f !== SAVED_ONLY && f !== SHARED_LIST);
+  const viewLink = viewHash({ q: searchQuery, filters: shareable, planAt });
+  const [viewShared, setViewShared] = useState(false);
+  const shareView = async () => {
+    const url = `${window.location.origin}/${viewLink}`;
+    if (navigator.share) {
+      try { await navigator.share({ title: 'K-Food Map', url }); } catch { /* dismissed */ }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setViewShared(true);
+      setTimeout(() => setViewShared(false), 2500);
+    } catch {
+      window.prompt(t('list.shareView'), url);
+    }
+  };
+
   // Draw the nearest PAGE cards and add more as the end of the list scrolls
   // into view. With 385 places, re-rendering every card on each map move
   // (the list re-sorts by the map's centre) was the main cost of panning.
@@ -225,6 +247,12 @@ export default function BottomSheetList({
           results are not a mystery and the spelling on signs is learned. */}
       {searchQuery.trim() && romaniseQuery(searchQuery) && (
         <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(searchQuery) })}</p>
+      )}
+
+      {viewLink && sorted.length > 0 && (
+        <button type="button" className="place-list__share" onClick={shareView}>
+          {viewShared ? t('journal.listCopied') : t('list.shareView')}
+        </button>
       )}
 
       {/* Said once for the whole list rather than on every card: the same
