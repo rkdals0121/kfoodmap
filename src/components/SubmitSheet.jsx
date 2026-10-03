@@ -10,6 +10,7 @@ const config = supabaseConfig({
   VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
 });
 
+const NEW_PLACE_TOPICS = ['vegan', 'halal', 'other'];
 const EMPTY = { name: '', locationHint: '', topic: '', message: '', sourceUrl: '', contactEmail: '', website: '' };
 
 function Field({ id, label, hint, error, children }) {
@@ -224,7 +225,10 @@ export default function SubmitSheet({ place, onClose }) {
                   <select id="submit-topic" value={form.topic} onChange={set('topic')}
                     aria-invalid={Boolean(errors.topic)} aria-describedby={describedBy('submit-topic', false)}>
                     <option value="" disabled>{t('submit.topicPlaceholder')}</option>
-                    {LEAD_TOPICS.map(topic => <option key={topic} value={topic}>{t(`submit.topics.${topic}`)}</option>)}
+                    {/* A new place has no hours or address on the map to be wrong
+                        about: offer what a suggestion can be about. A report
+                        on a listed place keeps every topic. */}
+                    {LEAD_TOPICS.filter(topic => place || NEW_PLACE_TOPICS.includes(topic)).map(topic => <option key={topic} value={topic}>{t(`submit.topics.${topic}`)}</option>)}
                   </select>
                 </Field>
 
