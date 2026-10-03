@@ -17,7 +17,7 @@ import PrivacySheet from './components/PrivacySheet';
 import StaffCardSheet from './components/StaffCardSheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
-import { MAP_CENTER, getOpenStatus } from './utils';
+import { MAP_CENTER, getOpenStatus, koreaDateAt, koreaToday } from './utils';
 import { readPosition, readError } from './data/locate';
 import { journeys } from './data/journeys';
 import { journeyNav } from './data/journey-nav';
@@ -26,7 +26,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList } from './filters';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -290,9 +290,13 @@ function AppShell() {
   };
 
   const handleToggleFilter = (filter) => {
-    setSelectedFilters(prev =>
-      prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]
-    );
+    setSelectedFilters(prev => {
+      if (prev.includes(filter)) return prev.filter(f => f !== filter);
+      // "Open now" and "Open at…" ask the same question of two different
+      // times: turning one on turns the other off.
+      const other = filter === OPEN_NOW ? OPEN_AT : filter === OPEN_AT ? OPEN_NOW : null;
+      return [...prev.filter(f => f !== other), filter];
+    });
     if (id) navigate(tabPath, { replace: true });
   };
 
@@ -364,6 +368,14 @@ function AppShell() {
   const openNowOn = selectedFilters.includes(OPEN_NOW);
   const [clock, setClock] = useState(() => Date.now());
   const filterClock = openNowOn ? clock : 0;
+  // "Open at…": a weekday and a time in Korea, for planning tomorrow's
+  // lunch or Sunday's dinner. Starts at noon tomorrow.
+  const openAtOn = selectedFilters.includes(OPEN_AT);
+  const [planAt, setPlanAt] = useState(() => ({ day: (koreaToday() + 1) % 7, minutes: 720 }));
+  const planDate = useMemo(
+    () => (openAtOn ? koreaDateAt(planAt.day, planAt.minutes) : null),
+    [openAtOn, planAt],
+  );
   useEffect(() => {
     const tick = () => setClock(Date.now());
     tick();
@@ -391,14 +403,14 @@ function AppShell() {
   // unknownHours: places that match everything else but have no recorded
   // hours for now — hidden by "Open now", and the list says how many.
   const { filteredRestaurants, unknownHours } = useMemo(() => {
-    const now = new Date(filterClock || Date.now());
+    const now = planDate ?? new Date(filterClock || Date.now());
     let unknown = 0;
     const list = activeRestaurants.filter(r => {
       // 1. Filter chips (AND across chips). A dietary chip only matches on
       // evidence — an unknown dietary record never matches, so we never send
       // someone somewhere we can't vouch for. A group chip ORs within itself.
       const matchesChips = selectedFilters.every(f => {
-        if (f === OPEN_NOW) return true; // asked last, below
+        if (f === OPEN_NOW || f === OPEN_AT) return true; // asked last, below
         if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
         if (f === SHARED_LIST) return sharedIds.includes(r.id);
         if (f === FULLY_VEGAN) return matchesFullyVegan(r);
@@ -409,14 +421,14 @@ function AppShell() {
 
       // 2. Free-text search: name, vibe, area and street address.
       if (!matchesChips || !matchesSearch(r, searchQuery)) return false;
-      if (!openNowOn) return true;
+      if (!openNowOn && !openAtOn) return true;
       const status = getOpenStatus(r.hours, now);
       if (status === null) unknown += 1;
       // Open but past last order is no use to someone who wants to eat now.
       return status?.open === true && status.orderable !== false;
     });
     return { filteredRestaurants: list, unknownHours: unknown };
-  }, [selectedFilters, searchQuery, openNowOn, filterClock, bookmarkedIds, sharedIds]);
+  }, [selectedFilters, searchQuery, openNowOn, openAtOn, planDate, filterClock, bookmarkedIds, sharedIds]);
 
   if (!prologueCompleted) {
     return (
@@ -496,6 +508,8 @@ function AppShell() {
                 onSearchChange={handleSearchChange}
                 selectedFilters={selectedFilters}
                 onToggleFilter={handleToggleFilter}
+                planAt={planAt}
+                onPlanAt={setPlanAt}
               />
             </div>
 
@@ -513,6 +527,8 @@ function AppShell() {
                 sustainabilityLens={sustainabilityLens}
                 activeFilters={selectedFilters}
                 unknownHours={unknownHours}
+                planAt={planAt}
+                planDate={planDate}
                 sharedIds={sharedIds}
                 sharedJourney={sharedJourney}
                 onSaveShared={() => saveMany(sharedIds)}

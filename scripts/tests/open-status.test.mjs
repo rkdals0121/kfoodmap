@@ -162,3 +162,26 @@ test('closedAllDay is true only for a day recorded as off', async () => {
   assert.equal(closedAllDay(f({ sun: [] }), sat), false);   // Saturday not recorded: not "closed"
   assert.equal(closedAllDay(null, sat), false);
 });
+
+test('between two of today\'s slots is a break, not just closed', async () => {
+  const { getOpenStatus } = await import('../../src/utils.js');
+  const f = { value: { weekly: { sat: [{ from: '11:30', to: '15:00' }, { from: '17:30', to: '21:00' }] } }, confidence: 'supported', source: 'x' };
+  const at = (hhmm) => new Date(`2026-10-03T${hhmm}:00+09:00`);
+  const brk = getOpenStatus(f, at('16:00'));
+  assert.equal(brk.open, false);
+  assert.equal(brk.label, 'On a break');
+  assert.equal(brk.detail, 'opens 5:30 PM');
+  assert.equal(getOpenStatus(f, at('09:00')).label, 'Closed');   // before the first slot
+  assert.equal(getOpenStatus(f, at('22:00')).label, 'Closed');   // after the last
+});
+
+test('koreaDateAt names a weekday and time in Korea, whatever the device clock', async () => {
+  const { koreaDateAt, koreaToday, getOpenStatus } = await import('../../src/utils.js');
+  const now = new Date('2026-10-03T06:00:00Z');                   // Saturday 15:00 in Korea
+  assert.equal(koreaToday(now), 6);
+  assert.equal(koreaDateAt(0, 720, now).toISOString(), '2026-10-04T03:00:00.000Z');   // Sunday noon KST
+  assert.equal(koreaDateAt(6, 600, now).toISOString(), '2026-10-03T01:00:00.000Z');   // today, earlier: same weekday
+  const f = { value: { weekly: { sat: [{ from: '11:00', to: '21:00' }], sun: [] } }, confidence: 'supported', source: 'x' };
+  assert.equal(getOpenStatus(f, koreaDateAt(0, 720, now)).open, false);   // Sunday: day off
+  assert.equal(getOpenStatus(f, koreaDateAt(6, 720, now)).open, true);
+});

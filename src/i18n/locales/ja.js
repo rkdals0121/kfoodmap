@@ -112,6 +112,9 @@ export default {
     openNowNote_one: '韓国時間で現在営業中のお店です。ほかに {{count}} 件が該当しますが、営業時間の記録がないため表示していません。',
     openNowNote_other: '韓国時間で現在営業中のお店です。ほかに {{count}} 件が該当しますが、営業時間の記録がないため表示していません。',
     openNowNoteNone: '韓国時間で現在営業中のお店です。営業時間は変わることがあります。遠方から行く場合は事前に電話でご確認ください。',
+    openAtNote_one: '韓国時間の {{when}} に営業しているお店です（カードの表示もその時刻のものです）。ほかに {{count}} 件が該当しますが、営業時間の記録がないため表示していません。',
+    openAtNote_other: '韓国時間の {{when}} に営業しているお店です（カードの表示もその時刻のものです）。ほかに {{count}} 件が該当しますが、営業時間の記録がないため表示していません。',
+    openAtNoteNone: '韓国時間の {{when}} に営業しているお店です（カードの表示もその時刻のものです）。営業時間は変わることがあります。遠方から行く場合は事前に電話でご確認ください。',
     halalCaveat: 'ここに表示されるお店に、当サイトがハラール認証書を実際に確認できたお店はありません。「ハラールフレンドリー」は情報源の記載によるものです。お店のページでどの情報源かを確かめ、お店の方にもご確認ください。豚肉不使用(豚肉は使わないが、肉はハラールではない)のお店はこのフィルターに含まれません。探すときは「豚肉不使用」で検索してください。',
     esgCaveat: 'お店の説明と当サイトの調査によるもので、第三者による監査は受けていません。',
     readStoryAria: 'ストーリーを読む:{{name}}',
@@ -209,6 +212,11 @@ export default {
   filters: {
     groupNow: '営業中・保存済み',
     openNow: '営業中',
+    openAt: '日時を指定',
+    openAtSet: '{{day}} {{time}} に営業',
+    openAtDay: '曜日',
+    openAtTime: '時刻',
+    koreanTime: '韓国時間',
     savedOnly: '保存済み',
     groupDietary: '食事のフィルター',
     groupSustainability: 'サステナビリティのフィルター',
@@ -496,6 +504,7 @@ export default {
   // Opening-hours wording (src/utils.js getOpenStatus / todaysHours).
   hours: {
     open: '営業中',
+    onBreak: '休憩中',
     closingSoon: 'まもなく閉店',
     lastOrderSoon: 'まもなくラストオーダー',
     closed: '営業時間外',

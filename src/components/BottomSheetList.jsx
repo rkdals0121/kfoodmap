@@ -2,12 +2,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, statusClass } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, statusClass, DAY_KEYS, formatClock } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST } from '../filters';
+import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST } from '../filters';
 import { romaniseQuery } from '../data/area-names';
 
 const CHIP_LABEL_KEY = {
@@ -15,6 +15,7 @@ const CHIP_LABEL_KEY = {
   // The chips that are not traits (filters.js) are named by the same keys
   // the chip row uses, so the "nothing matches" summary is in one language.
   [OPEN_NOW]: 'filters.openNow',
+  [OPEN_AT]: 'filters.openAt',
   [SAVED_ONLY]: 'filters.savedOnly',
   [FULLY_VEGAN]: 'filters.fullyVegan',
   [SHARED_LIST]: 'journal.shareListTitle',
@@ -26,10 +27,11 @@ const PAGE = 40;
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 
-function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0 }) {
+function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null }) {
   const { t } = useTranslation();
   const name = displayName(place.name);
-  const status = getOpenStatus(place.hours);
+  // With "Open at…" on, the card answers for that time, as the list does.
+  const status = getOpenStatus(place.hours, at ?? undefined);
   // Dietary badges say exactly what we know ("Vegan options" ≠ "Fully vegan");
   // traits are descriptive. Cards stay scannable, so cap the list.
   //
@@ -145,7 +147,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -258,6 +260,14 @@ export default function BottomSheetList({
           {unknownHours > 0 ? t('list.openNowNote', { count: unknownHours }) : t('list.openNowNoteNone')}
         </p>
       )}
+      {activeFilters.includes(OPEN_AT) && planAt && (() => {
+        const when = `${t(`hours.day.${DAY_KEYS[planAt.day]}`)} ${formatClock(planAt.minutes)}`;
+        return (
+          <p className="section-note place-list__note" role="status">
+            {unknownHours > 0 ? t('list.openAtNote', { count: unknownHours, when }) : t('list.openAtNoteNone', { when })}
+          </p>
+        );
+      })()}
       {/* Chips combine as AND; with both diets on, say so — someone after
           "halal places and vegan places" otherwise loses most of both. */}
       {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
@@ -290,6 +300,7 @@ export default function BottomSheetList({
           key={r.id}
           place={r}
           stop={journeyOrder ? sharedIds.indexOf(r.id) + 1 : 0}
+          at={planDate}
           bookmarked={bookmarkedIds.includes(r.id)}
           onOpen={onRestaurantClick}
           onReadStory={onReadStory}

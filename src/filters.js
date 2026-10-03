@@ -19,6 +19,8 @@ export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 // its data test. A place whose hours are not recorded never matches: the
 // filter promises "open", and unknown is not open.
 export const OPEN_NOW = 'Open now';
+// Open at a chosen weekday and time (planning ahead); never on with OPEN_NOW.
+export const OPEN_AT = 'Open at';
 
 // "Saved": only the places this visitor has saved, so a trip's shortlist
 // can be seen on the map (the Journal lists them; it could not show where

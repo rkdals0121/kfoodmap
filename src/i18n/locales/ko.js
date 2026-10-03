@@ -110,6 +110,9 @@ export default {
     openNowNote_one: '한국 시간 기준 영업 중인 곳이에요. 조건에 맞지만 영업시간 기록이 없는 {{count}}곳은 보이지 않아요.',
     openNowNote_other: '한국 시간 기준 영업 중인 곳이에요. 조건에 맞지만 영업시간 기록이 없는 {{count}}곳은 보이지 않아요.',
     openNowNoteNone: '한국 시간 기준 영업 중인 곳이에요. 영업시간은 바뀔 수 있으니 멀리서 가신다면 미리 전화해 보세요.',
+    openAtNote_one: '한국 시간 {{when}}에 영업하는 곳이에요(카드의 영업 표시도 그 시각 기준). 조건에 맞지만 영업시간 기록이 없는 {{count}}곳은 보이지 않아요.',
+    openAtNote_other: '한국 시간 {{when}}에 영업하는 곳이에요(카드의 영업 표시도 그 시각 기준). 조건에 맞지만 영업시간 기록이 없는 {{count}}곳은 보이지 않아요.',
+    openAtNoteNone: '한국 시간 {{when}}에 영업하는 곳이에요(카드의 영업 표시도 그 시각 기준). 영업시간은 바뀔 수 있으니 멀리서 가신다면 미리 전화해 보세요.',
     halalCaveat: '이 중 할랄 인증서를 저희가 직접 본 곳은 없어요. ‘할랄 프렌들리’는 출처가 그렇게 말한다는 뜻이에요. 장소를 열어 어떤 출처인지 보고, 직원에게도 물어보세요. 돼지고기 없음(돼지고기는 안 쓰지만 고기가 할랄은 아님)인 곳은 이 필터에 없어요. "돼지고기 없음"으로 검색하면 찾을 수 있어요.',
     esgCaveat: '식당의 설명과 저희 조사를 바탕으로 했어요. 제3자 검증을 거친 내용은 아니에요.',
     readStoryAria: '이야기 읽기: {{name}}',
@@ -203,6 +206,11 @@ export default {
   filters: {
     groupNow: '영업 중·저장한 곳',
     openNow: '영업 중',
+    openAt: '시간 지정',
+    openAtSet: '{{day}} {{time}} 영업',
+    openAtDay: '요일',
+    openAtTime: '시간',
+    koreanTime: '한국 시간',
     savedOnly: '저장한 곳',
     groupDietary: '식이 필터',
     groupSustainability: '지속가능성 필터',
@@ -487,6 +495,7 @@ export default {
   // Opening-hours wording (src/utils.js getOpenStatus / todaysHours).
   hours: {
     open: '영업 중',
+    onBreak: '브레이크 타임',
     closingSoon: '곧 영업 종료',
     lastOrderSoon: '곧 주문 마감',
     closed: '영업 종료',

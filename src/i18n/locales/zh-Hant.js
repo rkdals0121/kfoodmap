@@ -108,6 +108,9 @@ export default {
     openNowNote_one: '依韓國時間，現在營業中。另有 {{count}} 家符合條件，但沒有營業時間紀錄，故未顯示。',
     openNowNote_other: '依韓國時間，現在營業中。另有 {{count}} 家符合條件，但沒有營業時間紀錄，故未顯示。',
     openNowNoteNone: '依韓國時間，現在營業中。營業時間可能有變，遠道前往請先致電確認。',
+    openAtNote_one: '依韓國時間，{{when}} 營業（卡片顯示的也是該時間）。另有 {{count}} 家符合條件，但沒有營業時間紀錄，故未顯示。',
+    openAtNote_other: '依韓國時間，{{when}} 營業（卡片顯示的也是該時間）。另有 {{count}} 家符合條件，但沒有營業時間紀錄，故未顯示。',
+    openAtNoteNone: '依韓國時間，{{when}} 營業（卡片顯示的也是該時間）。營業時間可能有變，遠道前往請先致電確認。',
     halalCaveat: '這些地方當中，沒有任何一家有我們能親眼確認的清真證書。「清真友善」是來源的說法——點開店家可查看是哪個來源，並請詢問店員。「不含豬肉」的店（不用豬肉，但肉類非清真）不在此篩選內；搜尋「不含豬肉」可找到它們。',
     esgCaveat: '依據餐廳自述和我們的調查；未經獨立稽核。',
     readStoryAria: '閱讀故事：{{name}}',
@@ -204,6 +207,11 @@ export default {
   filters: {
     groupNow: '營業中與已收藏',
     openNow: '營業中',
+    openAt: '指定時間',
+    openAtSet: '{{day}} {{time}} 營業',
+    openAtDay: '星期',
+    openAtTime: '時間',
+    koreanTime: '韓國時間',
     savedOnly: '已收藏',
     groupDietary: '飲食篩選',
     groupSustainability: '永續篩選',
@@ -490,6 +498,7 @@ export default {
   // 營業時間用語（src/utils.js getOpenStatus / todaysHours）。
   hours: {
     open: '營業中',
+    onBreak: '休息中',
     closingSoon: '即將打烊',
     lastOrderSoon: '即將停止點餐',
     closed: '休息中',

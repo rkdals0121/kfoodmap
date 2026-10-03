@@ -198,8 +198,31 @@ export function getOpenStatus(hoursFact, now = new Date()) {
     .map(s => toMinutes(s.from))
     .filter(m => m != null && m > cur)
     .sort((a, b) => a - b)[0];
-  if (next != null) return { open: false, label: tr('closed'), detail: tr('opens', { time: fromMinutes(next) }) };
+  if (next != null) {
+    // Between two of today's slots (lunch over, dinner to come) is a break,
+    // the word on the door ("브레이크 타임"), not a place shut for the day.
+    const onBreak = today.some(s => { const sp = span(s); return sp && sp.to <= cur; });
+    return { open: false, onBreak, label: tr(onBreak ? 'onBreak' : 'closed'), detail: tr('opens', { time: fromMinutes(next) }) };
+  }
   return { open: false, label: tr('closed'), detail: nextOpening() ?? tr('closedForToday') };
+}
+
+/** A clock time as the app prints it: 750 → "12:30 PM". */
+export const formatClock = (minutes) => fromMinutes(minutes);
+
+/** The weekday in Korea right now, 0 (Sunday) to 6. */
+export const koreaToday = (now = new Date()) => inKorea(now).getUTCDay();
+
+/**
+ * The next moment it is `minutes` past midnight on weekday `day` in Korea
+ * (today counts, even if the time has passed: the weekly record is the same).
+ * For "Open at…": the same question as "Open now", asked of another time.
+ */
+export function koreaDateAt(day, minutes, now = new Date()) {
+  const k = inKorea(now);
+  const cur = k.getUTCHours() * 60 + k.getUTCMinutes();
+  const days = (day - k.getUTCDay() + 7) % 7;
+  return new Date(now.getTime() + (days * 1440 + minutes - cur) * 60000);
 }
 
 /** True only when today (in Korea) is recorded as a day off. */

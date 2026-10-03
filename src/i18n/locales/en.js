@@ -113,6 +113,9 @@ export default {
     openNowNote_one: 'Open now, by Korean time. {{count}} more place matches but has no recorded hours, so it is not shown.',
     openNowNote_other: 'Open now, by Korean time. {{count}} more places match but have no recorded hours, so they are not shown.',
     openNowNoteNone: 'Open now, by Korean time. Hours can change; call ahead for a long trip.',
+    openAtNote_one: 'Open {{when}}, by Korean time; the cards show that time. {{count}} more place matches but has no recorded hours, so it is not shown.',
+    openAtNote_other: 'Open {{when}}, by Korean time; the cards show that time. {{count}} more places match but have no recorded hours, so they are not shown.',
+    openAtNoteNone: 'Open {{when}}, by Korean time; the cards show that time. Hours can change; call ahead for a long trip.',
     halalCaveat: "None of these places has a halal certificate we could sight. 'Halal-friendly' is what a source reports — open a place to see which source, and ask staff. Pork-free places (no pork, meat not halal) are not in this filter; search \"pork-free\" to find them.",
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',
     readStoryAria: 'Read story: {{name}}',
@@ -214,6 +217,11 @@ export default {
   filters: {
     groupNow: 'Open now and saved places',
     openNow: 'Open now',
+    openAt: 'Open at…',
+    openAtSet: 'Open {{day}} {{time}}',
+    openAtDay: 'Day',
+    openAtTime: 'Time',
+    koreanTime: 'Korean time',
     savedOnly: 'Saved',
     groupDietary: 'Dietary filters',
     groupSustainability: 'Sustainability filters',
@@ -506,6 +514,7 @@ export default {
   // Opening-hours wording (src/utils.js getOpenStatus / todaysHours).
   hours: {
     open: 'Open',
+    onBreak: 'On a break',
     closingSoon: 'Closes soon',
     lastOrderSoon: 'Last order soon',
     closed: 'Closed',

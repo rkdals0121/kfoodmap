@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { OPEN_NOW, SAVED_ONLY, FULLY_VEGAN } from '../filters';
+import { OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN } from '../filters';
+import { DAY_KEYS, formatClock, koreaToday } from '../utils';
 import { areaSuggestions } from '../data/area-names';
 
-export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange }) {
+export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange, planAt, onPlanAt }) {
   const { t, i18n } = useTranslation();
 
   // "/" puts the cursor in the search box, as on most map and search sites.
@@ -66,6 +67,19 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
           >
             {t('filters.openNow')}
           </button>
+          {/* The same question for another time: tomorrow's lunch, Sunday's
+              dinner. Many kitchens here close one fixed weekday. */}
+          {planAt && (
+            <button
+              className={`chip${selectedFilters.includes(OPEN_AT) ? ' active' : ''}`}
+              aria-pressed={selectedFilters.includes(OPEN_AT)}
+              onClick={() => onToggleFilter(OPEN_AT)}
+            >
+              {selectedFilters.includes(OPEN_AT)
+                ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) })
+                : t('filters.openAt')}
+            </button>
+          )}
           <button
             className={`chip${selectedFilters.includes(SAVED_ONLY) ? ' active' : ''}`}
             aria-pressed={selectedFilters.includes(SAVED_ONLY)}
@@ -103,6 +117,29 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
           </div>
         ))}
       </div>
+
+      {planAt && selectedFilters.includes(OPEN_AT) && (
+        <div className="plan-row">
+          <label>
+            <span>{t('filters.openAtDay')}</span>
+            <select value={planAt.day} onChange={(e) => onPlanAt({ ...planAt, day: Number(e.target.value) })}>
+              {/* The week from today, in Korea. */}
+              {Array.from({ length: 7 }, (_, i) => (koreaToday() + i) % 7).map(d => (
+                <option key={d} value={d}>{t(`hours.day.${DAY_KEYS[d]}`)}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            <span>{t('filters.openAtTime')}</span>
+            <select value={planAt.minutes} onChange={(e) => onPlanAt({ ...planAt, minutes: Number(e.target.value) })}>
+              {Array.from({ length: 48 }, (_, i) => i * 30).map(m => (
+                <option key={m} value={m}>{formatClock(m)}</option>
+              ))}
+            </select>
+          </label>
+          <span className="plan-row__tz">{t('filters.koreanTime')}</span>
+        </div>
+      )}
     </header>
   );
 }

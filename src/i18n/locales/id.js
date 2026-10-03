@@ -109,6 +109,9 @@ export default {
     openNowNote_one: 'Buka sekarang, menurut waktu Korea. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
     openNowNote_other: 'Buka sekarang, menurut waktu Korea. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
     openNowNoteNone: 'Buka sekarang, menurut waktu Korea. Jam buka bisa berubah; telepon dulu jika perjalanannya jauh.',
+    openAtNote_one: 'Buka pada {{when}}, menurut waktu Korea; kartu menampilkan waktu itu. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
+    openAtNote_other: 'Buka pada {{when}}, menurut waktu Korea; kartu menampilkan waktu itu. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
+    openAtNoteNone: 'Buka pada {{when}}, menurut waktu Korea; kartu menampilkan waktu itu. Jam buka bisa berubah; telepon dulu jika perjalanannya jauh.',
     halalCaveat: 'Tidak satu pun dari tempat ini memiliki sertifikat halal yang dapat kami lihat sendiri. \'Ramah halal\' adalah apa yang dilaporkan sebuah sumber — buka tempatnya untuk melihat sumbernya, dan tanyakan kepada staf. Tempat tanpa babi (tidak ada babi, tetapi dagingnya bukan daging halal) tidak termasuk dalam filter ini; cari "tanpa babi" untuk menemukannya.',
     esgCaveat: 'Berdasarkan keterangan restoran dan riset kami; tidak diaudit secara independen.',
     readStoryAria: 'Baca cerita: {{name}}',
@@ -207,6 +210,11 @@ export default {
   filters: {
     groupNow: 'Buka sekarang dan tempat tersimpan',
     openNow: 'Buka sekarang',
+    openAt: 'Buka pada…',
+    openAtSet: 'Buka {{day}} {{time}}',
+    openAtDay: 'Hari',
+    openAtTime: 'Jam',
+    koreanTime: 'Waktu Korea',
     savedOnly: 'Tersimpan',
     groupDietary: 'Filter diet',
     groupSustainability: 'Filter keberlanjutan',
@@ -493,6 +501,7 @@ export default {
   // Kata-kata jam buka (src/utils.js getOpenStatus / todaysHours).
   hours: {
     open: 'Buka',
+    onBreak: 'Sedang istirahat',
     closingSoon: 'Segera tutup',
     lastOrderSoon: 'Pesanan terakhir segera',
     closed: 'Tutup',

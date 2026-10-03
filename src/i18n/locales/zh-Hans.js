@@ -108,6 +108,9 @@ export default {
     openNowNote_one: '按韩国时间，现在营业中。另有 {{count}} 家符合条件，但没有营业时间记录，故未显示。',
     openNowNote_other: '按韩国时间，现在营业中。另有 {{count}} 家符合条件，但没有营业时间记录，故未显示。',
     openNowNoteNone: '按韩国时间，现在营业中。营业时间可能有变，远道前往请先致电确认。',
+    openAtNote_one: '按韩国时间，{{when}} 营业（卡片显示的也是该时间）。另有 {{count}} 家符合条件，但没有营业时间记录，故未显示。',
+    openAtNote_other: '按韩国时间，{{when}} 营业（卡片显示的也是该时间）。另有 {{count}} 家符合条件，但没有营业时间记录，故未显示。',
+    openAtNoteNone: '按韩国时间，{{when}} 营业（卡片显示的也是该时间）。营业时间可能有变，远道前往请先致电确认。',
     halalCaveat: '这些地方中，没有一家有我们亲眼见到的清真证书。“清真友好”只是来源的说法——点开店铺可查看是哪个来源，并请询问店员。“不含猪肉”的店（不用猪肉，但肉类非清真）不在此筛选内；搜索“不含猪肉”可找到它们。',
     esgCaveat: '依据餐厅自述和我们的调查；未经独立审核。',
     readStoryAria: '阅读故事：{{name}}',
@@ -204,6 +207,11 @@ export default {
   filters: {
     groupNow: '营业中与已收藏',
     openNow: '营业中',
+    openAt: '指定时间',
+    openAtSet: '{{day}} {{time}} 营业',
+    openAtDay: '星期',
+    openAtTime: '时间',
+    koreanTime: '韩国时间',
     savedOnly: '已收藏',
     groupDietary: '饮食筛选',
     groupSustainability: '可持续筛选',
@@ -490,6 +498,7 @@ export default {
   // 营业时间用语（src/utils.js getOpenStatus / todaysHours）。
   hours: {
     open: '营业中',
+    onBreak: '休息中',
     closingSoon: '即将打烊',
     lastOrderSoon: '即将停止点餐',
     closed: '未营业',
