@@ -44,6 +44,11 @@ const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile
 const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': 'profile' };
 
 const NO_STOPS = [];
+const findView = (pathname) => {
+  const m = /^\/find\/(vegan|halal)-([a-z]+)\/?$/.exec(pathname);
+  if (!m) return null;
+  return { q: m[2][0].toUpperCase() + m[2].slice(1), filters: [m[1] === 'vegan' ? 'Vegan' : 'Halal'], planAt: null };
+};
 // Every chip a link may name (filters.js parseViewHash).
 const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => g.chips.map(c => c.id))];
 
@@ -56,7 +61,10 @@ function AppShell() {
   const { updateReady, reload } = useAppUpdate();
   // The view named in the address fragment, read once: a reload, a tab the
   // phone dropped, or a link someone sent opens on the same search and chips.
-  const [startView] = useState(() => parseViewHash(window.location.hash, VIEW_CHIPS));
+  // An area guide's address (/find/halal-busan, prerendered for the web:
+  // scripts/prerender-places.mjs) is that search and chip on the map.
+  const [startView] = useState(() => findView(window.location.pathname) ?? parseViewHash(window.location.hash, VIEW_CHIPS));
+
   const [searchQuery, setSearchQuery] = useState(startView.q);
   // A list in the address (/?list=a,b,c) opens the map on those places
   // only, as a filter the reader can close: a list someone shared, or a
@@ -384,13 +392,16 @@ function AppShell() {
   const wantHash = viewHash({ q: searchQuery, filters: selectedFilters, planAt });
   const lastHash = useRef(viewHash(startView));
   useEffect(() => {
+    // A guide's address has done its work once the view is set: it becomes
+    // the map's own address, with the view in its fragment.
+    const onGuide = location.pathname.startsWith('/find/');
     const view = parseViewHash(location.hash, VIEW_CHIPS);
     const has = viewHash(view);
-    if (has === wantHash) { lastHash.current = has; return; }
+    if (has === wantHash && !onGuide) { lastHash.current = has; return; }
     // A fragment this app did not write — a link pasted into the open tab —
     // is a view to show. (An empty one is just a navigation inside the app,
     // which names no fragment; the view in force is written back onto it.)
-    if (has !== '' && has !== lastHash.current) {
+    if (!onGuide && has !== '' && has !== lastHash.current) {
       lastHash.current = has;
       setSearchQuery(view.q);
       setSelectedFilters(prev => [...prev.filter(f => f === SHARED_LIST), ...view.filters]);
@@ -398,7 +409,7 @@ function AppShell() {
       return;
     }
     lastHash.current = wantHash;
-    navigate({ pathname: location.pathname, search: location.search, hash: wantHash }, { replace: true, state: location.state });
+    navigate({ pathname: onGuide ? '/' : location.pathname, search: location.search, hash: wantHash }, { replace: true, state: location.state });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wantHash, location.pathname, location.search, location.hash]);
   const planDate = useMemo(
