@@ -67,8 +67,66 @@ function replacements(place) {
   ];
 }
 
+// The app's own words for a dietary value and for how sure the record is
+// (i18n/locales/en.js `dietary.*`, `trust.*`), for the static text below.
+const CLAIM_WORD = {
+  halal: { certified: 'Halal-certified', friendly: 'Halal-friendly', porkFree: 'Pork-free' },
+  vegan: { full: 'Fully vegan', options: 'Vegan options' },
+};
+const SURE_WORD = { confirmed: 'Confirmed', supported: 'Reported', inferred: 'Our reading' };
+const claimLines = (place) => ['vegan', 'halal']
+  .map(k => place.dietary?.[k])
+  .map((fact, i) => (fact && SURE_WORD[fact.confidence] && CLAIM_WORD[i === 0 ? 'vegan' : 'halal'][fact.value]
+    ? `${CLAIM_WORD[i === 0 ? 'vegan' : 'halal'][fact.value]} (${SURE_WORD[fact.confidence]})`
+    : null))
+  .filter(Boolean);
+const knownText = (fact) => (fact && fact.confidence !== 'unknown' && typeof fact.value === 'string' ? fact.value : null);
+
+// What a place page says before the script runs, in place of the loading
+// screen: the name, where it is, and each dietary claim with how sure the
+// record is — the same words the app shows, and no more. A search engine
+// reads this; a visitor sees it for the second the app takes to start.
+function placeBody(place) {
+  const claims = claimLines(place);
+  const address = knownText(place.address);
+  return `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
+    + `<p style="margin:0;font-size:13px;font-weight:700;color:#087F5B">K-Food Map · Vegan and halal food across Korea</p>`
+    + `<h1 style="margin:6px 0 4px;font-size:26px">${escapeHtml(place.name)}</h1>`
+    + `<p style="margin:0 0 12px;color:#3F444A">${escapeHtml(place.zone ?? '')}</p>`
+    + (claims.length ? `<p style="margin:0 0 12px;font-weight:600">${claims.map(escapeHtml).join(' · ')}</p>` : '')
+    + (place.vibe ? `<p style="margin:0 0 12px">${escapeHtml(place.vibe)}</p>` : '')
+    + (address ? `<p style="margin:0 0 12px;color:#3F444A">${escapeHtml(address)}</p>` : '')
+    + `<p style="margin:0;font-size:13px;color:#616875">Confirmed: checked against a primary source. Reported: a source says so. Our reading: our best guess. If your diet is strict, ask staff before you order.</p>`
+    + `</main></div>`;
+}
+
+// schema.org data for the same page: what the place is and where. The diet
+// is left out on purpose — the vocabulary has no way to say "reported, not
+// confirmed", and a bare claim there would be stronger than the record.
+function placeJsonLd(place) {
+  const address = knownText(place.address);
+  const c = place.coordinates?.value;
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'Restaurant',
+    name: displayName(place.name),
+    url: `${SITE_URL}/place/${place.id}`,
+    ...(address ? { address: { '@type': 'PostalAddress', streetAddress: address, addressCountry: 'KR' } } : {}),
+    ...(c && Number.isFinite(c.lat) && Number.isFinite(c.lng) ? { geo: { '@type': 'GeoCoordinates', latitude: c.lat, longitude: c.lng } } : {}),
+  };
+  // "<" cannot end the script element early.
+  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
+}
+
+const ROOT = /<div id="root">[\s\S]*?<\/div><\/div>/;
+if (!ROOT.test(template)) throw new Error('prerender: the #root loading screen is not where the template had it');
+
 function pageFor(place) {
-  return replacements(place).reduce(
+  return [
+    ...replacements(place),
+    [ROOT, placeBody(place)],
+    [/<\/head>/, `  ${placeJsonLd(place)}\n  </head>`],
+  ].reduce(
     (html, [pattern, value]) => html.replace(pattern, () => value),
     template,
   );
@@ -150,11 +208,6 @@ const DIETS = [
   { slug: 'halal', chip: 'Halal', word: 'Halal', fact: 'halal' },
   { slug: 'vegan', chip: 'Vegan', word: 'Vegan', fact: 'vegan' },
 ];
-const CLAIM_WORD = {
-  halal: { certified: 'Halal-certified', friendly: 'Halal-friendly' },
-  vegan: { full: 'Fully vegan', options: 'Vegan options' },
-};
-const SURE_WORD = { confirmed: 'Confirmed', supported: 'Reported', inferred: 'Our reading' };
 
 const guides = [];
 for (const diet of DIETS) {
