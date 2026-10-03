@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CHIP_GROUPS } from '../i18n/labels';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined } from '../data/verification';
 import ClaimChip from './ClaimChip';
@@ -20,11 +21,17 @@ const LEGEND = [
   { tone: 'none', kind: null, chipKey: null, levelKey: 'trust.unknown', bodyKey: 'prologue.legendUnknown' },
 ];
 
+// The two diets the map is for, by their chip ids and labels (i18n/labels.js).
+const START_DIETS = CHIP_GROUPS.flatMap(g => g.chips).filter(c => c.id === 'Vegan' || c.id === 'Halal');
+
 // Also opened later from Profile → About, as a dialog (`dialog`), where the
 // button closes it rather than opening the map.
 export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologue.continue' }) {
   const { t, i18n } = useTranslation();
   const ctaRef = useRef(null);
+  // First run: what the visitor is here for, so the map opens on it. One or
+  // neither — it only turns a chip on, which the map shows and can turn off.
+  const [diet, setDiet] = useState(null);
   const onCompleteRef = useRef(onComplete);
   useEffect(() => { onCompleteRef.current = onComplete; });
 
@@ -65,6 +72,27 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
         <h1 id="prologue-title" className="prologue-title">{t('prologue.title')}</h1>
         <p className="prologue-subtitle">{t('prologue.subtitle', { activeCount })}</p>
 
+        {/* Before the legend, so it is seen without scrolling on a phone. */}
+        {!dialog && (
+          <div className="prologue-start" role="group" aria-labelledby="prologue-start-title">
+            <p id="prologue-start-title" className="prologue-start__title">{t('prologue.startWith')}</p>
+            <div className="prologue-start__chips">
+              {START_DIETS.map(({ id, labelKey }) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={`prologue-language${diet === id ? ' is-current' : ''}`}
+                  aria-pressed={diet === id}
+                  onClick={() => setDiet(d => (d === id ? null : id))}
+                >
+                  {t(labelKey)}
+                </button>
+              ))}
+            </div>
+            <p className="prologue-start__hint">{t('prologue.startHint')}</p>
+          </div>
+        )}
+
         <section className="prologue-legend" aria-labelledby="prologue-legend-title">
           <h2 id="prologue-legend-title" className="prologue-legend__title">{t('prologue.legendTitle')}</h2>
           <ul>
@@ -78,7 +106,7 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
           <p className="prologue-legend__note">{t('prologue.legendNote')}</p>
         </section>
 
-        <button ref={ctaRef} className="prologue-btn" onClick={onComplete}>{t(ctaKey)}</button>
+        <button ref={ctaRef} className="prologue-btn" onClick={() => onComplete(diet ? [diet] : [])}>{t(ctaKey)}</button>
       </Wrapper>
     </div>
   );

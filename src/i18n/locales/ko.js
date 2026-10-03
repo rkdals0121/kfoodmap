@@ -20,6 +20,8 @@ export default {
     legendReading: '찾은 자료로 미루어 본 추정이에요. 가기 전에 확인해 보세요.',
     legendUnknown: '알아내지 못해서 그대로 적었어요.',
     legendNote: '메뉴와 조리 방식은 바뀔 수 있어요. 엄격하게 지키신다면 주문 전에 직원에게 물어보세요.',
+    startWith: '무엇을 찾으세요?',
+    startHint: '고르지 않아도 돼요. 지도 화면에서 언제든 바꿀 수 있어요.',
     continue: '지도 열기',
     close: '닫기',
   },

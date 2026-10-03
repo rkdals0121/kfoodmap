@@ -19,6 +19,8 @@ export default {
     legendReading: 'Perkiraan terbaik kami dari apa yang kami temukan. Periksa dulu sebelum berangkat.',
     legendUnknown: 'Kami tidak berhasil mengetahuinya, jadi kami katakan apa adanya.',
     legendNote: 'Menu dan dapur bisa berubah. Jika diet Anda ketat, tanyakan kepada staf sebelum memesan.',
+    startWith: 'Apa yang Anda cari?',
+    startHint: 'Opsional — bisa diubah di peta.',
     continue: 'Buka peta',
     close: 'Tutup',
   },

@@ -462,10 +462,14 @@ function AppShell() {
   if (!prologueCompleted) {
     return (
       <Prologue 
-        onComplete={() => {
+        onComplete={(diet) => {
           localStorage.setItem('kfm-prologue', 'true');
           setPrologueCompleted(true);
-        }} 
+          // The diet picked on the welcome screen turns its chip on.
+          if (Array.isArray(diet) && diet.length > 0) {
+            setSelectedFilters(prev => [...prev, ...diet.filter(d => !prev.includes(d))]);
+          }
+        }}
       />
     );
   }

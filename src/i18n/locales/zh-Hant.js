@@ -18,6 +18,8 @@ export default {
     legendReading: '我們根據現有資料所做的推斷。去之前請先確認。',
     legendUnknown: '我們沒能查到，所以如實說明。',
     legendNote: '菜單和廚房隨時會變。如果飲食要求嚴格，點餐前請先問店員。',
+    startWith: '你想找什麼？',
+    startHint: '可以不選，之後可在地圖頁更改。',
     continue: '開啟地圖',
     close: '關閉',
   },

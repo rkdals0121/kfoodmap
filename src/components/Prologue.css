@@ -157,3 +157,36 @@
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* First run: what the visitor is here for. */
+.prologue-start {
+  margin-top: 20px;
+}
+
+.prologue-start + .prologue-legend {
+  margin-top: 20px;
+}
+
+.prologue-start__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-title);
+  margin-bottom: 10px;
+}
+
+.prologue-start__chips {
+  display: flex;
+  gap: 8px;
+}
+
+.prologue-start__chips .prologue-language {
+  min-height: 44px;
+  padding: 8px 18px;
+  font-size: 15px;
+}
+
+.prologue-start__hint {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted-strong);
+}
