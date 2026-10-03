@@ -37,7 +37,7 @@ test("yesterday's late slot counts even if today is a closing day", () => {
 test('last order after midnight is read against the late slot', () => {
   const h = hours(every([{ from: '18:00', to: '02:00', lastOrder: '01:00' }]));
   assert.equal(getOpenStatus(h, at(23, 0)).detail, 'until 2:00 AM · last order 1:00 AM');
-  assert.match(getOpenStatus(h, at(1, 30)).detail, /last order passed/);
+  assert.equal(getOpenStatus(h, at(1, 30)).label, 'Last order passed');
 });
 
 test('free-text hours across midnight', () => {
@@ -62,9 +62,9 @@ test('closing days are skipped to the next opening day', () => {
 test('an unrecorded day stops the look-ahead rather than being skipped', () => {
   const w = every([{ from: '11:00', to: '21:00' }]);
   delete w.wed;
-  assert.equal(getOpenStatus(hours(w), at(22, 0)).detail, 'closed for today');
+  assert.equal(getOpenStatus(hours(w), at(22, 0)).detail, null);   // "Closed" alone, not said twice
   w.tue = [];
-  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'closed today');
+  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, null);
 });
 
 test('"open now" is asked of the clock in Korea, whatever the device time zone', () => {
@@ -75,7 +75,7 @@ test('"open now" is asked of the clock in Korea, whatever the device time zone',
   // lunchtime in London.
   assert.equal(getOpenStatus(hours, new Date('2026-10-02T12:00:00Z')).open, false);
   // 2026-10-02 16:00 UTC is already Saturday 01:00 in Korea.
-  assert.equal(getOpenStatus(hours, new Date('2026-10-02T16:00:00Z')).detail, 'closed today');
+  assert.equal(getOpenStatus(hours, new Date('2026-10-02T16:00:00Z')).detail, null);
 });
 
 test('open but past last order is marked not orderable', () => {
@@ -184,4 +184,16 @@ test('koreaDateAt names a weekday and time in Korea, whatever the device clock',
   const f = { value: { weekly: { sat: [{ from: '11:00', to: '21:00' }], sun: [] } }, confidence: 'supported', source: 'x' };
   assert.equal(getOpenStatus(f, koreaDateAt(0, 720, now)).open, false);   // Sunday: day off
   assert.equal(getOpenStatus(f, koreaDateAt(6, 720, now)).open, true);
+});
+
+test('a slot ending before a later one says when the place reopens', async () => {
+  const { getOpenStatus } = await import('../../src/utils.js');
+  const f = { value: { weekly: { sat: [{ from: '11:30', to: '15:00', lastOrder: '14:30' }, { from: '17:00', to: '21:00' }] } }, confidence: 'supported', source: 'x' };
+  const at = (hhmm) => new Date(`2026-10-03T${hhmm}:00+09:00`);
+  assert.equal(getOpenStatus(f, at('12:00')).detail, 'until 3:00 PM · last order 2:30 PM');           // not yet: stays short
+  assert.equal(getOpenStatus(f, at('14:10')).detail, 'until 3:00 PM · last order 2:30 PM · reopens 5:00 PM');
+  const over = getOpenStatus(f, at('14:40'));
+  assert.equal(over.label, 'Last order passed');
+  assert.equal(over.detail, 'closes 3:00 PM · reopens 5:00 PM');
+  assert.equal(getOpenStatus(f, at('20:45')).detail, 'until 9:00 PM');                                // the last slot: nothing to reopen
 });

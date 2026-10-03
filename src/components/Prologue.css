@@ -108,6 +108,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s ease;
+  /* Always in reach: on a phone the column is taller than the screen (more
+     so with the address bar showing) and the button sat below the fold,
+     with only a green sliver in view. It stays at the bottom edge while the
+     legend scrolls under it; the shadow is the page colour, so text does
+     not show through around it. */
+  position: sticky;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -10px 14px 6px var(--bg), 0 24px 0 6px var(--bg);
 }
 
 .prologue-btn:hover {

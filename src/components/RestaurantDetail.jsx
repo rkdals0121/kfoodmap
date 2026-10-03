@@ -484,7 +484,7 @@ export default function RestaurantDetail({
                 {status ? (
                   <span>
                     <strong className={statusClass(status)}>{status.label}</strong>
-                    {' '}· {status.detail}{' '}
+                    {status.detail && <>{' '}· {status.detail}</>}{' '}
                     {today && <span className="practical-muted practical-today">{t('detail.todayHours', { hours: today })}</span>}
                     {/* A device on another clock (planning from abroad): say
                         whose time this is, and what time it is there. */}

@@ -4163,3 +4163,8 @@ a.btn-primary:focus-visible {
   line-height: 1.45;
   color: var(--muted-strong);
 }
+
+/* A Korean name breaks between words, never inside one ("이 / 태원"). */
+:lang(ko), [lang='ko'] {
+  word-break: keep-all;
+}

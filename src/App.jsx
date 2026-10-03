@@ -108,7 +108,7 @@ function AppShell() {
   // The tab title names the screen, in the reader's language. A place and
   // the staff cards set their own while open (and restore this on close).
   useEffect(() => {
-    if (id || location.pathname === '/cards' || location.pathname === '/privacy') return;
+    if (id || ['/cards', '/privacy', '/submit'].includes(location.pathname)) return;
     const titles = {
       discover: t('discover.journeysTitle'),
       journal: t('journal.title'),

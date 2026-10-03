@@ -129,12 +129,16 @@ export function getOpenStatus(hoursFact, now = new Date()) {
     if (!Array.isArray(next)) return t % 1440 === 0;
     return next.some(sl => toMinutes(sl.from) === t % 1440);
   };
-  const openResult = (t, lo, at, day, from) => {
+  // `reopen`: when a later slot starts today (dinner after lunch), in
+  // minutes. Said once this slot is ending, so "Closes soon" before a break
+  // is not read as closed for the day.
+  const openResult = (t, lo, at, day, from, reopen = null) => {
+    const again = reopen != null ? ` · ${tr('reopens', { time: fromMinutes(reopen) })}` : '';
     if (lo != null && at >= lo) {
       // orderable: false — the doors are open, the kitchen is not (the
-      // "Open now" filter leaves these out). Amber, like "Last order soon":
-      // a green "Open" here read as safer than a place with no last order.
-      return { open: true, orderable: false, soon: true, label: tr('open'), detail: tr('lastOrderPassed', { time: fromMinutes(t) }) };
+      // "Open now" filter leaves these out). Named for what it is, in
+      // amber: "Open" here sent people to a kitchen that had stopped.
+      return { open: true, orderable: false, soon: true, label: tr('lastOrderOver'), detail: tr('closesAt', { time: fromMinutes(t) }) + again };
     }
     // A whole-day slot ("00:00–24:00") that the next day continues is a
     // 24-hour place: "until 12:00 AM" read as closing at midnight.
@@ -151,9 +155,9 @@ export function getOpenStatus(hoursFact, now = new Date()) {
       open: true,
       soon,
       label: tr(!soon ? 'open' : lo != null ? 'lastOrderSoon' : 'closingSoon'),
-      detail: lo != null
+      detail: (lo != null
         ? tr('untilLastOrder', { time: fromMinutes(t), lastOrder: fromMinutes(lo) })
-        : tr('until', { time: fromMinutes(t) }),
+        : tr('until', { time: fromMinutes(t) })) + (soon ? again : ''),
     };
   };
 
@@ -185,13 +189,21 @@ export function getOpenStatus(hoursFact, now = new Date()) {
 
   if (today.length === 0) {
     const next = nextOpening();
-    // "Closed · opens tomorrow 5:00 PM" — the label already says closed.
-    return { open: false, label: tr('closed'), detail: next ?? tr('closedToday') };
+    // "Closed · opens tomorrow 5:00 PM". With no next opening on record the
+    // label stands alone: "Closed · closed today" said it twice.
+    return { open: false, label: tr('closed'), detail: next };
   }
 
   for (const slot of today) {
     const sp = span(slot);
-    if (sp && cur >= sp.from && cur < sp.to) return openResult(sp.to, sp.lo, cur, k.getUTCDay(), sp.from);
+    if (sp && cur >= sp.from && cur < sp.to) {
+      const reopen = today
+        .map(s => toMinutes(s.from))
+        .filter(m => m != null && m >= sp.to)
+        .sort((a, b) => a - b)[0] ?? null;
+      // A slot that runs straight on (24 hours in two halves) is no break.
+      return openResult(sp.to, sp.lo, cur, k.getUTCDay(), sp.from, reopen != null && reopen > sp.to ? reopen : null);
+    }
   }
 
   const next = today
@@ -204,7 +216,7 @@ export function getOpenStatus(hoursFact, now = new Date()) {
     const onBreak = today.some(s => { const sp = span(s); return sp && sp.to <= cur; });
     return { open: false, onBreak, label: tr(onBreak ? 'onBreak' : 'closed'), detail: tr('opens', { time: fromMinutes(next) }) };
   }
-  return { open: false, label: tr('closed'), detail: nextOpening() ?? tr('closedForToday') };
+  return { open: false, label: tr('closed'), detail: nextOpening() };
 }
 
 /** A clock time as the app prints it: 750 → "12:30 PM". */

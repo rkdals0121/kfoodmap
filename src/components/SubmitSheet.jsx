@@ -96,6 +96,12 @@ export default function SubmitSheet({ place, onClose }) {
   }, [results]);
 
   const title = place ? t('submit.titleCorrection') : t('submit.titleNew');
+  // Its own tab title while open, as the place and privacy pages have.
+  useEffect(() => {
+    const before = document.title;
+    document.title = `${title} · K-Food Map`;
+    return () => { document.title = before; };
+  }, [title]);
   const set = (key) => (event) => setForm(prev => ({ ...prev, [key]: event.target.value }));
   const describedBy = (id, hasHint) =>
     [hasHint && `${id}-hint`, errors[id] && `${id}-error`].filter(Boolean).join(' ') || undefined;
