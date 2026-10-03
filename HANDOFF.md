@@ -2487,6 +2487,24 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     places all open and orderable. Left for the owner: the three wordings
     of what "Confirmed" means (welcome, claim detail, place page) differ
     slightly; Hangaram's 10-minute weekend break is what its source says.
+64. **2026-10-03 15:10–15:35.** **The view lives in the address fragment**
+    (`viewHash` / `parseViewHash` in filters.js, the effect after `planAt`
+    in App): `#q=busan&f=Halal,Open+at&at=0-720`. Written back with
+    `replace` on every page, so a reload or a tab the phone dropped (the
+    visitor was in Naver Map) reopens on the same search and chips; a
+    fragment the app did not write (a pasted link) is adopted; unknown
+    chips are dropped. A fragment, not a query string, because it is never
+    sent to the server — the privacy policy is unchanged. The place share
+    link strips it. **"Share this search"** under the list count (never
+    includes Saved or a shared list). **Journal → copy the list as text**
+    (name · Korean name, address, link). **Welcome screen**: "What are you
+    looking for?" Vegan / Halal (one or neither) turns that chip on.
+    **Suggest a restaurant** offers only the topics a new place can be
+    about. Code-review fixes: list scrolls to top when the Open-at time
+    changes; the sidebar fold handle stays above a docked place; a gap of
+    more than 5 h between slots is "Closed", not "On a break"; the install
+    copy no longer says the whole app works offline. Translation review of
+    the day's strings applied (14 corrections).
     The App clock now ticks every minute regardless of filters, so the
     open/closed labels on cards and the open place stay current; only
     "Open now" re-filters on the tick (`filterClock`), so the map is not
