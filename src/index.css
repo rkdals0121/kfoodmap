@@ -4107,3 +4107,20 @@ a.btn-primary:focus-visible {
   margin: -4px 0 8px;
   font-size: 13px;
 }
+
+/* From 1200 px there is room for three columns, as on Naver and Kakao
+   maps: the list (with its search box and chips), the open place beside
+   it, and the map. Nothing is covered, so a filter or the next result is
+   one click away while a place is open. */
+@media (min-width: 1200px) {
+  .detail-sheet--docked,
+  .detail-sheet--docked.detail-sheet--below-search {
+    left: 420px;
+    top: 0;
+    height: 100%;
+    width: 400px;
+  }
+  .app-shell.is-collapsed .detail-sheet--docked {
+    left: 64px;
+  }
+}

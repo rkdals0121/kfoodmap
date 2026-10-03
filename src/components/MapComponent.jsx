@@ -284,7 +284,17 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, st
     if (!selected || !window.matchMedia?.('(min-width: 768px)').matches) return;
     const c = coordsOf(selected);
     const ll = L.latLng(c.lat, c.lng);
-    if (!map.getBounds().pad(-0.1).contains(ll)) map.panTo(ll);
+    // The place panel can lie over the map's left edge (three columns from
+    // 1200 px): a pin under it is not in view either. Bring it to the
+    // middle of the part of the map still showing.
+    const box = map.getContainer().getBoundingClientRect();
+    const panel = document.querySelector('.detail-sheet--docked')?.getBoundingClientRect();
+    const covered = panel && panel.right > box.left && panel.left < box.right ? Math.max(0, panel.right - box.left) : 0;
+    const p = map.latLngToContainerPoint(ll);
+    const size = map.getSize();
+    const margin = 48;
+    const inView = p.x >= covered + margin && p.x <= size.x - margin && p.y >= margin && p.y <= size.y - margin;
+    if (!inView) map.panBy([p.x - (covered + (size.x - covered) / 2), p.y - size.y / 2]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId]);
 
