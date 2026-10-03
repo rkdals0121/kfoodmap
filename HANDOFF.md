@@ -2466,6 +2466,27 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     as a day off (`closedAllDay`; missing hours never count). "Also
     nearby" follows the diet chips in force (Vegan, Halal, Fully vegan; not
     search or Open now) and says so (`detail.nearbyFiltered`).
+63. **2026-10-03 afternoon (14:50–).** **Three columns from 1200 px**:
+    the place panel docks beside the list (`left: 420px`), so search,
+    chips, list, place and map are all in view; the map pans a selected
+    pin out from under the panel (ClusteredMarkers). **"Open at…"** chip
+    (`OPEN_AT`, `planAt` in App, `koreaDateAt`): places open on a chosen
+    weekday and time in Korea; the cards answer for that time; never on
+    together with "Open now". **Status wording**: "On a break" between two
+    of today's slots, "Last order passed · closes 3:00 PM", "· reopens
+    5:00 PM" once a slot before a break is ending, and "Closed" alone when
+    no next opening is on record. **Profile → Add to Home Screen**
+    (`src/hooks/useInstall.js`: `beforeinstallprompt` where offered, the
+    two Safari taps on iOS; imported from main.jsx so the event is not
+    missed). **Journal** says saved places open offline (the prefetch was
+    already there). **Welcome screen** button is sticky, so it is in reach
+    on a short phone. **Build**: `codeSplitting` groups in vite.config.js —
+    `places` (data, ~204 kB gzip), `vendor` (~137 kB), entry (~57 kB) — so
+    a code-only deploy no longer re-downloads the data. Live QA at
+    mid-afternoon: 30 cards matched their place pages; "Open now" 481
+    places all open and orderable. Left for the owner: the three wordings
+    of what "Confirmed" means (welcome, claim detail, place page) differ
+    slightly; Hangaram's 10-minute weekend break is what its source says.
     The App clock now ticks every minute regardless of filters, so the
     open/closed labels on cards and the open place stay current; only
     "Open now" re-filters on the tick (`filterClock`), so the map is not

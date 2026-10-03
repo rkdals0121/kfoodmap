@@ -19,6 +19,9 @@
 - **Area suggestions** in the search box, and "/" to reach it from the keyboard.
 - **"Last order soon" / "Closes soon"** in amber; 24-hour places say "24 hours".
 - **Older spellings** in search — Pusan, Cheju, Kangnam, Myungdong.
+- **Open at…** — places open on a weekday and time you choose (Korean time).
+- **Add to Home Screen** from Profile; the Journal says saved places open offline.
+- **Wide screens** — list, place and map side by side from 1200 px.
 - **Search in other scripts** — areas typed in Korean, Japanese or Chinese (釜山, 明洞, 이태원), and the diet words of each language.
 
 ### Changed
