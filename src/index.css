@@ -5627,3 +5627,21 @@ html[data-text] .toast > * {
   align-self: flex-start;
   font-size: 13px;
 }
+
+/* From 1024 px the tabs are pills with the label beside the icon: the count
+   goes after the label, not over it. Collapsed to icons, it sits on the
+   icon's corner again. */
+@media (min-width: 1024px) {
+  .tab-count {
+    position: static;
+    order: 3;
+    margin-left: 6px;
+  }
+  .app-shell.is-collapsed .tab-count {
+    position: absolute;
+    top: 2px;
+    left: auto;
+    right: 2px;
+    margin-left: 0;
+  }
+}

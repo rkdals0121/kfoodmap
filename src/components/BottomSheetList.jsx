@@ -295,7 +295,7 @@ export default function BottomSheetList({
                 map is moved they part, and the label says both. */}
             {journeyOrder
               ? t('list.journeyOrder')
-              : sorted[0].areaMatch
+              : ranked[0].areaMatch
                 ? t('list.areaFirst')
                 : centredOnYou ? t('list.nearestYou') : t('list.nearestFirst')}
             {userLocation && !centredOnYou && <> · {t('list.distanceFromYou')}</>}

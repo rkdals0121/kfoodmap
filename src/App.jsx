@@ -30,7 +30,7 @@ import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
 import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
-import { fuzzyQuery } from './data/area-names';
+import { fuzzyQuery, romaniseQuery } from './data/area-names';
 import { takeFreshList } from './freshList';
 import './index.css';
 
@@ -47,6 +47,8 @@ const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
 // A station named after its area: "Gangnam station", "gangnam stn", "강남역",
 // "江南駅", with or without an exit number.
 const STATION_TAIL = /(?:\s+(?:subway\s+)?(?:station|stn\.?)|역|駅|站)(?:\s+(?:exit|出口)?\s*\d+(?:번\s*출구)?)?$/i;
+// "서울역", "홍대입구역", "江南駅", "首尔站": a station in one unbroken word.
+const CJK_STATION = /^(.+?)(?:입구)?(?:역|駅|站)$/;
 const LANDSCAPE_PHONE = '(max-width: 767px) and (orientation: landscape) and (max-height: 500px)';
 
 const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile: '/profile' };
@@ -161,7 +163,7 @@ function AppShell() {
     // nothing else: a search or chips left on the map ("Hongdae" + Vegan)
     // were applied on top, and a Busan journey came up as "0 places".
     if (takeFreshList() && next.ids.length > 0) {
-      setSearchQuery('');
+      setQuery('');
       setAreaOnly(false);
       setSelectedFilters([SHARED_LIST]);
       return;
@@ -469,6 +471,11 @@ function AppShell() {
   // few seconds; an unsave can be undone from it.
   const [toast, setToast] = useState(null);
   const [toastHeld, setToastHeld] = useState(false);
+  // Each toast starts unheld: Undo is removed while it has the focus, and a
+  // removed element sends no blur, so the hold outlived it and every later
+  // toast stayed up for good.
+  const toastAt = toast?.at ?? 0;
+  useEffect(() => { setToastHeld(false); }, [toastAt]);
   useEffect(() => {
     if (!toast) return undefined;
     // An Undo is given ten seconds, and waits while a finger or the focus
@@ -616,7 +623,7 @@ function AppShell() {
     const onHashChange = () => {
       const view = parseViewHash(window.location.hash, VIEW_CHIPS);
       if (viewHash(view) === wantHashRef.current) return;
-      setSearchQuery(view.q);
+      setQuery(view.q);
       setAreaOnly(view.area);
       setSelectedFilters(prev => [...prev.filter(f => f === SHARED_LIST || f === SAVED_ONLY), ...view.filters]);
       if (view.planAt) setPlanAt(view.planAt);
@@ -670,6 +677,10 @@ function AppShell() {
   // useDeferredValue: the deferred value was seen to stay behind for good
   // in a background tab. An emptied box is answered at once.
   const [filterQuery, setFilterQuery] = useState(searchQuery);
+  // Typing waits; a search the app sets itself (Clear, a link, a journey,
+  // "Browse by area") does not — for one frame the new chips were drawn
+  // against the old text, which could read "0 places".
+  const setQuery = (q) => { setSearchQuery(q); setFilterQuery(q); };
   useEffect(() => {
     if (searchQuery === filterQuery) return undefined;
     if (searchQuery === '') { setFilterQuery(''); return undefined; }
@@ -702,18 +713,41 @@ function AppShell() {
       // Open but past last order is no use to someone who wants to eat now.
       return status.open === true && status.orderable !== false;
     });
+    const rerun = (q) => { unknown = 0; unknownPlaces = []; return run(q); };
+    const typed = searchQuery.trim();
     let list = run(searchQuery);
     let used = searchQuery;
+    // A station written in Korean, Japanese or Chinese ("서울역", "홍대입구역",
+    // "江南駅"): the records that say "<Area> Station", else the area. Split
+    // into "Seoul" + "역" it was every Seoul record.
+    const cjkStation = !areaOnly && !typed.includes(' ') ? CJK_STATION.exec(typed) : null;
+    let stationDone = false;
+    if (cjkStation) {
+      const area = romaniseQuery(cjkStation[1]) ?? cjkStation[1];
+      const phrase = `${area} station`;
+      const named = rerun(phrase).filter(r => matchesPhrase(r, phrase));
+      if (named.length > 0) {
+        list = named;
+        used = `${area} Station`;
+        unknown = unknownPlaces.filter(r => matchesPhrase(r, phrase)).length;
+      } else {
+        list = rerun(area);
+        used = area;
+      }
+      stationDone = true;
+    }
     // "seoul station": the records that say exactly that, when any do.
-    if (!areaOnly && searchQuery.trim().includes(' ')) {
+    let phraseFound = false;
+    if (!areaOnly && !stationDone && typed.includes(' ')) {
       const exact = list.filter(r => matchesPhrase(r, searchQuery));
+      phraseFound = exact.length > 0;
       if (exact.length > 0 && exact.length < list.length) {
         list = exact;
         // The count of places hidden for having no hours follows the list.
         unknown = unknownPlaces.filter(r => matchesPhrase(r, searchQuery)).length;
       }
     }
-    if (list.length === 0 && searchQuery.trim() && !areaOnly) {
+    if (list.length === 0 && typed && !areaOnly && !stationDone) {
       const guess = fuzzyQuery(searchQuery);
       if (guess) {
         unknown = 0;
@@ -725,13 +759,14 @@ function AppShell() {
     // "Gangnam station", "강남역", "Gangnam Station exit 10": no record says
     // so in those words, but the area is on record. Tried without the word
     // for the station when the search as typed finds nothing.
-    if (list.length === 0 && searchQuery.trim() && !areaOnly) {
-      const bare = searchQuery.trim().replace(STATION_TAIL, '').trim();
-      if (bare && bare !== searchQuery.trim()) {
-        unknown = 0;
-        unknownPlaces = [];
-        const again = run(bare);
-        if (again.length > 0) { list = again; used = bare; }
+    // Also when words were found but not the station itself: "Seoul
+    // Station" + Halal was every halal place in Seoul whose record mentions
+    // any station, presented as if near that one.
+    if (typed && !areaOnly && !stationDone && (list.length === 0 || (!phraseFound && STATION_TAIL.test(typed)))) {
+      const bare = typed.replace(STATION_TAIL, '').trim();
+      if (bare && bare !== typed) {
+        const again = rerun(bare);
+        if (again.length > 0 || list.length > 0) { list = again; used = bare; }
       }
     }
     // An area with nothing that matches the chips ("Haeundae" + Halal): the
@@ -824,7 +859,7 @@ function AppShell() {
           <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}`} key={toast.at}>
             <span>{toast.text}</span>
             {toast.undo && (
-              <button type="button" className="toast__undo" onClick={() => { const undo = toast.undo; setToast(null); undo(); }}>
+              <button type="button" className="toast__undo" onClick={() => { const undo = toast.undo; setToastHeld(false); setToast(null); undo(); }}>
                 {t('app.undo')}
               </button>
             )}
@@ -930,7 +965,7 @@ function AppShell() {
                   // From the list header: chips and search off, where the
                   // reader is — no keyboard, and a shared list or journey stays.
                   setSelectedFilters(prev => prev.filter(f => f === SHARED_LIST));
-                  setSearchQuery('');
+                  setQuery('');
                   setAreaOnly(false);
                 }}
                 onClearFilters={() => {
@@ -938,7 +973,7 @@ function AppShell() {
                   // or a reload brings the filter back.
                   if (selectedFilters.includes(SHARED_LIST)) navigate('/', { replace: true });
                   setSelectedFilters([]);
-                  setSearchQuery('');
+                  setQuery('');
                   setAreaOnly(false);
                   // The button goes with the empty state; put focus where the
                   // next search starts.
@@ -973,7 +1008,7 @@ function AppShell() {
               const next = viewHash({ q: area, filters: [chip], planAt, area: true });
               if (next === wantHash) { navigate({ pathname: '/', hash: wantHash }); return; }
               toMap.current = true;
-              setSearchQuery(area);
+              setQuery(area);
               setAreaOnly(true);
               setSelectedFilters([chip]);
             }}

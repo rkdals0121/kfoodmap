@@ -45,8 +45,9 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
     const kept = DRAFTS.get(draftKey);
     // A name brought from an empty search starts the form, unless one is
     // already being written.
-    if (kept && (kept.name || kept.message)) return kept;
-    return initialName && !place ? { ...EMPTY, name: initialName.slice(0, 80) } : EMPTY;
+    const written = kept && (kept.message || kept.locationHint || kept.topic || kept.sourceUrl || kept.contactEmail);
+    if (initialName && !place && !written) return { ...EMPTY, name: initialName.slice(0, 80) };
+    return kept ?? EMPTY;
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed

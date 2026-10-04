@@ -115,6 +115,13 @@ if (typeof document !== 'undefined') {
   document.addEventListener('focusin', (e) => {
     if (document.getElementById('root')?.contains(e.target)) lastInApp = e.target;
   }, true);
+  // Focus that leaves for nowhere (a tap on plain content; Safari, where a
+  // tapped button takes no focus) is not an opener to return to — the
+  // search box focused a minute ago would otherwise be given focus, and
+  // open the keyboard, when a confirmation closes.
+  document.addEventListener('focusout', (e) => {
+    if (!e.relatedTarget && e.target === lastInApp && !document.getElementById('root')?.inert) lastInApp = null;
+  }, true);
 }
 export function useInertRoot(open) {
   useEffect(() => {
