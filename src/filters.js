@@ -10,7 +10,7 @@
 // Dietary chips are answered by the structured dietary record (never a tag
 // string); the rest are descriptive traits.
 import { matchesDietary } from './data/verification.js';
-import { romaniseQuery } from './data/area-names.js';
+import { romaniseQuery, COOKING } from './data/area-names.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 
@@ -79,9 +79,18 @@ export const TRAIT_GROUPS = {
 // letters from a Japanese keyboard (ｉｔａｅｗｏｎ), accents (café, İtaewon).
 // Hangul is taken apart and put back together by the two normalisations
 // and comes out as it went in.
-const fold = (s) => (/[\u0080-\uffff]/.test(s)
-  ? s.normalize('NFKC').normalize('NFD').replace(/[\u0300-\u036f]/g, '').normalize('NFC')
-  : s).toLowerCase();
+// Remembered: every keystroke asks for the same few thousand fields again.
+const FOLDED = new Map();
+const fold = (s) => {
+  let out = FOLDED.get(s);
+  if (out !== undefined) return out;
+  out = (/[\u0080-\uffff]/.test(s)
+    ? s.normalize('NFKC').normalize('NFD').replace(/[\u0300-\u036f]/g, '').normalize('NFC')
+    : s).toLowerCase();
+  if (FOLDED.size > 20000) FOLDED.clear();
+  FOLDED.set(s, out);
+  return out;
+};
 const squash = (s) => fold(s).replace(/[\s-]+/g, '');
 // Punctuation typed with a search ("Itaewon, Seoul", "Hongik Univ.") is
 // not part of any word.
@@ -145,7 +154,7 @@ function searchCore(r, rawQuery) {
   const q = squash(query);
   // Nothing to search by (empty, or only signs such as "(" or "-"): every
   // place, as with an empty box.
-  if (!/[\p{L}\p{N}]/u.test(q)) return true;
+  if (!/[\p{L}\p{N}\p{Extended_Pictographic}]/u.test(q)) return true;
   // The whole search is a diet word ("halal", "no pork", "pork free"):
   // answered from the record's diet and nothing else — word by word,
   // "no pork" was every record with a "no" and a "pork" in it.
@@ -157,6 +166,9 @@ function searchCore(r, rawQuery) {
   const fields = [r.name, r.vibe, r.zone, r.address?.value,
     halal && halal.confidence !== 'unknown' ? halal.value : null];
   if (fields.some(f => startsWord(f, q))) return true;
+  // …or as it is written, punctuation and all: "A.A.A" is a bakery's name.
+  const asTyped = squash(String(rawQuery ?? ''));
+  if (asTyped !== q && fields.some(f => startsWord(f, asTyped))) return true;
   // Several words ("Busan korean", "itaewon vegan bakery"): every word must
   // appear somewhere in the place's name, area, address or story.
   const words = String(query).trim().split(/\s+/).map(squash).filter(w => w.length >= 2);
@@ -202,16 +214,21 @@ const areaWhole = (r, query) => {
   const whole = squash(unpunct(query));
   return whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole));
 };
+// A kind of cooking is not a place: "temple" starts a word in one address
+// ("Templestay Information Center"), and the map went there for 사찰음식.
+const isCooking = (q) => COOKING.has(squash(unpunct(q)));
 export function matchesAreaWhole(r, query) {
+  if (isCooking(query)) return false;
   if (areaWhole(r, query)) return true;
   const roman = romaniseQuery(query);
-  return roman !== null && areaWhole(r, roman);
+  return roman !== null && !isCooking(roman) && areaWhole(r, roman);
 }
 
 export function matchesArea(r, query) {
+  if (isCooking(query)) return false;
   if (areaCore(r, query)) return true;
   const roman = romaniseQuery(query);
-  return roman !== null && areaCore(r, roman);
+  return roman !== null && !isCooking(roman) && areaCore(r, roman);
 }
 
 // The view — search text, chips, the "Open at…" time — kept in the address
@@ -254,8 +271,17 @@ export function parseViewHash(hash, validIds) {
 // some records carry the words as written, next to each other, those are
 // what was meant (App.jsx narrows to them; with none, the word-by-word
 // result stands).
+const TIDIED = new Map();
+const tidy = (t) => {
+  let out = TIDIED.get(t);
+  if (out !== undefined) return out;
+  out = fold(unpunct(t)).replace(/\s+/g, ' ').trim();
+  if (TIDIED.size > 20000) TIDIED.clear();
+  TIDIED.set(t, out);
+  return out;
+};
+
 export function matchesPhrase(r, query) {
-  const tidy = (t) => fold(unpunct(t)).replace(/\s+/g, ' ').trim();
   const phrase = tidy(query);
   if (!phrase.includes(' ')) return false;
   // Whole words, in the name, the area, the address or the one-line

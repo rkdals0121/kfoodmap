@@ -105,3 +105,32 @@ test('the count of places hidden for having no hours matches the list', () => {
     assert.equal(on.filteredRestaurants.length - off.filteredRestaurants.length, off.unknownHours, q);
   }
 });
+
+test('a kind of cooking is searched, and is not an area', async () => {
+  const { matchesArea, matchesAreaWhole } = await import('../../src/filters.js');
+  assert.ok(go('사찰음식').filteredRestaurants.length > 1);
+  for (const q of ['temple', '사찰음식', '寺院料理']) {
+    assert.equal(places.some(r => matchesArea(r, q)), false, q);
+    assert.equal(places.some(r => matchesAreaWhole(r, q)), false, q);
+  }
+  // A name after an area, and words that add nothing.
+  assert.ok(go('首尔素食').filteredRestaurants.length > 0);
+  const tower = go('롯데월드타워').filteredRestaurants;
+  assert.ok(go('Lotte World').filteredRestaurants.every(p => tower.includes(p)));
+  assert.equal(ids(go('ﾌﾟｻﾝ')), ids(go('Busan')));
+});
+
+test('a name with its own punctuation, and a lone sight, are found', () => {
+  assert.equal(go('A.A.A').filteredRestaurants.length, 1);
+  const tower = go('N Seoul Tower', ['Halal']);
+  if (tower.filteredRestaurants.length === 0) assert.ok(tower.nearest.length > 0, 'nearest from the tower');
+  assert.equal(go('🍜').filteredRestaurants.length, 0);
+});
+
+test('one search stays quick', () => {
+  const t0 = performance.now();
+  for (const q of ['Seoul Station', 'Haeundae', 'zzzqqq', 'vegan restaurant near seoul station open now please']) go(q, ['Halal']);
+  // Generous: a slow CI machine, four searches. It was 400 ms before the
+  // text matches were shared between the fallbacks.
+  assert.ok(performance.now() - t0 < 1500);
+});

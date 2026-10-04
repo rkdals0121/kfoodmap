@@ -63,6 +63,9 @@ const ALSO_NAMED = {
   Jamsil: ['롯데월드', 'ロッテワールド', '乐天世界', '樂天世界'],
 };
 
+// The entries of ALSO_NAMED that are kinds of cooking, not places.
+export const COOKING = new Set(['temple', 'vegetarian']);
+
 const TO_ROMAN = new Map([
   ...Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
   ...Object.entries(ALSO_NAMED).flatMap(([roman, names]) => names.map(n => [n, roman])),
@@ -162,8 +165,11 @@ const SI_IN_ADDRESS = new Set(['Jeju']);
 // Only a city suffix narrows to the city: "제주도" and "济州岛" are the island.
 const IS_CITY = new Set(['市', '시', '市内', '시내']);
 
+const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛집', '음식점', '타워', 'レストラン', '店']);
+
 export function romaniseQuery(query) {
-  const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
+  // NFKC: half-width kana (ﾌﾟｻﾝ) are the same names.
+  const words = String(query ?? '').normalize('NFKC').trim().split(/\s+/).filter(Boolean);
   let changed = false;
   const out = words.flatMap((w) => {
     const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
@@ -176,6 +182,11 @@ export function romaniseQuery(query) {
         // addresses say "Jeju-si" (the island also holds Seogwipo-si), so
         // there the suffix narrows; elsewhere it is simply dropped.
         if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) && IS_CITY.has(rest) ? `${roman}-si` : roman];
+        // What follows may be a name too ("首尔素食" is Seoul + vegetarian),
+        // or a word that adds nothing ("素食餐厅", "롯데월드타워").
+        const more = TO_ROMAN.get(rest);
+        if (more) return [roman, more];
+        if (FILLER.has(rest)) return [roman];
         return [roman, rest];
       }
     }

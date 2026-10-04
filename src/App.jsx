@@ -279,7 +279,7 @@ function AppShell() {
     () => localStorage.getItem('kfm-prologue') === 'true' || /^\/(place|find)\//.test(window.location.pathname)
       // …or with a list someone sent: the friend who opens it sees the four
       // places, not a question about their own diet.
-      || new URLSearchParams(window.location.search).has('list')
+      || parseSharedList(new URLSearchParams(window.location.search).get('list'), activeRestaurants.map(r => r.id)).length > 0
   );
 
   // The phone's list sheet follows the finger and settles on the nearest of
@@ -892,7 +892,14 @@ function AppShell() {
 
         {/* Tab panels rendered inside the sidebar */}
         {activeTab === 'journal' && (
-          <JournalPanel bookmarks={bookmarks} planAt={openAtOn ? planAt : null} planDate={openAtOn ? planDate : null} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} onShowSaved={() => { setSelectedFilters(prev => (prev.includes(SAVED_ONLY) ? prev : [...prev.filter(f => f !== SHARED_LIST), SAVED_ONLY])); setQuery(''); setAreaOnly(false); selectTab('map'); }} />
+          <JournalPanel bookmarks={bookmarks} planAt={openAtOn ? planAt : null} planDate={openAtOn ? planDate : null} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} onShowSaved={() => {
+            // The saved places and nothing else: other chips, a search or a
+            // shared list still in the address would leave few or none.
+            setSelectedFilters([SAVED_ONLY]);
+            setQuery('');
+            setAreaOnly(false);
+            navigate('/', { replace: true });
+          }} />
         )}
         {activeTab !== 'map' && activeTab !== 'journal' && (
           <TabPanel

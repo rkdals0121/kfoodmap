@@ -85,6 +85,14 @@ export function searchPlaces({
   };
   // The places that pass the chips and `pred`, and how many of them were
   // left out for having no recorded hours.
+  // Which places a text finds, worked out once per text: the fallbacks and
+  // the "nearest" block ask about the same few texts several times over.
+  const textHits = new Map();
+  const hits = (q) => {
+    let set = textHits.get(q);
+    if (!set) { set = new Set(places.filter(r => matchesSearch(r, q))); textHits.set(q, set); }
+    return set;
+  };
   const select = (pred) => {
     const list = [];
     let unknown = 0;
@@ -95,8 +103,8 @@ export function searchPlaces({
     }
     return { list, unknown };
   };
-  const byText = (q) => (r) => (areaOnly ? matchesArea(r, q) : matchesSearch(r, q));
-  const onRecord = (q) => places.some(r => matchesSearch(r, q));
+  const byText = (q) => (areaOnly ? (r) => matchesArea(r, q) : (r) => hits(q).has(r));
+  const onRecord = (q) => hits(q).size > 0;
   const isArea = (q) => places.some(r => matchesAreaWhole(r, q));
 
   let result = select(byText(raw));
@@ -131,7 +139,7 @@ export function searchPlaces({
       // "seoul station" typed where a place is named so, "korean bbq": the
       // records that say exactly that, when some but not all do.
       if (raw.includes(' ')) {
-        const exact = select(r => matchesSearch(r, raw) && matchesPhrase(r, raw));
+        const exact = select(r => hits(raw).has(r) && matchesPhrase(r, raw));
         if (exact.list.length > 0 && exact.list.length < result.list.length) result = exact;
       }
       // Nothing on record under these words at all: perhaps one letter off
@@ -158,7 +166,9 @@ export function searchPlaces({
     // The search names an area when most of what it finds is found by its
     // area: "Itaewon" does, "cafe" (one street is called Cafe Street) does not.
     const inArea = places.filter(r => matchesAreaWhole(r, used));
-    const area = inArea.length > 0 && inArea.length * 2 >= places.filter(r => matchesSearch(r, used)).length ? inArea : [];
+    // A search of several words is counted through stories too, so the
+    // ratio is asked only of a single word ("N Seoul Tower" is an area).
+    const area = inArea.length > 0 && (used.includes(' ') || inArea.length * 2 >= hits(used).size) ? inArea : [];
     const found = result.list.filter(r => area.includes(r));
     const from = anchorPlaces ?? (found.length > 0 ? found : area.length > 0 ? area : result.list);
     const fromResults = !anchorPlaces && from !== area;
