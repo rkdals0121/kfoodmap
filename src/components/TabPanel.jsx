@@ -118,6 +118,8 @@ function JourneyStops({ id, title, count, children }) {
   );
 }
 
+const openStopsOf = (e) => e.currentTarget.parentElement?.querySelector('.journey-card__toggle')?.click();
+
 function DiscoverTab({ onBrowse }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -181,8 +183,11 @@ function DiscoverTab({ onBrowse }) {
           <div className="journey-list">
             {resolvedJourneys.map(journey => (
               <article key={journey.id} className="journey-card">
-                <h3 className="journey-card__title">{journey.text.title}</h3>
-                <p className="journey-card__description">{journey.text.description}</p>
+                {/* The title and the description open the stops too, for a
+                    finger: the only thing that did was the small "3 stops"
+                    (which stays the control a keyboard and a screen reader use). */}
+                <h3 className="journey-card__title" onClick={openStopsOf}>{journey.text.title}</h3>
+                <p className="journey-card__description" onClick={openStopsOf}>{journey.text.description}</p>
                 {/* A day off recorded for today, said before the stops: the
                     plan for today needs it first. Never guessed from
                     missing hours. */}

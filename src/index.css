@@ -6140,3 +6140,8 @@ html[data-text='larger'] .detail-bar__map svg {
   font-size: 0.95em;
   overflow-wrap: anywhere;
 }
+
+.journey-card__title,
+.journey-card__description {
+  cursor: pointer;
+}
