@@ -187,3 +187,29 @@ test('a phrase is found as a phrase', async () => {
   assert.equal(matchesPhrase({ name: 'Green Vegan Cafe', zone: 'Seoul', vibe: '', address: { value: '' } }, 'vegan cafe'), false);
   assert.equal(matchesPhrase({ name: 'X', zone: 'Seoul', vibe: '', address: { value: '' }, story: 'Near Seoul Station.' }, 'seoul station'), false);
 });
+
+test('the whole query names an area, or it is no anchor for "nearest"', async () => {
+  const { matchesAreaWhole, matchesArea } = await import('../../src/filters.js');
+  const worldCup = { name: 'X', zone: 'Seogyo-dong, Mapo-gu, Seoul', address: { value: '34 World Cup buk-ro 7-gil' }, vibe: '' };
+  // One shared word made this street the centre of "Lotte World".
+  assert.equal(matchesArea(worldCup, 'Lotte World'), true);
+  assert.equal(matchesAreaWhole(worldCup, 'Lotte World'), false);
+  assert.equal(matchesAreaWhole(worldCup, 'Mapo-gu'), true);
+  assert.equal(matchesAreaWhole(worldCup, 'mapo gu'), true);
+  assert.equal(matchesAreaWhole(worldCup, 'Hongdae'), true);   // the alias: Seogyo-dong is Hongdae
+});
+
+test('a sight is found in the area it stands in, and dishes in either spelling', async () => {
+  const { matchesSearch } = await import('../../src/filters.js');
+  const jamsil = { name: 'X', zone: 'Jamsil, Songpa-gu, Seoul', address: { value: '1 Ro' }, vibe: '', traits: [] };
+  assert.equal(matchesSearch(jamsil, 'Lotte World'), true);
+  assert.equal(matchesSearch(jamsil, '잠실'), true);
+  const roll = { name: 'Maru Natural-food Gimbap', zone: 'Insadong, Seoul', address: { value: '1 Ro' }, vibe: '', traits: [] };
+  assert.equal(matchesSearch(roll, 'kimbap'), true);
+  assert.equal(matchesSearch(roll, 'gimbap'), true);
+  const { romaniseQuery } = await import('../../src/data/area-names.js');
+  // A city suffix is not a second word; Jeju's addresses say "Jeju-si".
+  assert.equal(romaniseQuery('濟州市'), 'Jeju-si');
+  assert.equal(romaniseQuery('釜山市'), 'Busan');
+  assert.equal(romaniseQuery('경복궁'), 'Gyeongbokgung');
+});
