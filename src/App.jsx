@@ -29,7 +29,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, matchesArea, matchesPhrase, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
 import { fuzzyQuery } from './data/area-names';
 import './index.css';
 
@@ -612,6 +612,11 @@ function AppShell() {
     });
     let list = run(searchQuery);
     let used = searchQuery;
+    // "seoul station": the records that say exactly that, when any do.
+    if (!areaOnly && searchQuery.trim().includes(' ')) {
+      const exact = list.filter(r => matchesPhrase(r, searchQuery));
+      if (exact.length > 0 && exact.length < list.length) list = exact;
+    }
     if (list.length === 0 && searchQuery.trim() && !areaOnly) {
       const guess = fuzzyQuery(searchQuery);
       if (guess) {

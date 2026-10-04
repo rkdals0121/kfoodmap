@@ -211,3 +211,16 @@ export function parseViewHash(hash, validIds) {
   const planAt = m && minutes < 1440 && minutes % 30 === 0 ? { day: Number(m[1]), minutes } : null;
   return { q, filters, planAt, area: q.trim() !== '' && p.get('a') === '1' };
 }
+
+// A search of several words is read word by word ("itaewon halal": both
+// must appear somewhere). But "seoul station" is a place, and word by word
+// it was every Seoul record that mentions any station — 255 of them. When
+// some records carry the words as written, next to each other, those are
+// what was meant (App.jsx narrows to them; with none, the word-by-word
+// result stands).
+export function matchesPhrase(r, query) {
+  const phrase = String(query ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+  if (!phrase.includes(' ')) return false;
+  return [r.name, r.vibe, r.zone, r.address?.value, r.story]
+    .some(f => typeof f === 'string' && f.toLowerCase().includes(phrase));
+}

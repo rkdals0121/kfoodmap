@@ -174,3 +174,12 @@ test('one wrong letter in a long area name is a fallback, not part of every sear
   assert.equal(romaniseQuery('mangwon'), null);
   assert.equal(romaniseQuery('myongdong'), null);
 });
+
+test('a phrase is found as a phrase', async () => {
+  const { matchesPhrase } = await import('../../src/filters.js');
+  const p = { name: 'X', zone: 'Jung-gu, Seoul', vibe: 'Five minutes from Seoul Station.', address: { value: '1 Ro' }, story: '' };
+  assert.equal(matchesPhrase(p, 'seoul station'), true);
+  assert.equal(matchesPhrase(p, 'Seoul  Station'), true);
+  assert.equal(matchesPhrase(p, 'station seoul'), false);
+  assert.equal(matchesPhrase(p, 'seoul'), false);   // one word is not a phrase
+});
