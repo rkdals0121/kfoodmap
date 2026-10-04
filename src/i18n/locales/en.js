@@ -165,6 +165,7 @@ export default {
     chooseLanguage: 'Choose a language',
     languageNote: 'Translations are new and may have mistakes. Place names, stories and menus stay in English.',
     languageFailed: 'Could not load that language. Check your connection and try again.',
+    languageLoading: 'Loading…',
     staffCards: 'Korean cards to show staff',
     install: 'Add to Home Screen',
     installHint: 'Opens like an app, from your home screen',

@@ -330,8 +330,12 @@ function LanguagePicker({ onClose }) {
     setFailed(false);
     // Ten seconds, then it is a failure: a stalled connection never answers
     // and every other language stayed greyed out.
-    Promise.race([setLanguage(code), new Promise(resolve => setTimeout(resolve, 10000))]).then((got) => {
+    const asked = setLanguage(code);
+    Promise.race([asked, new Promise(resolve => setTimeout(resolve, 10000))]).then((got) => {
       if (got === code) { onClose(); return; }
+      // Given up on here, but still on its way: if it lands after all, the
+      // language has changed and the picker closes rather than say it failed.
+      asked.then((late) => { if (late === code) onClose(); });
       setPending(null);
       setFailed(true);
     });
@@ -378,12 +382,14 @@ function LanguagePicker({ onClose }) {
             className={`language-picker__option${i18n.language === lang.code ? ' active' : ''}`}
             aria-pressed={i18n.language === lang.code}
             aria-busy={pending === lang.code}
-            disabled={pending !== null && pending !== lang.code}
-            onClick={() => selectLanguage(lang.code)}
+            aria-disabled={pending !== null && pending !== lang.code}
+            onClick={() => { if (pending === null) selectLanguage(lang.code); }}
           >
             {lang.name}{pending === lang.code ? ' …' : ''}
           </button>
         ))}
+        {/* Always here, so a screen reader hears it fill in. */}
+        <p className="visually-hidden" role="status">{pending ? t('profile.languageLoading') : ''}</p>
         {failed && <p className="language-picker__note language-picker__note--failed" role="alert">{t('profile.languageFailed')}</p>}
         <p className="language-picker__note">{t('profile.languageNote')}</p>
       </div>
@@ -557,8 +563,10 @@ function ProfileTab({
         <div className="settings-list settings-list--account">
           <span className="settings-section-label">{t('profile.accountSection')}</span>
           {/* Signing out waits on the network: the row shows it was pressed. */}
-          <button type="button" className="settings-item" disabled={signingOut} aria-busy={signingOut}
-            onClick={() => { setSigningOut(true); Promise.resolve(onSignOut()).finally(() => setSigningOut(false)); }}>
+          <button type="button" className="settings-item" aria-disabled={signingOut} aria-busy={signingOut}
+            // aria-disabled, not disabled: a disabled button drops focus, and the
+            // question that may follow had nowhere to return it.
+            onClick={() => { if (signingOut) return; setSigningOut(true); Promise.resolve(onSignOut()).finally(() => setSigningOut(false)); }}>
             <span className="settings-icon" aria-hidden="true"><LogOutIcon size={20} /></span>
             <span className="settings-text">
               <span className="settings-label">{t('profile.signOut')}{signingOut ? ' …' : ''}</span>
@@ -566,7 +574,7 @@ function ProfileTab({
             <span className="settings-value">{t('profile.signOutHint')}</span>
             <ChevronRightIcon size={18} />
           </button>
-          <button type="button" className="settings-item settings-item--danger" disabled={signingOut} onClick={confirmThenDelete}>
+          <button type="button" className="settings-item settings-item--danger" aria-disabled={signingOut} onClick={() => { if (!signingOut) confirmThenDelete(); }}>
             <span className="settings-icon" aria-hidden="true"><TrashIcon size={20} /></span>
             <span className="settings-text">
               <span className="settings-label">{t('profile.deleteRecords')}</span>

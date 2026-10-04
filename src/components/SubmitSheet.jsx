@@ -24,7 +24,7 @@ function Field({ id, label, hint, error, children }) {
       {children}
       {hint && <p className="submit-field__hint" id={`${id}-hint`}>{hint}</p>}
       {error && (
-        <p className="submit-field__error" id={`${id}-error`} role="alert">
+        <p className="submit-field__error" id={`${id}-error`}>
           {t(`submit.errors.${error.code}`, { max: error.max })}
         </p>
       )}

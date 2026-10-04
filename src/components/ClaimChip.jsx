@@ -16,7 +16,7 @@ export default function ClaimChip({ kind, label, fact, level, tone }) {
   return (
     <span className={`claim claim-chip claim--${CLAIM_CLASS[badge.tone]}`}>
       {Icon && <Icon size={12} aria-hidden="true" />}
-      {label ? <>{label}<span className="claim__level">{badge.label}</span></> : badge.label}
+      {label ? <>{label}<span className="visually-hidden">, </span><span className="claim__level">{badge.label}</span></> : badge.label}
     </span>
   );
 }

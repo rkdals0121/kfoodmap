@@ -674,16 +674,14 @@ export default function RestaurantDetail({
                 (usePlaceRecord). Say so while it loads, so the sheet doesn't
                 look finished and then grow; offline the line never shows. Below the
                 actions, so Save / Been here don't jump when it goes. */}
-            {!full && !fullFailed && typeof navigator !== 'undefined' && navigator.onLine !== false && (
-              <p className="detail-loading" role="status">{t('detail.loadingDetails')}</p>
-            )}
-            {/* It did not arrive (a stalled or dropped connection): say so,
-                with a way to ask again — the line used to stay on "Loading". */}
-            {!full && fullFailed && isOnline && (
-              <p className="detail-loading" role="status">
-                {t('detail.loadFailed')}{' '}
-                <button type="button" className="detail-loading__retry" onClick={retryFull}>{t('detail.loadRetry')}</button>
-              </p>
+            {/* One status line that changes its words (a status inserted
+                together with its text is not read out), and the button beside
+                it rather than inside, so pressing it does not unmount it. */}
+            {!full && (isOnline || fullFailed) && typeof navigator !== 'undefined' && navigator.onLine !== false && (
+              <div className="detail-loading">
+                <span role="status">{fullFailed ? t('detail.loadFailed') : t('detail.loadingDetails')}</span>{' '}
+                <button type="button" className="detail-loading__retry" hidden={!fullFailed} onClick={retryFull}>{t('detail.loadRetry')}</button>
+              </div>
             )}
 
             {/* The menu before the way there: what is served and what it costs

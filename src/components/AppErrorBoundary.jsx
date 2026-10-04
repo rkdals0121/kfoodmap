@@ -14,6 +14,11 @@ export default class AppErrorBoundary extends React.Component {
     return { failed: true };
   }
 
+  componentDidUpdate(_props, before) {
+    // What had focus is gone with the screen: put it on the way out.
+    if (this.state.failed && !before.failed) this.reload?.focus();
+  }
+
   componentDidCatch(error) {
     console.error('App failed', error);
   }
@@ -21,11 +26,11 @@ export default class AppErrorBoundary extends React.Component {
   render() {
     if (this.state.failed) {
       return (
-        <div className="app-error" role="alert">
-          <p>{i18next.t('app.crashed')}</p>
-          <button type="button" className="btn-primary" onClick={() => window.location.reload()}>{i18next.t('app.reload')}</button>
+        <main className="app-error">
+          <p role="alert">{i18next.t('app.crashed')}</p>
+          <button type="button" className="btn-primary" ref={(el) => { this.reload = el; }} onClick={() => window.location.reload()}>{i18next.t('app.reload')}</button>
           <a href="/">K-Food Map</a>
-        </div>
+        </main>
       );
     }
     return this.props.children;

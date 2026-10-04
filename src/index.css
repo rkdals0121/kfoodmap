@@ -6000,9 +6000,14 @@ html[data-text='larger'] .detail-bar__map svg {
   outline: 2px solid var(--green-strong);
   outline-offset: 1px;
 }
+/* On the box while the text field has focus — not also while the clear
+   button does, which draws its own ring. */
 .search-field:focus-within {
   outline: 2px solid var(--green-strong);
   outline-offset: 1px;
+}
+.search-field:has(.search-field__clear:focus-visible) {
+  outline: none;
 }
 .toast__undo:focus-visible {
   outline-color: #9BE7C4;
@@ -6090,4 +6095,23 @@ html[data-text='larger'] .detail-bar__map svg {
 }
 .saved-row__claims:empty {
   display: none;
+}
+
+/* High-contrast: focus on a chosen item must not look the same as chosen. */
+@media (forced-colors: active) {
+  .chip.active:focus-visible,
+  .text-size__btn.is-on:focus-visible,
+  .language-picker__option.active:focus-visible,
+  .prologue-language.is-current:focus-visible,
+  .tab-item.active:focus-visible {
+    outline: 3px solid CanvasText;
+    outline-offset: 2px;
+  }
+}
+.detail-loading__retry[hidden] {
+  display: none;
+}
+.settings-item[aria-disabled='true'],
+.language-picker__option[aria-disabled='true'] {
+  opacity: 0.5;
 }

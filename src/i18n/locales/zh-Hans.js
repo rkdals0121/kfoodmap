@@ -158,6 +158,7 @@ export default {
     chooseLanguage: '选择语言',
     languageNote: '译文刚刚上线，可能有误。店名、故事和菜单仍为英文。',
     languageFailed: '无法加载该语言。请检查网络后重试。',
+    languageLoading: '加载中…',
     staffCards: '给店员看的韩语卡片',
     install: '添加到主屏幕',
     installHint: '从主屏幕像应用一样打开',
@@ -181,7 +182,7 @@ export default {
     accountSection: '账号',
     signOut: '退出登录',
     signOutHint: '会清除本设备上的数据',
-    signOutUnsynced: '有些已保存的地点可能还没有同步到您的账号。现在退出登录，它们会从这台设备上消失。',
+    signOutUnsynced: '有些收藏的地方可能还没有同步到你的账号。现在退出登录，它们会从本设备上消失。',
     deleteRecords: '删除我收藏的地方',
     // 如实说明删除的范围：账号中的记录会被删除，但仍处于登录状态的其他设备
     // 保有自己的副本，下次同步时会重新上传，所以不承诺“无法恢复”。
@@ -375,7 +376,7 @@ export default {
     restaurantList: '餐厅列表',
     offline: '离线——正在显示已保存的数据',
     updateReady: '有新地点可用——轻点刷新',
-    crashed: '此页面出了点问题。',
+    crashed: '这个画面出了点问题。',
     reload: '重新加载',
     undo: '撤销',
     cancel: '取消',

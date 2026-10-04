@@ -244,7 +244,8 @@ function sheetOverlap(map) {
 // hidden or collapsing container, or a sheet covering most of it) computes a
 // NaN zoom and throws — and an uncaught throw in an effect blanked the whole
 // app. Only fly when there is room; never let a map move take the app down.
-const REDUCE_MOTION = typeof window !== 'undefined' && Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+// Asked each time: the setting can change while the app stays open.
+const reduceMotion = () => typeof window !== 'undefined' && Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
 
 function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
   const size = map.getSize();
@@ -252,7 +253,7 @@ function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
   try {
     // Asked for less motion: the map is set there, not flown there (the
     // CSS rule for it does not reach Leaflet's own animation).
-    if (REDUCE_MOTION) map.fitBounds(L.latLngBounds(latlngs), { paddingTopLeft: padTL, paddingBottomRight: padBR, maxZoom: options?.maxZoom, animate: false });
+    if (reduceMotion()) map.fitBounds(L.latLngBounds(latlngs), { paddingTopLeft: padTL, paddingBottomRight: padBR, maxZoom: options?.maxZoom, animate: false });
     else map.flyToBounds(L.latLngBounds(latlngs), { paddingTopLeft: padTL, paddingBottomRight: padBR, ...options });
   } catch {
     // leave the map where it is

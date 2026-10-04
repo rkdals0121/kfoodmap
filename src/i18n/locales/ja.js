@@ -163,6 +163,7 @@ export default {
     chooseLanguage: '言語を選択',
     languageNote: '翻訳は公開したばかりで、誤りが含まれる場合があります。店名、ストーリー、メニューは英語のまま表示されます。',
     languageFailed: 'その言語を読み込めませんでした。接続を確認して、もう一度お試しください。',
+    languageLoading: '読み込み中…',
     staffCards: 'お店で見せる韓国語カード',
     install: 'ホーム画面に追加',
     installHint: 'ホーム画面からアプリのように開けます',
@@ -186,7 +187,7 @@ export default {
     accountSection: 'アカウント',
     signOut: 'ログアウト',
     signOutHint: 'この端末のデータを消去します',
-    signOutUnsynced: 'まだアカウントに届いていない保存済みの場所があるかもしれません。今ログアウトすると、この端末から消えます。',
+    signOutUnsynced: '保存したお店の一部が、まだアカウントに届いていない可能性があります。今ログアウトすると、この端末から消えます。',
     deleteRecords: '保存したお店を削除',
     // Honest about what a delete can and cannot reach (see en.js): another
     // signed-in device can re-upload its own copy, so no "cannot be undone".
@@ -286,8 +287,8 @@ export default {
   },
   detail: {
     loadingDetails: 'メニュー、交通、連絡先を読み込み中…',
-    loadFailed: 'メニュー・交通・連絡先の情報を読み込めませんでした。',
-    loadRetry: '再試行',
+    loadFailed: 'メニュー、交通、連絡先を読み込めませんでした。',
+    loadRetry: 'もう一度試す',
     close: '閉じる',
     dietaryFactsLabel: '食事と料理に関する情報',
     claimSource: '情報源:{{source}}',

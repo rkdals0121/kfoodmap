@@ -185,7 +185,7 @@ export default function BottomSheetList({
                       <span className="saved-row__main">
                         <span className="saved-row__name">{displayName(place.name)}</span>
                         <span className="saved-row__where">{place.zone} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
-                        <span className="saved-row__claims">{dietaryBadges(place).map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}</span>
+                        <span className="saved-row__claims">{dietaryBadges(place).map(b => <React.Fragment key={b.key}><ClaimChip kind={b.key} label={b.label} fact={b.fact} /><span className="visually-hidden">. </span></React.Fragment>)}</span>
                         {/* Whether it is open, as every other row says. */}
                         {(() => {
                           const st = planDate ? getOpenStatus(place.hours, planDate, { nameDay: true }) : getOpenStatus(place.hours);

@@ -158,6 +158,7 @@ export default {
     chooseLanguage: '選擇語言',
     languageNote: '譯文剛剛上線，可能有誤。店名、故事和菜單仍為英文。',
     languageFailed: '無法載入該語言。請檢查網路後再試一次。',
+    languageLoading: '載入中…',
     staffCards: '給店員看的韓語卡片',
     install: '加入主畫面',
     installHint: '從主畫面像 App 一樣開啟',
@@ -181,7 +182,7 @@ export default {
     accountSection: '帳號',
     signOut: '登出',
     signOutHint: '會清除本裝置上的資料',
-    signOutUnsynced: '有些已儲存的地點可能還沒有同步到您的帳號。現在登出，它們會從這部裝置上消失。',
+    signOutUnsynced: '有些收藏的地方可能還沒有同步到你的帳號。現在登出，它們會從本裝置上消失。',
     deleteRecords: '刪除我收藏的地方',
     // 如實說明刪除的範圍：帳號中的紀錄會被刪除，但仍處於登入狀態的其他裝置
     // 保有自己的副本，下次同步時會重新上傳，所以不承諾「無法復原」。
@@ -282,7 +283,7 @@ export default {
   detail: {
     loadingDetails: '正在載入菜單、交通和聯絡方式…',
     loadFailed: '無法載入菜單、交通和聯絡方式。',
-    loadRetry: '重試',
+    loadRetry: '再試一次',
     close: '關閉',
     dietaryFactsLabel: '飲食與用餐資訊',
     claimSource: '來源：{{source}}',
@@ -375,7 +376,7 @@ export default {
     restaurantList: '餐廳列表',
     offline: '離線——正在顯示已儲存的資料',
     updateReady: '有新地點可用——點一下重新整理',
-    crashed: '此頁面出了點問題。',
+    crashed: '這個畫面出了點問題。',
     reload: '重新載入',
     undo: '復原',
     cancel: '取消',

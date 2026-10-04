@@ -37,7 +37,7 @@
     <!-- If the app's files stall or fail (a dropped connection, a file a
          new deploy has removed), the loading line says so and offers a retry
          instead of staying for good. -->
-    <script>(function(){var s=document.querySelector('#root [role=status]');function fail(){if(!s||!document.body.contains(s)||s.getAttribute('data-f'))return;s.setAttribute('data-f','1');s.textContent='This is taking a while. The connection may be slow. ';var b=document.createElement('button');b.type='button';b.textContent='Try again';b.style.cssText='display:block;margin:12px auto 0;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:#087F5B;color:#fff;font:600 15px/1 inherit;font-family:inherit';b.onclick=function(){location.reload()};s.appendChild(b)}window.__kfmFail=fail;if(window.__kfmFileFailed)fail();setTimeout(fail,20000);window.addEventListener('vite:preloadError',fail)})();</script>
+    <script>(function(){var s=document.querySelector('#root [role=status]');function fail(){if(!s||!document.body.contains(s)||s.getAttribute('data-f'))return;s.setAttribute('data-f','1');s.textContent='This is taking a while. The connection may be slow. ';var b=document.createElement('button');b.type='button';b.textContent='Try again';b.style.cssText='display:block;margin:12px auto 0;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:#087F5B;color:#fff;font-weight:600;font-size:15px;line-height:1;font-family:inherit';b.onclick=function(){location.reload()};s.appendChild(b)}window.__kfmFail=fail;if(window.__kfmFileFailed)fail();setTimeout(fail,20000);window.addEventListener('vite:preloadError',fail)})();</script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

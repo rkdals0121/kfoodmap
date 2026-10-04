@@ -160,6 +160,7 @@ export default {
     chooseLanguage: 'Pilih bahasa',
     languageNote: 'Terjemahan masih baru dan mungkin ada kesalahan. Nama tempat, cerita, dan menu tetap dalam bahasa Inggris.',
     languageFailed: 'Bahasa itu tidak dapat dimuat. Periksa koneksi Anda, lalu coba lagi.',
+    languageLoading: 'Memuat…',
     staffCards: 'Kartu bahasa Korea untuk staf',
     install: 'Tambahkan ke Layar Utama',
     installHint: 'Dibuka seperti aplikasi dari layar utama',
