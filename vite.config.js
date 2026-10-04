@@ -184,7 +184,9 @@ export default defineConfig({
         short_name: 'K-Food Map',
         description: 'Vegan and halal places across Korea, each dietary claim marked with how sure we are.',
         theme_color: '#FFFFFF',
-        background_color: '#FFFFFF',
+        // The loading screen's and the app's own grey: white here flashed
+        // white, then grey, as an installed app opened.
+        background_color: '#F7F7F8',
         display: 'standalone',
         id: '/',
         scope: '/',

@@ -266,11 +266,14 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
   const restaurants = inArea.length > 0 ? inArea : all;
   const key = restaurants.map(r => r.id).join(',');
   const first = useRef(true);
-  const framedFor = useRef(searchQuery);
+  // '' so that a search the app opens with counts as a search just made.
+  const framedFor = useRef('');
   useEffect(() => {
     // The first run is the app opening, where the map keeps its start
-    // view — unless it opened on a list to frame (a shared list).
-    if (first.current) { first.current = false; if (!fitAll) return undefined; }
+    // view — unless it opened on a list to frame (a shared list), or on a
+    // search: someone arriving at "Vegan food in Busan" from a search
+    // engine, or by a shared link, was shown Seoul with no pins in it.
+    if (first.current) { first.current = false; if (!fitAll && !searchQuery.trim()) return undefined; }
     if (restaurants.length === 0) return undefined;
     // After a pause in typing, not on every letter: "se", "seo", "seou"
     // each name a different set and the map lurched between them.

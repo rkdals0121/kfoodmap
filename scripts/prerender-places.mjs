@@ -49,11 +49,22 @@ function ogImageFor(place) {
   return `${SITE_URL}/og/${match ? match[1] : 'fallback'}.png`;
 }
 
+// The app's stylesheet fixes the page in place (body { overflow: hidden }):
+// the app scrolls inside itself. Static text is a page and has to scroll —
+// with scripts off or slow, a guide of 26 places showed three and a half.
+// Inside #root, so the rule goes when React renders.
+const STATIC_SCROLL = '<style>html,body{overflow:auto!important;height:auto!important}</style>';
+
 function replacements(place) {
   // displayName, not split('('): that cut "Nimat (니맛), Culinary Square T2"
   // to "Nimat", the same bug the app fixed for its own views.
   const name = escapeHtml(displayName(place.name));
-  const description = escapeHtml(place.vibe);
+  // What a search result or a KakaoTalk preview shows: the claim with how
+  // sure the record is, where, then the place's own line. The same words
+  // as the page; nothing the record does not say.
+  const lead = [...claimLines(place), place.zone].filter(Boolean).join(' · ');
+  const full = [lead, place.vibe].filter(Boolean).join('. ');
+  const description = escapeHtml(full.length > 158 ? `${full.slice(0, 155).replace(/\s+\S*$/, '')}…` : full);
   const url = `${SITE_URL}/place/${place.id}`;
 
   return [
@@ -90,13 +101,17 @@ function placeBody(place) {
   const claims = claimLines(place);
   const address = knownText(place.address);
   return `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
-    + `<p style="margin:0;font-size:13px;font-weight:700;color:#087F5B">K-Food Map · Vegan and halal food across Korea</p>`
-    + `<h1 style="margin:6px 0 4px;font-size:26px">${escapeHtml(place.name)}</h1>`
+    + STATIC_SCROLL
+    + `<p style="margin:0;font-size:13px;font-weight:700"><a href="/" style="display:inline-block;padding:12px 0;color:#087F5B;text-decoration:none">K-Food Map · Vegan and halal food across Korea</a></p>`
+    + `<h1 style="margin:0 0 4px;font-size:26px">${escapeHtml(place.name)}</h1>`
     + `<p style="margin:0 0 12px;color:#3F444A">${escapeHtml(place.zone ?? '')}</p>`
     + (claims.length ? `<p style="margin:0 0 12px;font-weight:600">${claims.map(escapeHtml).join(' · ')}</p>` : '')
     + (place.vibe ? `<p style="margin:0 0 12px">${escapeHtml(place.vibe)}</p>` : '')
     + (address ? `<p style="margin:0 0 12px;color:#3F444A">${escapeHtml(address)}</p>` : '')
     + `<p style="margin:0;font-size:13px;color:#616875">Confirmed: checked against a primary source. Reported: a source says so. Our reading: our best guess. If your diet is strict, ask staff before you order.</p>`
+    // Where to go from here, for a reader without the app and for a
+    // crawler: the guides this place is listed in.
+    + (guidesOf(place).length ? `<p style="margin:16px 0 0;font-size:14px">${guidesOf(place).map(g => `<a href="/find/${g.slug}" style="display:inline-block;padding:12px 12px 12px 0;color:#087F5B">${g.diet.word} food in ${g.area}</a>`).join('')}</p>` : '')
     + `</main></div>`;
 }
 
@@ -134,11 +149,6 @@ function pageFor(place) {
 
 const active = restaurants.filter(r => !isQuarantined(r));
 
-for (const place of active) {
-  const dir = path.join(distDir, 'place', place.id);
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(path.join(dir, 'index.html'), pageFor(place), 'utf8');
-}
 
 // /submit is a route too, so a direct load or reload must be a real file,
 // the same as /place/:id. Generic meta; noindex because a form has nothing
@@ -219,24 +229,33 @@ for (const diet of DIETS) {
   }
 }
 
+const guidesOf = (place) => guides.filter(g => g.places.includes(place));
+
+for (const place of active) {
+  const dir = path.join(distDir, 'place', place.id);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(path.join(dir, 'index.html'), pageFor(place), 'utf8');
+}
+
 function guideBody(guide) {
   const { diet, area, places } = guide;
   const items = places.map((r) => {
     const fact = r.dietary[diet.fact];
     const claim = `${CLAIM_WORD[diet.fact][fact.value]} (${SURE_WORD[fact.confidence]})`;
-    return `<li style="margin:0 0 10px"><a href="/place/${r.id}" style="color:#087F5B;font-weight:600">${escapeHtml(displayName(r.name))}</a><br><span style="font-size:14px;color:#3F444A">${escapeHtml(r.zone)} · ${claim}</span></li>`;
+    return `<li style="margin:0"><a href="/place/${r.id}" style="display:block;padding:8px 0;color:#087F5B;font-weight:600;text-decoration:none">${escapeHtml(displayName(r.name))}<br><span style="font-size:14px;font-weight:400;color:#3F444A">${escapeHtml(r.zone)} · ${claim}</span></a></li>`;
   }).join('');
   const others = guides
     .filter(g => g.diet === diet && g !== guide)
-    .map(g => `<a href="/find/${g.slug}" style="color:#087F5B">${g.area}</a>`)
-    .join(' · ');
+    .map(g => `<a href="/find/${g.slug}" style="display:inline-block;padding:12px 8px;color:#087F5B">${g.area}</a>`)
+    .join('');
   return `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
+    + STATIC_SCROLL
     + `<p style="margin:0;font-size:13px;font-weight:700;color:#087F5B">K-Food Map</p>`
     + `<h1 style="margin:6px 0 8px;font-size:26px">${diet.word} food in ${area}</h1>`
     + `<p style="margin:0 0 16px;color:#3F444A">${places.length} places on the map. Each line says what the record says and how sure it is: Confirmed (checked against a primary source), Reported (a source says so) or Our reading (our best guess). Kitchens change — if your diet is strict, ask staff before you order.</p>`
     + `<p style="margin:0 0 16px"><a href="/#q=${area}&amp;a=1&amp;f=${diet.chip}" style="display:inline-block;padding:12px 18px;background:#087F5B;color:#fff;border-radius:12px;font-weight:600;text-decoration:none">Open these on the map</a></p>`
     + `<ul style="margin:0;padding:0 0 0 18px">${items}</ul>`
-    + (others ? `<p style="margin:20px 0 0;font-size:14px;color:#3F444A"><a href="/find/${diet.slug}" style="color:#087F5B">${diet.word} food in Korea</a> — other areas: ${others}</p>` : '')
+    + (others ? `<p style="margin:20px 0 0;font-size:14px;color:#3F444A"><a href="/find/${diet.slug}" style="display:inline-block;padding:12px 0;color:#087F5B">${diet.word} food in Korea</a><br>Other areas: ${others}</p>` : '')
     + `</main></div>`;
 }
 
@@ -286,8 +305,9 @@ for (const hub of hubs) {
   const url = `${SITE_URL}/find/${diet.slug}`;
   const title = `${diet.word} food in Korea — ${total} places by area · K-Food Map`;
   const description = `${total} ${diet.word.toLowerCase()} places across Korea, by city and neighbourhood. Each dietary claim is marked Confirmed, Reported or Our reading, with its source.`;
-  const items = areas.map(g => `<li style="margin:0 0 8px"><a href="/find/${g.slug}" style="color:#087F5B;font-weight:600">${diet.word} food in ${g.area}</a> <span style="color:#3F444A">· ${g.places.length} places</span></li>`).join('');
+  const items = areas.map(g => `<li style="margin:0"><a href="/find/${g.slug}" style="display:block;padding:11px 0;color:#087F5B;font-weight:600;text-decoration:none">${diet.word} food in ${g.area} <span style="font-weight:400;color:#3F444A">· ${g.places.length} places</span></a></li>`).join('');
   const body = `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
+    + STATIC_SCROLL
     + `<p style="margin:0;font-size:13px;font-weight:700;color:#087F5B">K-Food Map</p>`
     + `<h1 style="margin:6px 0 8px;font-size:26px">${diet.word} food in Korea</h1>`
     + `<p style="margin:0 0 16px;color:#3F444A">${total} places on the map, each researched one at a time. Every dietary claim says how sure the record is: Confirmed, Reported or Our reading. An area can sit inside another (Itaewon is in Yongsan, in Seoul), so the counts overlap.</p>`
@@ -314,8 +334,8 @@ for (const hub of hubs) {
 {
   const links = DIETS.map((diet) => {
     const top = guides.filter(g => g.diet === diet).sort((a, b) => b.places.length - a.places.length).slice(0, 8);
-    return `<p style="margin:6px 0 0;font-size:13px;color:#616875"><a href="/find/${diet.slug}" style="color:#087F5B;font-weight:600">${diet.word} food in Korea</a>: `
-      + top.map(g => `<a href="/find/${g.slug}" style="color:#087F5B">${g.area}</a>`).join(' · ') + '</p>';
+    return `<p style="margin:6px 0 0;font-size:13px;color:#616875"><a href="/find/${diet.slug}" style="display:inline-block;padding:12px 6px 12px 0;color:#087F5B;font-weight:600">${diet.word} food in Korea</a>`
+      + top.map(g => `<a href="/find/${g.slug}" style="display:inline-block;padding:12px 6px;color:#087F5B">${g.area}</a>`).join('') + '</p>';
   }).join('');
   const END = '</p></div></div>';
   if (!template.includes(END)) throw new Error('prerender: the home loading screen no longer ends where the guide links go');
