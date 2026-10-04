@@ -695,7 +695,7 @@ function AppShell() {
     const id = setTimeout(() => setFilterQuery(searchQuery), 120);
     return () => clearTimeout(id);
   }, [searchQuery, filterQuery]);
-  const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom } = useMemo(() => searchPlaces({
+  const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters } = useMemo(() => searchPlaces({
     places: activeRestaurants,
     query: filterQuery,
     filters: selectedFilters,
@@ -859,6 +859,8 @@ function AppShell() {
                 matchQuery={matchQuery}
                 nearest={nearest}
                 nearestFrom={nearestFrom}
+                withoutFilters={withoutFilters}
+                onClearSearch={() => { setQuery(''); setAreaOnly(false); }}
                 // Nothing found for a name: the way to tell us about it,
                 // with the name already written.
                 onPorkFree={() => {
@@ -958,6 +960,7 @@ function AppShell() {
 
       {/* Layer 2: Full-Screen Detail Modal */}
       <RestaurantDetail
+        isOnline={isOnline}
         restaurant={selectedRestaurant}
         onClose={closePlace}
         isBookmarked={selectedRestaurant ? bookmarkedIds.includes(selectedRestaurant.id) : false}

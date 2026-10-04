@@ -129,7 +129,7 @@ const DIET_CAVEAT_KEYS = {
 const telHref = (n) => { const d = String(n).replace(/[^0-9+]/g, ''); return d.startsWith('0') ? `+82${d.slice(1)}` : d; };
 
 export default function RestaurantDetail({
-  restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null,
+  restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null, isOnline = true,
   journey = null, onJourneyStop, nearby = [], nearbyDiet = [], onOpenPlace, planAt = null, planDate = null,
   mapCenter, focusStory, focusDirections = false, docked = false, belowSearch = false,
 }) {
@@ -319,7 +319,10 @@ export default function RestaurantDetail({
   const handleShare = async () => {
     // The place, not the sharer's own search and chips (the fragment).
     const url = window.location.origin + window.location.pathname;
-    const how = await shareOrCopy({ title: place.name, text: `${place.name} — ${place.vibe}`, url });
+    // The claims as the page states them, with how sure each is — the
+    // place's own line can say more ("a halal kitchen") than the record does.
+    const claims = dietaryBadges(place).map(b => `${b.label} (${trustBadge(b.fact).label})`).join(' · ');
+    const how = await shareOrCopy({ title: place.name, text: [place.name, claims, place.zone].filter(Boolean).join(' — '), url });
     if (how === 'failed') { window.prompt(t('detail.share'), url); return; }
     if (how === 'dismissed') return;
     setShared(how);
@@ -712,6 +715,7 @@ export default function RestaurantDetail({
               <div className="detail-directions">
                 {/* Links, not buttons: they leave the app, and a link can be
                     long-pressed, copied or opened in a new tab. */}
+                {!isOnline && <p className="practical-muted detail-offline-note">{t('detail.offlineLinks')}</p>}
                 <a className="btn-primary btn-primary--naver" href={naverMapUrl(place)} target="_blank" rel="noopener noreferrer">
                   {t('detail.naverMap')}
                 </a>

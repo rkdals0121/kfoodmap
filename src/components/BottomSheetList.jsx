@@ -155,7 +155,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -190,7 +190,7 @@ export default function BottomSheetList({
                           const st = planDate ? getOpenStatus(place.hours, planDate, { nameDay: true }) : getOpenStatus(place.hours);
                           return (
                             <span className="saved-row__status">
-                              {st ? <><span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>}
+                              {st ? <>{planDate && planAt && <span className="place-card__at">{t(`hours.day.${DAY_KEYS[planAt.day]}`)}: </span>}<span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>}
                             </span>
                           );
                         })()}
@@ -248,7 +248,14 @@ export default function BottomSheetList({
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   const shareView = async () => {
     const url = `${window.location.origin}/${viewLink}`;
-    const how = await shareOrCopy({ title: 'K-Food Map', url });
+    // Said in words too: a bare address in a group chat says nothing.
+    const words = [
+      ...activeFilters.filter(f => f !== SHARED_LIST && f !== SAVED_ONLY).map(id => (id === OPEN_AT && planAt
+        ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) })
+        : t(CHIP_LABEL_KEY[id] ?? id))),
+      ...(searchQuery.trim() ? [searchQuery.trim()] : []),
+    ].join(' · ');
+    const how = await shareOrCopy({ title: 'K-Food Map', text: words ? `${words} — K-Food Map` : undefined, url });
     if (how === 'failed') { window.prompt(t('list.shareView'), url); return; }
     if (how === 'copied') { setViewShared(true); setTimeout(() => setViewShared(false), 2500); }
   };
@@ -460,12 +467,26 @@ export default function BottomSheetList({
           {(activeFilters.length > 0 || searchQuery.trim()) && (
             <p className="place-list__criteria">
               {[
-                ...activeFilters.map(id => t(CHIP_LABEL_KEY[id] ?? id)),
+                // "Open Mon 7:00 PM", not the chip's own name "Open at…".
+                ...activeFilters.map(id => (id === OPEN_AT && planAt
+                  ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) })
+                  : t(CHIP_LABEL_KEY[id] ?? id))),
                 ...(searchQuery.trim() ? [`“${searchQuery.trim()}”`] : []),
               ].join(' + ')}
             </p>
           )}
           {nearestBlock}
+          {/* A search under chips that found nothing: the search goes and
+              the chips stay — "Clear everything" also took the Halal chip
+              off, and listed every place to someone who had asked for halal. */}
+          {onClearSearch && searchQuery.trim() && activeFilters.some(f => f !== SHARED_LIST) && (
+            <button type="button" className="place-list__clear" onClick={onClearSearch}>
+              {t('list.clearSearchOnly')}
+            </button>
+          )}
+          {withoutFilters > 0 && (
+            <p className="place-list__hint-text">{t('list.withoutFilters', { query: searchQuery.trim(), n: withoutFilters })}</p>
+          )}
           {/* The way out comes before the hint, so it is visible in the
               half-height sheet above the tab bar. */}
           {onClearFilters && (activeFilters.length > 0 || searchQuery.trim()) && (

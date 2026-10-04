@@ -5817,3 +5817,35 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
     top: calc(112px + 44px + 10px);
   }
 }
+
+/* Nothing found: the ways out sit above the tab bar of a short phone (the
+   only button was under it). Less air, no pictogram. */
+@media (max-width: 767px) {
+  .place-list__empty {
+    padding-top: 10px;
+  }
+  .place-list__empty > svg {
+    display: none;
+  }
+  .place-list__empty .place-list__clear {
+    margin-top: 6px;
+  }
+}
+.detail-offline-note {
+  width: 100%;
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+@media (max-width: 767px) {
+  .place-list__empty {
+    padding-top: 2px;
+    gap: 4px;
+  }
+  .place-list__empty .place-list__criteria {
+    margin: 0;
+  }
+  .place-list__empty .place-list__clear {
+    margin-top: 2px;
+  }
+}

@@ -31,7 +31,8 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
   const ctaRef = useRef(null);
   // First run: what the visitor is here for, so the map opens on it. One or
   // neither — it only turns a chip on, which the map shows and can turn off.
-  const [diet, setDiet] = useState(null);
+  // Both can be on: a table of friends is often some of each.
+  const [diet, setDiet] = useState([]);
   const onCompleteRef = useRef(onComplete);
   useEffect(() => { onCompleteRef.current = onComplete; });
 
@@ -81,9 +82,9 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
                 <button
                   key={id}
                   type="button"
-                  className={`prologue-language${diet === id ? ' is-current' : ''}`}
-                  aria-pressed={diet === id}
-                  onClick={() => setDiet(d => (d === id ? null : id))}
+                  className={`prologue-language${diet.includes(id) ? ' is-current' : ''}`}
+                  aria-pressed={diet.includes(id)}
+                  onClick={() => setDiet(d => (d.includes(id) ? d.filter(x => x !== id) : [...d, id]))}
                 >
                   {t(labelKey)}
                 </button>
@@ -106,7 +107,7 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
           <p className="prologue-legend__note">{t('prologue.legendNote')}</p>
         </section>
 
-        <button ref={ctaRef} className="prologue-btn" onClick={() => onComplete(diet ? [diet] : [])}>{t(ctaKey)}</button>
+        <button ref={ctaRef} className="prologue-btn" onClick={() => onComplete(diet)}>{t(ctaKey)}</button>
       </Wrapper>
     </div>
   );

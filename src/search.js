@@ -201,6 +201,9 @@ export function searchPlaces({
     // The search as it was used. Equal to what was typed unless a fallback
     // rewrote it; the list then says "also searched as".
     matchQuery: used === raw ? query : used,
+    // With nothing left under the chips: how many the text alone finds, so
+    // the list can say so rather than end at "no places match".
+    withoutFilters: result.list.length === 0 && raw && filters.length > 0 && !areaOnly ? hits(used).size : 0,
     nearest,
     nearestFrom,
   };
