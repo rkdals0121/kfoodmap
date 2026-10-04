@@ -2541,6 +2541,47 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     `matchesArea`, not the full-text search, so "Halal · Busan 8" opens 8
     places and not also Seoul's "Busan Jib" (live QA found 11); editing
     the search box returns to ordinary search.
+67. **2026-10-04 afternoon — the phone audit** (owner: find every
+    annoyance on a phone and fix it). Record and status of every item:
+    `docs/MOBILE-AUDIT-2026-10-04.ko.md`. Three audits (walking the screens,
+    a code read for mobile-web causes, measurement on live at 360x640 and
+    375x812), then a re-measure and a code review of the fixes. What a
+    maintainer needs to know:
+    - **List sheet** (App.jsx): follows the finger (`sheetRef`, `drag`
+      ref, no state per touchmove), settles on the nearest of three heights
+      measured from CSS (`sheetStops`), opens fully when the list is
+      scrolled down, phones only. Heights in index.css: folded = tab bar +
+      168 px, half = 60 %, open = 100 % − 92 px (the "my location" button
+      stays in view).
+    - **Place page**: `.detail-bar` (Naver, Kakao, Save) always in reach
+      on a phone; pull down from the top to close (`onPullStart` …);
+      44 px close button over an opaque band.
+    - **Back** closes what was opened: `src/hooks/useOverlay.js`
+      `useBackToClose` (a marked history entry per overlay; used by the
+      large Korean text, language sheet, About, ConfirmHost). Sheets with
+      addresses (/submit, /privacy, /cards) are opened with
+      `state.fromApp` and closed with `navigate(-1)`. Tabs: one entry over
+      the map (`selectTab`, `overMap`), read from `window.location`.
+    - **Feedback**: `toast` state in App (Undo for an unsave);
+      `askConfirm()` (`src/confirm.js` + `ConfirmHost`) replaces
+      `window.confirm`; `src/share.js` is the one way to copy and share.
+    - **Large Korean text** fills the screen (`useFitText`) and holds a
+      wake lock (`useWakeLock`).
+    - **Search**: a form (Search key blurs), own clear button, sheet opens
+      on focus; `matchQuery` in App is the text as typed, or — only when
+      that finds nothing — `fuzzyQuery()` (one letter off a long area
+      name). Never guess in the ordinary path: Mangwon ≠ Gangwon.
+    - **Map**: `React.memo(MapComponent)` with stable callbacks; zoom
+      buttons; an area search frames the area once per search; viewed
+      tiles cached for a fortnight (`kfm-tiles-v2`, CORS responses only —
+      the tile layer has `crossOrigin`; privacy policy updated, effective
+      2026-10-04).
+    - **CSS**: the audit's rules are appended at the end of index.css
+      under "Phone audit" headings; a phone held sideways gets the list as
+      a left panel.
+    - Not verifiable here, for a real phone: whether Naver / Kakao links
+      open the apps, pull-to-refresh on Android Chrome, the home
+      indicator inset on an installed iOS app.
     The App clock now ticks every minute regardless of filters, so the
     open/closed labels on cards and the open place stay current; only
     "Open now" re-filters on the tick (`filterClock`), so the map is not
