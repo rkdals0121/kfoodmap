@@ -37,7 +37,7 @@ function Field({ id, label, hint, error, children }) {
 // to verify, never data, and the success copy says so where the promise is made.
 const DRAFTS = new Map();
 
-export default function SubmitSheet({ place, onClose, initialName = '' }) {
+export default function SubmitSheet({ place, onClose, initialName = '', initialTopic = '' }) {
   const { t, i18n } = useTranslation();
   const isOnline = useOnlineStatus();
   // What has been typed is kept for this visit (in memory only, nothing is
@@ -50,7 +50,8 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
     // already being written.
     const written = kept && (kept.message || kept.locationHint || kept.topic || kept.sourceUrl || kept.contactEmail);
     if (initialName && !place && !written) return { ...EMPTY, name: initialName.slice(0, 80) };
-    return kept ?? EMPTY;
+    // Reached from the link under the hours: the subject is already chosen.
+    return kept ?? (LEAD_TOPICS.includes(initialTopic) ? { ...EMPTY, topic: initialTopic } : EMPTY);
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed

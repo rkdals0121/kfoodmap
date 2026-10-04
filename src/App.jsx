@@ -1024,6 +1024,7 @@ function AppShell() {
           key={location.search}
           place={submitPlace}
           initialName={location.state?.name ?? ''}
+          initialTopic={location.state?.topic ?? ''}
           // Opened from inside the app, it closes by going back — to the
           // place or the tab it came from, without a second copy of either.
           onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(submitPlace ? `/place/${submitPlace.id}` : tabPath, { replace: true }))}

@@ -75,7 +75,10 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
   const shareList = async () => {
     const url = sharedListUrl(window.location.origin, savedList.map(s => s.place.id));
     const title = t('journal.shareListTitle');
-    const how = await shareOrCopy({ title, url });
+    // The names with it: a bare address in a chat says nothing of what
+    // the list holds.
+    const names = savedList.slice(0, 8).map(x => displayName(x.place.name)).join(', ');
+    const how = await shareOrCopy({ title, text: `${title}: ${names}${savedList.length > 8 ? ', …' : ''}`, url });
     if (how === 'failed') { window.prompt(title, url); return; }
     if (how === 'copied') { setListShared(true); setTimeout(() => setListShared(false), 2500); }
   };

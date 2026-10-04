@@ -184,9 +184,11 @@ export function searchPlaces({
       if (spread <= 30) {
         nearest = places
           .filter(r => chips(r) && !result.list.includes(r) && openEnough(r) === 'yes')
-          .map((r) => { const c = coordsOf(r); return { place: r, km: haversineKm(lat, lng, c.lat, c.lng) }; })
+          .map((r) => { const c = coordsOf(r); return { place: r, km: haversineKm(lat, lng, c.lat, c.lng), soon: openOn && getOpenStatus(r.hours, now)?.soon ? 1 : 0 }; })
           .filter(x => x.km <= reach)
-          .sort((a, b) => a.km - b.km)
+          // Asked for somewhere open: a kitchen with half an hour left comes
+          // after one that stays open, however near it is.
+          .sort((a, b) => a.soon - b.soon || a.km - b.km)
           .slice(0, anchorPlaces ? 6 : 3);
         // '' when the distances are from the places found: the list then
         // says "close to these" rather than name an area.

@@ -579,7 +579,7 @@ export default function RestaurantDetail({
               {/* The whole week, for planning tomorrow or the weekend. A day
                   the record does not cover is said to be not recorded. */}
               {week && (
-                <details className="week-hours">
+                <details className="week-hours" onToggle={(e) => { if (e.currentTarget.open) e.currentTarget.scrollIntoView({ block: 'nearest' }); }}>
                   <summary>{t('detail.weekHours')}</summary>
                   <dl>
                     {week.map(d => (
@@ -596,7 +596,7 @@ export default function RestaurantDetail({
               {/* Hours are what goes out of date first: the way to say so is
                   here, not only three screens down. */}
               {week && (
-                <Link className="detail-report detail-report--hours" to={`/submit?place=${place.id}`} state={{ fromApp: true, tab: location.state?.tab }}>
+                <Link className="detail-report detail-report--hours" to={`/submit?place=${place.id}`} state={{ fromApp: true, tab: location.state?.tab, topic: 'hours' }}>
                   {t('submit.reportLink')}
                 </Link>
               )}

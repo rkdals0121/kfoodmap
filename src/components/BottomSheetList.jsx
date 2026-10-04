@@ -185,6 +185,7 @@ export default function BottomSheetList({
                       <span className="saved-row__main">
                         <span className="saved-row__name">{displayName(place.name)}</span>
                         <span className="saved-row__where">{place.zone} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
+                        <span className="saved-row__claims">{dietaryBadges(place).map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}</span>
                         {/* Whether it is open, as every other row says. */}
                         {(() => {
                           const st = planDate ? getOpenStatus(place.hours, planDate, { nameDay: true }) : getOpenStatus(place.hours);
@@ -438,7 +439,10 @@ export default function BottomSheetList({
         <PlaceCard
           key={r.id}
           place={r}
-          distanceKm={distanceKm}
+          // While searching, only a distance from the visitor is shown:
+          // measured from the middle of the map, Myeongdong's own places
+          // read "5 km" under a search for Myeongdong.
+          distanceKm={!fromYou && searchQuery.trim() ? Infinity : distanceKm}
           fromYou={fromYou}
           tick={tick}
           stop={journeyOrder ? sharedIds.indexOf(r.id) + 1 : 0}

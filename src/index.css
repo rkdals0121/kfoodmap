@@ -6083,3 +6083,13 @@ html[data-text='larger'] .detail-bar__map svg {
     outline: 2px solid Highlight;
   }
 }
+
+.saved-row__claims {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 2px 0;
+}
+.saved-row__claims:empty {
+  display: none;
+}

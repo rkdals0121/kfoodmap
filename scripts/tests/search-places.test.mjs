@@ -122,6 +122,13 @@ test('a kind of cooking is searched, and is not an area', async () => {
   // A word for "restaurant" is dropped wherever it stands.
   for (const q of ['부산 맛집', '부산맛집', '釜山 レストラン']) assert.equal(ids(go(q)), ids(go('Busan')), q);
   assert.ok(go('明洞素食餐厅').filteredRestaurants.length > 0);
+  // A question's small words are not required of the record.
+  const n = (q) => go(q).filteredRestaurants.length;
+  assert.ok(n('halal food near Itaewon') >= n('halal Itaewon'));
+  assert.ok(n('makanan halal dekat Itaewon') >= n('halal Itaewon'));
+  assert.ok(n('restaurants in Hongdae') >= n('Hongdae'));
+  assert.ok(n('釜山 ランチ') >= n('Busan'));
+  assert.equal(n('ブサン'), n('Busan'));
 });
 
 test('a name with its own punctuation, and a lone sight, are found', () => {

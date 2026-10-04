@@ -9,7 +9,7 @@
 // This is a search aid, not a fact about any place.
 const AREAS = {
   Seoul: ['서울', 'ソウル', '首尔', '首爾'],
-  Busan: ['부산', '釜山', 'プサン'],
+  Busan: ['부산', '釜山', 'プサン', 'ブサン'],
   Incheon: ['인천', '仁川', 'インチョン'],
   Daegu: ['대구', '大邱', 'テグ'],
   Daejeon: ['대전', '大田', 'テジョン'],
@@ -176,7 +176,14 @@ const SI_IN_ADDRESS = new Set(['Jeju']);
 // Only a city suffix narrows to the city: "제주도" and "济州岛" are the island.
 const IS_CITY = new Set(['市', '시', '市内', '시내']);
 
-const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛집', '음식점', '타워', 'レストラン', '店', 'restoran', 'toko', 'kedai', 'warung', 'rumah makan']);
+const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛집', '음식점', '타워', 'レストラン', '店', 'restoran', 'toko', 'kedai', 'warung', 'rumah makan',
+  // "halal food near Itaewon", "makanan halal dekat Itaewon", "釜山 ランチ":
+  // asked as a question, every word had to be found in the record, and
+  // "near" or "dekat" is in none.
+  'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'places', 'lunch', 'dinner',
+  'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat',
+  'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の',
+  '附近', '美食', '午餐', '晚餐', '근처', '점심', '저녁', '밥집']);
 
 export function romaniseQuery(query) {
   // NFKC: half-width kana (ﾌﾟｻﾝ) are the same names.
@@ -205,7 +212,8 @@ export function romaniseQuery(query) {
     }
     return [w];
   });
-  return changed ? out.join(' ') : null;
+  // Nothing but such words ("restaurant"): no other reading to offer.
+  return changed && out.length > 0 ? out.join(' ') : null;
 }
 
 export const AREA_NAMES = AREAS;
