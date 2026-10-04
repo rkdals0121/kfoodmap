@@ -195,7 +195,7 @@ export default {
     suggestionsHint: '开始输入，看到你要找的餐厅就选中它——也可以只输入店名。',
     picked: '来自 Kakao Map 的地址：{{address}}。在显示到地图上之前，我们会自行核实。',
     clearPick: '清除',
-    locationLabel: '在哪里？',
+    locationLabel: '在哪里？（选填）',
     locationHint: '写街区或最近的车站就够了。',
     topicLabel: '是关于什么的？',
     topicLabelNew: '这家店提供什么？',

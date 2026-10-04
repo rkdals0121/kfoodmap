@@ -200,7 +200,7 @@ export default {
     suggestionsHint: '入力を始めて、候補にお店があれば選んでください。店名を入力するだけでもかまいません。',
     picked: 'Kakao Map の住所:{{address}}。地図に掲載する前に、当サイトで確認します。',
     clearPick: 'クリア',
-    locationLabel: '場所はどこですか?',
+    locationLabel: '場所はどこですか?(任意)',
     locationHint: '地域名か最寄り駅だけでかまいません。',
     topicLabel: '何についてですか?',
     topicLabelNew: 'どんなお店ですか?',

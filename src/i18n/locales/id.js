@@ -198,7 +198,7 @@ export default {
     suggestionsHint: 'Mulai mengetik dan pilih restorannya jika muncul — atau cukup ketik namanya.',
     picked: 'Alamat dari Kakao Map: {{address}}. Kami mengeceknya sendiri sebelum ada yang tampil di peta.',
     clearPick: 'Hapus',
-    locationLabel: 'Di mana lokasinya?',
+    locationLabel: 'Di mana lokasinya? (opsional)',
     locationHint: 'Nama lingkungan atau stasiun terdekat sudah cukup.',
     topicLabel: 'Tentang apa?',
     topicLabelNew: 'Apa yang ditawarkan?',

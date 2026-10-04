@@ -194,7 +194,7 @@ export default {
     suggestionsHint: '입력하다가 찾는 식당이 보이면 골라 주세요. 이름만 적어도 돼요.',
     picked: '카카오맵 주소: {{address}}. 지도에 올리기 전에 저희가 직접 확인해요.',
     clearPick: '지우기',
-    locationLabel: '어디에 있나요?',
+    locationLabel: '어디에 있나요? (선택)',
     locationHint: '동네 이름이나 가까운 역만 적어도 충분해요.',
     topicLabel: '어떤 내용인가요?',
     topicLabelNew: '어떤 곳인가요?',

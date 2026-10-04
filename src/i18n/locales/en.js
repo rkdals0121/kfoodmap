@@ -205,7 +205,7 @@ export default {
     suggestionsHint: 'Start typing and pick your restaurant if you see it — or just type the name.',
     picked: 'Address from Kakao Map: {{address}}. We check it ourselves before anything appears on the map.',
     clearPick: 'Clear',
-    locationLabel: 'Where is it?',
+    locationLabel: 'Where is it? (optional)',
     locationHint: 'A neighbourhood or the nearest station is enough.',
     topicLabel: 'What is it about?',
     topicLabelNew: 'What does it offer?',
