@@ -72,3 +72,4 @@
 - 화면 문구는 `src/i18n/locales/en.js`가 기준입니다. 키를 추가하면 나머지 5개 파일에도 같은 키를
   넣어야 테스트(`scripts/tests/locales.test.mjs`)가 통과합니다.
 - 배포 전 게이트는 그대로입니다: `npm run check-data`, `npm test`, `npm run lint`, `npm run build`.
+- 배포 후에는 `npm run smoke`로 실제 사이트를 점검할 수 있습니다(페이지·스크립트·가게 페이지·지역 안내·사이트맵이 제대로 나오는지 읽기만 함).

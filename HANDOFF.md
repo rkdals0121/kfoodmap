@@ -2525,6 +2525,16 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     is never written to the address. With "Open at…" on, a place page
     shows that time's status under the current one; the phone sheet opens
     fully when the pickers appear.
+66. **2026-10-04.** The home page's loading screen links to the sixteen
+    most-populated area guides (home → guide → place, for a crawler and
+    for a browser without JavaScript). **`npm run smoke`**
+    (`scripts/smoke.mjs`): after a deploy, asks the live site for the
+    pages a visitor and a search engine ask for and checks what the build
+    should have put there — every script answers as JavaScript, a place
+    page has its title, body and parsable JSON-LD, a guide lists places
+    with confidences, the sitemap lists every active place. Read-only;
+    `npm run smoke -- http://localhost:4173` checks a local build. Run it
+    after the four gates and the deploy.
     The App clock now ticks every minute regardless of filters, so the
     open/closed labels on cards and the open place stay current; only
     "Open now" re-filters on the tick (`filterClock`), so the map is not

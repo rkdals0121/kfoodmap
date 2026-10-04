@@ -11,6 +11,7 @@
     "build": "vite build && node scripts/prerender-places.mjs",
     "lint": "oxlint",
     "check-data": "node scripts/check-data.mjs",
+    "smoke": "node scripts/smoke.mjs",
     "test": "npm run test:unit && npm run test:effects",
     "test:unit": "node --test \"scripts/tests/!(passport-sync-effects).test.mjs\"",
     "test:effects": "node --test --experimental-test-module-mocks \"scripts/tests/passport-sync-effects.test.mjs\"",
