@@ -85,6 +85,24 @@ const browse = () => browseCache ?? (browseCache = CHIP_GROUPS.flatMap(g => g.ch
       .slice(0, BROWSE_MAX),
   })));
 
+// A journey's stops, folded on a phone: seven journeys open in full made
+// Discover ten screens long, with the stories under all of it. The title,
+// what it is, how sure the claims are and "show on the map" stay in view;
+// the stops open on a tap. From 768 px, where there is room, they start open.
+function JourneyStops({ count, children }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(() => typeof window !== 'undefined' && Boolean(window.matchMedia?.('(min-width: 768px)').matches));
+  return (
+    <>
+      <button type="button" className="journey-card__toggle" aria-expanded={open} onClick={() => setOpen(o => !o)}>
+        {t('discover.stopsCount', { n: count })}
+        <ChevronRightIcon size={16} />
+      </button>
+      {open && children}
+    </>
+  );
+}
+
 function DiscoverTab({ onBrowse }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -147,6 +165,7 @@ function DiscoverTab({ onBrowse }) {
                     {t('discover.closedToday', { closed: journey.stops.filter(p => closedAllDay(p.hours)).length, total: journey.stops.length })}
                   </p>
                 )}
+                <JourneyStops count={journey.stops.length}>
                 <ol className="journey-card__stops">
                   {journey.stops.map((place, i) => (
                     <li key={place.id}>
@@ -188,6 +207,7 @@ function DiscoverTab({ onBrowse }) {
                     </li>
                   ))}
                 </ol>
+                </JourneyStops>
                 {claimSummary(journey.stops, t) && (
                   <p className="journey-card__claims">{claimSummary(journey.stops, t)}</p>
                 )}

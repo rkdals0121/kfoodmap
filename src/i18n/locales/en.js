@@ -141,6 +141,7 @@ export default {
     legFromPrevious: '{{distance}} from stop {{stop}}, in a straight line',
     showOnMap: 'Show these stops on the map',
     byArea: 'Browse by area',
+    stopsCount: '{{n}} stops',
     closedToday: 'Closed today: {{closed}} of {{total}} stops',
     storyLabel: 'Story',
     cultureTitle: 'Food stories',

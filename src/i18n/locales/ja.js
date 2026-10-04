@@ -139,6 +139,7 @@ export default {
     legFromPrevious: '{{stop}} か所目から直線で {{distance}}',
     showOnMap: 'このコースを地図で見る',
     byArea: 'エリアから探す',
+    stopsCount: '{{n}} か所を見る',
     closedToday: '本日休業: {{total}} か所中 {{closed}} か所',
     storyLabel: 'ストーリー',
     cultureTitle: '食のストーリー',

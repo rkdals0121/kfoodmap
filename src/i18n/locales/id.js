@@ -136,6 +136,7 @@ export default {
     legFromPrevious: '{{distance}} dari perhentian {{stop}}, dalam garis lurus',
     showOnMap: 'Lihat perhentian ini di peta',
     byArea: 'Jelajahi menurut area',
+    stopsCount: '{{n}} perhentian',
     closedToday: 'Tutup hari ini: {{closed}} dari {{total}} perhentian',
     storyLabel: 'Cerita',
     cultureTitle: 'Cerita kuliner',

@@ -134,6 +134,7 @@ export default {
     legFromPrevious: '距第 {{stop}} 站直線 {{distance}}',
     showOnMap: '在地圖上查看這些地點',
     byArea: '按地區瀏覽',
+    stopsCount: '{{n}} 站',
     closedToday: '今日公休：{{total}} 站中 {{closed}} 站',
     storyLabel: '故事',
     cultureTitle: '美食故事',

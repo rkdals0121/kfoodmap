@@ -5038,3 +5038,31 @@ body {
   word-break: break-all;
   line-break: anywhere;
 }
+
+/* Discover: a journey's stops open on a tap. */
+.journey-card__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green-strong);
+  cursor: pointer;
+}
+.journey-card__toggle svg {
+  transition: transform 0.15s ease;
+}
+.journey-card__toggle[aria-expanded='true'] svg {
+  transform: rotate(90deg);
+}
+.journey-card__toggle:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
