@@ -553,7 +553,7 @@ export default {
     questions: 'Questions to ask',
     questionsHint: 'Tap a question to show it large.',
     answers: 'What staff may answer',
-    answersHint: 'An unsure answer is best treated as a no.',
+    answersHint: 'If the answer is unsure, treat the dish as one you cannot eat.',
     menuWords: 'Words to look for',
     menuWordsHint: 'On a menu or a packet. These are usual in the dishes named, but a kitchen may cook without them — only the kitchen knows.',
     note: 'Written in Korean by the K-Food Map project. A card says what you eat; it cannot tell you what a kitchen does. This page works offline once the app has loaded.',

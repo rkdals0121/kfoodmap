@@ -540,7 +540,7 @@ export default {
     questions: 'Pertanyaan untuk diajukan',
     questionsHint: 'Ketuk pertanyaan untuk memperbesarnya.',
     answers: 'Kemungkinan jawaban staf',
-    answersHint: 'Jawaban yang ragu-ragu sebaiknya dianggap sebagai “tidak”.',
+    answersHint: 'Jika jawabannya ragu-ragu, sebaiknya anggap makanan itu tidak bisa Anda makan.',
     menuWords: 'Kata yang perlu dicari',
     menuWordsHint: 'Di menu atau kemasan. Bahan-bahan ini biasa dipakai pada hidangan yang disebut, tetapi dapur bisa saja tidak memakainya — hanya dapur yang tahu.',
     note: 'Ditulis dalam bahasa Korea oleh proyek K-Food Map. Kartu menyampaikan apa yang Anda makan; kartu tidak bisa memberi tahu apa yang dilakukan dapur. Halaman ini bisa dipakai offline setelah aplikasi dimuat.',

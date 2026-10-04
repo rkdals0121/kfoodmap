@@ -537,7 +537,7 @@ export default {
     questions: '可以問的問題',
     questionsHint: '點一下問題即可放大顯示。',
     answers: '店員可能的回答',
-    answersHint: '回答含糊時，最好當作「不行」。',
+    answersHint: '回答含糊時，最好當作不能吃。',
     menuWords: '需要留意的詞',
     menuWordsHint: '出現在菜單或包裝上。所列菜色通常會用到這些食材，但廚房也可能不放——有沒有放只有廚房知道。',
     note: '韓語由 K-Food Map 專案撰寫。卡片說明的是你吃什麼，無法告訴你廚房怎麼做。應用程式載入完成後，本頁可離線使用。',

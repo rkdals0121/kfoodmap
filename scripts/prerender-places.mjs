@@ -199,7 +199,7 @@ const cardsBody = () => {
     + `<p style="margin:0;color:#3F444A">Most restaurant staff in Korea do not read English. Show one of these on your phone. The full page adds questions about hidden ingredients, the answers you may hear, and a large view to hold up.</p>`
     + card(cardById('vegan'), 'If you are vegan')
     + card(cardById('muslim'), 'If you are Muslim')
-    + `<p style="margin:16px 0 0;font-size:13px;color:#616875">A card asks; it cannot promise what a kitchen serves. An unsure answer is best treated as a no.</p>`
+    + `<p style="margin:16px 0 0;font-size:13px;color:#616875">A card asks; it cannot promise what a kitchen serves. If the answer is unsure, treat the dish as one you cannot eat.</p>`
     + `</main></div>`;
 };
 
