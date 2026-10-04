@@ -951,7 +951,7 @@ function AppShell() {
             session={session}
             googleReady={googleReady}
             onSignIn={signIn}
-            onSignOut={signOut}
+            onSignOut={() => signOut({ confirmLoss: () => askConfirm(t('profile.signOutUnsynced'), { confirmLabel: t('profile.signOut') }) })}
             onDeleteRecords={deleteRecords}
             lastSyncFailed={lastSyncFailed}
             sessionEnded={sessionEnded}

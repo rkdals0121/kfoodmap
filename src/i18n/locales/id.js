@@ -183,6 +183,7 @@ export default {
     accountSection: 'Akun',
     signOut: 'Keluar',
     signOutHint: 'Menghapus data di perangkat ini',
+    signOutUnsynced: 'Beberapa tempat tersimpan belum sampai ke akun Anda. Jika keluar sekarang, tempat itu akan hilang dari perangkat ini.',
     deleteRecords: 'Hapus tempat tersimpan saya',
     // Jujur tentang apa yang bisa dan tidak bisa dijangkau penghapusan:
     // perangkat lain yang masih masuk menyimpan salinannya sendiri dan akan

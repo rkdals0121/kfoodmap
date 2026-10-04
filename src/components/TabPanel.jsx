@@ -400,6 +400,7 @@ function ProfileTab({
   const { t, i18n } = useTranslation();
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
   const aboutOpener = useRef(null);
   const { state: installable, install } = useInstall();
   useBackToClose(languagePickerOpen, () => setLanguagePickerOpen(false));
@@ -553,10 +554,12 @@ function ProfileTab({
       {session && (
         <div className="settings-list settings-list--account">
           <span className="settings-section-label">{t('profile.accountSection')}</span>
-          <button type="button" className="settings-item" onClick={onSignOut}>
+          {/* Signing out waits on the network: the row shows it was pressed. */}
+          <button type="button" className="settings-item" disabled={signingOut} aria-busy={signingOut}
+            onClick={() => { setSigningOut(true); Promise.resolve(onSignOut()).finally(() => setSigningOut(false)); }}>
             <span className="settings-icon" aria-hidden="true"><LogOutIcon size={20} /></span>
             <span className="settings-text">
-              <span className="settings-label">{t('profile.signOut')}</span>
+              <span className="settings-label">{t('profile.signOut')}{signingOut ? ' …' : ''}</span>
             </span>
             <span className="settings-value">{t('profile.signOutHint')}</span>
             <ChevronRightIcon size={18} />

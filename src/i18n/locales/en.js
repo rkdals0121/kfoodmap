@@ -188,6 +188,7 @@ export default {
     accountSection: 'Account',
     signOut: 'Sign out',
     signOutHint: 'Clears this device',
+    signOutUnsynced: 'Some saved places have not reached your account yet. Signing out now removes them from this device.',
     deleteRecords: 'Delete my saved places',
     // Honest about what a delete can and cannot reach. The DELETE is real —
     // the rows leave the account — but another device that is still signed

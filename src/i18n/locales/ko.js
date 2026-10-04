@@ -182,6 +182,7 @@ export default {
     accountSection: '계정',
     signOut: '로그아웃',
     signOutHint: '이 기기의 기록을 지워요',
+    signOutUnsynced: '아직 계정에 올라가지 않은 저장 장소가 있어요. 지금 로그아웃하면 이 기기에서 사라져요.',
     deleteRecords: '저장한 곳 삭제',
     deleteRecordsConfirm: '저장·방문·저장 취소 기록을 계정에서 삭제하고 이 기기에서도 지워요. 아직 로그인된 다른 기기가 있으면 거기 남은 기록이 다시 올라올 수 있으니, 그 기기에서 먼저 로그아웃해 주세요.',
     syncFailed: '동기화하지 못했어요. 기록은 이 기기에 그대로 있어요',

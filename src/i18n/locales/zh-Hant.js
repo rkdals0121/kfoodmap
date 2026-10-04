@@ -181,6 +181,7 @@ export default {
     accountSection: '帳號',
     signOut: '登出',
     signOutHint: '會清除本裝置上的資料',
+    signOutUnsynced: '有些已儲存的地點還沒有同步到您的帳號。現在登出，它們會從這部裝置上消失。',
     deleteRecords: '刪除我收藏的地方',
     // 如實說明刪除的範圍：帳號中的紀錄會被刪除，但仍處於登入狀態的其他裝置
     // 保有自己的副本，下次同步時會重新上傳，所以不承諾「無法復原」。

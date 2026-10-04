@@ -213,9 +213,23 @@ function userHeaders(anonKey, accessToken) {
   return { ...authHeaders(anonKey), Authorization: `Bearer ${accessToken}` };
 }
 
+// A connection that stalls gives no answer at all: after 10 s the request
+// is given up, which every caller already treats as a failure to retry.
+const SYNC_TIMEOUT_MS = 10000;
+const bounded = (fetchImpl) => async (url, init) => {
+  if (typeof AbortController !== 'function') return fetchImpl(url, init);
+  const abort = new AbortController();
+  const timer = setTimeout(() => abort.abort(), SYNC_TIMEOUT_MS);
+  try {
+    return await fetchImpl(url, { ...init, signal: abort.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+};
+
 export async function pullPassport({ url, anonKey }, accessToken, fetchImpl = fetch) {
   try {
-    const response = await fetchImpl(
+    const response = await bounded(fetchImpl)(
       `${url}/rest/v1/passports?select=place_id,saved_at,visited_at,updated_at`,
       { headers: userHeaders(anonKey, accessToken) },
     );
@@ -230,7 +244,7 @@ export async function pullPassport({ url, anonKey }, accessToken, fetchImpl = fe
 export async function pushPassport(entries, { url, anonKey }, accessToken, userId, fetchImpl = fetch) {
   if (entries.length === 0) return { ok: true, status: 0 };
   try {
-    const response = await fetchImpl(`${url}/rest/v1/passports`, {
+    const response = await bounded(fetchImpl)(`${url}/rest/v1/passports`, {
       method: 'POST',
       headers: {
         ...userHeaders(anonKey, accessToken),
@@ -252,7 +266,7 @@ export async function pushPassport(entries, { url, anonKey }, accessToken, userI
 // in userId from silently corrupting the query string.
 export async function deleteAllPassport({ url, anonKey }, accessToken, userId, fetchImpl = fetch) {
   try {
-    const response = await fetchImpl(`${url}/rest/v1/passports?user_id=eq.${encodeURIComponent(userId)}`, {
+    const response = await bounded(fetchImpl)(`${url}/rest/v1/passports?user_id=eq.${encodeURIComponent(userId)}`, {
       method: 'DELETE',
       headers: userHeaders(anonKey, accessToken),
     });
