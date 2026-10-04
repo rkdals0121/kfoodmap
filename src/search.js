@@ -203,7 +203,13 @@ export function searchPlaces({
     matchQuery: used === raw ? query : used,
     // With nothing left under the chips: how many the text alone finds, so
     // the list can say so rather than end at "no places match".
-    withoutFilters: result.list.length === 0 && raw && filters.length > 0 && !areaOnly ? hits(used).size : 0,
+    // The same search run again with the chips off, so the number is the
+    // one the reader will see. Not for "Saved" or a shared list: those are
+    // the reader's own places, not a filter to suggest dropping.
+    withoutFilters: result.list.length === 0 && raw && filters.length > 0 && !areaOnly
+      && !filters.includes(SAVED_ONLY) && !filters.includes(SHARED_LIST)
+      ? searchPlaces({ places, query, filters: [], now }).filteredRestaurants.length
+      : 0,
     nearest,
     nearestFrom,
   };

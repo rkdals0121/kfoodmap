@@ -255,7 +255,7 @@ export default function BottomSheetList({
         : t(CHIP_LABEL_KEY[id] ?? id))),
       ...(searchQuery.trim() ? [searchQuery.trim()] : []),
     ].join(' · ');
-    const how = await shareOrCopy({ title: 'K-Food Map', text: words ? `${words} — K-Food Map` : undefined, url });
+    const how = await shareOrCopy({ title: 'K-Food Map', text: words || undefined, url });
     if (how === 'failed') { window.prompt(t('list.shareView'), url); return; }
     if (how === 'copied') { setViewShared(true); setTimeout(() => setViewShared(false), 2500); }
   };
@@ -479,7 +479,7 @@ export default function BottomSheetList({
           {/* A search under chips that found nothing: the search goes and
               the chips stay — "Clear everything" also took the Halal chip
               off, and listed every place to someone who had asked for halal. */}
-          {onClearSearch && searchQuery.trim() && activeFilters.some(f => f !== SHARED_LIST) && (
+          {onClearSearch && searchQuery.trim() && activeFilters.length > 0 && (
             <button type="button" className="place-list__clear" onClick={onClearSearch}>
               {t('list.clearSearchOnly')}
             </button>

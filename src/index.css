@@ -5849,3 +5849,10 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
     margin-top: 2px;
   }
 }
+
+@media (min-width: 1200px) {
+  .app-shell.is-collapsed:has(.detail-sheet--docked) .offline-banner,
+  .app-shell.is-collapsed:has(.detail-sheet--docked) .update-banner {
+    left: calc(464px + 12px);
+  }
+}

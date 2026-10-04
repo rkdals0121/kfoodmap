@@ -138,3 +138,15 @@ test('one search stays quick', () => {
   // text matches were shared between the fallbacks.
   assert.ok(performance.now() - t0 < 1500);
 });
+
+test('"N without the filters" is the number the same search shows with the chips off', () => {
+  for (const [q, f] of [['Seoul Station', ['Vegan', 'Halal']], ['Plant Cafe', ['Halal', 'Vegan']], ['cake', ['Halal']], ['korean bbq', ['Vegan', 'Halal']]]) {
+    const r = go(q, f);
+    if (r.filteredRestaurants.length === 0) assert.equal(r.withoutFilters, go(q).filteredRestaurants.length, q);
+  }
+  // The reader's own lists are not filters to suggest dropping.
+  assert.equal(searchPlaces({ places, query: 'itaewon', filters: ['Saved'], bookmarkedIds: [] }).withoutFilters, 0);
+  // Words for "restaurant" add nothing, in Indonesian too.
+  assert.equal(ids(go('restoran halal')), ids(go('halal')));
+  assert.equal(ids(go('咖啡厅')), ids(go('cafe')));
+});

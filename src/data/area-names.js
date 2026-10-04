@@ -60,7 +60,7 @@ const ALSO_NAMED = {
   // records say "temple" and "vegetarian".
   temple: ['사찰음식', '寺院料理', '寺庙料理', '寺廟料理', '寺刹料理', '精進料理', '寺庙', '寺廟', '斋菜', '齋菜'],
   vegetarian: ['ベジタリアン', '素食', '菜食', '채식'],
-  cafe: ['カフェ', '咖啡店', '咖啡馆', '咖啡館', '咖啡廳', '카페'],
+  cafe: ['カフェ', '咖啡店', '咖啡馆', '咖啡館', '咖啡廳', '咖啡厅', '카페'],
   bakery: ['ベーカリー', 'パン屋', '面包店', '麵包店', '빵집', '베이커리'],
   dessert: ['デザート', 'スイーツ', '甜点', '甜點', '甜品', '디저트'],
   cake: ['ケーキ', '蛋糕', '케이크'],
@@ -100,7 +100,6 @@ const LATIN_VARIANTS = new Map(Object.entries({
   kue: 'cake',
   kafe: 'cafe',
   manis: 'dessert',
-  restoran: 'restaurant',
   pusan: 'Busan',
   inchon: 'Incheon',
   taegu: 'Daegu',
@@ -177,7 +176,7 @@ const SI_IN_ADDRESS = new Set(['Jeju']);
 // Only a city suffix narrows to the city: "제주도" and "济州岛" are the island.
 const IS_CITY = new Set(['市', '시', '市内', '시내']);
 
-const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛집', '음식점', '타워', 'レストラン', '店']);
+const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛집', '음식점', '타워', 'レストラン', '店', 'restoran', 'toko', 'kedai', 'warung', 'rumah makan']);
 
 export function romaniseQuery(query) {
   // NFKC: half-width kana (ﾌﾟｻﾝ) are the same names.
@@ -185,7 +184,7 @@ export function romaniseQuery(query) {
   let changed = false;
   const out = words.flatMap((w) => {
     // "부산 맛집", "首尔 餐厅": a word for "restaurant" is no search term.
-    if (FILLER.has(w)) { changed = true; return []; }
+    if (FILLER.has(w.toLowerCase())) { changed = true; return []; }
     const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
     if (whole) { changed = true; return [whole]; }
     for (const [name, roman] of TO_ROMAN) {

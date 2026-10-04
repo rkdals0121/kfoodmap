@@ -44,5 +44,7 @@ export async function shareOrCopy({ title, text, url }) {
       // Refused for another reason (some webviews): fall through and copy.
     }
   }
-  return (await copyText(plain)) ? 'copied' : 'failed';
+  // Copied, a link is the link alone: the button says "Link copied", and
+  // words pasted with it into an address bar became a web search.
+  return (await copyText(url || plain)) ? 'copied' : 'failed';
 }

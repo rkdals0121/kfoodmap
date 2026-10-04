@@ -29,8 +29,8 @@ const START_DIETS = CHIP_GROUPS.flatMap(g => g.chips).filter(c => c.id === 'Vega
 export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologue.continue' }) {
   const { t, i18n } = useTranslation();
   const ctaRef = useRef(null);
-  // First run: what the visitor is here for, so the map opens on it. One or
-  // neither — it only turns a chip on, which the map shows and can turn off.
+  // First run: what the visitor is here for, so the map opens on it. It
+  // only turns chips on, which the map shows and can turn off.
   // Both can be on: a table of friends is often some of each.
   const [diet, setDiet] = useState([]);
   const onCompleteRef = useRef(onComplete);
