@@ -504,6 +504,12 @@ function AppShell() {
   // "Open at…": a weekday and a time in Korea, for planning tomorrow's
   // lunch or Sunday's dinner. Starts at noon tomorrow.
   const openAtOn = selectedFilters.includes(OPEN_AT);
+  // "Open now" leaves out places whose hours were never recorded, and says
+  // how many. The reader may ask to see them anyway; each card then says
+  // its hours are not recorded. Off again with the filter.
+  const [showUnknown, setShowUnknown] = useState(false);
+  const includeUnknown = showUnknown && (openNowOn || openAtOn);
+  useEffect(() => { if (!openNowOn && !openAtOn) setShowUnknown(false); }, [openNowOn, openAtOn]);
   const [planAt, setPlanAt] = useState(() => startView.planAt ?? { day: (koreaToday() + 1) % 7, minutes: 720 });
   // …and written back as the view changes, on whatever page is showing, so
   // a reload from a place page returns to the same list. Replaces the
@@ -608,9 +614,9 @@ function AppShell() {
       if (!chips(r) || !(areaOnly ? matchesArea(r, query) : matchesSearch(r, query))) return false;
       if (!openNowOn && !openAtOn) return true;
       const status = getOpenStatus(r.hours, now);
-      if (status === null) unknown += 1;
+      if (status === null) { unknown += 1; return includeUnknown; }
       // Open but past last order is no use to someone who wants to eat now.
-      return status?.open === true && status.orderable !== false;
+      return status.open === true && status.orderable !== false;
     });
     let list = run(searchQuery);
     let used = searchQuery;
@@ -651,7 +657,7 @@ function AppShell() {
       }
     }
     return { filteredRestaurants: list, unknownHours: unknown, matchQuery: used, nearest: near };
-  }, [selectedFilters, searchQuery, areaOnly, openNowOn, openAtOn, planDate, filterClock, bookmarkedIds, sharedIds]);
+  }, [selectedFilters, searchQuery, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
 
   // The same function object on every render, always calling the latest
   // version: what lets the memoised map skip renders it does not need.
@@ -782,6 +788,8 @@ function AppShell() {
                 sustainabilityLens={sustainabilityLens}
                 activeFilters={selectedFilters}
                 unknownHours={unknownHours}
+                showUnknown={includeUnknown}
+                onToggleUnknown={() => setShowUnknown(v => !v)}
                 planAt={planAt}
                 planDate={planDate}
                 areaOnly={areaOnly}

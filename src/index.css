@@ -5142,3 +5142,23 @@ body {
 @media (max-width: 380px) {
   .week-hours__slot { white-space: normal; }
 }
+
+/* "Show them too" inside the Open-now note. */
+.place-list__note-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--green-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  position: relative;
+}
+/* A 44 px target around a word in running text. */
+.place-list__note-btn::after {
+  content: '';
+  position: absolute;
+  inset: -13px -8px;
+}

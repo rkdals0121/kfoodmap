@@ -150,7 +150,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '',
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -161,6 +161,15 @@ export default function BottomSheetList({
   // A journey's stops keep the journey's own order: it is a route, and
   // "nearest the map centre" shuffled it.
   const journeyOrder = Boolean(sharedJourney) && activeFilters.includes(SHARED_LIST);
+  // The way to the places "Open now" left out for having no hours on record.
+  const unknownToggle = unknownHours > 0 && onToggleUnknown ? (
+    <>
+      {' '}
+      <button type="button" className="place-list__note-btn" onClick={(e) => { e.stopPropagation(); onToggleUnknown(); }}>
+        {t(showUnknown ? 'list.hideUnknown' : 'list.showUnknown')}
+      </button>
+    </>
+  ) : null;
   const sorted = useMemo(() => {
     const inArea = (r) => matchesArea(r, matchQuery);
     const stop = (r) => sharedIds.indexOf(r.id);
@@ -299,7 +308,10 @@ export default function BottomSheetList({
           so an empty or short list is not read as "nothing else exists". */}
       {activeFilters.includes(OPEN_NOW) && (
         <p className="section-note place-list__note" role="status">
-          {unknownHours > 0 ? t('list.openNowNote', { count: unknownHours }) : t('list.openNowNoteNone')}
+          {unknownHours > 0 && showUnknown
+            ? t('list.unknownShown', { n: unknownHours })
+            : unknownHours > 0 ? t('list.openNowNote', { count: unknownHours }) : t('list.openNowNoteNone')}
+          {unknownToggle}
         </p>
       )}
       {activeFilters.includes(OPEN_AT) && planAt && (() => {
@@ -307,7 +319,10 @@ export default function BottomSheetList({
         const when = t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) });
         return (
           <p className="section-note place-list__note" role="status">
-            {unknownHours > 0 ? t('list.openAtNote', { count: unknownHours, when }) : t('list.openAtNoteNone', { when })}
+            {unknownHours > 0 && showUnknown
+              ? t('list.unknownShown', { n: unknownHours })
+              : unknownHours > 0 ? t('list.openAtNote', { count: unknownHours, when }) : t('list.openAtNoteNone', { when })}
+            {unknownToggle}
           </p>
         );
       })()}
