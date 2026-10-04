@@ -341,6 +341,7 @@ export default {
     actionSave: '저장',
     actionSaved: '저장됨',
     savedNote: '저널에 저장했어요. 인터넷 없이도 열려요.',
+    visitedNote: '다녀온 곳으로 표시했어요. 저널에 도장이 찍혔어요.',
     removedNote: '저널에서 뺐어요.',
     actionBeenHere: '다녀옴',
     galleryItem: '갤러리 사진',

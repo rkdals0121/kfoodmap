@@ -348,6 +348,7 @@ export default {
     actionSave: 'Simpan',
     actionSaved: 'Tersimpan',
     savedNote: 'Disimpan ke Jurnal Anda. Bisa dibuka tanpa internet.',
+    visitedNote: 'Ditandai sudah dikunjungi. Capnya ada di Jurnal Anda.',
     removedNote: 'Dihapus dari Jurnal Anda.',
     actionBeenHere: 'Sudah ke sini',
     galleryItem: 'Item galeri',

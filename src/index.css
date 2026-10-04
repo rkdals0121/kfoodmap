@@ -5162,3 +5162,9 @@ body {
   position: absolute;
   inset: -13px -8px;
 }
+
+/* "Show large" sits above the card now. */
+.staff-card__large-btn {
+  margin-top: 0;
+  margin-bottom: 10px;
+}

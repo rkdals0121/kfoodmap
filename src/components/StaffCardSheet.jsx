@@ -90,16 +90,16 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
 
             <section className="staff-card" aria-label={t('cards.showThis')}>
               <h3 className="staff-cards__heading">{t('cards.showThis')}</h3>
-              {/* Tapping the card shows it large too: the button under it was
-                  below the first screen on a shorter phone. */}
+              {/* The button before the card: under it, it was below the first
+                  screen of a shorter phone. Tapping the card does the same. */}
+              <button type="button" className="staff-card__large-btn" onClick={() => openLarge(card.statement.map(l => l.ko))}>
+                {t('cards.showLarge')}
+              </button>
               <div className="staff-card__paper" onClick={() => openLarge(card.statement.map(l => l.ko))}>
                 {card.statement.map(line => (
                   <p key={line.ko} className="staff-card__ko" lang="ko">{line.ko}</p>
                 ))}
               </div>
-              <button type="button" className="staff-card__large-btn" onClick={() => openLarge(card.statement.map(l => l.ko))}>
-                {t('cards.showLarge')}
-              </button>
               {gloss && <details className="staff-card__meaning" open>
                 <summary>{t('cards.whatItSays')}</summary>
                 <ul>

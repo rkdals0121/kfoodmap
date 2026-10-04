@@ -481,6 +481,9 @@ function AppShell() {
     if (current && current.savedAt !== null && current.visitedAt !== null
       && !(await askConfirm(t('journal.unvisitConfirm')))) return;
     const now = Date.now();
+    // Marking a visit also saves the place and stamps the Journal: say so,
+    // as a save does. Taking one back was just confirmed and needs no word.
+    if (!current || current.visitedAt === null) setToast({ text: t('detail.visitedNote'), undo: null, at: now });
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
       if (!held || held.savedAt === null) {

@@ -344,6 +344,7 @@ export default {
     actionSave: '收藏',
     actionSaved: '已收藏',
     savedNote: '已收藏到手帳，離線也能開啟。',
+    visitedNote: '已標記為去過，並在手帳裡蓋了章。',
     removedNote: '已從手帳移除。',
     actionBeenHere: '去過',
     galleryItem: '圖片',

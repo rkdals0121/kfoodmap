@@ -351,6 +351,7 @@ export default {
     actionSave: '保存',
     actionSaved: '保存済み',
     savedNote: 'ジャーナルに保存しました。オフラインでも開けます。',
+    visitedNote: '訪問済みにしました。ジャーナルにスタンプが付きます。',
     removedNote: 'ジャーナルから削除しました。',
     actionBeenHere: '行った',
     galleryItem: 'ギャラリーの項目',
