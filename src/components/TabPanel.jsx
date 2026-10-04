@@ -262,6 +262,12 @@ function LanguagePicker({ onClose }) {
   return createPortal(
     <div className="language-picker-overlay" onClick={onClose}>
       <div className="language-picker" role="dialog" aria-modal="true" aria-label={t('profile.chooseLanguage')} onClick={(e) => e.stopPropagation()}>
+        <div className="language-picker__head">
+          <h2 className="language-picker__title">{t('profile.chooseLanguage')}</h2>
+          <button type="button" className="language-picker__close" aria-label={t('detail.close')} onClick={onClose}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
         {/* Each language in its own name and marked with its own lang, so
             it reads (and is spoken) correctly whatever the current one is. */}
         {LANGUAGES.map((lang, i) => (
@@ -351,6 +357,29 @@ function ProfileTab({
         <p>{t('profile.settingsSubtitle')}</p>
       </div>
 
+      {/* First, where a thumb finds them: someone who cannot read this
+          language needs the Language row without scrolling past a card. */}
+      <div className="settings-list">
+        {settings.map((item, idx) => (item.action ? (
+          <button type="button" key={idx} className="settings-item" onClick={item.action}>
+            <span className="settings-icon" aria-hidden="true">{item.icon}</span>
+            <span className="settings-text">
+              <span className="settings-label">{item.label}</span>
+            </span>
+            {item.value && <span className="settings-value">{item.value}</span>}
+            <ChevronRightIcon size={18} />
+          </button>
+        ) : (
+          <div key={idx} className="settings-item settings-item--static">
+            <span className="settings-icon" aria-hidden="true">{item.icon}</span>
+            <span className="settings-text">
+              <span className="settings-label">{item.label}</span>
+            </span>
+            {item.value && <span className="settings-value">{item.value}</span>}
+          </div>
+        )))}
+      </div>
+
       {/* The question this screen exists to answer — where the saved places
           live, and whether losing this phone loses them. It borrows the
           Journal's passport cover deliberately: same object, different
@@ -406,27 +435,6 @@ function ProfileTab({
       {session && lastSyncFailed && (
         <p className="profile-notice profile-notice--warn" role="status">{t('profile.syncFailed')}</p>
       )}
-
-      <div className="settings-list">
-        {settings.map((item, idx) => (item.action ? (
-          <button type="button" key={idx} className="settings-item" onClick={item.action}>
-            <span className="settings-icon" aria-hidden="true">{item.icon}</span>
-            <span className="settings-text">
-              <span className="settings-label">{item.label}</span>
-            </span>
-            {item.value && <span className="settings-value">{item.value}</span>}
-            <ChevronRightIcon size={18} />
-          </button>
-        ) : (
-          <div key={idx} className="settings-item settings-item--static">
-            <span className="settings-icon" aria-hidden="true">{item.icon}</span>
-            <span className="settings-text">
-              <span className="settings-label">{item.label}</span>
-            </span>
-            {item.value && <span className="settings-value">{item.value}</span>}
-          </div>
-        )))}
-      </div>
 
       {session && (
         <div className="settings-list settings-list--account">

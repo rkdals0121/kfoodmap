@@ -76,6 +76,27 @@ const LATIN_VARIANTS = new Map(Object.entries({
   yongsan: 'Yongsan',
 }).filter(([v, roman]) => v !== roman.toLowerCase()));
 
+// A slip of one letter in a long area name ("myongdong", "itaewan",
+// "hongdea" is two, and is not guessed): six letters or more, Latin only,
+// exactly one edit from a name the records use. Short names are left alone
+// — one letter off "Mapo" or "Jeju" is too often another word.
+const ROMAN_LOWER = Object.keys(AREAS).map(a => [a.toLowerCase(), a]);
+const oneEditApart = (a, b) => {
+  if (a === b || Math.abs(a.length - b.length) > 1) return false;
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i += 1;
+  const rest = (s, n) => s.slice(n);
+  return a.length === b.length
+    ? rest(a, i + 1) === rest(b, i + 1)
+    : a.length > b.length ? rest(a, i + 1) === rest(b, i) : rest(a, i) === rest(b, i + 1);
+};
+const nearArea = (word) => {
+  const w = word.toLowerCase();
+  if (w.length < 6 || !/^[a-z]+$/.test(w)) return null;
+  const hits = ROMAN_LOWER.filter(([lower]) => lower.length >= 6 && oneEditApart(w, lower));
+  return hits.length === 1 ? hits[0][1] : null;
+};
+
 /** The romanised area a typed word names, or null: "釜山" → "Busan". */
 export const romanisedArea = (word) => TO_ROMAN.get(String(word ?? '').trim()) ?? null;
 
@@ -88,7 +109,7 @@ export function romaniseQuery(query) {
   const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
   let changed = false;
   const out = words.flatMap((w) => {
-    const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
+    const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase()) ?? nearArea(w);
     if (whole) { changed = true; return [whole]; }
     for (const [name, roman] of TO_ROMAN) {
       if (w.length > name.length && w.startsWith(name)) { changed = true; return [roman, w.slice(name.length)]; }

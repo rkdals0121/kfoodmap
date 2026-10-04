@@ -159,3 +159,14 @@ test('the view survives a round trip through the address fragment', async () => 
   assert.deepEqual(parseViewHash('#f=Halal,constructor,Open+now,Open+at&at=9-99999', valid), { q: '', filters: ['Halal', OPEN_NOW], planAt: null, area: false });
   assert.deepEqual(parseViewHash('', valid), { q: '', filters: [], planAt: null, area: false });
 });
+
+test('one wrong letter in a long area name still finds the area', async () => {
+  const { romaniseQuery } = await import('../../src/data/area-names.js');
+  assert.equal(romaniseQuery('myongdong'), 'Myeongdong');
+  assert.equal(romaniseQuery('itaewan halal'), 'Itaewon halal');
+  assert.equal(romaniseQuery('Gangnan'), 'Gangnam');
+  // Short names and exact names are left alone; two slips are not guessed.
+  assert.equal(romaniseQuery('mapa'), null);
+  assert.equal(romaniseQuery('Itaewon'), null);
+  assert.equal(romaniseQuery('itewan'), null);
+});

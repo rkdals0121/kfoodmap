@@ -4766,3 +4766,52 @@ body {
 .toast > span {
   white-space: nowrap;
 }
+
+/* The large Korean text fills the screen (useFitText sets the size). */
+.staff-large {
+  overflow: hidden;
+}
+.staff-large__text {
+  width: 100%;
+  max-width: none;
+  line-height: 1.32;
+}
+.staff-large__close {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+.staff-card__paper {
+  cursor: pointer;
+}
+
+/* The language sheet says what it is and has a way out. */
+.language-picker__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px 4px 16px;
+}
+.language-picker__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-title);
+}
+.language-picker__close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--ink-body);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.language-picker__close:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: -4px;
+}
+.language-picker__note {
+  font-size: 13px;
+}

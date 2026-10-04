@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 // Things that open over a screen without an address of their own — the
 // language picker, the Korean text shown large, the About dialog.
@@ -53,4 +53,38 @@ export function useWakeLock(active) {
       lock?.release().catch(() => {});
     };
   }, [active]);
+}
+
+// useFitText: Korean held out to someone across a counter should be as big
+// as the screen allows. A fixed size made "Show large" 24 px on a phone —
+// a quarter larger than the card it came from, on a third of the screen.
+// While `active`, the element's font size is the largest (between `min` and
+// `max`) at which it still fits its parent, less what the parent's other
+// children take; measured again when the screen turns.
+export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const box = el?.parentElement;
+    if (!active || !el || !box) return undefined;
+    const fit = () => {
+      const style = getComputedStyle(box);
+      const padY = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+      const gap = parseFloat(style.rowGap) || 0;
+      let others = 0;
+      for (const child of box.children) if (child !== el) others += child.offsetHeight + gap;
+      const room = box.clientHeight - padY - others;
+      let lo = min;
+      let hi = max;
+      // Binary search: 8 steps settle within a pixel.
+      for (let i = 0; i < 8; i++) {
+        const mid = (lo + hi) / 2;
+        el.style.fontSize = `${mid}px`;
+        if (el.offsetHeight <= room && el.scrollWidth <= el.clientWidth + 1) lo = mid; else hi = mid;
+      }
+      el.style.fontSize = `${Math.floor(lo)}px`;
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, [ref, active, min, max]);
 }

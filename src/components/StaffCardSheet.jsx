@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useBackToClose, useWakeLock } from '../hooks/useOverlay';
+import { useBackToClose, useWakeLock, useFitText } from '../hooks/useOverlay';
 import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
 import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-cards';
@@ -30,6 +30,8 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
   };
   useBackToClose(large !== null, closeLarge);
   useWakeLock(large !== null);
+  const largeText = useRef(null);
+  useFitText(largeText, large !== null, { min: 22, max: 120 });
   // The address follows the card, so a reload or a shared link shows the
   // same one.
   const chooseCard = (id) => { setCardId(id); onCardChange?.(id); };
@@ -90,7 +92,9 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
 
             <section className="staff-card" aria-label={t('cards.showThis')}>
               <h3 className="staff-cards__heading">{t('cards.showThis')}</h3>
-              <div className="staff-card__paper">
+              {/* Tapping the card shows it large too: the button under it was
+                  below the first screen on a shorter phone. */}
+              <div className="staff-card__paper" onClick={() => openLarge(card.statement.map(l => l.ko))}>
                 {card.statement.map(line => (
                   <p key={line.ko} className="staff-card__ko" lang="ko">{line.ko}</p>
                 ))}
@@ -163,7 +167,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
           // moving to the sheet hidden behind.
           onKeyDown={(e) => { if (e.key === 'Tab') e.preventDefault(); }}
         >
-          <span className="staff-large__text" lang="ko">
+          <span className="staff-large__text" lang="ko" ref={largeText}>
             {large.map(line => <span key={line}>{line}</span>)}
           </span>
           <span className="staff-large__close">{t('cards.tapToClose')}</span>

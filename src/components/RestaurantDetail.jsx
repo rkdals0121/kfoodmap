@@ -16,7 +16,7 @@ import {
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
-import { useBackToClose, useWakeLock } from '../hooks/useOverlay';
+import { useBackToClose, useWakeLock, useFitText } from '../hooks/useOverlay';
 import { copyText, shareOrCopy } from '../share';
 import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
@@ -100,6 +100,10 @@ const DIET_CAVEAT_KEYS = {
   [CONFIDENCE.UNKNOWN]: { titleKey: 'detail.caveatUnknownTitle', bodyKey: 'detail.caveatUnknownBody' },
 };
 
+// A Korean number as a link that also dials from a foreign SIM: 02-123-4567
+// → +8221234567. Anything not starting with 0 is left as written.
+const telHref = (n) => { const d = String(n).replace(/[^0-9+]/g, ''); return d.startsWith('0') ? `+82${d.slice(1)}` : d; };
+
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null,
   journey = null, onJourneyStop, nearby = [], nearbyDiet = [], onOpenPlace, planAt = null, planDate = null,
@@ -119,6 +123,8 @@ export default function RestaurantDetail({
   const closeNameLarge = () => { setNameLarge(false); nameLargeBtn.current?.focus(); };
   useBackToClose(nameLarge, closeNameLarge);
   useWakeLock(nameLarge);
+  const nameLargeText = useRef(null);
+  useFitText(nameLargeText, nameLarge, { min: 34, max: 200 });
   // Say where a save went. Driven by the saved state actually changing, not
   // the tap (unsaving a visited place can be cancelled), and only while the
   // same place stays open.
@@ -553,7 +559,7 @@ export default function RestaurantDetail({
               {isKnown(place.phone) && (
                 <div className="practical-row">
                   <PhoneIcon size={17} />
-                  <a className="practical-link" href={`tel:${place.phone.value.replace(/-/g, '')}`}>
+                  <a className="practical-link" href={`tel:${telHref(place.phone.value)}`}>
                     {place.phone.value}
                   </a>
                 </div>
@@ -665,7 +671,7 @@ export default function RestaurantDetail({
                     // No aria-label: it would replace the Korean a screen
                     // reader should read out; the visible hint names the action.
                     <button type="button" className="staff-large" autoFocus onClick={closeNameLarge} onKeyDown={(e) => { if (e.key === 'Tab') e.preventDefault(); }}>
-                      <span className="staff-large__text staff-large__text--name" lang="ko"><span>{koName}</span></span>
+                      <span className="staff-large__text staff-large__text--name" lang="ko" ref={nameLargeText}><span>{koName}</span></span>
                       <span className="staff-large__close">{t('detail.tapToClose')}</span>
                     </button>,
                     document.body,
