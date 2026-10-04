@@ -9,6 +9,7 @@ import Seal from './Seal';
 import { sealText } from '../data/seal-text';
 import { groupByRegion } from '../data/region';
 import { sharedListUrl } from '../filters';
+import { copyText, shareOrCopy } from '../share';
 
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
@@ -72,12 +73,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
   const shareList = async () => {
     const url = sharedListUrl(window.location.origin, savedList.map(s => s.place.id));
     const title = t('journal.shareListTitle');
-    const done = () => { setListShared(true); setTimeout(() => setListShared(false), 2500); };
-    if (navigator.share) {
-      try { await navigator.share({ title, url }); } catch { /* dismissed */ }
-      return;
-    }
-    try { await navigator.clipboard.writeText(url); done(); } catch { window.prompt(title, url); }
+    const how = await shareOrCopy({ title, url });
+    if (how === 'failed') { window.prompt(title, url); return; }
+    if (how === 'copied') { setListShared(true); setTimeout(() => setListShared(false), 2500); }
   };
 
   // The same list as plain text, for a notes app or a chat: the name as
@@ -93,7 +91,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
     ].filter(Boolean).join('\n'));
     const text = lines.join('\n\n');
     const done = () => { setListCopied(true); setTimeout(() => setListCopied(false), 2500); };
-    try { await navigator.clipboard.writeText(text); done(); } catch { window.prompt(t('journal.copyList'), text); }
+    if (await copyText(text)) done(); else window.prompt(t('journal.copyList'), text);
   };
 
   const neighborhoods = useMemo(() => {

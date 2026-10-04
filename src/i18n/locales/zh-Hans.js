@@ -544,6 +544,8 @@ export default {
     youAreHere: '你在这里',
     youAreAbout: '你大概在这里',
     clusterZoom: '这里有 {{count}} 家——轻点放大',
+    zoomIn: '放大',
+    zoomOut: '缩小',
     clusterList: '此处有 {{count}} 家',
     failed: '地图无法显示。下方列表仍可使用。',
     retry: '重新加载地图',

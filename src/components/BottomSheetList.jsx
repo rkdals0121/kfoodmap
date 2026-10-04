@@ -5,6 +5,7 @@ import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
 import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, statusClass, DAY_KEYS, formatClock } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
+import { shareOrCopy } from '../share';
 import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
@@ -187,17 +188,9 @@ export default function BottomSheetList({
   const [viewShared, setViewShared] = useState(false);
   const shareView = async () => {
     const url = `${window.location.origin}/${viewLink}`;
-    if (navigator.share) {
-      try { await navigator.share({ title: 'K-Food Map', url }); } catch { /* dismissed */ }
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(url);
-      setViewShared(true);
-      setTimeout(() => setViewShared(false), 2500);
-    } catch {
-      window.prompt(t('list.shareView'), url);
-    }
+    const how = await shareOrCopy({ title: 'K-Food Map', url });
+    if (how === 'failed') { window.prompt(t('list.shareView'), url); return; }
+    if (how === 'copied') { setViewShared(true); setTimeout(() => setViewShared(false), 2500); }
   };
 
   // Draw the nearest PAGE cards and add more as the end of the list scrolls

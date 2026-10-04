@@ -482,6 +482,23 @@ const LOCATE_MESSAGE = {
 // "My location" button, outside the Leaflet container so it is an ordinary
 // button in the page's tab order. What happened is said in words beside it
 // (and to screen readers), not only by the dot appearing.
+// "+" and "−". Pinching needs two hands, and a double tap only zooms in:
+// someone holding a bag or a child had no way to zoom out. Under the "my
+// location" button, the same size.
+function ZoomButtons({ mapRef }) {
+  const { t } = useTranslation();
+  return (
+    <div className="map-zoom">
+      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomIn')} title={t('map.zoomIn')} onClick={() => mapRef.current?.zoomIn()}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+      </button>
+      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomOut')} title={t('map.zoomOut')} onClick={() => mapRef.current?.zoomOut()}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M5 12h14" /></svg>
+      </button>
+    </div>
+  );
+}
+
 function LocateControl({ state, location, onLocate }) {
   const { t } = useTranslation();
   const answerKey = LOCATE_MESSAGE[state] ?? (state === 'located' && isCoarse(location) ? 'map.locateCoarse' : null);
@@ -523,10 +540,12 @@ export default function MapComponent({
   restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
   userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [],
 }) {
+  const mapRef = useRef(null);
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
       {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} />}
-      <MapContainer center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
+      <ZoomButtons mapRef={mapRef} />
+      <MapContainer ref={mapRef} center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
         {/* Top right, not Leaflet's bottom right: on a phone the list sheet
             and tab bar cover the map's bottom edge, which hid the
             OpenStreetMap credit its licence requires. */}

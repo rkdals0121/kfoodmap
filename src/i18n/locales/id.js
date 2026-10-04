@@ -547,6 +547,8 @@ export default {
     youAreHere: 'Anda di sini',
     youAreAbout: 'Anda di sekitar sini',
     clusterZoom: '{{count}} tempat di sini — ketuk untuk memperbesar',
+    zoomIn: 'Perbesar',
+    zoomOut: 'Perkecil',
     clusterList: '{{count}} tempat di titik ini',
     failed: 'Peta tidak dapat ditampilkan. Daftar di bawah tetap berfungsi.',
     retry: 'Coba muat peta lagi',

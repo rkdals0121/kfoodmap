@@ -17,6 +17,7 @@ import {
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
 import { useBackToClose, useWakeLock } from '../hooks/useOverlay';
+import { copyText, shareOrCopy } from '../share';
 import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
 import ClaimChip from './ClaimChip';
@@ -142,6 +143,8 @@ export default function RestaurantDetail({
   }, [restaurant?.id]);
   const directionsRef = useRef(null);
   const sheetRef = useRef(null);
+  // The pull-down-to-close gesture in progress (see onPullStart).
+  const pull = useRef(null);
   // The bundle carries a lighter record; the full one (evidence, menus,
   // transit, phone, links) is fetched when the detail opens.
   const full = usePlaceRecord(restaurant);
@@ -227,17 +230,10 @@ export default function RestaurantDetail({
   const coords = coordsOf(place);
   const koName = koreanName(place.name);
   const copyKoName = async () => {
-    try {
-      await navigator.clipboard.writeText(koName);
+    // If it cannot be copied the name is still on screen to read out.
+    if (await copyText(koName)) {
       setNameCopied(true);
       setTimeout(() => setNameCopied(false), 2000);
-    } catch {
-      // No async clipboard (an in-app browser, plain http): the same
-      // fallback the address uses. If that fails too, the name is on screen.
-      if (fallbackCopy(koName)) {
-        setNameCopied(true);
-        setTimeout(() => setNameCopied(false), 2000);
-      }
     }
   };
   // Past 50 km, a distance from the map centre is noise (a shared link
@@ -282,52 +278,58 @@ export default function RestaurantDetail({
   // illustration up to full screen shows nothing new.
   const galleryImages = [place.photo || place.coverImage].filter(Boolean);
 
-  const fallbackCopy = (text) => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    let ok = false;
-    try { ok = document.execCommand('copy'); } catch { ok = false; }
-    ta.remove();
-    return ok;
-  };
-
   const handleCopy = async () => {
-    let ok = false;
-    const address = place.address.value;
-    try {
-      await navigator.clipboard.writeText(address);
-      ok = true;
-    } catch {
-      ok = fallbackCopy(address);
-    }
-    if (ok) {
+    if (await copyText(place.address.value)) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
   };
 
   const handleShare = async () => {
-    const shareText = `${place.name} — ${place.vibe}`;
     // The place, not the sharer's own search and chips (the fragment).
-    const shareUrl = window.location.origin + window.location.pathname;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: place.name, text: shareText, url: shareUrl });
-        setShared(true);
-        setTimeout(() => setShared(false), 2500);
-      } catch { }
+    const url = window.location.origin + window.location.pathname;
+    const how = await shareOrCopy({ title: place.name, text: `${place.name} — ${place.vibe}`, url });
+    if (how === 'failed') { window.prompt(t('detail.share'), url); return; }
+    if (how === 'dismissed') return;
+    setShared(true);
+    setTimeout(() => setShared(false), 2500);
+  };
+
+  // A phone's sheet is pulled down to put it away, as every other sheet on
+  // the phone is. Only from the top of the page (further down, a downward
+  // drag is scrolling back up) and only for a mostly vertical move. The
+  // sheet follows the finger; let go past 110 px and it closes, short of
+  // that it springs back. The X and Back still work.
+  const onPullStart = (e) => {
+    if (docked || e.touches.length !== 1 || (scrollRef.current?.scrollTop ?? 0) > 0) { pull.current = null; return; }
+    pull.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, dy: 0, on: false };
+  };
+  const onPullMove = (e) => {
+    const p = pull.current;
+    const el = sheetRef.current;
+    if (!p || !el) return;
+    const dx = e.touches[0].clientX - p.x;
+    const dy = e.touches[0].clientY - p.y;
+    if (!p.on) {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      if (dy <= 0 || Math.abs(dx) > dy || (scrollRef.current?.scrollTop ?? 0) > 0) { pull.current = null; return; }
+      p.on = true;
+      el.style.transition = 'none';
+    }
+    p.dy = Math.max(0, dy);
+    el.style.transform = `translateY(${p.dy}px)`;
+  };
+  const onPullEnd = () => {
+    const p = pull.current;
+    const el = sheetRef.current;
+    pull.current = null;
+    if (!p || !p.on || !el) return;
+    el.style.transition = 'transform 0.2s ease-out';
+    if (p.dy > 110) {
+      el.style.transform = 'translateY(100%)';
+      setTimeout(onClose, 160);
     } else {
-      const text = `${shareText}\n${shareUrl}`;
-      let ok = false;
-      try { await navigator.clipboard.writeText(text); ok = true; } catch { ok = fallbackCopy(text); }
-      if (ok) {
-        setShared(true);
-        setTimeout(() => setShared(false), 2500);
-      }
+      el.style.transform = '';
     }
   };
 
@@ -343,7 +345,13 @@ export default function RestaurantDetail({
         aria-label={name}
         ref={sheetRef}
         tabIndex={-1}
+        onTouchStart={onPullStart}
+        onTouchMove={onPullMove}
+        onTouchEnd={onPullEnd}
+        onTouchCancel={onPullEnd}
       >
+        {/* The bar that says the sheet can be pulled down (phones only). */}
+        {!docked && <span className="detail-grabber" aria-hidden="true" />}
         <button className="detail-close" aria-label={t('detail.close')} onClick={onClose}>
           <XIcon size={18} />
         </button>

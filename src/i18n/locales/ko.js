@@ -541,6 +541,8 @@ export default {
     youAreHere: '내 위치',
     youAreAbout: '내 위치 (대략)',
     clusterZoom: '여기에 {{count}}곳 — 눌러서 확대',
+    zoomIn: '확대',
+    zoomOut: '축소',
     clusterList: '이 지점에 {{count}}곳',
     failed: '지도를 그리지 못했어요. 아래 목록은 그대로 쓸 수 있어요.',
     retry: '지도 다시 불러오기',
