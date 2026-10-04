@@ -13,14 +13,12 @@ const config = supabaseConfig({
 const NEW_PLACE_TOPICS = ['vegan', 'halal', 'other'];
 const EMPTY = { name: '', locationHint: '', topic: '', message: '', sourceUrl: '', contactEmail: '', website: '' };
 
-function Field({ id, label, hint, error, children, required = false }) {
+function Field({ id, label, hint, error, children }) {
   const { t } = useTranslation();
   return (
     <div className="submit-field">
       <label htmlFor={id}>{label}</label>
-      {/* Said to a screen reader: only "(optional)" on the others told a
-          sighted reader which ones are needed. */}
-      {required ? React.cloneElement(children, { 'aria-required': 'true' }) : children}
+      {children}
       {hint && <p className="submit-field__hint" id={`${id}-hint`}>{hint}</p>}
       {error && (
         <p className="submit-field__error" id={`${id}-error`} role="alert">
@@ -199,7 +197,7 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
                 {!place && (
                   <>
                     <Field id="submit-name" label={t('submit.nameLabel')} hint={t('submit.suggestionsHint')} error={errors.name}>
-                      <input id="submit-name" value={form.name} enterKeyHint="next" autoCorrect="off" spellCheck={false}
+                      <input id="submit-name" aria-required="true" value={form.name} enterKeyHint="next" autoCorrect="off" spellCheck={false}
                         onChange={(event) => { set('name')(event); setSelection(null); setListOpen(true); setActiveIndex(-1); }}
                         onKeyDown={onNameKeyDown}
                         onBlur={onNameBlur}
@@ -240,7 +238,7 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
                 )}
 
                 <Field id="submit-topic" label={t(place ? 'submit.topicLabel' : 'submit.topicLabelNew')} error={errors.topic}>
-                  <select id="submit-topic" value={form.topic} onChange={set('topic')}
+                  <select id="submit-topic" aria-required="true" value={form.topic} onChange={set('topic')}
                     aria-invalid={Boolean(errors.topic)} aria-describedby={describedBy('submit-topic', false)}>
                     <option value="" disabled>{t('submit.topicPlaceholder')}</option>
                     {/* A new place has no hours or address on the map to be wrong
@@ -251,7 +249,7 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
                 </Field>
 
                 <Field id="submit-message" label={t(place ? 'submit.messageLabel' : 'submit.messageLabelNew')} error={errors.message}>
-                  <textarea id="submit-message" rows={5} value={form.message} onChange={set('message')} maxLength={LEAD_LIMITS.message}
+                  <textarea id="submit-message" aria-required="true" rows={5} value={form.message} onChange={set('message')} maxLength={LEAD_LIMITS.message}
                     aria-invalid={Boolean(errors.message)} aria-describedby={describedBy('submit-message', false)} />
                 </Field>
 
