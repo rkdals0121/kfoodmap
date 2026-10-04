@@ -224,6 +224,8 @@ export default {
     openAtSet: '{{day}} {{time}} 营业',
     dayTime: '{{day}} {{time}}',
     openAtDay: '星期',
+    today: '今天',
+    tomorrow: '明天',
     openAtTime: '时间',
     koreanTime: '韩国时间',
     savedOnly: '已收藏',

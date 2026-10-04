@@ -19,7 +19,21 @@ function visibleCenter(map) {
 // Reports the visible centre upward after each pan/zoom so the list can
 // re-sort by distance from what is on screen, not from a point hidden
 // under the sheet.
-function CenterReporter({ onCenterChange }) {
+function CenterReporter({ onCenterChange, sheetState }) {
+  const map = useMap();
+  // The sheet changing height moves the middle of what can be seen without
+  // moving the map: say so once it has settled, or "nearest" is measured
+  // from a point now under the sheet.
+  const firstSheet = useRef(true);
+  useEffect(() => {
+    if (firstSheet.current) { firstSheet.current = false; return undefined; }
+    const id = setTimeout(() => {
+      const c = visibleCenter(map);
+      onCenterChange([c.lat, c.lng]);
+    }, 350);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sheetState]);
   useMapEvents({
     moveend: (e) => {
       const c = visibleCenter(e.target);
@@ -550,7 +564,7 @@ export default React.memo(MapComponent);
 
 function MapComponent({
   restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
-  userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [],
+  userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [], sheetState = 1,
 }) {
   const mapRef = useRef(null);
   return (
@@ -562,7 +576,7 @@ function MapComponent({
             and tab bar cover the map's bottom edge, which hid the
             OpenStreetMap credit its licence requires. */}
         <AttributionControl position="topright" prefix={false} />
-        {onCenterChange && <CenterReporter onCenterChange={onCenterChange} />}
+        {onCenterChange && <CenterReporter onCenterChange={onCenterChange} sheetState={sheetState} />}
         <ResizeSync />
         {/* This attribution is legally required credit markup for OpenStreetMap,
             not UI copy, so it stays hardcoded rather than moving to i18n.

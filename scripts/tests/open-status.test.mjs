@@ -215,3 +215,18 @@ test('a 24-hour language tells the time on a 24-hour clock', async () => {
     await i18next.changeLanguage('en');
   }
 });
+
+test('a Korean reader sees the Korean name; everyone else the romanised one', async () => {
+  const i18next = (await import('i18next')).default;
+  const { displayName } = await import('../../src/utils.js');
+  assert.equal(displayName('EID Halal Korean Food (이드)'), 'EID Halal Korean Food');
+  await i18next.changeLanguage('ko');
+  try {
+    assert.equal(displayName('EID Halal Korean Food (이드)'), '이드');
+    assert.equal(displayName('Kervan (케르반) Famille Station'), '케르반 Famille Station');
+    assert.equal(displayName('Nimat (니맛), Culinary Square T2'), '니맛, Culinary Square T2');
+    assert.equal(displayName('Plain Name'), 'Plain Name');
+  } finally {
+    await i18next.changeLanguage('en');
+  }
+});

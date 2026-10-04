@@ -696,6 +696,7 @@ function AppShell() {
             userLocation={userLocation}
             locateState={locateState}
             onLocate={locateStable}
+            sheetState={sheetState}
           />
         </MapErrorBoundary>
       </div>

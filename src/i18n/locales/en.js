@@ -234,6 +234,8 @@ export default {
     openAtSet: 'Open {{day}} {{time}}',
     dayTime: '{{day}} {{time}}',
     openAtDay: 'Day',
+    today: 'Today',
+    tomorrow: 'Tomorrow',
     openAtTime: 'Time',
     koreanTime: 'Korean time',
     savedOnly: 'Saved',

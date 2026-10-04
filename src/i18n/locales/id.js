@@ -227,6 +227,8 @@ export default {
     openAtSet: 'Buka {{day}} {{time}}',
     dayTime: '{{day}} {{time}}',
     openAtDay: 'Hari',
+    today: 'Hari ini',
+    tomorrow: 'Besok',
     openAtTime: 'Jam',
     koreanTime: 'Waktu Korea',
     savedOnly: 'Tersimpan',

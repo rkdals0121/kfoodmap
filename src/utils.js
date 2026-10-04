@@ -387,6 +387,15 @@ export function koreanName(name) {
 }
 
 export function displayName(name) {
+  // In Korean the name is the one on the sign: "EID Halal Korean Food (이드)"
+  // is 이드, and "Kervan (케르반) Famille Station" is 케르반 Famille Station.
+  // Records without a Korean name keep the romanised one.
+  if (i18next.language === 'ko' && koreanName(name)) {
+    return String(name)
+      .replace(/[^,(]*\(([^)]*[가-힣][^)]*)\)/, ' $1')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  }
   return String(name)
     .replace(/\s*\([^)]*[가-힣][^)]*\)/g, '')
     .replace(/\s+,/g, ',')

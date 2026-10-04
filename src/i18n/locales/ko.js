@@ -223,6 +223,8 @@ export default {
     openAtSet: '{{day}}요일 {{time}} 영업',
     dayTime: '{{day}}요일 {{time}}',
     openAtDay: '요일',
+    today: '오늘',
+    tomorrow: '내일',
     openAtTime: '시간',
     koreanTime: '한국 시간',
     savedOnly: '저장한 곳',

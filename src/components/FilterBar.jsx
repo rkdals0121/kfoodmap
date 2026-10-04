@@ -157,8 +157,12 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
             <span>{t('filters.openAtDay')}</span>
             <select value={planAt.day} onChange={(e) => onPlanAt({ ...planAt, day: Number(e.target.value) })}>
               {/* The week from today, in Korea. */}
-              {Array.from({ length: 7 }, (_, i) => (koreaToday() + i) % 7).map(d => (
-                <option key={d} value={d}>{t(`hours.day.${DAY_KEYS[d]}`)}</option>
+              {Array.from({ length: 7 }, (_, i) => (koreaToday() + i) % 7).map((d, i) => (
+                <option key={d} value={d}>
+                  {i === 0 ? `${t('filters.today')} (${t(`hours.day.${DAY_KEYS[d]}`)})`
+                    : i === 1 ? `${t('filters.tomorrow')} (${t(`hours.day.${DAY_KEYS[d]}`)})`
+                      : t(`hours.day.${DAY_KEYS[d]}`)}
+                </option>
               ))}
             </select>
           </label>
