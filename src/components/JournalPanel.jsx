@@ -109,11 +109,12 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
 
   const badges = [
     // Seal words: 첫맛 "first taste", 채식 "plant-based eating".
-    { key: 'first-taste', seal: { chars: ['첫', '맛'], cols: 2 }, name: t('journal.firstTaste'), earned: visitedList.length > 0 },
+    { key: 'first-taste', seal: { chars: ['첫', '맛'], cols: 2 }, name: t('journal.firstTaste'), how: t('journal.firstTasteHow'), earned: visitedList.length > 0 },
     {
       key: 'plant-based',
       seal: { chars: ['채', '식'], cols: 2 },
       name: t('journal.plantBased'),
+      how: t('journal.plantBasedHow'),
       earned: visitedList.some(({ place }) => isKnown(place.dietary?.vegan) && place.dietary.vegan.value === VEGAN.FULL),
     },
   ];
@@ -303,6 +304,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
             <div key={badge.key} className={`badge-item ${badge.earned ? 'earned' : 'locked'}`}>
               <Seal {...badge.seal} earned={badge.earned} size="sm" />
               <span className="badge-name">{badge.name}</span>
+              {/* A locked badge says how it is earned: it was a grey seal
+                  with a name and nothing to do about it. */}
+              {!badge.earned && <span className="badge-how">{badge.how}</span>}
             </div>
           ))}
         </div>

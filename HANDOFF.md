@@ -2755,6 +2755,12 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     - `src/fonts.css` holds the Pretendard `@import`, loaded by a dynamic
       `import()` in `main.jsx`: the blocking stylesheet is 17 kB gzipped
       instead of 42. Do not move the import back into `index.css`.
+    - Late fixes: `journalMemory` (Journal scroll, as `discoverMemory`),
+      `useFitText` refits on the fonts' `loadingdone`, the place page's
+      loading line is one `role="status"` span whose words change with
+      the retry button beside it, rows that wait use `aria-disabled`
+      (a `disabled` button drops focus), `withCode` in `PrivacySheet`,
+      locked badges say how they are earned (`journal.*How`).
     - Left: duplicate reports when the response is lost (needs a client
       id column on `leads`), the sign-in button missing after one failed check,
       the colour tokens that pass AA by a hair.

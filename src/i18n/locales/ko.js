@@ -80,6 +80,8 @@ export default {
     emptyCta: '지도에서 식당 찾기',
     firstTaste: '첫 한 입',
     plantBased: '식물성 한 끼',
+    firstTasteHow: '아무 곳이나 “다녀옴”으로 표시하면 받아요.',
+    plantBasedHow: '“완전 비건”인 곳을 “다녀옴”으로 표시하면 받아요.',
     sample: '예시',
     whatItllLookLike: '이렇게 채워져요',
     step1: '마음에 드는 식당 찾기',

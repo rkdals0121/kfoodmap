@@ -78,6 +78,8 @@ export default {
     emptyCta: '在地圖上找地點',
     firstTaste: '初嚐',
     plantBased: '植物系',
+    firstTasteHow: '把任一個地方標為「去過」即可獲得。',
+    plantBasedHow: '把一家「全純素」的店標為「去過」即可獲得。',
     sample: '範例',
     whatItllLookLike: '效果預覽',
     step1: '找到一家喜歡的餐廳',

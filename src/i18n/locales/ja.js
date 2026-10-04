@@ -82,6 +82,8 @@ export default {
     emptyCta: '地図でお店を探す',
     firstTaste: 'はじめの一口',
     plantBased: 'プラントベース',
+    firstTasteHow: 'どこか1軒を「行った」にすると獲得できます。',
+    plantBasedHow: '「完全ヴィーガン」のお店を「行った」にすると獲得できます。',
     sample: 'サンプル',
     whatItllLookLike: 'こんなふうに表示されます',
     step1: '気になるお店を見つける',

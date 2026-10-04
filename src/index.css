@@ -6149,3 +6149,11 @@ html[data-text='larger'] .detail-bar__map svg {
 .detail-loading__retry[aria-disabled='true'] {
   opacity: 0.5;
 }
+
+.badge-how {
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--muted-strong);
+  text-align: center;
+  overflow-wrap: anywhere;
+}

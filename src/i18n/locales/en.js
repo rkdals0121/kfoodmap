@@ -83,6 +83,8 @@ export default {
     emptyCta: 'Find a place on the map',
     firstTaste: 'First Taste',
     plantBased: 'Plant Based',
+    firstTasteHow: 'Mark any place “Been here”.',
+    plantBasedHow: 'Mark a “Fully vegan” place “Been here”.',
     sample: 'Sample',
     whatItllLookLike: "What it'll look like",
     step1: 'Find a restaurant you like',
