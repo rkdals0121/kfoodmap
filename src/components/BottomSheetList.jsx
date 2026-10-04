@@ -202,7 +202,10 @@ export default function BottomSheetList({
             </div>
   ) : null;
   const ranked = useMemo(() => {
-    const inArea = (r) => matchesArea(r, matchQuery);
+    // "Itaewon, Seoul": the part before the comma is the area to lead
+    // with — every result is in Seoul, and that told the order nothing.
+    const lead = String(matchQuery ?? '').split(/[,，、]/)[0];
+    const inArea = (r) => matchesArea(r, lead.trim() ? lead : matchQuery);
     // "Vegan Kitchen" typed in full: the place called that, before the
     // nearer places that merely mention the words.
     const typed = String(matchQuery ?? '').trim().toLowerCase();
@@ -371,6 +374,10 @@ export default function BottomSheetList({
       {missingPlace && !searchQuery.trim() && activeFilters.length === 0 && (
         <p className="section-note place-list__note" role="status">{t('list.missingPlace')}</p>
       )}
+      {/* With both diets on, why the list is short comes before all else. */}
+      {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
+        <p className="section-note place-list__note">{t('list.bothDietsNote')}</p>
+      )}
       {/* The halal caveat first: it is the one about safety, and behind
           the "Open now" note it was folded out of sight. */}
       {(halalOn || asksCertificate) && sorted.length > 0
@@ -407,9 +414,6 @@ export default function BottomSheetList({
       })()}
       {/* Chips combine as AND; with both diets on, say so — someone after
           "halal places and vegan places" otherwise loses most of both. */}
-      {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
-        <p className="section-note place-list__note">{t('list.bothDietsNote')}</p>
-      )}
       {/* The Vegan chip includes "vegan options" places, as the Halal chip
           has its own caveat. */}
       {activeFilters.includes('Vegan') && !activeFilters.includes('Halal') && !activeFilters.includes(FULLY_VEGAN) && sorted.length > 0
@@ -479,7 +483,8 @@ export default function BottomSheetList({
           {/* A search under chips that found nothing: the search goes and
               the chips stay — "Clear everything" also took the Halal chip
               off, and listed every place to someone who had asked for halal. */}
-          {onClearSearch && searchQuery.trim() && activeFilters.length > 0 && (
+          {onClearSearch && searchQuery.trim() && activeFilters.length > 0
+            && !(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0) && (
             <button type="button" className="place-list__clear" onClick={onClearSearch}>
               {t('list.clearSearchOnly')}
             </button>

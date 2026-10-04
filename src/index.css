@@ -5856,3 +5856,17 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
     left: calc(464px + 12px);
   }
 }
+
+/* The bottom bar's icons keep their size; on the narrowest phones the
+   words alone fit better than squeezed icons. */
+.detail-bar__map svg {
+  flex-shrink: 0;
+}
+@media (max-width: 340px) {
+  .detail-bar__map svg {
+    display: none;
+  }
+}
+html[data-text='larger'] .detail-bar__map svg {
+  display: none;
+}
