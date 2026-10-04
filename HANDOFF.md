@@ -2629,6 +2629,34 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       (`discoverMemory`). A place opened from "Also nearby" is pushed, so
       Back returns to the place it came from.
 
+69. **2026-10-04 evening — speed, screen readers, stations.** Audit record
+    §8–§9. For a maintainer:
+    - **Speed.** `PlaceCard` is `React.memo` and takes the record itself
+      (`ranked` holds `{ place, distanceKm, … }`; `sorted` is the records);
+      App hands it stable callbacks and `tick` (the minute) so open/closed
+      still updates. Typing sets `searchQuery` at once and `filterQuery`
+      120 ms later; anything the app sets itself goes through `setQuery`
+      (both at once). `useDeferredValue` was tried and dropped: the
+      deferred value was seen to stay behind in a background tab.
+      `og/**` is not precached; `/assets/*` is served immutable
+      (vercel.json).
+    - **Overlays on <body>** call `useInertRoot(open)` (useOverlay.js): the
+      app behind is inert, counted, and focus returns to the opener.
+    - **Map**: `MapA11y` names the container a region and hides the marker
+      pane from assistive tech (markers are `keyboard={false}`).
+    - **Search fallbacks, in order** (App filter memo): a CJK station
+      (`CJK_STATION`) → "<Area> Station" phrase, else the area; a phrase
+      (`matchesPhrase`); one letter off an area (`fuzzyQuery`); a station
+      tail in Latin script (`STATION_TAIL`) → the area. `nearest` is
+      measured from the results when there are one or two, else from the
+      area the whole query names (`matchesAreaWhole`); `nearestFrom` is ''
+      in the first case and the list says "Also close to these".
+    - **Places opened one from another** carry `depth` and `fromApp`
+      (`openPlace`, `openFromPlace`, `closePlace`).
+    - **Tablet portrait** needs `.sheet-header-drag-area { display:
+      contents }` (768–1023 px) or the header falls under the list.
+    - `/submit` keeps a draft in memory (`DRAFTS`), cleared when sent.
+
 
 ---
 
