@@ -6157,3 +6157,32 @@ html[data-text='larger'] .detail-bar__map svg {
   text-align: center;
   overflow-wrap: anywhere;
 }
+
+/* A saved place can be taken off the list from the Journal itself: the
+   button sits in the row's right-hand corner, where the arrow was (the whole
+   row still opens the place). Beside the row it took a fifth of its width. */
+.saved-item {
+  position: relative;
+}
+.saved-item .saved-row {
+  padding-right: 52px;
+}
+.saved-item .saved-row > svg {
+  display: none;
+}
+.saved-row__remove {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted-strong);
+  cursor: pointer;
+}

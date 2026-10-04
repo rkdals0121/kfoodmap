@@ -4,7 +4,7 @@ import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
 import { formatShortDate, displayName, getOpenStatus, statusClass, koreanName, DAY_KEYS, formatClock } from '../utils';
 import ClaimChip from './ClaimChip';
-import { ChevronRightIcon, ShareIcon } from './Icons';
+import { ChevronRightIcon, ShareIcon, XIcon } from './Icons';
 import Seal from './Seal';
 import { sealText } from '../data/seal-text';
 import { groupByRegion } from '../data/region';
@@ -14,13 +14,13 @@ import { copyText, shareOrCopy } from '../share';
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
 // Visited places stay stamps.
-function SavedRow({ place, savedAt, onOpen, at = null, atLabel = '' }) {
+function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' }) {
   const { t, i18n } = useTranslation();
   // A plan made on the map ("Open Mon 12:00") holds here: these are the
   // places the plan is about.
   const status = at ? getOpenStatus(place.hours, at, { nameDay: true }) : getOpenStatus(place.hours);
   return (
-    <li>
+    <li className="saved-item">
       <button type="button" className="saved-row" onClick={() => onOpen(place)}>
         <span className="saved-row__main">
           <span className="saved-row__name">{displayName(place.name)}</span>
@@ -41,6 +41,13 @@ function SavedRow({ place, savedAt, onOpen, at = null, atLabel = '' }) {
         </span>
         <ChevronRightIcon size={18} />
       </button>
+      {/* Taken off the list here, with the same Undo as on the map: the
+          only way was to open the place and find its Save button. */}
+      {onRemove && (
+        <button type="button" className="saved-row__remove" aria-label={`${t('app.remove')}: ${displayName(place.name)}`} onClick={() => onRemove(place.id)}>
+          <XIcon size={16} />
+        </button>
+      )}
     </li>
   );
 }
@@ -53,7 +60,7 @@ const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 
 const journalMemory = { scrollTop: 0 };
 
-export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap, planAt = null, planDate = null, onShowSaved }) {
+export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap, planAt = null, planDate = null, onShowSaved, onRemoveSaved }) {
   const { t, i18n } = useTranslation();
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
 
@@ -213,7 +220,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 </h4>
                 <ul className="saved-list">
                   {items.map(({ place, savedAt }) => (
-                    <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
+                    <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} onRemove={onRemoveSaved} />
                   ))}
                 </ul>
               </section>
@@ -221,7 +228,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           ) : (
             <ul className="saved-list">
               {savedList.map(({ place, savedAt }) => (
-                <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
+                <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} onRemove={onRemoveSaved} />
               ))}
             </ul>
           )}

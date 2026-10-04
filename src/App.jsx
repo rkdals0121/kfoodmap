@@ -934,7 +934,7 @@ function AppShell() {
 
         {/* Tab panels rendered inside the sidebar */}
         {activeTab === 'journal' && (
-          <JournalPanel bookmarks={bookmarks} planAt={openAtOn ? planAt : null} planDate={openAtOn ? planDate : null} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} onShowSaved={() => {
+          <JournalPanel onRemoveSaved={handleToggleBookmark} bookmarks={bookmarks} planAt={openAtOn ? planAt : null} planDate={openAtOn ? planDate : null} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} onShowSaved={() => {
             // The saved places and nothing else: other chips, a search or a
             // shared list still in the address would leave few or none.
             setSelectedFilters([SAVED_ONLY]);
