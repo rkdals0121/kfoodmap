@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <!-- Before the stylesheets and the app's script, so a file that fails is seen (the rest is at the end of the body). -->
-    <script>window.addEventListener('error',function(e){var t=e.target;if(t&&(t.tagName==='SCRIPT'||(t.tagName==='LINK'&&t.rel==='stylesheet'))){window.__kfmFileFailed=1;if(window.__kfmFail)window.__kfmFail()}},true);</script>
+    <script>window.addEventListener('error',function(e){var t=e.target;if(t&&(t.tagName==='SCRIPT'||(t.tagName==='LINK'&&t.rel==='stylesheet'&&!/\/fonts-/.test(t.href||'')))){window.__kfmFileFailed=1;if(window.__kfmFail)window.__kfmFail()}},true);</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -37,7 +37,7 @@
     <!-- If the app's files stall or fail (a dropped connection, a file a
          new deploy has removed), the loading line says so and offers a retry
          instead of staying for good. -->
-    <script>(function(){var s=document.querySelector('#root [role=status]');function fail(){if(!s||!document.body.contains(s)||s.getAttribute('data-f'))return;s.setAttribute('data-f','1');s.textContent='This is taking a while. The connection may be slow. ';var b=document.createElement('button');b.type='button';b.textContent='Try again';b.style.cssText='display:block;margin:12px auto 0;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:#087F5B;color:#fff;font-weight:600;font-size:15px;line-height:1;font-family:inherit';b.onclick=function(){location.reload()};s.appendChild(b)}window.__kfmFail=fail;if(window.__kfmFileFailed)fail();setTimeout(fail,20000);window.addEventListener('vite:preloadError',fail)})();</script>
+    <script>(function(){var s=document.querySelector('#root [role=status]');function fail(){if(!s||!document.body.contains(s)||s.getAttribute('data-f'))return;s.setAttribute('data-f','1');s.textContent='This is taking a while. The connection may be slow. ';var b=document.createElement('button');b.type='button';b.textContent='Try again';b.style.cssText='display:block;margin:12px auto 0;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:#087F5B;color:#fff;font-weight:600;font-size:15px;line-height:1;font-family:inherit';b.onclick=function(){location.reload()};s.appendChild(b)}window.__kfmFail=fail;if(window.__kfmFileFailed)fail();setTimeout(fail,20000);window.addEventListener('vite:preloadError',function(e){if(!/fonts-/.test(String(e&&e.payload&&e.payload.message)))fail()})})();</script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -119,7 +119,12 @@ function JourneyStops({ id, title, count, children }) {
   );
 }
 
-const openStopsOf = (e) => e.currentTarget.parentElement?.querySelector('.journey-card__toggle')?.click();
+// Not when the press was a selection of the text, or the second of a
+// double click.
+const openStopsOf = (e) => {
+  if (e.detail > 1 || window.getSelection?.()?.toString()) return;
+  e.currentTarget.parentElement?.querySelector('.journey-card__toggle')?.click();
+};
 
 function DiscoverTab({ onBrowse }) {
   const { t, i18n } = useTranslation();

@@ -177,6 +177,7 @@ export default function RestaurantDetail({
   // The bundle carries a lighter record; the full one (evidence, menus,
   // transit, phone, links) is fetched when the detail opens.
   const { full, failed: fullFailed, retry: retryFull } = usePlaceRecord(restaurant);
+  const [retriedFor, setRetriedFor] = useState(null);
 
   // Remember what opened the sheet (a card, a pin, a journey stop) and give
   // focus back to it on close, so a keyboard or screen-reader user resumes
@@ -680,7 +681,10 @@ export default function RestaurantDetail({
             {!full && (isOnline || fullFailed) && typeof navigator !== 'undefined' && navigator.onLine !== false && (
               <div className="detail-loading">
                 <span role="status">{fullFailed ? t('detail.loadFailed') : t('detail.loadingDetails')}</span>{' '}
-                <button type="button" className="detail-loading__retry" hidden={!fullFailed} onClick={retryFull}>{t('detail.loadRetry')}</button>
+                {/* Once pressed it stays (dimmed while asking): hidden, it took the
+                    focus away with it. */}
+                <button type="button" className="detail-loading__retry" hidden={!fullFailed && retriedFor !== place.id} aria-disabled={!fullFailed}
+                  onClick={() => { if (!fullFailed) return; setRetriedFor(place.id); retryFull(); }}>{t('detail.loadRetry')}</button>
               </div>
             )}
 

@@ -6145,3 +6145,7 @@ html[data-text='larger'] .detail-bar__map svg {
 .journey-card__description {
   cursor: pointer;
 }
+
+.detail-loading__retry[aria-disabled='true'] {
+  opacity: 0.5;
+}

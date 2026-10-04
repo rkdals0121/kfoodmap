@@ -16,6 +16,9 @@ const TRANSLATIONS = {
   id: () => import('../data/privacy.id.js'),
 };
 
+// `name` in the policy's text is a code mark, not two stray characters.
+const withCode = (text) => text.split('`').map((part, k) => (k % 2 ? <code key={k}>{part}</code> : part));
+
 function PolicyVersion({ lang, policy }) {
   return (
     <section className="privacy-version" lang={lang}>
@@ -25,10 +28,10 @@ function PolicyVersion({ lang, policy }) {
       {policy.sections.map(section => (
         <div className="privacy-section" key={section.heading}>
           <h3>{section.heading}</h3>
-          {section.text && <p>{section.text.split('`').map((part, k) => (k % 2 ? <code key={k}>{part}</code> : part))}</p>}
+          {section.text && <p>{withCode(section.text)}</p>}
           {section.items && (
             <ul>
-              {section.items.map(item => <li key={item}>{item}</li>)}
+              {section.items.map(item => <li key={item}>{withCode(item)}</li>)}
             </ul>
           )}
         </div>
