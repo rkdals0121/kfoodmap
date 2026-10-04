@@ -665,16 +665,21 @@ function AppShell() {
           {t('app.updateReady')}
         </button>
       )}
-      {toast && (
-        <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}`} role="status" key={toast.at}>
-          <span>{toast.text}</span>
-          {toast.undo && (
-            <button type="button" className="toast__undo" onClick={() => { const undo = toast.undo; setToast(null); undo(); }}>
-              {t('app.undo')}
-            </button>
-          )}
-        </div>
-      )}
+      {/* The live region is always in the page and only its content comes and
+          goes: a status region inserted together with its text is not read
+          out by every screen reader. */}
+      <div className="toast-region" role="status" aria-live="polite">
+        {toast && (
+          <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}`} key={toast.at}>
+            <span>{toast.text}</span>
+            {toast.undo && (
+              <button type="button" className="toast__undo" onClick={() => { const undo = toast.undo; setToast(null); undo(); }}>
+                {t('app.undo')}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
       <ConfirmHost />
       {/* Map is now at the base level */}
       <div className="map-region" inert={mapCovered || modalOpen || undefined}>
