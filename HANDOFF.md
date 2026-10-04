@@ -2689,6 +2689,30 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     - `hours.clock` values: `12`, `12h0` (Japanese: 午前0:00), `24`
       (Indonesian: 19.30), `24c` (Chinese: 22:00).
 
+72. **2026-10-04 21:00 — layout in five languages, cascade audit.**
+    - `.toast` is `width: max-content` up to the screen; its sentence
+      wraps and Undo does not. `.claim-fact` wraps inside its row.
+    - Offline / new-version bands: centred on the screen on a phone,
+      over the map from 768 px (`left` per breakpoint, incl. a docked
+      place and a folded sidebar); the map's buttons step down under them.
+    - Empty results (`BottomSheetList`): "Clear the search, keep the
+      filters" first; `withoutFilters` from `searchPlaces` is the same
+      search re-run with the chips off (never a count of word matches),
+      and is not offered for Saved / a shared list.
+    - `shareOrCopy` copies the link alone when there is one; a place's
+      share text is its claims with their confidence, not its tagline.
+    - `romaniseQuery`: `FILLER` words (식당, 맛집, 餐厅, restoran, toko…) are
+      dropped; `COOKING` words (temple, vegetarian, cafe, bakery, dessert,
+      cake, coffee) are searched but never treated as areas.
+    - **Debt**: the tail of `src/index.css` (from "Phone audit, 2026-10-04")
+      has declarations that later ones in the same tail override; an audit
+      (cascade compare at 390/800/1100/1280) found no harm, and folding
+      the tail back into the main sections is a separate job.
+    - A change was reverted the same evening: the welcome screen reading
+      `lastCheckedAt` from the bundled records. The bundle strips that
+      field (a test guards it); a data-wide "last checked" needs a
+      build-time constant.
+
 
 ---
 
