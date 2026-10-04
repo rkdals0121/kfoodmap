@@ -243,6 +243,7 @@ export default {
     fermented: '発酵食品',
     searchPlaceholder: '店名やエリアで検索',
     clearSearch: '検索をクリア',
+    clearFilters: 'クリア ({{n}})',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',
@@ -348,6 +349,7 @@ export default {
     restaurantList: 'お店の一覧',
     offline: 'オフライン — 保存済みのデータを表示中',
     updateReady: '新しいお店が追加されました — タップして更新',
+    undo: '元に戻す',
     sidebarExpand: 'サイドバーを開く',
     sidebarCollapse: 'サイドバーを閉じる',
     sheetExpand: '一覧を広げる',

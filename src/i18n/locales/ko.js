@@ -237,6 +237,7 @@ export default {
     fermented: '발효 음식',
     searchPlaceholder: '이름이나 지역으로 검색',
     clearSearch: '검색어 지우기',
+    clearFilters: '해제 ({{n}})',
   },
   provenance: {
     sourceMaps: '네이버 플레이스 / 카카오맵',
@@ -338,6 +339,7 @@ export default {
     restaurantList: '식당 목록',
     offline: '오프라인 — 저장된 데이터를 보여 드려요',
     updateReady: '새 장소가 추가됐어요 — 눌러서 새로고침',
+    undo: '되돌리기',
     sidebarExpand: '사이드바 펼치기',
     sidebarCollapse: '사이드바 접기',
     sheetExpand: '목록 더 크게 보기',

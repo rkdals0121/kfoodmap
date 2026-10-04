@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
-import { HeartIcon, CompassIcon, MapPinIcon } from './Icons';
+import { HeartIcon, CompassIcon, MapPinIcon, ShareIcon } from './Icons';
 import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, statusClass, DAY_KEYS, formatClock } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
@@ -186,6 +186,8 @@ export default function BottomSheetList({
   const shareable = activeFilters.filter(f => f !== SAVED_ONLY && f !== SHARED_LIST);
   const viewLink = viewHash({ q: searchQuery, filters: shareable, planAt, area: areaOnly });
   const [viewShared, setViewShared] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
+  const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   const shareView = async () => {
     const url = `${window.location.origin}/${viewLink}`;
     const how = await shareOrCopy({ title: 'K-Food Map', url });
@@ -217,11 +219,34 @@ export default function BottomSheetList({
   }, [hasMore, shown]);
 
   return (
-    <div className="place-list">
+    // The notes above the cards fold to two lines on a phone and open on a
+    // tap: with a diet chip on they filled the half-height sheet and the
+    // first result was under the tab bar.
+    <div
+      className={`place-list${notesOpen ? ' notes-open' : ''}`}
+      onClick={(e) => { if (e.target.closest?.('.place-list__note')) setNotesOpen(o => !o); }}
+    >
       <div className="place-list__header">
         {/* Announced politely when a filter or search changes the count. */}
         <h2><span aria-live="polite">{t('list.placeCount', { count: sorted.length })}</span></h2>
-        {sorted.length > 1 && (
+        {/* In the header row, as an icon: on its own line it was one more
+            thing between a filter and its first result. */}
+        {viewLink && sorted.length > 0 && (
+          <button type="button" className="place-list__share" onClick={shareView} aria-label={t('list.shareView')} title={t('list.shareView')}>
+            {viewShared ? <span className="place-list__share-done">{t('journal.listCopied')}</span> : <ShareIcon size={16} />}
+          </button>
+        )}
+        {/* Chips are a row three screens wide: one switched on further along
+            is out of sight. Whatever is on (and any search), this says how
+            many and takes them off — in place of the line about the order,
+            which matters less than a way back. */}
+        {activeN > 0 && onClearFilters && sorted.length > 0 && (
+          <button type="button" className="place-list__clear-inline" onClick={onClearFilters}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            {t('filters.clearFilters', { n: activeN })}
+          </button>
+        )}
+        {sorted.length > 1 && activeN === 0 && (
           <span className="place-list__hint">
             {/* While the map is still centred on the visitor, the order and
                 the distances are the same thing: say just that. Once the
@@ -240,12 +265,6 @@ export default function BottomSheetList({
           results are not a mystery and the spelling on signs is learned. */}
       {searchQuery.trim() && romaniseQuery(searchQuery) && (
         <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(searchQuery) })}</p>
-      )}
-
-      {viewLink && sorted.length > 0 && (
-        <button type="button" className="place-list__share" onClick={shareView}>
-          {viewShared ? t('journal.listCopied') : t('list.shareView')}
-        </button>
       )}
 
       {/* Said once for the whole list rather than on every card: the same

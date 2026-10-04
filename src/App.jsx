@@ -367,9 +367,20 @@ function AppShell() {
     });
     // The day and time pickers take most of a phone's half-height sheet:
     // open it fully so the results are in view under them.
-    if (filter === OPEN_AT && !selectedFilters.includes(OPEN_AT)) setSheetState(2);
+    if (filter === OPEN_AT) setSheetState(selectedFilters.includes(OPEN_AT) ? 1 : 2);
     if (id) navigate(tabPath, { replace: true });
   };
+
+  // What a tap just did, said where the thumb is: saving from a card or the
+  // place bar changed a heart's colour and nothing else, and the line that
+  // did say it was half a screen away. One message at a time, gone after a
+  // few seconds; an unsave can be undone from it.
+  const [toast, setToast] = useState(null);
+  useEffect(() => {
+    if (!toast) return undefined;
+    const timer = setTimeout(() => setToast(null), toast.undo ? 5000 : 3000);
+    return () => clearTimeout(timer);
+  }, [toast]);
 
   const handleToggleBookmark = (placeId) => {
     // Unsaving a visited place also drops its visit (and its Journal seal),
@@ -378,6 +389,12 @@ function AppShell() {
     if (current && current.savedAt !== null && current.visitedAt !== null
       && !window.confirm(t('journal.unsaveVisitedConfirm'))) return;
     const now = Date.now();
+    const removing = Boolean(current && current.savedAt !== null);
+    // An unsave that also dropped a visit was confirmed first and is not
+    // offered back: Undo would restore the save without the visit.
+    setToast(removing
+      ? { text: t('detail.removedNote'), undo: current.visitedAt === null ? () => handleToggleBookmark(placeId) : null, at: now }
+      : { text: t('detail.savedNote'), undo: null, at: now });
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
       if (!held || held.savedAt === null) {
@@ -586,6 +603,16 @@ function AppShell() {
         <button type="button" className="update-banner" onClick={reload}>
           {t('app.updateReady')}
         </button>
+      )}
+      {toast && (
+        <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}`} role="status" key={toast.at}>
+          <span>{toast.text}</span>
+          {toast.undo && (
+            <button type="button" className="toast__undo" onClick={() => { const undo = toast.undo; setToast(null); undo(); }}>
+              {t('app.undo')}
+            </button>
+          )}
+        </div>
       )}
       {/* Map is now at the base level */}
       <div className="map-region" inert={mapCovered || modalOpen || undefined}>

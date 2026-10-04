@@ -248,6 +248,7 @@ export default {
     fermented: 'Fermented',
     searchPlaceholder: 'Search by name or area',
     clearSearch: 'Clear the search',
+    clearFilters: 'Clear ({{n}})',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',
@@ -355,6 +356,7 @@ export default {
     restaurantList: 'Restaurant list',
     offline: 'Offline — showing saved data',
     updateReady: 'New places are available — tap to refresh',
+    undo: 'Undo',
     sidebarExpand: 'Expand sidebar',
     sidebarCollapse: 'Collapse sidebar',
     sheetExpand: 'Show more of the list',

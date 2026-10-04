@@ -241,6 +241,7 @@ export default {
     fermented: 'Fermentasi',
     searchPlaceholder: 'Cari nama atau area',
     clearSearch: 'Hapus pencarian',
+    clearFilters: 'Hapus ({{n}})',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',
@@ -345,6 +346,7 @@ export default {
     restaurantList: 'Daftar restoran',
     offline: 'Offline — menampilkan data tersimpan',
     updateReady: 'Ada tempat baru — ketuk untuk memuat ulang',
+    undo: 'Urungkan',
     sidebarExpand: 'Perluas bilah sisi',
     sidebarCollapse: 'Ciutkan bilah sisi',
     sheetExpand: 'Tampilkan daftar lebih banyak',

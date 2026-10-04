@@ -238,6 +238,7 @@ export default {
     fermented: '發酵食品',
     searchPlaceholder: '搜尋店名或地區',
     clearSearch: '清除搜尋',
+    clearFilters: '清除 ({{n}})',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',
@@ -341,6 +342,7 @@ export default {
     restaurantList: '餐廳列表',
     offline: '離線——正在顯示已儲存的資料',
     updateReady: '有新地點可用——點一下重新整理',
+    undo: '復原',
     sidebarExpand: '展開側邊欄',
     sidebarCollapse: '收合側邊欄',
     sheetExpand: '多顯示一些列表',

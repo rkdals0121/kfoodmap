@@ -4629,3 +4629,140 @@ body {
   z-index: 2;
   pointer-events: none;
 }
+
+/* ---- Phone audit, batch 4 ---- */
+/* The toast: what a tap just did, above the tab bar (or the place bar). */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--tab-h) + 12px);
+  transform: translateX(-50%);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: calc(100% - 24px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-2);
+  animation: toastIn 0.18s ease-out;
+}
+.toast--over-place {
+  bottom: calc(81px + env(safe-area-inset-bottom));
+}
+.toast__undo {
+  min-height: 44px;
+  margin: -10px -8px -10px 0;
+  padding: 0 10px;
+  border: none;
+  background: none;
+  color: #9BE7C4;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 6px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@media (min-width: 768px) {
+  .toast {
+    bottom: 24px;
+  }
+}
+
+/* "Clear (2)" at the start of the chip row. */
+.place-list__clear-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin: -8px 0;
+  padding: 0 4px 0 8px;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.place-list__clear-inline:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
+/* Share, as an icon beside the count. */
+.place-list__header {
+  align-items: center;
+  gap: 4px;
+}
+.place-list__header h2 {
+  margin-right: auto;
+}
+.place-list__share {
+  flex: 0 0 auto;
+  min-width: 44px;
+  min-height: 44px;
+  margin: -8px 0;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--ink-body);
+}
+.place-list__share-done {
+  font-size: 12px;
+  color: var(--green-strong);
+  padding: 0 4px;
+}
+
+@media (max-width: 767px) {
+  .place-list:not(.notes-open) .place-list__note {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
+}
+
+/* The hint in the search box met 4.3:1 on its grey; now past 4.5. */
+.search-field input::placeholder {
+  color: #5B6270;
+}
+
+/* The place page's close button sat on scrolling text: Share, "Show large"
+   and Copy passed straight under it. A band of the sheet's own colour now
+   stays behind it (and the grabber). */
+.detail-sheet:not(.detail-sheet--docked)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--surface) 78%, rgba(255, 255, 255, 0));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Phone and Instagram / website rows: their 44 px targets overlapped by
+   12 px, so a tap on one could dial the other. */
+.practical-link {
+  margin: 0;
+}
+.practical-row:has(.practical-link) {
+  align-items: center;
+}
+.toast > span {
+  white-space: nowrap;
+}

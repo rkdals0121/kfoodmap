@@ -291,7 +291,7 @@ export default function RestaurantDetail({
     const how = await shareOrCopy({ title: place.name, text: `${place.name} — ${place.vibe}`, url });
     if (how === 'failed') { window.prompt(t('detail.share'), url); return; }
     if (how === 'dismissed') return;
-    setShared(true);
+    setShared(how);
     setTimeout(() => setShared(false), 2500);
   };
 
@@ -597,7 +597,7 @@ export default function RestaurantDetail({
                 </button>
                 <button type="button" className="action-btn" onClick={handleShare}>
                   <ShareIcon size={20} />
-                  <span>{shared ? t('detail.shared') : t('detail.share')}</span>
+                  <span>{shared === 'copied' ? t('journal.listCopied') : shared ? t('detail.shared') : t('detail.share')}</span>
                 </button>
               </div>
               <p className="action-note" role="status">
