@@ -591,6 +591,7 @@ export default {
     zoomIn: 'Zoom in',
     zoomOut: 'Zoom out',
     nearMe: 'My location',
+    region: 'Map of the places',
     clusterList: '{{count}} places at this spot',
     failed: 'The map could not be drawn. The list below still works.',
     retry: 'Try the map again',

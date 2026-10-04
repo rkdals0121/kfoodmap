@@ -456,11 +456,15 @@ function AppShell() {
   // did say it was half a screen away. One message at a time, gone after a
   // few seconds; an unsave can be undone from it.
   const [toast, setToast] = useState(null);
+  const [toastHeld, setToastHeld] = useState(false);
   useEffect(() => {
     if (!toast) return undefined;
-    const timer = setTimeout(() => setToast(null), toast.undo ? 5000 : 3000);
+    // An Undo is given ten seconds, and waits while a finger or the focus
+    // is on it: five was gone before a screen reader could reach it.
+    if (toastHeld) return undefined;
+    const timer = setTimeout(() => setToast(null), toast.undo ? 10000 : 3000);
     return () => clearTimeout(timer);
-  }, [toast]);
+  }, [toast, toastHeld]);
 
   // Undo of an unsave: the save put back as it was, and said so.
   const restoreSave = (placeId, savedAt) => {
@@ -766,7 +770,7 @@ function AppShell() {
       <h1 className="visually-hidden">K-Food Map</h1>
       {/* The map holds hundreds of focusable pins; the same places are in
           the list, one Tab away with this link. */}
-      {activeTab === 'map' && <a className="skip-link" href="#place-list">{t('app.skipToList')}</a>}
+      {activeTab === 'map' && !modalOpen && <a className="skip-link" href="#place-list">{t('app.skipToList')}</a>}
       {/* Above everything, on every tab: inside the map region they sat under
           the pins and vanished behind the other tabs and the sheets. */}
       {!isOnline && (
@@ -784,7 +788,7 @@ function AppShell() {
       {/* The live region is always in the page and only its content comes and
           goes: a status region inserted together with its text is not read
           out by every screen reader. */}
-      <div className="toast-region" role="status" aria-live="polite">
+      <div className="toast-region" role="status" aria-live="polite" onFocus={() => setToastHeld(true)} onBlur={() => setToastHeld(false)} onPointerEnter={() => setToastHeld(true)} onPointerLeave={() => setToastHeld(false)}>
         {toast && (
           <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}`} key={toast.at}>
             <span>{toast.text}</span>

@@ -575,6 +575,7 @@ export default {
     zoomIn: '放大',
     zoomOut: '縮小',
     nearMe: '我的位置',
+    region: '店家地圖',
     clusterList: '此處有 {{count}} 家',
     failed: '地圖無法顯示。下方列表仍可使用。',
     retry: '重新載入地圖',

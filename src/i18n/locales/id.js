@@ -578,6 +578,7 @@ export default {
     zoomIn: 'Perbesar',
     zoomOut: 'Perkecil',
     nearMe: 'Lokasi saya',
+    region: 'Peta tempat',
     clusterList: '{{count}} tempat di titik ini',
     failed: 'Peta tidak dapat ditampilkan. Daftar di bawah tetap berfungsi.',
     retry: 'Coba muat peta lagi',

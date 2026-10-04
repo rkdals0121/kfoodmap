@@ -581,6 +581,7 @@ export default {
     zoomIn: '拡大',
     zoomOut: '縮小',
     nearMe: '現在地',
+    region: 'お店の地図',
     clusterList: 'この地点に {{count}} 件',
     failed: '地図を表示できませんでした。下の一覧は引き続き使えます。',
     retry: '地図を再読み込み',

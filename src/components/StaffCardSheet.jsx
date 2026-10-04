@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useBackToClose, useWakeLock, useFitText } from '../hooks/useOverlay';
+import { createPortal } from 'react-dom';
+import { useBackToClose, useWakeLock, useFitText, useInertRoot } from '../hooks/useOverlay';
 import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
 import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-cards';
@@ -32,6 +33,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
   useWakeLock(large !== null);
   const largeText = useRef(null);
   useFitText(largeText, large !== null, { min: 22, max: 120 });
+  useInertRoot(large !== null);
   // The address follows the card, so a reload or a shared link shows the
   // same one.
   const chooseCard = (id) => { setCardId(id); onCardChange?.(id); };
@@ -159,7 +161,8 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
         </div>
       </div>
 
-      {large && (
+      {/* On <body>, with the app behind it inert, like the large name. */}
+      {large && createPortal(
         <button
           type="button"
           className="staff-large"
@@ -173,7 +176,8 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
             {large.map(line => <span key={line}>{line}</span>)}
           </span>
           <span className="staff-large__close">{t('cards.tapToClose')}</span>
-        </button>
+        </button>,
+        document.body,
       )}
     </>
   );

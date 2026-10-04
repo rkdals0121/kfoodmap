@@ -14,7 +14,7 @@ import { journeys } from '../data/journeys';
 import { legDistances } from '../data/journey-nav';
 import useInstall from '../hooks/useInstall';
 import { askConfirm } from '../confirm';
-import { useBackToClose } from '../hooks/useOverlay';
+import { useBackToClose, useInertRoot } from '../hooks/useOverlay';
 import { matchesArea } from '../filters';
 import { matchesDietary } from '../data/verification';
 import { AREA_NAMES } from '../data/area-names';
@@ -96,7 +96,7 @@ const discoverMemory = { open: new Map(), scrollTop: 0 };
 // Discover ten screens long, with the stories under all of it. The title,
 // what it is, how sure the claims are and "show on the map" stay in view;
 // the stops open on a tap. From 768 px, where there is room, they start open.
-function JourneyStops({ id, count, children }) {
+function JourneyStops({ id, title, count, children }) {
   const { t } = useTranslation();
   // What the reader last chose for this journey, open or folded; without a
   // choice, folded on a phone and open where there is room.
@@ -109,7 +109,7 @@ function JourneyStops({ id, count, children }) {
   });
   return (
     <>
-      <button type="button" className="journey-card__toggle" aria-expanded={open} onClick={() => setOpen(o => !o)}>
+      <button type="button" className="journey-card__toggle" aria-expanded={open} aria-label={`${title}: ${t('discover.stopsCount', { n: count })}`} onClick={() => setOpen(o => !o)}>
         {t('discover.stopsCount', { n: count })}
         <ChevronRightIcon size={16} />
       </button>
@@ -191,7 +191,7 @@ function DiscoverTab({ onBrowse }) {
                     {t('discover.closedToday', { closed: journey.stops.filter(p => closedAllDay(p.hours)).length, total: journey.stops.length })}
                   </p>
                 )}
-                <JourneyStops id={journey.id} count={journey.stops.length}>
+                <JourneyStops id={journey.id} title={journey.title} count={journey.stops.length}>
                 <ol className="journey-card__stops">
                   {journey.stops.map((place, i) => (
                     <li key={place.id}>
@@ -388,6 +388,16 @@ function ProfileTab({
   const aboutOpener = useRef(null);
   const { state: installable, install } = useInstall();
   useBackToClose(languagePickerOpen, () => setLanguagePickerOpen(false));
+  // Behind the language sheet and About, the panel is inert; and focus
+  // returns to the Language row (the sheet's own note of its opener was
+  // taken after focus had already moved inside it).
+  useInertRoot(languagePickerOpen || aboutOpen);
+  const languageOpener = useRef(null);
+  const wasPicking = useRef(false);
+  useEffect(() => {
+    if (wasPicking.current && !languagePickerOpen) languageOpener.current?.focus?.({ preventScroll: true });
+    wasPicking.current = languagePickerOpen;
+  }, [languagePickerOpen]);
   useBackToClose(aboutOpen, () => setAboutOpen(false));
   const [iosHelp, setIosHelp] = useState(false);
   const navigate = useNavigate();
@@ -419,7 +429,7 @@ function ProfileTab({
   const settings = [
     // A picker with one choice implies a choice that isn't there: until a
     // second language ships, the row just states the language.
-    { label: t('profile.language'), value: currentLanguage.name, icon: <GlobeIcon size={20} />, action: () => setLanguagePickerOpen(true) },
+    { label: t('profile.language'), value: currentLanguage.name, icon: <GlobeIcon size={20} />, action: () => { languageOpener.current = document.activeElement; setLanguagePickerOpen(true); } },
     { custom: <TextSizeRow /> },
     { label: t('profile.staffCards'), value: '', icon: <BookIcon size={20} />, action: () => navigate('/cards', { state: { fromApp: true, tab: 'profile' } }) },
     // Only where it can do something: a browser that offered the install,

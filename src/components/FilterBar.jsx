@@ -145,6 +145,8 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
             <button
               className={`chip${selectedFilters.includes(OPEN_AT) ? ' active' : ''}`}
               aria-pressed={selectedFilters.includes(OPEN_AT)}
+              aria-expanded={selectedFilters.includes(OPEN_AT)}
+              aria-controls="plan-row"
               onClick={() => onToggleFilter(OPEN_AT)}
             >
               {selectedFilters.includes(OPEN_AT)
@@ -164,7 +166,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
       </div>
 
       {planAt && selectedFilters.includes(OPEN_AT) && (
-        <div className="plan-row">
+        <div className="plan-row" id="plan-row" role="group" aria-label={t('filters.openAt')}>
           <label>
             <span>{t('filters.openAtDay')}</span>
             <select value={planAt.day} onChange={(e) => onPlanAt({ ...planAt, day: Number(e.target.value) })}>

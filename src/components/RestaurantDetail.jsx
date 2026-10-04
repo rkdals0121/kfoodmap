@@ -16,7 +16,7 @@ import {
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
-import { useBackToClose, useWakeLock, useFitText } from '../hooks/useOverlay';
+import { useBackToClose, useWakeLock, useFitText, useInertRoot } from '../hooks/useOverlay';
 import { copyText, shareOrCopy } from '../share';
 import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
@@ -130,6 +130,7 @@ export default function RestaurantDetail({
   // Another place opened in this sheet: the large name does not carry over.
   useEffect(() => { setNameLarge(false); }, [restaurant?.id]);
   useWakeLock(nameLarge);
+  useInertRoot(nameLarge);
   const nameLargeText = useRef(null);
   // As large as fits, but never so large that a name stands one syllable
   // to a line: "편한집밥" down the screen was harder to read, not easier.
@@ -571,7 +572,7 @@ export default function RestaurantDetail({
                   <dl>
                     {week.map(d => (
                       <div key={d.key} className={d.today ? 'is-today' : undefined}>
-                        <dt>{d.day}</dt>
+                        <dt>{d.day}{d.today && <span className="visually-hidden"> ({t('filters.today')})</span>}</dt>
                         {/* Lunch and dinner each on a line of their own: run together
                             they wrapped mid-time on a phone. */}
                         <dd>{d.text ? d.text.split(', ').map(part => <span key={part} className="week-hours__slot">{part}</span>) : t('detail.notRecorded')}</dd>
@@ -727,7 +728,7 @@ export default function RestaurantDetail({
                   <button type="button" className="practical-copy" onClick={copyKoName}>
                     {nameCopied ? t('detail.copied') : t('detail.copy')}
                   </button>
-                  <button type="button" className="practical-copy" ref={nameLargeBtn} onClick={() => setNameLarge(true)}>
+                  <button type="button" className="practical-copy" ref={nameLargeBtn} aria-haspopup="dialog" onClick={() => setNameLarge(true)}>
                     {t('detail.showLarge')}
                   </button>
                   {/* On the body, not inside the sheet: the sheet is

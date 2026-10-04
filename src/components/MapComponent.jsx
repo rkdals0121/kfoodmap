@@ -19,6 +19,22 @@ function visibleCenter(map) {
 // Reports the visible centre upward after each pan/zoom so the list can
 // re-sort by distance from what is on screen, not from a point hidden
 // under the sheet.
+// For a screen reader the map is one named region. Its hundreds of markers
+// are left out of what is read: every one of them is a card in the list,
+// with its claims, and swiping through 319 pins came before the search box.
+function MapA11y() {
+  const map = useMap();
+  const { t } = useTranslation();
+  const label = t('map.region');
+  useEffect(() => {
+    const el = map.getContainer();
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-label', label);
+    for (const name of ['markerPane', 'tilePane', 'shadowPane']) map.getPane(name)?.setAttribute('aria-hidden', 'true');
+  }, [map, label]);
+  return null;
+}
+
 function CenterReporter({ onCenterChange, sheetState, userLocation }) {
   const map = useMap();
   const lastSheet = useRef(sheetState);
@@ -598,6 +614,7 @@ function MapComponent({
         <AttributionControl position="topright" prefix={false} />
         {onCenterChange && <CenterReporter onCenterChange={onCenterChange} sheetState={sheetState} userLocation={userLocation} />}
         <ResizeSync />
+        <MapA11y />
         {/* This attribution is legally required credit markup for OpenStreetMap,
             not UI copy, so it stays hardcoded rather than moving to i18n.
 

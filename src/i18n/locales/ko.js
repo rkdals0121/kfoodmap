@@ -572,6 +572,7 @@ export default {
     zoomIn: '확대',
     zoomOut: '축소',
     nearMe: '내 위치',
+    region: '가게 지도',
     clusterList: '이 지점에 {{count}}곳',
     failed: '지도를 그리지 못했어요. 아래 목록은 그대로 쓸 수 있어요.',
     retry: '지도 다시 불러오기',

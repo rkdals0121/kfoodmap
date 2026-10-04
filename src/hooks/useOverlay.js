@@ -100,3 +100,37 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, active, min, typeof max === 'function' ? 0 : max]);
 }
+
+// While an overlay rendered on <body> is open, the app behind it is inert:
+// Tab was already held, but a screen reader's swipe walked on into the page
+// the overlay covers. Counted, so one overlay over another (a confirmation
+// over a sheet) releases the app only when the last one closes.
+let inertCount = 0;
+// The last thing focused inside the app: an overlay's opener. A closing
+// overlay hands focus back to it, but while the app is still inert that
+// focus() does nothing and focus fell to <body>; it is given again here,
+// once the app can take it.
+let lastInApp = null;
+if (typeof document !== 'undefined') {
+  document.addEventListener('focusin', (e) => {
+    if (document.getElementById('root')?.contains(e.target)) lastInApp = e.target;
+  }, true);
+}
+export function useInertRoot(open) {
+  useEffect(() => {
+    if (!open) return undefined;
+    const root = document.getElementById('root');
+    if (!root) return undefined;
+    inertCount += 1;
+    root.inert = true;
+    return () => {
+      inertCount -= 1;
+      if (inertCount > 0) return;
+      inertCount = 0;
+      root.inert = false;
+      if ((!document.activeElement || document.activeElement === document.body) && lastInApp?.isConnected) {
+        lastInApp.focus?.({ preventScroll: true });
+      }
+    };
+  }, [open]);
+}

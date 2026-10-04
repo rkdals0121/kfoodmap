@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useInertRoot } from '../hooks/useOverlay';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useBackToClose } from '../hooks/useOverlay';
@@ -15,6 +16,8 @@ export default function ConfirmHost() {
   const { t } = useTranslation();
   const [question, setQuestion] = useState(null);
   const yesRef = useRef(null);
+  const noRef = useRef(null);
+  useInertRoot(Boolean(question));
 
   useEffect(() => {
     return registerConfirmHost((message, options) => new Promise((resolve) => {
@@ -31,7 +34,8 @@ export default function ConfirmHost() {
     if (!question) return undefined;
     // Focus comes back to whatever asked, when the question is answered.
     const opener = document.activeElement;
-    yesRef.current?.focus();
+    // On the safe answer: these questions are about removing something.
+    (noRef.current ?? yesRef.current)?.focus();
     const onKey = (e) => { if (e.key === 'Escape') { e.stopImmediatePropagation(); answer(false); } };
     window.addEventListener('keydown', onKey, true);
     return () => {
@@ -43,10 +47,10 @@ export default function ConfirmHost() {
   if (!question) return null;
   return createPortal(
     <div className="confirm-overlay" onClick={() => answer(false)}>
-      <div className="confirm" role="alertdialog" aria-modal="true" aria-describedby="confirm-message" onClick={(e) => e.stopPropagation()}>
+      <div className="confirm" role="alertdialog" aria-modal="true" aria-labelledby="confirm-message" onClick={(e) => e.stopPropagation()}>
         <p id="confirm-message" className="confirm__message">{question.message}</p>
         <div className="confirm__actions">
-          <button type="button" className="confirm__btn" onClick={() => answer(false)}>{t('app.cancel')}</button>
+          <button type="button" className="confirm__btn" ref={noRef} onClick={() => answer(false)}>{t('app.cancel')}</button>
           <button type="button" className="confirm__btn confirm__btn--yes" ref={yesRef} onClick={() => answer(true)}>
             {question.options.confirmLabel ?? t('app.ok')}
           </button>

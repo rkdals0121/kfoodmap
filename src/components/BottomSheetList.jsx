@@ -63,7 +63,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
       <div className="place-card__body">
         {/* Stretched link: the name button's ::after covers the whole card */}
         <h3 className="place-card__name">
-          <button className="place-card__open-btn" onClick={() => onOpen(place)}>
+          <button className="place-card__open-btn" aria-describedby={`pc-where-${place.id} pc-meta-${place.id} pc-claims-${place.id}`} onClick={() => onOpen(place)}>
             {/* In a journey, the same number as the stop's mark on the map. */}
             {/* Read as "Stop 1: EID…", not "1EID…". */}
             {stop > 0 && (
@@ -78,7 +78,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
 
         {/* Where, then when. Distance is from the map centre (the list
             header says so). Unknown hours are said, not left blank. */}
-        <p className="place-card__where">
+        <p className="place-card__where" id={`pc-where-${place.id}`}>
           <span className="place-card__zone">{place.zone}</span>
           {/* Past 50 km a distance from the map centre means nothing to a
               visitor (a shared link opens over Seoul), so it is left out. */}
@@ -92,7 +92,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
             </>
           )}
         </p>
-        <p className="place-card__meta">
+        <p className="place-card__meta" id={`pc-meta-${place.id}`}>
           {status ? (
             <>
               {/* Which day the answer is for: "Open" alone read as now. */}
@@ -106,7 +106,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
         </p>
 
         {claims.length > 0 && (
-          <div className="place-card__badges">
+          <div className="place-card__badges" id={`pc-claims-${place.id}`}>
             {claims.map(b => <ClaimChip key={b.key} kind={b.key} label={b.label} fact={b.fact} />)}
           </div>
         )}
@@ -133,7 +133,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
         <div className="place-card__actions">
           <button
             className={`icon-btn${bookmarked ? ' icon-btn--saved' : ''}`}
-            aria-label={bookmarked ? t('list.removeAria', { name }) : t('list.saveAria', { name })}
+            aria-label={t('list.saveAria', { name })}
             aria-pressed={bookmarked}
             onClick={() => onToggleBookmark(place.id)}
           >
