@@ -103,6 +103,7 @@ export default {
     hideUnknown: '영업시간 기록이 없는 {{n}}곳 숨기기',
     unknownShown: '영업시간 기록이 없는 {{n}}곳도 함께 보여요. 가기 전에 확인하세요.',
     nearestTitle: '“{{query}}”에서 가까운, 조건에 맞는 곳:',
+    suggestThis: '지도에 없나요? 제보하기',
     nearResults: '이 근처에 더 있어요:',
     noSavedTitle: '저장한 곳이 아직 없어요',
     sharedNote_one: '공유받은 목록의 {{count}}곳이에요.',

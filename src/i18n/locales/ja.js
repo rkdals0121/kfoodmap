@@ -105,6 +105,7 @@ export default {
     hideUnknown: '営業時間の記録がない {{n}} 件を隠す',
     unknownShown: '営業時間の記録がない {{n}} 件も表示しています。行く前にご確認ください。',
     nearestTitle: '「{{query}}」から近い、条件に合うお店:',
+    suggestThis: '地図にないお店ですか? 提案する',
     nearResults: 'この近くにほかにも:',
     noSavedTitle: '保存したお店はまだありません',
     sharedNote_one: '共有されたリストの {{count}} 件です。',

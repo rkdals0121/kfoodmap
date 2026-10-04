@@ -13,12 +13,14 @@ const config = supabaseConfig({
 const NEW_PLACE_TOPICS = ['vegan', 'halal', 'other'];
 const EMPTY = { name: '', locationHint: '', topic: '', message: '', sourceUrl: '', contactEmail: '', website: '' };
 
-function Field({ id, label, hint, error, children }) {
+function Field({ id, label, hint, error, children, required = false }) {
   const { t } = useTranslation();
   return (
     <div className="submit-field">
       <label htmlFor={id}>{label}</label>
-      {children}
+      {/* Said to a screen reader: only "(optional)" on the others told a
+          sighted reader which ones are needed. */}
+      {required ? React.cloneElement(children, { 'aria-required': 'true' }) : children}
       {hint && <p className="submit-field__hint" id={`${id}-hint`}>{hint}</p>}
       {error && (
         <p className="submit-field__error" id={`${id}-error`} role="alert">
@@ -34,14 +36,20 @@ function Field({ id, label, hint, error, children }) {
 // to verify, never data, and the success copy says so where the promise is made.
 const DRAFTS = new Map();
 
-export default function SubmitSheet({ place, onClose }) {
+export default function SubmitSheet({ place, onClose, initialName = '' }) {
   const { t, i18n } = useTranslation();
   const isOnline = useOnlineStatus();
   // What has been typed is kept for this visit (in memory only, nothing is
   // stored): closing the sheet to check the map, or a slip of the thumb on
   // a tab, used to throw the whole message away.
   const draftKey = place?.id ?? '';
-  const [form, setForm] = useState(() => DRAFTS.get(draftKey) ?? EMPTY);
+  const [form, setForm] = useState(() => {
+    const kept = DRAFTS.get(draftKey);
+    // A name brought from an empty search starts the form, unless one is
+    // already being written.
+    if (kept && (kept.name || kept.message)) return kept;
+    return initialName && !place ? { ...EMPTY, name: initialName.slice(0, 80) } : EMPTY;
+  });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed
   // Kept until it has been sent.

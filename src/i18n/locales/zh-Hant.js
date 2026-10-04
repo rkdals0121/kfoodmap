@@ -101,6 +101,7 @@ export default {
     hideUnknown: '隱藏 {{n}} 家沒有營業時間紀錄的店',
     unknownShown: '同時顯示 {{n}} 家沒有營業時間紀錄的店，出發前請先確認。',
     nearestTitle: '離「{{query}}」最近、符合條件的店：',
+    suggestThis: '地圖上沒有？推薦這家店',
     nearResults: '這附近還有：',
     noSavedTitle: '還沒有收藏的店',
     sharedNote_one: '來自分享清單的 {{count}} 家店。',

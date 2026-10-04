@@ -31,7 +31,7 @@ const icons = {
 
 const tabIds = ['map', 'discover', 'journal', 'profile'];
 
-export default function TabBar({ activeTab, onSelect, isCollapsed }) {
+export default function TabBar({ activeTab, onSelect, isCollapsed, savedCount = 0 }) {
   const { t } = useTranslation();
 
   return (
@@ -45,7 +45,10 @@ export default function TabBar({ activeTab, onSelect, isCollapsed }) {
           title={isCollapsed ? t(`tabBar.${id}`) : undefined}
         >
           {icons[id]}
+          {/* Someone coming back sees at once that their places are here. */}
+          {id === 'journal' && savedCount > 0 && <span className="tab-count" aria-hidden="true">{savedCount > 99 ? '99+' : savedCount}</span>}
           <span className="tab-label">{t(`tabBar.${id}`)}</span>
+          {id === 'journal' && savedCount > 0 && <span className="visually-hidden"> ({savedCount})</span>}
         </button>
       ))}
     </nav>

@@ -101,6 +101,7 @@ export default {
     hideUnknown: '隐藏 {{n}} 家没有营业时间记录的店',
     unknownShown: '同时显示 {{n}} 家没有营业时间记录的店，出发前请先确认。',
     nearestTitle: '离“{{query}}”最近、符合条件的店：',
+    suggestThis: '地图上没有？推荐这家店',
     nearResults: '这附近还有：',
     noSavedTitle: '还没有收藏的店',
     sharedNote_one: '来自分享清单的 {{count}} 家店。',

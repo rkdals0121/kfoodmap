@@ -102,6 +102,7 @@ export default {
     hideUnknown: 'Sembunyikan {{n}} tempat tanpa catatan jam buka',
     unknownShown: 'Juga ditampilkan: {{n}} tempat tanpa catatan jam buka. Periksa dulu sebelum berangkat.',
     nearestTitle: 'Tempat terdekat yang cocok, diukur dari “{{query}}”:',
+    suggestThis: 'Belum ada di peta? Usulkan',
     nearResults: 'Dekat tempat ini juga ada:',
     noSavedTitle: 'Belum ada tempat tersimpan',
     sharedNote_one: '{{count}} tempat dari daftar yang dibagikan.',

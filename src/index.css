@@ -5580,3 +5580,43 @@ html[data-text] .toast > * {
     padding: 0 22px 0 8px;
   }
 }
+
+/* The Journal tab's count of saved places. */
+.tab-item {
+  position: relative;
+}
+.tab-count {
+  position: absolute;
+  top: 6px;
+  left: calc(50% + 6px);
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--orange-strong);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+/* "Not on the map? Suggest it", under an empty search. */
+.place-list__suggest {
+  min-height: 44px;
+  padding: 0 4px;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+/* A heading focused after a tab change shows no ring: it is a place to
+   read from, not a control. */
+.tab-panel h2[tabindex='-1']:focus,
+.journal-panel h2[tabindex='-1']:focus {
+  outline: none;
+}

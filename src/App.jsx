@@ -217,6 +217,15 @@ function AppShell() {
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
   }, []);
+  const firstTab = useRef(true);
+  useEffect(() => {
+    if (firstTab.current) { firstTab.current = false; return; }
+    if (activeTab === 'map') return;
+    const heading = document.querySelector('.tab-panel h2, .journal-panel h2');
+    if (!heading) return;
+    heading.tabIndex = -1;
+    heading.focus({ preventScroll: true });
+  }, [activeTab]);
   const mapCovered = activeTab !== 'map' && !isWide;
   // The submit and privacy sheets are modal, and so is the detail on a
   // phone, where it covers the map: while one is open what lies behind it is
@@ -913,6 +922,9 @@ function AppShell() {
                 matchQuery={matchQuery}
                 nearest={nearest}
                 nearestFrom={nearestFrom}
+                // Nothing found for a name: the way to tell us about it,
+                // with the name already written.
+                onSuggest={(name) => navigate('/submit', { state: { fromApp: true, tab: 'map', name } })}
                 onClearInline={() => {
                   // From the list header: chips and search off, where the
                   // reader is — no keyboard, and a shared list or journey stays.
@@ -971,6 +983,7 @@ function AppShell() {
           activeTab={activeTab} 
           onSelect={selectTab} 
           isCollapsed={isSidebarCollapsed} 
+          savedCount={bookmarkedIds.length}
         />
       </div>
 
@@ -1018,6 +1031,7 @@ function AppShell() {
         <SubmitSheet
           key={location.search}
           place={submitPlace}
+          initialName={location.state?.name ?? ''}
           // Opened from inside the app, it closes by going back — to the
           // place or the tab it came from, without a second copy of either.
           onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(submitPlace ? `/place/${submitPlace.id}` : tabPath, { replace: true }))}

@@ -155,7 +155,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -449,6 +449,11 @@ export default function BottomSheetList({
           {/* Nothing in the area searched, but the same filters match close
               by: "Haeundae" has no halal place on record and Busan has
               eight. Offer them, measured from the area that was typed. */}
+          {onSuggest && searchQuery.trim() && activeFilters.length === 0 && nearest.length === 0 && (
+            <button type="button" className="place-list__suggest" onClick={() => onSuggest(searchQuery.trim())}>
+              {t('list.suggestThis')}
+            </button>
+          )}
           <p className="place-list__hint-text">
             {t(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0
               ? 'list.noSavedYet'

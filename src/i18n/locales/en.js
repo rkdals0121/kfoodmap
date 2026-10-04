@@ -106,6 +106,7 @@ export default {
     hideUnknown: 'Hide the {{n}} with no recorded hours',
     unknownShown: 'Also shown: {{n}} with no recorded hours. Check before you go.',
     nearestTitle: 'Nearest places that match, measured from “{{query}}”:',
+    suggestThis: 'Not on the map? Suggest it',
     nearResults: 'Also close to these:',
     noSavedTitle: 'No saved places yet',
     sharedNote_one: '{{count}} place from a shared list.',
