@@ -285,6 +285,7 @@ export default {
     koreanName: 'Name in Korean',
     nearbyTitle: 'Also nearby',
     nearbyAway: '{{distance}} away, in a straight line',
+    claimWhy: 'Why?',
     call: 'Call',
     nearbyFiltered: 'Only places that match your diet filters.',
     showLarge: 'Show large',

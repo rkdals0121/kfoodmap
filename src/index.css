@@ -5115,3 +5115,30 @@ body {
   display: inline-flex;
   align-items: center;
 }
+
+/* A short phone (640 px tall): the half-open sheet takes two thirds, and the
+   list's header sits tighter, so the first card shows its name, where it is
+   and whether it is open — not a name cut off by the tab bar. */
+@media (max-width: 767px) and (max-height: 700px) and (orientation: portrait) {
+  .sidebar-region.sheet-state-1 { height: 66%; }
+  .place-list__header { padding-top: 4px; }
+}
+/* "Why?" on a claim that opens its evidence. */
+.claim-fact__why {
+  align-items: center;
+  gap: 3px;
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  opacity: 0.85;
+}
+
+.week-hours__slot {
+  display: block;
+  white-space: nowrap;
+}
+@media (max-width: 380px) {
+  .week-hours__slot { white-space: normal; }
+}

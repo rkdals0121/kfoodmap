@@ -72,6 +72,7 @@ function sourceWithSite(f) {
 // below the row. This used to live in a hover tooltip, which a phone
 // never shows.
 function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
+  const { t } = useTranslation();
   const { label: level, tone } = trustBadge(fact);
   return (
     <li>
@@ -84,7 +85,9 @@ function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
       >
         {Icon && <Icon size={16} aria-hidden="true" />} {label}
         <span className="claim-fact__level">{level}</span>
-        <span className="claim-fact__why" aria-hidden="true"><InfoIcon size={14} /></span>
+        {/* The word, not only the mark: a first-time reader did not take
+            the chip for something that opens. */}
+        <span className="claim-fact__why" aria-hidden="true">{t('detail.claimWhy')}<InfoIcon size={14} /></span>
       </button>
     </li>
   );
@@ -126,7 +129,12 @@ export default function RestaurantDetail({
   useEffect(() => { setNameLarge(false); }, [restaurant?.id]);
   useWakeLock(nameLarge);
   const nameLargeText = useRef(null);
-  useFitText(nameLargeText, nameLarge, { min: 34, max: 200 });
+  // As large as fits, but never so large that a name stands one syllable
+  // to a line: "편한집밥" down the screen was harder to read, not easier.
+  // Two or three syllables fill the width; longer names keep four across.
+  const nameLen = Math.min(Math.max([...(koreanName(restaurant?.name ?? '') || '')].filter(ch => ch.trim()).length, 2), 4);
+  const nameMax = typeof window === 'undefined' ? 120 : Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
+  useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax });
   // Say where a save went. Driven by the saved state actually changing, not
   // the tap (unsaving a visited place can be cancelled), and only while the
   // same place stays open.
@@ -552,7 +560,9 @@ export default function RestaurantDetail({
                     {week.map(d => (
                       <div key={d.key} className={d.today ? 'is-today' : undefined}>
                         <dt>{d.day}</dt>
-                        <dd>{d.text ?? t('detail.notRecorded')}</dd>
+                        {/* Lunch and dinner each on a line of their own: run together
+                            they wrapped mid-time on a phone. */}
+                        <dd>{d.text ? d.text.split(', ').map(part => <span key={part} className="week-hours__slot">{part}</span>) : t('detail.notRecorded')}</dd>
                       </div>
                     ))}
                   </dl>

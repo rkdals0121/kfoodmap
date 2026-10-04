@@ -274,6 +274,7 @@ export default {
     koreanName: '한국어 이름',
     nearbyTitle: '근처의 다른 곳',
     nearbyAway: '직선거리 {{distance}}',
+    claimWhy: '근거',
     call: '전화',
     nearbyFiltered: '켜 둔 식이 필터에 맞는 곳만 보여요.',
     showLarge: '크게 보기',

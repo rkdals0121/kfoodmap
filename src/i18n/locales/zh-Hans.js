@@ -275,6 +275,7 @@ export default {
     koreanName: '韩语店名',
     nearbyTitle: '附近还有',
     nearbyAway: '直线距离 {{distance}}',
+    claimWhy: '依据',
     call: '电话',
     nearbyFiltered: '仅显示符合你饮食筛选条件的地点。',
     showLarge: '放大显示',

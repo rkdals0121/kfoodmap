@@ -252,7 +252,10 @@ function AppShell() {
   const sheetStops = (el) => {
     const full = el.parentElement?.getBoundingClientRect().height || window.innerHeight;
     const tabBar = document.querySelector('.tab-bar')?.getBoundingClientRect().height ?? 64;
-    return [tabBar + 168, full * 0.6, full - 92];
+    // A short phone's half sheet is a little taller (index.css): at 60 %
+    // the first card was a name and nothing else.
+    const half = window.matchMedia?.('(max-height: 700px)').matches ? 0.66 : 0.6;
+    return [tabBar + 168, full * half, full - 92];
   };
   const handleTouchStart = (e) => {
     const el = sheetRef.current;
