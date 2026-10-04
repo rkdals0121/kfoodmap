@@ -5411,3 +5411,11 @@ html[data-text] .detail-scroll > * {
 .place-list__note-btn::after {
   inset: -7px 0;
 }
+
+/* Text size also reaches what is read in the small sheets: the language
+   list, a confirmation's question, a toast. */
+html[data-text] .language-picker > *,
+html[data-text] .confirm > *,
+html[data-text] .toast > * {
+  zoom: var(--text-zoom, 1);
+}
