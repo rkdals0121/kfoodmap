@@ -2672,6 +2672,23 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     sights, and the cooking words `temple` / `vegetarian`); a city suffix
     narrows Jeju to Jeju-si, an island or province suffix does not.
 
+71. **2026-10-04 20:00 — before the app loads; the copy read in full.**
+    - Static pages (`scripts/prerender-places.mjs`): every static body
+      carries `STATIC_SCROLL` (the app's stylesheet fixes the page; static
+      text must scroll); a place page links home and to its guides
+      (`guidesOf`, so the place loop runs after `guides` is built); a
+      place's meta description is its claim lines + zone + vibe, cut
+      cleanly at ~158 characters; `/cards` has a static body (`cardsBody`).
+    - `FollowResults` frames a search the app opens with (an area guide
+      from a search engine opened on Seoul).
+    - All five translations were read end to end by a reviewer per
+      language (scratchpad `review8`, `review9`; applied with
+      `apply_review.py`). The staff cards' "an unsure answer" line now
+      says "treat the dish as one you cannot eat" in every language —
+      "treated as a no" could be read as "no, there is no pork".
+    - `hours.clock` values: `12`, `12h0` (Japanese: 午前0:00), `24`
+      (Indonesian: 19.30), `24c` (Chinese: 22:00).
+
 
 ---
 
