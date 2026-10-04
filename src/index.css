@@ -4815,3 +4815,20 @@ body {
 .language-picker__note {
   font-size: 13px;
 }
+
+/* The policy's other language versions, folded under their own names. */
+.privacy-other {
+  border-top: 1px solid var(--line);
+}
+.privacy-other > summary {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--green-strong);
+  cursor: pointer;
+}
+.privacy-other[open] > summary {
+  margin-bottom: 12px;
+}

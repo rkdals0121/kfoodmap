@@ -194,6 +194,7 @@ export default {
     locationLabel: 'Where is it?',
     locationHint: 'A neighbourhood or the nearest station is enough.',
     topicLabel: 'What is it about?',
+    topicLabelNew: 'What does it offer?',
     topicPlaceholder: 'Choose one',
     topics: {
       vegan: 'Vegan',
@@ -204,6 +205,7 @@ export default {
       other: 'Something else',
     },
     messageLabel: 'What did you see?',
+    messageLabelNew: 'What do you know about it?',
     sourceLabel: 'Link (optional)',
     sourceHint: "The restaurant's website, social page, or a listing.",
     emailLabel: 'Email (optional)',

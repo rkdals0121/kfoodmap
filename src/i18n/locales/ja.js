@@ -189,6 +189,7 @@ export default {
     locationLabel: '場所はどこですか?',
     locationHint: '地域名か最寄り駅だけでかまいません。',
     topicLabel: '何についてですか?',
+    topicLabelNew: 'どんなお店ですか？',
     topicPlaceholder: '1つ選択',
     topics: {
       vegan: 'ヴィーガン',
@@ -199,6 +200,7 @@ export default {
       other: 'その他',
     },
     messageLabel: '気づいたことを教えてください',
+    messageLabelNew: 'ご存じのことを教えてください',
     sourceLabel: 'リンク(任意)',
     sourceHint: 'お店の公式サイト、SNS、掲載ページなど。',
     emailLabel: 'メールアドレス(任意)',

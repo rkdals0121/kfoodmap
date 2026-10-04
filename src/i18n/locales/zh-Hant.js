@@ -184,6 +184,7 @@ export default {
     locationLabel: '在哪裡？',
     locationHint: '寫街區或最近的車站就夠了。',
     topicLabel: '是關於什麼的？',
+    topicLabelNew: '這家店提供什麼？',
     topicPlaceholder: '請選擇',
     topics: {
       vegan: '純素',
@@ -194,6 +195,7 @@ export default {
       other: '其他',
     },
     messageLabel: '你看到了什麼？',
+    messageLabelNew: '你了解的情況',
     sourceLabel: '連結（選填）',
     sourceHint: '餐廳的官網、社群媒體頁面，或店家資訊頁。',
     emailLabel: '電子信箱（選填）',

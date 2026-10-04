@@ -221,7 +221,7 @@ export default function SubmitSheet({ place, onClose }) {
                   </>
                 )}
 
-                <Field id="submit-topic" label={t('submit.topicLabel')} error={errors.topic}>
+                <Field id="submit-topic" label={t(place ? 'submit.topicLabel' : 'submit.topicLabelNew')} error={errors.topic}>
                   <select id="submit-topic" value={form.topic} onChange={set('topic')}
                     aria-invalid={Boolean(errors.topic)} aria-describedby={describedBy('submit-topic', false)}>
                     <option value="" disabled>{t('submit.topicPlaceholder')}</option>
@@ -232,7 +232,7 @@ export default function SubmitSheet({ place, onClose }) {
                   </select>
                 </Field>
 
-                <Field id="submit-message" label={t('submit.messageLabel')} error={errors.message}>
+                <Field id="submit-message" label={t(place ? 'submit.messageLabel' : 'submit.messageLabelNew')} error={errors.message}>
                   <textarea id="submit-message" rows={5} value={form.message} onChange={set('message')} maxLength={LEAD_LIMITS.message}
                     aria-invalid={Boolean(errors.message)} aria-describedby={describedBy('submit-message', false)} />
                 </Field>

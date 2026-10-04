@@ -187,6 +187,7 @@ export default {
     locationLabel: 'Di mana lokasinya?',
     locationHint: 'Nama lingkungan atau stasiun terdekat sudah cukup.',
     topicLabel: 'Tentang apa?',
+    topicLabelNew: 'Apa yang ditawarkan?',
     topicPlaceholder: 'Pilih satu',
     topics: {
       vegan: 'Vegan',
@@ -197,6 +198,7 @@ export default {
       other: 'Lainnya',
     },
     messageLabel: 'Apa yang Anda lihat?',
+    messageLabelNew: 'Apa yang Anda ketahui tentang tempat ini?',
     sourceLabel: 'Tautan (opsional)',
     sourceHint: 'Situs web restoran, halaman media sosialnya, atau halaman di direktori.',
     emailLabel: 'Email (opsional)',

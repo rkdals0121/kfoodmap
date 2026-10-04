@@ -183,6 +183,7 @@ export default {
     locationLabel: '어디에 있나요?',
     locationHint: '동네 이름이나 가까운 역만 적어도 충분해요.',
     topicLabel: '어떤 내용인가요?',
+    topicLabelNew: '어떤 곳인가요?',
     topicPlaceholder: '하나를 골라 주세요',
     topics: {
       vegan: '비건',
@@ -193,6 +194,7 @@ export default {
       other: '기타',
     },
     messageLabel: '무엇을 보셨나요?',
+    messageLabelNew: '알고 계신 내용을 알려 주세요',
     sourceLabel: '링크 (선택)',
     sourceHint: '식당 웹사이트, SNS, 등록 정보 페이지 등.',
     emailLabel: '이메일 (선택)',

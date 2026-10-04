@@ -96,8 +96,22 @@ export default function PrivacySheet({ onClose }) {
               : !['en', 'ko'].includes(i18n.language) && (
                 <p className="section-note privacy-language-note">{t('profile.privacyLanguageNote')}</p>
               )}
-            <PolicyVersion lang="en" policy={privacyPolicy.en} />
-            <PolicyVersion lang="ko" policy={privacyPolicy.ko} />
+            {/* One version open — the reader's — and the others folded under
+                their own names. All of them in full was fifteen screens on
+                a phone (three policies, for a reader of a translation); the
+                two it was written in are still one tap away. */}
+            {['en', 'ko']
+              .sort((a, b) => (b === i18n.language) - (a === i18n.language))
+              .map((lang, i) => (
+                (i === 0 && translated?.lang !== i18n.language)
+                  ? <PolicyVersion key={lang} lang={lang} policy={privacyPolicy[lang]} />
+                  : (
+                    <details key={lang} className="privacy-other">
+                      <summary lang={lang}>{lang === 'ko' ? '한국어 전문' : 'English (full text)'}</summary>
+                      <PolicyVersion lang={lang} policy={privacyPolicy[lang]} />
+                    </details>
+                  )
+              ))}
           </div>
         </div>
       </div>
