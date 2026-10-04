@@ -282,6 +282,8 @@ export default {
     koreanName: '한국어 이름',
     nearbyTitle: '근처의 다른 곳',
     nearbyAway: '직선거리 {{distance}}',
+    naverMap: '네이버 지도',
+    kakaoMap: '카카오맵',
     claimWhy: '근거',
     call: '전화',
     nearbyFiltered: '켜 둔 식이 필터에 맞는 곳만 보여요.',

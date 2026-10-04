@@ -283,6 +283,8 @@ export default {
     koreanName: '韓語店名',
     nearbyTitle: '附近還有',
     nearbyAway: '直線距離 {{distance}}',
+    naverMap: 'Naver Map',
+    kakaoMap: 'Kakao Map',
     claimWhy: '依據',
     call: '電話',
     nearbyFiltered: '僅顯示符合你飲食篩選條件的地點。',

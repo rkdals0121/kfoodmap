@@ -685,10 +685,10 @@ export default function RestaurantDetail({
                 {/* Links, not buttons: they leave the app, and a link can be
                     long-pressed, copied or opened in a new tab. */}
                 <a className="btn-primary btn-primary--naver" href={naverMapUrl(place)} target="_blank" rel="noopener noreferrer">
-                  Naver Map
+                  {t('detail.naverMap')}
                 </a>
                 <a className="btn-primary btn-primary--kakao" href={kakaoMapUrl(place)} target="_blank" rel="noopener noreferrer">
-                  Kakao Map
+                  {t('detail.kakaoMap')}
                 </a>
                 <a className="btn-primary btn-primary--google" href={directionsUrl(place)} target="_blank" rel="noopener noreferrer">
                   Google Maps
@@ -877,11 +877,11 @@ export default function RestaurantDetail({
           <div className="detail-bar">
             <a className="detail-bar__map btn-primary--naver" href={naverMapUrl(place)} target="_blank" rel="noopener noreferrer">
               <CompassIcon size={18} />
-              <span>Naver Map</span>
+              <span>{t('detail.naverMap')}</span>
             </a>
             <a className="detail-bar__map btn-primary--kakao" href={kakaoMapUrl(place)} target="_blank" rel="noopener noreferrer">
               <CompassIcon size={18} />
-              <span>Kakao Map</span>
+              <span>{t('detail.kakaoMap')}</span>
             </a>
             <button
               type="button"

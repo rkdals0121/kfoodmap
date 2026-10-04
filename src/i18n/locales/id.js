@@ -286,6 +286,8 @@ export default {
     koreanName: 'Nama dalam bahasa Korea',
     nearbyTitle: 'Di sekitar sini',
     nearbyAway: 'berjarak {{distance}}, dalam garis lurus',
+    naverMap: 'Naver Map',
+    kakaoMap: 'Kakao Map',
     claimWhy: 'Alasan',
     call: 'Telepon',
     nearbyFiltered: 'Hanya tempat yang sesuai filter diet Anda.',

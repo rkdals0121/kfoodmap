@@ -288,6 +288,8 @@ export default {
     koreanName: '韓国語の店名',
     nearbyTitle: '近くのお店',
     nearbyAway: '直線で {{distance}}',
+    naverMap: 'Naver Map',
+    kakaoMap: 'Kakao Map',
     claimWhy: '根拠',
     call: '電話',
     nearbyFiltered: '食事のフィルターに合うお店だけを表示しています。',

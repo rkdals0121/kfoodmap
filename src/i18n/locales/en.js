@@ -293,6 +293,8 @@ export default {
     koreanName: 'Name in Korean',
     nearbyTitle: 'Also nearby',
     nearbyAway: '{{distance}} away, in a straight line',
+    naverMap: 'Naver Map',
+    kakaoMap: 'Kakao Map',
     claimWhy: 'Why?',
     call: 'Call',
     nearbyFiltered: 'Only places that match your diet filters.',
