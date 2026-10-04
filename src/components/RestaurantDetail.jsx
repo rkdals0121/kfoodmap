@@ -176,7 +176,7 @@ export default function RestaurantDetail({
   const pull = useRef(null);
   // The bundle carries a lighter record; the full one (evidence, menus,
   // transit, phone, links) is fetched when the detail opens.
-  const full = usePlaceRecord(restaurant);
+  const { full, failed: fullFailed, retry: retryFull } = usePlaceRecord(restaurant);
 
   // Remember what opened the sheet (a card, a pin, a journey stop) and give
   // focus back to it on close, so a keyboard or screen-reader user resumes
@@ -674,8 +674,16 @@ export default function RestaurantDetail({
                 (usePlaceRecord). Say so while it loads, so the sheet doesn't
                 look finished and then grow; offline the line never shows. Below the
                 actions, so Save / Been here don't jump when it goes. */}
-            {!full && typeof navigator !== 'undefined' && navigator.onLine !== false && (
+            {!full && !fullFailed && typeof navigator !== 'undefined' && navigator.onLine !== false && (
               <p className="detail-loading" role="status">{t('detail.loadingDetails')}</p>
+            )}
+            {/* It did not arrive (a stalled or dropped connection): say so,
+                with a way to ask again — the line used to stay on "Loading". */}
+            {!full && fullFailed && isOnline && (
+              <p className="detail-loading" role="status">
+                {t('detail.loadFailed')}{' '}
+                <button type="button" className="detail-loading__retry" onClick={retryFull}>{t('detail.loadRetry')}</button>
+              </p>
             )}
 
             {/* The menu before the way there: what is served and what it costs

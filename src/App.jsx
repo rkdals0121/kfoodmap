@@ -118,6 +118,9 @@ function AppShell() {
   const focusStory = Boolean(location.state?.focusStory);
   const focusDirections = Boolean(location.state?.focusDirections);
   const isSubmit = location.pathname === '/submit';
+  // Not over a report being written: a tap on the band reloads the page,
+  // and what was typed went with it.
+  const showUpdate = updateReady && !isSubmit;
   const isPrivacy = location.pathname === '/privacy';
   // /cards: Korean text to show restaurant staff (StaffCardSheet).
   const isCards = location.pathname === '/cards';
@@ -756,7 +759,7 @@ function AppShell() {
   return (
     // has-band: what sits under the offline / new-version bands steps down
     // (a class rather than :has(), which older phones do not read).
-    <main className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}${!isOnline || updateReady ? ' has-band' : ''}${!isOnline && updateReady ? ' has-bands-2' : ''}`}>
+    <main className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}${!isOnline || showUpdate ? ' has-band' : ''}${!isOnline && showUpdate ? ' has-bands-2' : ''}`}>
       {/* The page's one H1, for screen readers and outlines; the map screen
           has no visible title. */}
       <h1 className="visually-hidden">K-Food Map</h1>
@@ -772,7 +775,7 @@ function AppShell() {
       )}
       {/* Only offered when the page was already in use as the new version
           arrived; an untouched page reloads itself (useAppUpdate). */}
-      {updateReady && (
+      {showUpdate && (
         <button type="button" className="update-banner" onClick={reload}>
           {t('app.updateReady')}
         </button>

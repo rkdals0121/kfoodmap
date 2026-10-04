@@ -321,7 +321,19 @@ function LanguagePicker({ onClose }) {
 
   // The strings are fetched on demand (i18n/index.js); close once the
   // language has actually changed, or stay as it was if it could not.
-  const selectLanguage = (code) => { setLanguage(code).finally(onClose); };
+  // On a slow link the strings take seconds: the choice shows it is being
+  // fetched, and a failure is said here rather than by closing in silence.
+  const [pending, setPending] = useState(null);
+  const [failed, setFailed] = useState(false);
+  const selectLanguage = (code) => {
+    setPending(code);
+    setFailed(false);
+    setLanguage(code).then((got) => {
+      if (got === code) { onClose(); return; }
+      setPending(null);
+      setFailed(true);
+    });
+  };
 
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
@@ -363,11 +375,14 @@ function LanguagePicker({ onClose }) {
             autoFocus={i18n.language === lang.code || (i === 0 && !LANGUAGES.some(l => l.code === i18n.language))}
             className={`language-picker__option${i18n.language === lang.code ? ' active' : ''}`}
             aria-pressed={i18n.language === lang.code}
+            aria-busy={pending === lang.code}
+            disabled={pending !== null && pending !== lang.code}
             onClick={() => selectLanguage(lang.code)}
           >
-            {lang.name}
+            {lang.name}{pending === lang.code ? ' …' : ''}
           </button>
         ))}
+        {failed && <p className="language-picker__note language-picker__note--failed" role="alert">{t('profile.languageFailed')}</p>}
         <p className="language-picker__note">{t('profile.languageNote')}</p>
       </div>
     </div>,

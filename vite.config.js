@@ -308,8 +308,12 @@ export default defineConfig({
           // load, and the hook already treats unparseable JSON as "no evidence".
           {
             urlPattern: /\/place-data\/[a-z0-9-]+\.json$/,
-            handler: 'StaleWhileRevalidate',
+            // The network first (3 s), the cache when it is slow or gone:
+            // served cache-first, a corrected record (a claim lowered, a
+            // place closed) showed its old self for one more visit.
+            handler: 'NetworkFirst',
             options: {
+              networkTimeoutSeconds: 3,
               cacheName: 'kfm-place-data',
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 30 },
               cacheableResponse: { statuses: [200] },

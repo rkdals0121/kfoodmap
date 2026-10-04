@@ -8,6 +8,7 @@ import { startLanguage } from './i18n'
 import './hooks/useInstall'
 import { applyTextSize, readTextSize } from './textSize'
 import App from './App.jsx'
+import AppErrorBoundary from './components/AppErrorBoundary.jsx'
 
 // The reader's text size, before the first paint.
 applyTextSize(readTextSize())
@@ -25,9 +26,11 @@ const patience = new Promise(resolve => setTimeout(resolve, 2500))
 Promise.race([startLanguage().catch(() => {}), patience]).then(() => {
   createRoot(document.getElementById('root')).render(
     <StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <AppErrorBoundary>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AppErrorBoundary>
     </StrictMode>,
   )
 })

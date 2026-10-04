@@ -147,14 +147,21 @@ export function authHeaders(key) {
 }
 
 export async function submitLead(row, { url, anonKey }, fetchImpl = fetch) {
+  // A stalled connection never answers: after 15 s the send is given up
+  // and the form says so, rather than "Sending…" for good.
+  const abort = typeof AbortController === 'function' ? new AbortController() : null;
+  const timer = abort ? setTimeout(() => abort.abort(), 15000) : null;
   try {
     const response = await fetchImpl(`${url}/rest/v1/leads`, {
       method: 'POST',
+      ...(abort ? { signal: abort.signal } : {}),
       headers: { ...authHeaders(anonKey), 'Content-Type': 'application/json', Prefer: 'return=minimal' },
       body: JSON.stringify(row),
     });
     return response.status === 201 ? { ok: true } : { ok: false, status: response.status };
   } catch {
     return { ok: false, status: 0 };
+  } finally {
+    if (timer) clearTimeout(timer);
   }
 }

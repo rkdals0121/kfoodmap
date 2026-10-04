@@ -5871,3 +5871,39 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
 html[data-text='larger'] .detail-bar__map svg {
   display: none;
 }
+
+/* ---- Slow and dropped connections, 2026-10-04 night ---- */
+.app-error {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+}
+.app-error a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--green-strong);
+}
+.detail-loading__retry {
+  min-height: 44px;
+  padding: 0 6px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--green-strong);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.language-picker__note--failed {
+  color: #B42318;
+}
+.language-picker__option:disabled {
+  opacity: 0.5;
+}

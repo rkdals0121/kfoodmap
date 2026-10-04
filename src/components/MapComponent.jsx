@@ -601,6 +601,15 @@ function LocateControl({ state, location, onLocate }) {
 // re-rendered this whole tree — hundreds of markers reconciled and their
 // handlers rebound — to draw exactly what was already there. App hands it
 // stable callbacks (useStableCallback) so the comparison holds.
+function retryTile(e) {
+  const tile = e.tile;
+  const tries = Number(tile?.dataset?.retry ?? 0);
+  if (!tile || tries >= 2) return;
+  tile.dataset.retry = String(tries + 1);
+  const src = tile.src;
+  setTimeout(() => { if (tile.isConnected) tile.src = src; }, tries === 0 ? 2000 : 6000);
+}
+
 export default React.memo(MapComponent);
 
 function MapComponent({
@@ -641,6 +650,9 @@ function MapComponent({
           // service worker caches real responses. Without it they are opaque,
           // and a browser counts each opaque response as megabytes of quota.
           crossOrigin="anonymous"
+          // A tile lost in a tunnel stayed a grey square until the map was
+          // moved: it is asked for again, twice, a little later each time.
+          eventHandlers={{ tileerror: retryTile }}
         />
         <StartInView />
         <UserLocation location={userLocation} />

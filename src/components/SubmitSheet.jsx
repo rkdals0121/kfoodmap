@@ -201,6 +201,9 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
     setErrors({});
     setStatus('sending');
     const sent = await submitLead(result.row, config);
+    // Here as well as in the effect: a sheet closed while it was sending
+    // kept its draft, and reopened it offered to send the same thing again.
+    if (sent.ok) DRAFTS.delete(draftKey);
     setStatus(sent.ok ? 'sent' : 'failed');
   };
 
