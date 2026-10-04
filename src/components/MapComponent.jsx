@@ -22,6 +22,7 @@ function visibleCenter(map) {
 function CenterReporter({ onCenterChange, sheetState, userLocation }) {
   const map = useMap();
   const lastSheet = useRef(sheetState);
+  const beforeFull = useRef(sheetState);
   // The sheet changing height moves the middle of what can be seen without
   // moving the map: say so once it has settled, or "nearest" is measured
   // from a point now under the sheet.
@@ -33,10 +34,11 @@ function CenterReporter({ onCenterChange, sheetState, userLocation }) {
     firstSheet.current = false;
     const from = lastSheet.current;
     lastSheet.current = sheetState;
-    // Not to or from the full sheet: it opens while the list is being
-    // scrolled, and re-sorting then moved the cards under the finger.
-    if (!first && (from === 2 || sheetState === 2)) return undefined;
-    if (first && sheetState === 2) return undefined;
+    // Not into the full sheet: it opens while the list is being scrolled,
+    // and re-sorting then moved the cards under the finger. Nor out of it
+    // back to where it was. Out of it to the other height is a real change.
+    if (sheetState === 2) { if (from !== 2) beforeFull.current = from; return undefined; }
+    if (!first && from === 2 && beforeFull.current === sheetState) return undefined;
     const id = setTimeout(() => {
       const c = visibleCenter(map);
       // Standing on "my location": folding the sheet must not turn "nearest

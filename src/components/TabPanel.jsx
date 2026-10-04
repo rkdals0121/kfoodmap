@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { TEXT_SIZES, applyTextSize, readTextSize } from '../textSize';
+import { askFreshList } from '../freshList';
 import { displayName, formatDistance, getOpenStatus, statusClass, closedAllDay } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
@@ -89,7 +90,7 @@ const browse = () => browseCache ?? (browseCache = CHIP_GROUPS.flatMap(g => g.ch
 // Where the reader was in Discover, for this visit: which journeys were
 // open and how far down. "Show on the map" and Back used to return to the
 // top with everything folded again.
-const discoverMemory = { open: new Set(), scrollTop: 0 };
+const discoverMemory = { open: new Map(), scrollTop: 0 };
 
 // A journey's stops, folded on a phone: seven journeys open in full made
 // Discover ten screens long, with the stories under all of it. The title,
@@ -97,11 +98,13 @@ const discoverMemory = { open: new Set(), scrollTop: 0 };
 // the stops open on a tap. From 768 px, where there is room, they start open.
 function JourneyStops({ id, count, children }) {
   const { t } = useTranslation();
-  const [open, setOpenState] = useState(() => discoverMemory.open.has(id)
-    || (typeof window !== 'undefined' && Boolean(window.matchMedia?.('(min-width: 768px)').matches)));
+  // What the reader last chose for this journey, open or folded; without a
+  // choice, folded on a phone and open where there is room.
+  const [open, setOpenState] = useState(() => discoverMemory.open.get(id)
+    ?? (typeof window !== 'undefined' && Boolean(window.matchMedia?.('(min-width: 768px)').matches)));
   const setOpen = (fn) => setOpenState(o => {
     const next = fn(o);
-    if (next) discoverMemory.open.add(id); else discoverMemory.open.delete(id);
+    discoverMemory.open.set(id, next);
     return next;
   });
   return (
@@ -239,7 +242,7 @@ function DiscoverTab({ onBrowse }) {
                 <button
                   type="button"
                   className="journey-card__map"
-                  onClick={() => navigate(`/?list=${journey.stops.map(p => p.id).join(',')}&journey=${journey.id}`, { state: { freshList: true } })}
+                  onClick={() => { askFreshList(); navigate(`/?list=${journey.stops.map(p => p.id).join(',')}&journey=${journey.id}`); }}
                 >
                   {t('discover.showOnMap')}
                 </button>
@@ -301,11 +304,11 @@ function TextSizeRow() {
             type="button"
             className={`text-size__btn text-size__btn--${s}${s === size ? ' is-on' : ''}`}
             aria-pressed={s === size}
-            aria-label={t(LABEL[s])}
             title={t(LABEL[s])}
             onClick={() => choose(s)}
           >
-            A
+            {/* Named by the letter it shows and what it means. */}
+            A<span className="visually-hidden"> {t(LABEL[s])}</span>
           </button>
         ))}
       </span>

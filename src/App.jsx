@@ -31,6 +31,7 @@ import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport
 import usePassportSync from './hooks/usePassportSync';
 import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, matchesArea, matchesPhrase, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
 import { fuzzyQuery } from './data/area-names';
+import { takeFreshList } from './freshList';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -91,7 +92,6 @@ function AppShell() {
     };
   };
   const [sharedList, setSharedList] = useState(readList);
-  const freshListKey = useRef(null);
   const sharedIds = sharedList.ids;
   const sharedJourney = journeys.find(j => j.id === sharedList.journeyId) ?? null;
   const [selectedFilters, setSelectedFilters] = useState(() => [...(sharedIds.length > 0 ? [SHARED_LIST] : []), ...startView.filters]);
@@ -155,9 +155,7 @@ function AppShell() {
     // "Show these stops on the map" (Discover) asks for these places and
     // nothing else: a search or chips left on the map ("Hongdae" + Vegan)
     // were applied on top, and a Busan journey came up as "0 places".
-    // Once per visit to that entry, so Back to it keeps what was typed since.
-    if (next.ids.length > 0 && location.state?.freshList && freshListKey.current !== location.key) {
-      freshListKey.current = location.key;
+    if (takeFreshList() && next.ids.length > 0) {
       setSearchQuery('');
       setAreaOnly(false);
       setSelectedFilters([SHARED_LIST]);
@@ -169,7 +167,7 @@ function AppShell() {
       return on ? prev.filter(f => f !== SHARED_LIST) : prev;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, location.search, location.key]);
+  }, [location.pathname, location.search]);
   // The map's address carries a list in force (a shared list, a journey),
   // so going back to the map — closing a place, a filter tapped with a
   // place open, the Map tab — keeps it instead of dropping it.
@@ -344,9 +342,11 @@ function AppShell() {
   // opened from rather than skipping to the list.
   const openFromPlace = (r) => {
     if (isQuarantined(r) || r.id === id) return;
-    navigate(`/place/${r.id}`, { state: { fromApp: true, tab: activeTab } });
+    navigate(`/place/${r.id}`, { state: { fromApp: true, tab: activeTab, depth: (location.state?.depth ?? 0) + 1 } });
   };
-  const closePlace = () => (location.state?.fromApp ? navigate(-1) : navigate(tabPath));
+  // Close returns to the list in one press, past any places opened one from
+  // another (`depth`); Back still steps through them.
+  const closePlace = () => (location.state?.fromApp ? navigate(-1 - (location.state?.depth ?? 0)) : navigate(tabPath));
   // While a journey's stops are on the map, a stop opened from the map or
   // the list is opened as that stop, with the stop before and after.
   const openDetail = (r) => {

@@ -5176,7 +5176,7 @@ body {
    pointer maths assume no zoom), nor the search and tab bars. */
 html[data-text='large'] { --text-zoom: 1.15; }
 html[data-text='larger'] { --text-zoom: 1.3; }
-html[data-text] #place-list,
+html[data-text] #place-list > *,
 html[data-text] .tab-panel > *,
 html[data-text] .journal-panel > *,
 html[data-text] .detail-scroll > * {
@@ -5385,4 +5385,29 @@ html[data-text] .detail-scroll > * {
   body:has(.offline-banner + .update-banner) .map-zoom {
     display: none;
   }
+}
+
+/* Review, 2026-10-04 evening */
+/* The notes' toggle only where the block is known to hold a note: a browser
+   without :has() gets no button rather than an invisible one over the
+   first card. (Tapping a note still opens them there.) */
+@media (max-width: 767px) {
+  .place-list__notes-toggle {
+    display: none;
+  }
+  .place-list__notes:has(.place-list__note) .place-list__notes-toggle {
+    display: block;
+  }
+}
+/* "Also show 40 with no recorded hours": a line of its own under the notes. */
+.place-list__note-btn {
+  display: block;
+  margin: 2px 0 4px;
+  padding: 6px 0;
+  font-size: 13px;
+  text-align: left;
+  white-space: normal;
+}
+.place-list__note-btn::after {
+  inset: -7px 0;
 }

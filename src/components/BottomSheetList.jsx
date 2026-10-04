@@ -162,14 +162,14 @@ export default function BottomSheetList({
   // "nearest the map centre" shuffled it.
   const journeyOrder = Boolean(sharedJourney) && activeFilters.includes(SHARED_LIST);
   // The way to the places "Open now" left out for having no hours on record.
-  const unknownToggle = unknownHours > 0 && onToggleUnknown ? (
-    <>
-      {' '}
-      <button type="button" className="place-list__note-btn" onClick={(e) => { e.stopPropagation(); onToggleUnknown(); }}>
-        {t(showUnknown ? 'list.hideUnknown' : 'list.showUnknown')}
+  // On a line of its own, under the notes: inside one, it was folded away
+  // with the sentence (and hidden outright behind the halal caveat).
+  const unknownToggle = unknownHours > 0 && onToggleUnknown
+    && (activeFilters.includes(OPEN_NOW) || activeFilters.includes(OPEN_AT)) ? (
+      <button type="button" className="place-list__note-btn" onClick={onToggleUnknown}>
+        {t(showUnknown ? 'list.hideUnknown' : 'list.showUnknown', { n: unknownHours })}
       </button>
-    </>
-  ) : null;
+    ) : null;
   const nearestBlock = nearest.length > 0 ? (
             <div className="place-list__nearest">
               <p>{t('list.nearestTitle', { query: nearestFrom })}</p>
@@ -302,9 +302,6 @@ export default function BottomSheetList({
       {/* Said once for the whole list rather than on every card: the same
           caveat the detail page carries, so the lines below are never read as
           audited. */}
-      {missingPlace && !searchQuery.trim() && activeFilters.length === 0 && (
-        <p className="section-note place-list__note" role="status">{t('list.missingPlace')}</p>
-      )}
 
       {/* Said while the Halal filter is on and no place listed holds a
           sighted certificate (true of every place today). */}
@@ -335,6 +332,9 @@ export default function BottomSheetList({
         aria-label={t('list.notesToggle')}
         onClick={(e) => { e.stopPropagation(); setNotesOpen(o => !o); }}
       />
+      {missingPlace && !searchQuery.trim() && activeFilters.length === 0 && (
+        <p className="section-note place-list__note" role="status">{t('list.missingPlace')}</p>
+      )}
       {/* The halal caveat first: it is the one about safety, and behind
           the "Open now" note it was folded out of sight. */}
       {activeFilters.includes('Halal') && sorted.length > 0
@@ -348,7 +348,6 @@ export default function BottomSheetList({
           {unknownHours > 0 && showUnknown
             ? t('list.unknownShown', { n: unknownHours })
             : unknownHours > 0 ? t('list.openNowNote', { count: unknownHours }) : t('list.openNowNoteNone')}
-          {unknownToggle}
         </p>
       )}
       {activeFilters.includes(OPEN_AT) && planAt && (() => {
@@ -359,7 +358,6 @@ export default function BottomSheetList({
             {unknownHours > 0 && showUnknown
               ? t('list.unknownShown', { n: unknownHours })
               : unknownHours > 0 ? t('list.openAtNote', { count: unknownHours, when }) : t('list.openAtNoteNone', { when })}
-            {unknownToggle}
           </p>
         );
       })()}
@@ -386,6 +384,7 @@ export default function BottomSheetList({
         </p>
       )}
       </div>
+      {unknownToggle}
 
       {sorted.slice(0, shown).map(r => (
         <PlaceCard
