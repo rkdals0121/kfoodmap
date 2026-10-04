@@ -2752,9 +2752,12 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       on, `nearest` puts places that stay open before those closing soon.
       Cards show a distance while searching only when it is from the
       visitor (`Infinity` otherwise hides it).
+    - `src/fonts.css` holds the Pretendard `@import`, loaded by a dynamic
+      `import()` in `main.jsx`: the blocking stylesheet is 17 kB gzipped
+      instead of 42. Do not move the import back into `index.css`.
     - Left: duplicate reports when the response is lost (needs a client
       id column on `leads`), the sign-in button missing after one failed check,
-      render-blocking CSS, the colour tokens that pass AA by a hair.
+      the colour tokens that pass AA by a hair.
 
 
 ---
