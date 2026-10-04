@@ -235,6 +235,16 @@ export default function BottomSheetList({
   const viewLink = viewHash({ q: searchQuery, filters: shareable, planAt, area: areaOnly });
   const [viewShared, setViewShared] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
+  // The halal caveat is about what "halal" here does and does not promise:
+  // where the screen has the room it starts open when the Halal chip goes
+  // on, rather than folded to a line that ends before it says so.
+  const halalOn = activeFilters.includes('Halal');
+  useEffect(() => {
+    if (halalOn && typeof window !== 'undefined' && window.innerHeight > 700) setNotesOpen(true);
+  }, [halalOn]);
+  // Someone searching for "certified", "인증" or "KMF" is asking the same
+  // question: the caveat answers it whether or not the chip is on.
+  const asksCertificate = /certif|sertifi|kmf|인증|認証|认证|認證/i.test(searchQuery);
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   const shareView = async () => {
     const url = `${window.location.origin}/${viewLink}`;
@@ -356,7 +366,7 @@ export default function BottomSheetList({
       )}
       {/* The halal caveat first: it is the one about safety, and behind
           the "Open now" note it was folded out of sight. */}
-      {activeFilters.includes('Halal') && sorted.length > 0
+      {(halalOn || asksCertificate) && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
         <p className="section-note place-list__note">{t('list.halalCaveat')}</p>
       )}
