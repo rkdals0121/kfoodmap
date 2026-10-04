@@ -105,7 +105,7 @@ export default {
     unknownShown: '영업시간 기록이 없는 {{n}}곳도 함께 보여요. 가기 전에 확인하세요.',
     nearestTitle: '“{{query}}”에서 가까운, 조건에 맞는 곳:',
     clearSearchOnly: '검색어만 지우기(필터 유지)',
-    withoutFilters: '필터 없이 “{{query}}”로는 {{n}}곳이 있어요.',
+    withoutFilters: '필터를 빼면 “{{query}}” 검색 결과가 {{n}}곳 있어요.',
     showPorkFree: '돼지고기 없는 곳 보기(할랄 아님)',
     suggestThis: '지도에 없나요? 제보하기',
     nearResults: '위에 나온 곳 근처에도 있어요:',
