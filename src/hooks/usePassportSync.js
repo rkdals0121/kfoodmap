@@ -284,11 +284,21 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
 
   // googleEnabled(null) answers false without a request, so an unconfigured
   // deploy stays entirely offline here.
+  // Asked again when the connection returns, and once more a little later:
+  // one failed request on a bad link used to leave no sign-in button until
+  // the page was reloaded. A "no" is only ever replaced by a "yes".
   useEffect(() => {
+    if (!config || !isOnline) return undefined;
     let cancelled = false;
-    googleEnabled(config).then(ready => { if (!cancelled) setGoogleReady(ready); });
-    return () => { cancelled = true; };
-  }, [config]);
+    let timer = null;
+    const ask = (again) => googleEnabled(config).then(ready => {
+      if (cancelled) return;
+      if (ready) setGoogleReady(true);
+      else if (again) timer = setTimeout(() => ask(false), 8000);
+    });
+    ask(true);
+    return () => { cancelled = true; if (timer) clearTimeout(timer); };
+  }, [config, isOnline]);
 
   // onAuthStateChange fires INITIAL_SESSION on subscribe, so a session
   // restored from storage arrives here too — there is no separate getSession.
