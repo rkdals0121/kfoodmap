@@ -40,6 +40,8 @@ export const STAFF_CARDS = [
       { ko: '굴소스나 다시다(쇠고기 조미료)를 쓰나요?', roman: 'Gulsoseuna dasida (soegogi jomiryo) reul sseunayo?', key: 'veganQ5' },
       { ko: '고기와 달걀을 빼고 만들어 주실 수 있나요?', roman: 'Gogiwa dalgyareul ppaego mandeureo jusil su innayo?', key: 'veganQ6' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'veganQ7' },
+      { ko: '마늘, 파, 양파, 부추, 달래(오신채)가 들어가나요?', roman: 'Maneul, pa, yangpa, buchu, dallae (osinchae) ga deureoganayo?', key: 'veganQ8' },
+      { ko: '견과류(땅콩, 호두, 잣)가 들어가나요? 알레르기가 있어요.', roman: 'Gyeongwaryu (ttangkong, hodu, jat) ga deureoganayo? Allereugiga isseoyo.', key: 'veganQ9' },
     ],
   },
   {
@@ -60,6 +62,7 @@ export const STAFF_CARDS = [
       { ko: '고기 없이 해산물이나 채소로 만든 메뉴가 있나요?', roman: 'Gogi eopsi haesanmurina chaesoro mandeun menyuga innayo?', key: 'muslimQ6' },
       { ko: '여기서 술을 판매하나요?', roman: 'Yeogiseo sureul panmaehanayo?', key: 'muslimQ7' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'muslimQ8' },
+      { ko: '견과류(땅콩, 호두, 잣)가 들어가나요? 알레르기가 있어요.', roman: 'Gyeongwaryu (ttangkong, hodu, jat) ga deureoganayo? Allereugiga isseoyo.', key: 'muslimQ9' },
     ],
   },
 ];

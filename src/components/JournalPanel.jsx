@@ -51,7 +51,7 @@ function SavedRow({ place, savedAt, onOpen, at = null, atLabel = '' }) {
 // shown, in case one of these three is ever quarantined later.
 const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 
-export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap, planAt = null, planDate = null }) {
+export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap, planAt = null, planDate = null, onShowSaved }) {
   const { t, i18n } = useTranslation();
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
 
@@ -169,6 +169,11 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
               {listShared ? t('journal.listCopied') : t('journal.shareList')}
             </button>
           </div>
+          {onShowSaved && (
+            <button type="button" className="journal-copy" onClick={onShowSaved}>
+              {t('journal.showOnMap')}
+            </button>
+          )}
           <button type="button" className="journal-copy" onClick={copyListText}>
             {listCopied ? t('journal.copyListDone') : t('journal.copyList')}
           </button>

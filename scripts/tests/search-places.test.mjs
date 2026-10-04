@@ -76,6 +76,11 @@ test('spellings, widths, accents and punctuation', () => {
   assert.ok(go('Seoul, Itaewon').filteredRestaurants.length > 0);
   assert.equal(ids(go('홍대입구')), ids(go('Hongdae')));
   assert.equal(ids(go('Lotte World Tower')), ids(go('Lotte World')));
+  // The island is not the city: 제주도 and 济州岛 are all of Jeju.
+  for (const q of ['제주도', '济州岛', '済州島']) assert.equal(ids(go(q)), ids(go('Jeju')), q);
+  assert.ok(go('濟州市').filteredRestaurants.length < go('Jeju').filteredRestaurants.length);
+  assert.equal(ids(go('寺院料理')), ids(go('temple')));
+  assert.equal(ids(go('広安里')), ids(go('Gwangalli')));
 });
 
 test('a place looked up by a name that ends in "Station" is that place', () => {

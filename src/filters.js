@@ -98,6 +98,8 @@ const DIET_WORDS = {
   'ハラール': 'Halal', 'ハラル': 'Halal', 'ヴィーガン': 'Vegan', 'ビーガン': 'Vegan',
   '清真': 'Halal', '纯素': 'Vegan', '純素': 'Vegan',
   '할랄': 'Halal', '비건': 'Vegan',
+  // …and in languages the app does not speak but its visitors do.
+  helal: 'Halal', 'حلال': 'Halal', 'ฮาลาล': 'Halal',
 };
 // "Pork-free" is a halal level the Halal chip leaves out (it is not halal),
 // so it is reached by typing it — in any of these wordings.

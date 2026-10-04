@@ -5661,3 +5661,17 @@ html[data-text] .toast > * {
 .place-list__header h2[tabindex='-1']:focus {
   outline: none;
 }
+
+/* The way from the halal list to the pork-free places sits with the notes:
+   folded away with them on a phone, shown when they are opened. */
+@media (max-width: 767px) {
+  .place-list:not(.notes-open) .place-list__porkfree {
+    display: none;
+  }
+}
+/* Text size also lifts the labels pressed most: tabs, chips, the bars. */
+html[data-text] .tab-label { font-size: 14px; }
+html[data-text='larger'] .tab-label { font-size: 15px; }
+html[data-text='larger'] .chip,
+html[data-text='larger'] .detail-bar__map,
+html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }

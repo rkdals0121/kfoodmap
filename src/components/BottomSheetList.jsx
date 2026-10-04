@@ -155,7 +155,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -359,6 +359,14 @@ export default function BottomSheetList({
       {activeFilters.includes('Halal') && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
         <p className="section-note place-list__note">{t('list.halalCaveat')}</p>
+      )}
+      {/* The caveat says pork-free places are left out and can be searched
+          for — but searching with the Halal chip still on found nothing.
+          One press does both. */}
+      {activeFilters.includes('Halal') && onPorkFree && (
+        <button type="button" className="place-list__note-btn place-list__porkfree" onClick={(e) => { e.stopPropagation(); onPorkFree(); }}>
+          {t('list.showPorkFree')}
+        </button>
       )}
       {/* "Open now" hides places whose hours we never recorded; say how many,
           so an empty or short list is not read as "nothing else exists". */}

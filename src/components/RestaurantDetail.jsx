@@ -71,6 +71,22 @@ function sourceWithSite(f) {
 // A dietary fact is a button: tapping it opens the source and reasoning
 // below the row. This used to live in a hover tooltip, which a phone
 // never shows.
+// A research note is shown as written, except for the labels it borrows
+// from the code ("held at SUPPORTED", "not grounds for HALAL.CERTIFIED"):
+// those are given as the words the app shows for them.
+const NOTE_TERMS = [
+  [/\bHALAL\.CERTIFIED\b/g, '“Halal certified”'],
+  [/\bHALAL\.FRIENDLY\b|\bFRIENDLY\b/g, '“Halal-friendly”'],
+  [/\bHALAL\.PORK_FREE\b|\bPORK_FREE\b/g, '“Pork-free”'],
+  [/\bhalalCertClaim\b/g, 'a certification claim'],
+  [/\bVEGAN\.FULL\b|\bFULL\b/g, '“Fully vegan”'],
+  [/\bVEGAN\.OPTIONS\b|\bOPTIONS\b/g, '“Vegan options”'],
+  [/\bCONFIRMED\b/g, '“Confirmed”'],
+  [/\bSUPPORTED\b/g, '“Reported”'],
+  [/\bINFERRED\b/g, '“Our reading”'],
+];
+const plainNote = (text) => NOTE_TERMS.reduce((out, [re, word]) => out.replace(re, word), String(text ?? ''));
+
 function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
   const { t } = useTranslation();
   const { label: level, tone } = trustBadge(fact);
@@ -496,7 +512,7 @@ export default function RestaurantDetail({
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   {/* The research note can run to two screens: the first
                       lines, and the rest on request. */}
-                  <p className={`claim-explain__text${detail.length > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {detail}</p>
+                  <p className={`claim-explain__text${detail.length > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {plainNote(detail)}</p>
                   {detail.length > 420 && (
                     <button type="button" className="claim-explain__more" aria-expanded={claimFull} onClick={() => setClaimFull(v => !v)}>
                       {t(claimFull ? 'detail.claimLess' : 'detail.claimMore')}

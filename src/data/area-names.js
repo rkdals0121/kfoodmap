@@ -54,6 +54,12 @@ const ALSO_NAMED = {
   Bukchon: ['북촌', '北村'],
   Namsan: ['남산', '南山'],
   COEX: ['코엑스'],
+  Gwangalli: ['광안리', '広安里', '广安里', '廣安里', 'クァンアンリ'],
+  Nampo: ['남포동', '남포', '南浦洞', '南浦', 'ナンポドン'],
+  // Kinds of cooking, searched in the reader's own words for them: the
+  // records say "temple" and "vegetarian".
+  temple: ['사찰음식', '寺院料理', '寺庙料理', '寺廟料理', '寺刹料理', '精進料理', '寺庙', '寺廟', '斋菜', '齋菜'],
+  vegetarian: ['ベジタリアン', '素食', '菜食', '채식'],
   Jamsil: ['롯데월드', 'ロッテワールド', '乐天世界', '樂天世界'],
 };
 
@@ -151,8 +157,10 @@ export const romanisedArea = (word) => TO_ROMAN.get(String(word ?? '').trim()) ?
  */
 // …nor is a province, district or neighbourhood suffix ("제주도", "강남구",
 // "성수동"), nor "입구" on a station's name ("홍대입구").
-const CITY_SUFFIX = new Set(['市', '시', '市内', '시내', '도', '道', '구', '區', '区', '동', '洞', '입구', '入口']);
+const CITY_SUFFIX = new Set(['市', '시', '市内', '시내', '도', '道', '구', '區', '区', '동', '洞', '입구', '入口', '岛', '島']);
 const SI_IN_ADDRESS = new Set(['Jeju']);
+// Only a city suffix narrows to the city: "제주도" and "济州岛" are the island.
+const IS_CITY = new Set(['市', '시', '市内', '시내']);
 
 export function romaniseQuery(query) {
   const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
@@ -167,7 +175,7 @@ export function romaniseQuery(query) {
         // "濟州市", "제주시": the city suffix is not a second word. Jeju's
         // addresses say "Jeju-si" (the island also holds Seogwipo-si), so
         // there the suffix narrows; elsewhere it is simply dropped.
-        if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) ? `${roman}-si` : roman];
+        if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) && IS_CITY.has(rest) ? `${roman}-si` : roman];
         return [roman, rest];
       }
     }

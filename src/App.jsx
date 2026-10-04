@@ -277,6 +277,9 @@ function AppShell() {
     // link): that page is what was asked for, and the welcome screen stood
     // over it. Not marked as seen — it greets the next visit to the map.
     () => localStorage.getItem('kfm-prologue') === 'true' || /^\/(place|find)\//.test(window.location.pathname)
+      // …or with a list someone sent: the friend who opens it sees the four
+      // places, not a question about their own diet.
+      || new URLSearchParams(window.location.search).has('list')
   );
 
   // The phone's list sheet follows the finger and settles on the nearest of
@@ -856,6 +859,12 @@ function AppShell() {
                 nearestFrom={nearestFrom}
                 // Nothing found for a name: the way to tell us about it,
                 // with the name already written.
+                onPorkFree={() => {
+                  // Pork-free is not halal: the Halal chip goes off with it.
+                  setSelectedFilters(prev => prev.filter(f => f !== 'Halal'));
+                  setQuery('pork-free');
+                  setAreaOnly(false);
+                }}
                 onSuggest={(name) => navigate('/submit', { state: { fromApp: true, tab: 'map', name } })}
                 onClearInline={() => {
                   // From the list header: chips and search off, where the
@@ -883,7 +892,7 @@ function AppShell() {
 
         {/* Tab panels rendered inside the sidebar */}
         {activeTab === 'journal' && (
-          <JournalPanel bookmarks={bookmarks} planAt={openAtOn ? planAt : null} planDate={openAtOn ? planDate : null} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} />
+          <JournalPanel bookmarks={bookmarks} planAt={openAtOn ? planAt : null} planDate={openAtOn ? planDate : null} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} onShowSaved={() => { setSelectedFilters(prev => (prev.includes(SAVED_ONLY) ? prev : [...prev.filter(f => f !== SHARED_LIST), SAVED_ONLY])); setQuery(''); setAreaOnly(false); selectTab('map'); }} />
         )}
         {activeTab !== 'map' && activeTab !== 'journal' && (
           <TabPanel
