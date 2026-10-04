@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { TEXT_SIZES, applyTextSize, readTextSize } from '../textSize';
 import { displayName, formatDistance, getOpenStatus, statusClass, closedAllDay } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
@@ -256,6 +257,38 @@ const HomeAddIcon = () => (
   </svg>
 );
 
+// Text size: three steps, shown as the letter at each size. On this device
+// only (src/textSize.js).
+function TextSizeRow() {
+  const { t } = useTranslation();
+  const [size, setSize] = useState(readTextSize);
+  const choose = (next) => { setSize(next); applyTextSize(next, true); };
+  const LABEL = { normal: 'profile.textNormal', large: 'profile.textLarge', larger: 'profile.textLarger' };
+  return (
+    <div className="settings-item settings-item--static text-size">
+      <span className="settings-icon text-size__icon" aria-hidden="true">Aa</span>
+      <span className="settings-text">
+        <span className="settings-label" id="text-size-label">{t('profile.textSize')}</span>
+      </span>
+      <span className="text-size__choices" role="group" aria-labelledby="text-size-label">
+        {TEXT_SIZES.map(s => (
+          <button
+            key={s}
+            type="button"
+            className={`text-size__btn text-size__btn--${s}${s === size ? ' is-on' : ''}`}
+            aria-pressed={s === size}
+            aria-label={t(LABEL[s])}
+            title={t(LABEL[s])}
+            onClick={() => choose(s)}
+          >
+            A
+          </button>
+        ))}
+      </span>
+    </div>
+  );
+}
+
 function LanguagePicker({ onClose }) {
   const { t, i18n } = useTranslation();
 
@@ -360,6 +393,7 @@ function ProfileTab({
     // A picker with one choice implies a choice that isn't there: until a
     // second language ships, the row just states the language.
     { label: t('profile.language'), value: currentLanguage.name, icon: <GlobeIcon size={20} />, action: () => setLanguagePickerOpen(true) },
+    { custom: <TextSizeRow /> },
     { label: t('profile.staffCards'), value: '', icon: <BookIcon size={20} />, action: () => navigate('/cards', { state: { fromApp: true, tab: 'profile' } }) },
     // Only where it can do something: a browser that offered the install,
     // or iOS, where the row explains the two taps it takes.
@@ -386,7 +420,9 @@ function ProfileTab({
       {/* First, where a thumb finds them: someone who cannot read this
           language needs the Language row without scrolling past a card. */}
       <div className="settings-list">
-        {settings.map((item, idx) => (item.action ? (
+        {settings.map((item, idx) => (item.custom ? (
+          <React.Fragment key={idx}>{item.custom}</React.Fragment>
+        ) : item.action ? (
           <button type="button" key={idx} className="settings-item" onClick={item.action}>
             <span className="settings-icon" aria-hidden="true">{item.icon}</span>
             <span className="settings-text">

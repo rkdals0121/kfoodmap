@@ -5168,3 +5168,54 @@ body {
   margin-top: 0;
   margin-bottom: 10px;
 }
+
+/* ---- Text size (Profile) ---- */
+/* Sizes are in pixels throughout, so the reading surfaces are enlarged as a
+   whole: the list, a place's page and the sheets, the panels. Their boxes
+   stay where they are and the content reflows inside. Not the map (its
+   pointer maths assume no zoom), nor the search and tab bars. */
+html[data-text='large'] { --text-zoom: 1.15; }
+html[data-text='larger'] { --text-zoom: 1.3; }
+html[data-text] #place-list,
+html[data-text] .tab-panel > *,
+html[data-text] .journal-panel > *,
+html[data-text] .detail-scroll > * {
+  zoom: var(--text-zoom, 1);
+}
+.text-size__icon {
+  width: 20px;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+.text-size__choices {
+  display: inline-flex;
+  gap: 6px;
+}
+.text-size__btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink-body);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+.text-size__btn--normal { font-size: 14px; }
+.text-size__btn--large { font-size: 18px; }
+.text-size__btn--larger { font-size: 22px; }
+.text-size__btn.is-on {
+  border-color: var(--green-strong);
+  background: var(--green-tint);
+  color: var(--green-strong);
+}
+.text-size__btn:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 2px;
+}
+.settings-item.text-size {
+  padding: 10px 0;
+}

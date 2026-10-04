@@ -5,7 +5,11 @@ import 'leaflet/dist/leaflet.css'
 import './index.css'
 import { startLanguage } from './i18n'
 import './hooks/useInstall'
+import { applyTextSize, readTextSize } from './textSize'
 import App from './App.jsx'
+
+// The reader's text size, before the first paint.
+applyTextSize(readTextSize())
 
 // The first tile cache held opaque responses (see vite.config.js): served
 // to a CORS request they draw as blank squares, for up to a fortnight.
