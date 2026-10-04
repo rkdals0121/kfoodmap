@@ -28,11 +28,11 @@ const PAGE = 40;
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 
-function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null }) {
+function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null, atLabel = '' }) {
   const { t } = useTranslation();
   const name = displayName(place.name);
   // With "Open at…" on, the card answers for that time, as the list does.
-  const status = getOpenStatus(place.hours, at ?? undefined);
+  const status = getOpenStatus(place.hours, at ?? undefined, { nameDay: Boolean(at) });
   // Dietary badges say exactly what we know ("Vegan options" ≠ "Fully vegan");
   // traits are descriptive. Cards stay scannable, so cap the list.
   //
@@ -90,6 +90,8 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
         <p className="place-card__meta">
           {status ? (
             <>
+              {/* Which day the answer is for: "Open" alone read as now. */}
+              {atLabel && <span className="place-card__at">{atLabel}: </span>}
               <span className={statusClass(status)}>{status.label}</span>
               {status.detail && <> · {status.detail}</>}
             </>
@@ -148,7 +150,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '',
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -342,6 +344,7 @@ export default function BottomSheetList({
           place={r}
           stop={journeyOrder ? sharedIds.indexOf(r.id) + 1 : 0}
           at={planDate}
+          atLabel={planDate && planAt ? t(`hours.day.${DAY_KEYS[planAt.day]}`) : ''}
           bookmarked={bookmarkedIds.includes(r.id)}
           onOpen={onRestaurantClick}
           onReadStory={onReadStory}
@@ -377,6 +380,26 @@ export default function BottomSheetList({
             <button type="button" className="place-list__clear" onClick={onClearFilters}>
               {t('list.clearAll')}
             </button>
+          )}
+          {/* Nothing in the area searched, but the same filters match close
+              by: "Haeundae" has no halal place on record and Busan has
+              eight. Offer them, measured from the area that was typed. */}
+          {nearest.length > 0 && (
+            <div className="place-list__nearest">
+              <p>{t('list.nearestTitle', { query: nearestFrom })}</p>
+              <ul className="saved-list">
+                {nearest.map(({ place, km }) => (
+                  <li key={place.id}>
+                    <button type="button" className="saved-row" onClick={() => onRestaurantClick(place)}>
+                      <span className="saved-row__main">
+                        <span className="saved-row__name">{displayName(place.name)}</span>
+                        <span className="saved-row__where">{place.zone} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
           <p className="place-list__hint-text">
             {t(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0

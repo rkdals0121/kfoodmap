@@ -145,7 +145,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <h3 className="staff-cards__heading">{t('cards.menuWords')}</h3>
               <p className="staff-cards__hint">{t('cards.menuWordsHint')}</p>
               <dl className="staff-words">
-                {MENU_WORDS.map(w => (
+                {MENU_WORDS.filter(w => !w.only || w.only === cardId).map(w => (
                   <div key={w.ko}>
                     <dt><span lang="ko">{w.ko}</span> <span className="staff-words__roman">{w.roman}</span></dt>
                     <dd>{t(`cardText.${w.key}`)}</dd>

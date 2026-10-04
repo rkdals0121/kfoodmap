@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
-import { formatShortDate, displayName, getOpenStatus, statusClass, koreanName } from '../utils';
+import { formatShortDate, displayName, getOpenStatus, statusClass, koreanName, DAY_KEYS, formatClock } from '../utils';
 import ClaimChip from './ClaimChip';
 import { ChevronRightIcon, ShareIcon } from './Icons';
 import Seal from './Seal';
@@ -14,9 +14,11 @@ import { copyText, shareOrCopy } from '../share';
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
 // Visited places stay stamps.
-function SavedRow({ place, savedAt, onOpen }) {
+function SavedRow({ place, savedAt, onOpen, at = null, atLabel = '' }) {
   const { t, i18n } = useTranslation();
-  const status = getOpenStatus(place.hours);
+  // A plan made on the map ("Open Mon 12:00") holds here: these are the
+  // places the plan is about.
+  const status = at ? getOpenStatus(place.hours, at, { nameDay: true }) : getOpenStatus(place.hours);
   return (
     <li>
       <button type="button" className="saved-row" onClick={() => onOpen(place)}>
@@ -28,7 +30,7 @@ function SavedRow({ place, savedAt, onOpen }) {
           </span>
           <span className="saved-row__status">
             {status ? (
-              <><span className={statusClass(status)}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
+              <>{atLabel && <span className="place-card__at">{atLabel}: </span>}<span className={statusClass(status)}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
             ) : (
               <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
             )}
@@ -49,7 +51,7 @@ function SavedRow({ place, savedAt, onOpen }) {
 // shown, in case one of these three is ever quarantined later.
 const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 
-export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap }) {
+export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap, planAt = null, planDate = null }) {
   const { t, i18n } = useTranslation();
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
 
@@ -184,7 +186,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 </h4>
                 <ul className="saved-list">
                   {items.map(({ place, savedAt }) => (
-                    <SavedRow key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
+                    <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
                   ))}
                 </ul>
               </section>
@@ -192,7 +194,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           ) : (
             <ul className="saved-list">
               {savedList.map(({ place, savedAt }) => (
-                <SavedRow key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
+                <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} />
               ))}
             </ul>
           )}

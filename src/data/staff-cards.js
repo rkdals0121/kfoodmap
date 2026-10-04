@@ -75,6 +75,8 @@ export const STAFF_ANSWERS = [
 
 // Words to look for on a menu or a packet. "Usually" is the honest word: a
 // kitchen can leave any of these out, and only the kitchen knows.
+// only: the card a word belongs to. Eggs and dairy are a vegan's question,
+// cooking wine a Muslim's; on the other card they were noise.
 export const MENU_WORDS = [
   { ko: '액젓', roman: 'aekjeot', key: 'word1' },
   { ko: '새우젓', roman: 'saeujeot', key: 'word2' },
@@ -84,10 +86,10 @@ export const MENU_WORDS = [
   { ko: '돼지고기', roman: 'dwaejigogi', key: 'word6' },
   { ko: '돼지기름', roman: 'dwaejigireum', key: 'word7' },
   { ko: '굴소스', roman: 'gulsoseu', key: 'word8' },
-  { ko: '달걀 / 계란', roman: 'dalgyal / gyeran', key: 'word9' },
-  { ko: '우유 / 버터 / 치즈', roman: 'uyu / beoteo / chijeu', key: 'word10' },
-  { ko: '맛술 / 미림', roman: 'matsul / mirim', key: 'word11' },
-  { ko: '청주', roman: 'cheongju', key: 'word12' },
+  { ko: '달걀 / 계란', roman: 'dalgyal / gyeran', key: 'word9', only: 'vegan' },
+  { ko: '우유 / 버터 / 치즈', roman: 'uyu / beoteo / chijeu', key: 'word10', only: 'vegan' },
+  { ko: '맛술 / 미림', roman: 'matsul / mirim', key: 'word11', only: 'muslim' },
+  { ko: '청주', roman: 'cheongju', key: 'word12', only: 'muslim' },
   { ko: '젤라틴', roman: 'jellatin', key: 'word13' },
 ];
 

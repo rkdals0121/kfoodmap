@@ -234,7 +234,7 @@ export default function RestaurantDetail({
   const status = getOpenStatus(place.hours);
   const today = todaysHours(place.hours);
   const week = weekHours(place.hours);
-  const planStatus = planDate && planAt ? getOpenStatus(place.hours, planDate) : null;
+  const planStatus = planDate && planAt ? getOpenStatus(place.hours, planDate, { nameDay: true }) : null;
   const planWhen = planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : '';
   const culture = getCulture(place);
   const coords = coordsOf(place);
@@ -576,8 +576,8 @@ export default function RestaurantDetail({
               {isKnown(place.phone) && (
                 <div className="practical-row">
                   <PhoneIcon size={17} />
-                  <a className="practical-link" href={`tel:${telHref(place.phone.value)}`}>
-                    {place.phone.value}
+                  <a className="practical-link practical-link--call" href={`tel:${telHref(place.phone.value)}`}>
+                    {t('detail.call')} {place.phone.value}
                   </a>
                 </div>
               )}
@@ -716,6 +716,9 @@ export default function RestaurantDetail({
                     // reader should read out; the visible hint names the action.
                     <button type="button" className="staff-large" autoFocus onClick={closeNameLarge} onKeyDown={(e) => { if (e.key === 'Tab') e.preventDefault(); }}>
                       <span className="staff-large__text staff-large__text--name" lang="ko" ref={nameLargeText}><span>{koName}</span></span>
+                      {/* What a driver or a passer-by can use besides the
+                          name: the number to ring for the way. */}
+                      {isKnown(place.phone) && <span className="staff-large__sub">{place.phone.value}</span>}
                       <span className="staff-large__close">{t('detail.tapToClose')}</span>
                     </button>,
                     document.body,
@@ -738,7 +741,12 @@ export default function RestaurantDetail({
                 )}
                 <ul className="saved-list">
                   {nearby.map(({ place: other, km }) => {
-                    const otherStatus = getOpenStatus(other.hours);
+                    // With "Open at…" on, the row answers for that time, as
+                    // the list did: "Open" for now sent a Monday plan to a
+                    // place shut on Mondays.
+                    const otherStatus = planDate && planAt
+                      ? getOpenStatus(other.hours, planDate, { nameDay: true })
+                      : getOpenStatus(other.hours);
                     return (
                       <li key={other.id}>
                         <button type="button" className="saved-row" onClick={() => onOpenPlace(other)}>
@@ -750,6 +758,7 @@ export default function RestaurantDetail({
                             <span className="saved-row__status">
                               {otherStatus ? (
                                 <>
+                                  {planDate && planAt && <span className="place-card__at">{t(`hours.day.${DAY_KEYS[planAt.day]}`)}: </span>}
                                   <span className={statusClass(otherStatus)}>{otherStatus.label}</span>
                                   {otherStatus.detail && <> · {otherStatus.detail}</>}
                                 </>

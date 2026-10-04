@@ -541,7 +541,10 @@ function LocateControl({ state, location, onLocate }) {
       </p>
       <button
         type="button"
-        className={`map-locate__btn${state === 'located' ? ' is-on' : ''}${asking ? ' is-asking' : ''}`}
+        // Until it has been used the button says what it is for: a bare
+        // crosshair in the corner was the only way to "near me", and a
+        // first-time visitor did not read it as one.
+        className={`map-locate__btn${state === 'located' ? ' is-on' : ''}${asking ? ' is-asking' : ''}${state === 'idle' ? ' has-label' : ''}`}
         onClick={onLocate}
         aria-label={state === 'located' ? t('map.locateAgain') : t('map.locate')}
         title={state === 'located' ? t('map.locateAgain') : t('map.locate')}
@@ -551,6 +554,7 @@ function LocateControl({ state, location, onLocate }) {
           <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none" />
           <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
         </svg>
+        {state === 'idle' && <span className="map-locate__label" aria-hidden="true">{t('map.nearMe')}</span>}
       </button>
     </div>
   );

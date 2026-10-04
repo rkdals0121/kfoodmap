@@ -19,7 +19,7 @@ import PrivacySheet from './components/PrivacySheet';
 import StaffCardSheet from './components/StaffCardSheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
-import { MAP_CENTER, getOpenStatus, koreaDateAt, koreaToday } from './utils';
+import { MAP_CENTER, getOpenStatus, koreaDateAt, koreaToday, coordsOf, haversineKm } from './utils';
 import { readPosition, readError } from './data/locate';
 import { journeys } from './data/journeys';
 import { CHIP_GROUPS } from './i18n/labels';
@@ -585,14 +585,13 @@ function AppShell() {
   // that finds nothing and one of its words is a single letter off a
   // well-known area ("myongdong"), in which case the corrected text is
   // tried, and the list says so.
-  const { filteredRestaurants, unknownHours, matchQuery } = useMemo(() => {
+  const { filteredRestaurants, unknownHours, matchQuery, nearest } = useMemo(() => {
     const now = planDate ?? new Date(filterClock || Date.now());
     let unknown = 0;
-    const run = (query) => activeRestaurants.filter(r => {
-      // 1. Filter chips (AND across chips). A dietary chip only matches on
-      // evidence — an unknown dietary record never matches, so we never send
-      // someone somewhere we can't vouch for. A group chip ORs within itself.
-      const matchesChips = selectedFilters.every(f => {
+    // 1. Filter chips (AND across chips). A dietary chip only matches on
+    // evidence — an unknown dietary record never matches, so we never send
+    // someone somewhere we can't vouch for. A group chip ORs within itself.
+    const chips = (r) => selectedFilters.every(f => {
         if (f === OPEN_NOW || f === OPEN_AT) return true; // asked last, below
         if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
         if (f === SHARED_LIST) return sharedIds.includes(r.id);
@@ -600,10 +599,10 @@ function AppShell() {
         if (DIETARY_CHIPS.includes(f)) return matchesDietary(r, f);
         const group = TRAIT_GROUPS[f];
         return group ? r.traits.some(t => group.includes(t)) : r.traits.includes(f);
-      });
-
+    });
+    const run = (query) => activeRestaurants.filter(r => {
       // 2. Free-text search: name, vibe, area and street address.
-      if (!matchesChips || !(areaOnly ? matchesArea(r, query) : matchesSearch(r, query))) return false;
+      if (!chips(r) || !(areaOnly ? matchesArea(r, query) : matchesSearch(r, query))) return false;
       if (!openNowOn && !openAtOn) return true;
       const status = getOpenStatus(r.hours, now);
       if (status === null) unknown += 1;
@@ -625,7 +624,30 @@ function AppShell() {
         if (again.length > 0) { list = again; used = guess; }
       }
     }
-    return { filteredRestaurants: list, unknownHours: unknown, matchQuery: used };
+    // An area with nothing that matches the chips ("Haeundae" + Halal): the
+    // closest places that do, measured from the middle of that area's
+    // records. Only for a search that names an area we hold records in.
+    let near = [];
+    if (list.length === 0 && searchQuery.trim() && selectedFilters.length > 0
+      && !selectedFilters.includes(SAVED_ONLY) && !selectedFilters.includes(SHARED_LIST)) {
+      const anchors = activeRestaurants.filter(r => matchesArea(r, searchQuery)).map(coordsOf);
+      if (anchors.length > 0) {
+        const lat = anchors.reduce((sum, c) => sum + c.lat, 0) / anchors.length;
+        const lng = anchors.reduce((sum, c) => sum + c.lng, 0) / anchors.length;
+        near = activeRestaurants
+          .filter(r => {
+            if (!chips(r)) return false;
+            if (!openNowOn && !openAtOn) return true;
+            const status = getOpenStatus(r.hours, now);
+            return status?.open === true && status.orderable !== false;
+          })
+          .map(r => { const c = coordsOf(r); return { place: r, km: haversineKm(lat, lng, c.lat, c.lng) }; })
+          .filter(x => x.km <= 40)
+          .sort((a, b) => a.km - b.km)
+          .slice(0, 3);
+      }
+    }
+    return { filteredRestaurants: list, unknownHours: unknown, matchQuery: used, nearest: near };
   }, [selectedFilters, searchQuery, areaOnly, openNowOn, openAtOn, planDate, filterClock, bookmarkedIds, sharedIds]);
 
   // The same function object on every render, always calling the latest
@@ -766,6 +788,8 @@ function AppShell() {
                 onCloseShared={closeSharedList}
                 searchQuery={searchQuery}
                 matchQuery={matchQuery}
+                nearest={nearest}
+                nearestFrom={searchQuery.trim()}
                 onClearInline={() => {
                   // From the list header: chips and search off, where the
                   // reader is — no keyboard, and a shared list or journey stays.
@@ -792,7 +816,7 @@ function AppShell() {
 
         {/* Tab panels rendered inside the sidebar */}
         {activeTab === 'journal' && (
-          <JournalPanel bookmarks={bookmarks} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} />
+          <JournalPanel bookmarks={bookmarks} planAt={openAtOn ? planAt : null} planDate={openAtOn ? planDate : null} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} />
         )}
         {activeTab !== 'map' && activeTab !== 'journal' && (
           <TabPanel

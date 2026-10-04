@@ -230,3 +230,14 @@ test('a Korean reader sees the Korean name; everyone else the romanised one', as
     await i18next.changeLanguage('en');
   }
 });
+
+test('for a picked time the next opening is a named day, not "tomorrow"', async () => {
+  const { getOpenStatus } = await import('../../src/utils.js');
+  const hours = { confidence: 'supported', value: { weekly: { sun: [{ from: '11:00', to: '22:00' }], mon: [], tue: [{ from: '11:00', to: '22:00' }], wed: [], thu: [], fri: [], sat: [] } } };
+  // Monday 12:00 in Korea = Monday 03:00 UTC (2026-10-05 is a Monday).
+  const monNoon = new Date(Date.UTC(2026, 9, 5, 3, 0));
+  assert.match(getOpenStatus(hours, monNoon).detail, /tomorrow/);
+  const named = getOpenStatus(hours, monNoon, { nameDay: true }).detail;
+  assert.doesNotMatch(named, /tomorrow/);
+  assert.match(named, /Tue/);
+});

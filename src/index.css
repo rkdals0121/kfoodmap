@@ -5066,3 +5066,52 @@ body {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* "Near me" written on the location button until it has been used. */
+.map-locate__btn.has-label {
+  width: auto;
+  padding: 0 14px 0 12px;
+  gap: 6px;
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.map-locate__label {
+  line-height: 1;
+}
+
+/* ---- First-visitor walkthrough, 2026-10-04 ---- */
+/* The day a status is for, when it is not now. */
+.place-card__at {
+  color: var(--muted-strong);
+  font-weight: 600;
+}
+/* The nearest matches offered under an empty area search. */
+.place-list__nearest {
+  width: 100%;
+  margin-top: 4px;
+  text-align: left;
+}
+.place-list__nearest > p {
+  font-size: 13px;
+  color: var(--muted-strong);
+  margin-bottom: 6px;
+}
+/* The phone number under a Korean name shown large. */
+.staff-large__sub {
+  display: block;
+  margin-top: 18px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+/* The phone row reads as something to press. */
+.practical-link--call {
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}

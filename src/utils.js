@@ -104,7 +104,9 @@ export const statusClass = (status) => (status.soon ? 'is-soon' : status.open ? 
  * Never guesses. A day absent from `weekly` means we don't know that day's
  * hours, and returns null rather than assuming the venue is shut.
  */
-export function getOpenStatus(hoursFact, now = new Date()) {
+// nameDay: the answer is for a time the reader picked, not now, so the next
+// opening is a named day — "tomorrow" counted from Monday read as Monday.
+export function getOpenStatus(hoursFact, now = new Date(), { nameDay = false } = {}) {
   if (!isKnown(hoursFact)) return null;
   const { raw, weekly } = hoursFact.value;
   const k = inKorea(now);
@@ -184,7 +186,7 @@ export function getOpenStatus(hoursFact, now = new Date()) {
       if (!Array.isArray(day)) return null;
       const first = day.map(s => toMinutes(s.from)).filter(m => m != null).sort((a, b) => a - b)[0];
       if (first == null) continue;
-      return d === 1
+      return d === 1 && !nameDay
         ? tr('opensTomorrow', { time: fromMinutes(first) })
         : tr('opensDay', { day: tr(`day.${DAY_KEYS[(k.getUTCDay() + d) % 7]}`), time: fromMinutes(first) });
     }
