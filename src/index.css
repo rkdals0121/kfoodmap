@@ -5340,3 +5340,22 @@ html[data-text] .detail-scroll > * {
   display: inline-block;
   padding: 13px 0;
 }
+
+/* Sideways, the search, chips and the day-and-time row took 183 of 296 px
+   and stayed put: the list under them was two lines high. There the whole
+   panel scrolls as one, the header with it. */
+@media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
+  .sidebar-region {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sidebar-region .list-region,
+  .sidebar-region #place-list {
+    overflow: visible;
+    height: auto;
+    max-height: none;
+    flex: none;
+  }
+}
