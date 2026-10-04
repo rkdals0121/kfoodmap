@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { MAX_QUERY } from '../search';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
@@ -101,6 +102,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
           <path d="m20 20-3.5-3.5" />
         </svg>
         <input
+          maxLength={MAX_QUERY}
           ref={searchRef}
           aria-keyshortcuts="/"
           type="search"

@@ -44,9 +44,23 @@ const AREAS = {
   Seomyeon: ['서면', '西面', 'ソミョン'],
 };
 
-const TO_ROMAN = new Map(
-  Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
-);
+// Names worth reading in other scripts that are not areas of their own in
+// the app (no guide page, no "Browse by area" link): stations and sights a
+// visitor searches by, each given as the word the records use.
+const ALSO_NAMED = {
+  Anguk: ['안국', '安国', '安國'],
+  'City Hall': ['시청', '市庁', '市厅', '市廳'],
+  Mangwon: ['망원', '望遠', '望远'],
+  Bukchon: ['북촌', '北村'],
+  Namsan: ['남산', '南山'],
+  COEX: ['코엑스'],
+  Jamsil: ['롯데월드', 'ロッテワールド', '乐天世界', '樂天世界'],
+};
+
+const TO_ROMAN = new Map([
+  ...Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
+  ...Object.entries(ALSO_NAMED).flatMap(([roman, names]) => names.map(n => [n, roman])),
+]);
 
 // Older and informal Latin spellings still on maps, guidebooks and signs
 // from before the 2000 Revised Romanization ("Pusan", "Cheju") or written
@@ -135,7 +149,9 @@ export const romanisedArea = (word) => TO_ROMAN.get(String(word ?? '').trim()) ?
  * null if it contains none. Words are separated by spaces; a query with no
  * spaces ("明洞ハラール") is also checked for an area name at its start.
  */
-const CITY_SUFFIX = new Set(['市', '시', '市内', '시내']);
+// …nor is a province, district or neighbourhood suffix ("제주도", "강남구",
+// "성수동"), nor "입구" on a station's name ("홍대입구").
+const CITY_SUFFIX = new Set(['市', '시', '市内', '시내', '도', '道', '구', '區', '区', '동', '洞', '입구', '入口']);
 const SI_IN_ADDRESS = new Set(['Jeju']);
 
 export function romaniseQuery(query) {

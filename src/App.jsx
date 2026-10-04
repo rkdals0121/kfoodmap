@@ -19,7 +19,7 @@ import PrivacySheet from './components/PrivacySheet';
 import StaffCardSheet from './components/StaffCardSheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
-import { MAP_CENTER, getOpenStatus, koreaDateAt, koreaToday, coordsOf, haversineKm } from './utils';
+import { MAP_CENTER, koreaDateAt, koreaToday } from './utils';
 import { readPosition, readError } from './data/locate';
 import { journeys } from './data/journeys';
 import { CHIP_GROUPS } from './i18n/labels';
@@ -29,8 +29,8 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
-import { fuzzyQuery, romaniseQuery } from './data/area-names';
+import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
+import { searchPlaces } from './search';
 import { takeFreshList } from './freshList';
 import './index.css';
 
@@ -44,11 +44,6 @@ const SUSTAINABILITY_AXIS = ['Sustainability', ...TRAIT_GROUPS.Sustainability];
 // discovery surface — map, search, cards, Journal — at this single point.
 const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
 // The same condition as index.css uses for a phone held sideways.
-// A station named after its area: "Gangnam station", "gangnam stn", "강남역",
-// "江南駅", with or without an exit number.
-const STATION_TAIL = /(?:\s+(?:subway\s+)?(?:station|stn\.?)|역|駅|站)(?:\s+(?:exit|出口)?\s*\d+(?:번\s*출구)?)?$/i;
-// "서울역", "홍대입구역", "江南駅", "首尔站": a station in one unbroken word.
-const CJK_STATION = /^(.+?)(?:입구)?(?:역|駅|站)$/;
 const LANDSCAPE_PHONE = '(max-width: 767px) and (orientation: landscape) and (max-height: 500px)';
 
 const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile: '/profile' };
@@ -695,142 +690,17 @@ function AppShell() {
     const id = setTimeout(() => setFilterQuery(searchQuery), 120);
     return () => clearTimeout(id);
   }, [searchQuery, filterQuery]);
-  const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom } = useMemo(() => {
-    const searchQuery = filterQuery; // eslint-disable-line no-shadow
-    const now = planDate ?? new Date(filterClock || Date.now());
-    let unknown = 0;
-    let unknownPlaces = [];
-    // 1. Filter chips (AND across chips). A dietary chip only matches on
-    // evidence — an unknown dietary record never matches, so we never send
-    // someone somewhere we can't vouch for. A group chip ORs within itself.
-    const chips = (r) => selectedFilters.every(f => {
-        if (f === OPEN_NOW || f === OPEN_AT) return true; // asked last, below
-        if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
-        if (f === SHARED_LIST) return sharedIds.includes(r.id);
-        if (f === FULLY_VEGAN) return matchesFullyVegan(r);
-        if (DIETARY_CHIPS.includes(f)) return matchesDietary(r, f);
-        const group = TRAIT_GROUPS[f];
-        return group ? r.traits.some(t => group.includes(t)) : r.traits.includes(f);
-    });
-    const run = (query) => activeRestaurants.filter(r => {
-      // 2. Free-text search: name, vibe, area and street address.
-      if (!chips(r) || !(areaOnly ? matchesArea(r, query) : matchesSearch(r, query))) return false;
-      if (!openNowOn && !openAtOn) return true;
-      const status = getOpenStatus(r.hours, now);
-      if (status === null) { unknown += 1; unknownPlaces.push(r); return includeUnknown; }
-      // Open but past last order is no use to someone who wants to eat now.
-      return status.open === true && status.orderable !== false;
-    });
-    const rerun = (q) => { unknown = 0; unknownPlaces = []; return run(q); };
-    const typed = searchQuery.trim();
-    let list = run(searchQuery);
-    let used = searchQuery;
-    // A station written in Korean, Japanese or Chinese ("서울역", "홍대입구역",
-    // "江南駅"): the records that say "<Area> Station", else the area. Split
-    // into "Seoul" + "역" it was every Seoul record.
-    // Set when a station is on record but nothing at it passes the chips:
-    // the nearest that do are then measured from the station itself.
-    let anchorPlaces = null;
-    const cjkStation = !areaOnly && !typed.includes(' ') ? CJK_STATION.exec(typed) : null;
-    let stationDone = false;
-    if (cjkStation) {
-      const area = romaniseQuery(cjkStation[1]) ?? cjkStation[1];
-      const phrase = `${area} station`;
-      const named = rerun(phrase).filter(r => matchesPhrase(r, phrase));
-      if (named.length > 0) {
-        list = named;
-        used = `${area} Station`;
-        unknown = unknownPlaces.filter(r => matchesPhrase(r, phrase)).length;
-      } else {
-        const spots = activeRestaurants.filter(r => matchesPhrase(r, phrase));
-        if (spots.length > 0 && selectedFilters.length > 0) {
-          rerun(phrase);
-          list = [];
-          used = `${area} Station`;
-          anchorPlaces = spots;
-        } else {
-          list = rerun(area);
-          used = area;
-        }
-      }
-      stationDone = true;
-    }
-    // "seoul station": the records that say exactly that, when any do.
-    let phraseFound = false;
-    if (!areaOnly && !stationDone && typed.includes(' ')) {
-      const exact = list.filter(r => matchesPhrase(r, searchQuery));
-      phraseFound = exact.length > 0;
-      if (exact.length > 0 && exact.length < list.length) {
-        list = exact;
-        // The count of places hidden for having no hours follows the list.
-        unknown = unknownPlaces.filter(r => matchesPhrase(r, searchQuery)).length;
-      }
-    }
-    if (list.length === 0 && typed && !areaOnly && !stationDone) {
-      const guess = fuzzyQuery(searchQuery);
-      if (guess) {
-        unknown = 0;
-        unknownPlaces = [];
-        const again = run(guess);
-        if (again.length > 0) { list = again; used = guess; }
-      }
-    }
-    // "Gangnam station", "강남역", "Gangnam Station exit 10": no record says
-    // so in those words, but the area is on record. Tried without the word
-    // for the station when the search as typed finds nothing.
-    // Also when words were found but not the station itself: "Seoul
-    // Station" + Halal was every halal place in Seoul whose record mentions
-    // any station, presented as if near that one.
-    if (typed && !areaOnly && !stationDone && (list.length === 0 || (!phraseFound && STATION_TAIL.test(typed)))) {
-      const bare = typed.replace(STATION_TAIL, '').trim();
-      const spots = bare !== typed && selectedFilters.length > 0 ? activeRestaurants.filter(r => matchesPhrase(r, typed)) : [];
-      if (spots.length > 0) {
-        // "Seoul Station" + Halal: not all of Seoul, but what is halal
-        // near the station.
-        rerun(typed);
-        list = [];
-        anchorPlaces = spots;
-      } else if (bare && bare !== typed) {
-        const again = rerun(bare);
-        if (again.length > 0 || list.length > 0) { list = again; used = bare; }
-      }
-    }
-    // An area with nothing that matches the chips ("Haeundae" + Halal): the
-    // closest places that do, measured from the middle of that area's
-    // records. Only for a search that names an area we hold records in.
-    let near = [];
-    // Also when the area has only one or two ("Hongdae" + Fully vegan at
-    // Monday noon is one place; Mangwon is 750 m away).
-    if (list.length < 3 && searchQuery.trim() && selectedFilters.length > 0
-      && !selectedFilters.includes(SAVED_ONLY) && !selectedFilters.includes(SHARED_LIST)) {
-      // Measured from the one or two places found, when there are any; with
-      // none, from the area the whole search names. Never from a place that
-      // only shares a word with it: "Lotte World" was once measured from a
-      // street called World Cup buk-ro, 13 km away.
-      const anchors = (anchorPlaces ?? (list.length > 0 ? list : activeRestaurants.filter(r => matchesAreaWhole(r, used)))).map(coordsOf);
-      const reach = anchorPlaces ? 4 : list.length > 0 ? 5 : 40;
-      if (anchors.length > 0) {
-        const lat = anchors.reduce((sum, c) => sum + c.lat, 0) / anchors.length;
-        const lng = anchors.reduce((sum, c) => sum + c.lng, 0) / anchors.length;
-        // "Seo-gu" is a district in six cities: its middle is a mountain.
-        const spread = Math.max(...anchors.map(c => haversineKm(lat, lng, c.lat, c.lng)));
-        if (spread <= 30) near = activeRestaurants
-          .filter(r => {
-            if (!chips(r) || list.includes(r)) return false;
-            if (!openNowOn && !openAtOn) return true;
-            const status = getOpenStatus(r.hours, now);
-            return status?.open === true && status.orderable !== false;
-          })
-          .map(r => { const c = coordsOf(r); return { place: r, km: haversineKm(lat, lng, c.lat, c.lng) }; })
-          .filter(x => x.km <= reach)
-          .sort((a, b) => a.km - b.km)
-          .slice(0, anchorPlaces ? 6 : 3);
-      }
-    }
-    // nearestFrom: the area the distances are from, or '' when they are from
-    // the places found (the list then says "close to these").
-    return { filteredRestaurants: list, unknownHours: unknown, matchQuery: used, nearest: near, nearestFrom: list.length > 0 ? '' : used.trim() };
-  }, [selectedFilters, filterQuery, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
+  const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom } = useMemo(() => searchPlaces({
+    places: activeRestaurants,
+    query: filterQuery,
+    filters: selectedFilters,
+    areaOnly,
+    openOn: openNowOn || openAtOn,
+    includeUnknown,
+    now: planDate ?? new Date(filterClock || Date.now()),
+    bookmarkedIds,
+    sharedIds,
+  }), [selectedFilters, filterQuery, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
 
   // The same function object on every render, always calling the latest
   // version: what lets the memoised map skip renders it does not need.

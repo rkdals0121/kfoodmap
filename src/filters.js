@@ -75,7 +75,17 @@ export const TRAIT_GROUPS = {
 // places there even when the neighbourhood label names a smaller area.
 // Hyphens and spaces are ignored on both sides, so "mapo gu", "mapogu" and
 // "Mapo-gu" all match.
-const squash = (s) => s.toLowerCase().replace(/[\s-]+/g, '');
+// fold: what makes two spellings of one word equal — case, full-width
+// letters from a Japanese keyboard (ｉｔａｅｗｏｎ), accents (café, İtaewon).
+// Hangul is taken apart and put back together by the two normalisations
+// and comes out as it went in.
+const fold = (s) => (/[\u0080-\uffff]/.test(s)
+  ? s.normalize('NFKC').normalize('NFD').replace(/[\u0300-\u036f]/g, '').normalize('NFC')
+  : s).toLowerCase();
+const squash = (s) => fold(s).replace(/[\s-]+/g, '');
+// Punctuation typed with a search ("Itaewon, Seoul", "Hongik Univ.") is
+// not part of any word.
+const unpunct = (s) => String(s ?? '').replace(/[,.;:!?，。、！？]+/g, ' ');
 
 // Typing a diet word finds what its chip finds. Most visitors type "halal"
 // rather than tap the chip, and the word alone matched only places with it
@@ -91,7 +101,7 @@ const DIET_WORDS = {
 };
 // "Pork-free" is a halal level the Halal chip leaves out (it is not halal),
 // so it is reached by typing it — in any of these wordings.
-const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '포크프리']);
+const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'withoutpork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '포크프리']);
 const dietWordMatch = (r, w) => {
   // Object.hasOwn: typing "constructor" must not find Object.prototype's.
   if (Object.hasOwn(DIET_WORDS, w)) return matchesDietary(r, DIET_WORDS[w]);
@@ -112,7 +122,7 @@ function startsWord(text, q) {
   if (typeof text !== 'string' || q === '') return false;
   if (!/^[a-z0-9]/.test(q)) return squash(text).includes(q);
   const re = new RegExp('(?:^|[^a-z0-9])' + [...q].map(escapeRe).join('[\\s-]*'));
-  return re.test(text.toLowerCase());
+  return re.test(fold(text));
 }
 
 // Areas visitors name that addresses don't: Seomyeon is Bujeon-dong (and
@@ -125,12 +135,20 @@ const AREA_ALIASES = {
   lotteworld: ['jamsil'],
 };
 const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
-const aliasMatch = (r, w) => Object.hasOwn(AREA_ALIASES, w) && AREA_ALIASES[w].some(a => areaText(r).includes(a));
+// By prefix, so "Lotte World Tower" and "lotte world seoul" are Lotte World.
+const aliasMatch = (r, w) => Object.keys(AREA_ALIASES).some(k => w.startsWith(k) && AREA_ALIASES[k].some(a => areaText(r).includes(a)));
 
-function searchCore(r, query) {
-  const q = squash(query ?? '');
-  if (q === '') return true;
-  if (dietWordMatch(r, q) || aliasMatch(r, q)) return true;
+function searchCore(r, rawQuery) {
+  const query = unpunct(rawQuery);
+  const q = squash(query);
+  // Nothing to search by (empty, or only signs such as "(" or "-"): every
+  // place, as with an empty box.
+  if (!/[\p{L}\p{N}]/u.test(q)) return true;
+  // The whole search is a diet word ("halal", "no pork", "pork free"):
+  // answered from the record's diet and nothing else — word by word,
+  // "no pork" was every record with a "no" and a "pork" in it.
+  if (Object.hasOwn(DIET_WORDS, q) || PORK_FREE_WORDS.has(q)) return dietWordMatch(r, q);
+  if (aliasMatch(r, q)) return true;
   // The halal level is searchable too, so "pork-free" finds every pork-free
   // place (the Halal filter leaves them out: pork-free is not halal).
   const halal = r.dietary?.halal;
@@ -156,7 +174,8 @@ function searchCore(r, query) {
 // Does a search word name this place's area (neighbourhood or address)?
 // While searching, these places come first in the list and are where the
 // map goes, so "Busan" shows Busan rather than Seoul's "Busan Jib".
-function areaCore(r, query) {
+function areaCore(r, rawQuery) {
+  const query = unpunct(rawQuery);
   // The whole query first ("mapo gu" is Mapo-gu), then its longer words:
   // a two-letter "gu" or "ro" starts a word in nearly every address.
   const whole = squash(query ?? '');
@@ -178,7 +197,7 @@ export function matchesSearch(r, query) {
 // ("Lotte World" is no one's area just because an address has "World Cup
 // buk-ro" in it). Used to decide where "nearest" is measured from.
 const areaWhole = (r, query) => {
-  const whole = squash(query ?? '');
+  const whole = squash(unpunct(query));
   return whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole));
 };
 export function matchesAreaWhole(r, query) {
@@ -234,7 +253,8 @@ export function parseViewHash(hash, validIds) {
 // what was meant (App.jsx narrows to them; with none, the word-by-word
 // result stands).
 export function matchesPhrase(r, query) {
-  const phrase = String(query ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const tidy = (t) => fold(unpunct(t)).replace(/\s+/g, ' ').trim();
+  const phrase = tidy(query);
   if (!phrase.includes(' ')) return false;
   // Whole words, in the name, the area, the address or the one-line
   // description. Not the story: "a
@@ -249,7 +269,11 @@ export function matchesPhrase(r, query) {
   // A diet word is answered from the record's diet, not from the letters:
   // "vegan cafe" is every vegan place that is a café, not the four with
   // "Vegan Cafe" in their name.
-  if (phrase.split(' ').some(w => Object.hasOwn(DIET_WORDS, squash(w)) || PORK_FREE_WORDS.has(squash(w)))) return false;
-  return [r.name, r.zone, r.address?.value, r.vibe]
-    .some(f => typeof f === 'string' && at(f.toLowerCase()));
+  // …including one written as two words ("no pork", "pork free").
+  if (phrase.split(' ').some(w => Object.hasOwn(DIET_WORDS, squash(w)) || PORK_FREE_WORDS.has(squash(w)))
+    || Object.hasOwn(DIET_WORDS, squash(phrase)) || PORK_FREE_WORDS.has(squash(phrase))) return false;
+  // The name also without its bracketed Korean: "Kervan (케르반) Famille
+  // Station" is "Kervan Famille Station" to whoever types it.
+  return [r.name, String(r.name ?? '').replace(/\s*\([^)]*\)/g, ''), r.zone, r.address?.value, r.vibe]
+    .some(f => typeof f === 'string' && at(tidy(f)));
 }

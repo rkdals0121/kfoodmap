@@ -115,7 +115,9 @@ let lastInApp = null;
 // is still inert (focus() is ignored then), honoured when it is released.
 let wanted = null;
 export function focusAfterOverlay(el) {
-  wanted = el ?? null;
+  // Only while the app is inert: otherwise the focus() below simply works,
+  // and a stale request would be honoured when some later overlay closed.
+  wanted = document.getElementById('root')?.inert ? (el ?? null) : null;
   el?.focus?.({ preventScroll: true });
 }
 if (typeof document !== 'undefined') {
