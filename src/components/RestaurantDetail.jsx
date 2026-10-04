@@ -118,6 +118,8 @@ export default function RestaurantDetail({
   const [shared, setShared] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [openClaim, setOpenClaim] = useState(null);
+  const [claimFull, setClaimFull] = useState(false);
+  useEffect(() => { setClaimFull(false); }, [openClaim, restaurant?.id]);
   // The Korean name on the whole screen, to show a driver or a passer-by.
   const [nameLarge, setNameLarge] = useState(false);
   const [nameCopied, setNameCopied] = useState(false);
@@ -132,7 +134,9 @@ export default function RestaurantDetail({
   // As large as fits, but never so large that a name stands one syllable
   // to a line: "편한집밥" down the screen was harder to read, not easier.
   // Two or three syllables fill the width; longer names keep four across.
-  const nameLen = Math.min(Math.max([...(koreanName(restaurant?.name ?? '') || '')].filter(ch => ch.trim()).length, 2), 4);
+  // By the longest word: "루나아시아" stays whole on one line; a name of
+  // several words breaks between them.
+  const nameLen = Math.min(Math.max(...(koreanName(restaurant?.name ?? '') || '').split(/\s+/).map(w => [...w].length), 2), 6);
   const nameMax = () => Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
   useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax });
   // Say where a save went. Driven by the saved state actually changing, not
@@ -488,7 +492,14 @@ export default function RestaurantDetail({
               const { label: level, detail } = trustBadge(f);
               return (
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
-                  <p><strong>{label} · {level}</strong> — {detail}</p>
+                  {/* The research note can run to two screens: the first
+                      lines, and the rest on request. */}
+                  <p className={`claim-explain__text${detail.length > 260 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {detail}</p>
+                  {detail.length > 260 && (
+                    <button type="button" className="claim-explain__more" aria-expanded={claimFull} onClick={() => setClaimFull(v => !v)}>
+                      {t(claimFull ? 'detail.claimLess' : 'detail.claimMore')}
+                    </button>
+                  )}
                   <p className="claim-explain__meta">
                     {t('detail.claimSource', { source: sourceWithSite(f) })}
                     {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
@@ -875,6 +886,11 @@ export default function RestaurantDetail({
             needs no bar. */}
         {!docked && (
           <div className="detail-bar">
+            {/* Close within the thumb's reach: the X is at the top of a tall
+                phone, and Back is not on every screen. */}
+            <button type="button" className="detail-bar__close" aria-label={t('detail.close')} onClick={onClose}>
+              <XIcon size={20} />
+            </button>
             <a className="detail-bar__map btn-primary--naver" href={naverMapUrl(place)} target="_blank" rel="noopener noreferrer">
               <CompassIcon size={18} />
               <span>{t('detail.naverMap')}</span>

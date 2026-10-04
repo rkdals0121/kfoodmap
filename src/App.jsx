@@ -245,8 +245,12 @@ function AppShell() {
   };
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
+  const [handleDown, setHandleDown] = useState(false);
   const [prologueCompleted, setPrologueCompleted] = useState(
-    () => localStorage.getItem('kfm-prologue') === 'true'
+    // Arriving on a place or an area guide (a search result, a shared
+    // link): that page is what was asked for, and the welcome screen stood
+    // over it. Not marked as seen — it greets the next visit to the map.
+    () => localStorage.getItem('kfm-prologue') === 'true' || /^\/(place|find)\//.test(window.location.pathname)
   );
 
   // The phone's list sheet follows the finger and settles on the nearest of
@@ -346,7 +350,7 @@ function AppShell() {
   };
   // Close returns to the list in one press, past any places opened one from
   // another (`depth`); Back still steps through them.
-  const closePlace = () => (location.state?.fromApp ? navigate(-1 - (location.state?.depth ?? 0)) : navigate(tabPath));
+  const closePlace = () => (location.state?.fromApp ? navigate(-1 - (location.state?.depth ?? 0)) : navigate(tabPath, { replace: true }));
   // While a journey's stops are on the map, a stop opened from the map or
   // the list is opened as that stop, with the stop before and after.
   const openDetail = (r) => {
@@ -531,7 +535,13 @@ function AppShell() {
   const [showUnknown, setShowUnknown] = useState(false);
   const includeUnknown = showUnknown && (openNowOn || openAtOn);
   useEffect(() => { if (!openNowOn && !openAtOn) setShowUnknown(false); }, [openNowOn, openAtOn]);
-  const [planAt, setPlanAt] = useState(() => startView.planAt ?? { day: (koreaToday() + 1) % 7, minutes: 720 });
+  const [planAt, setPlanAt] = useState(() => {
+    if (startView.planAt) return startView.planAt;
+    // The likeliest next meal: tonight's dinner until late afternoon in
+    // Korea, tomorrow's lunch after that.
+    const hour = new Date(Date.now() + 9 * 3600e3).getUTCHours();
+    return hour < 17 ? { day: koreaToday(), minutes: 1140 } : { day: (koreaToday() + 1) % 7, minutes: 720 };
+  });
   // …and written back as the view changes, on whatever page is showing, so
   // a reload from a place page returns to the same list. Replaces the
   // entry: typing a search does not fill the Back button.
@@ -785,8 +795,15 @@ function AppShell() {
               <button
                 type="button"
                 className="sheet-handle-area"
-                aria-label={t(['app.sheetExpand', 'app.sheetExpandFull', 'app.sheetCollapse'][sheetState])}
-                onClick={() => setSheetState(s => (s + 1) % 3)}
+                aria-label={t(sheetState === 0 ? 'app.sheetExpand' : sheetState === 2 || handleDown ? 'app.sheetCollapse' : 'app.sheetExpandFull')}
+                // Up a step at a time, then down a step at a time: from full
+                // a tap used to drop straight to folded, past the half
+                // height where the map and the list are both in view.
+                onClick={() => {
+                  if (sheetState === 0) { setHandleDown(false); setSheetState(1); }
+                  else if (sheetState === 2) { setHandleDown(true); setSheetState(1); }
+                  else setSheetState(handleDown ? 0 : 2);
+                }}
               >
                 <span className="sheet-handle-bar" aria-hidden="true" />
               </button>

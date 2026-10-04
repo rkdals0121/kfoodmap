@@ -120,6 +120,9 @@ export const romanisedArea = (word) => TO_ROMAN.get(String(word ?? '').trim()) ?
  * null if it contains none. Words are separated by spaces; a query with no
  * spaces ("明洞ハラール") is also checked for an area name at its start.
  */
+const CITY_SUFFIX = new Set(['市', '시', '市内', '시내']);
+const SI_IN_ADDRESS = new Set(['Jeju']);
+
 export function romaniseQuery(query) {
   const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
   let changed = false;
@@ -127,7 +130,15 @@ export function romaniseQuery(query) {
     const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
     if (whole) { changed = true; return [whole]; }
     for (const [name, roman] of TO_ROMAN) {
-      if (w.length > name.length && w.startsWith(name)) { changed = true; return [roman, w.slice(name.length)]; }
+      if (w.length > name.length && w.startsWith(name)) {
+        changed = true;
+        const rest = w.slice(name.length);
+        // "濟州市", "제주시": the city suffix is not a second word. Jeju's
+        // addresses say "Jeju-si" (the island also holds Seogwipo-si), so
+        // there the suffix narrows; elsewhere it is simply dropped.
+        if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) ? `${roman}-si` : roman];
+        return [roman, rest];
+      }
     }
     return [w];
   });

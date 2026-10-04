@@ -286,6 +286,8 @@ export default {
     naverMap: 'Naver Map',
     kakaoMap: 'Kakao Map',
     claimWhy: '依據',
+    claimMore: '閱讀全文',
+    claimLess: '收起',
     call: '撥打',
     nearbyFiltered: '僅顯示符合你飲食篩選條件的地點。',
     showLarge: '放大顯示',

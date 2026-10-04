@@ -291,6 +291,8 @@ export default {
     naverMap: 'Naver Map',
     kakaoMap: 'Kakao Map',
     claimWhy: '根拠',
+    claimMore: '全文を読む',
+    claimLess: '閉じる',
     call: '電話',
     nearbyFiltered: '食事のフィルターに合うお店だけを表示しています。',
     showLarge: '大きく表示',

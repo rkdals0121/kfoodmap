@@ -82,7 +82,7 @@
 }
 
 .prologue-legend__body {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   color: var(--ink-body);
 }
@@ -91,7 +91,7 @@
   margin-top: 14px;
   padding-top: 12px;
   border-top: 1px solid var(--line);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   color: var(--muted-strong);
 }
@@ -141,7 +141,7 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--ink-body);
   cursor: pointer;
@@ -189,4 +189,9 @@
   margin-top: 8px;
   font-size: 13px;
   color: var(--muted-strong);
+}
+
+/* Text size (Profile) reaches the welcome screen too. */
+html[data-text] .prologue-content {
+  zoom: var(--text-zoom, 1);
 }

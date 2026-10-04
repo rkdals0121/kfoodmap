@@ -5419,3 +5419,55 @@ html[data-text] .confirm > *,
 html[data-text] .toast > * {
   zoom: var(--text-zoom, 1);
 }
+
+/* ---- Second walkthrough, 2026-10-04 evening ---- */
+/* Close, in the bar at the bottom of a place's page. */
+.detail-bar__close {
+  flex: 0 0 44px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-hover);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.detail-bar__close:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.detail-bar__map {
+  font-size: 14px;
+}
+/* A claim's research note: six lines, then "Read the full note". */
+.claim-explain__text.is-clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  overflow: hidden;
+}
+.claim-explain__more {
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+/* A Korean name shown large breaks between its words, not inside them. */
+.staff-large__text--name {
+  word-break: keep-all;
+  line-break: auto;
+  overflow-wrap: anywhere;
+}
+.text-size .settings-label {
+  white-space: nowrap;
+}

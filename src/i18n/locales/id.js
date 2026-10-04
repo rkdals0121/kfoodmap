@@ -289,6 +289,8 @@ export default {
     naverMap: 'Naver Map',
     kakaoMap: 'Kakao Map',
     claimWhy: 'Alasan',
+    claimMore: 'Baca selengkapnya',
+    claimLess: 'Ringkas',
     call: 'Telepon',
     nearbyFiltered: 'Hanya tempat yang sesuai filter diet Anda.',
     showLarge: 'Perbesar',

@@ -71,7 +71,7 @@ export default {
     listCopied: '링크를 복사했어요',
     shareListTitle: '내 K-Food Map 목록',
     offlineNote: '저장한 곳의 페이지는 이 기기에 보관되어 인터넷 없이도 열려요. 지도 배경은 연결이 필요해요.',
-    copyList: '목록을 글로 복사(한글 상호·주소 포함)',
+    copyList: '목록을 글로 복사(한글 상호, 주소 포함)',
     copyListDone: '목록을 복사했어요',
     otherRegion: '기타',
     emptyTitle: '여권이 아직 비어 있어요',
@@ -285,6 +285,8 @@ export default {
     naverMap: '네이버 지도',
     kakaoMap: '카카오맵',
     claimWhy: '근거',
+    claimMore: '전체 보기',
+    claimLess: '접기',
     call: '전화',
     nearbyFiltered: '켜 둔 식이 필터에 맞는 곳만 보여요.',
     showLarge: '크게 보기',
@@ -383,7 +385,7 @@ export default {
     },
     'myeongdong-halal-korean': {
       title: '명동: 할랄 프렌들리 한식',
-      description: '고기구이, 한정식, 한국식 치킨을 몇 골목 안에서 만날 수 있고, 세 곳 모두 이 지도에 할랄 프렌들리로 기록돼 있어요. 다만 현재 유효한 할랄 인증서가 기록된 곳은 없어요. 부산집의 KMF 인증서는 2026년 4월에 만료됐어요. 주문하기 전에 고기에 대해 직원에게 물어보세요.',
+      description: '고기구이, 한정식, 한국식 치킨을 몇 골목 안에서 만날 수 있고, 모두 이 지도에 할랄 프렌들리로 기록돼 있어요. 다만 현재 유효한 할랄 인증서가 기록된 곳은 없어요. 부산집의 KMF 인증서는 2026년 4월에 만료됐어요. 주문하기 전에 고기에 대해 직원에게 물어보세요.',
     },
     'jeonju-plant-based': {
       title: '전주, 비빔밥 그 너머',

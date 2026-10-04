@@ -296,6 +296,8 @@ export default {
     naverMap: 'Naver Map',
     kakaoMap: 'Kakao Map',
     claimWhy: 'Why?',
+    claimMore: 'Read the full note',
+    claimLess: 'Show less',
     call: 'Call',
     nearbyFiltered: 'Only places that match your diet filters.',
     showLarge: 'Show large',
