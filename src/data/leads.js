@@ -21,6 +21,10 @@ export const SELECTION_LIMITS = { kakao_place_id: 40, kakao_address: 200 };
 const URL_PATTERN = /^https?:\/\/\S+$/i;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// "instagram.com/place", as people type and paste links on a phone: the
+// scheme is added rather than asked for. Only for what looks like a host.
+const withScheme = (url) => (url && !/^[a-z][a-z0-9+.-]*:/i.test(url) && /^[^\s/.]+(\.[^\s/.]+)+(\/\S*)?$/.test(url) ? `https://${url}` : url);
+
 const clean = (value) => {
   const text = (value ?? '').trim();
   return text === '' ? null : text;
@@ -88,7 +92,7 @@ export function buildLead(form, { place = null, lang = 'en', selection = null } 
     location_hint: place ? null : (clean(form.locationHint) ?? picked.kakao_address),
     topic: form.topic,
     message: clean(form.message),
-    source_url: clean(form.sourceUrl),
+    source_url: withScheme(clean(form.sourceUrl)),
     contact_email: clean(form.contactEmail),
     lang,
     ...picked,

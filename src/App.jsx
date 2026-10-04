@@ -356,12 +356,19 @@ function AppShell() {
     // The list may be scrolled: do not let its next scroll event reopen a
     // sheet that was just pulled down.
     listTop.current = null;
+    // Pulled down with the keyboard up: the search box went under the
+    // keyboard and typing carried on unseen.
+    if (next < 2 || travelled <= -40) blurSearch();
   };
   // Scrolling down the list at half height asks for more list: open the
   // sheet fully rather than leave one and a half cards in view.
   // Only on a move further down the list, measured from the last scroll
   // position: a sheet pulled back to half height with the list already
   // scrolled used to spring open again at the next pixel.
+  const blurSearch = () => {
+    const a = document.activeElement;
+    if (a?.matches?.('.search-field input')) a.blur();
+  };
   const listTop = useRef(null);
   const handleListScroll = (e) => {
     const top = e.currentTarget.scrollTop;
@@ -700,9 +707,13 @@ function AppShell() {
   // against the old text, which could read "0 places".
   const setQuery = (q) => { setSearchQuery(q); setFilterQuery(q); };
   useEffect(() => {
-    if (searchQuery === filterQuery) return undefined;
+    // Hangul being typed ends in a lone consonant or vowel between
+    // syllables ("홍ㄷ" on the way to "홍대"): searched as typed, the list
+    // fell to "no places" and back at every letter.
+    const settled = searchQuery.replace(/[\u3131-\u318E]+$/, '');
+    if (settled === filterQuery) return undefined;
     if (searchQuery === '') { setFilterQuery(''); return undefined; }
-    const id = setTimeout(() => setFilterQuery(searchQuery), 120);
+    const id = setTimeout(() => setFilterQuery(settled), 120);
     return () => clearTimeout(id);
   }, [searchQuery, filterQuery]);
   const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters } = useMemo(() => searchPlaces({
@@ -844,7 +855,10 @@ function AppShell() {
             </div>
 
             {/* Restaurant list */}
-            <section className="list-region" id="place-list" tabIndex={-1} aria-label={t('app.restaurantList')} onScroll={handleListScroll}>
+            <section className="list-region" id="place-list" tabIndex={-1} aria-label={t('app.restaurantList')} onScroll={handleListScroll}
+              // A finger on the results puts the keyboard away: it covered
+              // the lower half of the list being scrolled.
+              onTouchStart={blurSearch}>
               <BottomSheetList
                 restaurants={filteredRestaurants}
                 mapCenter={mapCenter}
@@ -904,7 +918,10 @@ function AppShell() {
                   setAreaOnly(false);
                   // The button goes with the empty state; put focus where the
                   // next search starts.
-                  document.querySelector('.search-field input')?.focus();
+                  // …with a keyboard or mouse. On a phone that raised the
+                  // keyboard over the list that had just come back.
+                  if (window.matchMedia('(pointer: coarse)').matches) document.getElementById('place-list')?.focus({ preventScroll: true });
+                  else document.querySelector('.search-field input')?.focus();
                 }}
                 missingPlace={location.state?.missingPlace ?? null}
               />

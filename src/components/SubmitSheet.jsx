@@ -13,6 +13,9 @@ const config = supabaseConfig({
 const NEW_PLACE_TOPICS = ['vegan', 'halal', 'other'];
 const EMPTY = { name: '', locationHint: '', topic: '', message: '', sourceUrl: '', contactEmail: '', website: '' };
 
+const ERROR_KEY = { name: 'name', locationHint: 'location_hint', topic: 'topic', message: 'message', sourceUrl: 'source_url', contactEmail: 'contact_email' };
+const ERROR_ORDER = ['name', 'location_hint', 'topic', 'message', 'source_url', 'contact_email'];
+
 function Field({ id, label, hint, error, children }) {
   const { t } = useTranslation();
   return (
@@ -120,9 +123,25 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
     document.title = `${title} · K-Food Map`;
     return () => { document.title = before; };
   }, [title]);
-  const set = (key) => (event) => setForm(prev => ({ ...prev, [key]: event.target.value }));
+  // A field being corrected drops its error: the red line used to stay
+  // until the next Send, over text that was already right.
+  const set = (key) => (event) => {
+    setForm(prev => ({ ...prev, [key]: event.target.value }));
+    const column = ERROR_KEY[key];
+    setErrors(prev => (prev[column] ? Object.fromEntries(Object.entries(prev).filter(([k]) => k !== column)) : prev));
+  };
+  // The errors are keyed by column ("name"), the fields by id
+  // ("submit-name"): looked up by id, the error was never announced.
   const describedBy = (id, hasHint) =>
-    [hasHint && `${id}-hint`, errors[id] && `${id}-error`].filter(Boolean).join(' ') || undefined;
+    [hasHint && `${id}-hint`, errors[id.replace('submit-', '')] && `${id}-error`].filter(Boolean).join(' ') || undefined;
+  // The keyboard's "next" key: on to the next field. A single-line field's
+  // Enter otherwise sends the form — half filled in, from the first box.
+  const nextOnEnter = (nextId) => (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+    document.getElementById(nextId)?.focus();
+  };
 
   const choose = (result) => {
     setSelection(result);
@@ -136,7 +155,7 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
     // arrow keys (moves the IME's own candidate selection); intercepting
     // those here would hijack a keystroke meant for the IME instead of the
     // suggestion list.
-    if (event.nativeEvent.isComposing) return;
+    if (event.nativeEvent.isComposing || event.keyCode === 229) return;
     if (event.key === 'ArrowDown' && listOpen && results.length > 0) {
       event.preventDefault();
       setActiveIndex(i => Math.min(i + 1, results.length - 1));
@@ -146,6 +165,9 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
     } else if (event.key === 'Enter' && listOpen && results.length > 0 && activeIndex >= 0) {
       event.preventDefault();
       choose(results[activeIndex]);
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      document.getElementById('submit-location_hint')?.focus();
     }
     // Escape is handled by the sheet's own window listener (list-aware via
     // listOpenRef), which runs first anyway — nothing to do here.
@@ -162,7 +184,20 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
     // A filled honeypot gets the same success screen and sends nothing —
     // a bot learns nothing from the response.
     if (result.spam) { setStatus('sent'); return; }
-    if (!result.ok) { setErrors(result.errors); return; }
+    if (!result.ok) {
+      setErrors(result.errors);
+      // Send is at the foot of the form and the errors are above it, out of
+      // view: go to the first one.
+      const first = ERROR_ORDER.find(k => result.errors[k]);
+      setTimeout(() => {
+        const el = document.getElementById(`submit-${first}`);
+        el?.focus({ preventScroll: true });
+        el?.scrollIntoView({ block: 'center' });
+      }, 0);
+      return;
+    }
+    // The keyboard goes away: "Sending…" and what follows are under it.
+    document.activeElement?.blur?.();
     setErrors({});
     setStatus('sending');
     const sent = await submitLead(result.row, config);
@@ -198,7 +233,10 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
                 {!place && (
                   <>
                     <Field id="submit-name" label={t('submit.nameLabel')} hint={t('submit.suggestionsHint')} error={errors.name}>
-                      <input id="submit-name" aria-required="true" value={form.name} enterKeyHint="next" autoCorrect="off" spellCheck={false}
+                      <input id="submit-name" aria-required="true" value={form.name} enterKeyHint="next" autoComplete="off" autoCorrect="off" spellCheck={false}
+                        // Back in the box, the suggestions are back too (they
+                        // closed with the keyboard and stayed closed).
+                        onFocus={() => { if (!selection && form.name.trim()) setListOpen(true); }}
                         onChange={(event) => { set('name')(event); setSelection(null); setListOpen(true); setActiveIndex(-1); }}
                         onKeyDown={onNameKeyDown}
                         onBlur={onNameBlur}
@@ -232,7 +270,7 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
                       </p>
                     )}
                     <Field id="submit-location_hint" label={t('submit.locationLabel')} hint={t('submit.locationHint')} error={errors.location_hint}>
-                      <input id="submit-location_hint" enterKeyHint="next" autoCorrect="off" value={form.locationHint} onChange={set('locationHint')} maxLength={LEAD_LIMITS.location_hint}
+                      <input id="submit-location_hint" enterKeyHint="next" autoComplete="off" autoCorrect="off" spellCheck={false} value={form.locationHint} onChange={set('locationHint')} onKeyDown={nextOnEnter('submit-topic')} maxLength={LEAD_LIMITS.location_hint}
                         aria-invalid={Boolean(errors.location_hint)} aria-describedby={describedBy('submit-location_hint', true)} />
                     </Field>
                   </>
@@ -255,7 +293,7 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
                 </Field>
 
                 <Field id="submit-source_url" label={t('submit.sourceLabel')} hint={t('submit.sourceHint')} error={errors.source_url}>
-                  <input id="submit-source_url" type="url" inputMode="url" enterKeyHint="next" autoCapitalize="none" autoCorrect="off" spellCheck={false} value={form.sourceUrl} onChange={set('sourceUrl')} maxLength={LEAD_LIMITS.source_url}
+                  <input id="submit-source_url" type="url" inputMode="url" enterKeyHint="next" autoCapitalize="none" autoCorrect="off" spellCheck={false} value={form.sourceUrl} onChange={set('sourceUrl')} onKeyDown={nextOnEnter('submit-contact_email')}
                     aria-invalid={Boolean(errors.source_url)} aria-describedby={describedBy('submit-source_url', true)} />
                 </Field>
 
