@@ -147,7 +147,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -183,7 +183,7 @@ export default function BottomSheetList({
   // would be the other person's saved places, nor a shared list, which has
   // its own link.
   const shareable = activeFilters.filter(f => f !== SAVED_ONLY && f !== SHARED_LIST);
-  const viewLink = viewHash({ q: searchQuery, filters: shareable, planAt });
+  const viewLink = viewHash({ q: searchQuery, filters: shareable, planAt, area: areaOnly });
   const [viewShared, setViewShared] = useState(false);
   const shareView = async () => {
     const url = `${window.location.origin}/${viewLink}`;

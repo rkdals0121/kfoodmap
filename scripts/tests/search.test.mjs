@@ -150,8 +150,12 @@ test('the view survives a round trip through the address fragment', async () => 
   assert.equal(viewHash({ q: '', filters: [], planAt: null }), '');
   const h = viewHash({ q: ' 釜山 vegan ', filters: [SHARED_LIST, 'Halal', OPEN_AT], planAt: { day: 0, minutes: 750 } });
   assert.ok(h.startsWith('#') && !h.includes('Shared'));
-  assert.deepEqual(parseViewHash(h, valid), { q: '釜山 vegan', filters: ['Halal', OPEN_AT], planAt: { day: 0, minutes: 750 } });
+  assert.deepEqual(parseViewHash(h, valid), { q: '釜山 vegan', filters: ['Halal', OPEN_AT], planAt: { day: 0, minutes: 750 }, area: false });
+  // An area guide's view: the text is an area and nothing else.
+  assert.equal(viewHash({ q: 'Busan', filters: ['Halal'], area: true }), '#q=Busan&a=1&f=Halal');
+  assert.equal(parseViewHash('#q=Busan&a=1&f=Halal', valid).area, true);
+  assert.equal(parseViewHash('#a=1&f=Halal', valid).area, false);
   // A link is not trusted: unknown chips go, both "open" chips cannot be on, a bad time is no time.
-  assert.deepEqual(parseViewHash('#f=Halal,constructor,Open+now,Open+at&at=9-99999', valid), { q: '', filters: ['Halal', OPEN_NOW], planAt: null });
-  assert.deepEqual(parseViewHash('', valid), { q: '', filters: [], planAt: null });
+  assert.deepEqual(parseViewHash('#f=Halal,constructor,Open+now,Open+at&at=9-99999', valid), { q: '', filters: ['Halal', OPEN_NOW], planAt: null, area: false });
+  assert.deepEqual(parseViewHash('', valid), { q: '', filters: [], planAt: null, area: false });
 });

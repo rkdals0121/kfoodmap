@@ -27,7 +27,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -45,9 +45,10 @@ const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': '
 
 const NO_STOPS = [];
 const findView = (pathname) => {
-  const m = /^\/find\/(vegan|halal)-([a-z]+)\/?$/.exec(pathname);
+  // /find/halal-busan, or /find/halal for the whole country.
+  const m = /^\/find\/(vegan|halal)(?:-([a-z]+))?\/?$/.exec(pathname);
   if (!m) return null;
-  return { q: m[2][0].toUpperCase() + m[2].slice(1), filters: [m[1] === 'vegan' ? 'Vegan' : 'Halal'], planAt: null };
+  return { q: m[2] ? m[2][0].toUpperCase() + m[2].slice(1) : '', filters: [m[1] === 'vegan' ? 'Vegan' : 'Halal'], planAt: null, area: Boolean(m[2]) };
 };
 // Every chip a link may name (filters.js parseViewHash).
 const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => g.chips.map(c => c.id))];
@@ -66,6 +67,10 @@ function AppShell() {
   const [startView] = useState(() => findView(window.location.pathname) ?? parseViewHash(window.location.hash, VIEW_CHIPS));
 
   const [searchQuery, setSearchQuery] = useState(startView.q);
+  // The search text names an area and only that (filters.js viewHash `a`):
+  // set by an area guide or Discover's "Browse by area", so the list is the
+  // same places the guide counted; dropped as soon as the text is edited.
+  const [areaOnly, setAreaOnly] = useState(Boolean(startView.area));
   // A list in the address (/?list=a,b,c) opens the map on those places
   // only, as a filter the reader can close: a list someone shared, or a
   // journey's stops from Discover (&journey=<id> names it). Followed as the
@@ -300,6 +305,7 @@ function AppShell() {
   // a docked place) shows the results: the place gives way, as for a filter.
   const handleSearchChange = (q) => {
     setSearchQuery(q);
+    setAreaOnly(false);
     if (id) navigate(tabPath, { replace: true });
   };
 
@@ -392,7 +398,7 @@ function AppShell() {
   // …and written back as the view changes, on whatever page is showing, so
   // a reload from a place page returns to the same list. Replaces the
   // entry: typing a search does not fill the Back button.
-  const wantHash = viewHash({ q: searchQuery, filters: selectedFilters, planAt });
+  const wantHash = viewHash({ q: searchQuery, filters: selectedFilters, planAt, area: areaOnly });
   // Set by a change of view that should also land on the map (Discover →
   // an area): the write below then goes to "/", in one navigation, instead
   // of racing a separate navigate() against this effect.
@@ -427,6 +433,7 @@ function AppShell() {
       const view = parseViewHash(window.location.hash, VIEW_CHIPS);
       if (viewHash(view) === wantHashRef.current) return;
       setSearchQuery(view.q);
+      setAreaOnly(view.area);
       setSelectedFilters(prev => [...prev.filter(f => f === SHARED_LIST || f === SAVED_ONLY), ...view.filters]);
       if (view.planAt) setPlanAt(view.planAt);
     };
@@ -485,7 +492,7 @@ function AppShell() {
       });
 
       // 2. Free-text search: name, vibe, area and street address.
-      if (!matchesChips || !matchesSearch(r, searchQuery)) return false;
+      if (!matchesChips || !(areaOnly ? matchesArea(r, searchQuery) : matchesSearch(r, searchQuery))) return false;
       if (!openNowOn && !openAtOn) return true;
       const status = getOpenStatus(r.hours, now);
       if (status === null) unknown += 1;
@@ -493,7 +500,7 @@ function AppShell() {
       return status?.open === true && status.orderable !== false;
     });
     return { filteredRestaurants: list, unknownHours: unknown };
-  }, [selectedFilters, searchQuery, openNowOn, openAtOn, planDate, filterClock, bookmarkedIds, sharedIds]);
+  }, [selectedFilters, searchQuery, areaOnly, openNowOn, openAtOn, planDate, filterClock, bookmarkedIds, sharedIds]);
 
   if (!prologueCompleted) {
     return (
@@ -598,6 +605,7 @@ function AppShell() {
                 unknownHours={unknownHours}
                 planAt={planAt}
                 planDate={planDate}
+                areaOnly={areaOnly}
                 sharedIds={sharedIds}
                 sharedJourney={sharedJourney}
                 onSaveShared={() => saveMany(sharedIds)}
@@ -609,6 +617,7 @@ function AppShell() {
                   if (selectedFilters.includes(SHARED_LIST)) navigate('/', { replace: true });
                   setSelectedFilters([]);
                   setSearchQuery('');
+                  setAreaOnly(false);
                   // The button goes with the empty state; put focus where the
                   // next search starts.
                   document.querySelector('.search-field input')?.focus();
@@ -639,10 +648,11 @@ function AppShell() {
             visitedCount={visitedIds.length}
             onBrowse={(chip, area) => {
               // Discover → an area: the map on that search and that chip alone.
-              const next = viewHash({ q: area, filters: [chip], planAt });
+              const next = viewHash({ q: area, filters: [chip], planAt, area: true });
               if (next === wantHash) { navigate({ pathname: '/', hash: wantHash }); return; }
               toMap.current = true;
               setSearchQuery(area);
+              setAreaOnly(true);
               setSelectedFilters([chip]);
             }}
           />

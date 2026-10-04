@@ -2534,7 +2534,13 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     page has its title, body and parsable JSON-LD, a guide lists places
     with confidences, the sitemap lists every active place. Read-only;
     `npm run smoke -- http://localhost:4173` checks a local build. Run it
-    after the four gates and the deploy.
+    after the four gates and the deploy. **Country pages** `/find/halal`
+    and `/find/vegan` list the area guides with counts (sitemap: 730);
+    guides carry an `ItemList`. **Area-only view** (`a=1` in the fragment,
+    `areaOnly` in App): a guide or "Browse by area" filters with
+    `matchesArea`, not the full-text search, so "Halal · Busan 8" opens 8
+    places and not also Seoul's "Busan Jib" (live QA found 11); editing
+    the search box returns to ordinary search.
     The App clock now ticks every minute regardless of filters, so the
     open/closed labels on cards and the open place stay current; only
     "Open now" re-filters on the tick (`filterClock`), so the map is not

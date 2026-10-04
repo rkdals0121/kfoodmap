@@ -184,9 +184,13 @@ export function matchesArea(r, query) {
 // fragment, not the query: a fragment is never sent to the server, so what
 // someone searches for and which diet they filter by still leave the device
 // only if they share the link themselves.
-export function viewHash({ q = '', filters = [], planAt = null }) {
+export function viewHash({ q = '', filters = [], planAt = null, area = false }) {
   const p = new URLSearchParams();
   if (q.trim()) p.set('q', q.trim());
+  // `a=1`: the text names an area and nothing else (an area guide, Discover's
+  // "Browse by area"): places in that area only, not every place whose name
+  // or story mentions it — "Busan" then leaves out Seoul's "Busan Jib".
+  if (area && q.trim()) p.set('a', '1');
   // Not the shared list (it is in ?list=) and not "Saved": that is the
   // reader's own places, and the address may be copied to someone else.
   const f = filters.filter(id => id !== SHARED_LIST && id !== SAVED_ONLY);
@@ -205,5 +209,5 @@ export function parseViewHash(hash, validIds) {
   const m = /^([0-6])-(\d{1,4})$/.exec(p.get('at') ?? '');
   const minutes = m ? Number(m[2]) : NaN;
   const planAt = m && minutes < 1440 && minutes % 30 === 0 ? { day: Number(m[1]), minutes } : null;
-  return { q, filters, planAt };
+  return { q, filters, planAt, area: q.trim() !== '' && p.get('a') === '1' };
 }

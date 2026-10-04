@@ -57,6 +57,9 @@ check('…listing places', guideLinks.length >= 3, `${guideLinks.length} links`)
 check('…each claim with its confidence', /\((Confirmed|Reported|Our reading)\)/.test(guide.text));
 if (guideLinks[0]) check('…and its first link works', (await get(guideLinks[0])).status === 200, guideLinks[0]);
 
+const hub = await get('/find/halal');
+check('the country page answers', hub.status === 200 && /<h1[^>]*>Halal food in Korea<\/h1>/.test(hub.text) && hub.text.includes('href="/find/halal-seoul"'));
+
 const sitemap = await get('/sitemap.xml');
 const urls = [...sitemap.text.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
 const places = urls.filter(u => u.includes('/place/')).length;

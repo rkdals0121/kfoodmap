@@ -234,9 +234,9 @@ function guideBody(guide) {
     + `<p style="margin:0;font-size:13px;font-weight:700;color:#087F5B">K-Food Map</p>`
     + `<h1 style="margin:6px 0 8px;font-size:26px">${diet.word} food in ${area}</h1>`
     + `<p style="margin:0 0 16px;color:#3F444A">${places.length} places on the map. Each line says what the record says and how sure it is: Confirmed (checked against a primary source), Reported (a source says so) or Our reading (our best guess). Kitchens change — if your diet is strict, ask staff before you order.</p>`
-    + `<p style="margin:0 0 16px"><a href="/#q=${area}&amp;f=${diet.chip}" style="display:inline-block;padding:12px 18px;background:#087F5B;color:#fff;border-radius:12px;font-weight:600;text-decoration:none">Open these on the map</a></p>`
+    + `<p style="margin:0 0 16px"><a href="/#q=${area}&amp;a=1&amp;f=${diet.chip}" style="display:inline-block;padding:12px 18px;background:#087F5B;color:#fff;border-radius:12px;font-weight:600;text-decoration:none">Open these on the map</a></p>`
     + `<ul style="margin:0;padding:0 0 0 18px">${items}</ul>`
-    + (others ? `<p style="margin:20px 0 0;font-size:14px;color:#3F444A">${diet.word} food in other areas: ${others}</p>` : '')
+    + (others ? `<p style="margin:20px 0 0;font-size:14px;color:#3F444A"><a href="/find/${diet.slug}" style="color:#087F5B">${diet.word} food in Korea</a> — other areas: ${others}</p>` : '')
     + `</main></div>`;
 }
 
@@ -273,6 +273,40 @@ for (const guide of guides) {
   writeFileSync(path.join(distDir, 'find', guide.slug, 'index.html'), page, 'utf8');
 }
 
+// One page per diet for the whole country: /find/halal, /find/vegan. Not a
+// list of every place (hundreds) but the way in to the area guides, each
+// with its count, most first.
+const hubs = DIETS.map(diet => ({
+  diet,
+  total: active.filter(r => matchesDietary(r, diet.chip)).length,
+  areas: guides.filter(g => g.diet === diet).sort((a, b) => b.places.length - a.places.length),
+}));
+for (const hub of hubs) {
+  const { diet, total, areas } = hub;
+  const url = `${SITE_URL}/find/${diet.slug}`;
+  const title = `${diet.word} food in Korea — ${total} places by area · K-Food Map`;
+  const description = `${total} ${diet.word.toLowerCase()} places across Korea, by city and neighbourhood. Each dietary claim is marked Confirmed, Reported or Our reading, with its source.`;
+  const items = areas.map(g => `<li style="margin:0 0 8px"><a href="/find/${g.slug}" style="color:#087F5B;font-weight:600">${diet.word} food in ${g.area}</a> <span style="color:#3F444A">· ${g.places.length} places</span></li>`).join('');
+  const body = `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
+    + `<p style="margin:0;font-size:13px;font-weight:700;color:#087F5B">K-Food Map</p>`
+    + `<h1 style="margin:6px 0 8px;font-size:26px">${diet.word} food in Korea</h1>`
+    + `<p style="margin:0 0 16px;color:#3F444A">${total} places on the map, each researched one at a time. Every dietary claim says how sure the record is: Confirmed, Reported or Our reading. An area can sit inside another (Itaewon is in Yongsan, in Seoul), so the counts overlap.</p>`
+    + `<p style="margin:0 0 16px"><a href="/#f=${diet.chip}" style="display:inline-block;padding:12px 18px;background:#087F5B;color:#fff;border-radius:12px;font-weight:600;text-decoration:none">Open all of them on the map</a></p>`
+    + `<ul style="margin:0;padding:0 0 0 18px">${items}</ul>`
+    + `</main></div>`;
+  const page = [
+    [/<title>.*<\/title>/, `<title>${title}</title>`],
+    [/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${description}" />`],
+    [/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${title}" />`],
+    [/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${description}" />`],
+    [/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`],
+    [/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`],
+    [ROOT, body],
+  ].reduce((html, [pattern, value]) => html.replace(pattern, () => value), template);
+  mkdirSync(path.join(distDir, 'find', diet.slug), { recursive: true });
+  writeFileSync(path.join(distDir, 'find', diet.slug, 'index.html'), page, 'utf8');
+}
+
 // The home page links to the guides, under its loading screen: a way in for
 // a crawler (home → guide → place) and for a browser without JavaScript.
 // The most-populated areas only; every guide links to the rest. React
@@ -280,7 +314,7 @@ for (const guide of guides) {
 {
   const links = DIETS.map((diet) => {
     const top = guides.filter(g => g.diet === diet).sort((a, b) => b.places.length - a.places.length).slice(0, 8);
-    return `<p style="margin:6px 0 0;font-size:13px;color:#616875">${diet.word}: `
+    return `<p style="margin:6px 0 0;font-size:13px;color:#616875"><a href="/find/${diet.slug}" style="color:#087F5B;font-weight:600">${diet.word} food in Korea</a>: `
       + top.map(g => `<a href="/find/${g.slug}" style="color:#087F5B">${g.area}</a>`).join(' · ') + '</p>';
   }).join('');
   const END = '</p></div></div>';
@@ -301,7 +335,7 @@ for (const guide of guides) {
 function sitemapXml() {
   // The two public pages that are not places: the journeys and the staff
   // cards. Journal and Profile are a visitor's own screens (noindex).
-  const urls = ['', 'discover', 'cards', ...guides.map(g => `find/${g.slug}`), ...active.map(place => `place/${place.id}`)];
+  const urls = ['', 'discover', 'cards', ...hubs.map(h => `find/${h.diet.slug}`), ...guides.map(g => `find/${g.slug}`), ...active.map(place => `place/${place.id}`)];
   const entries = urls
     .map(p => `  <url><loc>${SITE_URL}/${p}</loc></url>`)
     .join('\n');
@@ -320,4 +354,4 @@ writeFileSync(
 );
 
 console.log(`Prerendered ${active.length} place page(s) into dist/place/ (of ${restaurants.length} total) and ${guides.length} area guide(s) into dist/find/.`);
-console.log(`Wrote submit/, privacy/, discover/, cards/, journal/, profile/ index.html, sitemap.xml (${active.length + 3 + guides.length} URLs) and robots.txt.`);
+console.log(`Wrote submit/, privacy/, discover/, cards/, journal/, profile/ index.html, sitemap.xml (${active.length + 3 + guides.length + hubs.length} URLs) and robots.txt.`);
