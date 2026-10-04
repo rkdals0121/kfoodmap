@@ -5557,7 +5557,7 @@ html[data-text] .toast > * {
 }
 
 /* Explanations a reader is meant to read are 13 px, not 12. */
-.provenance p,
+.provenance p:not(.provenance__title),
 .provenance__body,
 .claim-fact .claim-fact__level,
 .claim__level {
@@ -5763,4 +5763,57 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
 /* The two cards' tabs wrap on the narrowest phones. */
 .staff-cards__tabs {
   flex-wrap: wrap;
+}
+
+/* ---- Cascade audit, 2026-10-04 evening ---- */
+/* The offline and new-version bands are centred on the screen for a phone.
+   Where the list sits beside the map they lay over the search box (tablet)
+   or a docked place's close button: there they are centred over the map. */
+@media (min-width: 768px) {
+  .offline-banner,
+  .update-banner {
+    left: calc(380px + 12px);
+  }
+}
+@media (min-width: 1024px) {
+  .offline-banner,
+  .update-banner {
+    left: calc(420px + 12px);
+  }
+  .app-shell.is-collapsed .offline-banner,
+  .app-shell.is-collapsed .update-banner {
+    left: calc(64px + 12px);
+  }
+}
+@media (min-width: 1200px) {
+  .app-shell:has(.detail-sheet--docked) .offline-banner,
+  .app-shell:has(.detail-sheet--docked) .update-banner {
+    left: calc(820px + 12px);
+  }
+}
+/* The toast's live region is not a layout item of the shell's grid. */
+/* (Not display: contents: some browsers drop the role of such an element.) */
+.toast-region {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+}
+
+/* …and the map's buttons step down under a band at every width, not only
+   on a phone: centred over the map, the band reached the location button. */
+@media (min-width: 768px) {
+  body:has(.offline-banner, .update-banner) .map-locate {
+    top: 64px;
+  }
+  body:has(.offline-banner, .update-banner) .map-zoom {
+    top: calc(64px + 44px + 10px);
+  }
+  body:has(.offline-banner + .update-banner) .map-locate {
+    top: 112px;
+  }
+  body:has(.offline-banner + .update-banner) .map-zoom {
+    top: calc(112px + 44px + 10px);
+  }
 }
