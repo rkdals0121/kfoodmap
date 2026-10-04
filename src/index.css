@@ -4551,3 +4551,29 @@ body {
     bottom: 0;
   }
 }
+
+/* The search box's own clear button; the browser's is hidden so there is
+   never two, or none. */
+.search-field input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+.search-field {
+  padding-right: 4px;
+}
+.search-field__clear {
+  flex: 0 0 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--muted-strong);
+  cursor: pointer;
+  border-radius: 999px;
+}
+.search-field__clear:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: -4px;
+}

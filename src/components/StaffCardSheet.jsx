@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useBackToClose, useWakeLock } from '../hooks/useOverlay';
 import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
 import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-cards';
@@ -27,6 +28,8 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
     const opener = largeOpener.current;
     if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
   };
+  useBackToClose(large !== null, closeLarge);
+  useWakeLock(large !== null);
   // The address follows the card, so a reload or a shared link shows the
   // same one.
   const chooseCard = (id) => { setCardId(id); onCardChange?.(id); };

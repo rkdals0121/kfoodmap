@@ -247,6 +247,7 @@ export default {
     mildTaste: 'Mild taste',
     fermented: 'Fermented',
     searchPlaceholder: 'Search by name or area',
+    clearSearch: 'Clear the search',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',

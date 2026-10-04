@@ -240,6 +240,7 @@ export default {
     mildTaste: 'Tidak terlalu pedas',
     fermented: 'Fermentasi',
     searchPlaceholder: 'Cari nama atau area',
+    clearSearch: 'Hapus pencarian',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',

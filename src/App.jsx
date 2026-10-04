@@ -158,7 +158,22 @@ function AppShell() {
     : '';
   const pathOf = (tab) => (tab === 'map' ? `/${listQuery}` : TAB_PATH[tab] ?? '/');
   const tabPath = pathOf(activeTab);
-  const selectTab = (tab) => navigate(pathOf(tab));
+  // The map is the bottom of the pile. From it a tab is one step forward;
+  // tab to tab replaces that step; and back to the map is that step undone.
+  // Each tab tap used to add an entry, so leaving the app took as many
+  // Backs as there had been taps.
+  const selectTab = (tab) => {
+    // The address as it is now, not as the router last rendered it: two
+    // tabs tapped in quick succession were both judged from the map.
+    const onTab = Boolean(PATH_TAB[window.location.pathname]);
+    const here = window.history.state?.usr ?? null;
+    if (tab === 'map') {
+      if (onTab && here?.overMap) navigate(-1);
+      else navigate(pathOf('map'), { replace: onTab });
+      return;
+    }
+    navigate(pathOf(tab), onTab ? { replace: true, state: here } : { state: { overMap: true } });
+  };
   // Below 768px a non-map tab covers the whole map. The map is then made
   // inert, so Tab never lands on a pin nobody can see (WCAG 2.4.11). From
   // 768px up the map stays visible beside the panel and stays usable.
@@ -618,6 +633,9 @@ function AppShell() {
               <FilterBar
                 searchQuery={searchQuery}
                 onSearchChange={handleSearchChange}
+                // Typing on a phone: the keyboard takes the lower half, so
+                // the sheet opens fully and the results show above it.
+                onSearchFocus={() => setSheetState(2)}
                 selectedFilters={selectedFilters}
                 onToggleFilter={handleToggleFilter}
                 planAt={planAt}
@@ -745,10 +763,12 @@ function AppShell() {
         <SubmitSheet
           key={location.search}
           place={submitPlace}
-          onClose={() => navigate(submitPlace ? `/place/${submitPlace.id}` : tabPath, { replace: true })}
+          // Opened from inside the app, it closes by going back — to the
+          // place or the tab it came from, without a second copy of either.
+          onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(submitPlace ? `/place/${submitPlace.id}` : tabPath, { replace: true }))}
         />
       )}
-      {isPrivacy && <PrivacySheet onClose={() => navigate(tabPath, { replace: true })} />}
+      {isPrivacy && <PrivacySheet onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(tabPath, { replace: true }))} />}
       {/* Opened from a place, the cards close back to that place. */}
       {isCards && (
         <StaffCardSheet

@@ -11,6 +11,7 @@ import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
 import { legDistances } from '../data/journey-nav';
 import useInstall from '../hooks/useInstall';
+import { useBackToClose } from '../hooks/useOverlay';
 import { matchesArea } from '../filters';
 import { matchesDietary } from '../data/verification';
 import { AREA_NAMES } from '../data/area-names';
@@ -294,6 +295,8 @@ function ProfileTab({
   const [aboutOpen, setAboutOpen] = useState(false);
   const aboutOpener = useRef(null);
   const { state: installable, install } = useInstall();
+  useBackToClose(languagePickerOpen, () => setLanguagePickerOpen(false));
+  useBackToClose(aboutOpen, () => setAboutOpen(false));
   const [iosHelp, setIosHelp] = useState(false);
   const navigate = useNavigate();
   const currentLanguage = LANGUAGES.find(l => l.code === i18n.language) ?? LANGUAGES[0];
@@ -334,10 +337,10 @@ function ProfileTab({
       icon: <HomeAddIcon />,
       action: installable === 'prompt' ? install : () => setIosHelp(v => !v),
     }] : []),
-    { label: t('profile.suggestRestaurant'), value: '', icon: <MapPinIcon size={20} />, action: () => navigate('/submit') },
+    { label: t('profile.suggestRestaurant'), value: '', icon: <MapPinIcon size={20} />, action: () => navigate('/submit', { state: { fromApp: true, tab: 'profile' } }) },
     // Shows the opening screen again: what the map is and how to read a claim.
     { label: t('profile.aboutApp'), value: '', icon: <InfoIcon size={20} />, action: () => { aboutOpener.current = document.activeElement; setAboutOpen(true); } },
-    { label: t('profile.privacyPolicy'), value: '', icon: <LockIcon size={20} />, action: () => navigate('/privacy') },
+    { label: t('profile.privacyPolicy'), value: '', icon: <LockIcon size={20} />, action: () => navigate('/privacy', { state: { fromApp: true, tab: 'profile' } }) },
   ];
 
   return (

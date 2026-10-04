@@ -242,6 +242,7 @@ export default {
     mildTaste: '辛さ控えめ',
     fermented: '発酵食品',
     searchPlaceholder: '店名やエリアで検索',
+    clearSearch: '検索をクリア',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',

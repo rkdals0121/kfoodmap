@@ -237,6 +237,7 @@ export default {
     mildTaste: '不太辣',
     fermented: '发酵食品',
     searchPlaceholder: '搜索店名或地区',
+    clearSearch: '清除搜索',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',

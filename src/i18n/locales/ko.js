@@ -236,6 +236,7 @@ export default {
     mildTaste: '순한 맛',
     fermented: '발효 음식',
     searchPlaceholder: '이름이나 지역으로 검색',
+    clearSearch: '검색어 지우기',
   },
   provenance: {
     sourceMaps: '네이버 플레이스 / 카카오맵',

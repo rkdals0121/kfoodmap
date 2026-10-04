@@ -16,6 +16,7 @@ import {
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
+import { useBackToClose, useWakeLock } from '../hooks/useOverlay';
 import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
 import ClaimChip from './ClaimChip';
@@ -115,6 +116,8 @@ export default function RestaurantDetail({
   const nameLargeBtn = useRef(null);
   // Closing gives focus back to the button that opened it.
   const closeNameLarge = () => { setNameLarge(false); nameLargeBtn.current?.focus(); };
+  useBackToClose(nameLarge, closeNameLarge);
+  useWakeLock(nameLarge);
   // Say where a save went. Driven by the saved state actually changing, not
   // the tap (unsaving a visited place can be cancelled), and only while the
   // same place stays open.
@@ -661,7 +664,7 @@ export default function RestaurantDetail({
                   )}
                 </div>
               )}
-              <Link className="detail-report" to={`/submit?place=${place.id}`}>
+              <Link className="detail-report" to={`/submit?place=${place.id}`} state={{ fromApp: true, tab: location.state?.tab }}>
                 {t('submit.reportLink')}
               </Link>
             </section>
