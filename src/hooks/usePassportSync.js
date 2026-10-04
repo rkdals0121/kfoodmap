@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { authClientNeededNow, authRefusedInUrl, createAuthClient, googleEnabled } from '../data/auth.js';
+import { authClientNeededNow, authRefusedInUrl, authReturnInUrl, createAuthClient, googleEnabled } from '../data/auth.js';
 import { supabaseConfig } from '../data/leads.js';
 import {
   clearLocalPassport,
@@ -228,6 +228,14 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
   // Seeded from the URL so a refusal is caught on the load it returns on,
   // not only when the button is pressed.
   const [signInFailed, setSignInFailed] = useState(authRefusedInUrl);
+  // Whether this load is the return from Google, read before the library
+  // tidies the address: if the last step then fails (the connection drops
+  // during the exchange) there is no session and no `error=` either, and
+  // the person, who believes they signed in, was told nothing.
+  const returnedRef = useRef(null);
+  if (returnedRef.current === null) {
+    try { returnedRef.current = authReturnInUrl(); } catch { returnedRef.current = false; }
+  }
   // True from the moment a session ends on its own — an expired or revoked
   // token, or a sign-out in another tab — until the next successful sign-in.
   // The device is cleared on that path (see below), and without this the
@@ -289,7 +297,8 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
   // every effect below it and start a redundant reconcile.
   useEffect(() => {
     if (!client) return undefined;
-    const { data } = client.onAuthStateChange((_event, nextSession) => {
+    const { data } = client.onAuthStateChange((event, nextSession) => {
+      if (event === 'INITIAL_SESSION' && !nextSession && returnedRef.current) setSignInFailed(true);
       setSession(prev => (
         prev?.access_token === nextSession?.access_token ? prev : (nextSession ?? null)
       ));

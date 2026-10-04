@@ -2712,6 +2712,37 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       `lastCheckedAt` from the bundled records. The bundle strips that
       field (a test guards it); a data-wide "last checked" needs a
       build-time constant.
+73. **2026-10-04 22:00 — older phones, typing, bad connections, contrast.**
+    - `vite.config.js` `build.target` (chrome100 / safari15 / ios15 /
+      firefox115): without it the CSS ships range media queries that
+      iOS ≤ 16.3 and Chrome ≤ 103 ignore — the phone layout vanished.
+      After a build, `dist/assets/index-*.css` must contain
+      `max-width:767px`. `src/polyfills.js` (first import in `main.jsx`)
+      fills `Object.hasOwn` and `.at()`.
+    - Bands: `.app-shell.has-band` / `.has-bands-2` (set in `App.jsx`),
+      not `body:has(...)`. The update band is not shown on `/submit`.
+    - `index.html` has an inline watchdog: a failed script/stylesheet or
+      20 s on the splash turns "Loading the map…" into a retry;
+      nothing is stored for it (a stored flag would be a privacy-policy change).
+      `AppErrorBoundary` wraps the app in `main.jsx`.
+    - `usePlaceRecord` returns `{ full, failed, retry }` (10 s abort,
+      retries on `online`). The service worker serves `/place-data/`
+      `NetworkFirst` with a 3 s timeout, so a corrected record is not
+      shown stale. `submitLead` aborts after 15 s; pull/push/delete of
+      the passport after 10 s (`bounded` in `src/data/passport.js`).
+    - `usePassportSync`: a failed push retries on `RETRY_DELAYS_MS`;
+      `signOut({ confirmLoss })` pushes the unsent delta first and asks
+      before clearing a device whose saves could not be sent.
+    - `SubmitSheet`: Enter moves to the next field (`nextOnEnter`), the
+      first error is focused, errors clear as the field is edited;
+      `withScheme` in `leads.js` completes a link typed without https.
+    - Search: trailing Hangul jamo are not filtered on (`App.jsx`),
+      a touch on the list blurs the search box (`blurSearch`).
+    - Contrast tail in `index.css` ("Seeing it in sunlight") and a
+      `forced-colors` block; `REDUCE_MOTION` in `MapComponent.jsx`.
+    - Left: duplicate reports when the response is lost (needs a client
+      id column on `leads`), the sign-in button missing after one failed check,
+      render-blocking CSS, the colour tokens that pass AA by a hair.
 
 
 ---
