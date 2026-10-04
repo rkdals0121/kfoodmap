@@ -4892,3 +4892,36 @@ body {
     padding-bottom: 20px;
   }
 }
+
+/* A phone turned sideways (short and wide, under the 768 px desktop
+   layout): the sheet's three heights left no room for the list. The list
+   becomes a panel down the left half and the map keeps the right; the
+   handle goes, since there is nothing to drag. */
+@media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
+  .sidebar-region.sheet-state-0,
+  .sidebar-region.sheet-state-1,
+  .sidebar-region.sheet-state-2 {
+    top: 0;
+    bottom: var(--tab-h);
+    right: auto;
+    width: 54%;
+    height: auto !important;
+    border-radius: 0;
+    box-shadow: 2px 0 12px rgba(16, 24, 40, 0.12);
+  }
+  .sheet-handle-area {
+    display: none;
+  }
+  .home-header {
+    padding-top: calc(10px + env(safe-area-inset-top));
+    padding-left: calc(16px + env(safe-area-inset-left));
+  }
+  .list-region {
+    padding-left: env(safe-area-inset-left);
+  }
+  .detail-sheet {
+    height: 100vh;
+    height: 100dvh;
+    border-radius: 0;
+  }
+}

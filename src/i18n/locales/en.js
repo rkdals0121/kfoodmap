@@ -553,6 +553,9 @@ export default {
     closedWord: 'closed',
     timeAm: '{{time}} AM',
     timePm: '{{time}} PM',
+    // '12' or '24': which clock this language tells the time on (utils.js fromMinutes).
+    clock: '12',
+    time24: '{{time}}',
     day: { sun: 'Sun', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat' },
   },
   map: {

@@ -537,6 +537,9 @@ export default {
     closedWord: '公休',
     timeAm: '上午{{time}}',
     timePm: '下午{{time}}',
+    // '12' or '24': which clock this language tells the time on (utils.js fromMinutes).
+    clock: '12',
+    time24: '{{time}}',
     day: { sun: '週日', mon: '週一', tue: '週二', wed: '週三', thu: '週四', fri: '週五', sat: '週六' },
   },
   map: {

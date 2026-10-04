@@ -540,6 +540,9 @@ export default {
     closedWord: 'tutup',
     timeAm: '{{time}} AM',
     timePm: '{{time}} PM',
+    // '12' or '24': which clock this language tells the time on (utils.js fromMinutes).
+    clock: '24',
+    time24: '{{time}}',
     day: { sun: 'Min', mon: 'Sen', tue: 'Sel', wed: 'Rab', thu: 'Kam', fri: 'Jum', sat: 'Sab' },
   },
   map: {

@@ -534,6 +534,9 @@ export default {
     closedWord: '휴무',
     timeAm: '오전 {{time}}',
     timePm: '오후 {{time}}',
+    // '12' or '24': which clock this language tells the time on (utils.js fromMinutes).
+    clock: '12',
+    time24: '{{time}}',
     day: { sun: '일', mon: '월', tue: '화', wed: '수', thu: '목', fri: '금', sat: '토' },
   },
   map: {

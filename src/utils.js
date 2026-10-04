@@ -70,6 +70,9 @@ const fromMinutes = (total) => {
   const mins = ((total % 1440) + 1440) % 1440;
   const h = Math.floor(mins / 60);
   const m = String(mins % 60).padStart(2, '0');
+  // A locale that tells the time on a 24-hour clock says so (`hours.clock`):
+  // Indonesian writes 19.30, and "7:30 PM" there is a foreigner's time.
+  if (tr('clock') === '24') return tr('time24', { time: `${String(h).padStart(2, '0')}.${m}` });
   // The 12-hour reading, worded by the locale: "10:30 AM", "오전 10:30".
   return tr(h < 12 ? 'timeAm' : 'timePm', { time: `${((h + 11) % 12) + 1}:${m}` });
 };

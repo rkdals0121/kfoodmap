@@ -200,3 +200,18 @@ test('a slot ending before a later one says when the place reopens', async () =>
   assert.equal(over.detail, 'closes 3:00 PM · reopens 5:00 PM');
   assert.equal(getOpenStatus(f, at('20:45')).detail, 'until 9:00 PM');                                // the last slot: nothing to reopen
 });
+
+test('a 24-hour language tells the time on a 24-hour clock', async () => {
+  const i18next = (await import('i18next')).default;
+  const { formatClock } = await import('../../src/utils.js');
+  const id = (await import('../../src/i18n/locales/id.js')).default;
+  assert.equal(formatClock(19 * 60 + 30), '7:30 PM');
+  i18next.addResourceBundle('id', 'translation', id, true, true);
+  await i18next.changeLanguage('id');
+  try {
+    assert.equal(formatClock(19 * 60 + 30), '19.30');
+    assert.equal(formatClock(9 * 60), '09.00');
+  } finally {
+    await i18next.changeLanguage('en');
+  }
+});
