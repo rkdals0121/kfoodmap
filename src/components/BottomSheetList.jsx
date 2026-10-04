@@ -255,7 +255,7 @@ export default function BottomSheetList({
     // tap: with a diet chip on they filled the half-height sheet and the
     // first result was under the tab bar.
     <div
-      className={`place-list${notesOpen ? ' notes-open' : ''}`}
+      className={`place-list${notesOpen ? ' notes-open' : ''}${activeFilters.includes(SHARED_LIST) && !searchQuery.trim() && activeFilters.length === 1 ? ' is-shared' : ''}`}
       onClick={(e) => { if (e.target.closest?.('.place-list__note')) setNotesOpen(o => !o); }}
     >
       <div className="place-list__header">

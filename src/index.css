@@ -5471,3 +5471,21 @@ html[data-text] .toast > * {
 .text-size .settings-label {
   white-space: nowrap;
 }
+
+/* A journey or a shared list on a phone: its own note names it, counts it
+   and holds its two actions, so the list's header ("3 places", share) is
+   left out and the note sits tighter — the first stop was below the tab bar
+   of a 640 px screen. With a search or a chip on top, the header returns. */
+@media (max-width: 767px) {
+  .place-list.is-shared .place-list__header {
+    display: none;
+  }
+  .place-list.is-shared .shared-list-note {
+    margin: 10px 0 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .place-list.is-shared .shared-list-note__actions {
+    margin-top: 4px;
+  }
+}
