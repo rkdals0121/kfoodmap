@@ -119,7 +119,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
           enterKeyHint="search"
           // Enter that confirms a Japanese or Chinese conversion is not a
           // search: it closed the keyboard mid-word.
-          onKeyDown={(e) => { if (e.key === 'Enter' && (e.nativeEvent.isComposing || e.keyCode === 229)) e.preventDefault(); }}
+          onKeyDown={(e) => { if (e.key === 'Enter' && e.keyCode === 229) e.preventDefault(); }}
           onFocus={onSearchFocus}
         />
         {/* The browsers disagree on whether a search box gets a clear

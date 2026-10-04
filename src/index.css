@@ -5007,7 +5007,7 @@ body {
 /* Fully open, the sheet covers the zoom buttons: take them away rather
    than leave a sliver that cannot be pressed. */
 @media (max-width: 767px) {
-  .app-shell:has(.sidebar-region.sheet-state-2) .map-zoom {
+  .app-shell.sheet-full .map-zoom {
     display: none;
   }
 }
@@ -5884,6 +5884,11 @@ html[data-text='larger'] .detail-bar__map svg {
   padding: 24px;
   text-align: center;
 }
+.app-error .btn-primary {
+  flex: none;
+  width: auto;
+  padding: 0 28px;
+}
 .app-error a {
   min-height: 44px;
   display: inline-flex;
@@ -6012,11 +6017,18 @@ html[data-text='larger'] .detail-bar__map svg {
 .story-card-content .story-card__kind {
   font-size: 12px;
 }
-.tab-count {
-  min-width: 20px;
-  height: 20px;
-  font-size: 12px;
-  line-height: 20px;
+@media (max-width: 1023px) {
+  .tab-count {
+    min-width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .tab-count {
+    font-size: 12px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .gallery-slider {

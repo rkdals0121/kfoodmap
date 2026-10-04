@@ -139,7 +139,7 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
   const nextOnEnter = (nextId) => (event) => {
     if (event.key !== 'Enter') return;
     event.preventDefault();
-    if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+    if (event.keyCode === 229) return;
     document.getElementById(nextId)?.focus();
   };
 
@@ -155,7 +155,7 @@ export default function SubmitSheet({ place, onClose, initialName = '' }) {
     // arrow keys (moves the IME's own candidate selection); intercepting
     // those here would hijack a keystroke meant for the IME instead of the
     // suggestion list.
-    if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+    if (event.keyCode === 229) return;
     if (event.key === 'ArrowDown' && listOpen && results.length > 0) {
       event.preventDefault();
       setActiveIndex(i => Math.min(i + 1, results.length - 1));

@@ -39,15 +39,18 @@ function load(id) {
 export default function usePlaceRecord(place) {
   const id = place?.id;
   const [full, setFull] = useState(() => (id ? cache.get(id) ?? null : null));
-  const [failed, setFailed] = useState(false);
+  // The id it failed for: the sheet is reused from place to place, and the
+  // next one opened with the last one's "could not load".
+  const [failedId, setFailedId] = useState(null);
+  const failed = failedId !== null && failedId === id;
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     if (!id) return undefined;
     let live = true;
     setFull(cache.get(id) ?? null);
-    setFailed(false);
-    load(id).then(r => { if (live) setFull(r); }).catch(() => { if (live) setFailed(true); });
+    setFailedId(null);
+    load(id).then(r => { if (live) setFull(r); }).catch(() => { if (live) setFailedId(id); });
     return () => { live = false; };
   }, [id, attempt]);
 

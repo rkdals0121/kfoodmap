@@ -759,7 +759,7 @@ function AppShell() {
   return (
     // has-band: what sits under the offline / new-version bands steps down
     // (a class rather than :has(), which older phones do not read).
-    <main className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}${!isOnline || showUpdate ? ' has-band' : ''}${!isOnline && showUpdate ? ' has-bands-2' : ''}`}>
+    <main className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}${activeTab === 'map' && sheetState === 2 ? ' sheet-full' : ''}${!isOnline || showUpdate ? ' has-band' : ''}${!isOnline && showUpdate ? ' has-bands-2' : ''}`}>
       {/* The page's one H1, for screen readers and outlines; the map screen
           has no visible title. */}
       <h1 className="visually-hidden">K-Food Map</h1>

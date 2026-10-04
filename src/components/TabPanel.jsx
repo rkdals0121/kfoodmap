@@ -328,7 +328,9 @@ function LanguagePicker({ onClose }) {
   const selectLanguage = (code) => {
     setPending(code);
     setFailed(false);
-    setLanguage(code).then((got) => {
+    // Ten seconds, then it is a failure: a stalled connection never answers
+    // and every other language stayed greyed out.
+    Promise.race([setLanguage(code), new Promise(resolve => setTimeout(resolve, 10000))]).then((got) => {
       if (got === code) { onClose(); return; }
       setPending(null);
       setFailed(true);

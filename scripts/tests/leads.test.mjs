@@ -71,6 +71,8 @@ test('source URL must be http(s); email must look like an email', () => {
   assert.equal(buildLead({ ...form, sourceUrl: 'example.com/menu' }).row.source_url, 'https://example.com/menu');
   assert.deepEqual(buildLead({ ...form, sourceUrl: 'not a link' }).errors.source_url, { code: 'invalidUrl' });
   assert.deepEqual(buildLead({ ...form, sourceUrl: 'example' }).errors.source_url, { code: 'invalidUrl' });
+  for (const not of ['a@b.co', '3.5', 'v1.2', 'localhost']) assert.deepEqual(buildLead({ ...form, sourceUrl: not }).errors.source_url, { code: 'invalidUrl' }, not);
+  assert.equal(buildLead({ ...form, sourceUrl: 'example.com:8080/menu' }).row.source_url, 'https://example.com:8080/menu');
   assert.deepEqual(buildLead({ ...form, sourceUrl: 'javascript:alert(1)' }).errors.source_url, { code: 'invalidUrl' });
   assert.equal(buildLead({ ...form, contactEmail: 'a@b.co' }).ok, true);
   assert.deepEqual(buildLead({ ...form, contactEmail: 'not-an-email' }).errors.contact_email, { code: 'invalidEmail' });

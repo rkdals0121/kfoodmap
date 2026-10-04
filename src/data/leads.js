@@ -23,7 +23,8 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // "instagram.com/place", as people type and paste links on a phone: the
 // scheme is added rather than asked for. Only for what looks like a host.
-const withScheme = (url) => (url && !/^[a-z][a-z0-9+.-]*:/i.test(url) && /^[^\s/.]+(\.[^\s/.]+)+(\/\S*)?$/.test(url) ? `https://${url}` : url);
+const withScheme = (url) => (url && !url.includes('@') && !/^[a-z][a-z0-9+.-]*:\/\//i.test(url) && !/^(javascript|data|mailto|tel|vbscript):/i.test(url)
+  && /^[^\s/.:]+(\.[^\s/.:]+)*\.[a-z]{2,}(:\d+)?(\/\S*)?$/i.test(url) ? `https://${url}` : url);
 
 const clean = (value) => {
   const text = (value ?? '').trim();
