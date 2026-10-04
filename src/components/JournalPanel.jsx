@@ -87,7 +87,8 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
   const [listCopied, setListCopied] = useState(false);
   const copyListText = async () => {
     const lines = savedList.map(({ place }) => [
-      [displayName(place.name), koreanName(place.name)].filter(Boolean).join(' · '),
+      // In Korean the shown name is already the Korean one: once, not twice.
+      [...new Set([displayName(place.name), koreanName(place.name)].filter(Boolean))].join(' · '),
       isKnown(place.address) ? place.address.value : null,
       `${window.location.origin}/place/${place.id}`,
     ].filter(Boolean).join('\n'));

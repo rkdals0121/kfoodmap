@@ -182,4 +182,8 @@ test('a phrase is found as a phrase', async () => {
   assert.equal(matchesPhrase(p, 'Seoul  Station'), true);
   assert.equal(matchesPhrase(p, 'station seoul'), false);
   assert.equal(matchesPhrase(p, 'seoul'), false);   // one word is not a phrase
+  // Whole words only, and never on a diet word (the record's diet answers that).
+  assert.equal(matchesPhrase(p, 'seoul s'), false);
+  assert.equal(matchesPhrase({ name: 'Green Vegan Cafe', zone: 'Seoul', vibe: '', address: { value: '' } }, 'vegan cafe'), false);
+  assert.equal(matchesPhrase({ name: 'X', zone: 'Seoul', vibe: '', address: { value: '' }, story: 'Near Seoul Station.' }, 'seoul station'), false);
 });

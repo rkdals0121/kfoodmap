@@ -19,16 +19,25 @@ function visibleCenter(map) {
 // Reports the visible centre upward after each pan/zoom so the list can
 // re-sort by distance from what is on screen, not from a point hidden
 // under the sheet.
-function CenterReporter({ onCenterChange, sheetState }) {
+function CenterReporter({ onCenterChange, sheetState, userLocation }) {
   const map = useMap();
+  const lastSheet = useRef(sheetState);
   // The sheet changing height moves the middle of what can be seen without
   // moving the map: say so once it has settled, or "nearest" is measured
   // from a point now under the sheet.
   const firstSheet = useRef(true);
   useEffect(() => {
     if (firstSheet.current) { firstSheet.current = false; return undefined; }
+    const from = lastSheet.current;
+    lastSheet.current = sheetState;
+    // Not to or from the full sheet: it opens while the list is being
+    // scrolled, and re-sorting then moved the cards under the finger.
+    if (from === 2 || sheetState === 2) return undefined;
     const id = setTimeout(() => {
       const c = visibleCenter(map);
+      // Standing on "my location": folding the sheet must not turn "nearest
+      // to you" into "nearest to a point 400 m up the road".
+      if (userLocation && map.distance(c, [userLocation.lat, userLocation.lng]) < 1000) return;
       onCenterChange([c.lat, c.lng]);
     }, 350);
     return () => clearTimeout(id);
@@ -546,7 +555,8 @@ function LocateControl({ state, location, onLocate }) {
         // first-time visitor did not read it as one.
         className={`map-locate__btn${state === 'located' ? ' is-on' : ''}${asking ? ' is-asking' : ''}${state === 'idle' ? ' has-label' : ''}`}
         onClick={onLocate}
-        aria-label={state === 'located' ? t('map.locateAgain') : t('map.locate')}
+        // Named by the words on it while they show (voice control says what it reads).
+        aria-label={state === 'located' ? t('map.locateAgain') : state === 'idle' ? t('map.nearMe') : t('map.locate')}
         title={state === 'located' ? t('map.locateAgain') : t('map.locate')}
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -580,7 +590,7 @@ function MapComponent({
             and tab bar cover the map's bottom edge, which hid the
             OpenStreetMap credit its licence requires. */}
         <AttributionControl position="topright" prefix={false} />
-        {onCenterChange && <CenterReporter onCenterChange={onCenterChange} sheetState={sheetState} />}
+        {onCenterChange && <CenterReporter onCenterChange={onCenterChange} sheetState={sheetState} userLocation={userLocation} />}
         <ResizeSync />
         {/* This attribution is legally required credit markup for OpenStreetMap,
             not UI copy, so it stays hardcoded rather than moving to i18n.

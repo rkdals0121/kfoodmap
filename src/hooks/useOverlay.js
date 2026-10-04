@@ -82,7 +82,7 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
       for (const child of box.children) if (child !== el) others += child.offsetHeight + gap;
       const room = box.clientHeight - padY - others;
       let lo = min;
-      let hi = max;
+      let hi = typeof max === 'function' ? max() : max;
       // Binary search: 8 steps settle within a pixel.
       for (let i = 0; i < 8; i++) {
         const mid = (lo + hi) / 2;
@@ -96,5 +96,7 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
     document.fonts?.ready?.then(() => { if (el.isConnected) fit(); });
     window.addEventListener('resize', fit);
     return () => window.removeEventListener('resize', fit);
-  }, [ref, active, min, max]);
+    // A function for `max` is read at each fit and is not a dependency.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref, active, min, typeof max === 'function' ? 0 : max]);
 }

@@ -254,7 +254,7 @@ function AppShell() {
     const tabBar = document.querySelector('.tab-bar')?.getBoundingClientRect().height ?? 64;
     // A short phone's half sheet is a little taller (index.css): at 60 %
     // the first card was a name and nothing else.
-    const half = window.matchMedia?.('(max-height: 700px)').matches ? 0.66 : 0.6;
+    const half = window.matchMedia?.('(max-width: 767px) and (max-height: 700px) and (orientation: portrait)').matches ? 0.66 : 0.6;
     return [tabBar + 168, full * half, full - 92];
   };
   const handleTouchStart = (e) => {
@@ -600,6 +600,7 @@ function AppShell() {
   const { filteredRestaurants, unknownHours, matchQuery, nearest } = useMemo(() => {
     const now = planDate ?? new Date(filterClock || Date.now());
     let unknown = 0;
+    let unknownPlaces = [];
     // 1. Filter chips (AND across chips). A dietary chip only matches on
     // evidence — an unknown dietary record never matches, so we never send
     // someone somewhere we can't vouch for. A group chip ORs within itself.
@@ -617,7 +618,7 @@ function AppShell() {
       if (!chips(r) || !(areaOnly ? matchesArea(r, query) : matchesSearch(r, query))) return false;
       if (!openNowOn && !openAtOn) return true;
       const status = getOpenStatus(r.hours, now);
-      if (status === null) { unknown += 1; return includeUnknown; }
+      if (status === null) { unknown += 1; unknownPlaces.push(r); return includeUnknown; }
       // Open but past last order is no use to someone who wants to eat now.
       return status.open === true && status.orderable !== false;
     });
@@ -626,12 +627,17 @@ function AppShell() {
     // "seoul station": the records that say exactly that, when any do.
     if (!areaOnly && searchQuery.trim().includes(' ')) {
       const exact = list.filter(r => matchesPhrase(r, searchQuery));
-      if (exact.length > 0 && exact.length < list.length) list = exact;
+      if (exact.length > 0 && exact.length < list.length) {
+        list = exact;
+        // The count of places hidden for having no hours follows the list.
+        unknown = unknownPlaces.filter(r => matchesPhrase(r, searchQuery)).length;
+      }
     }
     if (list.length === 0 && searchQuery.trim() && !areaOnly) {
       const guess = fuzzyQuery(searchQuery);
       if (guess) {
         unknown = 0;
+        unknownPlaces = [];
         const again = run(guess);
         if (again.length > 0) { list = again; used = guess; }
       }
@@ -646,7 +652,9 @@ function AppShell() {
       if (anchors.length > 0) {
         const lat = anchors.reduce((sum, c) => sum + c.lat, 0) / anchors.length;
         const lng = anchors.reduce((sum, c) => sum + c.lng, 0) / anchors.length;
-        near = activeRestaurants
+        // "Seo-gu" is a district in six cities: its middle is a mountain.
+        const spread = Math.max(...anchors.map(c => haversineKm(lat, lng, c.lat, c.lng)));
+        if (spread <= 30) near = activeRestaurants
           .filter(r => {
             if (!chips(r)) return false;
             if (!openNowOn && !openAtOn) return true;

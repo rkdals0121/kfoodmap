@@ -133,7 +133,7 @@ export default function RestaurantDetail({
   // to a line: "편한집밥" down the screen was harder to read, not easier.
   // Two or three syllables fill the width; longer names keep four across.
   const nameLen = Math.min(Math.max([...(koreanName(restaurant?.name ?? '') || '')].filter(ch => ch.trim()).length, 2), 4);
-  const nameMax = typeof window === 'undefined' ? 120 : Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
+  const nameMax = () => Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
   useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax });
   // Say where a save went. Driven by the saved state actually changing, not
   // the tap (unsaving a visited place can be cancelled), and only while the

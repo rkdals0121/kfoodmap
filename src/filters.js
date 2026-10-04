@@ -221,6 +221,20 @@ export function parseViewHash(hash, validIds) {
 export function matchesPhrase(r, query) {
   const phrase = String(query ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
   if (!phrase.includes(' ')) return false;
-  return [r.name, r.vibe, r.zone, r.address?.value, r.story]
-    .some(f => typeof f === 'string' && f.toLowerCase().includes(phrase));
+  // Whole words, in the name, the area, the address or the one-line
+  // description. Not the story: "a
+  // Busan vegan bakery" in one story made "busan vegan" that one bakery,
+  // and without word ends "busan v" narrowed while it was being typed.
+  const at = (text) => {
+    const i = text.indexOf(phrase);
+    if (i < 0) return false;
+    const edge = (ch) => ch === undefined || !/[a-z0-9가-힣]/.test(ch);
+    return edge(text[i - 1]) && edge(text[i + phrase.length]);
+  };
+  // A diet word is answered from the record's diet, not from the letters:
+  // "vegan cafe" is every vegan place that is a café, not the four with
+  // "Vegan Cafe" in their name.
+  if (phrase.split(' ').some(w => Object.hasOwn(DIET_WORDS, squash(w)) || PORK_FREE_WORDS.has(squash(w)))) return false;
+  return [r.name, r.zone, r.address?.value, r.vibe]
+    .some(f => typeof f === 'string' && at(f.toLowerCase()));
 }

@@ -394,7 +394,7 @@ export function displayName(name) {
   // Records without a Korean name keep the romanised one.
   if (i18next.language === 'ko' && koreanName(name)) {
     return String(name)
-      .replace(/[^,(]*\(([^)]*[가-힣][^)]*)\)/, ' $1')
+      .replace(/^.*?\(([^)]*[가-힣][^)]*)\)/, '$1')
       .replace(/\s{2,}/g, ' ')
       .trim();
   }

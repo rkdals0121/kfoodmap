@@ -226,6 +226,8 @@ test('a Korean reader sees the Korean name; everyone else the romanised one', as
     assert.equal(displayName('Kervan (케르반) Famille Station'), '케르반 Famille Station');
     assert.equal(displayName('Nimat (니맛), Culinary Square T2'), '니맛, Culinary Square T2');
     assert.equal(displayName('Plain Name'), 'Plain Name');
+    assert.equal(displayName('STILL, GREEN (스틸그린)'), '스틸그린');
+    assert.equal(displayName('Bonjuk, Bomun Station (본죽 보문역점)'), '본죽 보문역점');
   } finally {
     await i18next.changeLanguage('en');
   }
