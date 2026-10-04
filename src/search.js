@@ -154,6 +154,17 @@ export function searchPlaces({
         }
       }
     }
+    // "Haeundae Seomyeon", "海雲台 西面": two neighbourhoods asked for at
+    // once. No record is in both, so every word together finds nothing —
+    // the places in either are what was meant.
+    // Not a station search: that has its own answer above.
+    if (result.list.length === 0 && !anchorPlaces && !stationOf(raw)) {
+      const parts = (romaniseQuery(raw) ?? raw).split(/[\s,，、]+/).filter(Boolean);
+      if (parts.length >= 2 && parts.length <= 4 && parts.every(isArea)) {
+        const either = select(r => parts.some(part => matchesAreaWhole(r, part)));
+        if (either.list.length > 0) result = either;
+      }
+    }
   }
 
   // Little or nothing under the chips: the nearest places that do match.

@@ -129,6 +129,9 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.ok(n('restaurants in Hongdae') >= n('Hongdae'));
   assert.ok(n('釜山 ランチ') >= n('Busan'));
   assert.equal(n('ブサン'), n('Busan'));
+  // Two neighbourhoods in one search: the places in either.
+  assert.ok(n('Haeundae Seomyeon') >= Math.max(n('Haeundae'), n('Seomyeon')) && n('Haeundae Seomyeon') > 0);
+  assert.equal(n('海雲台 西面'), n('Haeundae Seomyeon'));
 });
 
 test('a name with its own punctuation, and a lone sight, are found', () => {

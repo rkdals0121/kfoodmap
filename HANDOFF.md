@@ -2740,6 +2740,14 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       a touch on the list blurs the search box (`blurSearch`).
     - Contrast tail in `index.css` ("Seeing it in sunlight") and a
       `forced-colors` block; `REDUCE_MOTION` in `MapComponent.jsx`.
+    - Search: `FILLER` (area-names.js) now holds the small words of a
+      question (near, in, food, dekat, makanan, ランチ …): `romaniseQuery`
+      drops them, so `matchesSearch` tries the query without them too.
+      Two or more area names with nothing in common return the places in
+      either (`search.js`, not for station searches). With "Open now"
+      on, `nearest` puts places that stay open before those closing soon.
+      Cards show a distance while searching only when it is from the
+      visitor (`Infinity` otherwise hides it).
     - Left: duplicate reports when the response is lost (needs a client
       id column on `leads`), the sign-in button missing after one failed check,
       render-blocking CSS, the colour tokens that pass AA by a hair.
