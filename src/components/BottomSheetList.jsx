@@ -148,7 +148,7 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -160,7 +160,7 @@ export default function BottomSheetList({
   // "nearest the map centre" shuffled it.
   const journeyOrder = Boolean(sharedJourney) && activeFilters.includes(SHARED_LIST);
   const sorted = useMemo(() => {
-    const inArea = (r) => matchesArea(r, searchQuery);
+    const inArea = (r) => matchesArea(r, matchQuery);
     const stop = (r) => sharedIds.indexOf(r.id);
     return restaurants
       .map(r => {
@@ -177,7 +177,7 @@ export default function BottomSheetList({
         ? stop(a) - stop(b)
         : (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restaurants, mapCenter, searchQuery, userLocation, journeyOrder, sharedIds.join(',')]);
+  }, [restaurants, mapCenter, matchQuery, userLocation, journeyOrder, sharedIds.join(',')]);
 
   // "Halal in Busan" as a link for whoever is travelling too. The link names
   // the search and the chips (filters.js viewHash) — never "Saved", which
@@ -232,7 +232,7 @@ export default function BottomSheetList({
         {/* In the header row, as an icon: on its own line it was one more
             thing between a filter and its first result. */}
         {viewLink && sorted.length > 0 && (
-          <button type="button" className="place-list__share" onClick={shareView} aria-label={t('list.shareView')} title={t('list.shareView')}>
+          <button type="button" className="place-list__share" onClick={shareView} aria-label={viewShared ? t('journal.listCopied') : t('list.shareView')} title={t('list.shareView')}>
             {viewShared ? <span className="place-list__share-done">{t('journal.listCopied')}</span> : <ShareIcon size={16} />}
           </button>
         )}
@@ -240,8 +240,8 @@ export default function BottomSheetList({
             is out of sight. Whatever is on (and any search), this says how
             many and takes them off — in place of the line about the order,
             which matters less than a way back. */}
-        {activeN > 0 && onClearFilters && sorted.length > 0 && (
-          <button type="button" className="place-list__clear-inline" onClick={onClearFilters}>
+        {activeN > 0 && onClearInline && sorted.length > 0 && (
+          <button type="button" className="place-list__clear-inline" onClick={onClearInline}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
             {t('filters.clearFilters', { n: activeN })}
           </button>
@@ -263,8 +263,8 @@ export default function BottomSheetList({
 
       {/* "Pusan" or "釜山" was also searched as "Busan": say so, so the
           results are not a mystery and the spelling on signs is learned. */}
-      {searchQuery.trim() && romaniseQuery(searchQuery) && (
-        <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(searchQuery) })}</p>
+      {searchQuery.trim() && (romaniseQuery(matchQuery) || matchQuery !== searchQuery) && (
+        <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(matchQuery) ?? matchQuery })}</p>
       )}
 
       {/* Said once for the whole list rather than on every card: the same

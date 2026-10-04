@@ -7,6 +7,10 @@ import { startLanguage } from './i18n'
 import './hooks/useInstall'
 import App from './App.jsx'
 
+// The first tile cache held opaque responses (see vite.config.js): served
+// to a CORS request they draw as blank squares, for up to a fortnight.
+if (typeof caches !== 'undefined') caches.delete('kfm-tiles').catch(() => {})
+
 // The reader's language is loaded before the first paint, so the app does
 // not open in English and then switch. English needs no fetch; if another
 // language cannot be fetched the app opens in English rather than not at all.

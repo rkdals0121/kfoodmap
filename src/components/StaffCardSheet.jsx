@@ -55,7 +55,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
   // Escape closes the big screen first, then the sheet.
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key !== 'Escape') return;
+      if (e.key !== 'Escape' || document.querySelector('.confirm-overlay')) return;
       if (large) closeLarge(); else onClose();
     };
     window.addEventListener('keydown', onKey, true);

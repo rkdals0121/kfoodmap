@@ -288,7 +288,10 @@ export default defineConfig({
             urlPattern: ({ url }) => url.hostname === 'tile.openstreetmap.org',
             handler: 'CacheFirst',
             options: {
-              cacheName: 'kfm-tiles',
+              // v2: the first version (a few hours on 2026-10-04) stored
+              // opaque responses, which cannot answer today's CORS requests.
+              // main.jsx deletes the old cache.
+              cacheName: 'kfm-tiles-v2',
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 14, purgeOnQuotaError: true },
               cacheableResponse: { statuses: [200] },
             },

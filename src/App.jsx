@@ -30,6 +30,7 @@ import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
 import { DIETARY_CHIPS, TRAIT_GROUPS, matchesSearch, matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
+import { fuzzyQuery } from './data/area-names';
 import './index.css';
 
 // Selecting anything on the sustainability axis — the group chip or either
@@ -172,14 +173,21 @@ function AppShell() {
   const selectTab = (tab) => {
     // The address as it is now, not as the router last rendered it: two
     // tabs tapped in quick succession were both judged from the map.
-    const onTab = Boolean(PATH_TAB[window.location.pathname]);
+    const path = window.location.pathname;
+    const onTab = Boolean(PATH_TAB[path]);
+    const onMap = path === '/';
     const here = window.history.state?.usr ?? null;
     if (tab === 'map') {
+      if (onMap) return;                                   // already there: no new entry
       if (onTab && here?.overMap) navigate(-1);
-      else navigate(pathOf('map'), { replace: onTab });
+      else navigate(pathOf('map'), { replace: true });
       return;
     }
-    navigate(pathOf(tab), onTab ? { replace: true, state: here } : { state: { overMap: true } });
+    // Only a step taken from the map itself can be undone back to the map.
+    // From a place open beside the list (wide screens) the tab replaces the
+    // place, so "Map" does not bring the place back.
+    if (onMap) navigate(pathOf(tab), { state: { overMap: true } });
+    else navigate(pathOf(tab), { replace: true, state: onTab ? here : null });
   };
   // Below 768px a non-map tab covers the whole map. The map is then made
   // inert, so Tab never lands on a pin nobody can see (WCAG 2.4.11). From
@@ -238,18 +246,27 @@ function AppShell() {
   // chip row scrolling and is left alone.
   const sheetRef = useRef(null);
   const drag = useRef(null);
-  const SHEET_STOPS = [0.25, 0.6, 0.95];
+  // The three heights as CSS has them (index.css, "sheet-state-*"), measured
+  // rather than repeated here: folded is the header over the tab bar, half
+  // is 60 %, open leaves a strip of map.
+  const sheetStops = (el) => {
+    const full = el.parentElement?.getBoundingClientRect().height || window.innerHeight;
+    const tabBar = document.querySelector('.tab-bar')?.getBoundingClientRect().height ?? 64;
+    return [tabBar + 168, full * 0.6, full - 92];
+  };
   const handleTouchStart = (e) => {
     const el = sheetRef.current;
-    if (!el || e.targetTouches.length !== 1) return;
-    const touch = e.targetTouches[0];
-    drag.current = { x: touch.clientX, y: touch.clientY, height: el.getBoundingClientRect().height, moved: false, last: touch.clientY };
+    // Phones only: from 768 px this is a sidebar, not a sheet.
+    if (!el || isWide || e.touches.length !== 1) { drag.current = null; return; }
+    const touch = e.touches[0];
+    drag.current = { id: touch.identifier, x: touch.clientX, y: touch.clientY, height: el.getBoundingClientRect().height, moved: false, last: touch.clientY, now: null, stops: sheetStops(el) };
   };
   const handleTouchMove = (e) => {
     const d = drag.current;
     const el = sheetRef.current;
     if (!d || !el) return;
-    const touch = e.targetTouches[0];
+    const touch = [...e.touches].find(tc => tc.identifier === d.id);
+    if (!touch || e.touches.length !== 1) { handleTouchEnd(); return; }
     const dx = touch.clientX - d.x;
     const dy = touch.clientY - d.y;
     if (!d.moved) {
@@ -258,11 +275,10 @@ function AppShell() {
       d.moved = true;
       el.style.transition = 'none';
     }
-    const full = el.parentElement?.getBoundingClientRect().height || window.innerHeight;
-    const height = Math.min(full * 0.95, Math.max(full * 0.18, d.height - dy));
+    const height = Math.min(d.stops[2], Math.max(d.stops[0] - 24, d.height - dy));
     el.style.height = `${height}px`;
     d.last = touch.clientY;
-    d.now = height / full;
+    d.now = height;
   };
   const handleTouchEnd = () => {
     const d = drag.current;
@@ -271,19 +287,30 @@ function AppShell() {
     if (!d || !el || !d.moved) return;
     el.style.transition = '';
     el.style.height = '';
+    if (d.now == null) return;
     // The nearest stop — but a clear flick of 40 px or more moves at least
     // one step its way, so a short swipe is enough.
     const travelled = d.y - d.last;
-    let next = SHEET_STOPS.reduce((best, stop, i) => (Math.abs(stop - d.now) < Math.abs(SHEET_STOPS[best] - d.now) ? i : best), 0);
+    let next = d.stops.reduce((best, stop, i) => (Math.abs(stop - d.now) < Math.abs(d.stops[best] - d.now) ? i : best), 0);
     setSheetState((current) => {
       if (next === current && Math.abs(travelled) >= 40) next = Math.min(2, Math.max(0, current + (travelled > 0 ? 1 : -1)));
       return next;
     });
+    // The list may be scrolled: do not let its next scroll event reopen a
+    // sheet that was just pulled down.
+    listTop.current = null;
   };
   // Scrolling down the list at half height asks for more list: open the
   // sheet fully rather than leave one and a half cards in view.
+  // Only on a move further down the list, measured from the last scroll
+  // position: a sheet pulled back to half height with the list already
+  // scrolled used to spring open again at the next pixel.
+  const listTop = useRef(null);
   const handleListScroll = (e) => {
-    if (sheetState === 1 && e.currentTarget.scrollTop > 48) setSheetState(2);
+    const top = e.currentTarget.scrollTop;
+    const before = listTop.current;
+    listTop.current = top;
+    if (before !== null && sheetState === 1 && top > before && top > 48) setSheetState(2);
   };
 
   // Single choke point for every path that opens detail (map pin, card,
@@ -390,9 +417,10 @@ function AppShell() {
   }, [toast]);
 
   // Undo of an unsave: the save put back as it was, and said so.
-  const restoreSave = (placeId) => {
+  const restoreSave = (placeId, savedAt) => {
     const now = Date.now();
-    setEntries(prev => prev.map(e => (e.id === placeId && e.savedAt === null ? { ...e, savedAt: now, updatedAt: now } : e)));
+    // The time it was first saved, so it keeps its place in the Journal.
+    setEntries(prev => prev.map(e => (e.id === placeId && e.savedAt === null ? { ...e, savedAt: savedAt ?? now, updatedAt: now } : e)));
     setToast({ text: t('detail.savedNote'), undo: null, at: now });
   };
 
@@ -407,7 +435,7 @@ function AppShell() {
     // An unsave that also dropped a visit was confirmed first and is not
     // offered back: Undo would restore the save without the visit.
     setToast(removing
-      ? { text: t('detail.removedNote'), undo: current.visitedAt === null ? () => restoreSave(placeId) : null, at: now }
+      ? { text: t('detail.removedNote'), undo: current.visitedAt === null ? () => restoreSave(placeId, current.savedAt) : null, at: now }
       : { text: t('detail.savedNote'), undo: null, at: now });
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
@@ -553,10 +581,14 @@ function AppShell() {
 
   // unknownHours: places that match everything else but have no recorded
   // hours for now — hidden by "Open now", and the list says how many.
-  const { filteredRestaurants, unknownHours } = useMemo(() => {
+  // matchQuery: the search actually used. It is the text as typed — unless
+  // that finds nothing and one of its words is a single letter off a
+  // well-known area ("myongdong"), in which case the corrected text is
+  // tried, and the list says so.
+  const { filteredRestaurants, unknownHours, matchQuery } = useMemo(() => {
     const now = planDate ?? new Date(filterClock || Date.now());
     let unknown = 0;
-    const list = activeRestaurants.filter(r => {
+    const run = (query) => activeRestaurants.filter(r => {
       // 1. Filter chips (AND across chips). A dietary chip only matches on
       // evidence — an unknown dietary record never matches, so we never send
       // someone somewhere we can't vouch for. A group chip ORs within itself.
@@ -571,14 +603,24 @@ function AppShell() {
       });
 
       // 2. Free-text search: name, vibe, area and street address.
-      if (!matchesChips || !(areaOnly ? matchesArea(r, searchQuery) : matchesSearch(r, searchQuery))) return false;
+      if (!matchesChips || !(areaOnly ? matchesArea(r, query) : matchesSearch(r, query))) return false;
       if (!openNowOn && !openAtOn) return true;
       const status = getOpenStatus(r.hours, now);
       if (status === null) unknown += 1;
       // Open but past last order is no use to someone who wants to eat now.
       return status?.open === true && status.orderable !== false;
     });
-    return { filteredRestaurants: list, unknownHours: unknown };
+    let list = run(searchQuery);
+    let used = searchQuery;
+    if (list.length === 0 && searchQuery.trim() && !areaOnly) {
+      const guess = fuzzyQuery(searchQuery);
+      if (guess) {
+        unknown = 0;
+        const again = run(guess);
+        if (again.length > 0) { list = again; used = guess; }
+      }
+    }
+    return { filteredRestaurants: list, unknownHours: unknown, matchQuery: used };
   }, [selectedFilters, searchQuery, areaOnly, openNowOn, openAtOn, planDate, filterClock, bookmarkedIds, sharedIds]);
 
   // The same function object on every render, always calling the latest
@@ -642,7 +684,7 @@ function AppShell() {
             onMarkerClick={openDetailStable}
             selectedId={selectedRestaurant?.id}
             onCenterChange={setMapCenter}
-            searchQuery={searchQuery}
+            searchQuery={matchQuery}
             fitAll={selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST)}
             savedIds={bookmarkedIds}
             stopIds={sharedJourney && selectedFilters.includes(SHARED_LIST) ? sharedIds : NO_STOPS}
@@ -712,6 +754,14 @@ function AppShell() {
                 onSaveShared={() => saveMany(sharedIds)}
                 onCloseShared={closeSharedList}
                 searchQuery={searchQuery}
+                matchQuery={matchQuery}
+                onClearInline={() => {
+                  // From the list header: chips and search off, where the
+                  // reader is — no keyboard, and a shared list or journey stays.
+                  setSelectedFilters(prev => prev.filter(f => f === SHARED_LIST));
+                  setSearchQuery('');
+                  setAreaOnly(false);
+                }}
                 onClearFilters={() => {
                   // A shared list lives in the address too; clear it there,
                   // or a reload brings the filter back.

@@ -4408,9 +4408,11 @@ body {
 
 /* dvh is not everywhere (iOS 15.3 and older): without the first line the
    sheet grew to its content and the close button left the screen. */
-.detail-sheet {
-  height: 92vh;
-  height: 92dvh;
+@media (max-width: 767px) {
+  .detail-sheet {
+    height: 92vh;
+    height: 92dvh;
+  }
 }
 
 /* Things to press are at least 44 px. */
@@ -4923,5 +4925,21 @@ body {
     height: 100vh;
     height: 100dvh;
     border-radius: 0;
+  }
+}
+
+/* Review of the phone audit's own changes */
+/* A card too long for the smallest size scrolls rather than being cut. */
+.staff-large {
+  overflow-y: auto;
+}
+/* Offline and "new version" at once: one under the other, not on top. */
+.offline-banner + .update-banner {
+  top: calc(60px + env(safe-area-inset-top));
+}
+/* Between 768 and 1023 px the tab bar is still along the bottom. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .toast {
+    bottom: calc(var(--tab-h) + 12px);
   }
 }

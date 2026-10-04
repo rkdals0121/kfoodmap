@@ -248,6 +248,11 @@ function LanguagePicker({ onClose }) {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
+  // Focus goes back to the Language row when the sheet closes.
+  useEffect(() => {
+    const opener = document.activeElement;
+    return () => { if (opener && document.contains(opener)) opener.focus?.({ preventScroll: true }); };
+  }, []);
 
   // Rendered via a portal to document.body rather than in place: .tab-panel
   // is `position: fixed; z-index: 12` (src/index.css), which establishes its

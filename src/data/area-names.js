@@ -97,6 +97,21 @@ const nearArea = (word) => {
   return hits.length === 1 ? hits[0][1] : null;
 };
 
+/**
+ * The query with a near-miss area name corrected ("myongdong vegan" →
+ * "Myeongdong vegan"), or null when no word is one. NOT part of the
+ * ordinary search: "mangwon", "icheon" and "yangsan" are real places one
+ * letter from Gangwon, Incheon and Yongsan, and guessing on every search
+ * mixed two regions. App.jsx uses this only when the search as typed finds
+ * nothing at all.
+ */
+export function fuzzyQuery(query) {
+  const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
+  let changed = false;
+  const out = words.map((w) => { const near = nearArea(w); if (near) { changed = true; return near; } return w; });
+  return changed ? out.join(' ') : null;
+}
+
 /** The romanised area a typed word names, or null: "釜山" → "Busan". */
 export const romanisedArea = (word) => TO_ROMAN.get(String(word ?? '').trim()) ?? null;
 
@@ -109,7 +124,7 @@ export function romaniseQuery(query) {
   const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
   let changed = false;
   const out = words.flatMap((w) => {
-    const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase()) ?? nearArea(w);
+    const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
     if (whole) { changed = true; return [whole]; }
     for (const [name, roman] of TO_ROMAN) {
       if (w.length > name.length && w.startsWith(name)) { changed = true; return [roman, w.slice(name.length)]; }

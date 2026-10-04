@@ -122,6 +122,8 @@ export default function RestaurantDetail({
   // Closing gives focus back to the button that opened it.
   const closeNameLarge = () => { setNameLarge(false); nameLargeBtn.current?.focus(); };
   useBackToClose(nameLarge, closeNameLarge);
+  // Another place opened in this sheet: the large name does not carry over.
+  useEffect(() => { setNameLarge(false); }, [restaurant?.id]);
   useWakeLock(nameLarge);
   const nameLargeText = useRef(null);
   useFitText(nameLargeText, nameLarge, { min: 34, max: 200 });
@@ -206,6 +208,8 @@ export default function RestaurantDetail({
     if (!restaurant) return undefined;
     const onKey = (e) => { 
       if (e.key === 'Escape') {
+        // A confirmation is on top: Escape answers it, not this page.
+        if (document.querySelector('.confirm-overlay')) return;
         if (nameLarge) {
           // The large Korean name is on top: Escape closes it, not the place.
           e.stopPropagation();
@@ -307,13 +311,24 @@ export default function RestaurantDetail({
   // sheet follows the finger; let go past 110 px and it closes, short of
   // that it springs back. The X and Back still work.
   const onPullStart = (e) => {
-    if (docked || e.touches.length !== 1 || (scrollRef.current?.scrollTop ?? 0) > 0) { pull.current = null; return; }
+    // Not from an overlay drawn over the sheet (the large Korean name is a
+    // portal, but its touches still bubble here through React), not with a
+    // second finger, and only from the top of the page.
+    const el = sheetRef.current;
+    if (pull.current?.on && el) { el.style.transform = ''; el.style.transition = ''; }
+    if (docked || nameLarge || galleryOpen || !el?.contains(e.target) || e.touches.length !== 1 || (scrollRef.current?.scrollTop ?? 0) > 0) { pull.current = null; return; }
     pull.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, dy: 0, on: false };
   };
   const onPullMove = (e) => {
     const p = pull.current;
     const el = sheetRef.current;
     if (!p || !el) return;
+    if (e.touches.length !== 1) {
+      // A second finger: let go of the sheet rather than leave it half down.
+      if (p.on) { el.style.transform = ''; el.style.transition = ''; }
+      pull.current = null;
+      return;
+    }
     const dx = e.touches[0].clientX - p.x;
     const dy = e.touches[0].clientY - p.y;
     if (!p.on) {
@@ -333,7 +348,7 @@ export default function RestaurantDetail({
     el.style.transition = 'transform 0.2s ease-out';
     if (p.dy > 110) {
       el.style.transform = 'translateY(100%)';
-      setTimeout(onClose, 160);
+      setTimeout(() => { el.style.transform = ''; el.style.transition = ''; onClose(); }, 160);
     } else {
       el.style.transform = '';
     }
@@ -848,7 +863,7 @@ export default function RestaurantDetail({
               type="button"
               className={`detail-bar__save${isBookmarked ? ' is-saved' : ''}`}
               aria-pressed={isBookmarked}
-              aria-label={isBookmarked ? t('detail.actionSaved') : t('detail.actionSave')}
+              aria-label={t('detail.actionSave')}
               onClick={() => onToggleBookmark(place.id)}
             >
               <HeartIcon size={22} filled={isBookmarked} />

@@ -16,10 +16,14 @@ export async function copyText(text) {
     ta.style.position = 'fixed';
     ta.style.opacity = '0';
     document.body.appendChild(ta);
+    const focused = document.activeElement;
     ta.select();
+    // iOS does not select a readonly field with select() alone.
+    ta.setSelectionRange(0, text.length);
     let ok = false;
     try { ok = document.execCommand('copy'); } catch { ok = false; }
     ta.remove();
+    focused?.focus?.({ preventScroll: true });
     return ok;
   }
 }

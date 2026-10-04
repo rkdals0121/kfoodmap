@@ -221,6 +221,7 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
   const restaurants = inArea.length > 0 ? inArea : all;
   const key = restaurants.map(r => r.id).join(',');
   const first = useRef(true);
+  const framedFor = useRef(searchQuery);
   useEffect(() => {
     // The first run is the app opening, where the map keeps its start
     // view — unless it opened on a list to frame (a shared list).
@@ -238,7 +239,12 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
     // A search that names an area ("itaewon") is framed too: with the map
     // on all of Seoul those places were "in view" as one count of 24, and
     // nothing moved.
-    const framed = fitAll || inArea.length > 0;
+    // …but only when the search itself changed. With the same search, a
+    // place closing on the minute or one more chip used to throw away the
+    // reader's own zoom and pan.
+    const searched = framedFor.current !== searchQuery;
+    framedFor.current = searchQuery;
+    const framed = fitAll || (searched && inArea.length > 0);
     if (!framed && latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
     safeFlyToBounds(map, latlngs, [56, 56], [56, 56 + overlap], { maxZoom: 15, duration: 0.6 });
     }, searchQuery.trim() ? 400 : 0);

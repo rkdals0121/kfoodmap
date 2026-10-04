@@ -29,10 +29,15 @@ export default function ConfirmHost() {
   useBackToClose(question !== null, () => answer(false));
   useEffect(() => {
     if (!question) return undefined;
+    // Focus comes back to whatever asked, when the question is answered.
+    const opener = document.activeElement;
     yesRef.current?.focus();
-    const onKey = (e) => { if (e.key === 'Escape') answer(false); };
+    const onKey = (e) => { if (e.key === 'Escape') { e.stopImmediatePropagation(); answer(false); } };
     window.addEventListener('keydown', onKey, true);
-    return () => window.removeEventListener('keydown', onKey, true);
+    return () => {
+      window.removeEventListener('keydown', onKey, true);
+      if (opener && document.contains(opener)) opener.focus?.({ preventScroll: true });
+    };
   }, [question]);
 
   if (!question) return null;

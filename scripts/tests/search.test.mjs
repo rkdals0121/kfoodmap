@@ -160,13 +160,17 @@ test('the view survives a round trip through the address fragment', async () => 
   assert.deepEqual(parseViewHash('', valid), { q: '', filters: [], planAt: null, area: false });
 });
 
-test('one wrong letter in a long area name still finds the area', async () => {
-  const { romaniseQuery } = await import('../../src/data/area-names.js');
-  assert.equal(romaniseQuery('myongdong'), 'Myeongdong');
-  assert.equal(romaniseQuery('itaewan halal'), 'Itaewon halal');
-  assert.equal(romaniseQuery('Gangnan'), 'Gangnam');
+test('one wrong letter in a long area name is a fallback, not part of every search', async () => {
+  const { romaniseQuery, fuzzyQuery } = await import('../../src/data/area-names.js');
+  assert.equal(fuzzyQuery('myongdong'), 'Myeongdong');
+  assert.equal(fuzzyQuery('itaewan halal'), 'Itaewon halal');
+  assert.equal(fuzzyQuery('Gangnan'), 'Gangnam');
   // Short names and exact names are left alone; two slips are not guessed.
-  assert.equal(romaniseQuery('mapa'), null);
-  assert.equal(romaniseQuery('Itaewon'), null);
-  assert.equal(romaniseQuery('itewan'), null);
+  assert.equal(fuzzyQuery('mapa'), null);
+  assert.equal(fuzzyQuery('Itaewon'), null);
+  assert.equal(fuzzyQuery('itewan'), null);
+  // The ordinary search never guesses: Mangwon is a real place, one letter
+  // from Gangwon, and must not bring Gangwon's restaurants with it.
+  assert.equal(romaniseQuery('mangwon'), null);
+  assert.equal(romaniseQuery('myongdong'), null);
 });

@@ -14,13 +14,21 @@ export function useBackToClose(open, close) {
   useEffect(() => { closeRef.current = close; });
   useEffect(() => {
     if (!open) return undefined;
-    window.history.pushState(window.history.state, '');
+    // The entry is marked, so that closing by a button only steps back when
+    // that entry is still the one on top — not after a navigation replaced
+    // or buried it, when a back() would undo the navigation instead.
+    const mark = `${Date.now()}-${Math.random()}`;
+    window.history.pushState({ ...window.history.state, kfmOverlay: mark }, '');
     let popped = false;
-    const onPop = () => { popped = true; closeRef.current(); };
+    const onPop = () => {
+      if (window.history.state?.kfmOverlay === mark) return;   // a pop that landed on it, not off it
+      popped = true;
+      closeRef.current();
+    };
     window.addEventListener('popstate', onPop);
     return () => {
       window.removeEventListener('popstate', onPop);
-      if (!popped) window.history.back();
+      if (!popped && window.history.state?.kfmOverlay === mark) window.history.back();
     };
   }, [open]);
 }
@@ -84,6 +92,8 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
       el.style.fontSize = `${Math.floor(lo)}px`;
     };
     fit();
+    // The bold Korean face may arrive after the first measure.
+    document.fonts?.ready?.then(() => { if (el.isConnected) fit(); });
     window.addEventListener('resize', fit);
     return () => window.removeEventListener('resize', fit);
   }, [ref, active, min, max]);
