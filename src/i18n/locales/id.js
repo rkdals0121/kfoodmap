@@ -97,6 +97,7 @@ export default {
     distanceFromYou: 'jarak dari Anda',
     hoursUnknown: 'Jam buka tidak tercatat',
     noMatch: 'Tidak ada tempat yang cocok',
+    notesToggle: 'Tampilkan atau sembunyikan catatan',
     showUnknown: 'Tampilkan juga',
     hideUnknown: 'Sembunyikan',
     unknownShown: 'Juga ditampilkan: {{n}} tempat tanpa catatan jam buka. Periksa dulu sebelum berangkat.',

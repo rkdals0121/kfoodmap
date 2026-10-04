@@ -96,6 +96,7 @@ export default {
     distanceFromYou: '與你的距離',
     hoursUnknown: '營業時間未記錄',
     noMatch: '沒有符合條件的地方',
+    notesToggle: '展開或收起說明',
     showUnknown: '也顯示這些',
     hideUnknown: '隱藏',
     unknownShown: '同時顯示 {{n}} 家沒有營業時間記錄的店，出發前請先確認。',

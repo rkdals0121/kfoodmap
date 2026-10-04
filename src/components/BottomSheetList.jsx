@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon, ShareIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, statusClass, DAY_KEYS, formatClock } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, koreanName, statusClass, DAY_KEYS, formatClock } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
@@ -189,6 +189,10 @@ export default function BottomSheetList({
   ) : null;
   const sorted = useMemo(() => {
     const inArea = (r) => matchesArea(r, matchQuery);
+    // "Vegan Kitchen" typed in full: the place called that, before the
+    // nearer places that merely mention the words.
+    const typed = String(matchQuery ?? '').trim().toLowerCase();
+    const names = (r) => [displayName(r.name), koreanName(r.name)].filter(Boolean).map(n => n.toLowerCase());
     const stop = (r) => sharedIds.indexOf(r.id);
     return restaurants
       .map(r => {
@@ -199,11 +203,11 @@ export default function BottomSheetList({
         // on Naver and Kakao; until then it is from the map centre.
         const sortKm = haversineKm(mapCenter[0], mapCenter[1], lat, lng);
         const distanceKm = userLocation ? haversineKm(userLocation.lat, userLocation.lng, lat, lng) : sortKm;
-        return { ...r, sortKm, distanceKm, fromYou: Boolean(userLocation), areaMatch: inArea(r) };
+        return { ...r, sortKm, distanceKm, fromYou: Boolean(userLocation), areaMatch: inArea(r), nameIs: typed !== '' && names(r).includes(typed) };
       })
       .sort((a, b) => (journeyOrder
         ? stop(a) - stop(b)
-        : (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm)));
+        : (b.nameIs - a.nameIs) || (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurants, mapCenter, matchQuery, userLocation, journeyOrder, sharedIds.join(',')]);
 
@@ -321,6 +325,22 @@ export default function BottomSheetList({
           </div>
         </div>
       )}
+      <div className="place-list__notes">
+      {/* The fold's own control: the notes were opened by tapping a
+          paragraph, which no keyboard or screen reader could find. */}
+      <button
+        type="button"
+        className="place-list__notes-toggle"
+        aria-expanded={notesOpen}
+        aria-label={t('list.notesToggle')}
+        onClick={(e) => { e.stopPropagation(); setNotesOpen(o => !o); }}
+      />
+      {/* The halal caveat first: it is the one about safety, and behind
+          the "Open now" note it was folded out of sight. */}
+      {activeFilters.includes('Halal') && sorted.length > 0
+        && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
+        <p className="section-note place-list__note">{t('list.halalCaveat')}</p>
+      )}
       {/* "Open now" hides places whose hours we never recorded; say how many,
           so an empty or short list is not read as "nothing else exists". */}
       {activeFilters.includes(OPEN_NOW) && (
@@ -359,16 +379,13 @@ export default function BottomSheetList({
       {activeFilters.includes(FULLY_VEGAN) && sorted.length > 0 && (
         <p className="section-note place-list__note">{t('list.fullyVeganNote')}</p>
       )}
-      {activeFilters.includes('Halal') && sorted.length > 0
-        && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
-        <p className="section-note place-list__note">{t('list.halalCaveat')}</p>
-      )}
 
       {sustainabilityLens && sorted.length > 0 && (
         <p className="section-note place-list__note">
           {t('list.esgCaveat')}
         </p>
       )}
+      </div>
 
       {sorted.slice(0, shown).map(r => (
         <PlaceCard
@@ -396,7 +413,7 @@ export default function BottomSheetList({
       )}
 
       {sorted.length === 0 && (
-        <div className="place-list__empty">
+        <div className={`place-list__empty${nearest.length > 0 ? ' place-list__empty--offers' : ''}`}>
           <MapPinIcon size={26} />
           {/* "Saved" with nothing saved is not a failed search. */}
           <p><strong>{t(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0 ? 'list.noSavedTitle' : 'list.noMatch')}</strong></p>
@@ -409,6 +426,7 @@ export default function BottomSheetList({
               ].join(' + ')}
             </p>
           )}
+          {nearestBlock}
           {/* The way out comes before the hint, so it is visible in the
               half-height sheet above the tab bar. */}
           {onClearFilters && (activeFilters.length > 0 || searchQuery.trim()) && (
@@ -419,7 +437,6 @@ export default function BottomSheetList({
           {/* Nothing in the area searched, but the same filters match close
               by: "Haeundae" has no halal place on record and Busan has
               eight. Offer them, measured from the area that was typed. */}
-          {nearestBlock}
           <p className="place-list__hint-text">
             {t(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0
               ? 'list.noSavedYet'

@@ -5219,3 +5219,124 @@ html[data-text] .detail-scroll > * {
 .settings-item.text-size {
   padding: 10px 0;
 }
+
+/* ---- Third measurement, 2026-10-04 ---- */
+/* The notes above the list, with a control of their own for the fold. */
+.place-list__notes {
+  position: relative;
+}
+.place-list__notes:not(:has(.place-list__note)) {
+  display: none;
+}
+.place-list__notes-toggle {
+  display: none;
+}
+@media (max-width: 767px) {
+  .place-list__notes-toggle {
+    display: block;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .place-list__notes-toggle:focus-visible {
+    outline: 2px solid var(--green-strong);
+    outline-offset: -6px;
+    border-radius: 12px;
+  }
+}
+.place-list__note-btn {
+  white-space: nowrap;
+}
+
+/* "Open at…": the day and the time on one line on a phone. The selects say
+   what they are ("Tomorrow (Mon)", "12:00 PM"); the labels stay for screen
+   readers. Two lines cost 48 px of a list that had 160. */
+@media (max-width: 767px) {
+  .plan-row {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .plan-row label > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .plan-row label {
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+  .plan-row select {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .plan-row__tz {
+    flex: 0 1 auto;
+    min-width: 0;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+}
+
+/* Nothing found, but something close is offered: less air above, so the
+   offers are on the first screen of the half sheet. */
+.place-list__empty--offers {
+  padding-top: 12px;
+}
+.place-list__empty--offers > svg {
+  display: none;
+}
+
+/* Text that carries meaning is 13 px at least: how sure a claim is, whether
+   a place is open, the romanised Korean a visitor reads aloud, sources. */
+.claim-chip,
+.claim-fact__level,
+.claim-fact__why,
+.place-card__traits,
+.place-list__hint,
+.place-list__note,
+.journey-stop__zone,
+.journey-stop__status,
+.journey-card__claims,
+.staff-question__roman,
+.staff-words__roman,
+.claim-explain__meta,
+.provenance dd,
+.provenance dt,
+.detail-section .section-note {
+  font-size: 13px;
+}
+
+/* 44 px targets the third round found short. */
+.sheet-handle-area {
+  position: relative;
+}
+.sheet-handle-area::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -12px;
+  bottom: -4px;
+}
+.practical-copy,
+.journey-card__toggle {
+  min-width: 44px;
+  justify-content: center;
+}
+.journey-card__toggle {
+  justify-content: flex-start;
+}
+.privacy-sheet a[href^='mailto:'],
+.privacy-version a[href^='mailto:'] {
+  display: inline-block;
+  padding: 13px 0;
+}

@@ -98,6 +98,7 @@ export default {
     distanceFromYou: '내 위치 기준 거리',
     hoursUnknown: '영업시간 정보 없음',
     noMatch: '조건에 맞는 곳이 없어요',
+    notesToggle: '안내 펼치기·접기',
     showUnknown: '함께 보기',
     hideUnknown: '숨기기',
     unknownShown: '영업시간 기록이 없는 {{n}}곳도 함께 보여요. 가기 전에 확인하세요.',

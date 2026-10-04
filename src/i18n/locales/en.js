@@ -86,7 +86,7 @@ export default {
     whatItllLookLike: "What it'll look like",
     step1: 'Find a restaurant you like',
     step2: 'Tap the heart to save it',
-    step3: 'Mark it visited after your trip',
+    step3: 'Tap “Been here” after your visit',
   },
   list: {
     placeCount_one: '{{count}} place',
@@ -101,6 +101,7 @@ export default {
     distanceFromYou: 'distance from you',
     hoursUnknown: 'Hours not recorded',
     noMatch: 'No places match',
+    notesToggle: 'Show or hide the notes',
     showUnknown: 'Show them too',
     hideUnknown: 'Hide them',
     unknownShown: 'Also shown: {{n}} with no recorded hours. Check before you go.',

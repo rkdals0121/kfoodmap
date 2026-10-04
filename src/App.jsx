@@ -91,6 +91,7 @@ function AppShell() {
     };
   };
   const [sharedList, setSharedList] = useState(readList);
+  const freshListKey = useRef(null);
   const sharedIds = sharedList.ids;
   const sharedJourney = journeys.find(j => j.id === sharedList.journeyId) ?? null;
   const [selectedFilters, setSelectedFilters] = useState(() => [...(sharedIds.length > 0 ? [SHARED_LIST] : []), ...startView.filters]);
@@ -151,13 +152,24 @@ function AppShell() {
     if (location.pathname !== '/') return;
     const next = readList();
     setSharedList(prev => (prev.ids.join(',') === next.ids.join(',') && prev.journeyId === next.journeyId ? prev : next));
+    // "Show these stops on the map" (Discover) asks for these places and
+    // nothing else: a search or chips left on the map ("Hongdae" + Vegan)
+    // were applied on top, and a Busan journey came up as "0 places".
+    // Once per visit to that entry, so Back to it keeps what was typed since.
+    if (next.ids.length > 0 && location.state?.freshList && freshListKey.current !== location.key) {
+      freshListKey.current = location.key;
+      setSearchQuery('');
+      setAreaOnly(false);
+      setSelectedFilters([SHARED_LIST]);
+      return;
+    }
     setSelectedFilters(prev => {
       const on = prev.includes(SHARED_LIST);
       if (next.ids.length > 0) return on ? prev : [...prev, SHARED_LIST];
       return on ? prev.filter(f => f !== SHARED_LIST) : prev;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, location.search]);
+  }, [location.pathname, location.search, location.key]);
   // The map's address carries a list in force (a shared list, a journey),
   // so going back to the map — closing a place, a filter tapped with a
   // place open, the Map tab — keeps it instead of dropping it.
@@ -327,6 +339,12 @@ function AppShell() {
     if (isQuarantined(r)) return;
     if (r.id === id && !extra.focusStory && !extra.focusDirections) return;
     navigate(`/place/${r.id}`, { replace: Boolean(id), state: { fromApp: true, tab: activeTab, ...extra } });
+  };
+  // From "Also nearby": a new step, so Back returns to the place it was
+  // opened from rather than skipping to the list.
+  const openFromPlace = (r) => {
+    if (isQuarantined(r) || r.id === id) return;
+    navigate(`/place/${r.id}`, { state: { fromApp: true, tab: activeTab } });
   };
   const closePlace = () => (location.state?.fromApp ? navigate(-1) : navigate(tabPath));
   // While a journey's stops are on the map, a stop opened from the map or
@@ -908,7 +926,7 @@ function AppShell() {
         nearbyDiet={dietChips}
         planAt={planAt}
         planDate={planDate}
-        onOpenPlace={openDetail}
+        onOpenPlace={openFromPlace}
         focusStory={focusStory}
         focusDirections={focusDirections}
         docked={isWide}

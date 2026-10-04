@@ -96,6 +96,7 @@ export default {
     distanceFromYou: '与你的距离',
     hoursUnknown: '营业时间未记录',
     noMatch: '没有符合条件的地方',
+    notesToggle: '展开或收起说明',
     showUnknown: '也显示这些',
     hideUnknown: '隐藏',
     unknownShown: '同时显示 {{n}} 家没有营业时间记录的店，出发前请先确认。',

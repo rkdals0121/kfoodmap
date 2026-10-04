@@ -27,12 +27,16 @@ function CenterReporter({ onCenterChange, sheetState, userLocation }) {
   // from a point now under the sheet.
   const firstSheet = useRef(true);
   useEffect(() => {
-    if (firstSheet.current) { firstSheet.current = false; return undefined; }
+    // On arrival too: the first sort was from the map's own middle, part
+    // of it under the sheet, and the first fold of the sheet reshuffled it.
+    const first = firstSheet.current;
+    firstSheet.current = false;
     const from = lastSheet.current;
     lastSheet.current = sheetState;
     // Not to or from the full sheet: it opens while the list is being
     // scrolled, and re-sorting then moved the cards under the finger.
-    if (from === 2 || sheetState === 2) return undefined;
+    if (!first && (from === 2 || sheetState === 2)) return undefined;
+    if (first && sheetState === 2) return undefined;
     const id = setTimeout(() => {
       const c = visibleCenter(map);
       // Standing on "my location": folding the sheet must not turn "nearest

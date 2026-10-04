@@ -100,6 +100,7 @@ export default {
     distanceFromYou: '現在地からの距離',
     hoursUnknown: '営業時間の記録なし',
     noMatch: '該当するお店がありません',
+    notesToggle: '注意書きを開く・閉じる',
     showUnknown: '表示する',
     hideUnknown: '非表示にする',
     unknownShown: '営業時間の記録がない {{n}} 件も表示しています。行く前にご確認ください。',

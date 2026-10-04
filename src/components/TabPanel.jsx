@@ -86,13 +86,24 @@ const browse = () => browseCache ?? (browseCache = CHIP_GROUPS.flatMap(g => g.ch
       .slice(0, BROWSE_MAX),
   })));
 
+// Where the reader was in Discover, for this visit: which journeys were
+// open and how far down. "Show on the map" and Back used to return to the
+// top with everything folded again.
+const discoverMemory = { open: new Set(), scrollTop: 0 };
+
 // A journey's stops, folded on a phone: seven journeys open in full made
 // Discover ten screens long, with the stories under all of it. The title,
 // what it is, how sure the claims are and "show on the map" stay in view;
 // the stops open on a tap. From 768 px, where there is room, they start open.
-function JourneyStops({ count, children }) {
+function JourneyStops({ id, count, children }) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(() => typeof window !== 'undefined' && Boolean(window.matchMedia?.('(min-width: 768px)').matches));
+  const [open, setOpenState] = useState(() => discoverMemory.open.has(id)
+    || (typeof window !== 'undefined' && Boolean(window.matchMedia?.('(min-width: 768px)').matches)));
+  const setOpen = (fn) => setOpenState(o => {
+    const next = fn(o);
+    if (next) discoverMemory.open.add(id); else discoverMemory.open.delete(id);
+    return next;
+  });
   return (
     <>
       <button type="button" className="journey-card__toggle" aria-expanded={open} onClick={() => setOpen(o => !o)}>
@@ -110,9 +121,20 @@ function DiscoverTab({ onBrowse }) {
   // Korean readers get the Korean name (first in each list); everyone else
   // the romanised one, as on signs and in the records.
   const areaName = (area) => (i18n.language === 'ko' ? AREA_NAMES[area][0] : area);
+  const panelRef = useRef(null);
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el) return undefined;
+    el.scrollTop = discoverMemory.scrollTop;
+    const onScroll = () => { discoverMemory.scrollTop = el.scrollTop; };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    // Also at the tap that leaves: a scroll event can still be pending.
+    el.addEventListener('click', onScroll, true);
+    return () => { el.removeEventListener('scroll', onScroll); el.removeEventListener('click', onScroll, true); };
+  }, []);
 
   return (
-    <section className="tab-panel discover-panel">
+    <section className="tab-panel discover-panel" ref={panelRef}>
       {resolvedJourneys.length > 0 && (
         <>
           <div className="tab-panel-header">
@@ -166,7 +188,7 @@ function DiscoverTab({ onBrowse }) {
                     {t('discover.closedToday', { closed: journey.stops.filter(p => closedAllDay(p.hours)).length, total: journey.stops.length })}
                   </p>
                 )}
-                <JourneyStops count={journey.stops.length}>
+                <JourneyStops id={journey.id} count={journey.stops.length}>
                 <ol className="journey-card__stops">
                   {journey.stops.map((place, i) => (
                     <li key={place.id}>
@@ -217,7 +239,7 @@ function DiscoverTab({ onBrowse }) {
                 <button
                   type="button"
                   className="journey-card__map"
-                  onClick={() => navigate(`/?list=${journey.stops.map(p => p.id).join(',')}&journey=${journey.id}`)}
+                  onClick={() => navigate(`/?list=${journey.stops.map(p => p.id).join(',')}&journey=${journey.id}`, { state: { freshList: true } })}
                 >
                   {t('discover.showOnMap')}
                 </button>
