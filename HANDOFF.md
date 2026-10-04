@@ -2587,6 +2587,48 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     "Open now" re-filters on the tick (`filterClock`), so the map is not
     regrouped every minute.
 
+68. **2026-10-04 late afternoon — the phone audit, rounds two and three.**
+    Method that kept finding things: a first-visitor walkthrough by three
+    personas, a code review of the day's own changes, a third measurement
+    on live, repeated. Same record: `docs/MOBILE-AUDIT-2026-10-04.ko.md`
+    §6–§8. For a maintainer:
+    - **A picked time is honoured everywhere.** `getOpenStatus(hours, now,
+      { nameDay })`: with `nameDay` the next opening is a named weekday,
+      not "tomorrow". List cards, "Also nearby" and the Journal's saved
+      rows answer for the "Open at…" time and say which day
+      (`.place-card__at`).
+    - **Search.** `matchesPhrase` narrows only on whole words in name,
+      area, address or the one-line description, and never when the query
+      holds a diet word ("vegan cafe" is answered from the record's diet).
+      The place whose name is exactly what was typed sorts first
+      (`nameIs`). An area with nothing (or fewer than three) under the
+      chips offers the three nearest matches (`nearest` in the App filter
+      memo; skipped when the "area" is spread over more than 30 km).
+    - **Open now** can show the places left out for having no hours
+      (`showUnknown`, off again with the filter).
+    - **A journey shown on the map from Discover starts clean**
+      (`state.freshList`, handled once per history entry): search and
+      chips left on the map used to be applied on top ("0 places").
+    - **Text size** (Profile): `src/textSize.js` sets `html[data-text]`;
+      index.css applies CSS `zoom` to the reading surfaces (`#place-list`,
+      `.tab-panel > *`, `.journal-panel > *`, `.detail-scroll > *`), not
+      the map or the bars. Stored on the device (`kfm-text-size`); the
+      privacy policy names it beside the language choice.
+    - **Sort centre**: `CenterReporter` reports the visible map's middle
+      on arrival and when the sheet moves between folded and half — not
+      to or from the full sheet (the list is being scrolled then), and not
+      while within 1 km of the reader's own location.
+    - **Notes above the list** sit in `.place-list__notes` with a real
+      toggle button; the halal caveat is first.
+    - **Short phones** (≤ 700 px tall): the half sheet is 66 %
+      (`sheetStops` uses the same media query as the CSS). **Sideways**:
+      the whole list panel scrolls, header included.
+    - **Korean readers** see Korean names (`displayName`, everything
+      before the bracket is dropped).
+    - Discover remembers open journeys and scroll position for the visit
+      (`discoverMemory`). A place opened from "Also nearby" is pushed, so
+      Back returns to the place it came from.
+
 
 ---
 

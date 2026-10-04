@@ -27,6 +27,11 @@
 - **Browse by area** in Discover, and area guides on the web (`/find/halal-busan` …) with every place linked.
 - **Search in other scripts** — areas typed in Korean, Japanese or Chinese (釜山, 明洞, 이태원), and the diet words of each language.
 
+- **Text size** in Profile — normal, large, larger; kept on the device.
+- **Nearest matches** when an area has nothing under your filters ("Haeundae" + Halal offers the closest in Busan).
+- **Open now** can also show the places with no recorded hours.
+- A picked day and time is used on list cards, "Also nearby" and the Journal's saved places, and each says which day.
+
 ### Changed
 
 - A place's dietary source names the site it was read from ("The restaurant (mahinavegan.com)").
