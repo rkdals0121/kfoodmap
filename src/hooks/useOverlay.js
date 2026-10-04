@@ -94,8 +94,16 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
     fit();
     // The bold Korean face may arrive after the first measure.
     document.fonts?.ready?.then(() => { if (el.isConnected) fit(); });
+    // …and whenever a face finishes loading later: the typeface's own
+    // stylesheet now arrives after the first paint (main.jsx), so `ready`
+    // can resolve before the face is even asked for.
+    const refit = () => { if (el.isConnected) fit(); };
+    document.fonts?.addEventListener?.('loadingdone', refit);
     window.addEventListener('resize', fit);
-    return () => window.removeEventListener('resize', fit);
+    return () => {
+      window.removeEventListener('resize', fit);
+      document.fonts?.removeEventListener?.('loadingdone', refit);
+    };
     // A function for `max` is read at each fit and is not a dependency.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, active, min, typeof max === 'function' ? 0 : max]);

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import i18next from 'i18next';
 import { TEXT_SIZES, applyTextSize, readTextSize } from '../textSize';
 import { askFreshList } from '../freshList';
 import { displayName, formatDistance, getOpenStatus, statusClass, closedAllDay } from '../utils';
@@ -63,7 +64,7 @@ function claimSummary(stops, t) {
     }
   }
   const parts = order.filter(k => counts[k]).map(k => `${counts[k].n} ${counts[k].label.toLowerCase()}`);
-  return parts.length ? t('discover.journeyClaims', { summary: parts.join(/^(zh|ja)/.test(document.documentElement.lang) ? '、' : ', ') }) : null;
+  return parts.length ? t('discover.journeyClaims', { summary: parts.join(/^(zh|ja)/.test(i18next.language ?? '') ? '、' : ', ') }) : null;
 }
 
 // "Halal in Busan", "Vegan in Jeju": how many places each well-known area
