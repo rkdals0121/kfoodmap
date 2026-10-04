@@ -260,7 +260,7 @@ function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
 // When the search names an area, the places in that area are the ones to
 // show: "Busan" also finds Seoul's "Busan Jib", which used to keep the map
 // on Seoul because one result was already in view.
-function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
+function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpen = false }) {
   const map = useMap();
   const inArea = all.filter(r => matchesArea(r, searchQuery));
   const restaurants = inArea.length > 0 ? inArea : all;
@@ -273,7 +273,9 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
     // view — unless it opened on a list to frame (a shared list), or on a
     // search: someone arriving at "Vegan food in Busan" from a search
     // engine, or by a shared link, was shown Seoul with no pins in it.
-    if (first.current) { first.current = false; if (!fitAll && !searchQuery.trim()) return undefined; }
+    // Not when it opens on a place (a reload of /place/x#q=Busan): the
+    // map is on that place, and framing the search took its pin away.
+    if (first.current) { first.current = false; if (placeOpen || (!fitAll && !searchQuery.trim())) return undefined; }
     if (restaurants.length === 0) return undefined;
     // After a pause in typing, not on every letter: "se", "seo", "seou"
     // each name a different set and the map lurched between them.
@@ -642,7 +644,7 @@ function MapComponent({
         />
         <StartInView />
         <UserLocation location={userLocation} />
-        <FollowResults restaurants={restaurants} searchQuery={searchQuery} fitAll={fitAll} />
+        <FollowResults restaurants={restaurants} searchQuery={searchQuery} fitAll={fitAll} placeOpen={Boolean(selectedId)} />
         <ClusteredMarkers
           restaurants={restaurants}
           selectedId={selectedId}
