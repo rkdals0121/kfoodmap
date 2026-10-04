@@ -172,6 +172,19 @@ export function matchesSearch(r, query) {
   return roman !== null && searchCore(r, roman);
 }
 
+// The whole query names this place's area — not merely one of its words
+// ("Lotte World" is no one's area just because an address has "World Cup
+// buk-ro" in it). Used to decide where "nearest" is measured from.
+const areaWhole = (r, query) => {
+  const whole = squash(query ?? '');
+  return whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole));
+};
+export function matchesAreaWhole(r, query) {
+  if (areaWhole(r, query)) return true;
+  const roman = romaniseQuery(query);
+  return roman !== null && areaWhole(r, roman);
+}
+
 export function matchesArea(r, query) {
   if (areaCore(r, query)) return true;
   const roman = romaniseQuery(query);

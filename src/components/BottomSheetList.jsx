@@ -177,7 +177,7 @@ export default function BottomSheetList({
     ) : null;
   const nearestBlock = nearest.length > 0 ? (
             <div className="place-list__nearest">
-              <p>{t('list.nearestTitle', { query: nearestFrom })}</p>
+              <p>{nearestFrom ? t('list.nearestTitle', { query: nearestFrom }) : t('list.nearResults')}</p>
               <ul className="saved-list">
                 {nearest.map(({ place, km }) => (
                   <li key={place.id}>

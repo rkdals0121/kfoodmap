@@ -74,7 +74,10 @@ const fromMinutes = (total) => {
   // Indonesian writes 19.30, and "7:30 PM" there is a foreigner's time.
   if (tr('clock') === '24') return tr('time24', { time: `${String(h).padStart(2, '0')}.${m}` });
   // The 12-hour reading, worded by the locale: "10:30 AM", "오전 10:30".
-  return tr(h < 12 ? 'timeAm' : 'timePm', { time: `${((h + 11) % 12) + 1}:${m}` });
+  // Japanese writes the first hour of each half as 0 (午前0:30, 午後0:30):
+  // "午前12:00" reads as noon there.
+  const hour = tr('clock') === '12h0' ? h % 12 : ((h + 11) % 12) + 1;
+  return tr(h < 12 ? 'timeAm' : 'timePm', { time: `${hour}:${m}` });
 };
 
 // Fall back to reading a free-text range like "11:30 AM – 9:30 PM". Only used

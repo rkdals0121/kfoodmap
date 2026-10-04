@@ -39,6 +39,7 @@ export const STAFF_CARDS = [
       { ko: '달걀이나 우유, 버터, 치즈가 들어가나요?', roman: 'Dalgyarina uyu, beoteo, chijeuga deureoganayo?', key: 'veganQ4' },
       { ko: '굴소스나 다시다(쇠고기 조미료)를 쓰나요?', roman: 'Gulsoseuna dasida (soegogi jomiryo) reul sseunayo?', key: 'veganQ5' },
       { ko: '고기와 달걀을 빼고 만들어 주실 수 있나요?', roman: 'Gogiwa dalgyareul ppaego mandeureo jusil su innayo?', key: 'veganQ6' },
+      { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'veganQ7' },
     ],
   },
   {
@@ -58,6 +59,7 @@ export const STAFF_CARDS = [
       { ko: '할랄 인증서를 볼 수 있을까요?', roman: 'Hallal injeungseoreul bol su isseulkkayo?', key: 'muslimQ5' },
       { ko: '고기 없이 해산물이나 채소로 만든 메뉴가 있나요?', roman: 'Gogi eopsi haesanmurina chaesoro mandeun menyuga innayo?', key: 'muslimQ6' },
       { ko: '여기서 술을 판매하나요?', roman: 'Yeogiseo sureul panmaehanayo?', key: 'muslimQ7' },
+      { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'muslimQ8' },
     ],
   },
 ];

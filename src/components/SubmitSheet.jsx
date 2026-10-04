@@ -32,12 +32,22 @@ function Field({ id, label, hint, error, children }) {
 // The sheet for /submit. A correction (place given) never asks for a name
 // or location — those are ours already. What's sent is a lead for a person
 // to verify, never data, and the success copy says so where the promise is made.
+const DRAFTS = new Map();
+
 export default function SubmitSheet({ place, onClose }) {
   const { t, i18n } = useTranslation();
   const isOnline = useOnlineStatus();
-  const [form, setForm] = useState(EMPTY);
+  // What has been typed is kept for this visit (in memory only, nothing is
+  // stored): closing the sheet to check the map, or a slip of the thumb on
+  // a tab, used to throw the whole message away.
+  const draftKey = place?.id ?? '';
+  const [form, setForm] = useState(() => DRAFTS.get(draftKey) ?? EMPTY);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed
+  // Kept until it has been sent.
+  useEffect(() => {
+    if (status === 'sent') DRAFTS.delete(draftKey); else DRAFTS.set(draftKey, form);
+  }, [draftKey, form, status]);
   const [selection, setSelection] = useState(null);
   const [listOpen, setListOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
