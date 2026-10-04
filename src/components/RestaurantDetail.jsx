@@ -426,7 +426,9 @@ export default function RestaurantDetail({
               <h2><KoText>{place.name}</KoText></h2>
               <p className="detail-meta">
                 {place.zone}
-                {distance && <><span aria-hidden="true"> · </span>{userLocation ? t('detail.fromYou', { distance }) : t('detail.fromMapCentre', { distance })}</>}
+                {/* Only a distance from the reader: one from the map's centre means
+                    nothing on the place's own page. */}
+                {distance && userLocation && <><span aria-hidden="true"> · </span>{t('detail.fromYou', { distance })}</>}
                 {/* Open/closed up here too, as on the list card: it is the first thing
                     a traveller acts on. The detail stays in the hours row below. */}
                 {status && (
@@ -635,6 +637,33 @@ export default function RestaurantDetail({
               <p className="detail-loading" role="status">{t('detail.loadingDetails')}</p>
             )}
 
+            {/* The menu before the way there: what is served and what it costs
+                decides whether to go, and it sat three screens down, under
+                "Also nearby". The directions are in the bar at the bottom. */}
+            {/* 6. Representative Menu */}
+            {isKnown(place.menus) && (
+              <section className="detail-section">
+                <SectionHead Icon={MenuIcon} title={t('detail.signatureMenu')} />
+                <div className="menu-rows">
+                  {place.menus.value.map(m => (
+                    <div key={m.name} className="menu-row">
+                      <span><KoText>{m.name}</KoText></span>
+                      <span className="menu-row__price">{formatPrice(m.price) ?? t('detail.priceNotListed')}</span>
+                    </div>
+                  ))}
+                </div>
+                {/* A pork dish listed under "Vegan options" read as a
+                    contradiction (critique 3); the menu is the restaurant's
+                    own, so say what it is rather than filter it. */}
+                {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && (
+                  <p className="section-note">{t('detail.menuNotAllVegan')}</p>
+                )}
+                {needsCheck(place.menus) && (
+                  <p className="section-note">{t('detail.menuUnverified')}</p>
+                )}
+              </section>
+            )}
+
             {/* 5. Directions / Address. Naver and Kakao first: they are the maps
                 visitors are told to use in Korea, where Google's coverage is thin. */}
             <section className="detail-section" ref={directionsRef}>
@@ -741,30 +770,6 @@ export default function RestaurantDetail({
               </section>
             )}
             
-            {/* 6. Representative Menu */}
-            {isKnown(place.menus) && (
-              <section className="detail-section">
-                <SectionHead Icon={MenuIcon} title={t('detail.signatureMenu')} />
-                <div className="menu-rows">
-                  {place.menus.value.map(m => (
-                    <div key={m.name} className="menu-row">
-                      <span><KoText>{m.name}</KoText></span>
-                      <span className="menu-row__price">{formatPrice(m.price) ?? t('detail.priceNotListed')}</span>
-                    </div>
-                  ))}
-                </div>
-                {/* A pork dish listed under "Vegan options" read as a
-                    contradiction (critique 3); the menu is the restaurant's
-                    own, so say what it is rather than filter it. */}
-                {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && (
-                  <p className="section-note">{t('detail.menuNotAllVegan')}</p>
-                )}
-                {needsCheck(place.menus) && (
-                  <p className="section-note">{t('detail.menuUnverified')}</p>
-                )}
-              </section>
-            )}
-
             {/* 7. Story & Hook */}
             
             <section className="detail-section" ref={storyRef}>

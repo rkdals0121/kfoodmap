@@ -74,8 +74,6 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
         <div className="detail-scroll">
           <div className="detail-content submit-content staff-cards">
             <h2 className="submit-title">{t('cards.title')}</h2>
-            <p className="staff-cards__intro">{t('cards.intro')}</p>
-
             <div className="staff-cards__tabs" role="group" aria-label={t('cards.chooseCard')}>
               {STAFF_CARDS.map(c => (
                 <button
@@ -109,6 +107,10 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 </ul>
               </details>}
             </section>
+
+            {/* Why a card, after the card: above it, it pushed the card and its
+                button below the first screen of a shorter phone. */}
+            <p className="staff-cards__intro">{t('cards.intro')}</p>
 
             <section>
               <h3 className="staff-cards__heading">{t('cards.questions')}</h3>

@@ -199,23 +199,6 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
         </div>
       )}
 
-      {/* Badges after the places: on a short phone they pushed the saved
-          list — what the tab is opened for — off the first screen. */}
-      <div className="journal-section">
-        <div className="journal-section-header">
-          <h3>{t('journal.badges')}</h3>
-          <span className="journal-badge-count">{t('journal.badgesEarned', { count: earnedCount })}</span>
-        </div>
-        <div className="badges-grid">
-          {badges.map(badge => (
-            <div key={badge.key} className={`badge-item ${badge.earned ? 'earned' : 'locked'}`}>
-              <Seal {...badge.seal} earned={badge.earned} size="sm" />
-              <span className="badge-name">{badge.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {stamped.length === 0 && (
         <div className="journal-empty">
           {/* This is the one place a person whose session just ended on its
@@ -280,6 +263,23 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           </div>
         </div>
       )}
+      {/* Badges after the places: on a short phone they pushed the saved
+          list — what the tab is opened for — off the first screen. */}
+      <div className="journal-section">
+        <div className="journal-section-header">
+          <h3>{t('journal.badges')}</h3>
+          <span className="journal-badge-count">{t('journal.badgesEarned', { count: earnedCount })}</span>
+        </div>
+        <div className="badges-grid">
+          {badges.map(badge => (
+            <div key={badge.key} className={`badge-item ${badge.earned ? 'earned' : 'locked'}`}>
+              <Seal {...badge.seal} earned={badge.earned} size="sm" />
+              <span className="badge-name">{badge.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </section>
   );
 }

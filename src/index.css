@@ -4943,3 +4943,98 @@ body {
     bottom: calc(var(--tab-h) + 12px);
   }
 }
+
+/* ---- Phone audit, second measurement ---- */
+/* Discover's area rows: the panel centres its children, so a row wider than
+   the screen was centred too and its first links sat off the left edge,
+   where no scroll reaches. The block is as wide as the panel; each row
+   scrolls inside it. */
+.browse-areas {
+  align-self: stretch;
+  min-width: 0;
+  max-width: 100%;
+  text-align: left;
+}
+.browse-areas__row {
+  min-width: 0;
+}
+
+/* One note above the list on a phone, on one or two lines, with a mark that
+   it opens: two notes (halal + open now) put the first card under the tab
+   bar again. Tapping shows them all. */
+@media (max-width: 767px) {
+  .place-list:not(.notes-open) .place-list__note ~ .place-list__note {
+    display: none;
+  }
+  .place-list__note {
+    position: relative;
+    padding-right: 26px;
+  }
+  .place-list__note::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 0.5em;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid var(--muted-strong);
+    border-bottom: 2px solid var(--muted-strong);
+    transform: rotate(45deg);
+  }
+  .place-list.notes-open .place-list__note::after {
+    transform: translateY(4px) rotate(-135deg);
+  }
+  .place-list.notes-open .place-list__note ~ .place-list__note::after {
+    content: none;
+  }
+}
+@media (max-width: 767px) and (max-height: 700px) {
+  .place-list:not(.notes-open) .place-list__note {
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-mask-image: linear-gradient(to right, #000 80%, transparent);
+    mask-image: linear-gradient(to right, #000 80%, transparent);
+  }
+}
+
+/* A section scrolled to ("Read story", the card's directions button) stops
+   below the band behind the close button, not under it. */
+.detail-section {
+  scroll-margin-top: 72px;
+}
+
+/* Fully open, the sheet covers the zoom buttons: take them away rather
+   than leave a sliver that cannot be pressed. */
+@media (max-width: 767px) {
+  .app-shell:has(.sidebar-region.sheet-state-2) .map-zoom {
+    display: none;
+  }
+}
+
+/* The staff cards: less air above the card, so it is on the first screen. */
+@media (max-width: 767px) {
+  .staff-cards {
+    gap: 16px;
+  }
+  .staff-cards .submit-title {
+    margin-bottom: 0;
+  }
+}
+
+/* Story cards' "Read story": a 44 px target. */
+.story-card-btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+/* Card actions 8 px apart. */
+.place-card__actions {
+  gap: 8px;
+}
+/* A Korean name shown large breaks between any two syllable blocks, so it
+   can be as big as the screen, not as small as its longest word. */
+.staff-large__text--name {
+  word-break: break-all;
+  line-break: anywhere;
+}

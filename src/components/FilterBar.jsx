@@ -31,6 +31,13 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // The row is wider than the screen and a chip grows when it is on ("Open
+  // at…" becomes "Open Mon 12:00 PM"): bring the one just pressed into view.
+  const rowRef = useRef(null);
+  const reveal = (e) => {
+    const chip = e.target.closest?.('.chip');
+    if (chip) setTimeout(() => chip.scrollIntoView?.({ inline: 'nearest', block: 'nearest', behavior: 'smooth' }), 60);
+  };
   const chipGroup = (group) => (
     <div key={group.labelKey} className="chip-group" role="group" aria-label={t(group.labelKey)}>
       {group.chips.map(chip => {
@@ -107,7 +114,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
         </datalist>
       </form>
 
-      <div className="chip-row no-scrollbar">
+      <div className="chip-row no-scrollbar" ref={rowRef} onClick={reveal}>
         {/* First in the row: the diet. It is why someone opened this map, and
             on a phone only the first three chips fit before the row scrolls
             — Vegan and Halal used to start off-screen. Then "is it open?". */}

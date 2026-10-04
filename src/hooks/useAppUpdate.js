@@ -40,10 +40,12 @@ export default function useAppUpdate() {
     };
 
     window.addEventListener('pointerdown', markInteracted, { capture: true });
+    window.addEventListener('touchstart', markInteracted, { capture: true, passive: true });
     window.addEventListener('keydown', markInteracted, { capture: true });
     sw.addEventListener('controllerchange', onChange);
     return () => {
       window.removeEventListener('pointerdown', markInteracted, { capture: true });
+      window.removeEventListener('touchstart', markInteracted, { capture: true });
       window.removeEventListener('keydown', markInteracted, { capture: true });
       sw.removeEventListener('controllerchange', onChange);
     };
