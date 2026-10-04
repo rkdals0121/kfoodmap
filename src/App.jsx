@@ -554,8 +554,10 @@ function AppShell() {
       && !(await askConfirm(t('journal.unvisitConfirm'), { confirmLabel: t('app.remove') }))) return;
     const now = Date.now();
     // Marking a visit also saves the place and stamps the Journal: say so,
-    // as a save does. Taking one back was just confirmed and needs no word.
+    // as a save does.
     if (!current || current.visitedAt === null) setToast({ text: t('detail.visitedNote'), undo: null, at: now });
+    // …and taking one back is answered too: the button alone gave no sign.
+    else setToast({ text: t('detail.unvisitedNote'), undo: null, at: now });
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
       if (!held || held.savedAt === null) {

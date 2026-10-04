@@ -358,6 +358,7 @@ export default {
     actionSaved: '已收藏',
     savedNote: '已收藏到手账，离线也能打开。',
     visitedNote: '已标记为去过，并在手账里盖了章。',
+    unvisitedNote: '已移除这次到访。',
     removedNote: '已从手账移除。',
     actionBeenHere: '去过',
     galleryItem: '图片',

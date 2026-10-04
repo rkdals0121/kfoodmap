@@ -372,6 +372,7 @@ export default {
     actionSaved: 'Saved',
     savedNote: 'Saved to your Journal. It opens offline too.',
     visitedNote: 'Marked as visited. It is stamped in your Journal.',
+    unvisitedNote: 'Visit removed.',
     removedNote: 'Removed from your Journal.',
     actionBeenHere: 'Been here',
     galleryItem: 'Gallery item',

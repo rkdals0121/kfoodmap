@@ -162,20 +162,6 @@ export default function RestaurantDetail({
   const nameLen = Math.min(Math.max(...(koreanName(restaurant?.name ?? '') || '').split(/\s+/).map(w => { const n = [...w].length; return n > 6 ? Math.ceil(n / 2) : n; }), 2), 6);
   const nameMax = () => Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
   useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax });
-  // Say where a save went. Driven by the saved state actually changing, not
-  // the tap (unsaving a visited place can be cancelled), and only while the
-  // same place stays open.
-  const [saveNote, setSaveNote] = useState(null);
-  const lastSaved = useRef({ id: restaurant?.id, saved: isBookmarked });
-  useEffect(() => {
-    const prev = lastSaved.current;
-    lastSaved.current = { id: restaurant?.id, saved: isBookmarked };
-    if (prev.id !== restaurant?.id) { setSaveNote(null); return undefined; }
-    if (prev.saved === isBookmarked) return undefined;
-    setSaveNote(isBookmarked ? 'saved' : 'removed');
-    const timer = setTimeout(() => setSaveNote(null), 3000);
-    return () => clearTimeout(timer);
-  }, [isBookmarked, restaurant?.id]);
   const storyRef = useRef(null);
   // Opening another place from this one ("Also nearby", a journey's next
   // stop) reuses this sheet: start the new place at its top, not wherever
@@ -674,10 +660,9 @@ export default function RestaurantDetail({
                   <span>{shared === 'copied' ? t('journal.listCopied') : shared ? t('detail.shared') : t('detail.share')}</span>
                 </button>
               </div>
-              <p className="action-note" role="status">
-                {saveNote === 'saved' && t('detail.savedNote')}
-                {saveNote === 'removed' && t('detail.removedNote')}
-              </p>
+              {/* What a save or a visit did is said by the app's toast (with
+                  Undo): a second copy here said it twice, and went on saying
+                  "Saved" after "Been here" had been pressed. */}
             </div>
 
             {/* Menus, transit, phone and links arrive with the full record
