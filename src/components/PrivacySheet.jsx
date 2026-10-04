@@ -25,7 +25,7 @@ function PolicyVersion({ lang, policy }) {
       {policy.sections.map(section => (
         <div className="privacy-section" key={section.heading}>
           <h3>{section.heading}</h3>
-          {section.text && <p>{section.text}</p>}
+          {section.text && <p>{section.text.split('`').map((part, k) => (k % 2 ? <code key={k}>{part}</code> : part))}</p>}
           {section.items && (
             <ul>
               {section.items.map(item => <li key={item}>{item}</li>)}

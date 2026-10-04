@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
@@ -50,6 +50,8 @@ function SavedRow({ place, savedAt, onOpen, at = null, atLabel = '' }) {
 // is filtered through isQuarantined, same as everywhere else a restaurant is
 // shown, in case one of these three is ever quarantined later.
 const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
+
+const journalMemory = { scrollTop: 0 };
 
 export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap, planAt = null, planDate = null, onShowSaved }) {
   const { t, i18n } = useTranslation();
@@ -116,9 +118,22 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
     },
   ];
   const earnedCount = badges.filter(b => b.earned).length;
+  // Where the reader was, kept for this visit: the Journal opened at its
+  // top again after every look at the map or another tab.
+  const panelRef = useRef(null);
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el) return undefined;
+    el.scrollTop = journalMemory.scrollTop;
+    const onScroll = () => { journalMemory.scrollTop = el.scrollTop; };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    // Not read again on the way out: by then the panel is detached and
+    // reports 0.
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <section className="journal-panel" aria-label={t('journal.ariaLabel')}>
+    <section className="journal-panel" aria-label={t('journal.ariaLabel')} ref={panelRef}>
       <div className="passport-cover">
         <h2 className="passport-cover__title">{t('journal.title')}</h2>
         <div className="passport-stats">

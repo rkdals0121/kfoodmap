@@ -6115,3 +6115,28 @@ html[data-text='larger'] .detail-bar__map svg {
 .language-picker__option[aria-disabled='true'] {
   opacity: 0.5;
 }
+
+/* ---- Seventh walkthrough (Discover, Journal, cards), 2026-10-04 night ---- */
+/* A journey's stops: the whole name, on two lines if need be. */
+.journey-stop__name {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+}
+/* Saved rows at the larger text sizes: the claim wraps inside the row
+   instead of running under the arrow. */
+.saved-row__main .claim-chip {
+  white-space: normal;
+  max-width: 100%;
+}
+.saved-row__main > * {
+  min-width: 0;
+  max-width: 100%;
+}
+.privacy-content code,
+.detail-content code {
+  font-family: inherit;
+  font-size: 0.95em;
+  overflow-wrap: anywhere;
+}

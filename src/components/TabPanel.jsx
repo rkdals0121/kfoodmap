@@ -63,7 +63,7 @@ function claimSummary(stops, t) {
     }
   }
   const parts = order.filter(k => counts[k]).map(k => `${counts[k].n} ${counts[k].label.toLowerCase()}`);
-  return parts.length ? t('discover.journeyClaims', { summary: parts.join(', ') }) : null;
+  return parts.length ? t('discover.journeyClaims', { summary: parts.join(/^(zh|ja)/.test(document.documentElement.lang) ? '、' : ', ') }) : null;
 }
 
 // "Halal in Busan", "Vegan in Jeju": how many places each well-known area

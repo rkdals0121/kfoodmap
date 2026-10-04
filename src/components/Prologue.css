@@ -206,3 +206,9 @@ html[data-text] .prologue-content {
 .prologue-language.is-current {
   font-weight: 700;
 }
+
+/* The Close button of "About" stays over the text it scrolls past: solid,
+   so the words behind it do not show through. */
+.prologue-btn {
+  opacity: 1;
+}

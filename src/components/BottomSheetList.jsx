@@ -442,7 +442,7 @@ export default function BottomSheetList({
           // While searching, only a distance from the visitor is shown:
           // measured from the middle of the map, Myeongdong's own places
           // read "5 km" under a search for Myeongdong.
-          distanceKm={!fromYou && searchQuery.trim() ? Infinity : distanceKm}
+          distanceKm={!fromYou && (searchQuery.trim() || activeFilters.includes(SHARED_LIST)) ? Infinity : distanceKm}
           fromYou={fromYou}
           tick={tick}
           stop={journeyOrder ? sharedIds.indexOf(r.id) + 1 : 0}
