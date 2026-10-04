@@ -9,16 +9,16 @@ export default {
   },
   prologue: {
     title: 'Makanan vegan dan halal di seluruh Korea.',
-    subtitle: '{{activeCount}} tempat, diteliti satu per satu. Setiap klaim diet menyebutkan seberapa yakin kami.',
+    subtitle: '{{activeCount}} tempat, diteliti satu per satu. Setiap klaim vegan atau halal menyebutkan seberapa yakin kami.',
     legendTitle: 'Cara membaca klaim',
     legendConfirmedChip: 'Vegan sepenuhnya',
     legendConfirmed: 'Dicek ke sumber utama: situs atau menu restoran itu sendiri, catatan resmi, atau kunjungan langsung.',
     legendReportedChip: 'Ramah halal',
-    legendReported: 'Ada sumber yang menyatakannya — panduan, direktori, atau daftar di peta — dan kami belum mengeceknya ke sumber utama.',
+    legendReported: 'Ada sumber yang menyatakannya — panduan, direktori, atau entri di layanan peta — dan kami belum mengeceknya ke sumber utama.',
     legendReadingChip: 'Ada pilihan vegan',
     legendReading: 'Perkiraan terbaik kami dari apa yang kami temukan. Periksa dulu sebelum berangkat.',
     legendUnknown: 'Kami tidak berhasil mengetahuinya, jadi kami katakan apa adanya.',
-    legendNote: 'Menu dan dapur bisa berubah. Jika diet Anda ketat, tanyakan kepada staf sebelum memesan.',
+    legendNote: 'Menu dan dapur bisa berubah. Jika pantangan makan Anda ketat, tanyakan kepada staf sebelum memesan.',
     startWith: 'Apa yang Anda cari?',
     startHint: 'Opsional — bisa diubah di peta.',
     continue: 'Buka peta',
@@ -105,7 +105,7 @@ export default {
     nearestTitle: 'Tempat terdekat yang cocok, diukur dari “{{query}}”:',
     showPorkFree: 'Lihat tempat tanpa babi (bukan halal)',
     suggestThis: 'Belum ada di peta? Usulkan',
-    nearResults: 'Dekat tempat ini juga ada:',
+    nearResults: 'Dekat tempat-tempat di atas juga ada:',
     noSavedTitle: 'Belum ada tempat tersimpan',
     sharedNote_one: '{{count}} tempat dari daftar yang dibagikan.',
     sharedNote_other: '{{count}} tempat dari daftar yang dibagikan.',
@@ -119,7 +119,7 @@ export default {
     noMatchHintSearch: 'Coba nama atau area lain.',
     clearAll: 'Hapus pencarian dan filter',
     missingPlace: 'Tempat itu sudah tidak ada di peta, atau tautannya salah. Mungkin sudah tutup, atau tidak lolos pengecekan. Cari tempat lain di bawah.',
-    bothDietsNote: 'Menampilkan tempat yang vegan sekaligus halal. Matikan salah satu chip untuk melihat semua tempat dari jenis lainnya.',
+    bothDietsNote: 'Menampilkan tempat yang vegan sekaligus halal. Matikan salah satu filter untuk melihat semua tempat dari jenis lainnya.',
     veganOptionsNote: 'Termasuk tempat dengan pilihan vegan di menu campuran — di sana, tanyakan soal kecap ikan, kaldu ikan teri, dan telur. “Vegan sepenuhnya” hanya menampilkan dapur yang seluruhnya vegan.',
     fullyVeganNote: 'Dapur yang tercatat seluruhnya vegan. Tiap tanda menyebutkan seberapa pasti hal itu: sebagian besar berstatus Dilaporkan — ada sumber yang menyatakannya, tetapi belum kami cek sendiri.',
     openNowNote_one: 'Buka sekarang, menurut waktu Korea. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
@@ -184,7 +184,7 @@ export default {
     // Jujur tentang apa yang bisa dan tidak bisa dijangkau penghapusan:
     // perangkat lain yang masih masuk menyimpan salinannya sendiri dan akan
     // mengunggahnya saat sinkronisasi berikutnya.
-    deleteRecordsConfirm: 'Ini menghapus catatan tempat yang Anda simpan, kunjungi, dan keluarkan dari simpanan dari akun Anda, serta menghapus data itu dari perangkat ini. Perangkat lain yang masih masuk ke akun Anda dapat mengunggah lagi data yang masih dimilikinya — keluar dulu di perangkat itu.',
+    deleteRecordsConfirm: 'Ini menghapus dari akun Anda catatan tempat yang Anda simpan, kunjungi, dan batal simpan, serta menghapus data itu dari perangkat ini. Perangkat lain yang masih masuk ke akun Anda dapat mengunggah lagi data yang masih dimilikinya — keluar dulu di perangkat itu.',
     syncFailed: 'Gagal menyinkronkan — catatan Anda tetap tersimpan di perangkat ini',
     sessionEnded: 'Sesi masuk Anda berakhir — masuk lagi untuk memulihkan tempat tersimpan Anda',
   },
@@ -273,7 +273,7 @@ export default {
     methodMapCrosscheck: 'Naver Place dan Kakao Map saling cocok',
     methodMapLookup: 'Pencarian di layanan peta',
     methodRouting: 'API rute layanan peta',
-    methodOperatorSite: 'Dibaca dari situs web pengelola sendiri',
+    methodOperatorSite: 'Dibaca dari situs web restoran itu sendiri',
     methodGovListing: 'Dibaca dari daftar pemerintah',
     methodIndependent: 'Sumber-sumber independen saling cocok',
     methodDirectory: 'Dibaca dari daftar direktori',
@@ -307,8 +307,8 @@ export default {
     journeyLast: 'Perhentian terakhir rute ini',
     journeyNavLabel: 'Rute kuliner',
     claimChecked: 'terakhir dicek {{date}}',
-    certificationClaimed: 'Mengaku bersertifikat: {{body}} — kami belum melihat sertifikatnya.',
-    certificationClaimedNote: 'Mengaku bersertifikat: {{body}} — {{note}}',
+    certificationClaimed: 'Diklaim bersertifikat: {{body}} — kami belum melihat sertifikatnya.',
+    certificationClaimedNote: 'Diklaim bersertifikat: {{body}} — {{note}}',
     signatureMenu: 'Menu andalan',
     menuUnverified: 'Nama dan harga hidangan berasal dari restoran, belum diverifikasi, dan mungkin sudah berubah.',
     menuNotAllVegan: 'Tidak semua hidangan di sini vegan: tempat ini menyediakan pilihan vegan.',
@@ -338,7 +338,7 @@ export default {
     traitZeroWaste: 'Nol sampah',
     traitLocallySourced: 'Bahan lokal',
     caveatConfirmedTitle: 'Dicek ke sumber utama.',
-    caveatConfirmedBody: 'Menu bisa berubah — jika diet Anda ketat, tanyakan kepada staf.',
+    caveatConfirmedBody: 'Menu bisa berubah — jika pantangan makan Anda ketat, tanyakan kepada staf.',
     caveatSupportedTitle: 'Dilaporkan, belum terkonfirmasi.',
     caveatSupportedBody: 'Tanyakan kepada staf sebelum memesan.',
     caveatInferredTitle: 'Perkiraan kami, bukan fakta yang dinyatakan.',
@@ -348,7 +348,7 @@ export default {
     priceNotListed: 'Harga tidak tercantum',
     // Spasi di awal wajib dipertahankan: JSX menampilkannya langsung setelah
     // alamat tanpa pemisah.
-    areaOnly: ' — hanya area',
+    areaOnly: ' — hanya perkiraan area',
     // Spasi di awal wajib dipertahankan — lihat areaOnly.
     addressAreaLevel: ' · alamat hanya tingkat area',
     todayHours: 'Hari ini: {{hours}}',
@@ -394,7 +394,7 @@ export default {
     },
     'jongno-temple-food': {
       title: 'Jongno & Insadong: Masakan Kuil Korea',
-      description: 'Tiga dapur yang berjarak jalan kaki singkat satu sama lain di pusat Seoul, dua di antaranya memasak menurut tradisi masakan kuil Buddha — tanpa daging, tanpa ikan, dan juga tanpa lima sayuran beraroma tajam. Satu tempat dilaporkan vegan sepenuhnya; untuk dua dapur kuil, vegan sepenuhnya adalah perkiraan kami berdasarkan tradisinya, bukan sesuatu yang mereka nyatakan.',
+      description: 'Tiga tempat makan yang berdekatan, cukup berjalan kaki, di pusat Seoul, dua di antaranya memasak menurut tradisi masakan kuil Buddha — tanpa daging, tanpa ikan, dan juga tanpa lima sayuran beraroma tajam. Satu tempat dilaporkan vegan sepenuhnya; untuk dua tempat masakan kuil itu, vegan sepenuhnya adalah perkiraan kami berdasarkan tradisinya, bukan sesuatu yang mereka nyatakan.',
     },
     'myeongdong-halal-korean': {
       title: 'Myeongdong: Masakan Korea, Ramah Halal',
@@ -402,11 +402,11 @@ export default {
     },
     'jeonju-plant-based': {
       title: 'Jeonju, Lebih dari Bibimbap',
-      description: 'Dua dapur dan satu kafe di Jeonju yang dilaporkan vegan sepenuhnya, ditutup dengan bibimbap di sebuah rumah di Hanok Village yang dilaporkan menyediakan pilihan vegan. Periksa jam buka tiap perhentian sebelum berangkat.',
+      description: 'Dua tempat makan dan satu kafe di Jeonju yang dilaporkan vegan sepenuhnya, ditutup dengan bibimbap di sebuah rumah makan di Hanok Village yang dilaporkan menyediakan pilihan vegan. Periksa jam buka tiap perhentian sebelum berangkat.',
     },
     'busan-vegan-korean': {
       title: 'Busan: Masakan Korea Vegan',
-      description: 'Masakan kuil di dekat pantai Gwangalli dan masakan rumahan Korea di Seo-gu dan Buk-gu — tiga dapur yang dilaporkan vegan sepenuhnya, belum terkonfirmasi. Letaknya berjauhan; kunjungi satu tempat per hari.',
+      description: 'Masakan kuil di dekat pantai Gwangalli dan masakan rumahan Korea di Seo-gu dan Buk-gu — tiga tempat makan yang dilaporkan vegan sepenuhnya, belum terkonfirmasi. Letaknya berjauhan; kunjungi satu tempat per hari.',
     },
     'jeju-halal-friendly': {
       title: 'Jeju: Meja Makan Ramah Halal',
@@ -414,7 +414,7 @@ export default {
     },
     'ansan-wongok-muslim-friendly': {
       title: 'Ansan Wongok-dong: Jalan Multikultural',
-      description: 'Dapur Uzbek, Indonesia, dan Nepal-India di jalan multikultural Ansan, masing-masing tercantum dalam kumpulan data restoran ramah Muslim milik Gyeonggi Tourism Organization. Beberapa menyajikan alkohol, dan tidak satu pun memiliki sertifikat yang sudah kami lihat — halaman tiap perhentian menjelaskan apa yang diketahui.',
+      description: 'Rumah makan Uzbek, Indonesia, dan Nepal-India di jalan multikultural Ansan, masing-masing tercantum dalam kumpulan data restoran ramah Muslim milik Gyeonggi Tourism Organization. Beberapa menyajikan alkohol, dan tidak satu pun memiliki sertifikat yang sudah kami lihat — halaman tiap perhentian menjelaskan apa yang diketahui.',
     },
   },
   // Budaya makan Korea per kategori (src/data/culture.js): satu pembuka, lalu
@@ -453,7 +453,7 @@ export default {
       ],
     },
     'world-halal': {
-      didYouKnow: 'Dapur ramah halal di Korea kebanyakan menyajikan masakan India, Nepal, Turki, Uzbek, Indonesia, dan Timur Tengah, dan berkumpul di sekitar masjid, universitas, serta kawasan multikultural seperti Itaewon dan Wongok-dong di Ansan. Setiap tanda di peta ini menunjukkan sejauh mana status halal tempat itu sudah diperiksa — selama belum tertulis Terkonfirmasi, tanyakan kepada staf.',
+      didYouKnow: 'Tempat makan ramah halal di Korea kebanyakan menyajikan masakan India, Nepal, Turki, Uzbek, Indonesia, dan Timur Tengah, dan berkumpul di sekitar masjid, universitas, serta kawasan multikultural seperti Itaewon dan Wongok-dong di Ansan. Setiap tanda di peta ini menunjukkan sejauh mana status halal tempat itu sudah diperiksa — selama belum tertulis Terkonfirmasi, tanyakan kepada staf.',
       tips: [
         'Porsinya dibuat untuk berbagi — pesan beberapa hidangan untuk satu meja, ala Korea.',
         'Banyak kedai menyajikan acar ala Korea bersama kari dan kebab — kebiasaan fusi lokal kecil yang layak dicoba.',
@@ -492,8 +492,8 @@ export default {
     veganQ5: 'Apakah Anda memakai saus tiram atau dasida (penyedap rasa sapi)?',
     veganQ6: 'Bisakah dibuatkan tanpa daging dan telur?',
     veganQ7: 'Apakah ada menu yang tidak pedas untuk anak?',
-    veganQ8: 'Apakah ada lima sayuran berbau tajam (bawang putih, daun bawang, kucai, bawang liar, bawang bombai)?',
-    veganQ9: 'Apakah ada kacang-kacangan (kacang tanah, kenari, kacang pinus, dan lainnya)? Saya alergi kacang.',
+    veganQ8: 'Apakah ada lima sayuran beraroma tajam (bawang putih, daun bawang, kucai, bawang liar, bawang bombai)?',
+    veganQ9: 'Apakah ada kacang-kacangan (kacang tanah, kenari, kacang pinus, dan lainnya)? Saya alergi kacang-kacangan.',
     muslimS1: 'Halo. Saya Muslim.',
     muslimS2: 'Karena alasan agama, saya tidak mengonsumsi daging babi dan alkohol.',
     muslimS3: 'Saya juga tidak makan ham, bacon, sosis, lemak babi, maupun kaldu babi.',
@@ -506,7 +506,7 @@ export default {
     muslimQ6: 'Apakah ada menu tanpa daging yang dibuat dari makanan laut atau sayuran?',
     muslimQ7: 'Apakah di sini menjual alkohol?',
     muslimQ8: 'Apakah ada menu yang tidak pedas untuk anak?',
-    muslimQ9: 'Apakah ada kacang-kacangan (kacang tanah, kenari, kacang pinus, dan lainnya)? Saya alergi kacang.',
+    muslimQ9: 'Apakah ada kacang-kacangan (kacang tanah, kenari, kacang pinus, dan lainnya)? Saya alergi kacang-kacangan.',
     answer1: 'Ya',
     answer2: 'Tidak',
     answer3: 'Ada di dalamnya',
