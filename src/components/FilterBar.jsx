@@ -31,6 +31,35 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  const chipGroup = (group) => (
+    <div key={group.labelKey} className="chip-group" role="group" aria-label={t(group.labelKey)}>
+      {group.chips.map(chip => {
+        const isActive = selectedFilters.includes(chip.id);
+        return (
+          <React.Fragment key={chip.id}>
+            <button
+              className={`chip${isActive ? ' active' : ''}`}
+              aria-pressed={isActive}
+              onClick={() => onToggleFilter(chip.id)}
+            >
+              {t(chip.labelKey)}
+            </button>
+            {/* Beside Vegan: all-vegan kitchens only (filters.js). */}
+            {chip.id === 'Vegan' && (
+              <button
+                className={`chip${selectedFilters.includes(FULLY_VEGAN) ? ' active' : ''}`}
+                aria-pressed={selectedFilters.includes(FULLY_VEGAN)}
+                onClick={() => onToggleFilter(FULLY_VEGAN)}
+              >
+                {t('filters.fullyVegan')}
+              </button>
+            )}
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+
   return (
     <header className="home-header">
       <div className="search-field">
@@ -57,8 +86,10 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
       </div>
 
       <div className="chip-row no-scrollbar">
-        {/* First in the row: "is it open?" is the question a hungry visitor
-            asks before any other. */}
+        {/* First in the row: the diet. It is why someone opened this map, and
+            on a phone only the first three chips fit before the row scrolls
+            — Vegan and Halal used to start off-screen. Then "is it open?". */}
+        {chipGroup(CHIP_GROUPS[0])}
         <div className="chip-group" role="group" aria-label={t('filters.groupNow')}>
           <button
             className={`chip${selectedFilters.includes(OPEN_NOW) ? ' active' : ''}`}
@@ -88,34 +119,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
             {t('filters.savedOnly')}
           </button>
         </div>
-        {CHIP_GROUPS.map(group => (
-          <div key={group.labelKey} className="chip-group" role="group" aria-label={t(group.labelKey)}>
-            {group.chips.map(chip => {
-              const isActive = selectedFilters.includes(chip.id);
-              return (
-                <React.Fragment key={chip.id}>
-                  <button
-                    className={`chip${isActive ? ' active' : ''}`}
-                    aria-pressed={isActive}
-                    onClick={() => onToggleFilter(chip.id)}
-                  >
-                    {t(chip.labelKey)}
-                  </button>
-                  {/* Beside Vegan: all-vegan kitchens only (filters.js). */}
-                  {chip.id === 'Vegan' && (
-                    <button
-                      className={`chip${selectedFilters.includes(FULLY_VEGAN) ? ' active' : ''}`}
-                      aria-pressed={selectedFilters.includes(FULLY_VEGAN)}
-                      onClick={() => onToggleFilter(FULLY_VEGAN)}
-                    >
-                      {t('filters.fullyVegan')}
-                    </button>
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </div>
-        ))}
+        {CHIP_GROUPS.slice(1).map(chipGroup)}
       </div>
 
       {planAt && selectedFilters.includes(OPEN_AT) && (

@@ -4277,3 +4277,63 @@ a.btn-primary:focus-visible {
   font-weight: 500;
   color: var(--muted-strong);
 }
+
+/* The place page's bar of actions on a phone: directions in the two maps
+   that work in Korea, and Save. Always in reach of a thumb. */
+.detail-bar {
+  flex-shrink: 0;
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -2px 10px rgba(16, 24, 40, 0.06);
+}
+.detail-bar__map {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: none;
+}
+.detail-bar__map:focus-visible,
+.detail-bar__save:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.detail-bar__save {
+  flex: 0 0 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-hover);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.detail-bar__save.is-saved {
+  color: var(--orange-strong);
+  border-color: var(--orange-strong);
+}
+
+/* The sheet's header is dragged up and down by the app; the browser keeps
+   only the sideways pan (the chip row). Without this a pull down on the
+   handle is also the page's pull-to-refresh. */
+@media (max-width: 767px) {
+  .sheet-header-drag-area {
+    touch-action: pan-x;
+  }
+  .sheet-handle-area {
+    touch-action: none;
+  }
+}

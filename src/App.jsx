@@ -209,26 +209,59 @@ function AppShell() {
     () => localStorage.getItem('kfm-prologue') === 'true'
   );
 
-  // Touch states for mobile bottom sheet swipe
-  const [touchStartY, setTouchStartY] = useState(null);
-  const [touchEndY, setTouchEndY] = useState(null);
-
-  const handleTouchStart = (e) => setTouchStartY(e.targetTouches[0].clientY);
-  const handleTouchMove = (e) => setTouchEndY(e.targetTouches[0].clientY);
-  const handleTouchEnd = () => {
-    if (!touchStartY || !touchEndY) return;
-    const distance = touchStartY - touchEndY;
-    const swipeThreshold = 50;
-
-    if (distance > swipeThreshold) {
-      // Swiped up -> expand
-      setSheetState(s => Math.min(s + 1, 2));
-    } else if (distance < -swipeThreshold) {
-      // Swiped down -> collapse
-      setSheetState(s => Math.max(s - 1, 0));
+  // The phone's list sheet follows the finger and settles on the nearest of
+  // its three heights when let go. It used to wait for the finger to lift
+  // and then jump a step, which read as the sheet not responding. The drag
+  // is on the header (handle, search, chips); a sideways move there is the
+  // chip row scrolling and is left alone.
+  const sheetRef = useRef(null);
+  const drag = useRef(null);
+  const SHEET_STOPS = [0.25, 0.6, 0.95];
+  const handleTouchStart = (e) => {
+    const el = sheetRef.current;
+    if (!el || e.targetTouches.length !== 1) return;
+    const touch = e.targetTouches[0];
+    drag.current = { x: touch.clientX, y: touch.clientY, height: el.getBoundingClientRect().height, moved: false, last: touch.clientY };
+  };
+  const handleTouchMove = (e) => {
+    const d = drag.current;
+    const el = sheetRef.current;
+    if (!d || !el) return;
+    const touch = e.targetTouches[0];
+    const dx = touch.clientX - d.x;
+    const dy = touch.clientY - d.y;
+    if (!d.moved) {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      if (Math.abs(dx) > Math.abs(dy)) { drag.current = null; return; }
+      d.moved = true;
+      el.style.transition = 'none';
     }
-    setTouchStartY(null);
-    setTouchEndY(null);
+    const full = el.parentElement?.getBoundingClientRect().height || window.innerHeight;
+    const height = Math.min(full * 0.95, Math.max(full * 0.18, d.height - dy));
+    el.style.height = `${height}px`;
+    d.last = touch.clientY;
+    d.now = height / full;
+  };
+  const handleTouchEnd = () => {
+    const d = drag.current;
+    const el = sheetRef.current;
+    drag.current = null;
+    if (!d || !el || !d.moved) return;
+    el.style.transition = '';
+    el.style.height = '';
+    // The nearest stop — but a clear flick of 40 px or more moves at least
+    // one step its way, so a short swipe is enough.
+    const travelled = d.y - d.last;
+    let next = SHEET_STOPS.reduce((best, stop, i) => (Math.abs(stop - d.now) < Math.abs(SHEET_STOPS[best] - d.now) ? i : best), 0);
+    setSheetState((current) => {
+      if (next === current && Math.abs(travelled) >= 40) next = Math.min(2, Math.max(0, current + (travelled > 0 ? 1 : -1)));
+      return next;
+    });
+  };
+  // Scrolling down the list at half height asks for more list: open the
+  // sheet fully rather than leave one and a half cards in view.
+  const handleListScroll = (e) => {
+    if (sheetState === 1 && e.currentTarget.scrollTop > 48) setSheetState(2);
   };
 
   // Single choke point for every path that opens detail (map pin, card,
@@ -556,7 +589,7 @@ function AppShell() {
         </MapErrorBoundary>
       </div>
 
-      <div className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || undefined}>
+      <div ref={sheetRef} className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || undefined}>
         {/* Render Map Items ONLY when activeTab is 'map' */}
         {activeTab === 'map' && (
           <>
@@ -566,6 +599,7 @@ function AppShell() {
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchEnd}
             >
               {/* Dragging is not the only way to resize the sheet (WCAG 2.5.7):
                   the handle is a button that steps through the three heights. */}
@@ -590,7 +624,7 @@ function AppShell() {
             </div>
 
             {/* Restaurant list */}
-            <section className="list-region" id="place-list" tabIndex={-1} aria-label={t('app.restaurantList')}>
+            <section className="list-region" id="place-list" tabIndex={-1} aria-label={t('app.restaurantList')} onScroll={handleListScroll}>
               <BottomSheetList
                 restaurants={filteredRestaurants}
                 mapCenter={mapCenter}

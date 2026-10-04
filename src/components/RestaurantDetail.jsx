@@ -811,6 +811,33 @@ export default function RestaurantDetail({
 
           </div>
         </div>
+
+        {/* On a phone, the two things this page is opened for stay in reach
+            of a thumb however far it has been scrolled: the way there (the
+            two maps that work in Korea) and Save. The same links sit in the
+            page with Google's; from 768 px the page is beside the map and
+            needs no bar. */}
+        {!docked && (
+          <div className="detail-bar">
+            <a className="detail-bar__map btn-primary--naver" href={naverMapUrl(place)} target="_blank" rel="noopener noreferrer">
+              <CompassIcon size={18} />
+              <span>Naver Map</span>
+            </a>
+            <a className="detail-bar__map btn-primary--kakao" href={kakaoMapUrl(place)} target="_blank" rel="noopener noreferrer">
+              <CompassIcon size={18} />
+              <span>Kakao Map</span>
+            </a>
+            <button
+              type="button"
+              className={`detail-bar__save${isBookmarked ? ' is-saved' : ''}`}
+              aria-pressed={isBookmarked}
+              aria-label={isBookmarked ? t('detail.actionSaved') : t('detail.actionSave')}
+              onClick={() => onToggleBookmark(place.id)}
+            >
+              <HeartIcon size={22} filled={isBookmarked} />
+            </button>
+          </div>
+        )}
       </div>
 
       {galleryOpen && galleryImages.length > 0 && (

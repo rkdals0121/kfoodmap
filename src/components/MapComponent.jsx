@@ -224,16 +224,25 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false }) {
   useEffect(() => {
     // The first run is the app opening, where the map keeps its start
     // view — unless it opened on a list to frame (a shared list).
-    if (first.current) { first.current = false; if (!fitAll) return; }
-    if (restaurants.length === 0) return;
+    if (first.current) { first.current = false; if (!fitAll) return undefined; }
+    if (restaurants.length === 0) return undefined;
+    // After a pause in typing, not on every letter: "se", "seo", "seou"
+    // each name a different set and the map lurched between them.
+    const timer = setTimeout(() => {
     const latlngs = restaurants.map(r => { const c = coordsOf(r); return L.latLng(c.lat, c.lng); });
     const size = map.getSize();
     const overlap = sheetOverlap(map);
     const visible = L.bounds([0, 0], [size.x, Math.max(1, size.y - overlap)]);
     // fitAll ("Saved"): the point is to see the whole shortlist, so frame
     // all of it even when part is already in view.
-    if (!fitAll && latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
+    // A search that names an area ("itaewon") is framed too: with the map
+    // on all of Seoul those places were "in view" as one count of 24, and
+    // nothing moved.
+    const framed = fitAll || inArea.length > 0;
+    if (!framed && latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
     safeFlyToBounds(map, latlngs, [56, 56], [56, 56 + overlap], { maxZoom: 15, duration: 0.6 });
+    }, searchQuery.trim() ? 400 : 0);
+    return () => clearTimeout(timer);
     // key stands in for restaurants: same places, same key, no move.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, map, fitAll]);
