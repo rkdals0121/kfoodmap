@@ -82,7 +82,7 @@ export default {
     whatItllLookLike: 'Tampilannya nanti',
     step1: 'Temukan restoran yang Anda suka',
     step2: 'Ketuk ikon hati untuk menyimpannya',
-    step3: 'Tandai sudah dikunjungi setelah ke sana',
+    step3: 'Ketuk “Sudah ke sini” setelah berkunjung',
   },
   list: {
     placeCount_one: '{{count}} tempat',
@@ -354,7 +354,7 @@ export default {
     transitFar: ' — mungkin lebih mudah naik bus atau taksi',
     actionSave: 'Simpan',
     actionSaved: 'Tersimpan',
-    savedNote: 'Disimpan ke Jurnal Anda. Bisa dibuka tanpa internet.',
+    savedNote: 'Disimpan ke Jurnal Anda. Tetap bisa dibuka tanpa koneksi.',
     visitedNote: 'Ditandai sudah dikunjungi. Capnya ada di Jurnal Anda.',
     removedNote: 'Dihapus dari Jurnal Anda.',
     actionBeenHere: 'Sudah ke sini',

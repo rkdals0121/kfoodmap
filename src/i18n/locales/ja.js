@@ -85,7 +85,7 @@ export default {
     whatItllLookLike: 'こんなふうに表示されます',
     step1: '気になるお店を見つける',
     step2: 'ハートをタップして保存',
-    step3: '行ったあとに訪問済みにする',
+    step3: '行ったあとに「行った」をタップ',
   },
   list: {
     placeCount_one: '{{count}} 件',
@@ -358,7 +358,7 @@ export default {
     actionSave: '保存',
     actionSaved: '保存済み',
     savedNote: 'ジャーナルに保存しました。オフラインでも開けます。',
-    visitedNote: '訪問済みにしました。ジャーナルにスタンプが付きます。',
+    visitedNote: '訪問済みにしました。ジャーナルにスタンプが付きました。',
     removedNote: 'ジャーナルから削除しました。',
     actionBeenHere: '行った',
     galleryItem: 'ギャラリーの項目',

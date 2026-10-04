@@ -83,7 +83,7 @@ export default {
     whatItllLookLike: '이렇게 채워져요',
     step1: '마음에 드는 식당 찾기',
     step2: '하트를 눌러 저장하기',
-    step3: '다녀온 뒤 다녀옴 표시하기',
+    step3: '다녀온 뒤 “다녀옴” 누르기',
   },
   list: {
     placeCount_one: '{{count}}곳',
