@@ -171,7 +171,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           </div>
           {onShowSaved && (
             <button type="button" className="journal-copy" onClick={onShowSaved}>
-              {t('journal.showOnMap')}
+              {/* The map's Saved filter also holds the visited places: the
+                  count says how many will be there. */}
+              {t('journal.showOnMap')} ({stamped.length})
             </button>
           )}
           <button type="button" className="journal-copy" onClick={copyListText}>
