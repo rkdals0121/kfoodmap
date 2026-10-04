@@ -2657,6 +2657,21 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       contents }` (768–1023 px) or the header falls under the list.
     - `/submit` keeps a draft in memory (`DRAFTS`), cleared when sent.
 
+70. **2026-10-04 19:00 — the search is `src/search.js`.** What #69 lists
+    under "Search fallbacks" was moved out of App's memo into a pure
+    module (`searchPlaces`, `stationOf`, `MAX_QUERY`) after a thousand
+    hostile searches found a dozen wrong answers in the accreted version;
+    `scripts/tests/search-places.test.mjs` runs it against the real
+    records and asserts relations, not counts. The order of fallbacks and
+    the reason for each is in the file's head comment. Rules worth knowing:
+    a fallback never fires because the chips emptied the list; the box and
+    the search stop at 80 characters (a pasted page built a regular
+    expression too large to compile); `fold()` in filters.js makes case,
+    full-width letters and accents equal; `ALSO_NAMED` in area-names.js
+    holds names to romanise that are not areas of their own (stations,
+    sights, and the cooking words `temple` / `vegetarian`); a city suffix
+    narrows Jeju to Jeju-si, an island or province suffix does not.
+
 
 ---
 
