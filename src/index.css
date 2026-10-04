@@ -5907,3 +5907,167 @@ html[data-text='larger'] .detail-bar__map svg {
 .language-picker__option:disabled {
   opacity: 0.5;
 }
+
+/* ---- Seeing it in sunlight: contrast pass, 2026-10-04 night ---- */
+/* The two handles were 1.5:1 against the sheet — the only sign that it
+   can be pulled. Now 3:1. */
+.sheet-handle-bar,
+.detail-grabber {
+  background: #88909E;
+}
+/* A Send button that cannot be pressed: white on pale orange was 2.2:1. */
+.submit-form .btn-primary:disabled {
+  opacity: 1;
+  background: var(--fill);
+  color: var(--muted-strong);
+  box-shadow: none;
+  border: 1px solid var(--field-line);
+}
+/* "Been here" on and off differed by a pale tint. */
+.action-btn--visited {
+  border-width: 1.5px;
+  border-color: var(--green-strong);
+  font-weight: 700;
+}
+/* The current tab, on a phone: a bar over it and a heavier icon — green
+   against grey at the same lightness was the whole difference. */
+.tab-item {
+  color: var(--muted-strong);
+}
+.tab-item.active {
+  color: var(--green-strong);
+}
+@media (max-width: 767px) {
+  .tab-item {
+    position: relative;
+  }
+  .tab-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 28px;
+    height: 3px;
+    margin-left: -14px;
+    border-radius: 0 0 3px 3px;
+    background: var(--green-strong);
+  }
+  .tab-item.active svg {
+    stroke-width: 2.4;
+  }
+}
+/* A chosen language and text size, marked as the chips are. */
+.language-picker__option.active {
+  font-weight: 700;
+}
+.language-picker__option.active::before {
+  content: '✓';
+  content: '✓' / '';
+  margin-right: 6px;
+}
+.text-size__btn.is-on {
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1.5px var(--green-strong);
+}
+/* Text under 4.5:1. */
+.stamp-sample-tag,
+.submit-suggestion__meta {
+  color: var(--muted-strong);
+}
+.claim-fact__why {
+  opacity: 1;
+}
+.seal--locked {
+  opacity: 1;
+  border-color: var(--field-line);
+}
+/* Focus that could not be seen: on the dark cards, on the update band,
+   in the form's fields and the search box, on the toast. */
+.profile-custody :focus-visible,
+.passport-cover :focus-visible {
+  outline-color: #fff;
+}
+.update-banner:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.submit-field input:focus-visible,
+.submit-field select:focus-visible,
+.submit-field textarea:focus-visible {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 1px;
+}
+.search-field:focus-within {
+  outline: 2px solid var(--green-strong);
+  outline-offset: 1px;
+}
+.toast__undo:focus-visible {
+  outline-color: #9BE7C4;
+}
+/* The day and time boxes had an edge of 1.2:1. */
+.plan-row select {
+  border-color: var(--field-line);
+}
+/* Nothing under 12 px (two that the earlier rule missed). */
+.story-card-content .story-card__kind {
+  font-size: 12px;
+}
+.tab-count {
+  min-width: 20px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-slider {
+    scroll-behavior: auto;
+  }
+}
+/* Chrome's automatic dark theme is refused only by "only light". */
+:root {
+  color-scheme: only light;
+}
+/* High-contrast mode drops backgrounds and shadows: what was drawn with
+   them alone gets an edge, and a chosen state gets an outline. */
+@media (forced-colors: active) {
+  .sheet-handle-bar,
+  .detail-grabber,
+  .tip__dot,
+  .progress-bar__fill {
+    background: CanvasText;
+  }
+  .btn-primary,
+  .journal-empty__cta,
+  .staff-card__large-btn,
+  .prologue-btn,
+  .update-banner,
+  .toast,
+  .offline-banner,
+  .confirm,
+  .tab-count,
+  .place-card__stop {
+    border: 1px solid CanvasText;
+  }
+  .claim--confirmed {
+    forced-color-adjust: none;
+    background: CanvasText;
+    color: Canvas;
+    border-color: CanvasText;
+  }
+  .chip.active,
+  .text-size__btn.is-on,
+  .language-picker__option.active,
+  .prologue-language.is-current,
+  .action-btn--visited,
+  .action-btn--saved,
+  .tab-item.active {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+  .submit-field input:focus,
+  .submit-field select:focus,
+  .submit-field textarea:focus,
+  .search-field:focus-within {
+    outline: 2px solid Highlight;
+  }
+}

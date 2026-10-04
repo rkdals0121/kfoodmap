@@ -195,3 +195,14 @@
 html[data-text] .prologue-content {
   zoom: var(--text-zoom, 1);
 }
+
+/* The choice made is marked with a tick as the map's chips are, not by a
+   pale tint alone (it vanished in sunlight and for colour-blind eyes). */
+.prologue-language.is-current::before {
+  content: '✓';
+  content: '✓' / '';
+  margin-right: 6px;
+}
+.prologue-language.is-current {
+  font-weight: 700;
+}
