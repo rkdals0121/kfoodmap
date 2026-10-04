@@ -586,7 +586,7 @@ export default {
     clusterZoom: '{{count}} places here — tap to zoom in',
     zoomIn: 'Zoom in',
     zoomOut: 'Zoom out',
-    nearMe: 'Near me',
+    nearMe: 'My location',
     clusterList: '{{count}} places at this spot',
     failed: 'The map could not be drawn. The list below still works.',
     retry: 'Try the map again',

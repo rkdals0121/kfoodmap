@@ -253,6 +253,8 @@ function DiscoverTab({ onBrowse }) {
         <span className="panel-icon" aria-hidden="true"><SparkleIcon size={24} /></span>
         <h2>{t('discover.cultureTitle')}</h2>
         <p>{t('discover.cultureSubtitle')}</p>
+        {/* Said here as on a place's page: the stories below are English. */}
+        {i18n.language !== 'en' && <p className="practical-muted">{t('detail.contentInEnglish')}</p>}
       </div>
 
       <div className="story-grid">
