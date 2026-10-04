@@ -342,6 +342,8 @@ export default {
     offline: '오프라인 — 저장된 데이터를 보여 드려요',
     updateReady: '새 장소가 추가됐어요 — 눌러서 새로고침',
     undo: '되돌리기',
+    cancel: '취소',
+    ok: '확인',
     sidebarExpand: '사이드바 펼치기',
     sidebarCollapse: '사이드바 접기',
     sheetExpand: '목록 더 크게 보기',

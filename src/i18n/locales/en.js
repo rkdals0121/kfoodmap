@@ -359,6 +359,8 @@ export default {
     offline: 'Offline — showing saved data',
     updateReady: 'New places are available — tap to refresh',
     undo: 'Undo',
+    cancel: 'Cancel',
+    ok: 'OK',
     sidebarExpand: 'Expand sidebar',
     sidebarCollapse: 'Collapse sidebar',
     sheetExpand: 'Show more of the list',

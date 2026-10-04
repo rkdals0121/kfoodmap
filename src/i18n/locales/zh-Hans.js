@@ -345,6 +345,8 @@ export default {
     offline: '离线——正在显示已保存的数据',
     updateReady: '有新地点可用——轻点刷新',
     undo: '撤销',
+    cancel: '取消',
+    ok: '确定',
     sidebarExpand: '展开侧边栏',
     sidebarCollapse: '收起侧边栏',
     sheetExpand: '多显示一些列表',

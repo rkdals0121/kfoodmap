@@ -349,6 +349,8 @@ export default {
     offline: 'Offline — menampilkan data tersimpan',
     updateReady: 'Ada tempat baru — ketuk untuk memuat ulang',
     undo: 'Urungkan',
+    cancel: 'Batal',
+    ok: 'OK',
     sidebarExpand: 'Perluas bilah sisi',
     sidebarCollapse: 'Ciutkan bilah sisi',
     sheetExpand: 'Tampilkan daftar lebih banyak',

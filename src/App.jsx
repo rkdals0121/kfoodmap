@@ -11,6 +11,8 @@ import RestaurantDetail from './components/RestaurantDetail';
 import TabBar from './components/TabBar';
 import TabPanel from './components/TabPanel';
 import JournalPanel from './components/JournalPanel';
+import ConfirmHost from './components/ConfirmHost';
+import { askConfirm } from './confirm';
 import Prologue from './components/Prologue';
 import SubmitSheet from './components/SubmitSheet';
 import PrivacySheet from './components/PrivacySheet';
@@ -387,18 +389,25 @@ function AppShell() {
     return () => clearTimeout(timer);
   }, [toast]);
 
-  const handleToggleBookmark = (placeId) => {
+  // Undo of an unsave: the save put back as it was, and said so.
+  const restoreSave = (placeId) => {
+    const now = Date.now();
+    setEntries(prev => prev.map(e => (e.id === placeId && e.savedAt === null ? { ...e, savedAt: now, updatedAt: now } : e)));
+    setToast({ text: t('detail.savedNote'), undo: null, at: now });
+  };
+
+  const handleToggleBookmark = async (placeId) => {
     // Unsaving a visited place also drops its visit (and its Journal seal),
     // so ask first rather than erase a record silently.
     const current = entries.find(e => e.id === placeId);
     if (current && current.savedAt !== null && current.visitedAt !== null
-      && !window.confirm(t('journal.unsaveVisitedConfirm'))) return;
+      && !(await askConfirm(t('journal.unsaveVisitedConfirm')))) return;
     const now = Date.now();
     const removing = Boolean(current && current.savedAt !== null);
     // An unsave that also dropped a visit was confirmed first and is not
     // offered back: Undo would restore the save without the visit.
     setToast(removing
-      ? { text: t('detail.removedNote'), undo: current.visitedAt === null ? () => handleToggleBookmark(placeId) : null, at: now }
+      ? { text: t('detail.removedNote'), undo: current.visitedAt === null ? () => restoreSave(placeId) : null, at: now }
       : { text: t('detail.savedNote'), undo: null, at: now });
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
@@ -435,11 +444,11 @@ function AppShell() {
     navigate('/', { replace: true });
   };
 
-  const handleToggleVisited = (placeId) => {
+  const handleToggleVisited = async (placeId) => {
     // Taking a visit back removes its date and Journal seal: ask, as unsave does.
     const current = entries.find(e => e.id === placeId);
     if (current && current.savedAt !== null && current.visitedAt !== null
-      && !window.confirm(t('journal.unvisitConfirm'))) return;
+      && !(await askConfirm(t('journal.unvisitConfirm')))) return;
     const now = Date.now();
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
@@ -624,6 +633,7 @@ function AppShell() {
           )}
         </div>
       )}
+      <ConfirmHost />
       {/* Map is now at the base level */}
       <div className="map-region" inert={mapCovered || modalOpen || undefined}>
         <MapErrorBoundary>

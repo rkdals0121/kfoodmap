@@ -352,6 +352,8 @@ export default {
     offline: 'オフライン — 保存済みのデータを表示中',
     updateReady: '新しいお店が追加されました — タップして更新',
     undo: '元に戻す',
+    cancel: 'キャンセル',
+    ok: 'OK',
     sidebarExpand: 'サイドバーを開く',
     sidebarCollapse: 'サイドバーを閉じる',
     sheetExpand: '一覧を広げる',

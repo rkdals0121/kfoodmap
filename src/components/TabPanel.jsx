@@ -11,6 +11,7 @@ import { isQuarantined, dietaryBadges, trustBadge } from '../data/verification';
 import { journeys } from '../data/journeys';
 import { legDistances } from '../data/journey-nav';
 import useInstall from '../hooks/useInstall';
+import { askConfirm } from '../confirm';
 import { useBackToClose } from '../hooks/useOverlay';
 import { matchesArea } from '../filters';
 import { matchesDietary } from '../data/verification';
@@ -307,8 +308,8 @@ function ProfileTab({
   const navigate = useNavigate();
   const currentLanguage = LANGUAGES.find(l => l.code === i18n.language) ?? LANGUAGES[0];
 
-  const confirmThenDelete = () => {
-    if (window.confirm(t('profile.deleteRecordsConfirm'))) onDeleteRecords();
+  const confirmThenDelete = async () => {
+    if (await askConfirm(t('profile.deleteRecordsConfirm'), { confirmLabel: t('profile.deleteRecords') })) onDeleteRecords();
   };
 
   // googleReady gates the sign-in control and nothing else: a button that

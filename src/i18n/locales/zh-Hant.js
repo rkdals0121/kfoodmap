@@ -345,6 +345,8 @@ export default {
     offline: '離線——正在顯示已儲存的資料',
     updateReady: '有新地點可用——點一下重新整理',
     undo: '復原',
+    cancel: '取消',
+    ok: '確定',
     sidebarExpand: '展開側邊欄',
     sidebarCollapse: '收合側邊欄',
     sheetExpand: '多顯示一些列表',
