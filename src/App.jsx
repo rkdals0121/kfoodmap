@@ -646,7 +646,9 @@ function AppShell() {
     // closest places that do, measured from the middle of that area's
     // records. Only for a search that names an area we hold records in.
     let near = [];
-    if (list.length === 0 && searchQuery.trim() && selectedFilters.length > 0
+    // Also when the area has only one or two ("Hongdae" + Fully vegan at
+    // Monday noon is one place; Mangwon is 750 m away).
+    if (list.length < 3 && searchQuery.trim() && selectedFilters.length > 0
       && !selectedFilters.includes(SAVED_ONLY) && !selectedFilters.includes(SHARED_LIST)) {
       const anchors = activeRestaurants.filter(r => matchesArea(r, searchQuery)).map(coordsOf);
       if (anchors.length > 0) {
@@ -656,7 +658,7 @@ function AppShell() {
         const spread = Math.max(...anchors.map(c => haversineKm(lat, lng, c.lat, c.lng)));
         if (spread <= 30) near = activeRestaurants
           .filter(r => {
-            if (!chips(r)) return false;
+            if (!chips(r) || list.includes(r)) return false;
             if (!openNowOn && !openAtOn) return true;
             const status = getOpenStatus(r.hours, now);
             return status?.open === true && status.orderable !== false;

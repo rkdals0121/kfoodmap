@@ -170,6 +170,23 @@ export default function BottomSheetList({
       </button>
     </>
   ) : null;
+  const nearestBlock = nearest.length > 0 ? (
+            <div className="place-list__nearest">
+              <p>{t('list.nearestTitle', { query: nearestFrom })}</p>
+              <ul className="saved-list">
+                {nearest.map(({ place, km }) => (
+                  <li key={place.id}>
+                    <button type="button" className="saved-row" onClick={() => onRestaurantClick(place)}>
+                      <span className="saved-row__main">
+                        <span className="saved-row__name">{displayName(place.name)}</span>
+                        <span className="saved-row__where">{place.zone} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+  ) : null;
   const sorted = useMemo(() => {
     const inArea = (r) => matchesArea(r, matchQuery);
     const stop = (r) => sharedIds.indexOf(r.id);
@@ -369,6 +386,9 @@ export default function BottomSheetList({
         />
       ))}
 
+      {/* One or two results in the area: what else is close. */}
+      {sorted.length > 0 && !hasMore && nearestBlock}
+
       {hasMore && (
         <button type="button" ref={sentinelRef} className="place-list__more" onClick={() => setShown(s => s + PAGE)}>
           {t('list.showMore', { count: Math.min(PAGE, sorted.length - shown) })}
@@ -399,23 +419,7 @@ export default function BottomSheetList({
           {/* Nothing in the area searched, but the same filters match close
               by: "Haeundae" has no halal place on record and Busan has
               eight. Offer them, measured from the area that was typed. */}
-          {nearest.length > 0 && (
-            <div className="place-list__nearest">
-              <p>{t('list.nearestTitle', { query: nearestFrom })}</p>
-              <ul className="saved-list">
-                {nearest.map(({ place, km }) => (
-                  <li key={place.id}>
-                    <button type="button" className="saved-row" onClick={() => onRestaurantClick(place)}>
-                      <span className="saved-row__main">
-                        <span className="saved-row__name">{displayName(place.name)}</span>
-                        <span className="saved-row__where">{place.zone} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {nearestBlock}
           <p className="place-list__hint-text">
             {t(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0
               ? 'list.noSavedYet'
