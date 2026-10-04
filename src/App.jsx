@@ -217,7 +217,16 @@ function AppShell() {
     if (!mq) return undefined;
     const onChange = () => setIsWide(mq.matches);
     mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
+    // Also on resize: the media query's own event was seen not to fire when
+    // the width changed while the page was in the background, and a place
+    // then stayed docked at 180 px wide on a phone-sized screen.
+    window.addEventListener('resize', onChange);
+    document.addEventListener('visibilitychange', onChange);
+    return () => {
+      mq.removeEventListener('change', onChange);
+      window.removeEventListener('resize', onChange);
+      document.removeEventListener('visibilitychange', onChange);
+    };
   }, []);
   const firstTab = useRef(true);
   useEffect(() => {
@@ -719,6 +728,9 @@ function AppShell() {
     // A station written in Korean, Japanese or Chinese ("서울역", "홍대입구역",
     // "江南駅"): the records that say "<Area> Station", else the area. Split
     // into "Seoul" + "역" it was every Seoul record.
+    // Set when a station is on record but nothing at it passes the chips:
+    // the nearest that do are then measured from the station itself.
+    let anchorPlaces = null;
     const cjkStation = !areaOnly && !typed.includes(' ') ? CJK_STATION.exec(typed) : null;
     let stationDone = false;
     if (cjkStation) {
@@ -730,8 +742,16 @@ function AppShell() {
         used = `${area} Station`;
         unknown = unknownPlaces.filter(r => matchesPhrase(r, phrase)).length;
       } else {
-        list = rerun(area);
-        used = area;
+        const spots = activeRestaurants.filter(r => matchesPhrase(r, phrase));
+        if (spots.length > 0 && selectedFilters.length > 0) {
+          rerun(phrase);
+          list = [];
+          used = `${area} Station`;
+          anchorPlaces = spots;
+        } else {
+          list = rerun(area);
+          used = area;
+        }
       }
       stationDone = true;
     }
@@ -763,7 +783,14 @@ function AppShell() {
     // any station, presented as if near that one.
     if (typed && !areaOnly && !stationDone && (list.length === 0 || (!phraseFound && STATION_TAIL.test(typed)))) {
       const bare = typed.replace(STATION_TAIL, '').trim();
-      if (bare && bare !== typed) {
+      const spots = bare !== typed && selectedFilters.length > 0 ? activeRestaurants.filter(r => matchesPhrase(r, typed)) : [];
+      if (spots.length > 0) {
+        // "Seoul Station" + Halal: not all of Seoul, but what is halal
+        // near the station.
+        rerun(typed);
+        list = [];
+        anchorPlaces = spots;
+      } else if (bare && bare !== typed) {
         const again = rerun(bare);
         if (again.length > 0 || list.length > 0) { list = again; used = bare; }
       }
@@ -780,8 +807,8 @@ function AppShell() {
       // none, from the area the whole search names. Never from a place that
       // only shares a word with it: "Lotte World" was once measured from a
       // street called World Cup buk-ro, 13 km away.
-      const anchors = (list.length > 0 ? list : activeRestaurants.filter(r => matchesAreaWhole(r, used))).map(coordsOf);
-      const reach = list.length > 0 ? 5 : 40;
+      const anchors = (anchorPlaces ?? (list.length > 0 ? list : activeRestaurants.filter(r => matchesAreaWhole(r, used)))).map(coordsOf);
+      const reach = anchorPlaces ? 4 : list.length > 0 ? 5 : 40;
       if (anchors.length > 0) {
         const lat = anchors.reduce((sum, c) => sum + c.lat, 0) / anchors.length;
         const lng = anchors.reduce((sum, c) => sum + c.lng, 0) / anchors.length;
@@ -797,7 +824,7 @@ function AppShell() {
           .map(r => { const c = coordsOf(r); return { place: r, km: haversineKm(lat, lng, c.lat, c.lng) }; })
           .filter(x => x.km <= reach)
           .sort((a, b) => a.km - b.km)
-          .slice(0, 3);
+          .slice(0, anchorPlaces ? 6 : 3);
       }
     }
     // nearestFrom: the area the distances are from, or '' when they are from

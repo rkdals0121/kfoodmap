@@ -185,6 +185,15 @@ export default function BottomSheetList({
                       <span className="saved-row__main">
                         <span className="saved-row__name">{displayName(place.name)}</span>
                         <span className="saved-row__where">{place.zone} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
+                        {/* Whether it is open, as every other row says. */}
+                        {(() => {
+                          const st = planDate ? getOpenStatus(place.hours, planDate, { nameDay: true }) : getOpenStatus(place.hours);
+                          return (
+                            <span className="saved-row__status">
+                              {st ? <><span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>}
+                            </span>
+                          );
+                        })()}
                       </span>
                     </button>
                   </li>
