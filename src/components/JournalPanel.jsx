@@ -48,7 +48,7 @@ function SavedRow({ place, savedAt, onOpen }) {
 // shown, in case one of these three is ever quarantined later.
 const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 
-export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded }) {
+export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap }) {
   const { t, i18n } = useTranslation();
   const byId = useMemo(() => Object.fromEntries(restaurants.map(r => [r.id, r])), []);
 
@@ -237,6 +237,12 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           <p className="journal-empty__body">
             {t('journal.emptyBody')}
           </p>
+          {/* The way out of an empty screen: where saving starts. */}
+          {onGoMap && (
+            <button type="button" className="journal-empty__cta" onClick={onGoMap}>
+              {t('journal.emptyCta')}
+            </button>
+          )}
 
           {samples.length > 0 && (
             <>

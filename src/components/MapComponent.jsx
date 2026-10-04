@@ -334,7 +334,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, st
           const label = t('map.clusterList', { count: members.length });
           return (
             <Marker key={key} position={[lat, lng]} icon={clusterIcon(members.length)} keyboard={false} title={label} alt={label}>
-              <Popup className="k-cluster-popup" closeButton={false}>
+              <Popup className="k-cluster-popup" closeButton={false} maxHeight={220}>
                 <p className="k-cluster-popup__title">{label}</p>
                 <ul>
                   {members.map(({ r }) => (
@@ -530,7 +530,7 @@ export default function MapComponent({
         {/* Top right, not Leaflet's bottom right: on a phone the list sheet
             and tab bar cover the map's bottom edge, which hid the
             OpenStreetMap credit its licence requires. */}
-        <AttributionControl position="topright" />
+        <AttributionControl position="topright" prefix={false} />
         {onCenterChange && <CenterReporter onCenterChange={onCenterChange} />}
         <ResizeSync />
         {/* This attribution is legally required credit markup for OpenStreetMap,
@@ -548,7 +548,7 @@ export default function MapComponent({
             traffic, not a commercial CDN — if this app's traffic ever grows,
             move to a keyed provider rather than leaning harder on a donation. */}
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <StartInView />

@@ -74,6 +74,7 @@ export default {
     otherRegion: '其他',
     emptyTitle: '你的护照还是空的',
     emptyBody: '收藏想去的店，去过后标记一下，每一家都会在这里盖上印章。',
+    emptyCta: '在地图上找地点',
     firstTaste: '初尝',
     plantBased: '植物系',
     sample: '示例',

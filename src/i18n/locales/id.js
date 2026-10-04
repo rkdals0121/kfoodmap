@@ -75,6 +75,7 @@ export default {
     otherRegion: 'Lainnya',
     emptyTitle: 'Paspor Anda masih kosong',
     emptyBody: 'Simpan tempat yang ingin Anda coba. Tandai sudah dikunjungi, dan tiap tempat akan dicap di sini.',
+    emptyCta: 'Cari tempat di peta',
     firstTaste: 'Cicipan Pertama',
     plantBased: 'Nabati',
     sample: 'Contoh',

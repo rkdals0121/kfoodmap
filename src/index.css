@@ -4337,3 +4337,217 @@ a.btn-primary:focus-visible {
     touch-action: none;
   }
 }
+
+/* On a phone the two rows of areas scroll sideways, one line each: wrapped
+   they filled the first screen of Discover and pushed the journeys under
+   the fold. The fade at the right edge says the row goes on. */
+@media (max-width: 767px) {
+  .browse-areas__links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0 -20px;
+    padding: 2px 20px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  }
+  .browse-areas__links::-webkit-scrollbar {
+    display: none;
+  }
+  .browse-areas__links::after {
+    content: '';
+    flex: 0 0 24px;
+  }
+  .browse-areas__link {
+    flex-shrink: 0;
+  }
+}
+
+.journal-empty__cta {
+  margin: 14px auto 4px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--green-strong);
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.journal-empty__cta:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Phone audit, 2026-10-04 (docs/MOBILE-AUDIT-2026-10-04.ko.md)
+   ========================================================================== */
+:root {
+  color-scheme: light;
+}
+html {
+  /* A phone turned sideways does not inflate the type. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Two quick taps (a heart, the sheet handle) are two taps, not a zoom. */
+  touch-action: manipulation;
+}
+/* A pull on the sheet is not the page's pull-to-refresh, and the page
+   itself does not rubber-band behind the app. */
+html,
+body {
+  overscroll-behavior: none;
+}
+
+/* A select under 16 px makes iOS zoom the page when it opens. */
+.plan-row select {
+  font-size: 16px;
+}
+
+/* dvh is not everywhere (iOS 15.3 and older): without the first line the
+   sheet grew to its content and the close button left the screen. */
+.detail-sheet {
+  height: 92vh;
+  height: 92dvh;
+}
+
+/* Things to press are at least 44 px. */
+.detail-close {
+  width: 44px;
+  height: 44px;
+}
+.chip {
+  height: 44px;
+}
+.claim-fact,
+.shared-list-note__btn,
+.journal-share,
+.place-list__share,
+.prologue-language,
+.practical-copy,
+.staff-card__meaning summary,
+.k-cluster-popup button {
+  min-height: 44px;
+}
+.practical-copy {
+  padding-inline: 10px;
+}
+.staff-card__meaning summary {
+  display: flex;
+  align-items: center;
+}
+/* "Ask in Korean" is the most urgent thing on the page for someone standing
+   in the restaurant, and was a 20 px line of text. */
+.diet-note__ask {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Nothing under 12 px. */
+.stamp-sample-tag,
+.stat-label,
+.provenance__title,
+.callout__label,
+.passport-cover__eyebrow,
+.next-stop__eyebrow,
+.stamp-date,
+.story-card__kind,
+.profile-custody__eyebrow,
+.settings-section-label,
+.k-cluster--few span {
+  font-size: 12px;
+}
+
+/* A name is not cut at two lines (the Korean name comes last and was the
+   part lost); the area wraps instead of ending in "…". */
+.place-card__open-btn {
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+.place-card__zone {
+  white-space: normal;
+  overflow: visible;
+}
+
+/* Chips, tabs and handles are pressed, not selected or long-pressed. */
+.chip,
+.tab-item,
+.sheet-handle-area,
+.action-btn,
+.detail-bar__map,
+.detail-bar__save {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Leaflet moves a pin by writing its transform every frame; a transition on
+   it made pins trail the map in a pinch. The hover scale never applied (the
+   inline transform wins), so it goes too. */
+.k-pin {
+  transition: none;
+}
+/* A finger has no hover: the lifted card stayed lifted after a tap. */
+@media (hover: none) {
+  .story-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Offline / update notices: fixed over everything (they were under the pins
+   and behind every sheet), clear of a notch, and they wrap on a narrow
+   screen instead of running off it. */
+.offline-banner,
+.update-banner {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top));
+  z-index: 1100;
+  max-width: calc(100% - 24px);
+  white-space: normal;
+  text-align: center;
+}
+.update-banner {
+  min-height: 44px;
+}
+.map-locate {
+  top: calc(34px + env(safe-area-inset-top));
+}
+/* Bottom sheets and full-screen cards stay clear of the home indicator. */
+.language-picker {
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+}
+.staff-large {
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  padding-top: calc(24px + env(safe-area-inset-top));
+}
+
+@media (max-width: 767px) {
+  /* Folded, the sheet is as tall as its own header (handle, search, chips)
+     above the tab bar. A quarter of the screen put the chips behind the
+     tab bar on shorter phones. */
+  .sidebar-region.sheet-state-0 {
+    height: calc(var(--tab-h) + 168px);
+  }
+  /* Fully open, a strip of map stays — with the "my location" button in it
+     — so the map is one tap away and plainly still there. */
+  .sidebar-region.sheet-state-2 {
+    height: calc(100% - 92px);
+  }
+  /* The handle: a 44 px target on a 28 px bar (the extra reaches up over
+     the sheet's rounded edge). */
+  .sheet-handle-area {
+    position: relative;
+  }
+  .sheet-handle-area::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -16px;
+    bottom: 0;
+  }
+}

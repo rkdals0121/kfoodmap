@@ -79,6 +79,7 @@ export default {
     otherRegion: 'Other',
     emptyTitle: 'Your passport is empty',
     emptyBody: 'Save places you want to try. Mark them visited and each one is stamped here.',
+    emptyCta: 'Find a place on the map',
     firstTaste: 'First Taste',
     plantBased: 'Plant Based',
     sample: 'Sample',

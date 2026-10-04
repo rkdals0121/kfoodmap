@@ -186,7 +186,16 @@ export default defineConfig({
         theme_color: '#FFFFFF',
         background_color: '#FFFFFF',
         display: 'standalone',
+        id: '/',
+        scope: '/',
+        lang: 'en',
         start_url: '/',
+        // Long-press the home-screen icon: the two things worth reaching in
+        // one move — the card to show staff, and the saved places.
+        shortcuts: [
+          { name: 'Korean cards to show staff', short_name: 'Staff cards', url: '/cards' },
+          { name: 'Saved places', short_name: 'Journal', url: '/journal' },
+        ],
         // Drawn from scripts/icons/*.svg by scripts/app-icons.mjs.
         icons: [
           { src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml' },
@@ -269,6 +278,20 @@ export default defineConfig({
         // name, and evicting it the moment the new one lands would break
         // exactly the stale-asset case the hook's retry is there for.
         runtimeCaching: [
+          // Map tiles a visitor has already seen stay for a fortnight, so the
+          // streets around a saved place are still drawn underground or with
+          // roaming off. Only what was viewed: OpenStreetMap's tile policy
+          // forbids downloading areas in bulk. Opaque responses (status 0)
+          // are what a cross-origin <img> gives a service worker.
+          {
+            urlPattern: ({ url }) => url.hostname === 'tile.openstreetmap.org',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'kfm-tiles',
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 14, purgeOnQuotaError: true },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
           // Per-place full records (evidence text), fetched when a detail
           // opens. Not precached — 270+ files nobody may open — but kept once
           // fetched so a place viewed online shows its evidence offline too.

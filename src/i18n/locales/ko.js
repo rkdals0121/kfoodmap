@@ -76,6 +76,7 @@ export default {
     otherRegion: '기타',
     emptyTitle: '여권이 아직 비어 있어요',
     emptyBody: '가 보고 싶은 곳을 저장해 보세요. 다녀옴으로 표시하면 여기에 도장이 찍혀요.',
+    emptyCta: '지도에서 가게 찾기',
     firstTaste: '첫 한 입',
     plantBased: '식물성 한 끼',
     sample: '예시',

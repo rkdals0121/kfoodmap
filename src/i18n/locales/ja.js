@@ -78,6 +78,7 @@ export default {
     otherRegion: 'その他',
     emptyTitle: 'パスポートはまだ空です',
     emptyBody: '気になるお店を保存しましょう。訪問済みにすると、ここにスタンプが押されます。',
+    emptyCta: '地図でお店を探す',
     firstTaste: 'はじめの一口',
     plantBased: 'プラントベース',
     sample: 'サンプル',

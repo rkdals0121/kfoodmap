@@ -558,20 +558,22 @@ function AppShell() {
       {/* The map holds hundreds of focusable pins; the same places are in
           the list, one Tab away with this link. */}
       {activeTab === 'map' && <a className="skip-link" href="#place-list">{t('app.skipToList')}</a>}
+      {/* Above everything, on every tab: inside the map region they sat under
+          the pins and vanished behind the other tabs and the sheets. */}
+      {!isOnline && (
+        <div className="offline-banner" role="status">
+          {t('app.offline')}
+        </div>
+      )}
+      {/* Only offered when the page was already in use as the new version
+          arrived; an untouched page reloads itself (useAppUpdate). */}
+      {updateReady && (
+        <button type="button" className="update-banner" onClick={reload}>
+          {t('app.updateReady')}
+        </button>
+      )}
       {/* Map is now at the base level */}
       <div className="map-region" inert={mapCovered || modalOpen || undefined}>
-        {!isOnline && (
-          <div className="offline-banner" role="status">
-            {t('app.offline')}
-          </div>
-        )}
-        {/* Only offered when the page was already in use as the new version
-            arrived; an untouched page reloads itself (useAppUpdate). */}
-        {updateReady && (
-          <button type="button" className="update-banner" onClick={reload}>
-            {t('app.updateReady')}
-          </button>
-        )}
         <MapErrorBoundary>
           <MapComponent
             restaurants={filteredRestaurants}
@@ -664,7 +666,7 @@ function AppShell() {
 
         {/* Tab panels rendered inside the sidebar */}
         {activeTab === 'journal' && (
-          <JournalPanel bookmarks={bookmarks} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} />
+          <JournalPanel bookmarks={bookmarks} onRestaurantClick={openDetail} sessionEnded={sessionEnded && !session} onGoMap={() => selectTab('map')} />
         )}
         {activeTab !== 'map' && activeTab !== 'journal' && (
           <TabPanel
