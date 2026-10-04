@@ -5468,8 +5468,11 @@ html[data-text] .toast > * {
   line-break: auto;
   overflow-wrap: anywhere;
 }
-.text-size .settings-label {
-  white-space: nowrap;
+/* The text-size row wraps its buttons under the label when there is no
+   room beside it (the largest size on a 360 px phone). */
+.settings-item.text-size {
+  flex-wrap: wrap;
+  row-gap: 8px;
 }
 
 /* A journey or a shared list on a phone: its own note names it, counts it
@@ -5487,5 +5490,13 @@ html[data-text] .toast > * {
   }
   .place-list.is-shared .shared-list-note__actions {
     margin-top: 4px;
+  }
+}
+
+/* Sideways the header scrolls with the panel, so a finger on the search or
+   the chips must be able to scroll it. */
+@media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
+  .sheet-header-drag-area {
+    touch-action: pan-x pan-y;
   }
 }

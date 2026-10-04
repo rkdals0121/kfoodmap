@@ -135,8 +135,9 @@ export default function RestaurantDetail({
   // to a line: "편한집밥" down the screen was harder to read, not easier.
   // Two or three syllables fill the width; longer names keep four across.
   // By the longest word: "루나아시아" stays whole on one line; a name of
-  // several words breaks between them.
-  const nameLen = Math.min(Math.max(...(koreanName(restaurant?.name ?? '') || '').split(/\s+/).map(w => [...w].length), 2), 6);
+  // several words breaks between them. A word of seven or more goes on
+  // two even lines (4 + 3), not six and a stray syllable.
+  const nameLen = Math.min(Math.max(...(koreanName(restaurant?.name ?? '') || '').split(/\s+/).map(w => { const n = [...w].length; return n > 6 ? Math.ceil(n / 2) : n; }), 2), 6);
   const nameMax = () => Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
   useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax });
   // Say where a save went. Driven by the saved state actually changing, not
@@ -494,8 +495,8 @@ export default function RestaurantDetail({
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   {/* The research note can run to two screens: the first
                       lines, and the rest on request. */}
-                  <p className={`claim-explain__text${detail.length > 260 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {detail}</p>
-                  {detail.length > 260 && (
+                  <p className={`claim-explain__text${detail.length > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {detail}</p>
+                  {detail.length > 420 && (
                     <button type="button" className="claim-explain__more" aria-expanded={claimFull} onClick={() => setClaimFull(v => !v)}>
                       {t(claimFull ? 'detail.claimLess' : 'detail.claimMore')}
                     </button>

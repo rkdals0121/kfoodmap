@@ -43,6 +43,8 @@ const SUSTAINABILITY_AXIS = ['Sustainability', ...TRAIT_GROUPS.Sustainability];
 // Quarantined records (existence itself unconfirmed) are excluded from every
 // discovery surface — map, search, cards, Journal — at this single point.
 const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
+// The same condition as index.css uses for a phone held sideways.
+const LANDSCAPE_PHONE = '(max-width: 767px) and (orientation: landscape) and (max-height: 500px)';
 
 const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile: '/profile' };
 const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': 'profile' };
@@ -246,6 +248,13 @@ function AppShell() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
   const [handleDown, setHandleDown] = useState(false);
+  // Which way the handle's next tap goes from the half height: down if the
+  // sheet came there from full — by a tap, a drag or the list's scroll.
+  const lastSheetState = useRef(1);
+  useEffect(() => {
+    if (sheetState === 1) setHandleDown(lastSheetState.current === 2);
+    lastSheetState.current = sheetState;
+  }, [sheetState]);
   const [prologueCompleted, setPrologueCompleted] = useState(
     // Arriving on a place or an area guide (a search result, a shared
     // link): that page is what was asked for, and the welcome screen stood
@@ -274,7 +283,8 @@ function AppShell() {
   const handleTouchStart = (e) => {
     const el = sheetRef.current;
     // Phones only: from 768 px this is a sidebar, not a sheet.
-    if (!el || isWide || e.touches.length !== 1) { drag.current = null; return; }
+    // Nor sideways, where the list is a panel that scrolls as a whole.
+    if (!el || isWide || e.touches.length !== 1 || window.matchMedia?.(LANDSCAPE_PHONE).matches) { drag.current = null; return; }
     const touch = e.touches[0];
     drag.current = { id: touch.identifier, x: touch.clientX, y: touch.clientY, height: el.getBoundingClientRect().height, moved: false, last: touch.clientY, now: null, stops: sheetStops(el) };
   };
@@ -340,13 +350,24 @@ function AppShell() {
   const openPlace = (r, extra = {}) => {
     if (isQuarantined(r)) return;
     if (r.id === id && !extra.focusStory && !extra.focusDirections) return;
-    navigate(`/place/${r.id}`, { replace: Boolean(id), state: { fromApp: true, tab: activeTab, ...extra } });
+    // A place replacing another keeps that one's footing: how deep the
+    // pile is, and whether its bottom was opened inside the app at all (a
+    // place arrived at by a link has nothing behind it to go back to).
+    const here = id ? location.state : null;
+    navigate(`/place/${r.id}`, {
+      replace: Boolean(id),
+      state: { fromApp: id ? Boolean(here?.fromApp) : true, tab: activeTab, depth: here?.depth ?? 0, ...extra },
+    });
   };
   // From "Also nearby": a new step, so Back returns to the place it was
   // opened from rather than skipping to the list.
   const openFromPlace = (r) => {
     if (isQuarantined(r) || r.id === id) return;
-    navigate(`/place/${r.id}`, { state: { fromApp: true, tab: activeTab, depth: (location.state?.depth ?? 0) + 1 } });
+    // Counted only above a place the app opened: from one reached by a
+    // link, Close goes to the map (there is no list behind it to return to;
+    // counting steps back from there left the app, or did nothing).
+    const rooted = Boolean(location.state?.fromApp);
+    navigate(`/place/${r.id}`, { state: { fromApp: rooted, tab: activeTab, depth: rooted ? (location.state?.depth ?? 0) + 1 : 0 } });
   };
   // Close returns to the list in one press, past any places opened one from
   // another (`depth`); Back still steps through them.
@@ -617,6 +638,8 @@ function AppShell() {
   // come through here, so it keeps its position.
   useEffect(() => {
     document.getElementById('place-list')?.scrollTo?.({ top: 0 });
+    // Sideways the whole panel is the scroller.
+    if (window.matchMedia?.(LANDSCAPE_PHONE).matches) sheetRef.current?.scrollTo?.({ top: 0 });
   }, [selectedFilters, searchQuery, planAt]);
 
   // unknownHours: places that match everything else but have no recorded
@@ -799,11 +822,7 @@ function AppShell() {
                 // Up a step at a time, then down a step at a time: from full
                 // a tap used to drop straight to folded, past the half
                 // height where the map and the list are both in view.
-                onClick={() => {
-                  if (sheetState === 0) { setHandleDown(false); setSheetState(1); }
-                  else if (sheetState === 2) { setHandleDown(true); setSheetState(1); }
-                  else setSheetState(handleDown ? 0 : 2);
-                }}
+                onClick={() => setSheetState(sheetState === 1 ? (handleDown ? 0 : 2) : 1)}
               >
                 <span className="sheet-handle-bar" aria-hidden="true" />
               </button>
@@ -963,7 +982,10 @@ function AppShell() {
       {/* Opened from a place, the cards close back to that place. */}
       {isCards && (
         <StaffCardSheet
-          initialCard={new URLSearchParams(location.search).get('card')}
+          // No card named in the address: the one for the diet the reader
+          // has filtered by (Halal alone → the Muslim card).
+          initialCard={new URLSearchParams(location.search).get('card')
+            ?? (selectedFilters.includes('Halal') && !selectedFilters.includes('Vegan') && !selectedFilters.includes(FULLY_VEGAN) ? 'muslim' : null)}
           onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(tabPath, { replace: true }))}
           onCardChange={(card) => navigate(`/cards?card=${card}`, { replace: true, state: location.state })}
         />
