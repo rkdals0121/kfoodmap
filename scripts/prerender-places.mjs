@@ -255,6 +255,16 @@ for (const guide of guides) {
     // The loading screen inside #root gives way to the list; React replaces
     // either one when it starts.
     [/<div id="root">[\s\S]*?<\/div><\/div>/, guideBody(guide)],
+    // The same list for a search engine, as a list of pages: order and
+    // addresses only, no dietary claim (see placeJsonLd).
+    [/<\/head>/, `  <script type="application/ld+json">${JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: `${diet.word} food in ${area}`,
+      numberOfItems: places.length,
+      itemListElement: places.map((r, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE_URL}/place/${r.id}`, name: displayName(r.name) })),
+    }).replace(/</g, '\u003c')}</script>
+  </head>`],
   ].reduce((html, [pattern, value]) => {
     if (!pattern.test(html)) throw new Error(`prerender: guide template lost ${pattern}`);
     return html.replace(pattern, () => value);
