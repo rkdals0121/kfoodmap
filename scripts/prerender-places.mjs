@@ -18,6 +18,7 @@ import { isQuarantined, matchesDietary } from '../src/data/verification.js';
 import { matchesArea } from '../src/filters.js';
 import { AREA_NAMES } from '../src/data/area-names.js';
 import { displayName } from '../src/utils.js';
+import { cardById } from '../src/data/staff-cards.js';
 
 const SITE_URL = 'https://kfoodmap.vercel.app';
 
@@ -185,11 +186,28 @@ const active = restaurants.filter(r => !isQuarantined(r));
 // The tabs have addresses too (/discover, /journal, /profile), so a reload or
 // a shared link there is a real file. Journal and Profile are a visitor's own
 // screens: noindex.
-for (const [slug, title, index] of [
-  ['discover', 'Food journeys and stories · K-Food Map', true],
-  ['cards', 'Korean cards to show restaurant staff — vegan and Muslim travellers · K-Food Map', true],
-  ['journal', 'Your food passport · K-Food Map', false],
-  ['profile', 'Profile · K-Food Map', false],
+// The cards page before the app starts: the Korean a traveller came for,
+// readable (and indexable) without the script. The app's own sheet has the
+// questions, the likely answers and the large view.
+const cardsBody = () => {
+  const card = (c, heading) => `<h2 style="margin:20px 0 8px;font-size:18px">${heading}</h2>`
+    + `<div style="padding:16px;background:#fff;border:2px solid #1F2328;border-radius:12px">${c.statement.map(l => `<p lang="ko" style="margin:0 0 8px;font-size:18px;font-weight:600;line-height:1.5">${escapeHtml(l.ko)}</p>`).join('')}</div>`;
+  return `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
+    + STATIC_SCROLL
+    + `<p style="margin:0;font-size:13px;font-weight:700"><a href="/" style="display:inline-block;padding:12px 0;color:#087F5B;text-decoration:none">K-Food Map · Vegan and halal food across Korea</a></p>`
+    + `<h1 style="margin:0 0 8px;font-size:26px">Korean cards to show restaurant staff</h1>`
+    + `<p style="margin:0;color:#3F444A">Most restaurant staff in Korea do not read English. Show one of these on your phone. The full page adds questions about hidden ingredients, the answers you may hear, and a large view to hold up.</p>`
+    + card(cardById('vegan'), 'If you are vegan')
+    + card(cardById('muslim'), 'If you are Muslim')
+    + `<p style="margin:16px 0 0;font-size:13px;color:#616875">A card asks; it cannot promise what a kitchen serves. An unsure answer is best treated as a no.</p>`
+    + `</main></div>`;
+};
+
+for (const [slug, title, index, description, body] of [
+  ['discover', 'Food journeys and stories · K-Food Map', true, 'Half-day food journeys for vegan and Muslim visitors to Korea: every stop on the map, each dietary claim marked with how sure the record is, and the stories behind the places.', null],
+  ['cards', 'Korean cards to show restaurant staff — vegan and Muslim travellers · K-Food Map', true, 'Polite Korean to show restaurant staff: “I am vegan”, “I am Muslim”, and questions about hidden ingredients such as fish sauce, pork stock and cooking wine.', cardsBody()],
+  ['journal', 'Your food passport · K-Food Map', false, null, null],
+  ['profile', 'Profile · K-Food Map', false, null, null],
 ]) {
   const url = `${SITE_URL}/${slug}`;
   const page = [
@@ -197,6 +215,11 @@ for (const [slug, title, index] of [
     [/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${title}" />`],
     [/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`],
     [/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`],
+    ...(description ? [
+      [/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escapeHtml(description)}" />`],
+      [/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${escapeHtml(description)}" />`],
+    ] : []),
+    ...(body ? [[ROOT, body]] : []),
     ...(index ? [] : [[/<\/head>/, `  <meta name="robots" content="noindex" />
   </head>`]]),
   ].reduce((html, [pattern, value]) => html.replace(pattern, () => value), template);
