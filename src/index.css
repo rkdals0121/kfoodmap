@@ -5675,3 +5675,46 @@ html[data-text='larger'] .tab-label { font-size: 15px; }
 html[data-text='larger'] .chip,
 html[data-text='larger'] .detail-bar__map,
 html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
+
+/* ---- Full regression pass, 2026-10-04 evening ---- */
+/* A menu price with a note ("20,000–23,000 KRW (reported range, not
+   independently confirmed)") was one unbroken line 430 px wide: it pushed
+   the page sideways and squeezed the dish's name to 51 px. The price wraps
+   and never takes more than half the row. */
+.menu-row > :first-child {
+  min-width: 0;
+  flex: 1 1 50%;
+}
+.menu-row__price {
+  white-space: normal;
+  min-width: 0;
+  flex: 0 1 auto;
+  max-width: 55%;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+/* Nothing in a place's page may push it sideways. */
+.detail-scroll {
+  overflow-x: hidden;
+}
+
+/* The offline and new-version bands sit over the top of a panel: its
+   heading starts below them. */
+@media (max-width: 767px) {
+  body:has(.offline-banner, .update-banner) .tab-panel,
+  body:has(.offline-banner, .update-banner) .journal-panel {
+    padding-top: 56px;
+  }
+}
+
+/* The larger tab labels are for the phone's bottom bar; in the sidebar
+   (from 1024 px) four pills at that size ran past its edge. */
+@media (min-width: 1024px) {
+  html[data-text] .tab-label,
+  html[data-text='larger'] .tab-label {
+    font-size: 13px;
+  }
+  .tab-item {
+    min-width: 0;
+  }
+}

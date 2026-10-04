@@ -74,6 +74,7 @@ test('spellings, widths, accents and punctuation', () => {
   assert.equal(ids(go('no pork')), ids(go('pork-free')));
   assert.equal(ids(go('pork free')), ids(go('pork-free')));
   assert.ok(go('Seoul, Itaewon').filteredRestaurants.length > 0);
+  assert.ok(go('Itaewon, Seoul').filteredRestaurants.length >= go('Itaewon').filteredRestaurants.length);
   assert.equal(ids(go('홍대입구')), ids(go('Hongdae')));
   assert.equal(ids(go('Lotte World Tower')), ids(go('Lotte World')));
   // The island is not the city: 제주도 and 济州岛 are all of Jeju.

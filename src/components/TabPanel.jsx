@@ -191,7 +191,7 @@ function DiscoverTab({ onBrowse }) {
                     {t('discover.closedToday', { closed: journey.stops.filter(p => closedAllDay(p.hours)).length, total: journey.stops.length })}
                   </p>
                 )}
-                <JourneyStops id={journey.id} title={journey.title} count={journey.stops.length}>
+                <JourneyStops id={journey.id} title={journey.text.title} count={journey.stops.length}>
                 <ol className="journey-card__stops">
                   {journey.stops.map((place, i) => (
                     <li key={place.id}>
@@ -262,7 +262,7 @@ function DiscoverTab({ onBrowse }) {
 
       <div className="story-grid">
         {cultureStories.map(place => (
-          <article key={place.id} className="story-card" onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover' } })}>
+          <article key={place.id} className="story-card" onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover', focusStory: true } })}>
             <div className="story-card-content">
               <p className="story-card__kind">{t('discover.storyLabel')}</p>
               <h3>{displayName(place.name)}</h3>

@@ -138,7 +138,9 @@ export function searchPlaces({
     } else {
       // "seoul station" typed where a place is named so, "korean bbq": the
       // records that say exactly that, when some but not all do.
-      if (raw.includes(' ')) {
+      // Not with a comma in it: "Itaewon, Seoul" is two words about one
+      // place, and narrowing kept only the records labelled exactly so.
+      if (raw.includes(' ') && !/[,，、]/.test(raw)) {
         const exact = select(r => hits(raw).has(r) && matchesPhrase(r, raw));
         if (exact.list.length > 0 && exact.list.length < result.list.length) result = exact;
       }

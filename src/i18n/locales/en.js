@@ -61,7 +61,7 @@ export default {
     visited: 'Visited',
     saved: 'Saved',
     toVisit: 'To visit',
-    unvisitConfirm: 'Take back this visit? Its date and Journal seal will be removed.',
+    unvisitConfirm: 'Remove this visit? Its date and Journal seal will go with it.',
     unsaveVisitedConfirm: 'Remove this place from your passport? Its visit and seal will be removed too.',
     areas: 'Areas',
     areasCount_one: 'Area',
