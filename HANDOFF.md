@@ -2732,7 +2732,9 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       the passport after 10 s (`bounded` in `src/data/passport.js`).
     - `usePassportSync`: a failed push retries on `RETRY_DELAYS_MS`;
       `signOut({ confirmLoss })` pushes the unsent delta first and asks
-      before clearing a device whose saves could not be sent.
+      before clearing a device whose saves could not be sent. With no
+      successful sync this visit (`pushedRef` null) it asks without
+      pushing — the gate invariant stands.
     - `SubmitSheet`: Enter moves to the next field (`nextOnEnter`), the
       first error is focused, errors clear as the field is edited;
       `withScheme` in `leads.js` completes a link typed without https.
@@ -2743,6 +2745,8 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     - Search: `FILLER` (area-names.js) now holds the small words of a
       question (near, in, food, dekat, makanan, ランチ …): `romaniseQuery`
       drops them, so `matchesSearch` tries the query without them too.
+      `stationOf` reads `stripFillers(raw)` (else "near Seoul Station"
+      became all of Seoul); glued CJK fillers are peeled (`peel`).
       Two or more area names with nothing in common return the places in
       either (`search.js`, not for station searches). With "Open now"
       on, `nearest` puts places that stay open before those closing soon.
