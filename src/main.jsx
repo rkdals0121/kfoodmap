@@ -4,6 +4,10 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import 'leaflet/dist/leaflet.css'
 import './index.css'
+// The typeface arrives on its own, not in the stylesheet the first paint
+// waits on (120 @font-face rules, 24 kB compressed). Until it does, text
+// is in the system face — as it already was while the font files loaded.
+import('./fonts.css').catch(() => {})
 import { startLanguage } from './i18n'
 import './hooks/useInstall'
 import { applyTextSize, readTextSize } from './textSize'

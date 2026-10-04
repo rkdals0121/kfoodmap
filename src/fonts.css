@@ -1,0 +1,5 @@
+/* Pretendard GOV, the Korea Design System's typeface, self-hosted (no font
+   service sees the visitor). One family for Hangul and Latin: place names
+   carry Korean in parentheses, which Inter had to hand to a system font.
+   Split by unicode-range, so a page loads only the chunks it uses. */
+@import 'pretendard-gov/dist/web/variable/pretendardvariable-gov-dynamic-subset.css';
