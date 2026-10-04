@@ -195,10 +195,3 @@
 html[data-text] .prologue-content {
   zoom: var(--text-zoom, 1);
 }
-
-.prologue-legend__dates {
-  margin-top: 8px;
-  font-size: 13px;
-  line-height: 1.45;
-  color: var(--muted-strong);
-}
