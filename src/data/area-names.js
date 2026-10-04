@@ -176,7 +176,7 @@ const SI_IN_ADDRESS = new Set(['Jeju']);
 // Only a city suffix narrows to the city: "제주도" and "济州岛" are the island.
 const IS_CITY = new Set(['市', '시', '市内', '시내']);
 
-const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛집', '음식점', '타워', 'レストラン', '店', 'restoran', 'toko', 'kedai', 'warung', 'rumah makan',
+const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛집', '음식점', '타워', 'レストラン', '店', 'restoran', 'toko', 'kedai', 'warung', 'rumah',
   // "halal food near Itaewon", "makanan halal dekat Itaewon", "釜山 ランチ":
   // asked as a question, every word had to be found in the record, and
   // "near" or "dekat" is in none.
@@ -184,6 +184,25 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の',
   '附近', '美食', '午餐', '晚餐', '근처', '점심', '저녁', '밥집']);
+
+// The query without those words, for the checks that read it whole (is it
+// a station?). The query itself when nothing would be left.
+export function stripFillers(query) {
+  const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
+  const kept = words.filter(w => !FILLER.has(w.toLowerCase()));
+  return kept.length > 0 && kept.length < words.length ? kept.join(' ') : String(query ?? '');
+}
+// Written without spaces ("釜山のランチ", "明洞附近美食"), such words follow
+// the place's name one after another: peeled from the front, longest first.
+const GLUED_FILLERS = [...FILLER].filter(w => /[\u0080-\uFFFF]/.test(w)).sort((a, b) => b.length - a.length);
+const peel = (text) => {
+  let rest = text;
+  for (;;) {
+    const f = GLUED_FILLERS.find(w => rest.startsWith(w));
+    if (!f) return rest;
+    rest = rest.slice(f.length);
+  }
+};
 
 export function romaniseQuery(query) {
   // NFKC: half-width kana (ﾌﾟｻﾝ) are the same names.
@@ -204,10 +223,11 @@ export function romaniseQuery(query) {
         if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) && IS_CITY.has(rest) ? `${roman}-si` : roman];
         // What follows may be a name too ("首尔素食" is Seoul + vegetarian),
         // or a word that adds nothing ("素食餐厅", "롯데월드타워").
-        if (FILLER.has(rest)) return [roman];
+        const tail = peel(rest);
+        if (tail === '') return [roman];
         // "明洞素食餐厅": read the remainder the same way, once more.
-        const more = romaniseQuery(rest);
-        return more !== null ? [roman, ...more.split(' ').filter(Boolean)] : [roman, rest];
+        const more = romaniseQuery(tail);
+        return more !== null ? [roman, ...more.split(' ').filter(Boolean)] : [roman, tail];
       }
     }
     return [w];

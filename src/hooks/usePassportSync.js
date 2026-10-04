@@ -260,6 +260,8 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
   const pushedRef = useRef(null);
   const pushTriesRef = useRef(0);
   const [pushRetry, setPushRetry] = useState(0);
+  // A connection that has come back gets the three tries again.
+  useEffect(() => { if (isOnline) pushTriesRef.current = 0; }, [isOnline]);
   // The latest list, for the sign-out's last push.
   const entriesRef = useRef(entries);
   entriesRef.current = entries;
@@ -278,6 +280,7 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
   const invalidate = useCallback(() => {
     generationRef.current += 1;
     pushedRef.current = null;
+    pushTriesRef.current = 0;
   }, []);
 
   useEffect(() => { sessionRef.current = session; }, [session]);
@@ -493,6 +496,9 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
     if (signature === pushedRef.current) return undefined;
     const generation = generationRef.current;
     let retryTimer = null;
+    // Set by the cleanup: a push still in flight when this run is replaced
+    // must not spend a retry or leave a timer nobody clears.
+    let replaced = false;
     const timer = setTimeout(() => {
       // The timer can come due in the middle of `await deleteAllPassport`.
       // Without this check it would POST the rows straight back around the
@@ -521,13 +527,14 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
           // A push that failed on a slow link was not tried again until the
           // next tap or a reload. Three more tries, further apart.
           if (result.ok) { pushTriesRef.current = 0; return; }
+          if (replaced) return;
           const delay = RETRY_DELAYS_MS[pushTriesRef.current];
           if (delay === undefined) return;
           pushTriesRef.current += 1;
           retryTimer = setTimeout(() => setPushRetry(n => n + 1), delay);
         });
     }, PUSH_DEBOUNCE_MS);
-    return () => { clearTimeout(timer); if (retryTimer) clearTimeout(retryTimer); };
+    return () => { replaced = true; clearTimeout(timer); if (retryTimer) clearTimeout(retryTimer); };
   }, [entries, session, config, isOnline, pushRetry]);
 
   // Case 2: the visitor presses Sign in. This is the first moment the library
@@ -580,14 +587,21 @@ export default function usePassportSync({ entries, setEntries, isOnline }) {
     // second ago) are sent first: signing out clears the device, and they
     // were lost for good. If they cannot be sent, the person is asked.
     const active = sessionRef.current;
+    const ask = async () => typeof confirmLoss !== 'function' || confirmLoss();
     if (config && active && pushedRef.current !== null) {
       const list = entriesRef.current;
       const changed = passportDelta(list, pushedRef.current);
       if (changed.length > 0) {
+        const generation = generationRef.current;
         const sent = await pushPassport(changed, config, active.access_token, active.user?.id);
-        if (sent.ok) pushedRef.current = passportSignature(list);
-        else if (typeof confirmLoss === 'function' && !(await confirmLoss())) return;
+        // A delete confirmed meanwhile owns the gate: leave it shut.
+        if (sent.ok) { if (generationRef.current === generation) pushedRef.current = passportSignature(list); }
+        else if (!(await ask())) return;
       }
+    } else if (active && entriesRef.current.length > 0) {
+      // No sync has succeeded this visit, so nothing may be pushed (the
+      // account has not been read) and nothing is known to be there: ask.
+      if (!(await ask())) return;
     }
     // Recorded before the session can end, so the auth event that follows is
     // recognised as this deliberate act rather than as an expiry.

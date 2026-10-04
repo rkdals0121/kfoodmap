@@ -566,7 +566,7 @@ function ProfileTab({
             <span className="settings-value">{t('profile.signOutHint')}</span>
             <ChevronRightIcon size={18} />
           </button>
-          <button type="button" className="settings-item settings-item--danger" onClick={confirmThenDelete}>
+          <button type="button" className="settings-item settings-item--danger" disabled={signingOut} onClick={confirmThenDelete}>
             <span className="settings-icon" aria-hidden="true"><TrashIcon size={20} /></span>
             <span className="settings-text">
               <span className="settings-label">{t('profile.deleteRecords')}</span>

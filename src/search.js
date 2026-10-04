@@ -15,7 +15,7 @@
 // A fallback never fires because the chips emptied the list: "Mangwon" +
 // Halal is no reason to show Gangwon.
 import { matchesDietary } from './data/verification.js';
-import { fuzzyQuery, romaniseQuery } from './data/area-names.js';
+import { fuzzyQuery, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
   matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase,
@@ -114,10 +114,13 @@ export function searchPlaces({
   let anchorPlaces = null;
 
   if (raw && !areaOnly) {
-    const station = stationOf(raw);
+    // Read without the small words: "near Seoul Station" took "near Seoul"
+    // for the station's area and answered with the whole city.
+    const asked = stripFillers(raw);
+    const station = stationOf(asked);
     if (station) {
       const atStation = (r) => matchesPhrase(r, station.phrase);
-      const label = station.phrase.toLowerCase() === raw.toLowerCase() ? raw : `${titled(station.area)} Station`;
+      const label = station.phrase.toLowerCase() === asked.toLowerCase() ? asked : `${titled(station.area)} Station`;
       const named = select(atStation);
       const spots = named.list.length > 0 ? [] : places.filter(atStation);
       if (named.list.length > 0) {
@@ -158,7 +161,7 @@ export function searchPlaces({
     // once. No record is in both, so every word together finds nothing —
     // the places in either are what was meant.
     // Not a station search: that has its own answer above.
-    if (result.list.length === 0 && !anchorPlaces && !stationOf(raw)) {
+    if (result.list.length === 0 && !anchorPlaces && !station) {
       const parts = (romaniseQuery(raw) ?? raw).split(/[\s,，、]+/).filter(Boolean);
       if (parts.length >= 2 && parts.length <= 4 && parts.every(isArea)) {
         const either = select(r => parts.some(part => matchesAreaWhole(r, part)));

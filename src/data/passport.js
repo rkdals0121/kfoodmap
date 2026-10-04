@@ -234,7 +234,12 @@ export async function pullPassport({ url, anonKey }, accessToken, fetchImpl = fe
       { headers: userHeaders(anonKey, accessToken) },
     );
     if (!response.ok) return { ok: false, entries: [] };
-    const rows = await response.json();
+    // The limit above ends with the headers; a body that stalls would wait
+    // for good, and the sync with it.
+    const rows = await Promise.race([
+      response.json(),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), SYNC_TIMEOUT_MS)),
+    ]);
     return { ok: true, entries: rows.map(fromRow).filter(Boolean) };
   } catch {
     return { ok: false, entries: [] };

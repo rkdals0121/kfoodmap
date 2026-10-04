@@ -186,7 +186,7 @@ export default {
     accountSection: 'アカウント',
     signOut: 'ログアウト',
     signOutHint: 'この端末のデータを消去します',
-    signOutUnsynced: 'まだアカウントに届いていない保存済みの場所があります。今ログアウトすると、この端末から消えます。',
+    signOutUnsynced: 'まだアカウントに届いていない保存済みの場所があるかもしれません。今ログアウトすると、この端末から消えます。',
     deleteRecords: '保存したお店を削除',
     // Honest about what a delete can and cannot reach (see en.js): another
     // signed-in device can re-upload its own copy, so no "cannot be undone".

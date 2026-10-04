@@ -129,6 +129,13 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.ok(n('restaurants in Hongdae') >= n('Hongdae'));
   assert.ok(n('釜山 ランチ') >= n('Busan'));
   assert.equal(n('ブサン'), n('Busan'));
+  // …and a station stays a station with them around it.
+  assert.equal(ids(go('near Seoul Station')), ids(go('Seoul Station')));
+  assert.equal(ids(go('서울역 근처')), ids(go('서울역')));
+  assert.equal(ids(go('서울역 근처 맛집')), ids(go('서울역')));
+  assert.ok(n('rumah makan halal Itaewon') >= n('halal Itaewon'));
+  assert.equal(n('釜山のランチ'), n('Busan'));
+  assert.equal(n('明洞附近美食'), n('明洞'));
   // Two neighbourhoods in one search: the places in either.
   assert.ok(n('Haeundae Seomyeon') >= Math.max(n('Haeundae'), n('Seomyeon')) && n('Haeundae Seomyeon') > 0);
   assert.equal(n('海雲台 西面'), n('Haeundae Seomyeon'));

@@ -51,7 +51,8 @@ export default function SubmitSheet({ place, onClose, initialName = '', initialT
     const written = kept && (kept.message || kept.locationHint || kept.topic || kept.sourceUrl || kept.contactEmail);
     if (initialName && !place && !written) return { ...EMPTY, name: initialName.slice(0, 80) };
     // Reached from the link under the hours: the subject is already chosen.
-    return kept ?? (LEAD_TOPICS.includes(initialTopic) ? { ...EMPTY, topic: initialTopic } : EMPTY);
+    const base = kept ?? EMPTY;
+    return !base.topic && LEAD_TOPICS.includes(initialTopic) ? { ...base, topic: initialTopic } : base;
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed
