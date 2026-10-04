@@ -73,6 +73,9 @@ const fromMinutes = (total) => {
   // A locale that tells the time on a 24-hour clock says so (`hours.clock`):
   // Indonesian writes 19.30, and "7:30 PM" there is a foreigner's time.
   if (tr('clock') === '24') return tr('time24', { time: `${String(h).padStart(2, '0')}.${m}` });
+  // Chinese tells a restaurant's hours on the 24-hour clock with a colon
+  // (22:00): "下午10:00" and "上午1:00" read as translated English.
+  if (tr('clock') === '24c') return tr('time24', { time: `${String(h).padStart(2, '0')}:${m}` });
   // The 12-hour reading, worded by the locale: "10:30 AM", "오전 10:30".
   // Japanese writes the first hour of each half as 0 (午前0:30, 午後0:30):
   // "午前12:00" reads as noon there.

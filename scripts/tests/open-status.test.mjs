@@ -260,3 +260,18 @@ test('Japanese writes the first hour of each half-day as 0', async () => {
     await i18next.changeLanguage('en');
   }
 });
+
+test('Chinese tells the time on the 24-hour clock, with a colon', async () => {
+  const i18next = (await import('i18next')).default;
+  const { formatClock } = await import('../../src/utils.js');
+  const zh = (await import('../../src/i18n/locales/zh-Hant.js')).default;
+  i18next.addResourceBundle('zh-Hant', 'translation', zh, true, true);
+  await i18next.changeLanguage('zh-Hant');
+  try {
+    assert.equal(formatClock(22 * 60), '22:00');
+    assert.equal(formatClock(60), '01:00');
+    assert.equal(formatClock(11 * 60 + 30), '11:30');
+  } finally {
+    await i18next.changeLanguage('en');
+  }
+});

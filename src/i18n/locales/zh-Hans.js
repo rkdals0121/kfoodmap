@@ -568,7 +568,7 @@ export default {
     timeAm: '上午{{time}}',
     timePm: '下午{{time}}',
     // '12' or '24': which clock this language tells the time on (utils.js fromMinutes).
-    clock: '12',
+    clock: '24c',
     time24: '{{time}}',
     day: { sun: '周日', mon: '周一', tue: '周二', wed: '周三', thu: '周四', fri: '周五', sat: '周六' },
   },
