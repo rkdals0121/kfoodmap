@@ -374,6 +374,7 @@ export default {
     updateReady: '新しいお店が追加されました — タップして更新',
     undo: '元に戻す',
     cancel: 'キャンセル',
+    remove: '削除する',
     ok: 'OK',
     sidebarExpand: 'サイドバーを開く',
     sidebarCollapse: 'サイドバーを閉じる',

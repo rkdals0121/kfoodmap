@@ -381,6 +381,7 @@ export default {
     updateReady: 'New places are available — tap to refresh',
     undo: 'Undo',
     cancel: 'Cancel',
+    remove: 'Remove',
     ok: 'OK',
     sidebarExpand: 'Expand sidebar',
     sidebarCollapse: 'Collapse sidebar',

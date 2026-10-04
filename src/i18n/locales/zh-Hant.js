@@ -367,6 +367,7 @@ export default {
     updateReady: '有新地點可用——點一下重新整理',
     undo: '復原',
     cancel: '取消',
+    remove: '移除',
     ok: '確定',
     sidebarExpand: '展開側邊欄',
     sidebarCollapse: '收合側邊欄',

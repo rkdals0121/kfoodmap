@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useBackToClose, useWakeLock, useFitText, useInertRoot } from '../hooks/useOverlay';
+import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay } from '../hooks/useOverlay';
 import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
 import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-cards';
@@ -27,7 +27,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
   const closeLarge = () => {
     setLarge(null);
     const opener = largeOpener.current;
-    if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+    if (opener && document.contains(opener)) focusAfterOverlay(opener);
   };
   useBackToClose(large !== null, closeLarge);
   useWakeLock(large !== null);

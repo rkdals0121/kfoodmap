@@ -5645,3 +5645,19 @@ html[data-text] .toast > * {
     margin-left: 0;
   }
 }
+
+/* The count fits inside the pill on wide screens (it pushed the row 3 px
+   past the sidebar). */
+@media (min-width: 1024px) {
+  .tab-count {
+    margin-left: 2px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    line-height: 16px;
+    font-size: 10px;
+  }
+}
+.place-list__header h2[tabindex='-1']:focus {
+  outline: none;
+}

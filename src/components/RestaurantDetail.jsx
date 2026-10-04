@@ -16,7 +16,7 @@ import {
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
-import { useBackToClose, useWakeLock, useFitText, useInertRoot } from '../hooks/useOverlay';
+import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay } from '../hooks/useOverlay';
 import { copyText, shareOrCopy } from '../share';
 import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
@@ -125,7 +125,7 @@ export default function RestaurantDetail({
   const [nameCopied, setNameCopied] = useState(false);
   const nameLargeBtn = useRef(null);
   // Closing gives focus back to the button that opened it.
-  const closeNameLarge = () => { setNameLarge(false); nameLargeBtn.current?.focus(); };
+  const closeNameLarge = () => { setNameLarge(false); focusAfterOverlay(nameLargeBtn.current); };
   useBackToClose(nameLarge, closeNameLarge);
   // Another place opened in this sheet: the large name does not carry over.
   useEffect(() => { setNameLarge(false); }, [restaurant?.id]);

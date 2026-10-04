@@ -371,6 +371,7 @@ export default {
     updateReady: 'Ada tempat baru — ketuk untuk memuat ulang',
     undo: 'Urungkan',
     cancel: 'Batal',
+    remove: 'Hapus',
     ok: 'OK',
     sidebarExpand: 'Perluas bilah sisi',
     sidebarCollapse: 'Ciutkan bilah sisi',

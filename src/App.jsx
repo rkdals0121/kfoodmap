@@ -222,8 +222,7 @@ function AppShell() {
   const firstTab = useRef(true);
   useEffect(() => {
     if (firstTab.current) { firstTab.current = false; return; }
-    if (activeTab === 'map') return;
-    const heading = document.querySelector('.tab-panel h2, .journal-panel h2');
+    const heading = document.querySelector(activeTab === 'map' ? '.place-list__header h2' : '.tab-panel h2, .journal-panel h2');
     if (!heading) return;
     heading.tabIndex = -1;
     heading.focus({ preventScroll: true });
@@ -498,7 +497,7 @@ function AppShell() {
     // so ask first rather than erase a record silently.
     const current = entries.find(e => e.id === placeId);
     if (current && current.savedAt !== null && current.visitedAt !== null
-      && !(await askConfirm(t('journal.unsaveVisitedConfirm')))) return;
+      && !(await askConfirm(t('journal.unsaveVisitedConfirm'), { confirmLabel: t('app.remove') }))) return;
     const now = Date.now();
     const removing = Boolean(current && current.savedAt !== null);
     // An unsave that also dropped a visit was confirmed first and is not
@@ -545,7 +544,7 @@ function AppShell() {
     // Taking a visit back removes its date and Journal seal: ask, as unsave does.
     const current = entries.find(e => e.id === placeId);
     if (current && current.savedAt !== null && current.visitedAt !== null
-      && !(await askConfirm(t('journal.unvisitConfirm')))) return;
+      && !(await askConfirm(t('journal.unvisitConfirm'), { confirmLabel: t('app.remove') }))) return;
     const now = Date.now();
     // Marking a visit also saves the place and stamps the Journal: say so,
     // as a save does. Taking one back was just confirmed and needs no word.

@@ -121,6 +121,8 @@ function startsWord(text, q) {
 const AREA_ALIASES = {
   seomyeon: ['bujeon-dong', 'jeonpo-dong'],
   hongdae: ['seogyo-dong', 'donggyo-dong', 'sangsu-dong'],
+  // A sight searched by name, in the area it stands in.
+  lotteworld: ['jamsil'],
 };
 const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
 const aliasMatch = (r, w) => Object.hasOwn(AREA_ALIASES, w) && AREA_ALIASES[w].some(a => areaText(r).includes(a));

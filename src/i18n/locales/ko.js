@@ -364,6 +364,7 @@ export default {
     updateReady: '새 장소가 추가됐어요 — 눌러서 새로고침',
     undo: '되돌리기',
     cancel: '취소',
+    remove: '지우기',
     ok: '확인',
     sidebarExpand: '사이드바 펼치기',
     sidebarCollapse: '사이드바 접기',

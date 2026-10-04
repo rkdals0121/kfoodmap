@@ -111,6 +111,13 @@ let inertCount = 0;
 // focus() does nothing and focus fell to <body>; it is given again here,
 // once the app can take it.
 let lastInApp = null;
+// The element a closing overlay asked to hand focus to. Asked while the app
+// is still inert (focus() is ignored then), honoured when it is released.
+let wanted = null;
+export function focusAfterOverlay(el) {
+  wanted = el ?? null;
+  el?.focus?.({ preventScroll: true });
+}
 if (typeof document !== 'undefined') {
   document.addEventListener('focusin', (e) => {
     if (document.getElementById('root')?.contains(e.target)) lastInApp = e.target;
@@ -135,8 +142,10 @@ export function useInertRoot(open) {
       if (inertCount > 0) return;
       inertCount = 0;
       root.inert = false;
-      if ((!document.activeElement || document.activeElement === document.body) && lastInApp?.isConnected) {
-        lastInApp.focus?.({ preventScroll: true });
+      const target = wanted?.isConnected ? wanted : lastInApp;
+      wanted = null;
+      if ((!document.activeElement || document.activeElement === document.body) && target?.isConnected) {
+        target.focus?.({ preventScroll: true });
       }
     };
   }, [open]);
