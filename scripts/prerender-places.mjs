@@ -263,7 +263,7 @@ for (const guide of guides) {
       name: `${diet.word} food in ${area}`,
       numberOfItems: places.length,
       itemListElement: places.map((r, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE_URL}/place/${r.id}`, name: displayName(r.name) })),
-    }).replace(/</g, '\u003c')}</script>
+    }).replace(/</g, '\\u003c')}</script>
   </head>`],
   ].reduce((html, [pattern, value]) => {
     if (!pattern.test(html)) throw new Error(`prerender: guide template lost ${pattern}`);
