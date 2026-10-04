@@ -5359,3 +5359,30 @@ html[data-text] .detail-scroll > * {
     flex: none;
   }
 }
+
+/* The offline and new-version bands: centred from 50 % they could only be
+   half the screen wide, so "Offline — showing saved data" wrapped to two
+   lines and lay over the location button. One line, and on a phone the
+   map's buttons step down while a band is up. */
+.offline-banner,
+.update-banner {
+  left: 12px;
+  right: 12px;
+  width: fit-content;
+  margin-inline: auto;
+  transform: none;
+}
+@media (max-width: 767px) {
+  body:has(.offline-banner, .update-banner) .map-locate {
+    top: calc(64px + env(safe-area-inset-top));
+  }
+  body:has(.offline-banner, .update-banner) .map-zoom {
+    top: calc(64px + 44px + 10px + env(safe-area-inset-top));
+  }
+  body:has(.offline-banner + .update-banner) .map-locate {
+    top: calc(112px + env(safe-area-inset-top));
+  }
+  body:has(.offline-banner + .update-banner) .map-zoom {
+    display: none;
+  }
+}
