@@ -5729,3 +5729,38 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
     padding-top: calc(112px + env(safe-area-inset-top));
   }
 }
+
+/* ---- Layout in five languages, 2026-10-04 evening ---- */
+/* The toast was as wide as half the screen at most (it is centred from
+   50 %), with its sentence on one line: Indonesian ran 53 px off a 360 px
+   screen, and Japanese "Undo" stood one character to a line. It is now as
+   wide as its words up to the screen, the sentence wraps, Undo does not. */
+.toast {
+  width: max-content;
+  max-width: calc(100% - 24px);
+  border-radius: 22px;
+}
+.toast > span {
+  white-space: normal;
+  min-width: 0;
+  text-align: center;
+  line-height: 1.35;
+}
+.toast__undo {
+  flex: none;
+  white-space: nowrap;
+}
+/* A claim button longer than its row ("Vegan sepenuhnya · Perkiraan kami ·
+   Mengapa?") wraps inside it rather than run past the edge. */
+.claim-fact {
+  max-width: 100%;
+  flex-wrap: wrap;
+  row-gap: 2px;
+  height: auto;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+/* The two cards' tabs wrap on the narrowest phones. */
+.staff-cards__tabs {
+  flex-wrap: wrap;
+}

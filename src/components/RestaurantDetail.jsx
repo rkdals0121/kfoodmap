@@ -444,7 +444,9 @@ export default function RestaurantDetail({
               </nav>
             )}
             <header className="detail-header">
-              <h2><KoText>{place.name}</KoText></h2>
+              {/* A Korean reader gets the Korean name here too, as on the list
+                  and in the Journal. */}
+              <h2>{i18n.language === 'ko' ? displayName(place.name) : <KoText>{place.name}</KoText>}</h2>
               <p className="detail-meta">
                 {place.zone}
                 {/* Only a distance from the reader: one from the map's centre means

@@ -66,7 +66,7 @@ export default {
     badgesEarned: '{{count}} diraih',
     visitedPlaces: 'Tempat yang Dikunjungi',
     savedForLater: 'Disimpan untuk Nanti',
-    shareList: 'Bagikan daftar ini',
+    shareList: 'Bagikan daftar',
     listCopied: 'Tautan disalin',
     shareListTitle: 'Daftar K-Food Map saya',
     offlineNote: 'Halaman tempat yang disimpan tetap bisa dibuka tanpa koneksi — disimpan di perangkat ini. Latar peta tetap memerlukan koneksi.',
