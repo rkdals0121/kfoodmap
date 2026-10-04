@@ -263,6 +263,22 @@ for (const guide of guides) {
   writeFileSync(path.join(distDir, 'find', guide.slug, 'index.html'), page, 'utf8');
 }
 
+// The home page links to the guides, under its loading screen: a way in for
+// a crawler (home → guide → place) and for a browser without JavaScript.
+// The most-populated areas only; every guide links to the rest. React
+// replaces the whole of #root when it starts, as on every other page.
+{
+  const links = DIETS.map((diet) => {
+    const top = guides.filter(g => g.diet === diet).sort((a, b) => b.places.length - a.places.length).slice(0, 8);
+    return `<p style="margin:6px 0 0;font-size:13px;color:#616875">${diet.word}: `
+      + top.map(g => `<a href="/find/${g.slug}" style="color:#087F5B">${g.area}</a>`).join(' · ') + '</p>';
+  }).join('');
+  const END = '</p></div></div>';
+  if (!template.includes(END)) throw new Error('prerender: the home loading screen no longer ends where the guide links go');
+  const home = template.replace(END, () => `</p><nav aria-label="Browse by area" style="margin-top:14px">${links}</nav></div></div>`);
+  writeFileSync(path.join(distDir, 'index.html'), home, 'utf8');
+}
+
 // Generated here rather than kept as a static file in public/, for the same
 // reason the pages above are generated: the URL set IS the active-restaurant
 // set, so deriving both from `active` makes it impossible for the sitemap to
