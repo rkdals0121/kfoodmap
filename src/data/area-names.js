@@ -51,6 +51,19 @@ const TO_ROMAN = new Map(
 // by ear ("Myungdong"), mapped to the spelling the records use. Matched
 // whole-word and case-blind; the query as typed is always tried first.
 const LATIN_VARIANTS = new Map(Object.entries({
+  // Dishes, in the other spellings in use: the records write "gimbap" in
+  // some places and "kimbap" in others, and a visitor types either.
+  kimbap: 'gimbap',
+  gimbap: 'kimbap',
+  ddukbokki: 'tteokbokki',
+  dukbokki: 'tteokbokki',
+  topokki: 'tteokbokki',
+  tteokbokki: 'topokki',
+  bibimbop: 'bibimbap',
+  chapchae: 'japchae',
+  mandoo: 'mandu',
+  chigae: 'jjigae',
+  kimchee: 'kimchi',
   pusan: 'Busan',
   inchon: 'Incheon',
   taegu: 'Daegu',

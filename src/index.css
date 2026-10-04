@@ -5500,3 +5500,83 @@ html[data-text] .toast > * {
     touch-action: pan-x pan-y;
   }
 }
+
+.text-size .settings-text {
+  flex: 1 0 auto;
+}
+.text-size .settings-label {
+  white-space: nowrap;
+}
+
+/* ---- Fourth measurement, 2026-10-04 ---- */
+/* Tablet portrait (768–1023 px): the search and chips are a grid item by
+   way of the wrapper the phone's sheet drags by; the wrapper had no grid
+   area, so it fell into a third row under the list and the map lost a
+   third of its height. The wrapper steps aside there. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sheet-header-drag-area {
+    display: contents;
+  }
+}
+
+/* The language sheet never taller than the screen (a small phone with the
+   largest text): it scrolls inside, the title and Close stay reachable. */
+.language-picker {
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* "Open at…" on a phone: the selects keep their full words ("Tomorrow
+   (Mon)" was cut on a 360 px screen) and "Korean time" goes under them. */
+@media (max-width: 767px) {
+  .plan-row {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+  .plan-row label {
+    flex: 0 0 auto;
+  }
+  .plan-row select {
+    max-width: none;
+  }
+  .plan-row__tz {
+    flex: 1 0 100%;
+  }
+}
+
+.place-list__note-btn {
+  min-height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.place-list__note-btn::after {
+  content: none;
+}
+
+/* Explanations a reader is meant to read are 13 px, not 12. */
+.provenance p,
+.provenance__body,
+.claim-fact .claim-fact__level,
+.claim__level {
+  font-size: 13px;
+}
+
+/* On the narrowest phones (320 px) the two selects share the line and may
+   shorten, rather than take a line each. */
+@media (max-width: 340px) {
+  .plan-row {
+    flex-wrap: wrap;
+  }
+  .plan-row label {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .plan-row select {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 22px 0 8px;
+  }
+}

@@ -33,6 +33,19 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
 
   // The row is wider than the screen and a chip grows when it is on ("Open
   // at…" becomes "Open Mon 12:00 PM"): bring the one just pressed into view.
+  // A link can arrive with a chip on that sits far along the row
+  // ("#f=Fermented"): show it, or "Clear (1)" is the only sign of it.
+  // Set directly, not scrolled smoothly: this is the first paint.
+  const rowRef = useRef(null);
+  useEffect(() => {
+    const row = rowRef.current;
+    const chip = row?.querySelector('.chip.active');
+    if (!row || !chip) return;
+    const r = chip.getBoundingClientRect();
+    const box = row.getBoundingClientRect();
+    if (r.left < box.left || r.right > box.right) row.scrollLeft += r.left - box.left - 12;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const reveal = (e) => {
     const chip = e.target.closest?.('.chip');
     if (chip) setTimeout(() => chip.scrollIntoView?.({ inline: 'nearest', block: 'nearest', behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }), 60);
@@ -113,7 +126,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
         </datalist>
       </form>
 
-      <div className="chip-row no-scrollbar" onClick={reveal}>
+      <div className="chip-row no-scrollbar" ref={rowRef} onClick={reveal}>
         {/* First in the row: the diet. It is why someone opened this map, and
             on a phone only the first three chips fit before the row scrolls
             — Vegan and Halal used to start off-screen. Then "is it open?". */}
