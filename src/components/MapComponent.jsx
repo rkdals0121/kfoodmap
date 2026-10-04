@@ -536,7 +536,13 @@ function LocateControl({ state, location, onLocate }) {
   );
 }
 
-export default function MapComponent({
+// Memoised: every map move sets the list's sort centre in App, which
+// re-rendered this whole tree — hundreds of markers reconciled and their
+// handlers rebound — to draw exactly what was already there. App hands it
+// stable callbacks (useStableCallback) so the comparison holds.
+export default React.memo(MapComponent);
+
+function MapComponent({
   restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
   userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [],
 }) {

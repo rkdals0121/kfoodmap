@@ -181,7 +181,7 @@ export default function SubmitSheet({ place, onClose }) {
                 {!place && (
                   <>
                     <Field id="submit-name" label={t('submit.nameLabel')} hint={t('submit.suggestionsHint')} error={errors.name}>
-                      <input id="submit-name" value={form.name}
+                      <input id="submit-name" value={form.name} enterKeyHint="next" autoCorrect="off" spellCheck={false}
                         onChange={(event) => { set('name')(event); setSelection(null); setListOpen(true); setActiveIndex(-1); }}
                         onKeyDown={onNameKeyDown}
                         onBlur={onNameBlur}
@@ -215,7 +215,7 @@ export default function SubmitSheet({ place, onClose }) {
                       </p>
                     )}
                     <Field id="submit-location_hint" label={t('submit.locationLabel')} hint={t('submit.locationHint')} error={errors.location_hint}>
-                      <input id="submit-location_hint" value={form.locationHint} onChange={set('locationHint')} maxLength={LEAD_LIMITS.location_hint}
+                      <input id="submit-location_hint" enterKeyHint="next" autoCorrect="off" value={form.locationHint} onChange={set('locationHint')} maxLength={LEAD_LIMITS.location_hint}
                         aria-invalid={Boolean(errors.location_hint)} aria-describedby={describedBy('submit-location_hint', true)} />
                     </Field>
                   </>
@@ -238,12 +238,12 @@ export default function SubmitSheet({ place, onClose }) {
                 </Field>
 
                 <Field id="submit-source_url" label={t('submit.sourceLabel')} hint={t('submit.sourceHint')} error={errors.source_url}>
-                  <input id="submit-source_url" type="url" inputMode="url" value={form.sourceUrl} onChange={set('sourceUrl')} maxLength={LEAD_LIMITS.source_url}
+                  <input id="submit-source_url" type="url" inputMode="url" enterKeyHint="next" autoCapitalize="none" autoCorrect="off" spellCheck={false} value={form.sourceUrl} onChange={set('sourceUrl')} maxLength={LEAD_LIMITS.source_url}
                     aria-invalid={Boolean(errors.source_url)} aria-describedby={describedBy('submit-source_url', true)} />
                 </Field>
 
                 <Field id="submit-contact_email" label={t('submit.emailLabel')} hint={t('submit.emailHint')} error={errors.contact_email}>
-                  <input id="submit-contact_email" type="email" autoComplete="email" value={form.contactEmail} onChange={set('contactEmail')} maxLength={LEAD_LIMITS.contact_email}
+                  <input id="submit-contact_email" type="email" inputMode="email" autoComplete="email" enterKeyHint="send" autoCapitalize="none" value={form.contactEmail} onChange={set('contactEmail')} maxLength={LEAD_LIMITS.contact_email}
                     aria-invalid={Boolean(errors.contact_email)} aria-describedby={describedBy('submit-contact_email', true)} />
                 </Field>
 

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from './data/restaurants';
@@ -44,6 +44,11 @@ const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile
 const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': 'profile' };
 
 const NO_STOPS = [];
+function useStableCallback(fn) {
+  const ref = useRef(fn);
+  useEffect(() => { ref.current = fn; });
+  return useCallback((...args) => ref.current(...args), []);
+}
 const findView = (pathname) => {
   // /find/halal-busan, or /find/halal for the whole country.
   const m = /^\/find\/(vegan|halal)(?:-([a-z]+))?\/?$/.exec(pathname);
@@ -567,6 +572,11 @@ function AppShell() {
     return { filteredRestaurants: list, unknownHours: unknown };
   }, [selectedFilters, searchQuery, areaOnly, openNowOn, openAtOn, planDate, filterClock, bookmarkedIds, sharedIds]);
 
+  // The same function object on every render, always calling the latest
+  // version: what lets the memoised map skip renders it does not need.
+  const openDetailStable = useStableCallback(openDetail);
+  const locateStable = useStableCallback(locate);
+
   if (!prologueCompleted) {
     return (
       <Prologue 
@@ -619,7 +629,7 @@ function AppShell() {
         <MapErrorBoundary>
           <MapComponent
             restaurants={filteredRestaurants}
-            onMarkerClick={openDetail}
+            onMarkerClick={openDetailStable}
             selectedId={selectedRestaurant?.id}
             onCenterChange={setMapCenter}
             searchQuery={searchQuery}
@@ -628,7 +638,7 @@ function AppShell() {
             stopIds={sharedJourney && selectedFilters.includes(SHARED_LIST) ? sharedIds : NO_STOPS}
             userLocation={userLocation}
             locateState={locateState}
-            onLocate={locate}
+            onLocate={locateStable}
           />
         </MapErrorBoundary>
       </div>
