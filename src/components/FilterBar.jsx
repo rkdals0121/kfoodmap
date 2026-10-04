@@ -6,7 +6,7 @@ import { OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN } from '../filters';
 import { DAY_KEYS, formatClock, koreaToday } from '../utils';
 import { areaSuggestions } from '../data/area-names';
 
-export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange, onSearchFocus, planAt, onPlanAt }) {
+export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange, onSearchFocus, planAt, onPlanAt, savedCount = 0 }) {
   const { t, i18n } = useTranslation();
 
   // "/" puts the cursor in the search box, as on most map and search sites.
@@ -50,6 +50,18 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
     const chip = e.target.closest?.('.chip');
     if (chip) setTimeout(() => chip.scrollIntoView?.({ inline: 'nearest', block: 'nearest', behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }), 60);
   };
+  // "Saved" leads the row once there is something saved: for someone coming
+  // back it is the filter they want, and it sat two screens along the row.
+  const savedFirst = savedCount > 0;
+  const savedChip = (
+    <button
+      className={`chip${selectedFilters.includes(SAVED_ONLY) ? ' active' : ''}`}
+      aria-pressed={selectedFilters.includes(SAVED_ONLY)}
+      onClick={() => onToggleFilter(SAVED_ONLY)}
+    >
+      {t('filters.savedOnly')}{savedCount > 0 ? ` (${savedCount})` : ''}
+    </button>
+  );
   const chipGroup = (group) => (
     <div key={group.labelKey} className="chip-group" role="group" aria-label={t(group.labelKey)}>
       {group.chips.map(chip => {
@@ -130,6 +142,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
         {/* First in the row: the diet. It is why someone opened this map, and
             on a phone only the first three chips fit before the row scrolls
             — Vegan and Halal used to start off-screen. Then "is it open?". */}
+        {savedFirst && savedChip}
         {chipGroup(CHIP_GROUPS[0])}
         <div className="chip-group" role="group" aria-label={t('filters.groupNow')}>
           <button
@@ -154,13 +167,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
                 : t('filters.openAt')}
             </button>
           )}
-          <button
-            className={`chip${selectedFilters.includes(SAVED_ONLY) ? ' active' : ''}`}
-            aria-pressed={selectedFilters.includes(SAVED_ONLY)}
-            onClick={() => onToggleFilter(SAVED_ONLY)}
-          >
-            {t('filters.savedOnly')}
-          </button>
+          {!savedFirst && savedChip}
         </div>
         {CHIP_GROUPS.slice(1).map(chipGroup)}
       </div>

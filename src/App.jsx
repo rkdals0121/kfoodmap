@@ -889,6 +889,7 @@ function AppShell() {
                 onToggleFilter={handleToggleFilter}
                 planAt={planAt}
                 onPlanAt={setPlanAt}
+                savedCount={bookmarkedIds.length}
               />
             </div>
 

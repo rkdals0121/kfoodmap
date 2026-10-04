@@ -581,6 +581,13 @@ export default function RestaurantDetail({
                   </dl>
                 </details>
               )}
+              {/* Hours are what goes out of date first: the way to say so is
+                  here, not only three screens down. */}
+              {week && (
+                <Link className="detail-report detail-report--hours" to={`/submit?place=${place.id}`} state={{ fromApp: true, tab: location.state?.tab }}>
+                  {t('submit.reportLink')}
+                </Link>
+              )}
 
               {isKnown(place.transit) && (
                 <div className="practical-row">
@@ -715,7 +722,7 @@ export default function RestaurantDetail({
                     <span className="practical-muted">{t('detail.areaOnly')}</span>
                   )}
                 </span>
-                <button className="practical-copy" onClick={handleCopy}>
+                <button className="practical-copy" aria-label={`${t('detail.copy')}: ${place.address.value}`} onClick={handleCopy}>
                   {copied ? t('detail.copied') : t('detail.copy')}
                 </button>
               </div>
@@ -725,7 +732,7 @@ export default function RestaurantDetail({
                 <div className="practical-row ko-name">
                   <span className="ko-name__label">{t('detail.koreanName')}</span>
                   <span className="ko-name__value" lang="ko">{koName}</span>
-                  <button type="button" className="practical-copy" onClick={copyKoName}>
+                  <button type="button" className="practical-copy" aria-label={`${t('detail.copy')}: ${koName}`} onClick={copyKoName}>
                     {nameCopied ? t('detail.copied') : t('detail.copy')}
                   </button>
                   <button type="button" className="practical-copy" ref={nameLargeBtn} aria-haspopup="dialog" onClick={() => setNameLarge(true)}>

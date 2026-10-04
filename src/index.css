@@ -5620,3 +5620,10 @@ html[data-text] .toast > * {
 .journal-panel h2[tabindex='-1']:focus {
   outline: none;
 }
+
+.detail-report--hours {
+  margin-top: 0;
+  margin-left: 27px;
+  align-self: flex-start;
+  font-size: 13px;
+}
