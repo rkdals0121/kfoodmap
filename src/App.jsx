@@ -864,7 +864,11 @@ function AppShell() {
                 onPorkFree={() => {
                   // Pork-free is not halal: the Halal chip goes off with it.
                   setSelectedFilters(prev => prev.filter(f => f !== 'Halal'));
-                  setQuery('pork-free');
+                  // In the area being looked at, when it has any; else across
+                  // the country (the list then shows where they are).
+                  const here = filterQuery.trim() ? `${filterQuery.trim()} pork-free` : '';
+                  const local = here && searchPlaces({ places: activeRestaurants, query: here }).filteredRestaurants.length > 0;
+                  setQuery(local ? here : 'pork-free');
                   setAreaOnly(false);
                 }}
                 onSuggest={(name) => navigate('/submit', { state: { fromApp: true, tab: 'map', name } })}
@@ -900,7 +904,8 @@ function AppShell() {
             setSelectedFilters([SAVED_ONLY]);
             setQuery('');
             setAreaOnly(false);
-            navigate('/', { replace: true });
+            // A step on from the Journal, so Back returns to it.
+            navigate('/');
           }} />
         )}
         {activeTab !== 'map' && activeTab !== 'journal' && (

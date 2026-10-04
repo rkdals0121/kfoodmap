@@ -172,6 +172,8 @@ export function romaniseQuery(query) {
   const words = String(query ?? '').normalize('NFKC').trim().split(/\s+/).filter(Boolean);
   let changed = false;
   const out = words.flatMap((w) => {
+    // "부산 맛집", "首尔 餐厅": a word for "restaurant" is no search term.
+    if (FILLER.has(w)) { changed = true; return []; }
     const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
     if (whole) { changed = true; return [whole]; }
     for (const [name, roman] of TO_ROMAN) {
@@ -184,10 +186,10 @@ export function romaniseQuery(query) {
         if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) && IS_CITY.has(rest) ? `${roman}-si` : roman];
         // What follows may be a name too ("首尔素食" is Seoul + vegetarian),
         // or a word that adds nothing ("素食餐厅", "롯데월드타워").
-        const more = TO_ROMAN.get(rest);
-        if (more) return [roman, more];
         if (FILLER.has(rest)) return [roman];
-        return [roman, rest];
+        // "明洞素食餐厅": read the remainder the same way, once more.
+        const more = romaniseQuery(rest);
+        return more !== null ? [roman, ...more.split(' ').filter(Boolean)] : [roman, rest];
       }
     }
     return [w];

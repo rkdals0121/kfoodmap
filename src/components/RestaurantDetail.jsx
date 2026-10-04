@@ -79,10 +79,10 @@ const NOTE_TERMS = [
   [/\bHALAL\.FRIENDLY\b|\bFRIENDLY\b/g, '“Halal-friendly”'],
   [/\bHALAL\.PORK_FREE\b|\bPORK_FREE\b/g, '“Pork-free”'],
   // With its article, so "no halalCertClaim is recorded" stays a sentence.
-  [/\b(?:an? |no )?halalCertClaim\b/g, (m) => (m.startsWith('no ') ? 'no certification claim' : 'a certification claim')],
+  [/\b(?:in |an? |no )?halalCertClaim\b/g, (m) => (m.startsWith('no ') ? 'no certification claim' : m.startsWith('in ') ? 'as a certification claim' : 'a certification claim')],
   [/\bCERTIFIED\b/g, '“Halal certified”'],
   [/\bporkFree\b/g, '“Pork-free”'],
-  [/\bNONE\b/g, '“None”'],
+  [/\bNONE\b/g, '“none”'],
   [/\bCOMMUNITY\b/g, 'a community source'],
   [/\bVEGAN\.FULL\b|\bFULL\b/g, '“Fully vegan”'],
   [/\bVEGAN\.OPTIONS\b|\bOPTIONS\b/g, '“Vegan options”'],

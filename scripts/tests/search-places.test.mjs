@@ -119,6 +119,9 @@ test('a kind of cooking is searched, and is not an area', async () => {
   const tower = go('롯데월드타워').filteredRestaurants;
   assert.ok(go('Lotte World').filteredRestaurants.every(p => tower.includes(p)));
   assert.equal(ids(go('ﾌﾟｻﾝ')), ids(go('Busan')));
+  // A word for "restaurant" is dropped wherever it stands.
+  for (const q of ['부산 맛집', '부산맛집', '釜山 レストラン']) assert.equal(ids(go(q)), ids(go('Busan')), q);
+  assert.ok(go('明洞素食餐厅').filteredRestaurants.length > 0);
 });
 
 test('a name with its own punctuation, and a lone sight, are found', () => {

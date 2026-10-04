@@ -5718,3 +5718,14 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
     min-width: 0;
   }
 }
+
+@media (max-width: 767px) {
+  body:has(.offline-banner, .update-banner) .tab-panel,
+  body:has(.offline-banner, .update-banner) .journal-panel {
+    padding-top: calc(56px + env(safe-area-inset-top));
+  }
+  body:has(.offline-banner + .update-banner) .tab-panel,
+  body:has(.offline-banner + .update-banner) .journal-panel {
+    padding-top: calc(112px + env(safe-area-inset-top));
+  }
+}

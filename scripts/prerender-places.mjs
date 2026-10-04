@@ -65,7 +65,7 @@ function replacements(place) {
   // as the page; nothing the record does not say.
   const lead = [...claimLines(place), place.zone].filter(Boolean).join(' · ');
   const full = [lead, place.vibe].filter(Boolean).join('. ');
-  const description = escapeHtml(full.length > 158 ? `${full.slice(0, 155).replace(/\s+\S*$/, '')}…` : full);
+  const description = escapeHtml(full.length > 158 ? `${full.slice(0, 155).replace(/\s+\S*$/, '').replace(/\s*\([^)]*$/, '').replace(/[\s,;:·–—-]+$/, '')}…` : full);
   const url = `${SITE_URL}/place/${place.id}`;
 
   return [
@@ -82,7 +82,7 @@ function replacements(place) {
 // The app's own words for a dietary value and for how sure the record is
 // (i18n/locales/en.js `dietary.*`, `trust.*`), for the static text below.
 const CLAIM_WORD = {
-  halal: { certified: 'Halal-certified', friendly: 'Halal-friendly', porkFree: 'Pork-free' },
+  halal: { certified: 'Halal certified', friendly: 'Halal-friendly', porkFree: 'Pork-free' },
   vegan: { full: 'Fully vegan', options: 'Vegan options' },
 };
 const SURE_WORD = { confirmed: 'Confirmed', supported: 'Reported', inferred: 'Our reading' };
