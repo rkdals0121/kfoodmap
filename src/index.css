@@ -269,6 +269,7 @@ button {
   font-weight: 600;
 }
 .chip.active::before {
+  content: '✓';
   content: '✓' / '';
   margin-right: 5px;
 }
@@ -5373,16 +5374,16 @@ html[data-text] .detail-scroll > * {
   transform: none;
 }
 @media (max-width: 767px) {
-  body:has(.offline-banner, .update-banner) .map-locate {
+  .app-shell.has-band .map-locate {
     top: calc(64px + env(safe-area-inset-top));
   }
-  body:has(.offline-banner, .update-banner) .map-zoom {
+  .app-shell.has-band .map-zoom {
     top: calc(64px + 44px + 10px + env(safe-area-inset-top));
   }
-  body:has(.offline-banner + .update-banner) .map-locate {
+  .app-shell.has-bands-2 .map-locate {
     top: calc(112px + env(safe-area-inset-top));
   }
-  body:has(.offline-banner + .update-banner) .map-zoom {
+  .app-shell.has-bands-2 .map-zoom {
     display: none;
   }
 }
@@ -5701,8 +5702,8 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
 /* The offline and new-version bands sit over the top of a panel: its
    heading starts below them. */
 @media (max-width: 767px) {
-  body:has(.offline-banner, .update-banner) .tab-panel,
-  body:has(.offline-banner, .update-banner) .journal-panel {
+  .app-shell.has-band .tab-panel,
+  .app-shell.has-band .journal-panel {
     padding-top: 56px;
   }
 }
@@ -5720,12 +5721,12 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
 }
 
 @media (max-width: 767px) {
-  body:has(.offline-banner, .update-banner) .tab-panel,
-  body:has(.offline-banner, .update-banner) .journal-panel {
+  .app-shell.has-band .tab-panel,
+  .app-shell.has-band .journal-panel {
     padding-top: calc(56px + env(safe-area-inset-top));
   }
-  body:has(.offline-banner + .update-banner) .tab-panel,
-  body:has(.offline-banner + .update-banner) .journal-panel {
+  .app-shell.has-bands-2 .tab-panel,
+  .app-shell.has-bands-2 .journal-panel {
     padding-top: calc(112px + env(safe-area-inset-top));
   }
 }
@@ -5804,16 +5805,16 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
 /* …and the map's buttons step down under a band at every width, not only
    on a phone: centred over the map, the band reached the location button. */
 @media (min-width: 768px) {
-  body:has(.offline-banner, .update-banner) .map-locate {
+  .app-shell.has-band .map-locate {
     top: 64px;
   }
-  body:has(.offline-banner, .update-banner) .map-zoom {
+  .app-shell.has-band .map-zoom {
     top: calc(64px + 44px + 10px);
   }
-  body:has(.offline-banner + .update-banner) .map-locate {
+  .app-shell.has-bands-2 .map-locate {
     top: 112px;
   }
-  body:has(.offline-banner + .update-banner) .map-zoom {
+  .app-shell.has-bands-2 .map-zoom {
     top: calc(112px + 44px + 10px);
   }
 }

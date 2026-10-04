@@ -64,6 +64,16 @@ const findView = (pathname) => {
 // Every chip a link may name (filters.js parseViewHash).
 const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => g.chips.map(c => c.id))];
 
+// Reading storage can throw where it is blocked; the app opened to a
+// white screen there.
+function seenPrologue() {
+  try {
+    return localStorage.getItem('kfm-prologue') === 'true';
+  } catch {
+    return false;
+  }
+}
+
 function AppShell() {
   const { t, i18n } = useTranslation();
   const { id } = useParams();
@@ -276,7 +286,7 @@ function AppShell() {
     // Arriving on a place or an area guide (a search result, a shared
     // link): that page is what was asked for, and the welcome screen stood
     // over it. Not marked as seen — it greets the next visit to the map.
-    () => localStorage.getItem('kfm-prologue') === 'true' || /^\/(place|find)\//.test(window.location.pathname)
+    () => seenPrologue() || /^\/(place|find)\//.test(window.location.pathname)
       // …or with a list someone sent: the friend who opens it sees the four
       // places, not a question about their own diet.
       || parseSharedList(new URLSearchParams(window.location.search).get('list'), activeRestaurants.map(r => r.id)).length > 0
@@ -719,7 +729,9 @@ function AppShell() {
     return (
       <Prologue 
         onComplete={(diet) => {
-          localStorage.setItem('kfm-prologue', 'true');
+          // Storage can be refused (private mode, a full disk): the welcome
+          // screen then greets again next time, and the map still opens.
+          try { localStorage.setItem('kfm-prologue', 'true'); } catch { /* not remembered */ }
           setPrologueCompleted(true);
           // The diet picked on the welcome screen turns its chip on.
           if (Array.isArray(diet) && diet.length > 0) {
@@ -731,7 +743,9 @@ function AppShell() {
   }
 
   return (
-    <main className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}`}>
+    // has-band: what sits under the offline / new-version bands steps down
+    // (a class rather than :has(), which older phones do not read).
+    <main className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}${!isOnline || updateReady ? ' has-band' : ''}${!isOnline && updateReady ? ' has-bands-2' : ''}`}>
       {/* The page's one H1, for screen readers and outlines; the map screen
           has no visible title. */}
       <h1 className="visually-hidden">K-Food Map</h1>

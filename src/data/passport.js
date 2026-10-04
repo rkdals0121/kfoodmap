@@ -36,16 +36,22 @@ export function loadLocalPassport() {
   }
 }
 
+// A refused write (private mode, storage full) must not break the tap that
+// caused it: the place stays saved for this visit, in memory.
 export function saveLocalPassport(entries) {
-  localStorage.setItem(PASSPORT_KEY, JSON.stringify(entries));
+  try {
+    localStorage.setItem(PASSPORT_KEY, JSON.stringify(entries));
+  } catch { /* kept in memory only */ }
 }
 
 export function clearLocalPassport() {
-  localStorage.removeItem(PASSPORT_KEY);
+  try {
+    localStorage.removeItem(PASSPORT_KEY);
   // The owner goes with the passport, always. They are one fact — "this
   // device holds X's places" — and a clear that left the owner behind would
   // claim the next person's empty passport belonged to the last person.
-  localStorage.removeItem(PASSPORT_OWNER_KEY);
+    localStorage.removeItem(PASSPORT_OWNER_KEY);
+  } catch { /* nothing was stored */ }
 }
 
 export function loadPassportOwner() {
@@ -60,11 +66,13 @@ export function loadPassportOwner() {
 // empty-string id is not a Supabase user id and cannot occur, but `!userId`
 // would quietly delete the key for one, which is the opposite of storing it.
 export function savePassportOwner(userId) {
-  if (userId === null || userId === undefined) {
-    localStorage.removeItem(PASSPORT_OWNER_KEY);
-    return;
-  }
-  localStorage.setItem(PASSPORT_OWNER_KEY, userId);
+  try {
+    if (userId === null || userId === undefined) {
+      localStorage.removeItem(PASSPORT_OWNER_KEY);
+      return;
+    }
+    localStorage.setItem(PASSPORT_OWNER_KEY, userId);
+  } catch { /* storage refused */ }
 }
 
 // The single question "is the passport on this device this person's?", asked

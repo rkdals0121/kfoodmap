@@ -344,6 +344,11 @@ export default defineConfig({
     }),
   ],
   build: {
+    // Phones two or three years behind. Without a target the CSS was written
+    // in the newest syntax: `@media (width<=767px)` is not read by iOS 16.3
+    // or Chrome 103 and earlier, so the whole phone layout went unapplied
+    // there, and the `100vh` fallbacks before `100dvh` were dropped.
+    target: ['chrome100', 'safari15', 'ios15', 'firefox115'],
     rollupOptions: {
       output: {
         // Three files instead of one. The entry chunk used to carry the
