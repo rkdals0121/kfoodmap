@@ -23,6 +23,7 @@ export default {
     legendReading: 'Our best guess from what we found. Check before you go.',
     legendUnknown: 'We could not find out, so we say so.',
     legendNote: 'Menus and kitchens change. If your diet is strict, ask staff before you order.',
+    checkedRange: 'Dietary records were last checked between {{from}} and {{to}}; each place shows its own date.',
     startWith: 'What are you looking for?',
     startHint: 'Optional — you can change it on the map.',
     continue: 'Open the map',

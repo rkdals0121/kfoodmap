@@ -18,6 +18,7 @@ export default {
     legendReading: '我们根据现有资料作出的推断。去之前请先确认。',
     legendUnknown: '我们没能查到，所以如实说明。',
     legendNote: '菜单和后厨随时会变。如果饮食要求严格，点餐前请先问店员。',
+    checkedRange: '饮食相关记录的最近核查日期在 {{from}} 至 {{to}} 之间；每家店的日期见其页面。',
     startWith: '你想找什么？',
     startHint: '可以不选，之后可在地图页更改。',
     continue: '打开地图',

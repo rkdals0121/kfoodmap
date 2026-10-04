@@ -3,11 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined } from '../data/verification';
+import { formatLongDate } from '../utils';
 import ClaimChip from './ClaimChip';
 import { LANGUAGES, setLanguage } from '../i18n/index.js';
 import './Prologue.css';
 
 const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
+// How old the dietary records are, as a range: the oldest and the newest
+// "last checked" among them. Said once here; each place shows its own.
+const checkedDates = restaurants
+  .filter(r => !isQuarantined(r))
+  .flatMap(r => [r.dietary?.vegan?.lastCheckedAt, r.dietary?.halal?.lastCheckedAt])
+  .filter(Boolean)
+  .sort();
 
 // One screen: what this map is, and how to read the claim mark that sits on
 // every dietary claim in it (docs/UI-DIRECTION.md). It replaced three steps,
@@ -105,6 +113,11 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
             ))}
           </ul>
           <p className="prologue-legend__note">{t('prologue.legendNote')}</p>
+          {checkedDates.length > 0 && (
+            <p className="prologue-legend__dates">
+              {t('prologue.checkedRange', { from: formatLongDate(checkedDates[0], i18n.language), to: formatLongDate(checkedDates.at(-1), i18n.language) })}
+            </p>
+          )}
         </section>
 
         <button ref={ctaRef} className="prologue-btn" onClick={() => onComplete(diet)}>{t(ctaKey)}</button>
