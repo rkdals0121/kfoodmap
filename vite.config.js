@@ -244,7 +244,9 @@ export default defineConfig({
         // which is why they sit together. Rename src/data/auth-client.js and
         // both stop matching: the chunk silently returns to the precache and
         // the runtime route silently stops caching it.
-        globIgnores: [AUTH_CHUNK_GLOB],
+        // og/: share images for crawlers. Nothing in the app shows them, and
+        // precached they were 421 kB every first visitor downloaded.
+        globIgnores: [AUTH_CHUNK_GLOB, 'og/**'],
         // Ordered auth chunk first, then the fonts, so this rule stays next
         // to the globIgnores it completes.
         //

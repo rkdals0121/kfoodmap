@@ -28,7 +28,12 @@ const PAGE = 40;
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 
-function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null, atLabel = '' }) {
+// Memoised: typing a letter, panning the map, "show more", a toast and the
+// minute tick all re-render the list, and on a cheap phone forty cards
+// redrawn for nothing was most of the wait. The place is the record itself
+// (not a copy), its distance comes beside it, and `tick` is the minute, so
+// "Open" still turns to "Closed" on time.
+const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null, atLabel = '' }) {
   const { t } = useTranslation();
   const name = displayName(place.name);
   // With "Open at…" on, the card answers for that time, as the list does.
@@ -77,12 +82,12 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
           <span className="place-card__zone">{place.zone}</span>
           {/* Past 50 km a distance from the map centre means nothing to a
               visitor (a shared link opens over Seoul), so it is left out. */}
-          {(place.fromYou || place.distanceKm <= 50) && (
+          {(fromYou || distanceKm <= 50) && (
             <>
               <span aria-hidden="true"> · </span>
               <span className="place-card__distance">
-                {formatDistance(place.distanceKm)}
-                <span className="visually-hidden"> {place.fromYou ? t('list.fromYou') : t('list.fromMapCentre')}</span>
+                {formatDistance(distanceKm)}
+                <span className="visually-hidden"> {fromYou ? t('list.fromYou') : t('list.fromMapCentre')}</span>
               </span>
             </>
           )}
@@ -145,12 +150,12 @@ function PlaceCard({ place, bookmarked, onOpen, onToggleBookmark, onReadStory, o
       </div>
     </article>
   );
-}
+});
 
 export default function BottomSheetList({
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -187,13 +192,13 @@ export default function BottomSheetList({
               </ul>
             </div>
   ) : null;
-  const sorted = useMemo(() => {
+  const ranked = useMemo(() => {
     const inArea = (r) => matchesArea(r, matchQuery);
     // "Vegan Kitchen" typed in full: the place called that, before the
     // nearer places that merely mention the words.
     const typed = String(matchQuery ?? '').trim().toLowerCase();
     const names = (r) => [displayName(r.name), koreanName(r.name)].filter(Boolean).map(n => n.toLowerCase());
-    const stop = (r) => sharedIds.indexOf(r.id);
+    const stop = (x) => sharedIds.indexOf(x.place.id);
     return restaurants
       .map(r => {
         const { lat, lng } = coordsOf(r);
@@ -203,13 +208,15 @@ export default function BottomSheetList({
         // on Naver and Kakao; until then it is from the map centre.
         const sortKm = haversineKm(mapCenter[0], mapCenter[1], lat, lng);
         const distanceKm = userLocation ? haversineKm(userLocation.lat, userLocation.lng, lat, lng) : sortKm;
-        return { ...r, sortKm, distanceKm, fromYou: Boolean(userLocation), areaMatch: inArea(r), nameIs: typed !== '' && names(r).includes(typed) };
+        return { place: r, sortKm, distanceKm, fromYou: Boolean(userLocation), areaMatch: inArea(r), nameIs: typed !== '' && names(r).includes(typed) };
       })
       .sort((a, b) => (journeyOrder
         ? stop(a) - stop(b)
         : (b.nameIs - a.nameIs) || (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurants, mapCenter, matchQuery, userLocation, journeyOrder, sharedIds.join(',')]);
+  // The records in list order, for everything that asks about the places.
+  const sorted = useMemo(() => ranked.map(x => x.place), [ranked]);
 
   // "Halal in Busan" as a link for whoever is travelling too. The link names
   // the search and the chips (filters.js viewHash) — never "Saved", which
@@ -237,7 +244,10 @@ export default function BottomSheetList({
   // the "Open now" minute tick rebuilds the array with the same places, and
   // resetting then threw the reader back to the first page.
   const listKey = restaurants.map(r => r.id).join(',');
-  useEffect(() => { setShown(PAGE); }, [listKey]);
+  // Reset while rendering: an effect drew the old count first (hundreds of
+  // cards, with the list opened far down) and only then the first page.
+  const [shownFor, setShownFor] = useState(listKey);
+  if (shownFor !== listKey) { setShownFor(listKey); setShown(PAGE); }
   const sentinelRef = useRef(null);
   const hasMore = shown < sorted.length;
   useEffect(() => {
@@ -386,10 +396,13 @@ export default function BottomSheetList({
       </div>
       {unknownToggle}
 
-      {sorted.slice(0, shown).map(r => (
+      {ranked.slice(0, shown).map(({ place: r, distanceKm, fromYou }) => (
         <PlaceCard
           key={r.id}
           place={r}
+          distanceKm={distanceKm}
+          fromYou={fromYou}
+          tick={tick}
           stop={journeyOrder ? sharedIds.indexOf(r.id) + 1 : 0}
           at={planDate}
           atLabel={planDate && planAt ? t(`hours.day.${DAY_KEYS[planAt.day]}`) : ''}

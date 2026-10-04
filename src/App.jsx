@@ -648,7 +648,20 @@ function AppShell() {
   // that finds nothing and one of its words is a single letter off a
   // well-known area ("myongdong"), in which case the corrected text is
   // tried, and the list says so.
+  // The text in the box is drawn at once; the filter (and with it the
+  // cards and several hundred map markers) follows a moment after the last
+  // keystroke, so letters do not wait on the map. A plain timer rather than
+  // useDeferredValue: the deferred value was seen to stay behind for good
+  // in a background tab. An emptied box is answered at once.
+  const [filterQuery, setFilterQuery] = useState(searchQuery);
+  useEffect(() => {
+    if (searchQuery === filterQuery) return undefined;
+    if (searchQuery === '') { setFilterQuery(''); return undefined; }
+    const id = setTimeout(() => setFilterQuery(searchQuery), 120);
+    return () => clearTimeout(id);
+  }, [searchQuery, filterQuery]);
   const { filteredRestaurants, unknownHours, matchQuery, nearest } = useMemo(() => {
+    const searchQuery = filterQuery; // eslint-disable-line no-shadow
     const now = planDate ?? new Date(filterClock || Date.now());
     let unknown = 0;
     let unknownPlaces = [];
@@ -721,11 +734,14 @@ function AppShell() {
       }
     }
     return { filteredRestaurants: list, unknownHours: unknown, matchQuery: used, nearest: near };
-  }, [selectedFilters, searchQuery, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
+  }, [selectedFilters, filterQuery, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
 
   // The same function object on every render, always calling the latest
   // version: what lets the memoised map skip renders it does not need.
   const openDetailStable = useStableCallback(openDetail);
+  const openStoryStable = useStableCallback(openStory);
+  const openDirectionsStable = useStableCallback(openDirections);
+  const toggleBookmarkStable = useStableCallback(handleToggleBookmark);
   const locateStable = useStableCallback(locate);
 
   if (!prologueCompleted) {
@@ -848,10 +864,11 @@ function AppShell() {
                 mapCenter={mapCenter}
                 userLocation={userLocation}
                 bookmarkedIds={bookmarkedIds}
-                onRestaurantClick={openDetail}
-                onReadStory={openStory}
-                onDirections={openDirections}
-                onToggleBookmark={handleToggleBookmark}
+                onRestaurantClick={openDetailStable}
+                onReadStory={openStoryStable}
+                onDirections={openDirectionsStable}
+                onToggleBookmark={toggleBookmarkStable}
+                tick={clock}
                 sustainabilityLens={sustainabilityLens}
                 activeFilters={selectedFilters}
                 unknownHours={unknownHours}
@@ -864,10 +881,12 @@ function AppShell() {
                 sharedJourney={sharedJourney}
                 onSaveShared={() => saveMany(sharedIds)}
                 onCloseShared={closeSharedList}
-                searchQuery={searchQuery}
+                // The query the list was filtered by (a keystroke behind at most),
+                // so its notes and its cards speak of the same search.
+                searchQuery={filterQuery}
                 matchQuery={matchQuery}
                 nearest={nearest}
-                nearestFrom={searchQuery.trim()}
+                nearestFrom={filterQuery.trim()}
                 onClearInline={() => {
                   // From the list header: chips and search off, where the
                   // reader is — no keyboard, and a shared list or journey stays.
