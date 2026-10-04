@@ -575,6 +575,10 @@ function MapComponent({
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          // Asked for with CORS (the tile server allows any origin), so the
+          // service worker caches real responses. Without it they are opaque,
+          // and a browser counts each opaque response as megabytes of quota.
+          crossOrigin="anonymous"
         />
         <StartInView />
         <UserLocation location={userLocation} />

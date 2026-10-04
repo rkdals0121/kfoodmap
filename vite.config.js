@@ -281,15 +281,16 @@ export default defineConfig({
           // Map tiles a visitor has already seen stay for a fortnight, so the
           // streets around a saved place are still drawn underground or with
           // roaming off. Only what was viewed: OpenStreetMap's tile policy
-          // forbids downloading areas in bulk. Opaque responses (status 0)
-          // are what a cross-origin <img> gives a service worker.
+          // forbids downloading areas in bulk. Only real (CORS) responses:
+          // the tile layer asks with crossOrigin, because an opaque response
+          // is charged against the storage quota as several megabytes.
           {
             urlPattern: ({ url }) => url.hostname === 'tile.openstreetmap.org',
             handler: 'CacheFirst',
             options: {
               cacheName: 'kfm-tiles',
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 14, purgeOnQuotaError: true },
-              cacheableResponse: { statuses: [0, 200] },
+              cacheableResponse: { statuses: [200] },
             },
           },
           // Per-place full records (evidence text), fetched when a detail
