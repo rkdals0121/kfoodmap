@@ -223,7 +223,7 @@ test('a Korean reader sees the Korean name; everyone else the romanised one', as
   await i18next.changeLanguage('ko');
   try {
     assert.equal(displayName('EID Halal Korean Food (이드)'), '이드');
-    assert.equal(displayName('Kervan (케르반) Famille Station'), '케르반 Famille Station');
+    assert.equal(displayName('Kervan (케르반) Famille Station'), '케르반 파미에스테이션');
     assert.equal(displayName('Nimat (니맛), Culinary Square T2'), '니맛, Culinary Square T2');
     assert.equal(displayName('Plain Name'), 'Plain Name');
     assert.equal(displayName('STILL, GREEN (스틸그린)'), '스틸그린');

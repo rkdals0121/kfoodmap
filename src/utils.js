@@ -412,6 +412,12 @@ export function koreanName(name) {
   return m ? m[1].trim() : null;
 }
 
+const KO_BRANCH = {
+  Itaewon: '이태원', COEX: '코엑스', Seongsu: '성수', Sinsa: '신사', Godeok: '고덕', Mangwon: '망원',
+  'Gyeongridan-gil': '경리단길', Kebab: '케밥', Bakery: '베이커리', 'Vegan Bakery': '비건 베이커리', 'Vegan Cafe': '비건 카페',
+  "Seoul Nat'l Univ. Station": '서울대입구역', "I'Park Mall Yongsan": '아이파크몰 용산', 'Famille Station': '파미에스테이션',
+  'Terminal 1': '제1터미널', 'Nami Island': '남이섬',
+};
 export function displayName(name) {
   // In Korean the name is the one on the sign: "EID Halal Korean Food (이드)"
   // is 이드, and "Kervan (케르반) Famille Station" is 케르반 Famille Station.
@@ -419,6 +425,9 @@ export function displayName(name) {
   if (i18next.language === 'ko' && koreanName(name)) {
     return String(name)
       .replace(/^.*?\(([^)]*[가-힣][^)]*)\)/, '$1')
+      // What follows the Korean name says which branch ("미스터케밥
+      // Itaewon"): in Korean too, where it is a name with a set spelling.
+      .replace(/^([^A-Za-z]*?[가-힣][^A-Za-z]*?)\s*,?\s+([A-Za-z].*)$/, (whole, head, tail) => (KO_BRANCH[tail] ? `${head.trim()} ${KO_BRANCH[tail]}` : whole))
       .replace(/\s{2,}/g, ' ')
       .trim();
   }
