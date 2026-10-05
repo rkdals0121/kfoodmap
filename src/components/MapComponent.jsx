@@ -231,7 +231,8 @@ const clusterIcon = (count) => {
 // stays full height underneath it. Zooming to a group has to fit the places
 // into the part still showing, or half of them land under the sheet.
 function sheetOverlap(map) {
-  const sheet = document.querySelector('.sidebar-region');
+  // (A place half open over the list is what covers the map then.)
+  const sheet = document.querySelector('.detail-sheet--peek') ?? document.querySelector('.sidebar-region');
   if (!sheet) return 0;
   const m = map.getContainer().getBoundingClientRect();
   const s = sheet.getBoundingClientRect();
@@ -326,7 +327,7 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
 // reached again in the list, which holds every place on the map and is the
 // keyboard and screen-reader route (CRITIQUE-2 #12). Pointer and touch are
 // unchanged.
-function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, stopIds }) {
+function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, stopIds, peek = false }) {
   const map = useMap();
   const { t } = useTranslation();
   const [zoom, setZoom] = useState(() => map.getZoom());
@@ -378,6 +379,31 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, st
     if (!inView) map.panBy([p.x - (covered + (size.x - covered) / 2), p.y - size.y / 2]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId]);
+
+  // On a phone the place opens half way up from its pin: the pin has to be
+  // in the strip of map left above it. Moved only when it is not (a pin
+  // pressed low on the screen with the list folded away).
+  useEffect(() => {
+    if (!selected || !peek) return undefined;
+    const timer = setTimeout(() => {
+      const sheet = document.querySelector('.detail-sheet--peek');
+      if (!sheet) return;
+      const box = map.getContainer().getBoundingClientRect();
+      // offsetHeight, not the drawn box: the sheet is still sliding up.
+      const foot = window.innerHeight - sheet.offsetHeight - box.top;
+      const c = coordsOf(selected);
+      const p = map.latLngToContainerPoint([c.lat, c.lng]);
+      const size = map.getSize();
+      if (foot < 120) return;
+      // The open place's pin is 49 px tall above its point.
+      if (p.y >= 64 && p.y <= foot - 14 && p.x >= 28 && p.x <= size.x - 28) return;
+      try {
+        map.panBy([p.x - size.x / 2, p.y - Math.round(foot * 0.62)], { animate: !reduceMotion(), duration: 0.35 });
+      } catch { /* leave the map where it is */ }
+    }, 80);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId, peek]);
 
   return (
     <>
@@ -580,7 +606,7 @@ const LOCATE_MESSAGE = {
 function visiblePoint(map) {
   const size = map.getSize();
   const m = map.getContainer().getBoundingClientRect();
-  const sheet = document.querySelector('.sidebar-region')?.getBoundingClientRect();
+  const sheet = (document.querySelector('.detail-sheet--peek') ?? document.querySelector('.sidebar-region'))?.getBoundingClientRect();
   let x = size.x / 2;
   let y = size.y / 2;
   if (sheet && sheet.width > 0 && sheet.height > 0) {
@@ -607,6 +633,78 @@ function zoomBy(map, step) {
   const zoom = Math.max(map.getMinZoom(), Math.min(map.getMaxZoom(), map.getZoom() + step));
   if (zoom === map.getZoom()) return;
   map.setZoomAround(map.containerPointToLatLng(visiblePoint(map)), zoom, { animate: !reduceMotion() });
+}
+
+// The part of the map that can be seen, as a box of coordinates: the same
+// part visiblePoint() takes the middle of.
+function visibleBox(map) {
+  const size = map.getSize();
+  const c = visiblePoint(map);
+  const hw = Math.min(c.x, size.x - c.x);
+  const hh = Math.min(c.y, size.y - c.y);
+  const a = map.containerPointToLatLng([c.x - hw, c.y + hh]);
+  const b = map.containerPointToLatLng([c.x + hw, c.y - hh]);
+  return { s: a.lat, w: a.lng, n: b.lat, e: b.lng };
+}
+const sameBox = (a, b) => Boolean(a && b) && ['s', 'w', 'n', 'e'].every(k => Math.abs(a[k] - b[k]) < 1e-7);
+
+// "Search this area": the list holds every place in the country, nearest
+// first, whatever part of it the map shows. Once the map has been moved
+// by hand, this narrows the list to what is on it. Offered only when that
+// would change the list: some of its places in view and some not.
+function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, hidden }) {
+  const { t } = useTranslation();
+  const [offer, setOffer] = useState(false);
+  const latest = useRef({ restaurants, mapBox });
+  latest.current = { restaurants, mapBox };
+  const check = useRef(() => {});
+  useEffect(() => {
+    let map = null;
+    const read = () => {
+      if (!touched.current) return;
+      const now = latest.current;
+      const box = visibleBox(map);
+      let inside = 0;
+      for (const r of now.restaurants) {
+        const c = coordsOf(r);
+        if (c.lat >= box.s && c.lat <= box.n && c.lng >= box.w && c.lng <= box.e) inside += 1;
+      }
+      setOffer(inside > 0 && inside < now.restaurants.length && !sameBox(box, now.mapBox));
+    };
+    // The map is created after this first render.
+    const wait = setInterval(() => {
+      map = mapRef.current;
+      if (!map) return;
+      clearInterval(wait);
+      check.current = read;
+      map.on('moveend', read);
+    }, 200);
+    return () => { clearInterval(wait); check.current = () => {}; map?.off('moveend', read); };
+  }, [mapRef, touched]);
+  // A chip or a search changes what is listed without moving the map.
+  useEffect(() => { check.current(); }, [restaurants, mapBox]);
+  if (!offer || hidden) return null;
+  return (
+    <button
+      type="button"
+      className="map-area-btn"
+      onClick={() => {
+        const map = mapRef.current;
+        if (!map) return;
+        setOffer(false);
+        onSearchArea(visibleBox(map));
+      }}
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
+      {t('map.searchArea')}
+    </button>
+  );
+}
+
+// A press on the bare map (not on a pin, which does not reach the map).
+function MapClicks({ onMapClick }) {
+  useMapEvents({ click: () => onMapClick() });
+  return null;
 }
 
 function ZoomButtons({ mapRef }) {
@@ -702,10 +800,27 @@ export default React.memo(MapComponent);
 function MapComponent({
   restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
   userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [], sheetState = 1,
+  placePeek = false, onMapClick, mapBox = null, onSearchArea,
 }) {
   const mapRef = useRef(null);
+  // Whether the map has been moved by hand yet (a drag, a pinch, the wheel,
+  // its buttons): only then is "Search this area" offered.
+  const touched = useRef(false);
+  const touch = () => { touched.current = true; };
   return (
-    <div style={{ height: '100%', width: '100%', position: 'relative' }}>
+    <div style={{ height: '100%', width: '100%', position: 'relative' }} onPointerDownCapture={touch} onTouchStartCapture={touch} onWheelCapture={touch}>
+      {onSearchArea && (
+        <SearchAreaButton
+          mapRef={mapRef}
+          touched={touched}
+          restaurants={restaurants}
+          mapBox={mapBox}
+          onSearchArea={onSearchArea}
+          // Not over a place, not while the list is whole by design, and
+          // not beside the location button's own message.
+          hidden={Boolean(selectedId) || fitAll || ['asking', 'denied', 'unavailable', 'outside'].includes(locateState)}
+        />
+      )}
       {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} />}
       <ZoomButtons mapRef={mapRef} />
       <MapContainer ref={mapRef} center={MAP_CENTER} zoom={12} minZoom={6} maxBounds={KOREA_AND_AROUND} maxBoundsViscosity={0.6} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
@@ -716,6 +831,7 @@ function MapComponent({
         {onCenterChange && <CenterReporter onCenterChange={onCenterChange} sheetState={sheetState} userLocation={userLocation} />}
         <ResizeSync />
         <MapA11y />
+        {onMapClick && <MapClicks onMapClick={onMapClick} />}
         {/* This attribution is legally required credit markup for OpenStreetMap,
             not UI copy, so it stays hardcoded rather than moving to i18n.
 
@@ -750,6 +866,7 @@ function MapComponent({
           onMarkerClick={onMarkerClick}
           savedIds={savedIds}
           stopIds={stopIds}
+          peek={placePeek}
         />
       </MapContainer>
     </div>

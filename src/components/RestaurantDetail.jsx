@@ -168,7 +168,7 @@ const telHref = (n) => { const d = String(n).replace(/[^0-9+]/g, ''); return d.s
 export default function RestaurantDetail({
   restaurant, onClose, isBookmarked, onToggleBookmark, isVisited, onToggleVisited, userLocation = null, isOnline = true,
   journey = null, onJourneyStop, nearby = [], nearbyDiet = [], onOpenPlace, planAt = null, planDate = null,
-  mapCenter, focusStory, focusDirections = false, docked = false, belowSearch = false,
+  mapCenter, focusStory, focusDirections = false, docked = false, belowSearch = false, peek = false, onExpand,
 }) {
   const { t, i18n } = useTranslation();
   const location = useLocation();
@@ -292,6 +292,27 @@ export default function RestaurantDetail({
   const retryPressed = useRef(false);
   const placeId = restaurant?.id;
   useEffect(() => { setRetriedFor(null); retryPressed.current = false; }, [placeId]);
+  // Half open (from a pin on a phone): as tall as the list it replaces, so
+  // the strip of map above — and the pin in it — stays as it was. Scrolled
+  // or pulled up, it becomes the full page.
+  const [peekHeight, setPeekHeight] = useState(null);
+  useLayoutEffect(() => {
+    if (!peek) return;
+    const tall = window.innerHeight;
+    const list = document.querySelector('.sidebar-region.sheet-state-1')?.getBoundingClientRect();
+    const strip = Math.max(170, Math.min(tall * 0.45, list ? list.top : tall * 0.36));
+    setPeekHeight(Math.round(tall - strip));
+  }, [peek, placeId]);
+  useEffect(() => {
+    const sc = scrollRef.current;
+    if (!sc || !peek) return undefined;
+    const scrolled = () => { if (sc.scrollTop > 4) onExpand?.(); };
+    const wheel = (e) => { if (e.deltaY > 0) onExpand?.(); };
+    sc.addEventListener('scroll', scrolled, { passive: true });
+    sc.addEventListener('wheel', wheel, { passive: true });
+    return () => { sc.removeEventListener('scroll', scrolled); sc.removeEventListener('wheel', wheel); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [peek, placeId]);
   useEffect(() => { if (fullFailed) { setRetriedFor(placeId); retryPressed.current = false; } }, [fullFailed, placeId]);
   // Loaded after a press on Try again: the line and its button go, and
   // focus goes to the sheet rather than nowhere.
@@ -485,6 +506,8 @@ export default function RestaurantDetail({
     const dy = e.touches[0].clientY - p.y;
     if (!p.on) {
       if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      // Half open, an upward pull opens the full page.
+      if (peek && dy < 0 && Math.abs(dx) < -dy) { pull.current = null; onExpand?.(); return; }
       if (dy <= 0 || Math.abs(dx) > dy || (scrollRef.current?.scrollTop ?? 0) > 0) { pull.current = null; return; }
       p.on = true;
       el.style.transition = 'none';
@@ -510,11 +533,12 @@ export default function RestaurantDetail({
     <>
       {/* Docked (768px up) the detail sits beside a live map: no backdrop,
           not modal. On a phone it is a modal sheet over the map. */}
-      {!docked && <div className="detail-backdrop" onClick={onClose} />}
+      {!docked && !peek && <div className="detail-backdrop" onClick={onClose} />}
       <div
-        className={`detail-sheet${docked ? ' detail-sheet--docked' : ''}${docked && belowSearch ? ' detail-sheet--below-search' : ''}`}
+        className={`detail-sheet${docked ? ' detail-sheet--docked' : ''}${docked && belowSearch ? ' detail-sheet--below-search' : ''}${peek && !docked ? ' detail-sheet--peek' : ''}`}
+        style={peek && !docked && peekHeight ? { '--peek-h': `${peekHeight}px` } : undefined}
         role="dialog"
-        aria-modal={docked ? undefined : 'true'}
+        aria-modal={docked || peek ? undefined : 'true'}
         aria-label={name}
         ref={sheetRef}
         tabIndex={-1}
@@ -525,6 +549,8 @@ export default function RestaurantDetail({
       >
         {/* The bar that says the sheet can be pulled down (phones only). */}
         {!docked && <span className="detail-grabber" aria-hidden="true" />}
+        {/* Half open: the bar at the top is also a button for the full page. */}
+        {!docked && peek && <button type="button" className="detail-expand" aria-label={t('map.expandPlace')} onClick={() => onExpand?.()} />}
         <button className="detail-close" aria-label={t('detail.close')} onClick={onClose}>
           <XIcon size={18} />
         </button>

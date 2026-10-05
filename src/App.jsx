@@ -19,7 +19,7 @@ import PrivacySheet from './components/PrivacySheet';
 import StaffCardSheet from './components/StaffCardSheet';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
-import { MAP_CENTER, koreaDateAt, koreaToday } from './utils';
+import { MAP_CENTER, koreaDateAt, koreaToday, coordsOf } from './utils';
 import { readPosition, readError } from './data/locate';
 import { journeys } from './data/journeys';
 import { CHIP_GROUPS } from './i18n/labels';
@@ -265,7 +265,14 @@ function AppShell() {
   // phone, where it covers the map: while one is open what lies behind it is
   // inert, so Tab stays inside. From 768px up the detail docks beside a
   // live map instead, and is not modal.
-  const modalOpen = (Boolean(selectedRestaurant) && !isWide) || isSubmit || isPrivacy || isCards;
+  // A place opened from its pin on a phone starts at the list's own height
+  // (`peek`): the pin just pressed and the streets around it stay in view
+  // above it, and the map stays live. Pulled or scrolled up it becomes the
+  // full page, which is modal as before.
+  const [expandedKey, setExpandedKey] = useState(null);
+  const placePeek = Boolean(selectedRestaurant) && !isWide && Boolean(location.state?.peek) && expandedKey !== location.key
+    && !(typeof window !== 'undefined' && window.matchMedia?.(LANDSCAPE_PHONE).matches);
+  const modalOpen = (Boolean(selectedRestaurant) && !isWide && !placePeek) || isSubmit || isPrivacy || isCards;
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   // "My location" (data/locate.js): asked once per tap, kept in memory for
   // this visit only. `at` changes with every answer so the map knows to go
@@ -433,9 +440,9 @@ function AppShell() {
   const closePlace = () => (location.state?.fromApp ? navigate(-1 - (location.state?.depth ?? 0)) : navigate(tabPath, { replace: true }));
   // While a journey's stops are on the map, a stop opened from the map or
   // the list is opened as that stop, with the stop before and after.
-  const openDetail = (r) => {
+  const openDetail = (r, more = {}) => {
     const stop = sharedJourney && selectedFilters.includes(SHARED_LIST) ? sharedJourney.stopIds.indexOf(r.id) : -1;
-    openPlace(r, stop >= 0 ? { journey: { id: sharedJourney.id, index: stop } } : {});
+    openPlace(r, { ...more, ...(stop >= 0 ? { journey: { id: sharedJourney.id, index: stop } } : {}) });
   };
   // What else is close to the open place (data/nearby.js) — under the
   // diet chips in force, so someone looking for halal is not offered the
@@ -493,6 +500,7 @@ function AppShell() {
   const handleSearchChange = (q) => {
     setSearchQuery(q);
     setAreaOnly(false);
+    setMapBox(null);
     if (id) navigate(tabPath, { replace: true });
   };
 
@@ -812,6 +820,25 @@ function AppShell() {
     sharedIds,
   }), [selectedFilters, filterQuery, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
 
+  // "Search this area" (the map's button): the list is narrowed to the
+  // part of the map that was showing. The pins are not — moving the map
+  // still shows what else there is. A box with nothing left in it (a chip
+  // changed, the map flew to a search) is dropped rather than shown empty.
+  const [mapBox, setMapBox] = useState(null);
+  const inBox = useMemo(() => {
+    if (!mapBox) return null;
+    const within = filteredRestaurants.filter((r) => {
+      const c = coordsOf(r);
+      return c.lat >= mapBox.s && c.lat <= mapBox.n && c.lng >= mapBox.w && c.lng <= mapBox.e;
+    });
+    return within.length > 0 && within.length < filteredRestaurants.length ? within : null;
+  }, [mapBox, filteredRestaurants]);
+  useEffect(() => { if (mapBox && !inBox) setMapBox(null); }, [mapBox, inBox]);
+  // Saved places and a journey are shown whole: the map frames all of them.
+  const wholeList = selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST);
+  useEffect(() => { if (wholeList) setMapBox(null); }, [wholeList]);
+  const listedRestaurants = inBox ?? filteredRestaurants;
+
   // "pork-free" typed with the Halal chip on: the chip goes off, as it does
   // when the note's own button is pressed. The search finds them either
   // way (search.js), but a list of pork-free places must not stand under a
@@ -824,7 +851,13 @@ function AppShell() {
 
   // The same function object on every render, always calling the latest
   // version: what lets the memoised map skip renders it does not need.
-  const openDetailStable = useStableCallback(openDetail);
+  const openDetailStable = useStableCallback((r) => openDetail(r));
+  // From a pin: at the list's height, the map still showing (not with the
+  // list fully open — it would stand out above the place).
+  const openFromMapStable = useStableCallback((r) => openDetail(r, sheetState === 2 ? {} : { peek: true }));
+  // A press on the bare map puts the half-open place away.
+  const mapClickStable = useStableCallback(() => { if (placePeek) closePlace(); });
+  const searchAreaStable = useStableCallback((box) => setMapBox(box));
   const openStoryStable = useStableCallback(openStory);
   const openDirectionsStable = useStableCallback(openDirections);
   const toggleBookmarkStable = useStableCallback(handleToggleBookmark);
@@ -856,7 +889,7 @@ function AppShell() {
       <h1 className="visually-hidden">K-Food Map</h1>
       {/* The map holds hundreds of focusable pins; the same places are in
           the list, one Tab away with this link. */}
-      {activeTab === 'map' && !modalOpen && <a className="skip-link" href="#place-list">{t('app.skipToList')}</a>}
+      {activeTab === 'map' && !modalOpen && !placePeek && <a className="skip-link" href="#place-list">{t('app.skipToList')}</a>}
       {/* Above everything, on every tab: inside the map region they sat under
           the pins and vanished behind the other tabs and the sheets. */}
       {!isOnline && (
@@ -892,7 +925,11 @@ function AppShell() {
         <MapErrorBoundary>
           <MapComponent
             restaurants={filteredRestaurants}
-            onMarkerClick={openDetailStable}
+            onMarkerClick={openFromMapStable}
+            onMapClick={mapClickStable}
+            placePeek={placePeek}
+            mapBox={inBox ? mapBox : null}
+            onSearchArea={searchAreaStable}
             selectedId={selectedRestaurant?.id}
             onCenterChange={setMapCenter}
             searchQuery={matchQuery}
@@ -907,7 +944,7 @@ function AppShell() {
         </MapErrorBoundary>
       </div>
 
-      <div ref={sheetRef} className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || undefined}>
+      <div ref={sheetRef} className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || placePeek || undefined}>
         {/* Render Map Items ONLY when activeTab is 'map' */}
         {activeTab === 'map' && (
           <>
@@ -954,7 +991,9 @@ function AppShell() {
               // the lower half of the list being scrolled.
               onTouchStart={blurSearch}>
               <BottomSheetList
-                restaurants={filteredRestaurants}
+                restaurants={listedRestaurants}
+                inMapOnly={Boolean(inBox)}
+                onShowAll={() => setMapBox(null)}
                 mapCenter={mapCenter}
                 userLocation={userLocation}
                 bookmarkedIds={bookmarkedIds}
@@ -1070,7 +1109,7 @@ function AppShell() {
         />
       </div>
 
-      <div className="border-region" inert={modalOpen || undefined}>
+      <div className="border-region" inert={modalOpen || placePeek || undefined}>
         <button 
           className="sidebar-toggle"
           aria-label={isSidebarCollapsed ? t('app.sidebarExpand') : t('app.sidebarCollapse')}
@@ -1108,6 +1147,8 @@ function AppShell() {
         focusStory={focusStory}
         focusDirections={focusDirections}
         docked={isWide}
+        peek={placePeek}
+        onExpand={() => setExpandedKey(location.key)}
         belowSearch={activeTab === 'map'}
       />
 

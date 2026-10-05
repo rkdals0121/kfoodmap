@@ -158,6 +158,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
 });
 
 export default function BottomSheetList({
+  inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
   userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
@@ -337,6 +338,15 @@ export default function BottomSheetList({
           </span>
         )}
       </div>
+
+      {/* The list narrowed by the map's "Search this area": said here, with
+          the way back to everything. */}
+      {inMapOnly && (
+        <p className="place-list__in-map">
+          <span>{t('map.inViewOnly')}</span>
+          <button type="button" onClick={onShowAll}>{t('map.showAll')}</button>
+        </p>
+      )}
 
       {/* "Pusan" or "釜山" was also searched as "Busan": say so, so the
           results are not a mystery and the spelling on signs is learned. */}
