@@ -6218,3 +6218,28 @@ html[data-text='larger'] .detail-bar__map svg {
 .detail-scroll {
   overflow-anchor: none;
 }
+
+/* ---- The smallest phone (320 px) and a phone on its side, 2026-10-05 ---- */
+/* A claim's words wrap inside its mark rather than run out of it: at the
+   largest text size "Reported" lay over the row's remove button, and on a
+   card the mark went past the card's edge. */
+.place-card .claim-chip,
+.saved-row .claim-chip {
+  white-space: normal;
+  flex-wrap: wrap;
+  max-width: 100%;
+  row-gap: 0;
+}
+/* A source's site name is one unbreakable word. */
+.provenance dd,
+.provenance dt {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+/* On its side the map stands beside the list whatever the list's height:
+   its zoom buttons stay. */
+@media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
+  .app-shell.sheet-full .map-zoom {
+    display: flex;
+  }
+}

@@ -212,3 +212,12 @@ html[data-text] .prologue-content {
 .prologue-btn {
   opacity: 1;
 }
+
+/* On a short screen (a small phone, a phone on its side) the button held
+   to the bottom edge lay over the choices above it: there it takes its
+   place at the end of the page instead. */
+@media (max-height: 600px) {
+  .prologue-btn {
+    position: static;
+  }
+}
