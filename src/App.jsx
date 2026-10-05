@@ -161,6 +161,7 @@ function AppShell() {
       ? `${titles[activeTab]} · K-Food Map`
       : `K-Food Map · ${t('prologue.title').replace(/[.。]$/, '')}`;
   }, [activeTab, id, location.pathname, i18n.language, t]);
+  const beforeList = useRef(null);
   // Only the map's own address decides the list: while a place or a sheet
   // is open over it, the list in force stays.
   useEffect(() => {
@@ -171,9 +172,24 @@ function AppShell() {
     // nothing else: a search or chips left on the map ("Hongdae" + Vegan)
     // were applied on top, and a Busan journey came up as "0 places".
     if (takeFreshList() && next.ids.length > 0) {
+      // What was on the map is kept aside: back from the journey, the diet
+      // chosen at the start was gone without a word and every place listed.
+      if (!selectedFilters.includes(SHARED_LIST)) {
+        beforeList.current = { q: searchQuery, filters: selectedFilters, area: areaOnly };
+      }
       setQuery('');
       setAreaOnly(false);
       setSelectedFilters([SHARED_LIST]);
+      // Half height: fully open, the stops just asked for were all behind the sheet.
+      setSheetState(1);
+      return;
+    }
+    const kept = beforeList.current;
+    if (next.ids.length === 0 && kept && selectedFilters.includes(SHARED_LIST)) {
+      beforeList.current = null;
+      setQuery(kept.q);
+      setAreaOnly(kept.area);
+      setSelectedFilters(kept.filters);
       return;
     }
     setSelectedFilters(prev => {

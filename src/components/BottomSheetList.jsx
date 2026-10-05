@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon, ShareIcon } from './Icons';
 import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, koreanName, statusClass, DAY_KEYS, formatClock } from '../utils';
@@ -33,6 +34,8 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // redrawn for nothing was most of the wait. The place is the record itself
 // (not a copy), its distance comes beside it, and `tick` is the minute, so
 // "Open" still turns to "Closed" on time.
+const ASKS_INGREDIENT = /allerg|alergi|peanut|kacang|gluten|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|アレルギー|ピーナッツ|过敏|過敏|花生|ナッツ/i;
+
 const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null, atLabel = '' }) {
   const { t } = useTranslation();
   const name = displayName(place.name);
@@ -496,6 +499,11 @@ export default function BottomSheetList({
           )}
           {withoutFilters > 0 && (
             <p className="place-list__hint-text">{t('list.withoutFilters', { query: searchQuery.trim(), n: withoutFilters })}</p>
+          )}
+          {/* "peanut", "五辛", "알레르기": not on record for any place — the
+              cards are where that question can be asked. */}
+          {ASKS_INGREDIENT.test(searchQuery) && (
+            <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
           )}
           {/* The way out comes before the hint, so it is visible in the
               half-height sheet above the tab bar. */}

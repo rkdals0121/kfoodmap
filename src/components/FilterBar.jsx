@@ -54,6 +54,16 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
   // "Saved" leads the row once there is something saved: for someone coming
   // back it is the filter they want, and it sat two screens along the row.
   const savedFirst = savedCount > 0;
+  // …and when it arrives it pushes the others along: the chip that is on
+  // ("Halal") is brought back into view.
+  useEffect(() => {
+    const row = rowRef.current;
+    const chip = [...(row?.querySelectorAll('.chip.active') ?? [])].find(c => !c.classList.contains('chip--saved')) ?? null;
+    if (!row || !chip) return;
+    const r = chip.getBoundingClientRect();
+    const box = row.getBoundingClientRect();
+    if (r.left < box.left || r.right > box.right) row.scrollLeft += r.left - box.left - 12;
+  }, [savedFirst]);
   const savedChip = (
     <button
       className={`chip${selectedFilters.includes(SAVED_ONLY) ? ' active' : ''}`}

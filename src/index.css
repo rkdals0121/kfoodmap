@@ -6243,3 +6243,12 @@ html[data-text='larger'] .detail-bar__map svg {
     display: flex;
   }
 }
+
+/* ---- Lunch-hour walkthrough, 2026-10-05 ---- */
+.journal-copy + .journal-copy {
+  margin-left: 14px;
+}
+.detail-directions__for {
+  margin-bottom: 2px;
+  color: var(--ink);
+}

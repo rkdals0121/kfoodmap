@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigationType } from 'react-router';
 import { useTranslation, Trans } from 'react-i18next';
 import PlaceImage from './PlaceImage';
 import {
@@ -74,6 +74,9 @@ function sourceWithSite(f) {
 // A research note is shown as written, except for the labels it borrows
 // from the code ("held at SUPPORTED", "not grounds for HALAL.CERTIFIED"):
 // those are given as the words the app shows for them.
+// Where each place's page was scrolled to, for this visit.
+const scrollMemory = new Map();
+
 const NOTE_TERMS = [
   [/\bHALAL\.CERTIFIED\b/g, '“Halal certified”'],
   [/\bHALAL\.FRIENDLY\b|\bFRIENDLY\b/g, '“Halal-friendly”'],
@@ -188,8 +191,18 @@ export default function RestaurantDetail({
   // stop) reuses this sheet: start the new place at its top, not wherever
   // the last one was scrolled to.
   const scrollRef = useRef(null);
+  // …unless it is come back to (Back from "Also nearby", from the cards):
+  // then where it was being read, three screens down, not its top again.
+  const navigationType = useNavigationType();
   useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+    const sc = scrollRef.current;
+    if (!sc) return undefined;
+    const id = restaurant?.id;
+    sc.scrollTop = navigationType === 'POP' ? (scrollMemory.get(id) ?? 0) : 0;
+    const keep = () => { scrollMemory.set(id, sc.scrollTop); };
+    sc.addEventListener('scroll', keep, { passive: true });
+    return () => sc.removeEventListener('scroll', keep);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurant?.id]);
   const directionsRef = useRef(null);
   const sheetRef = useRef(null);
@@ -813,6 +826,11 @@ export default function RestaurantDetail({
                 visitors are told to use in Korea, where Google's coverage is thin. */}
             <section className="detail-section" ref={directionsRef}>
               <SectionHead Icon={CompassIcon} title={t('detail.locationDirections')} />
+              {/* Reached straight from a card's directions button, this section
+                  is all that shows: it says whose directions these are, and
+                  what the two Korean buttons are to someone from abroad. */}
+              <p className="section-note detail-directions__for"><strong>{displayName(place.name)}</strong></p>
+              <p className="section-note">{t('detail.mapAppsNote')}</p>
               
               {/* The map buttons before the address: on a 375x812 phone they
                   started just below the first screen (walkthrough 2). */}
