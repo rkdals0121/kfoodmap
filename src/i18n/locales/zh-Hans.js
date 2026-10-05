@@ -378,7 +378,7 @@ export default {
     restaurantList: '餐厅列表',
     offline: '离线——正在显示已保存的数据',
     updateReady: '有新地点可用——轻点刷新',
-    crashed: '这个画面出了点问题。',
+    crashed: '这个页面出了点问题。',
     reload: '重新加载',
     undo: '撤销',
     cancel: '取消',

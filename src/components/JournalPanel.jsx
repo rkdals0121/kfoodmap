@@ -44,7 +44,7 @@ function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' })
       {/* Taken off the list here, with the same Undo as on the map: the
           only way was to open the place and find its Save button. */}
       {onRemove && (
-        <button type="button" className="saved-row__remove" aria-label={`${t('app.remove')}: ${displayName(place.name)}`} onClick={() => onRemove(place.id)}>
+        <button type="button" className="saved-row__remove" aria-label={`${t('app.remove')}: ${displayName(place.name)}`} onClick={(e) => onRemove(place.id, e)}>
           <XIcon size={16} />
         </button>
       )}
@@ -126,6 +126,14 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
     },
   ];
   const earnedCount = badges.filter(b => b.earned).length;
+  // The row leaves with its button: focus moves to the next row's (or the
+  // one before, or the panel) instead of falling off the page.
+  const removeSaved = (id, e) => {
+    const li = e?.currentTarget?.closest('li');
+    const next = (li?.nextElementSibling ?? li?.previousElementSibling)?.querySelector('.saved-row__remove');
+    onRemoveSaved?.(id);
+    setTimeout(() => (next?.isConnected ? next : panelRef.current)?.focus({ preventScroll: true }), 0);
+  };
   // Where the reader was, kept for this visit: the Journal opened at its
   // top again after every look at the map or another tab.
   const panelRef = useRef(null);
@@ -141,7 +149,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
   }, []);
 
   return (
-    <section className="journal-panel" aria-label={t('journal.ariaLabel')} ref={panelRef}>
+    <section className="journal-panel" aria-label={t('journal.ariaLabel')} ref={panelRef} tabIndex={-1}>
       <div className="passport-cover">
         <h2 className="passport-cover__title">{t('journal.title')}</h2>
         <div className="passport-stats">
@@ -220,7 +228,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 </h4>
                 <ul className="saved-list">
                   {items.map(({ place, savedAt }) => (
-                    <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} onRemove={onRemoveSaved} />
+                    <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} onRemove={removeSaved} />
                   ))}
                 </ul>
               </section>
@@ -228,7 +236,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
           ) : (
             <ul className="saved-list">
               {savedList.map(({ place, savedAt }) => (
-                <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} onRemove={onRemoveSaved} />
+                <SavedRow at={planDate} atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''} key={place.id} place={place} savedAt={savedAt} onOpen={onRestaurantClick} onRemove={removeSaved} />
               ))}
             </ul>
           )}

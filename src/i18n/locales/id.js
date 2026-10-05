@@ -79,7 +79,7 @@ export default {
     emptyCta: 'Cari tempat di peta',
     firstTaste: 'Cicipan Pertama',
     plantBased: 'Nabati',
-    firstTasteHow: 'Tandai tempat mana pun “Sudah ke sini”.',
+    firstTasteHow: 'Tandai tempat mana pun sebagai “Sudah ke sini”.',
     plantBasedHow: 'Tandai tempat “Vegan sepenuhnya” sebagai “Sudah ke sini”.',
     sample: 'Contoh',
     whatItllLookLike: 'Tampilannya nanti',

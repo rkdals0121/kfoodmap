@@ -517,6 +517,9 @@ function AppShell() {
     // The time it was first saved, so it keeps its place in the Journal.
     setEntries(prev => prev.map(e => (e.id === placeId && e.savedAt === null ? { ...e, savedAt: savedAt ?? now, updatedAt: now } : e)));
     setToast({ text: t('detail.savedNote'), undo: null, at: now });
+    // Undo pressed in the Journal: its button goes with the toast, so focus
+    // returns to the list the place came back to.
+    setTimeout(() => document.querySelector('.journal-panel')?.focus({ preventScroll: true }), 0);
   };
 
   const handleToggleBookmark = async (placeId) => {

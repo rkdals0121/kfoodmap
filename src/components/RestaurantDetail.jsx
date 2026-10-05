@@ -177,13 +177,27 @@ export default function RestaurantDetail({
   // The bundle carries a lighter record; the full one (evidence, menus,
   // transit, phone, links) is fetched when the detail opens.
   const { full, failed: fullFailed, retry: retryFull } = usePlaceRecord(restaurant);
+  // The place whose details have failed to load at least once: from then on
+  // the retry button stays (dimmed while asking), so focus is not lost when
+  // the app asks again by itself.
   const [retriedFor, setRetriedFor] = useState(null);
+  const retryPressed = useRef(false);
+  const placeId = restaurant?.id;
+  useEffect(() => { setRetriedFor(null); retryPressed.current = false; }, [placeId]);
+  useEffect(() => { if (fullFailed) setRetriedFor(placeId); }, [fullFailed, placeId]);
+  // Loaded after a press on Try again: the line and its button go, and
+  // focus goes to the sheet rather than nowhere.
+  useEffect(() => {
+    if (full && retryPressed.current) {
+      retryPressed.current = false;
+      document.querySelector('.detail-sheet')?.focus({ preventScroll: true });
+    }
+  }, [full]);
 
   // Remember what opened the sheet (a card, a pin, a journey stop) and give
   // focus back to it on close, so a keyboard or screen-reader user resumes
   // where they were instead of at the top of the page. Declared before the
   // effect below, which moves focus into the sheet.
-  const placeId = restaurant?.id;
   useEffect(() => {
     if (!placeId) return undefined;
     const opener = document.activeElement;
@@ -684,7 +698,7 @@ export default function RestaurantDetail({
                 {/* Once pressed it stays (dimmed while asking): hidden, it took the
                     focus away with it. */}
                 <button type="button" className="detail-loading__retry" hidden={!fullFailed && retriedFor !== place.id} aria-disabled={!fullFailed}
-                  onClick={() => { if (!fullFailed) return; setRetriedFor(place.id); retryFull(); }}>{t('detail.loadRetry')}</button>
+                  onClick={() => { if (!fullFailed) return; retryPressed.current = true; retryFull(); }}>{t('detail.loadRetry')}</button>
               </div>
             )}
 
