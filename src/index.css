@@ -6293,3 +6293,11 @@ html[data-text='larger'] .detail-bar__map svg {
 .section-note {
   text-wrap: pretty;
 }
+
+/* The list of places at one spot opens under the map's buttons: they
+   step aside while it is open (its first name was cut off behind
+   "My location"). Where :has() is not read, nothing changes. */
+.map-region:has(.leaflet-popup) .map-locate,
+.map-region:has(.leaflet-popup) .map-zoom {
+  visibility: hidden;
+}
