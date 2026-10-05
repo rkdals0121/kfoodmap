@@ -124,8 +124,8 @@ export default {
     noMatchHintSearch: 'Coba nama atau area lain.',
     clearAll: 'Hapus pencarian dan filter',
     missingPlace: 'Tempat itu sudah tidak ada di peta, atau tautannya salah. Mungkin sudah tutup, atau tidak lolos pengecekan. Cari tempat lain di bawah.',
-    bothDietsNote: 'Menampilkan tempat yang vegan sekaligus halal. Matikan salah satu filter untuk melihat semua tempat dari jenis lainnya.',
-    veganOptionsNote: 'Termasuk tempat dengan pilihan vegan di menu campuran — di sana, tanyakan soal kecap ikan, kaldu ikan teri, dan telur. “Vegan sepenuhnya” hanya menampilkan dapur yang seluruhnya vegan.',
+    bothDietsNote: 'Menampilkan tempat yang punya klaim vegan (vegan sepenuhnya atau ada pilihan vegan) sekaligus klaim ramah halal — bukan berarti tempat itu vegan dan halal. Matikan salah satu filter untuk melihat semua tempat dari jenis lainnya.',
+    veganOptionsNote: 'Termasuk tempat dengan pilihan vegan di menu campuran — di sana, tanyakan soal kecap ikan, kaldu ikan teri, dan telur. “Vegan sepenuhnya” hanya menampilkan dapur yang tercatat seluruhnya vegan; sebagian besar berstatus Dilaporkan, belum kami cek sendiri.',
     fullyVeganNote: 'Dapur yang tercatat seluruhnya vegan. Tiap tanda menyebutkan seberapa pasti hal itu: sebagian besar berstatus Dilaporkan — ada sumber yang menyatakannya, tetapi belum kami cek sendiri.',
     openNowNote_one: 'Buka sekarang, menurut waktu Korea. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
     openNowNote_other: 'Buka sekarang, menurut waktu Korea. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
@@ -133,7 +133,7 @@ export default {
     openAtNote_one: 'Buka pada {{when}}, menurut waktu Korea; kartu menampilkan waktu itu. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
     openAtNote_other: 'Buka pada {{when}}, menurut waktu Korea; kartu menampilkan waktu itu. Ada {{count}} tempat lain yang cocok tetapi jam bukanya tidak tercatat, jadi tidak ditampilkan.',
     openAtNoteNone: 'Buka pada {{when}}, menurut waktu Korea; kartu menampilkan waktu itu. Jam buka bisa berubah; telepon dulu jika perjalanannya jauh.',
-    halalCaveat: 'Tidak satu pun dari tempat ini memiliki sertifikat halal yang sudah kami lihat sendiri. \'Ramah halal\' adalah apa yang dilaporkan sebuah sumber — buka tempatnya untuk melihat sumbernya, dan tanyakan kepada staf. Tempat tanpa babi (tidak ada babi, tetapi dagingnya bukan daging halal) tidak termasuk dalam filter ini; cari "tanpa babi" untuk menemukannya.',
+    halalCaveat: 'Tidak satu pun dari tempat ini memiliki sertifikat halal yang sudah kami lihat sendiri. \'Ramah halal\' adalah apa yang dilaporkan sebuah sumber — buka tempatnya untuk melihat sumbernya, dan tanyakan kepada staf. Tempat tanpa babi (dilaporkan tidak memakai babi; dagingnya bukan daging halal atau tidak diketahui) tidak termasuk dalam filter ini; cari "tanpa babi" untuk menemukannya.',
     esgCaveat: 'Berdasarkan keterangan restoran dan riset kami; tidak diaudit secara independen.',
     readStoryAria: 'Baca cerita: {{name}}',
     directionsAria: 'Petunjuk arah ke {{name}}',
@@ -384,7 +384,7 @@ export default {
     primaryNav: 'Utama',
     restaurantList: 'Daftar restoran',
     offline: 'Offline — menampilkan data tersimpan',
-    updateReady: 'Ada tempat baru — ketuk untuk memuat ulang',
+    updateReady: 'Ada pembaruan — ketuk untuk memuat ulang',
     crashed: 'Terjadi masalah di layar ini.',
     reload: 'Muat ulang',
     undo: 'Urungkan',
@@ -409,7 +409,7 @@ export default {
     },
     'jongno-temple-food': {
       title: 'Jongno & Insadong: Masakan Kuil Korea',
-      description: 'Tiga tempat makan yang berdekatan, cukup berjalan kaki, di pusat Seoul, dua di antaranya memasak menurut tradisi masakan kuil Buddha — tanpa daging, tanpa ikan, dan juga tanpa lima sayuran beraroma tajam. Satu tempat dilaporkan vegan sepenuhnya; untuk dua tempat masakan kuil itu, vegan sepenuhnya adalah perkiraan kami berdasarkan tradisinya, bukan sesuatu yang mereka nyatakan.',
+      description: 'Tiga tempat makan yang berdekatan, cukup berjalan kaki, di pusat Seoul. Dua di antaranya terdaftar sebagai restoran masakan kuil — tradisi Buddha yang tidak memakai daging, ikan, maupun lima sayuran beraroma tajam; apakah tiap dapur mengikutinya sepenuhnya, tanyakan kepada mereka. Satu tempat dilaporkan vegan sepenuhnya; untuk dua tempat masakan kuil itu, vegan sepenuhnya adalah perkiraan kami berdasarkan tradisinya, bukan sesuatu yang mereka nyatakan.',
     },
     'myeongdong-halal-korean': {
       title: 'Myeongdong: Masakan Korea, Ramah Halal',
@@ -440,7 +440,7 @@ export default {
       tips: [
         'Makanlah seperti biksu: menghabiskan semua isi mangkuk adalah intinya — praktik yang disebut 발우공양 (balwoo gongyang) tidak menyisakan sebutir nasi pun.',
         'Cicipi hidangan kecil satu per satu. Setiap banchan dibumbui untuk dimakan bersama nasi, bukan dimakan tersendiri.',
-        'Makan di sini tenang dan tidak terburu-buru — warga setempat menganggapnya meditasi, bukan sekadar makan siang.',
+        'Santapan masakan kuil secara tradisi tenang dan tidak terburu-buru — lebih mirip meditasi daripada sekadar makan siang.',
       ],
     },
     'korean-chinese': {
@@ -454,31 +454,31 @@ export default {
     'vegan-dining': {
       didYouKnow: 'Kuliner nabati Korea digerakkan oleh gagasan yang sangat tua: 나물 (namul), seni membumbui sayuran liar. Jauh sebelum kata \'vegan\' ada, meja makan Korea yang lengkap sudah tersusun dari puluhan hidangan sayur.',
       tips: [
-        'Ucapkan saat memesan: \'저는 비건이에요\' (jeoneun bigeon-ieyo — "Saya vegan") adalah cara paling sederhana untuk memberi tahu.',
-        'Dalam masakan Korea, bahan hewani yang biasanya tersembunyi adalah kecap ikan (액젓), kaldu ikan teri (멸치 육수), dan telur dalam adonan — sebaiknya ditanyakan di tempat yang hanya punya pilihan vegan, bukan menu yang seluruhnya vegan.',
+        'Ucapkan saat memesan: \'저는 비건이에요\' (jeoneun bigeon-ieyo — "Saya vegan"). Banyak dapur tidak mengenal kata itu, jadi sebutkan juga apa yang tidak Anda makan, atau tunjukkan kartu bahasa Korea.',
+        'Dalam masakan Korea, bahan hewani yang biasanya tersembunyi adalah kecap ikan (액젓), kaldu ikan teri (멸치 육수), dan telur dalam adonan — layak ditanyakan di mana pun, terutama di tempat yang hanya punya pilihan vegan, bukan menu yang seluruhnya vegan.',
       ],
     },
     'halal-korean': {
       didYouKnow: 'Kuliner Korea halal di Seoul tumbuh di Usadan-ro, jalan menanjak di samping Masjid Pusat Seoul — kawasan yang telah menyambut pedagang dan pelancong Muslim sejak 1970-an. Di luar kawasan itu, masakan Korea halal masih jarang, dan karena itulah peta ini juga menandai tempat makan Korea yang tanpa babi.',
       tips: [
         'Baca labelnya: "tanpa babi" berarti tidak ada babi di menu, bukan berarti dagingnya disembelih secara halal atau dapurnya halal.',
-        'Bulgogi dan samgyetang adalah perkenalan paling lembut dengan cita rasa Korea — sangat gurih, tanpa kejutan pedas.',
+        'Bulgogi dan samgyetang adalah perkenalan paling lembut dengan cita rasa Korea — sangat gurih, tanpa kejutan pedas. Apakah dagingnya halal adalah soal lain: lihat tanda tempat ini dan tanyakan kepada staf.',
         'Makan ala Korea itu bersama-sama: hidangan diletakkan di tengah meja dan semua orang berbagi.',
         'Jika sertifikasi resmi penting bagi Anda, mintalah untuk melihat sertifikatnya dan periksa siapa yang menerbitkannya serta kapan masa berlakunya habis — sertifikat bisa kedaluwarsa, dan tanda di dinding bisa bertahan lebih lama daripada sertifikatnya.',
       ],
     },
     'world-halal': {
-      didYouKnow: 'Tempat makan ramah halal di Korea kebanyakan menyajikan masakan India, Nepal, Turki, Uzbek, Indonesia, dan Timur Tengah, dan berkumpul di sekitar masjid, universitas, serta kawasan multikultural seperti Itaewon dan Wongok-dong di Ansan. Setiap tanda di peta ini menunjukkan sejauh mana status halal tempat itu sudah diperiksa — selama belum tertulis Terkonfirmasi, tanyakan kepada staf.',
+      didYouKnow: 'Tempat makan ramah halal di Korea kebanyakan menyajikan masakan India, Nepal, Turki, Uzbek, Indonesia, dan Timur Tengah, dan berkumpul di sekitar masjid, universitas, serta kawasan multikultural seperti Itaewon dan Wongok-dong di Ansan. Setiap tanda di peta ini menunjukkan seberapa pasti catatan tentang status halal tempat itu. Apa pun tandanya, catatan bisa saja sudah usang — tanyakan kepada staf.',
       tips: [
         'Porsinya dibuat untuk berbagi — pesan beberapa hidangan untuk satu meja, ala Korea.',
         'Banyak kedai menyajikan acar ala Korea bersama kari dan kebab — kebiasaan fusi lokal kecil yang layak dicoba.',
       ],
     },
     'zero-waste': {
-      didYouKnow: 'Korea mendaur ulang sekitar 95% sampah makanannya berdasarkan undang-undang — setiap rumah tangga memilahnya ke tempat sampah khusus. Kafe nol sampah melangkah lebih jauh: sejak awal tidak ada barang sekali pakai yang melewati meja kasir.',
+      didYouKnow: 'Korea mendaur ulang sekitar 95% sampah makanannya berdasarkan undang-undang — setiap rumah tangga memilahnya ke tempat sampah khusus. Kafe nol sampah berusaha melangkah lebih jauh: sebisa mungkin tidak memberikan barang sekali pakai di meja kasir.',
       tips: [
-        'Bawa tumbler atau wadah sendiri — kebanyakan toko nol sampah memberi sedikit potongan harga untuk itu.',
-        'Memasak dari akar sampai daun berarti bagian sayuran yang tidak biasa bisa muncul di piring Anda. Percayakan pada dapurnya.',
+        'Bawa tumbler atau wadah sendiri — sebagian toko nol sampah memberi sedikit potongan harga untuk itu; tanyakan saja.',
+        'Memasak dari akar sampai daun berarti bagian sayuran yang tidak biasa bisa muncul di piring Anda. Tanyakan apa itu dan dimasak dengan apa.',
       ],
     },
     'brunch-bakery': {
@@ -508,7 +508,7 @@ export default {
     veganQ6: 'Bisakah dibuatkan tanpa daging dan telur?',
     veganQ7: 'Apakah ada menu yang tidak pedas untuk anak?',
     veganQ8: 'Apakah ini mengandung salah satu dari lima sayuran beraroma tajam (bawang putih, daun bawang, kucai, bawang liar, bawang bombai)?',
-    veganQ9: 'Apakah ini mengandung kacang-kacangan (kacang tanah, kenari, kacang pinus, dan lainnya)? Saya alergi kacang-kacangan.',
+    veganQ9: 'Apakah ini mengandung kacang tanah dan kacang pohon (kacang tanah, kenari, kacang pinus, dan lainnya)? Saya alergi kacang tanah dan kacang pohon.',
     muslimS1: 'Halo. Saya Muslim.',
     muslimS2: 'Karena alasan agama, saya tidak mengonsumsi daging babi dan alkohol.',
     muslimS3: 'Saya juga tidak makan ham, bacon, sosis, lemak babi, maupun kaldu babi.',
@@ -521,7 +521,7 @@ export default {
     muslimQ6: 'Apakah ada menu tanpa daging yang dibuat dari makanan laut atau sayuran?',
     muslimQ7: 'Apakah di sini menjual alkohol?',
     muslimQ8: 'Apakah ada menu yang tidak pedas untuk anak?',
-    muslimQ9: 'Apakah ini mengandung kacang-kacangan (kacang tanah, kenari, kacang pinus, dan lainnya)? Saya alergi kacang-kacangan.',
+    muslimQ9: 'Apakah ini mengandung kacang tanah dan kacang pohon (kacang tanah, kenari, kacang pinus, dan lainnya)? Saya alergi kacang tanah dan kacang pohon.',
     answer1: 'Ya',
     answer2: 'Tidak',
     answer3: 'Ada di dalamnya',
@@ -533,7 +533,7 @@ export default {
     word2: 'udang asin fermentasi — biasa ada di kimchi dan telur kukus',
     word3: 'makanan laut asin fermentasi, kelompok yang mencakup keduanya',
     word4: 'kaldu ikan teri — dasar yang biasa untuk sup dan rebusan, bahkan yang berbahan sayuran',
-    word5: 'kaldu tulang sapi',
+    word5: 'kaldu tulang — biasanya tulang sapi, tetapi kaldu tulang babi (돼지사골, 돈사골) juga disebut begini; tanyakan yang mana',
     word6: 'daging babi',
     word7: 'lemak babi',
     word8: 'saus tiram',

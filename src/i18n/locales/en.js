@@ -128,8 +128,8 @@ export default {
     noMatchHintSearch: 'Try a different name or area.',
     clearAll: 'Clear search and filters',
     missingPlace: "That place isn't on the map any more, or the link is wrong. It may have closed, or failed a check. Search below for another.",
-    bothDietsNote: 'Showing places that are both vegan and halal. Turn one chip off to see every place of the other kind.',
-    veganOptionsNote: 'Includes places with vegan options on a mixed menu — there, ask about fish sauce, anchovy stock and egg. “Fully vegan” shows all-vegan kitchens only.',
+    bothDietsNote: 'Showing places with both a vegan claim (fully vegan or vegan options) and a halal-friendly claim — not places that are vegan and halal. Turn one chip off to see every place of the other kind.',
+    veganOptionsNote: 'Includes places with vegan options on a mixed menu — there, ask about fish sauce, anchovy stock and egg. “Fully vegan” narrows to kitchens recorded as all-vegan; most of those are Reported, not checked by us.',
     fullyVeganNote: 'Kitchens recorded as all-vegan. Each mark says how sure that is: most are Reported — a source says so — not checked by us.',
     openNowNote_one: 'Open now, by Korean time. {{count}} more place matches but has no recorded hours, so it is not shown.',
     openNowNote_other: 'Open now, by Korean time. {{count}} more places match but have no recorded hours, so they are not shown.',
@@ -137,7 +137,7 @@ export default {
     openAtNote_one: 'Open {{when}}, by Korean time; the cards show that time. {{count}} more place matches but has no recorded hours, so it is not shown.',
     openAtNote_other: 'Open {{when}}, by Korean time; the cards show that time. {{count}} more places match but have no recorded hours, so they are not shown.',
     openAtNoteNone: 'Open {{when}}, by Korean time; the cards show that time. Hours can change; call ahead for a long trip.',
-    halalCaveat: "None of these places has a halal certificate that we have seen. 'Halal-friendly' is what a source reports — open a place to see which source, and ask staff. Pork-free places (no pork, meat not halal) are not in this filter; search \"pork-free\" to find them.",
+    halalCaveat: "None of these places has a halal certificate that we have seen. 'Halal-friendly' is what a source reports — open a place to see which source, and ask staff. Pork-free places (reported to use no pork; the meat is not halal, or not known to be) are not in this filter; search \"pork-free\" to find them.",
     esgCaveat: 'Described by the restaurant and our research; not independently audited.',
     readStoryAria: 'Read story: {{name}}',
     directionsAria: 'Get directions to {{name}}',
@@ -394,7 +394,7 @@ export default {
     primaryNav: 'Primary',
     restaurantList: 'Restaurant list',
     offline: 'Offline — showing saved data',
-    updateReady: 'New places are available — tap to refresh',
+    updateReady: 'An update is ready — tap to refresh',
     crashed: 'Something went wrong on this screen.',
     reload: 'Reload',
     undo: 'Undo',
@@ -419,7 +419,7 @@ export default {
     },
     'jongno-temple-food': {
       title: 'Jongno & Insadong: Korean Temple Food',
-      description: 'Three kitchens a short walk apart in central Seoul, two of them cooking in the Buddhist temple-food tradition — no meat, no fish, and none of the five pungent vegetables either. One is reported as fully vegan; for the two temple kitchens, fully vegan is our reading of the tradition, not something they state.',
+      description: 'Three kitchens a short walk apart in central Seoul. Two are listed as temple-food restaurants — a Buddhist tradition that uses no meat or fish and leaves out the five pungent vegetables; whether each kitchen keeps to all of it is for the kitchen to say. One is reported as fully vegan; for the two temple kitchens, fully vegan is our reading of the tradition, not something they state.',
     },
     'myeongdong-halal-korean': {
       title: 'Myeongdong: Korean Food, Halal-Friendly',
@@ -450,7 +450,7 @@ export default {
       tips: [
         'Eat like a monk: finishing everything in your bowl is the point — the practice called 발우공양 (balwoo gongyang) leaves not a single grain of rice behind.',
         'Taste the small dishes one by one. Each banchan is seasoned to be eaten with rice, not on its own.',
-        'Meals here are quiet and unhurried — locals treat them as meditation, not just lunch.',
+        'Temple meals are traditionally quiet and unhurried — closer to meditation than to lunch.',
       ],
     },
     'korean-chinese': {
@@ -464,31 +464,31 @@ export default {
     'vegan-dining': {
       didYouKnow: 'Korea\'s plant-based scene is powered by a very old idea: 나물 (namul), the art of seasoning wild greens. Long before \'vegan\' was a word, a proper Korean table was already built around dozens of vegetable dishes.',
       tips: [
-        'Say it when you order: \'저는 비건이에요\' (jeoneun bigeon-ieyo — "I\'m vegan") is the simplest way to flag it.',
-        'In Korean cooking the usual hidden animal ingredients are fish sauce (액젓), anchovy stock (멸치 육수) and egg in batters — worth asking about wherever a place offers vegan options rather than an all-vegan menu.',
+        'Say it when you order: \'저는 비건이에요\' (jeoneun bigeon-ieyo — "I\'m vegan"). Many kitchens do not know the word, so also name what you do not eat — the Korean cards do that for you.',
+        'In Korean cooking the usual hidden animal ingredients are fish sauce (액젓), anchovy stock (멸치 육수) and egg in batters — worth asking about anywhere, and above all where a place offers vegan options rather than an all-vegan menu.',
       ],
     },
     'halal-korean': {
       didYouKnow: 'Seoul\'s halal Korean food scene grew up on Usadan-ro, the sloped street beside the Seoul Central Mosque — a neighborhood that has welcomed Muslim traders and travelers since the 1970s. Outside it, halal Korean food is still rare, which is why this map also marks Korean places that are pork-free.',
       tips: [
         'Read the label: "pork-free" means no pork on the menu, not halal-slaughtered meat or a halal kitchen.',
-        'Bulgogi and samgyetang are the gentlest introductions to Korean flavors — deeply savory, no spice shock.',
+        'Bulgogi and samgyetang are the gentlest introductions to Korean flavors — deeply savory, no spice shock. Whether the meat is halal is a separate question: read this place\'s mark and ask.',
         'Korean dining is communal: dishes land in the middle of the table and everyone shares.',
         'If formal certification matters to you, ask to see the certificate and check who issued it and when it expires — certificates lapse, and a sign on the wall can outlive one.',
       ],
     },
     'world-halal': {
-      didYouKnow: 'Korea\'s halal-friendly kitchens are mostly Indian, Nepali, Turkish, Uzbek, Indonesian and Middle Eastern, clustered around mosques, universities and multicultural neighbourhoods such as Itaewon and Ansan\'s Wongok-dong. Each mark on this map says how far that place\'s halal status has been checked — unless it says Confirmed, ask staff.',
+      didYouKnow: 'Korea\'s halal-friendly kitchens are mostly Indian, Nepali, Turkish, Uzbek, Indonesian and Middle Eastern, clustered around mosques, universities and multicultural neighbourhoods such as Itaewon and Ansan\'s Wongok-dong. Each mark on this map says how sure the record is about that place\'s halal status. Ask staff whichever mark it carries — a record can be out of date.',
       tips: [
         'Portions are made for sharing — order a few dishes for the table, Korean style.',
         'Many shops serve Korean-style pickles alongside curry and kebab — a small local fusion habit worth trying.',
       ],
     },
     'zero-waste': {
-      didYouKnow: 'Korea recycles about 95% of its food waste by law — every household separates it into dedicated bins. Zero-waste cafes take the next step: nothing disposable crosses the counter in the first place.',
+      didYouKnow: 'Korea recycles about 95% of its food waste by law — every household separates it into dedicated bins. Zero-waste cafes try to go a step further and hand as little disposable packaging across the counter as they can.',
       tips: [
-        'Bring your own tumbler or container — most zero-waste shops offer a small discount for it.',
-        'Root-to-leaf cooking means unfamiliar parts of vegetables may appear on your plate. Trust the kitchen.',
+        'Bring your own tumbler or container — some zero-waste shops give a small discount for it; ask.',
+        'Root-to-leaf cooking means unfamiliar parts of vegetables may appear on your plate. Ask what it is — and what it is cooked with.',
       ],
     },
     'brunch-bakery': {
@@ -546,7 +546,7 @@ export default {
     word2: 'salted shrimp — usual in kimchi and steamed egg',
     word3: 'salted seafood, the family both belong to',
     word4: 'anchovy stock — the usual base of soups and stews, even vegetable ones',
-    word5: 'beef-bone stock',
+    word5: 'bone stock — usually beef bone, but pork-bone stock (돼지사골, 돈사골) goes by this word too; ask which',
     word6: 'pork',
     word7: 'lard',
     word8: 'oyster sauce',
