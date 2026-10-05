@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { placeArea } from '../place-area';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PlaceImage from './PlaceImage';
@@ -84,7 +85,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
         {/* Where, then when. Distance is from the map centre (the list
             header says so). Unknown hours are said, not left blank. */}
         <p className="place-card__where" id={`pc-where-${place.id}`}>
-          <span className="place-card__zone">{place.zone}</span>
+          <span className="place-card__zone">{placeArea(place)}</span>
           {/* Past 50 km a distance from the map centre means nothing to a
               visitor (a shared link opens over Seoul), so it is left out. */}
           {(fromYou || distanceKm <= 50) && (
@@ -190,7 +191,7 @@ export default function BottomSheetList({
                     <button type="button" className="saved-row" onClick={() => onRestaurantClick(place)}>
                       <span className="saved-row__main">
                         <span className="saved-row__name">{displayName(place.name)}</span>
-                        <span className="saved-row__where">{place.zone} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
+                        <span className="saved-row__where">{placeArea(place)} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
                         <span className="saved-row__claims">{dietaryBadges(place).map(b => <React.Fragment key={b.key}><ClaimChip kind={b.key} label={b.label} fact={b.fact} /><span className="visually-hidden">. </span></React.Fragment>)}</span>
                         {/* Whether it is open, as every other row says. */}
                         {(() => {

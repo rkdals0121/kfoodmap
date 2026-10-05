@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { placeArea } from '../place-area';
 import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigationType } from 'react-router';
 import { useTranslation, Trans } from 'react-i18next';
@@ -11,6 +12,8 @@ import {
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock } from '../utils';
+import { koAddress } from '../data/address-ko';
+import { koStation, koLine } from '../data/station-ko';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, VEGAN, HALAL,
 } from '../data/verification';
@@ -173,6 +176,7 @@ export default function RestaurantDetail({
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const [copied, setCopied] = useState(false);
+  const [koAddrCopied, setKoAddrCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [openClaim, setOpenClaim] = useState(null);
@@ -460,10 +464,22 @@ export default function RestaurantDetail({
   // illustration up to full screen shows nothing new.
   const galleryImages = [place.photo || place.coverImage].filter(Boolean);
 
+  // The address as it is written in Korea (data/address-ko.js): what the
+  // Korean map apps find and a taxi driver reads. In the Korean interface
+  // it is the address; in the others it has a row of its own.
+  const koAddr = koAddress(place);
+  const koUi = i18n.language === 'ko';
+  const shownAddress = koUi && koAddr ? koAddr : place.address.value;
   const handleCopy = async () => {
-    if (await copyText(place.address.value)) {
+    if (await copyText(shownAddress)) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+  const copyKoAddr = async () => {
+    if (await copyText(koAddr)) {
+      setKoAddrCopied(true);
+      setTimeout(() => setKoAddrCopied(false), 2000);
     }
   };
 
@@ -607,7 +623,7 @@ export default function RestaurantDetail({
                   and in the Journal. */}
               <h2>{i18n.language === 'ko' ? displayName(place.name) : <KoText>{place.name}</KoText>}</h2>
               <p className="detail-meta">
-                {place.zone}
+                {placeArea(place)}
                 {/* Only a distance from the reader: one from the map's centre means
                     nothing on the place's own page. */}
                 {distance && userLocation && <><span aria-hidden="true"> · </span>{t('detail.fromYou', { distance })}</>}
@@ -770,7 +786,9 @@ export default function RestaurantDetail({
                 <div className="practical-row">
                   <TrainIcon size={17} />
                   <span>
-                    {place.transit.value.station} {place.transit.value.line}
+                    {koUi && koStation(place.transit.value.station) && koLine(place.transit.value.line)
+                      ? <span lang="ko">{koStation(place.transit.value.station)} {koLine(place.transit.value.line)}</span>
+                      : <>{place.transit.value.station} {place.transit.value.line}</>}
                     {place.transit.value.exit && t('detail.transitExit', { exit: place.transit.value.exit })}
                     {t('detail.transitWalk', { minutes: place.transit.value.walkingMinutes })}
                     {/* Past a quarter of an hour the "nearest station" is not
@@ -907,16 +925,25 @@ export default function RestaurantDetail({
               </div>
               <div className="practical-row">
                 <MapPinIcon size={17} />
-                <span>
-                  {place.address.value}
+                <span lang={shownAddress === koAddr ? 'ko' : undefined}>
+                  {shownAddress}
                   {place.address.precision === 'area' && (
                     <span className="practical-muted">{t('detail.areaOnly')}</span>
                   )}
                 </span>
-                <button className="practical-copy" aria-label={`${t('detail.copy')}: ${place.address.value}`} onClick={handleCopy}>
+                <button className="practical-copy" aria-label={`${t('detail.copy')}: ${shownAddress}`} onClick={handleCopy}>
                   {copied ? t('detail.copied') : t('detail.copy')}
                 </button>
               </div>
+              {!koUi && koAddr && (
+                <div className="practical-row ko-name">
+                  <span className="ko-name__label">{t('detail.koreanAddress')}</span>
+                  <span className="ko-name__value ko-name__value--address" lang="ko">{koAddr}</span>
+                  <button type="button" className="practical-copy" aria-label={`${t('detail.copy')}: ${koAddr}`} onClick={copyKoAddr}>
+                    {koAddrCopied ? t('detail.copied') : t('detail.copy')}
+                  </button>
+                </div>
+              )}
               {/* The name as the sign, the Korean map apps and a taxi driver
                   have it. Records without a Korean name show nothing here. */}
               {koName && (
@@ -939,6 +966,7 @@ export default function RestaurantDetail({
                       <span className="staff-large__text staff-large__text--name" lang="ko" ref={nameLargeText}><span>{koName}</span></span>
                       {/* What a driver or a passer-by can use besides the
                           name: the number to ring for the way. */}
+                      {koAddr && <span className="staff-large__sub staff-large__sub--address" lang="ko">{koAddr}</span>}
                       {isKnown(place.phone) && <span className="staff-large__sub">{place.phone.value}</span>}
                       <span className="staff-large__close">{t('detail.tapToClose')}</span>
                     </button>,

@@ -302,6 +302,7 @@ export default {
     askInKorean: '韓国語で尋ねる:お店で見せるカード',
     contentInEnglish: 'ストーリー、メニュー、お店の説明は英語で表示されます。',
     koreanName: '韓国語の店名',
+    koreanAddress: '韓国語の住所',
     nearbyTitle: '近くのお店',
     nearbyAway: '直線で {{distance}}',
     naverMap: 'Naver Map',

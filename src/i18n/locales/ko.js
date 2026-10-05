@@ -296,6 +296,7 @@ export default {
     askInKorean: '한국어로 물어보기: 직원에게 보여 줄 카드',
     contentInEnglish: '이야기, 메뉴, 장소 설명은 영어로 나와요.',
     koreanName: '한국어 이름',
+    koreanAddress: '한국어 주소',
     nearbyTitle: '근처의 다른 곳',
     nearbyAway: '직선거리 {{distance}}',
     naverMap: '네이버 지도',

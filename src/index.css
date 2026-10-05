@@ -6473,3 +6473,15 @@ html[data-text='larger'] .detail-bar__map svg {
 .map-locate:has(.map-locate__message) ~ .map-area-btn {
   display: none;
 }
+
+/* The address in Korean: a row like the Korean name's, in smaller type
+   (it is a line to copy or show, not a title). */
+.ko-name__value--address {
+  font-size: 15px;
+  line-height: 1.45;
+  word-break: keep-all;
+}
+.staff-large__sub--address {
+  word-break: keep-all;
+  text-wrap: balance;
+}

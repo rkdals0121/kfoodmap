@@ -300,6 +300,7 @@ export default {
     askInKorean: 'Tanya dalam bahasa Korea: kartu untuk staf',
     contentInEnglish: 'Cerita, menu, dan deskripsi tempat tersedia dalam bahasa Inggris.',
     koreanName: 'Nama dalam bahasa Korea',
+    koreanAddress: 'Alamat dalam bahasa Korea',
     nearbyTitle: 'Di sekitar sini',
     nearbyAway: 'berjarak {{distance}}, dalam garis lurus',
     naverMap: 'Naver Map',

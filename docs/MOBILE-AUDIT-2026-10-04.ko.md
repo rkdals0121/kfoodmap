@@ -475,3 +475,14 @@
 - 네이버 지도 링크: 안드로이드·아이폰 UA 모두 `m.map.naver.com/appLink.naver?elat·elng·eText&menu=route&pathType=1`(대중교통)로 간다. 목적지·이름 맞음.
 - 당겨서 새로고침: `html, body { overscroll-behavior: none }`(크롬 안드로이드가 따름). 아이폰 하단: `viewport-fit=cover` + 탭 바·가게 하단 바가 `env(safe-area-inset-bottom)`만큼 띄움.
 - 남는 것: 설치된 앱이 실제로 뜨는지는 운영체제가 하는 일이라 폰에서만 보인다.
+
+## 20. 10-05 저녁 — 오너 결정 네 가지 반영
+
+- **대표 문구**: "K-푸드의 또 다른 매력, 미식 지도"(en "The other side of K-food.", 여섯 언어). 무엇을 담은 지도인지는 바로 아래 줄이 말한다("비건부터 할랄 프렌들리까지, 한 곳씩 조사한 N곳"). `index.html` 제목·설명, 매니페스트, 정적 페이지 꼬리말, 공유 이미지(`scripts/rasterize-og-images.mjs`로 다시 만듦)도 같이.
+- **"확인됨" 풀이에서 "직접 방문" 삭제**(여섯 언어) — 방문 기록이 0건.
+- **확신도 낱말 "출처 있음" → "제보됨"**(한국어만; 다른 언어는 그대로).
+- **한글 주소**: `src/data/address-ko.js` — 684곳 중 677곳. 지어내거나 음역한 것 없음: 앱의 카카오 검색 창구(`/api/place-search`)로 한글 이름을 찾아 **기록된 좌표 80m 안 + 건물 번호 일치**일 때만 채택(645곳, 644곳이 10m 안), 이름이 흔해 못 찾은 곳은 구 이름·도로명으로 다시 조회(14곳), 나머지는 기록의 근거 글에 인용된 한글 주소(18곳). 층은 기록된 주소에 있을 때만 붙임. 못 찾은 7곳(makan, akiya, nimat-incheon-airport-t2, annapurna-bucheon, haetteuneun-jip-gwangju, hyegyeong-eonni-kalguksu-suncheon, hello-india-al-waha-jangpyeong)은 로마자 주소 그대로.
+  - 한국어 화면: 주소·지역 줄(`src/place-area.js`)이 한글. 외국어 화면: "한국어 주소" 줄과 복사 버튼, "크게 보기"에도 주소. 검색도 한글 주소로 걸린다(`filters.js`).
+  - 카카오가 광주·전남 주소를 "전남광주통합특별시 …"로 돌려준다 — 받은 그대로 둠.
+- **역 이름**: `src/data/station-ko.js` — 기록의 교통 근거 글에 인용된 "…역"을 그대로 짝지음(268개 중 237개, 충돌 0). 노선은 공식 명칭 표(1~9호선, 수인분당선 등). 역과 노선이 둘 다 있을 때만 한글로(527곳 중 472곳).
+- 안 한 것: 메뉴 이름 한글(기록에 원문이 없음).

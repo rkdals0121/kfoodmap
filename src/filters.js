@@ -10,6 +10,7 @@
 // Dietary chips are answered by the structured dietary record (never a tag
 // string); the rest are descriptive traits.
 import { matchesDietary } from './data/verification.js';
+import { koAddress } from './data/address-ko.js';
 import { romaniseQuery, COOKING } from './data/area-names.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
@@ -156,7 +157,7 @@ const AREA_ALIASES = {
   // A sight searched by name, in the area it stands in.
   lotteworld: ['jamsil'],
 };
-const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
+const areaText = (r) => `${r.zone} ${r.address?.value ?? ''} ${koAddress(r) ?? ''}`.toLowerCase();
 // By prefix, so "Lotte World Tower" and "lotte world seoul" are Lotte World.
 const aliasMatch = (r, w) => Object.keys(AREA_ALIASES).some(k => w.startsWith(k) && AREA_ALIASES[k].some(a => areaText(r).includes(a)));
 
@@ -183,7 +184,7 @@ function searchCore(r, rawQuery) {
   // The halal level is searchable too, so "pork-free" finds every pork-free
   // place (the Halal filter leaves them out: pork-free is not halal).
   const halal = r.dietary?.halal;
-  const fields = [r.name, r.vibe, r.zone, r.address?.value,
+  const fields = [r.name, r.vibe, r.zone, r.address?.value, koAddress(r),
     halal && halal.confidence !== 'unknown' ? halal.value : null];
   if (fields.some(f => startsWord(f, q))) return true;
   // …or as it is written, punctuation and all: "A.A.A" is a bakery's name.

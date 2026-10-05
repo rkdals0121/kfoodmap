@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { placeArea } from '../place-area';
 import i18next from 'i18next';
 import { TEXT_SIZES, applyTextSize, readTextSize } from '../textSize';
 import { askFreshList } from '../freshList';
@@ -227,7 +228,7 @@ function DiscoverTab({ onBrowse }) {
                         <span className="journey-stop__text">
                           <span className="journey-stop__name">{displayName(place.name)}</span>
                           <span className="journey-stop__zone">
-                            {place.zone}
+                            {placeArea(place)}
                             {/* How far apart the stops are, so "a half-day"
                                 can be judged before setting out. A straight
                                 line, and said to be one. */}

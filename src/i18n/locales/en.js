@@ -307,6 +307,7 @@ export default {
     askInKorean: 'Ask in Korean: cards to show staff',
     contentInEnglish: 'Stories, menus and place descriptions are in English.',
     koreanName: 'Name in Korean',
+    koreanAddress: 'Address in Korean',
     nearbyTitle: 'Also nearby',
     nearbyAway: '{{distance}} away, in a straight line',
     naverMap: 'Naver Map',

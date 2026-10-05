@@ -297,6 +297,7 @@ export default {
     askInKorean: '用韩语问：给店员看的卡片',
     contentInEnglish: '故事、菜单和店铺介绍为英文。',
     koreanName: '韩语店名',
+    koreanAddress: '韩文地址',
     nearbyTitle: '附近还有',
     nearbyAway: '直线距离 {{distance}}',
     naverMap: 'Naver Map',

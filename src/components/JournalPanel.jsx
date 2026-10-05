@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { placeArea } from '../place-area';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
@@ -25,7 +26,7 @@ function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' })
         <span className="saved-row__main">
           <span className="saved-row__name">{displayName(place.name)}</span>
           <span className="saved-row__where">
-            {place.zone}
+            {placeArea(place)}
             {savedAt > 0 && <> · {t('journal.savedOn', { date: formatShortDate(savedAt, i18n.language) })}</>}
           </span>
           <span className="saved-row__status">
@@ -191,7 +192,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
               >
                 <Seal {...sealText(place.name)} />
                 <span className="stamp-name">{displayName(place.name)}</span>
-                <span className="stamp-zone">{place.zone}</span>
+                <span className="stamp-zone">{placeArea(place)}</span>
                 {/* "Visited …" in words: the seal says 방문, which most readers can't. */}
                 {visitedAt > 0 && <span className="stamp-date">{t('journal.visitedOn', { date: formatShortDate(visitedAt, i18n.language) })}</span>}
               </button>
@@ -290,7 +291,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                   >
                     <Seal {...sealText(place.name)} />
                     <span className="stamp-name">{displayName(place.name)}</span>
-                    <span className="stamp-zone">{place.zone}</span>
+                    <span className="stamp-zone">{placeArea(place)}</span>
                     <span className="stamp-sample-tag">{t('journal.sample')}</span>
                   </button>
                 ))}
