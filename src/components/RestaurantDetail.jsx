@@ -217,7 +217,10 @@ export default function RestaurantDetail({
     sc.scrollTop = navigationType === 'POP' ? (scrollMemory.get(id) ?? 0) : 0;
     const keep = () => { scrollMemory.set(id, sc.scrollTop); };
     sc.addEventListener('scroll', keep, { passive: true });
-    return () => sc.removeEventListener('scroll', keep);
+    // Also at the tap that leaves: a scroll event can still be pending when
+    // a link is pressed right after a flick.
+    sc.addEventListener('click', keep, true);
+    return () => { sc.removeEventListener('scroll', keep); sc.removeEventListener('click', keep, true); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurant?.id]);
   const directionsRef = useRef(null);
