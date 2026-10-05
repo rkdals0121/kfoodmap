@@ -129,6 +129,10 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.ok(n('restaurants in Hongdae') >= n('Hongdae'));
   assert.ok(n('釜山 ランチ') >= n('Busan'));
   assert.equal(n('ブサン'), n('Busan'));
+  // "pork-free" typed with the Halal chip on is the pork-free places, as the note says.
+  assert.equal(searchPlaces({ places, query: 'pork-free', filters: ['Halal'], now: new Date() }).filteredRestaurants.length, n('pork-free'));
+  // A town with places but none halal: the nearest halal ones, not a dead end.
+  assert.ok(searchPlaces({ places, query: 'Gyeongju', filters: ['Halal'], now: new Date() }).nearest.length > 0);
   // …and a station stays a station with them around it.
   assert.equal(ids(go('near Seoul Station')), ids(go('Seoul Station')));
   assert.equal(ids(go('서울역 근처')), ids(go('서울역')));

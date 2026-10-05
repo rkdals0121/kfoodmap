@@ -18,8 +18,7 @@ import { matchesDietary } from './data/verification.js';
 import { fuzzyQuery, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
-  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase,
-} from './filters.js';
+  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
 
 // The longest search the box accepts. A page of pasted text built a regular
@@ -67,11 +66,16 @@ export function searchPlaces({
   // Filter chips (AND across chips). A dietary chip only matches on
   // evidence — an unknown dietary record never matches, so we never send
   // someone somewhere we can't vouch for. A group chip ORs within itself.
+  const porkFreeAsked = isPorkFreeQuery(raw);
   const chips = (r) => filters.every((f) => {
     if (f === OPEN_NOW || f === OPEN_AT) return true; // asked last, in select()
     if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
     if (f === SHARED_LIST) return sharedIds.includes(r.id);
     if (f === FULLY_VEGAN) return matchesFullyVegan(r);
+    // The note under the Halal chip says: search "pork-free" to find them.
+    // Typed with the chip still on, that found nothing — the chip leaves
+    // pork-free places out. The search itself answers from the record.
+    if (f === 'Halal' && porkFreeAsked) return true;
     if (DIETARY_CHIPS.includes(f)) return matchesDietary(r, f);
     const group = TRAIT_GROUPS[f];
     return group ? r.traits.some(t => group.includes(t)) : r.traits.includes(f);
@@ -188,7 +192,9 @@ export function searchPlaces({
     const found = result.list.filter(r => area.includes(r));
     const from = anchorPlaces ?? (found.length > 0 ? found : area.length > 0 ? area : result.list);
     const fromResults = !anchorPlaces && from !== area;
-    const reach = anchorPlaces ? 4 : fromResults ? 5 : 40;
+    // From an area, far enough to reach the next city: "Gyeongju" with the
+    // Halal chip ended at "no places" while Ulsan, 40 km on, has one.
+    const reach = anchorPlaces ? 4 : fromResults ? 5 : 90;
     const points = from.map(coordsOf);
     if (points.length > 0) {
       const lat = points.reduce((sum, c) => sum + c.lat, 0) / points.length;

@@ -622,9 +622,10 @@ function AppShell() {
   useEffect(() => { if (!openNowOn && !openAtOn) setShowUnknown(false); }, [openNowOn, openAtOn]);
   const [planAt, setPlanAt] = useState(() => {
     if (startView.planAt) return startView.planAt;
-    // The likeliest next meal: tonight's dinner until late afternoon in
-    // Korea, tomorrow's lunch after that.
+    // The likeliest next meal: today's lunch in the morning, tonight's
+    // dinner until late afternoon in Korea, tomorrow's lunch after that.
     const hour = new Date(Date.now() + 9 * 3600e3).getUTCHours();
+    if (hour < 11) return { day: koreaToday(), minutes: 720 };
     return hour < 17 ? { day: koreaToday(), minutes: 1140 } : { day: (koreaToday() + 1) % 7, minutes: 720 };
   });
   // …and written back as the view changes, on whatever page is showing, so

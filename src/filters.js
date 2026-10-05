@@ -112,6 +112,9 @@ const DIET_WORDS = {
 };
 // "Pork-free" is a halal level the Halal chip leaves out (it is not halal),
 // so it is reached by typing it — in any of these wordings.
+// The whole search asks for pork-free places (search.js: the Halal chip then
+// steps aside, since pork-free is by definition not in it).
+export const isPorkFreeQuery = (query) => PORK_FREE_WORDS.has(squash(unpunct(query)));
 const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'withoutpork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '포크프리']);
 const dietWordMatch = (r, w) => {
   // Object.hasOwn: typing "constructor" must not find Object.prototype's.

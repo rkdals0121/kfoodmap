@@ -191,7 +191,7 @@ export default function BottomSheetList({
                           const st = planDate ? getOpenStatus(place.hours, planDate, { nameDay: true }) : getOpenStatus(place.hours);
                           return (
                             <span className="saved-row__status">
-                              {st ? <>{planDate && planAt && <span className="place-card__at">{t(`hours.day.${DAY_KEYS[planAt.day]}`)}: </span>}<span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>}
+                              {st ? <>{planDate && planAt && <span className="place-card__at">{t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) })}: </span>}<span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>}
                             </span>
                           );
                         })()}
@@ -439,15 +439,16 @@ export default function BottomSheetList({
         <PlaceCard
           key={r.id}
           place={r}
-          // While searching, only a distance from the visitor is shown:
-          // measured from the middle of the map, Myeongdong's own places
-          // read "5 km" under a search for Myeongdong.
-          distanceKm={!fromYou && (searchQuery.trim() || activeFilters.includes(SHARED_LIST)) ? Infinity : distanceKm}
+          // Only a distance from the visitor is shown. Measured from the
+          // middle of the map it read as "how far from me" to someone in
+          // Jeju looking at a map that opens over Seoul, and Myeongdong's
+          // own places read "5 km" under a search for Myeongdong.
+          distanceKm={fromYou ? distanceKm : Infinity}
           fromYou={fromYou}
           tick={tick}
           stop={journeyOrder ? sharedIds.indexOf(r.id) + 1 : 0}
           at={planDate}
-          atLabel={planDate && planAt ? t(`hours.day.${DAY_KEYS[planAt.day]}`) : ''}
+          atLabel={planDate && planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : ''}
           bookmarked={bookmarkedIds.includes(r.id)}
           onOpen={onRestaurantClick}
           onReadStory={onReadStory}

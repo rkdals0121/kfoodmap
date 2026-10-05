@@ -65,11 +65,13 @@ const ALSO_NAMED = {
   dessert: ['デザート', 'スイーツ', '甜点', '甜點', '甜品', '디저트'],
   cake: ['ケーキ', '蛋糕', '케이크'],
   coffee: ['コーヒー', '咖啡', '커피'],
+  brunch: ['ブランチ', '早午餐', '브런치'],
+  breakfast: ['朝食', '朝ごはん', '早餐', '早饭', '早飯', '아침식사', '아침'],
   Jamsil: ['롯데월드', 'ロッテワールド', '乐天世界', '樂天世界'],
 };
 
 // The entries of ALSO_NAMED that are kinds of cooking, not places.
-export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee']);
+export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast']);
 
 const TO_ROMAN = new Map([
   ...Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
@@ -94,6 +96,7 @@ const LATIN_VARIANTS = new Map(Object.entries({
   mandoo: 'mandu',
   chigae: 'jjigae',
   kimchee: 'kimchi',
+  sarapan: 'breakfast',
   // Indonesian words for what the records say in English.
   roti: 'bread',
   kopi: 'coffee',

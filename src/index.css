@@ -6186,3 +6186,24 @@ html[data-text='larger'] .detail-bar__map svg {
   color: var(--muted-strong);
   cursor: pointer;
 }
+
+/* ---- Morning walkthrough outside Seoul, 2026-10-05 ---- */
+/* The halal note folded to one line ended at "None of these places has a
+   halal certificate that we have…": two lines on a short phone too, so
+   the sentence that matters is whole. */
+@media (max-width: 767px) and (max-height: 700px) {
+  .place-list:not(.notes-open) .place-list__note {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+/* A research note with a long address in it pushed the whole place page
+   sideways at the larger text sizes. */
+.claim-explain,
+.claim-explain__text,
+.claim-explain__meta {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
