@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router';
 import { useTranslation, Trans } from 'react-i18next';
@@ -198,6 +198,46 @@ export default function RestaurantDetail({
   // The bundle carries a lighter record; the full one (evidence, menus,
   // transit, phone, links) is fetched when the detail opens.
   const { full, failed: fullFailed, retry: retryFull } = usePlaceRecord(restaurant);
+  // The menu, transit and phone arrive after the page is up and are put in
+  // above the directions: on a slow link the reader has scrolled by then,
+  // and the button under the thumb moved a quarter of a screen. What was
+  // at the top of the view is noted as the page scrolls, and when the
+  // details land the scroll is moved by as much as that element moved.
+  const anchor = useRef(null);
+  useEffect(() => {
+    const sc = scrollRef.current;
+    if (!sc) return undefined;
+    const note = () => {
+      // What is under the middle of the view — not the loading line, which
+      // goes when the details come.
+      const box = sc.getBoundingClientRect();
+      const mid = box.top + box.height / 2;
+      // Found by its box, level by level (a few levels is fine enough).
+      let el = sc.scrollTop > 0 ? sc.querySelector('.detail-content') : null;
+      for (let depth = 0; el && depth < 4; depth += 1) {
+        const child = [...el.children].find((c) => {
+          const r = c.getBoundingClientRect();
+          return r.height > 0 && r.top <= mid && r.bottom >= mid;
+        });
+        if (!child) break;
+        el = child;
+      }
+      if (el?.classList.contains('detail-content')) el = null;
+      const loading = el?.closest('.detail-loading');
+      if (loading) el = loading.nextElementSibling ?? loading.previousElementSibling;
+      anchor.current = el ? { el, top: el.getBoundingClientRect().top } : null;
+    };
+    sc.addEventListener('scroll', note, { passive: true });
+    return () => { sc.removeEventListener('scroll', note); anchor.current = null; };
+    // Per place: the sheet (and its scroller) is only there while one is open.
+  }, [restaurant?.id]);
+  useLayoutEffect(() => {
+    const sc = scrollRef.current;
+    const a = anchor.current;
+    if (!full || !sc || !a?.el.isConnected) return;
+    const moved = a.el.getBoundingClientRect().top - a.top;
+    if (Math.abs(moved) > 1) sc.scrollTop += moved;
+  }, [full]);
   // The place whose details have failed to load at least once: from then on
   // the retry button stays (dimmed while asking), so focus is not lost when
   // the app asks again by itself.

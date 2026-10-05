@@ -6212,3 +6212,9 @@ html[data-text='larger'] .detail-bar__map svg {
   color: var(--green-strong);
   text-decoration: underline;
 }
+
+/* The place page keeps its own place when late details arrive
+   (RestaurantDetail); the browser's anchoring would move it twice. */
+.detail-scroll {
+  overflow-anchor: none;
+}
