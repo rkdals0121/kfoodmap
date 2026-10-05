@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useNotes } from '../hooks/useNotes';
+import { plainNote } from '../data/note-terms';
 import { useStories } from '../hooks/useStories';
 import { placeArea } from '../place-area';
 import { createPortal } from 'react-dom';
@@ -97,34 +99,6 @@ const hoursPieces = (text) => String(text).split(', ').map((slot, i, all) => {
 
 // Where each place's page was scrolled to, for this visit.
 const scrollMemory = new Map();
-
-const NOTE_TERMS = [
-  [/\bHALAL\.CERTIFIED\b/g, '“Halal certified”'],
-  [/\bHALAL\.FRIENDLY\b|\bFRIENDLY\b/g, '“Halal-friendly”'],
-  [/\bHALAL\.PORK_FREE\b|\bPORK_FREE\b/g, '“Pork-free”'],
-  // With its article, so "no halalCertClaim is recorded" stays a sentence.
-  [/\b(?:in |an? |no )?halalCertClaim\b/g, (m) => (m.startsWith('no ') ? 'no certification claim' : m.startsWith('in ') ? 'as a certification claim' : 'a certification claim')],
-  [/\bCERTIFIED\b/g, '“Halal certified”'],
-  [/\bporkFree\b/g, '“Pork-free”'],
-  [/\bNONE\b/g, '“none”'],
-  [/\bCOMMUNITY\b/g, 'a community source'],
-  [/\bVEGAN\.FULL\b|\bFULL\b/g, '“Fully vegan”'],
-  [/\bVEGAN\.OPTIONS\b|\bOPTIONS\b/g, '“Vegan options”'],
-  [/\bCONFIRMED\b/g, '“Confirmed”'],
-  [/\bSUPPORTED\b/g, '“Reported”'],
-  [/\bINFERRED\b/g, '“Our reading”'],
-  // The notes' workshop words — which tool read a page, which pass of the
-  // research, which other record set the rule. Said plainly or left out;
-  // what was read and what it said are untouched.
-  [/ with curl(?: as raw HTML)?/g, ''],
-  [/\bthe [a-z0-9-]+ researcher\b/g, 'an earlier check'],
-  [/ \((?:the )?[a-z0-9-]+ precedent\)/g, ''],
-  [/\ba batch-?\d+ reading\b/g, 'an earlier reading'],
-  [/\(noted in batch \d+\)/g, '(noted earlier)'],
-  [/\b(a|A)n earlier batch\b/g, (m, a) => `${a}n earlier check`],
-  [/\bReviewer note: /g, 'Note: '],
-];
-const plainNote = (text) => NOTE_TERMS.reduce((out, [re, word]) => out.replace(re, word), String(text ?? ''));
 // A web address inside a note becomes a link named by its site: as bare
 // text it ran 100 characters wide and could not be opened.
 const noteWithLinks = (text) => text.split(/(https?:\/\/\S+)/).map((part, k) => {
@@ -180,6 +154,7 @@ export default function RestaurantDetail({
 }) {
   const { t, i18n } = useTranslation();
   const stories = useStories();
+  const notes = useNotes(restaurant?.id);
   const location = useLocation();
   const [copied, setCopied] = useState(false);
   const [koAddrCopied, setKoAddrCopied] = useState(false);
@@ -682,12 +657,15 @@ export default function RestaurantDetail({
               </p>
             )}
             {claimFacts.map(({ id, label, fact: f }) => {
-              const { label: level, detail } = trustBadge(f);
+              // The note in the reader's language when there is one (it was
+              // translated from the plain wording, so it is not reworded again).
+              const translated = notes?.[id];
+              const { label: level, detail } = trustBadge(translated ? { ...f, evidence: translated } : f);
               return (
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   {/* The research note can run to two screens: the first
                       lines, and the rest on request. */}
-                  <p className={`claim-explain__text${detail.length > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {noteWithLinks(plainNote(detail))}</p>
+                  <p className={`claim-explain__text${detail.length > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {noteWithLinks(translated ? detail : plainNote(detail))}</p>
                   {detail.length > 420 && (
                     <button type="button" className="claim-explain__more" aria-expanded={claimFull} onClick={() => setClaimFull(v => !v)}>
                       {t(claimFull ? 'detail.claimLess' : 'detail.claimMore')}

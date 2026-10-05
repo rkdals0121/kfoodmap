@@ -251,7 +251,7 @@ export default defineConfig({
         // assets/story-*: the places' stories in each language (300 kB
         // apiece). A visitor reads one language: it is stored when first
         // used (runtime route below), not all five up front.
-        globIgnores: [AUTH_CHUNK_GLOB, 'og/**', 'assets/story-*.js'],
+        globIgnores: [AUTH_CHUNK_GLOB, 'og/**', 'assets/story-*.js', 'assets/notes-*.js'],
         // Ordered auth chunk first, then the fonts, so this rule stays next
         // to the globIgnores it completes.
         //
@@ -327,11 +327,12 @@ export default defineConfig({
           // like the auth chunk above, for the same reason: a captive
           // portal's page stored under this name must not stay for good.
           {
-            urlPattern: /\/assets\/story-[^/]+\.js$/,
+            // (…and the research notes, in sixteen files per language.)
+            urlPattern: /\/assets\/(?:story|notes)-[^/]+\.js$/,
             handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'kfm-stories',
-              expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [200] },
             },
           },

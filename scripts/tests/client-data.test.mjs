@@ -57,6 +57,8 @@ test('only the detail view reads stripped fields — anything else must fetch th
   const pattern = new RegExp(`\\.(evidence|method|lastCheckedAt|${DETAIL_ONLY.join('|')})\\b`);
   const readers = files
     .filter(f => !allowed.some(a => f.replaceAll('\\', '/').endsWith(a)))
+    // Translated text, not code: a note quoting "www.instagram.com" reads no field.
+    .filter(f => !/\/data\/(?:notes\/notes-|story-)[^/]+\.js$/.test(f.replaceAll('\\', '/')))
     .filter(f => pattern.test(readFileSync(f, 'utf8')));
   assert.deepEqual(readers, []);
 });
