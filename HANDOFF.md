@@ -2816,7 +2816,17 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       list's order (no distance is shown without a location).
       `slotText` / `lateOrder` pass past-midnight ends as +1440 so the
       week table says "자정" as the status line does.
-    - Left (docs/MOBILE-AUDIT §14–§16): no Korean addresses, no card or
+    - Afternoon (§17): `beforeList` (App.jsx) keeps the view a journey or
+      fresh list replaced and restores it when the list goes;
+      `scrollMemory` + `useNavigationType() === 'POP'` return a place
+      page to where it was read after Back; the visit toast has Undo
+      (restores the entry as it was, unsaved if it was); `movedOn` lets
+      the plan time move on with the clock without sending the list to
+      its top; `ASKS_INGREDIENT` (BottomSheetList) points an allergy or
+      ingredient search at the cards; `detail.mapAppsNote` and the
+      place's name head the directions section. `detail.halalAlcohol`
+      must not say alcohol is "not recorded": half the notes mention it.
+    - Left (docs/MOBILE-AUDIT §14–§17): no Korean addresses, no card or
       choice for vegetarians who eat egg and dairy, area names in the
       reader's script (the lists in area-names.js are not tagged by
       language).
