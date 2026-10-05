@@ -1,6 +1,6 @@
 // Korean strings. Same key shape as en.js (the source of truth); see
 // scripts/tests/locales.test.mjs. The four claim words are fixed across the
-// app: 확인됨 / 출처 있음 / 추정 / 알 수 없음.
+// app: 확인됨 / 제보됨 / 추정 / 알 수 없음.
 export default {
   tabBar: {
     map: '지도',
@@ -9,11 +9,11 @@ export default {
     profile: '프로필',
   },
   prologue: {
-    title: '전국의 비건·할랄 식당 지도',
-    subtitle: '한 곳씩 조사한 {{activeCount}}곳. 식이 정보마다 얼마나 확실한지 함께 알려 드려요.',
+    title: 'K-푸드의 또 다른 매력, 미식 지도',
+    subtitle: '비건부터 할랄 프렌들리까지, 한 곳씩 조사한 {{activeCount}}곳. 식이 정보마다 얼마나 확실한지 함께 알려 드려요.',
     legendTitle: '표시 읽는 법',
     legendConfirmedChip: '완전 비건',
-    legendConfirmed: '1차 출처와 대조해 확인했어요. 식당 공식 사이트나 메뉴, 공식 기록, 직접 방문이 여기에 들어가요.',
+    legendConfirmed: '1차 출처와 대조해 확인했어요. 식당 공식 사이트나 메뉴, 공식 기록이 여기에 들어가요.',
     legendReportedChip: '할랄 프렌들리',
     legendReported: '가이드, 식당 목록 사이트, 지도 등록 정보 같은 출처에 그렇게 나와 있어요. 1차 출처와 대조하지는 못했어요.',
     legendReadingChip: '비건 메뉴 있음',
@@ -34,7 +34,7 @@ export default {
     communityCheckedDetail: '여행자가 제보했고 저희가 확인했어요.',
     confirmed: '확인됨',
     confirmedDetail: '1차 출처(식당 공식 사이트나 메뉴, 공식 기록)와 대조해 확인했어요.',
-    reported: '출처 있음',
+    reported: '제보됨',
     reportedDetail: '출처는 있지만 아직 확인하지 못했어요. {{evidence}}',
     inferred: '추정',
     inferredDetail: '명시된 사실이 아니라 저희의 추정이에요. {{evidence}}',
@@ -126,8 +126,8 @@ export default {
     clearAll: '검색·필터 지우기',
     missingPlace: '이 장소는 지도에서 빠졌거나 링크가 잘못됐어요. 문을 닫았거나 검증을 통과하지 못했을 수 있어요. 아래에서 다른 곳을 찾아보세요.',
     bothDietsNote: '비건 표시(완전 비건 또는 비건 메뉴 있음)와 할랄 프렌들리 표시가 둘 다 있는 곳만 보여요. ‘비건이면서 할랄’이라는 뜻은 아니에요. 칩 하나를 끄면 나머지 조건에 맞는 곳을 모두 볼 수 있어요.',
-    veganOptionsNote: '일반 메뉴와 함께 비건 메뉴가 있는 곳도 포함돼요. 그런 곳에서는 액젓, 멸치 육수, 달걀이 들어가는지 물어보세요. ‘완전 비건’을 켜면 전 메뉴가 비건이라고 기록된 곳만 보여요. 그중 대부분은 ‘출처 있음’이고, 저희가 확인한 것은 아니에요.',
-    fullyVeganNote: '전 메뉴가 비건이라고 기록된 곳이에요. 얼마나 확실한지는 표시마다 달라요. 대부분은 ‘출처 있음’이에요. 출처에 그렇게 나와 있을 뿐, 저희가 확인한 것은 아니에요.',
+    veganOptionsNote: '일반 메뉴와 함께 비건 메뉴가 있는 곳도 포함돼요. 그런 곳에서는 액젓, 멸치 육수, 달걀이 들어가는지 물어보세요. ‘완전 비건’을 켜면 전 메뉴가 비건이라고 기록된 곳만 보여요. 그중 대부분은 ‘제보됨’이고, 저희가 확인한 것은 아니에요.',
+    fullyVeganNote: '전 메뉴가 비건이라고 기록된 곳이에요. 얼마나 확실한지는 표시마다 달라요. 대부분은 ‘제보됨’이에요. 출처에 그렇게 나와 있을 뿐, 저희가 확인한 것은 아니에요.',
     openNowNote_one: '한국 시간 기준 영업 중인 곳이에요. 조건에 맞지만 영업시간 기록이 없는 {{count}}곳은 보이지 않아요.',
     openNowNote_other: '한국 시간 기준 영업 중인 곳이에요. 조건에 맞지만 영업시간 기록이 없는 {{count}}곳은 보이지 않아요.',
     openNowNoteNone: '한국 시간 기준 영업 중인 곳이에요. 영업시간은 바뀔 수 있으니 멀리서 가신다면 미리 전화해 보세요.',
@@ -334,7 +334,7 @@ export default {
     diningTips: '식사 팁',
     aboutThisInformation: '이 정보를 확인한 방법',
     provenanceOfficialSentence: '<0>확인됨</0>은 1차 출처(식당 공식 사이트나 메뉴, 공식 기록, 위치가 서로 일치하는 지도 서비스)와 대조해 확인했다는 뜻이에요.',
-    provenanceReportedSentence: '<0> 출처 있음</0>은 출처가 그렇게 밝혔다는 뜻이에요.',
+    provenanceReportedSentence: '<0> 제보됨</0>은 출처가 그렇게 밝혔다는 뜻이에요.',
     provenanceInferredSentence: '<0>추정</0>은 맥락으로 미루어 봤다는 뜻이고, <1>알 수 없음</1>은 알아내지 못했다는 뜻이에요. 영업시간, 가격, 식이 정보는 바뀌어요. 출발점으로만 참고해 주세요.',
     location: '위치',
     dietary: '식이 정보',

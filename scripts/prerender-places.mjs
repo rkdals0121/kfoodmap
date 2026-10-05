@@ -103,7 +103,7 @@ function placeBody(place) {
   const address = knownText(place.address);
   return `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
     + STATIC_SCROLL
-    + `<p style="margin:0;font-size:13px;font-weight:700"><a href="/" style="display:inline-block;padding:12px 0;color:#087F5B;text-decoration:none">K-Food Map · Vegan and halal food across Korea</a></p>`
+    + `<p style="margin:0;font-size:13px;font-weight:700"><a href="/" style="display:inline-block;padding:12px 0;color:#087F5B;text-decoration:none">K-Food Map · The other side of K-food</a></p>`
     + `<h1 style="margin:0 0 4px;font-size:26px">${escapeHtml(place.name)}</h1>`
     + `<p style="margin:0 0 12px;color:#3F444A">${escapeHtml(place.zone ?? '')}</p>`
     + (claims.length ? `<p style="margin:0 0 12px;font-weight:600">${claims.map(escapeHtml).join(' · ')}</p>` : '')
@@ -194,7 +194,7 @@ const cardsBody = () => {
     + `<div style="padding:16px;background:#fff;border:2px solid #1F2328;border-radius:12px">${c.statement.map(l => `<p lang="ko" style="margin:0 0 8px;font-size:18px;font-weight:600;line-height:1.5">${escapeHtml(l.ko)}</p>`).join('')}</div>`;
   return `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
     + STATIC_SCROLL
-    + `<p style="margin:0;font-size:13px;font-weight:700"><a href="/" style="display:inline-block;padding:12px 0;color:#087F5B;text-decoration:none">K-Food Map · Vegan and halal food across Korea</a></p>`
+    + `<p style="margin:0;font-size:13px;font-weight:700"><a href="/" style="display:inline-block;padding:12px 0;color:#087F5B;text-decoration:none">K-Food Map · The other side of K-food</a></p>`
     + `<h1 style="margin:0 0 8px;font-size:26px">Korean cards to show restaurant staff</h1>`
     + `<p style="margin:0;color:#3F444A">Most restaurant staff in Korea do not read English. Show one of these on your phone. The full page adds questions about hidden ingredients, the answers you may hear, and a large view to hold up.</p>`
     + card(cardById('vegan'), 'If you are vegan')

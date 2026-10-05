@@ -53,7 +53,7 @@ for (const file of files) {
     <div class="bar"></div>
     <div class="text">
       <div class="eyebrow">K-FOOD MAP</div>
-      <h1>Vegan and halal food across Korea.</h1>
+      <h1>The other side of <span style="white-space:nowrap">K-food.</span></h1>
       <p>Every dietary claim says how sure we are.</p>
     </div>
     <div class="url">kfoodmap.vercel.app</div>
