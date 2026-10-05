@@ -6260,3 +6260,36 @@ html[data-text='larger'] .detail-bar__map svg {
   text-align: center;
   max-width: 34em;
 }
+
+/* ---- The place page in six languages, 2026-10-05 ---- */
+.hours-piece {
+  display: inline-block;
+  white-space: nowrap;
+}
+/* A claim's "Why?" that wraps to a second line sits at its right-hand end,
+   where it is on one line (Indonesian broke it off to the left). */
+.claim-fact__why {
+  margin-left: auto;
+  padding-left: 4px;
+}
+/* A trait's icon and its word stay together. */
+.detail-traits > span {
+  white-space: nowrap;
+}
+.detail-traits {
+  overflow-wrap: anywhere;
+}
+/* Short words are still a finger wide. */
+.claim-explain__more,
+.practical-link {
+  min-width: 44px;
+}
+/* The last line of a paragraph is not one character. */
+.tip span,
+.callout p,
+.provenance p,
+.claim-explain__meta,
+.diet-note p,
+.section-note {
+  text-wrap: pretty;
+}

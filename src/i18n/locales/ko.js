@@ -341,7 +341,7 @@ export default {
     lastChecked: '마지막 확인',
     notRecorded: '기록 없음',
     never: '없음',
-    suggestEdit: '틀린 곳이 있나요? 위의 “{{link}}”를 눌러 주세요.',
+    suggestEdit: '틀린 곳이 있나요? 위의 “{{link}}”을 눌러 주세요.',
     traitMildTaste: '순한 맛',
     traitFermented: '발효 음식',
     traitZeroWaste: '제로 웨이스트',

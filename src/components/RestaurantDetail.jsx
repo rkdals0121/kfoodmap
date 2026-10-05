@@ -74,6 +74,19 @@ function sourceWithSite(f) {
 // A research note is shown as written, except for the labels it borrows
 // from the code ("held at SUPPORTED", "not grounds for HALAL.CERTIFIED"):
 // those are given as the words the app shows for them.
+// Printed hours in pieces that hold together: each range, and each
+// bracketed last order, wraps as a whole or not at all.
+const hoursPieces = (text) => String(text).split(', ').map((slot, i, all) => {
+  const k = slot.indexOf(' (');
+  const parts = k > 0 ? [slot.slice(0, k), slot.slice(k + 1)] : [slot];
+  return (
+    <React.Fragment key={slot}>
+      {parts.map((part, j) => <React.Fragment key={part}>{j > 0 && ' '}<span className="hours-piece">{part}</span></React.Fragment>)}
+      {i < all.length - 1 && ', '}
+    </React.Fragment>
+  );
+});
+
 // Where each place's page was scrolled to, for this visit.
 const scrollMemory = new Map();
 
@@ -663,7 +676,12 @@ export default function RestaurantDetail({
                   <span>
                     <strong className={statusClass(status)}>{status.label}</strong>
                     {status.detail && <>{' '}· {status.detail}</>}{' '}
-                    {today && <span className="practical-muted practical-today">{t('detail.todayHours', { hours: today })}</span>}
+                    {today && (() => {
+                      // The sentence around the hours, and the hours in pieces that
+                      // do not break inside a time ("6:00 PM – / 8:20 PM", "午 / 後8:20").
+                      const [before, after = ''] = t('detail.todayHours', { hours: ' ' }).split(' ');
+                      return <span className="practical-muted practical-today">{before}{hoursPieces(today)}{after}</span>;
+                    })()}
                     {/* A device on another clock (planning from abroad): say
                         whose time this is, and what time it is there. */}
                     {!deviceOnKoreaTime() && <span className="practical-muted practical-today">{t('detail.koreaTime', { time: koreaClock() })}</span>}
@@ -695,7 +713,7 @@ export default function RestaurantDetail({
                         <dt>{d.day}{d.today && <span className="visually-hidden"> ({t('filters.today')})</span>}</dt>
                         {/* Lunch and dinner each on a line of their own: run together
                             they wrapped mid-time on a phone. */}
-                        <dd>{d.text ? d.text.split(', ').map(part => <span key={part} className="week-hours__slot">{part}</span>) : t('detail.notRecorded')}</dd>
+                        <dd>{d.text ? d.text.split(', ').map(part => <span key={part} className="week-hours__slot">{hoursPieces(part)}</span>) : t('detail.notRecorded')}</dd>
                       </div>
                     ))}
                   </dl>
