@@ -2787,7 +2787,28 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       is not transpiled).
     - Journal: `removeSaved` moves focus on, `removedRef` in `App.jsx`
       lets one Undo restore every row removed while it showed.
-    - Left (docs/MOBILE-AUDIT §14): no Korean addresses, no card or
+    - Pork-free words are answered from the record alone (`searchCore`:
+      a `PORK_FREE_WORDS` token never matches text; `dietPairs` keeps
+      "no pork" / "무슬림 프렌들리" together). Do not let them fall back
+      to a text match: "seoul no pork" once listed places that serve it.
+    - Korean (`ko.js`): `hours.closed` is '영업시간 아님' (not "ended"),
+      `closedTodayLabel` '오늘 휴무' for a day off; `clock: '12k'` writes
+      "낮 12:00" and, for a closing time only (`total >= 1440` in
+      `fromMinutes`), "자정" / "밤 12:30".
+    - `RestaurantDetail`: the scroll keeps its place when late details
+      land (`noteAnchor`: the first thing in view, re-measured after
+      every render; one correction in the render that brings `full`;
+      `.detail-scroll { overflow-anchor: none }`). The hooks sit BELOW
+      `usePlaceRecord` — above it they read `full` before it exists and
+      the app crashes, which neither lint nor the tests catch.
+      `detail.halalAlcohol`: one line under every halal claim saying
+      alcohol is not part of the label (it is not recorded anywhere).
+    - Search words: FILLER also holds 추천/음식/요리/주변/cuisine;
+      ALSO_NAMED has brunch, breakfast and kinds of kitchen (indian,
+      indonesian, turkish, nepal, uzbek) — each also in `COOKING` so it
+      is never taken for an area; "muslim"/"무슬림 …" are halal diet
+      words; `SUGGESTED_IN` gives the datalist in ja / zh.
+    - Left (docs/MOBILE-AUDIT §14, §15): no Korean addresses, no card or
       choice for vegetarians who eat egg and dairy, area names in the
       reader's script (the lists in area-names.js are not tagged by
       language).
