@@ -212,18 +212,23 @@ export default function RestaurantDetail({
     const sc = scrollRef.current;
     if (!sc) return;
     const top = sc.getBoundingClientRect().top;
-    // Found by its box, level by level (a few levels is fine enough).
-    let el = sc.scrollTop > 0 ? sc.querySelector('.detail-content') : null;
-    for (let depth = 0; el && depth < 4; depth += 1) {
-      const child = [...el.children].find((c) => {
-        const r = c.getBoundingClientRect();
-        // Not the loading line, which goes when the details come.
-        return r.height > 0 && r.bottom > top + 1 && !c.classList.contains('detail-loading');
-      });
-      if (!child) break;
-      el = child;
+    let el = null;
+    if (sc.scrollTop > 0) {
+      // An open "Why?" lying across the top of the view is what is being
+      // read: it holds. Otherwise the first thing that STARTS in view — a
+      // line half out of sight above stayed put while the late rows went
+      // in right under it and pushed the buttons down.
+      const open = sc.querySelector('.claim-explain:not([hidden])');
+      const o = open?.getBoundingClientRect();
+      if (o && o.top < top && o.bottom > top + 40) el = open;
+      else {
+        el = [...sc.querySelectorAll('.detail-content > *, .detail-content > * > *')].find((c) => {
+          const r = c.getBoundingClientRect();
+          // Not the loading line, which goes when the details come.
+          return r.height > 0 && r.top >= top && !c.closest('.detail-loading');
+        }) ?? null;
+      }
     }
-    if (el?.classList.contains('detail-content')) el = null;
     anchor.current = el ? { el, top: el.getBoundingClientRect().top } : null;
   };
   useEffect(() => {
