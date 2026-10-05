@@ -101,6 +101,17 @@ const NOTE_TERMS = [
   [/\bReviewer note: /g, 'Note: '],
 ];
 const plainNote = (text) => NOTE_TERMS.reduce((out, [re, word]) => out.replace(re, word), String(text ?? ''));
+// A web address inside a note becomes a link named by its site: as bare
+// text it ran 100 characters wide and could not be opened.
+const noteWithLinks = (text) => text.split(/(https?:\/\/\S+)/).map((part, k) => {
+  if (k % 2 === 0) return part;
+  // What closes the sentence or the bracket around it is not the address.
+  const tail = /[).,;:'"”]+$/.exec(part)?.[0] ?? '';
+  const href = tail ? part.slice(0, -tail.length) : part;
+  let host = href;
+  try { host = new URL(href).hostname.replace(/^www\./, ''); } catch { /* shown as written */ }
+  return <React.Fragment key={k}><a href={href} target="_blank" rel="noopener noreferrer">{host}</a>{tail}</React.Fragment>;
+});
 
 function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
   const { t } = useTranslation();
@@ -533,7 +544,7 @@ export default function RestaurantDetail({
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   {/* The research note can run to two screens: the first
                       lines, and the rest on request. */}
-                  <p className={`claim-explain__text${detail.length > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {plainNote(detail)}</p>
+                  <p className={`claim-explain__text${detail.length > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {noteWithLinks(plainNote(detail))}</p>
                   {detail.length > 420 && (
                     <button type="button" className="claim-explain__more" aria-expanded={claimFull} onClick={() => setClaimFull(v => !v)}>
                       {t(claimFull ? 'detail.claimLess' : 'detail.claimMore')}

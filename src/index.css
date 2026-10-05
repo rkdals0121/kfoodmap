@@ -6207,3 +6207,8 @@ html[data-text='larger'] .detail-bar__map svg {
   overflow-wrap: anywhere;
   min-width: 0;
 }
+
+.claim-explain__text a {
+  color: var(--green-strong);
+  text-decoration: underline;
+}
