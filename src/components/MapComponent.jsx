@@ -660,6 +660,7 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
   const check = useRef(() => {});
   useEffect(() => {
     let map = null;
+    const byHand = () => { touched.current = true; };
     const read = () => {
       if (!touched.current) return;
       const now = latest.current;
@@ -678,8 +679,10 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
       clearInterval(wait);
       check.current = read;
       map.on('moveend', read);
+      map.on('dragstart', byHand);
+      map.on('dblclick', byHand);
     }, 200);
-    return () => { clearInterval(wait); check.current = () => {}; map?.off('moveend', read); };
+    return () => { clearInterval(wait); check.current = () => {}; map?.off('moveend', read); map?.off('dragstart', byHand); map?.off('dblclick', byHand); };
   }, [mapRef, touched]);
   // A chip or a search changes what is listed without moving the map.
   useEffect(() => { check.current(); }, [restaurants, mapBox]);
@@ -702,12 +705,22 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
 }
 
 // A press on the bare map (not on a pin, which does not reach the map).
+// Acted on a moment later: the first tap of a double tap (zoom in) is a
+// click too, and two quick taps must not close twice.
 function MapClicks({ onMapClick }) {
-  useMapEvents({ click: () => onMapClick() });
+  const timer = useRef(null);
+  const cancel = () => { clearTimeout(timer.current); timer.current = null; };
+  useMapEvents({
+    click: () => { cancel(); timer.current = setTimeout(() => { timer.current = null; onMapClick(); }, 280); },
+    dblclick: cancel,
+    zoomstart: cancel,
+    dragstart: cancel,
+  });
+  useEffect(() => cancel, []);
   return null;
 }
 
-function ZoomButtons({ mapRef }) {
+function ZoomButtons({ mapRef, onUse }) {
   const { t } = useTranslation();
   // At the end of the range a button shows that it has nothing left to do
   // (still focusable: a keyboard does not lose its place when it gets there).
@@ -730,10 +743,10 @@ function ZoomButtons({ mapRef }) {
   }, [mapRef]);
   return (
     <div className="map-zoom">
-      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomIn')} title={t('map.zoomIn')} aria-disabled={edge === 'max' || undefined} onClick={() => zoomBy(mapRef.current, 1)}>
+      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomIn')} title={t('map.zoomIn')} aria-disabled={edge === 'max' || undefined} onClick={() => { onUse?.(); zoomBy(mapRef.current, 1); }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
       </button>
-      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomOut')} title={t('map.zoomOut')} aria-disabled={edge === 'min' || undefined} onClick={() => zoomBy(mapRef.current, -1)}>
+      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomOut')} title={t('map.zoomOut')} aria-disabled={edge === 'min' || undefined} onClick={() => { onUse?.(); zoomBy(mapRef.current, -1); }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M5 12h14" /></svg>
       </button>
     </div>
@@ -804,11 +817,14 @@ function MapComponent({
 }) {
   const mapRef = useRef(null);
   // Whether the map has been moved by hand yet (a drag, a pinch, the wheel,
-  // its buttons): only then is "Search this area" offered.
+  // a double tap, its zoom buttons): only then is "Search this area"
+  // offered — not after a pin was pressed and the map moved itself.
   const touched = useRef(false);
   const touch = () => { touched.current = true; };
   return (
-    <div style={{ height: '100%', width: '100%', position: 'relative' }} onPointerDownCapture={touch} onTouchStartCapture={touch} onWheelCapture={touch}>
+    <div style={{ height: '100%', width: '100%', position: 'relative' }} onTouchStartCapture={(e) => { if (e.touches.length > 1) touch(); }} onWheelCapture={touch}>
+      {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} />}
+      <ZoomButtons mapRef={mapRef} onUse={touch} />
       {onSearchArea && (
         <SearchAreaButton
           mapRef={mapRef}
@@ -821,8 +837,6 @@ function MapComponent({
           hidden={Boolean(selectedId) || fitAll || ['asking', 'denied', 'unavailable', 'outside'].includes(locateState)}
         />
       )}
-      {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} />}
-      <ZoomButtons mapRef={mapRef} />
       <MapContainer ref={mapRef} center={MAP_CENTER} zoom={12} minZoom={6} maxBounds={KOREA_AND_AROUND} maxBoundsViscosity={0.6} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
         {/* Top right, not Leaflet's bottom right: on a phone the list sheet
             and tab bar cover the map's bottom edge, which hid the

@@ -6336,6 +6336,9 @@ html[data-text='larger'] .detail-bar__map svg {
   .detail-sheet.detail-sheet--peek {
     height: var(--peek-h, 62vh);
     box-shadow: 0 -8px 28px rgba(16, 24, 40, 0.2);
+    /* Only the way out of this height is animated: its own height is set
+       a moment after it appears, and that step was being animated too. */
+    transition: none;
   }
   /* The grabber's band, as a button: all of the top edge left of Close. */
   .detail-expand {
@@ -6358,6 +6361,14 @@ html[data-text='larger'] .detail-bar__map svg {
 }
 @media (prefers-reduced-motion: reduce) {
   .detail-sheet { transition: none; }
+}
+/* Turned sideways while half open: the full page, as any place is there. */
+@media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
+  .detail-sheet.detail-sheet--peek {
+    height: 100vh;
+    height: 100dvh;
+    box-shadow: none;
+  }
 }
 
 /* ---- "Search this area" ---- */
@@ -6431,4 +6442,34 @@ html[data-text='larger'] .detail-bar__map svg {
   color: var(--green-strong);
   white-space: nowrap;
   cursor: pointer;
+}
+
+/* Review of the half-open place and "Search this area" */
+/* Under a band at every width, as the location button is. */
+@media (min-width: 768px) {
+  .app-shell.has-band .map-area-btn {
+    top: 66px;
+  }
+  .app-shell.has-bands-2 .map-area-btn {
+    top: 114px;
+  }
+}
+/* Sideways the list lies over the map's left, where this button is. */
+@media (max-width: 767px) and (orientation: landscape) and (max-height: 500px) {
+  .map-area-btn {
+    display: none;
+  }
+}
+/* The narrowest phones: without its icon it clears "My location". */
+@media (max-width: 340px) {
+  .map-area-btn {
+    padding: 0 12px;
+  }
+  .map-area-btn svg {
+    display: none;
+  }
+}
+/* While the location button is saying something, its words take the row. */
+.map-locate:has(.map-locate__message) ~ .map-area-btn {
+  display: none;
 }

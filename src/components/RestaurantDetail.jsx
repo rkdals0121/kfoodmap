@@ -296,6 +296,8 @@ export default function RestaurantDetail({
   // the strip of map above — and the pin in it — stays as it was. Scrolled
   // or pulled up, it becomes the full page.
   const [peekHeight, setPeekHeight] = useState(null);
+  const expandRef = useRef(onExpand);
+  expandRef.current = onExpand;
   useLayoutEffect(() => {
     if (!peek) return;
     const tall = window.innerHeight;
@@ -306,8 +308,8 @@ export default function RestaurantDetail({
   useEffect(() => {
     const sc = scrollRef.current;
     if (!sc || !peek) return undefined;
-    const scrolled = () => { if (sc.scrollTop > 4) onExpand?.(); };
-    const wheel = (e) => { if (e.deltaY > 0) onExpand?.(); };
+    const scrolled = () => { if (sc.scrollTop > 4) expandRef.current?.(); };
+    const wheel = (e) => { if (e.deltaY > 0) expandRef.current?.(); };
     sc.addEventListener('scroll', scrolled, { passive: true });
     sc.addEventListener('wheel', wheel, { passive: true });
     return () => { sc.removeEventListener('scroll', scrolled); sc.removeEventListener('wheel', wheel); };

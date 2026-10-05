@@ -269,9 +269,26 @@ function AppShell() {
   // (`peek`): the pin just pressed and the streets around it stay in view
   // above it, and the map stays live. Pulled or scrolled up it becomes the
   // full page, which is modal as before.
+  // The list narrowed to what the map shows (see "Search this area" below).
+  const [mapBox, setMapBox] = useState(null);
   const [expandedKey, setExpandedKey] = useState(null);
-  const placePeek = Boolean(selectedRestaurant) && !isWide && Boolean(location.state?.peek) && expandedKey !== location.key
-    && !(typeof window !== 'undefined' && window.matchMedia?.(LANDSCAPE_PHONE).matches);
+  // Turned sideways the place is the full page (there is no strip of map
+  // above it to keep): a state, so that turning the phone is a render.
+  const [sideways, setSideways] = useState(() => typeof window !== 'undefined' && Boolean(window.matchMedia?.(LANDSCAPE_PHONE).matches));
+  useEffect(() => {
+    const mq = window.matchMedia?.(LANDSCAPE_PHONE);
+    if (!mq) return undefined;
+    const onChange = () => setSideways(mq.matches);
+    mq.addEventListener('change', onChange);
+    window.addEventListener('resize', onChange);
+    return () => { mq.removeEventListener('change', onChange); window.removeEventListener('resize', onChange); };
+  }, []);
+  const placePeek = Boolean(selectedRestaurant) && !isWide && !sideways && Boolean(location.state?.peek) && expandedKey !== location.key;
+  // Turned sideways while half open, it has become the full page and stays so.
+  useEffect(() => {
+    if (sideways && selectedRestaurant && location.state?.peek) setExpandedKey(location.key);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sideways, location.key]);
   const modalOpen = (Boolean(selectedRestaurant) && !isWide && !placePeek) || isSubmit || isPrivacy || isCards;
   const [mapCenter, setMapCenter] = useState(MAP_CENTER);
   // "My location" (data/locate.js): asked once per tap, kept in memory for
@@ -777,7 +794,7 @@ function AppShell() {
     document.getElementById('place-list')?.scrollTo?.({ top: 0 });
     // Sideways the whole panel is the scroller.
     if (window.matchMedia?.(LANDSCAPE_PHONE).matches) sheetRef.current?.scrollTo?.({ top: 0 });
-  }, [selectedFilters, searchQuery, planAt]);
+  }, [selectedFilters, searchQuery, planAt, mapBox]);
 
   // unknownHours: places that match everything else but have no recorded
   // hours for now — hidden by "Open now", and the list says how many.
@@ -824,7 +841,6 @@ function AppShell() {
   // part of the map that was showing. The pins are not — moving the map
   // still shows what else there is. A box with nothing left in it (a chip
   // changed, the map flew to a search) is dropped rather than shown empty.
-  const [mapBox, setMapBox] = useState(null);
   const inBox = useMemo(() => {
     if (!mapBox) return null;
     const within = filteredRestaurants.filter((r) => {
@@ -837,6 +853,8 @@ function AppShell() {
   // Saved places and a journey are shown whole: the map frames all of them.
   const wholeList = selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST);
   useEffect(() => { if (wholeList) setMapBox(null); }, [wholeList]);
+  const locatedAt = userLocation?.at;
+  useEffect(() => { if (locatedAt) setMapBox(null); }, [locatedAt]);
   const listedRestaurants = inBox ?? filteredRestaurants;
 
   // "pork-free" typed with the Halal chip on: the chip goes off, as it does
@@ -854,7 +872,7 @@ function AppShell() {
   const openDetailStable = useStableCallback((r) => openDetail(r));
   // From a pin: at the list's height, the map still showing (not with the
   // list fully open — it would stand out above the place).
-  const openFromMapStable = useStableCallback((r) => openDetail(r, sheetState === 2 ? {} : { peek: true }));
+  const openFromMapStable = useStableCallback((r) => openDetail(r, sheetState === 2 || sideways || isWide ? {} : { peek: true }));
   // A press on the bare map puts the half-open place away.
   const mapClickStable = useStableCallback(() => { if (placePeek) closePlace(); });
   const searchAreaStable = useStableCallback((box) => setMapBox(box));
