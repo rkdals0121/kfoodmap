@@ -248,7 +248,10 @@ export default defineConfig({
         // the runtime route silently stops caching it.
         // og/: share images for crawlers. Nothing in the app shows them, and
         // precached they were 421 kB every first visitor downloaded.
-        globIgnores: [AUTH_CHUNK_GLOB, 'og/**'],
+        // assets/story-*: the places' stories in each language (300 kB
+        // apiece). A visitor reads one language: it is stored when first
+        // used (runtime route below), not all five up front.
+        globIgnores: [AUTH_CHUNK_GLOB, 'og/**', 'assets/story-*.js'],
         // Ordered auth chunk first, then the fonts, so this rule stays next
         // to the globIgnores it completes.
         //
@@ -316,6 +319,18 @@ export default defineConfig({
               networkTimeoutSeconds: 3,
               cacheName: 'kfm-place-data',
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+          // The stories in the visitor's language: kept once fetched, so a
+          // saved place reads in that language offline too. The file name
+          // carries a hash of its content, so a stored copy is never stale.
+          {
+            urlPattern: /\/assets\/story-[^/]+\.js$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'kfm-stories',
+              expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [200] },
             },
           },

@@ -504,3 +504,10 @@
 - **영어 글을 고치면** 그 가게의 번역도 다시 하거나 지워야 한다: 항목마다 영어 원문의 해시(`of`)가 있고 `scripts/tests/story-ko.test.mjs`가 어긋나면 실패한다.
 - 영어 원문 1곳 수정: busan-jib-hongdae의 "(see `halal-busan-jib`)"(내부 id가 화면에 보이던 것) 삭제.
 - 확인 못 한 표기: 사람·건물 이름 일부는 로마자 그대로(Shapour, Hyemun Building, Bukdaegi 등), 메뉴 이름은 뜻을 풀어 옮긴 것이 있어 가게의 실제 메뉴명과 다를 수 있다. 근거 글(왜?)과 메뉴판은 아직 영어.
+
+### §21 이어서 — 일본어·중국어(간체·번체)·인도네시아어
+- `src/data/story-{ja,zh-Hans,zh-Hant,id}.js`, 각 676곳. 화면은 다섯 언어 공용(`src/hooks/useStories.js`), 검사는 `scripts/tests/stories.test.mjs`(영어 원문 해시).
+- 가게 이름은 화면 제목과 같게 로마자 그대로, 도로명도 로마자. 고정 용어는 각 언어 화면의 낱말과 같게(ハラールフレンドリー, 清真友好/清真友善, ramah halal 등).
+- 언어별 75곳 표본을 영어와 대조: 네 언어 모두 식이·인증 과장과 단서 누락 0건. 표현 오류(음식 이름 오역 등)는 언어별 8~12건 → 고치고 같은 유형을 전체에서 치환(예: zh-Hant 刀削麵→刀切麵, id semur tahu→rebusan tahu, zh 반각 문장부호). 표본 밖은 한 곳씩 대조하지 않았다.
+- 이야기 파일(언어당 260~380 kB)은 첫 방문 때 미리 받지 않고, 그 언어를 처음 쓸 때 받아 저장한다(`vite.config.js`의 `kfm-stories`).
+- 둘러보기 카드의 첫 문장 자르기가 이름 속 점("Mr. Kebab", "ALT.a")에서 끊기던 것 고침.

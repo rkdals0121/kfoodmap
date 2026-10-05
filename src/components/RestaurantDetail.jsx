@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { useKoStories } from '../hooks/useKoStories';
+import { useStories } from '../hooks/useStories';
 import { placeArea } from '../place-area';
 import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigationType } from 'react-router';
@@ -175,7 +175,7 @@ export default function RestaurantDetail({
   mapCenter, focusStory, focusDirections = false, docked = false, belowSearch = false, peek = false, onExpand,
 }) {
   const { t, i18n } = useTranslation();
-  const koStories = useKoStories();
+  const stories = useStories();
   const location = useLocation();
   const [copied, setCopied] = useState(false);
   const [koAddrCopied, setKoAddrCopied] = useState(false);
@@ -1040,9 +1040,9 @@ export default function RestaurantDetail({
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
               {/* The UI is translated; a place's own text is not. Say so once,
                   where the English starts, and mark it for screen readers. */}
-              {i18n.language !== 'en' && !koStories?.[place.id]?.story && <p className="section-note">{t('detail.contentInEnglish')}</p>}
-              {koStories?.[place.id]?.story
-                ? <p className="detail-body" lang="ko">{koStories[place.id].story}</p>
+              {i18n.language !== 'en' && !stories?.[place.id]?.story && <p className="section-note">{t('detail.contentInEnglish')}</p>}
+              {stories?.[place.id]?.story
+                ? <p className="detail-body" lang={i18n.language}>{stories[place.id].story}</p>
                 : <p className="detail-body" lang="en">{place.story}</p>}
               {place.timeline?.length > 0 && (
                 <ol className="timeline">

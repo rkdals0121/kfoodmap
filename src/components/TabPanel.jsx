@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useKoStories } from '../hooks/useKoStories';
+import { useStories } from '../hooks/useStories';
 import { placeArea } from '../place-area';
 import i18next from 'i18next';
 import { TEXT_SIZES, applyTextSize, readTextSize } from '../textSize';
@@ -131,9 +131,25 @@ const openStopsOf = (e) => {
   e.currentTarget.parentElement?.querySelector('.journey-card__toggle')?.click();
 };
 
+// A story's first sentence, to its own full stop ("。" in Japanese and
+// Chinese) — not to a dot inside a name ("Mr. Kebab", "ALT.a", "A.A.A").
+const ABBREVIATION = /^(?:Mr|Mrs|Ms|Dr|St|Univ|No|vs|Inc|Co|Ltd|[A-Z])$/;
+function firstSentence(text) {
+  const s = String(text);
+  const stops = /[.。]/g;
+  let m;
+  while ((m = stops.exec(s))) {
+    if (m[0] === '。') return s.slice(0, m.index + 1);
+    const next = s[m.index + 1];
+    const word = s.slice(0, m.index).split(/\s/).pop();
+    if ((next === undefined || /\s/.test(next)) && !ABBREVIATION.test(word) && !word.includes('.')) return s.slice(0, m.index + 1);
+  }
+  return s;
+}
+
 function DiscoverTab({ onBrowse }) {
   const { t, i18n } = useTranslation();
-  const koStories = useKoStories();
+  const stories = useStories();
   const navigate = useNavigate();
   // Korean readers get the Korean name (first in each list); everyone else
   // the romanised one, as on signs and in the records.
@@ -281,7 +297,7 @@ function DiscoverTab({ onBrowse }) {
         <h2>{t('discover.cultureTitle')}</h2>
         <p>{t('discover.cultureSubtitle')}</p>
         {/* Said here as on a place's page: the stories below are English. */}
-        {i18n.language !== 'en' && <p className="practical-muted">{t('detail.contentInEnglish')}</p>}
+        {i18n.language !== 'en' && !stories && <p className="practical-muted">{t('detail.contentInEnglish')}</p>}
       </div>
 
       <div className="story-grid">
@@ -290,7 +306,7 @@ function DiscoverTab({ onBrowse }) {
             <div className="story-card-content">
               <p className="story-card__kind">{t('discover.storyLabel')}</p>
               <h3>{displayName(place.name)}</h3>
-              <p lang={koStories?.[place.id]?.story ? 'ko' : undefined}>{(koStories?.[place.id]?.story ?? place.story).split('.')[0] + '.'}</p>
+              <p lang={stories?.[place.id]?.story ? i18n.language : undefined}>{firstSentence(stories?.[place.id]?.story ?? place.story)}</p>
               <button className="story-card-btn" aria-label={t('list.readStoryAria', { name: displayName(place.name) })}>{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
             </div>
           </article>

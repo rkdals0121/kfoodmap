@@ -6,11 +6,11 @@
 // strength. When a record's English text changes, its entry here must be
 // retranslated or removed: a place with no entry shows the English. `of`
 // is a short hash of the English it was made from, and a test
-// (scripts/tests/story-ko.test.mjs) fails when the two no longer match.
+// (scripts/tests/stories.test.mjs) fails when the two no longer match.
 //
-// Loaded only when the interface is in Korean (hooks/useKoStories.js): it
+// Loaded only when the interface is in Korean (hooks/useStories.js): it
 // is as large as the English text it mirrors.
-export const STORY_KO = {
+export const STORIES = {
   "balwoo": {"of": "2f1984dd", "story": "발우공양은 종로 우정국로 템플스테이 통합정보센터 5층에서 한국 사찰음식을 내는 곳이에요. 사찰음식에는 고기와 생선을 쓰지 않고, 메뉴는 코스 상차림과 발효의 맛을 중심으로 짜여 있어요.", "esg": "인공 첨가물 없이 전통 발효 방식을 써요."},
   "sanchon": {"of": "800e263c", "story": "산촌은 인사동길의 한옥에서 한국 사찰음식을 내는 곳으로, 제철 산나물과 사찰식 반찬, 연근전으로 차린 정식을 고기와 생선 없이 내요.", "esg": "강원도 산에서 직접 채취한 지역 식재료를 써요."},
   "osegyehyang": {"of": "a390e292", "story": "오세계향은 인사동 골목 안에서 짜장면, 짬뽕, 탕수육 같은 한국식 중화요리를 콩고기로 만든 완전 비건 버전으로 내는 곳이에요. 다이닝코드에는 비건 식당으로 올라 있어요.", "esg": "한국식 중화요리의 익숙한 메뉴를 100% 식물성으로 만들어요."},
