@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useKoStories } from '../hooks/useKoStories';
 import { placeArea } from '../place-area';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -41,6 +42,7 @@ const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ??
 
 const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null, atLabel = '' }) {
   const { t } = useTranslation();
+  const koStories = useKoStories();
   const name = displayName(place.name);
   // With "Open at…" on, the card answers for that time, as the list does.
   const status = getOpenStatus(place.hours, at ?? undefined, { nameDay: Boolean(at) });
@@ -122,7 +124,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
 
         {/* The restaurant's own recorded line, verbatim — the same string the
             detail page shows. Nothing is written or summarised for the list. */}
-        {lens && <p className="place-card__esg">{place.esg_point}</p>}
+        {lens && <p className="place-card__esg" lang={koStories?.[place.id]?.esg ? 'ko' : undefined}>{koStories?.[place.id]?.esg ?? place.esg_point}</p>}
       </div>
 
       {hasPhoto && <PlaceImage place={place} variant="thumb" className="place-card__media" />}

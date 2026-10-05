@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useKoStories } from '../hooks/useKoStories';
 import { placeArea } from '../place-area';
 import i18next from 'i18next';
 import { TEXT_SIZES, applyTextSize, readTextSize } from '../textSize';
@@ -132,6 +133,7 @@ const openStopsOf = (e) => {
 
 function DiscoverTab({ onBrowse }) {
   const { t, i18n } = useTranslation();
+  const koStories = useKoStories();
   const navigate = useNavigate();
   // Korean readers get the Korean name (first in each list); everyone else
   // the romanised one, as on signs and in the records.
@@ -288,7 +290,7 @@ function DiscoverTab({ onBrowse }) {
             <div className="story-card-content">
               <p className="story-card__kind">{t('discover.storyLabel')}</p>
               <h3>{displayName(place.name)}</h3>
-              <p>{place.story.split('.')[0] + '.'}</p>
+              <p lang={koStories?.[place.id]?.story ? 'ko' : undefined}>{(koStories?.[place.id]?.story ?? place.story).split('.')[0] + '.'}</p>
               <button className="story-card-btn" aria-label={t('list.readStoryAria', { name: displayName(place.name) })}>{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
             </div>
           </article>

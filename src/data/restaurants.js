@@ -3338,7 +3338,7 @@ export const restaurants = [
     ],
     "traits": [],
     "vibe": "A halal Korean BBQ and fried-chicken pair of floors near Hongik University, run under the same BUSANJIB brand as the Myeongdong branches.",
-    "story": "BUSANJIB KBBQ and BSJ Chicken share a building on Eoulmadang-ro near Hongik University, part of the same small halal Korean restaurant group as the Myeongdong branches (see `halal-busan-jib`). The operator's own listing for the chicken floor describes it as halal-certified, though this project has not itself sighted a certificate.",
+    "story": "BUSANJIB KBBQ and BSJ Chicken share a building on Eoulmadang-ro near Hongik University, part of the same small halal Korean restaurant group as the Myeongdong branches. The operator's own listing for the chicken floor describes it as halal-certified, though this project has not itself sighted a certificate.",
     "esg_point": "A second Seoul outpost of a small halal Korean restaurant group, this time near Hongik University",
     "image": "/images/halal_meat.svg",
     "photo": null,
