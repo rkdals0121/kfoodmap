@@ -6252,3 +6252,11 @@ html[data-text='larger'] .detail-bar__map svg {
   margin-bottom: 2px;
   color: var(--ink);
 }
+
+.staff-large__meaning {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--muted-strong);
+  text-align: center;
+  max-width: 34em;
+}

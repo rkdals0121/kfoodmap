@@ -23,7 +23,10 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
   const largeRef = useRef(null);
   // What opened the big screen, to give focus back when it closes.
   const largeOpener = useRef(null);
-  const openLarge = (lines) => { largeOpener.current = document.activeElement; setLarge(lines); };
+  // What the sentence says, in the reader's language, small under the
+  // Korean: holding the phone out, they could not tell which question was up.
+  const [largeMeaning, setLargeMeaning] = useState('');
+  const openLarge = (lines, meaning = '') => { largeOpener.current = document.activeElement; setLargeMeaning(meaning); setLarge(lines); };
   const closeLarge = () => {
     setLarge(null);
     const opener = largeOpener.current;
@@ -120,7 +123,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <ul className="staff-questions">
                 {card.questions.map(q => (
                   <li key={q.ko}>
-                    <button type="button" className="staff-question" onClick={() => openLarge([q.ko])}>
+                    <button type="button" className="staff-question" onClick={() => openLarge([q.ko], gloss ? t(`cardText.${q.key}`) : '')}>
                       {gloss && <span className="staff-question__en">{t(`cardText.${q.key}`)}</span>}
                       <span className="staff-question__ko" lang="ko">{q.ko}</span>
                       <span className="staff-question__roman">{q.roman}</span>
@@ -175,6 +178,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
           <span className="staff-large__text" lang="ko" ref={largeText}>
             {large.map(line => <span key={line}>{line}</span>)}
           </span>
+          {largeMeaning && <span className="staff-large__meaning">{largeMeaning}</span>}
           <span className="staff-large__close">{t('cards.tapToClose')}</span>
         </button>,
         document.body,
