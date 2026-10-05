@@ -289,7 +289,7 @@ export default {
     loadingDetails: 'Memuat menu, transportasi, dan kontak…',
     loadFailed: 'Menu, transportasi, dan kontak tidak dapat dimuat.',
     loadRetry: 'Coba lagi',
-    halalAlcohol: 'Label ini tidak mencakup apakah tempat ini menjual alkohol: kami tidak mencatatnya. Tanyakan kepada staf — “Kartu bahasa Korea untuk staf” memuat pertanyaan itu.',
+    halalAlcohol: 'Label ini tidak mencakup apakah tempat ini menjual alkohol. Jika sumbernya menyebutkannya, hal itu tertulis pada catatan di atas; jika tidak jelas, tanyakan kepada staf — “Kartu bahasa Korea untuk staf” memuat pertanyaan itu.',
     close: 'Tutup',
     dietaryFactsLabel: 'Info diet dan bersantap',
     claimSource: 'Sumber: {{source}}',

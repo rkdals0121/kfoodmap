@@ -683,11 +683,16 @@ function AppShell() {
   // A time of today that has gone by (a link made this morning, a default
   // set last night, the app left open): on to the next half hour, as the
   // picker would not let it be chosen.
+  const movedOn = useRef(false);
   useEffect(() => {
     if (!openAtOn || !planAt) return;
     const korea = new Date(clock + 9 * 3600e3);
     const nowMinutes = korea.getUTCHours() * 60 + korea.getUTCMinutes();
-    if (planAt.day === koreaToday() && planAt.minutes + 30 <= nowMinutes) {
+    // The day from the same clock as the minutes: just after midnight the
+    // two could be read a day apart.
+    if (planAt.day === korea.getUTCDay() && planAt.minutes + 30 <= nowMinutes) {
+      // The list is not sent back to its top for this (see below).
+      movedOn.current = true;
       setPlanAt({ day: planAt.day, minutes: Math.min(1410, Math.ceil(nowMinutes / 30) * 30) });
     }
   }, [openAtOn, planAt, clock]);
@@ -716,6 +721,9 @@ function AppShell() {
   // list opened near the end of the Busan results. Saving a place does not
   // come through here, so it keeps its position.
   useEffect(() => {
+    // Not when the planned time merely moved on with the clock: every half
+    // hour that threw a reader at the foot of the list back to its top.
+    if (movedOn.current) { movedOn.current = false; return; }
     document.getElementById('place-list')?.scrollTo?.({ top: 0 });
     // Sideways the whole panel is the scroller.
     if (window.matchMedia?.(LANDSCAPE_PHONE).matches) sheetRef.current?.scrollTo?.({ top: 0 });

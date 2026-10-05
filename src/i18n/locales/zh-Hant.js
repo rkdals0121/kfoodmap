@@ -286,7 +286,7 @@ export default {
     loadingDetails: '正在載入菜單、交通和聯絡方式…',
     loadFailed: '無法載入菜單、交通和聯絡方式。',
     loadRetry: '再試一次',
-    halalAlcohol: '是否販售酒類不在這個標示的範圍內，我們沒有記錄這一項。請詢問店員，「給店員看的韓語卡片」裡有這個問題。',
+    halalAlcohol: '是否販售酒類不在這個標示的範圍內。來源有說明時，寫在上面的說明裡；不確定時請詢問店員，「給店員看的韓語卡片」裡有這個問題。',
     close: '關閉',
     dietaryFactsLabel: '飲食與用餐資訊',
     claimSource: '來源：{{source}}',

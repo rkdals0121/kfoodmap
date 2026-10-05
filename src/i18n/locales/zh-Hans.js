@@ -286,7 +286,7 @@ export default {
     loadingDetails: '正在加载菜单、交通和联系方式…',
     loadFailed: '无法加载菜单、交通和联系方式。',
     loadRetry: '重试',
-    halalAlcohol: '是否售酒不在这个标记的范围内，我们没有记录这一项。请询问店员，“给店员看的韩语卡片”里有这个问题。',
+    halalAlcohol: '是否售酒不在这个标记的范围内。来源有说明时，写在上面的说明里；不确定时请询问店员，“给店员看的韩语卡片”里有这个问题。',
     close: '关闭',
     dietaryFactsLabel: '饮食与用餐信息',
     claimSource: '来源：{{source}}',

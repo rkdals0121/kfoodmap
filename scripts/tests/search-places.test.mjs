@@ -129,6 +129,11 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.ok(n('restaurants in Hongdae') >= n('Hongdae'));
   assert.ok(n('釜山 ランチ') >= n('Busan'));
   assert.equal(n('ブサン'), n('Busan'));
+  // A layover's words.
+  assert.ok(n('musala') > 0 && n('musala') === n('prayer'));
+  assert.equal(n('기도실'), n('prayer'));
+  assert.equal(n('masjid'), n('mosque'));
+  assert.equal(n('bandara'), n('airport'));
   // A two-word diet phrase among other words is still the diet, never the
   // two words apart: nothing that serves pork under "no pork".
   const got = (q, f = []) => searchPlaces({ places, query: q, filters: f, now: new Date() }).filteredRestaurants;

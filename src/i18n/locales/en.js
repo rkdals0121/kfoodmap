@@ -296,7 +296,7 @@ export default {
     loadingDetails: 'Loading menu, transit and contact details…',
     loadFailed: 'Could not load the menu, transit and contact details.',
     loadRetry: 'Try again',
-    halalAlcohol: 'Whether alcohol is sold is not part of this label: we do not record it. Ask the staff — the Korean cards to show staff have the question.',
+    halalAlcohol: 'Whether alcohol is sold is not part of this label. Where a source says, it is in the note above; if it is not clear, ask the staff — the Korean cards to show staff have the question.',
     close: 'Close',
     dietaryFactsLabel: 'Dietary and dining facts',
     claimSource: 'Source: {{source}}',

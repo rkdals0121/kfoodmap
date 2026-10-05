@@ -66,6 +66,9 @@ const ALSO_NAMED = {
   cake: ['ケーキ', '蛋糕', '케이크'],
   coffee: ['コーヒー', '咖啡', '커피'],
   brunch: ['ブランチ', '早午餐', '브런치'],
+  prayer: ['기도실', '礼拝室', '礼拜室', '祈祷室', '祈禱室'],
+  mosque: ['모스크', 'モスク', '清真寺'],
+  airport: ['공항', '空港', '机场', '機場'],
   // Kinds of kitchen, as the records' own lines name them in English.
   indonesian: ['인도네시아', 'インドネシア', '印度尼西亚', '印度尼西亞', '印尼'],
   indian: ['인도', 'インド', '印度'],
@@ -78,7 +81,7 @@ const ALSO_NAMED = {
 };
 
 // The entries of ALSO_NAMED that are kinds of cooking, not places.
-export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'indian', 'indonesian', 'turkish', 'nepal', 'uzbek']);
+export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'prayer', 'mosque', 'indian', 'indonesian', 'turkish', 'nepal', 'uzbek']);
 
 const TO_ROMAN = new Map([
   ...Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
@@ -104,6 +107,13 @@ const LATIN_VARIANTS = new Map(Object.entries({
   chigae: 'jjigae',
   kimchee: 'kimchi',
   sarapan: 'breakfast',
+  // What a Muslim traveller looks for besides the food, in Indonesian.
+  musala: 'prayer',
+  mushola: 'prayer',
+  musholla: 'prayer',
+  mushalla: 'prayer',
+  masjid: 'mosque',
+  bandara: 'airport',
   uzbekistan: 'uzbek',
   turkey: 'turkish',
   turkiye: 'turkish',

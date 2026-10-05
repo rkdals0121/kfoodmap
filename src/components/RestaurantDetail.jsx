@@ -229,7 +229,9 @@ export default function RestaurantDetail({
         }) ?? null;
       }
     }
-    anchor.current = el ? { el, top: el.getBoundingClientRect().top } : null;
+    // From the scroller's own top, not the screen's: the sheet is still
+    // sliding up when the first of these is taken.
+    anchor.current = el ? { el, top: el.getBoundingClientRect().top - top } : null;
   };
   useEffect(() => {
     const sc = scrollRef.current;
@@ -245,7 +247,7 @@ export default function RestaurantDetail({
     const sc = scrollRef.current;
     const a = anchor.current;
     if (sc && full && !hadFull.current && a?.el.isConnected) {
-      const moved = a.el.getBoundingClientRect().top - a.top;
+      const moved = a.el.getBoundingClientRect().top - sc.getBoundingClientRect().top - a.top;
       if (Math.abs(moved) > 1) sc.scrollTop += moved;
     }
     hadFull.current = Boolean(full);

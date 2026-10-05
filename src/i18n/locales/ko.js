@@ -285,7 +285,7 @@ export default {
     loadingDetails: '메뉴, 교통, 연락처를 불러오는 중…',
     loadFailed: '메뉴, 교통, 연락처를 불러오지 못했어요.',
     loadRetry: '다시 시도',
-    halalAlcohol: '술을 파는지는 이 표시에 포함되지 않아요. 저희가 기록하지 않는 항목이에요. 직원에게 물어보세요. ‘직원에게 보여 줄 한국어 카드’에 이 질문이 있어요.',
+    halalAlcohol: '술을 파는지는 이 표시에 포함되지 않아요. 출처가 밝힌 경우에는 위 설명에 적혀 있어요. 확실하지 않으면 직원에게 물어보세요. ‘직원에게 보여 줄 한국어 카드’에 이 질문이 있어요.',
     close: '닫기',
     dietaryFactsLabel: '식이·식사 정보',
     claimSource: '출처: {{source}}',
