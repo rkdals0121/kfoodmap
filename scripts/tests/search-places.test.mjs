@@ -129,6 +129,8 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.ok(n('restaurants in Hongdae') >= n('Hongdae'));
   assert.ok(n('釜山 ランチ') >= n('Busan'));
   assert.equal(n('ブサン'), n('Busan'));
+  assert.equal(n('不含猪肉餐厅'), n('不含猪肉'));
+  assert.equal(n('ハラールレストラン'), n('ハラール'));
   // A layover's words.
   assert.ok(n('musala') > 0 && n('musala') === n('prayer'));
   assert.equal(n('기도실'), n('prayer'));

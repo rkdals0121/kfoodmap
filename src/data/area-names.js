@@ -228,6 +228,15 @@ const peel = (text) => {
   }
 };
 
+const peelEnd = (text) => {
+  let rest = text;
+  for (;;) {
+    const f = GLUED_FILLERS.find(w => rest.length > w.length && rest.endsWith(w));
+    if (!f) return rest;
+    rest = rest.slice(0, -f.length);
+  }
+};
+
 export function romaniseQuery(query) {
   // NFKC: half-width kana (ﾌﾟｻﾝ) are the same names.
   const words = String(query ?? '').normalize('NFKC').trim().split(/\s+/).filter(Boolean);
@@ -254,6 +263,10 @@ export function romaniseQuery(query) {
         return more !== null ? [roman, ...more.split(' ').filter(Boolean)] : [roman, tail];
       }
     }
+    // "不含猪肉餐厅", "ハラールレストラン": such a word glued to the end of
+    // any other is dropped too.
+    const head = peelEnd(w);
+    if (head !== w) { changed = true; return [head]; }
     return [w];
   });
   // Nothing but such words ("restaurant"): no other reading to offer.
