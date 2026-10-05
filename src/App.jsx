@@ -607,7 +607,20 @@ function AppShell() {
     const now = Date.now();
     // Marking a visit also saves the place and stamps the Journal: say so,
     // as a save does.
-    if (!current || current.visitedAt === null) setToast({ text: t('detail.visitedNote'), undo: null, at: now });
+    // …with a way back: a slip of the thumb on "Been here" saved the place
+    // and stamped it, and taking the visit off again still left it saved.
+    // Undo puts the entry back exactly as it was (unsaved, if it was).
+    if (!current || current.visitedAt === null) {
+      const before = current ? { ...current } : null;
+      const undo = () => setEntries(prev => prev.map((e) => {
+        if (e.id !== placeId) return e;
+        const at = Date.now();
+        return before && before.savedAt !== null
+          ? { ...before, updatedAt: at }
+          : { ...e, savedAt: null, visitedAt: null, updatedAt: at };
+      }));
+      setToast({ text: t('detail.visitedNote'), undo, at: now });
+    }
     // …and taking one back is answered too: the button alone gave no sign.
     else setToast({ text: t('detail.unvisitedNote'), undo: null, at: now });
     setEntries(prev => {

@@ -22,6 +22,8 @@
 //  - No religious ruling: the Muslim card asks about pork, alcohol and halal
 //    meat, and leaves seafood and everything else to the visitor.
 
+// A word joiner (U+2060) follows a closing bracket where a particle comes
+// next: shown large, "가" was left alone on a line of its own.
 export const STAFF_CARDS = [
   {
     id: 'vegan',
@@ -40,8 +42,8 @@ export const STAFF_CARDS = [
       { ko: '굴소스나 다시다(쇠고기 조미료)를 쓰나요?', roman: 'Gulsoseuna dasida (soegogi jomiryo) reul sseunayo?', key: 'veganQ5' },
       { ko: '고기와 달걀을 빼고 만들어 주실 수 있나요?', roman: 'Gogiwa dalgyareul ppaego mandeureo jusil su innayo?', key: 'veganQ6' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'veganQ7' },
-      { ko: '오신채(마늘, 파, 부추, 달래, 양파)가 들어가나요?', roman: 'Osinchae (maneul, pa, buchu, dallae, yangpa) ga deureoganayo?', key: 'veganQ8' },
-      { ko: '견과류(땅콩, 호두, 잣 등)가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'veganQ9' },
+      { ko: '오신채(마늘, 파, 부추, 달래, 양파)⁠가 들어가나요?', roman: 'Osinchae (maneul, pa, buchu, dallae, yangpa) ga deureoganayo?', key: 'veganQ8' },
+      { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'veganQ9' },
     ],
   },
   {
@@ -62,7 +64,7 @@ export const STAFF_CARDS = [
       { ko: '고기 없이 해산물이나 채소로 만든 메뉴가 있나요?', roman: 'Gogi eopsi haesanmurina chaesoro mandeun menyuga innayo?', key: 'muslimQ6' },
       { ko: '여기서 술을 판매하나요?', roman: 'Yeogiseo sureul panmaehanayo?', key: 'muslimQ7' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'muslimQ8' },
-      { ko: '견과류(땅콩, 호두, 잣 등)가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'muslimQ9' },
+      { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'muslimQ9' },
     ],
   },
 ];
