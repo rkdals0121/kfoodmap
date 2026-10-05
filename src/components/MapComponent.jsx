@@ -177,16 +177,17 @@ const HEART_OVERLAP_PX = 24;
 // A journey's stop: its number in the route, so the order can be read off
 // the map. Like a saved place it is never folded into a count.
 const STOPS = new Map();
-const stopIcon = (n) => {
-  if (!STOPS.has(n)) {
-    STOPS.set(n, L.divIcon({
-      className: 'k-stop',
+const stopIcon = (n, active = false) => {
+  const key = active ? `${n}*` : n;
+  if (!STOPS.has(key)) {
+    STOPS.set(key, L.divIcon({
+      className: `k-stop${active ? ' k-stop--active' : ''}`,
       html: `<span aria-hidden="true">${n}</span>`,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
+      iconSize: active ? [40, 40] : [32, 32],
+      iconAnchor: active ? [20, 20] : [16, 16],
     }));
   }
-  return STOPS.get(n);
+  return STOPS.get(key);
 };
 
 // Built once. react-leaflet calls setIcon whenever the icon prop is a new
@@ -493,7 +494,9 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, st
         <Marker
           key={selected.id}
           position={[coordsOf(selected).lat, coordsOf(selected).lng]}
-          icon={pinIcon(selected, true)}
+          // A journey's stop keeps its number while it is the one open:
+          // as a plain pin, which stop it was could no longer be told.
+          icon={stopNumber.has(selected.id) ? stopIcon(stopNumber.get(selected.id), true) : pinIcon(selected, true)}
           keyboard={false}
           title={pinLabel(selected)}
           alt={pinLabel(selected)}

@@ -6301,3 +6301,12 @@ html[data-text='larger'] .detail-bar__map svg {
 .map-region:has(.leaflet-popup) .map-zoom {
   visibility: hidden;
 }
+
+/* The stop that is open: its number, larger, ringed. */
+.k-stop--active span {
+  width: 34px;
+  height: 34px;
+  font-size: 15px;
+  background: var(--ink);
+  box-shadow: 0 0 0 3px var(--green-strong);
+}
