@@ -512,10 +512,16 @@ function AppShell() {
   }, [toast, toastHeld]);
 
   // Undo of an unsave: the save put back as it was, and said so.
-  const restoreSave = (placeId, savedAt) => {
+  // Every place removed while the Undo is still showing: tidying the Journal
+  // list, two rows go in a few seconds, and Undo used to bring back only
+  // the second (the first one's Undo left with its toast).
+  const removedRef = useRef([]);
+  const restoreSave = (removed) => {
     const now = Date.now();
+    const when = new Map(removed.map(r => [r.id, r.savedAt]));
     // The time it was first saved, so it keeps its place in the Journal.
-    setEntries(prev => prev.map(e => (e.id === placeId && e.savedAt === null ? { ...e, savedAt: savedAt ?? now, updatedAt: now } : e)));
+    setEntries(prev => prev.map(e => (when.has(e.id) && e.savedAt === null ? { ...e, savedAt: when.get(e.id) ?? now, updatedAt: now } : e)));
+    removedRef.current = [];
     setToast({ text: t('detail.savedNote'), undo: null, at: now });
     // Undo pressed in the Journal: its button goes with the toast, so focus
     // returns to the list the place came back to.
@@ -532,8 +538,12 @@ function AppShell() {
     const removing = Boolean(current && current.savedAt !== null);
     // An unsave that also dropped a visit was confirmed first and is not
     // offered back: Undo would restore the save without the visit.
+    const undoable = removing && current.visitedAt === null;
+    if (undoable) {
+      removedRef.current = [...(toast?.removal ? removedRef.current : []), { id: placeId, savedAt: current.savedAt }];
+    }
     setToast(removing
-      ? { text: t('detail.removedNote'), undo: current.visitedAt === null ? () => restoreSave(placeId, current.savedAt) : null, at: now }
+      ? { text: t('detail.removedNote'), removal: undoable, undo: undoable ? () => restoreSave(removedRef.current) : null, at: now }
       : { text: t('detail.savedNote'), undo: null, at: now });
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
