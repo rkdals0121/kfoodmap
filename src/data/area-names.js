@@ -248,4 +248,12 @@ export const AREA_NAMES = AREAS;
 // romanised one, which is what the records and street signs use.
 const SUGGESTED = ['Seoul', 'Itaewon', 'Myeongdong', 'Hongdae', 'Gangnam', 'Insadong', 'Seongsu',
   'Busan', 'Incheon', 'Daegu', 'Daejeon', 'Gwangju', 'Ulsan', 'Jeju', 'Suwon', 'Jeonju', 'Gyeongju', 'Gangneung', 'Ansan'];
-export const areaSuggestions = (lang) => SUGGESTED.map(a => (lang === 'ko' ? AREAS[a][0] : a));
+// …and readers of Japanese and Chinese theirs: typing "济" found no
+// suggestion in a list that was all Latin letters. In the order of
+// SUGGESTED; each is also in AREAS above, so it searches as the area.
+const SUGGESTED_IN = {
+  ja: ['ソウル', '梨泰院', '明洞', '弘大', '江南', '仁寺洞', '聖水', '釜山', '仁川', '大邱', '大田', '光州', '蔚山', '済州', '水原', '全州', '慶州', '江陵', '安山'],
+  'zh-Hans': ['首尔', '梨泰院', '明洞', '弘大', '江南', '仁寺洞', '圣水', '釜山', '仁川', '大邱', '大田', '光州', '蔚山', '济州', '水原', '全州', '庆州', '江陵', '安山'],
+  'zh-Hant': ['首爾', '梨泰院', '明洞', '弘大', '江南', '仁寺洞', '聖水', '釜山', '仁川', '大邱', '大田', '光州', '蔚山', '濟州', '水原', '全州', '慶州', '江陵', '安山'],
+};
+export const areaSuggestions = (lang) => SUGGESTED_IN[lang] ?? SUGGESTED.map(a => (lang === 'ko' ? AREAS[a][0] : a));

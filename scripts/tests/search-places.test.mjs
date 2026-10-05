@@ -175,3 +175,13 @@ test('"N without the filters" is the number the same search shows with the chips
   assert.equal(ids(go('restoran halal')), ids(go('halal')));
   assert.equal(ids(go('咖啡厅')), ids(go('cafe')));
 });
+
+test('the suggestions under the search box search as the areas they name, in every language', async () => {
+  const { areaSuggestions, romaniseQuery } = await import('../../src/data/area-names.js');
+  const en = areaSuggestions('en');
+  for (const lang of ['ja', 'zh-Hans', 'zh-Hant', 'ko']) {
+    const names = areaSuggestions(lang);
+    assert.equal(names.length, en.length, lang);
+    names.forEach((name, i) => assert.equal(romaniseQuery(name), en[i], `${lang} ${name}`));
+  }
+});
