@@ -238,8 +238,11 @@ for (const [slug, title, index, description, body] of [
 // Nothing is said that the record does not say.
 const GUIDE_MIN = 3;
 const DIETS = [
-  { slug: 'halal', chip: 'Halal', word: 'Halal', fact: 'halal' },
-  { slug: 'vegan', chip: 'Vegan', word: 'Vegan', fact: 'vegan' },
+  // `places`: what the count is a count of, in the record's own terms. "152
+  // halal places" in a search result said more than any record does: every
+  // one of them is "Halal-friendly · Reported", and no certificate was seen.
+  { slug: 'halal', chip: 'Halal', word: 'Halal', fact: 'halal', places: 'places recorded as halal-friendly', caveat: 'None of these places has a halal certificate that we have seen: “Halal-friendly” is what a source reports. Pork-free places are not in this list.' },
+  { slug: 'vegan', chip: 'Vegan', word: 'Vegan', fact: 'vegan', places: 'places with vegan food (fully vegan, or vegan options on a mixed menu)', caveat: '' },
 ];
 
 const guides = [];
@@ -276,6 +279,7 @@ function guideBody(guide) {
     + `<p style="margin:0;font-size:13px;font-weight:700;color:#087F5B">K-Food Map</p>`
     + `<h1 style="margin:6px 0 8px;font-size:26px">${diet.word} food in ${area}</h1>`
     + `<p style="margin:0 0 16px;color:#3F444A">${places.length} places on the map. Each line says what the record says and how sure it is: Confirmed (checked against a primary source), Reported (a source says so) or Our reading (our best guess). Kitchens change — if your diet is strict, ask staff before you order.</p>`
+    + (diet.caveat ? `<p style="margin:0 0 16px;color:#3F444A">${diet.caveat}</p>` : '')
     + `<p style="margin:0 0 16px"><a href="/#q=${area}&amp;a=1&amp;f=${diet.chip}" style="display:inline-block;padding:12px 18px;background:#087F5B;color:#fff;border-radius:12px;font-weight:600;text-decoration:none">Open these on the map</a></p>`
     + `<ul style="margin:0;padding:0 0 0 18px">${items}</ul>`
     + (others ? `<p style="margin:20px 0 0;font-size:14px;color:#3F444A"><a href="/find/${diet.slug}" style="display:inline-block;padding:12px 0;color:#087F5B">${diet.word} food in Korea</a><br>Other areas: ${others}</p>` : '')
@@ -286,7 +290,7 @@ for (const guide of guides) {
   const { diet, area, places } = guide;
   const url = `${SITE_URL}/find/${guide.slug}`;
   const title = `${diet.word} food in ${area} — ${places.length} places · K-Food Map`;
-  const description = `${places.length} ${diet.word.toLowerCase()} places in ${area}, Korea. Each dietary claim is marked Confirmed, Reported or Our reading, with its source.`;
+  const description = `${places.length} ${diet.places} in ${area}, Korea. Each dietary claim is marked Confirmed, Reported or Our reading, with its source.`;
   const page = [
     [/<title>.*<\/title>/, `<title>${title}</title>`],
     [/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${description}" />`],
@@ -327,13 +331,14 @@ for (const hub of hubs) {
   const { diet, total, areas } = hub;
   const url = `${SITE_URL}/find/${diet.slug}`;
   const title = `${diet.word} food in Korea — ${total} places by area · K-Food Map`;
-  const description = `${total} ${diet.word.toLowerCase()} places across Korea, by city and neighbourhood. Each dietary claim is marked Confirmed, Reported or Our reading, with its source.`;
+  const description = `${total} ${diet.places} across Korea, by city and neighbourhood. Each dietary claim is marked Confirmed, Reported or Our reading, with its source.`;
   const items = areas.map(g => `<li style="margin:0"><a href="/find/${g.slug}" style="display:block;padding:11px 0;color:#087F5B;font-weight:600;text-decoration:none">${diet.word} food in ${g.area} <span style="font-weight:400;color:#3F444A">· ${g.places.length} places</span></a></li>`).join('');
   const body = `<div id="root"><main style="max-width:640px;margin:0 auto;padding:24px;background:#F7F7F8;color:#1F2328;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.5">`
     + STATIC_SCROLL
     + `<p style="margin:0;font-size:13px;font-weight:700;color:#087F5B">K-Food Map</p>`
     + `<h1 style="margin:6px 0 8px;font-size:26px">${diet.word} food in Korea</h1>`
     + `<p style="margin:0 0 16px;color:#3F444A">${total} places on the map, each researched one at a time. Every dietary claim says how sure the record is: Confirmed, Reported or Our reading. An area can sit inside another (Itaewon is in Yongsan, in Seoul), so the counts overlap.</p>`
+    + (diet.caveat ? `<p style="margin:0 0 16px;color:#3F444A">${diet.caveat}</p>` : '')
     + `<p style="margin:0 0 16px"><a href="/#f=${diet.chip}" style="display:inline-block;padding:12px 18px;background:#087F5B;color:#fff;border-radius:12px;font-weight:600;text-decoration:none">Open all of them on the map</a></p>`
     + `<ul style="margin:0;padding:0 0 0 18px">${items}</ul>`
     + `</main></div>`;

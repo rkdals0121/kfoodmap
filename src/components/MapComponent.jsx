@@ -247,6 +247,12 @@ function sheetOverlap(map) {
 // Asked each time: the setting can change while the app stays open.
 const reduceMotion = () => typeof window !== 'undefined' && Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
 
+// Zoomed all the way out the map was the whole world, grey above the list,
+// with every place under one dot beneath it and no way back but pinching.
+// Korea with room around it (the list covers half the screen, so the
+// south needs slack for Jeju to sit above it).
+const KOREA_AND_AROUND = [[24, 114], [46, 142]];
+
 function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
   const size = map.getSize();
   if (size.x - padTL[0] - padBR[0] < 40 || size.y - padTL[1] - padBR[1] < 40) return;
@@ -421,10 +427,24 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, st
             title={label}
             alt={label}
             eventHandlers={{
-              click: () => safeFlyToBounds(map, latlngs.map(c => [c.lat, c.lng]), [56, 56], [56, 56 + sheetOverlap(map)], {
-                maxZoom: map.getMaxZoom(),
-                duration: 0.5,
-              }),
+              click: () => {
+                const points = latlngs.map(c => [c.lat, c.lng]);
+                const overlap = sheetOverlap(map);
+                // The strip above the sheet is small: fitted into it, some
+                // groups came out at the zoom the map was already on, and
+                // the tap did nothing at all. A tap always goes one step
+                // closer at least, around the group that was tapped.
+                let fits = NaN;
+                try { fits = map.getBoundsZoom(L.latLngBounds(points), false, L.point(112, 112 + overlap)); } catch { /* no room to measure */ }
+                if (!(fits > map.getZoom())) {
+                  map.setZoomAround([lat, lng], Math.min(map.getMaxZoom(), map.getZoom() + 1), { animate: !reduceMotion() });
+                  return;
+                }
+                safeFlyToBounds(map, points, [56, 56], [56, 56 + overlap], {
+                  maxZoom: map.getMaxZoom(),
+                  duration: 0.5,
+                });
+              },
             }}
           />
         );
@@ -547,14 +567,39 @@ const LOCATE_MESSAGE = {
 // "+" and "−". Pinching needs two hands, and a double tap only zooms in:
 // someone holding a bag or a child had no way to zoom out. Under the "my
 // location" button, the same size.
+// The middle of the map that can be seen: the list covers its lower part on
+// a phone and its left side when the phone is turned. Zooming on the
+// middle of the whole map — a point under the list — carried what was
+// being looked at out of view.
+function visiblePoint(map) {
+  const size = map.getSize();
+  const m = map.getContainer().getBoundingClientRect();
+  const sheet = document.querySelector('.sidebar-region')?.getBoundingClientRect();
+  let x = size.x / 2;
+  let y = size.y / 2;
+  if (sheet && sheet.width > 0 && sheet.height > 0) {
+    const acrossWidth = sheet.left <= m.left + 1 && sheet.right >= m.right - 1;
+    const acrossHeight = sheet.top <= m.top + 1 && sheet.bottom >= m.bottom - 65;
+    if (acrossWidth && sheet.top > m.top && sheet.top < m.bottom) y = (sheet.top - m.top) / 2;
+    else if (acrossHeight && sheet.right > m.left && sheet.right < m.right) x = (sheet.right - m.left) + (m.right - sheet.right) / 2;
+  }
+  return L.point(x, y);
+}
+function zoomBy(map, step) {
+  if (!map) return;
+  const zoom = Math.max(map.getMinZoom(), Math.min(map.getMaxZoom(), map.getZoom() + step));
+  if (zoom === map.getZoom()) return;
+  map.setZoomAround(map.containerPointToLatLng(visiblePoint(map)), zoom, { animate: !reduceMotion() });
+}
+
 function ZoomButtons({ mapRef }) {
   const { t } = useTranslation();
   return (
     <div className="map-zoom">
-      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomIn')} title={t('map.zoomIn')} onClick={() => mapRef.current?.zoomIn()}>
+      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomIn')} title={t('map.zoomIn')} onClick={() => zoomBy(mapRef.current, 1)}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
       </button>
-      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomOut')} title={t('map.zoomOut')} onClick={() => mapRef.current?.zoomOut()}>
+      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomOut')} title={t('map.zoomOut')} onClick={() => zoomBy(mapRef.current, -1)}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M5 12h14" /></svg>
       </button>
     </div>
@@ -627,7 +672,7 @@ function MapComponent({
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
       {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} />}
       <ZoomButtons mapRef={mapRef} />
-      <MapContainer ref={mapRef} center={MAP_CENTER} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
+      <MapContainer ref={mapRef} center={MAP_CENTER} zoom={12} minZoom={5} maxBounds={KOREA_AND_AROUND} maxBoundsViscosity={0.6} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
         {/* Top right, not Leaflet's bottom right: on a phone the list sheet
             and tab bar cover the map's bottom edge, which hid the
             OpenStreetMap credit its licence requires. */}
