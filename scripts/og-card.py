@@ -18,8 +18,8 @@ ey=font('Bold',22*S); cx=x
 for ch in 'K-FOOD MAP':
     d.text((cx,86*S),ch,font=ey,fill=GREEN); cx+=d.textlength(ch,font=ey)+3.2*S
 t=font('ExtraBold',70*S)
-d.text((x,130*S),'Vegan and halal food',font=t,fill=INK)
-d.text((x,214*S),'across Korea.',font=t,fill=INK)
+d.text((x,130*S),'The other side',font=t,fill=INK)
+d.text((x,214*S),'of K-food.',font=t,fill=INK)
 d.text((x,318*S),'Every dietary claim says how sure we are.',font=font('Regular',32*S),fill=BODY)
 # claim chips
 lab=font('SemiBold',25*S); lvl=font('Medium',21*S)

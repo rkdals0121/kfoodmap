@@ -10,7 +10,7 @@
 // Dietary chips are answered by the structured dietary record (never a tag
 // string); the rest are descriptive traits.
 import { matchesDietary } from './data/verification.js';
-import { koAddress } from './data/address-ko.js';
+import { koAddressHas } from './data/address-ko.js';
 import { romaniseQuery, COOKING } from './data/area-names.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
@@ -157,7 +157,7 @@ const AREA_ALIASES = {
   // A sight searched by name, in the area it stands in.
   lotteworld: ['jamsil'],
 };
-const areaText = (r) => `${r.zone} ${r.address?.value ?? ''} ${koAddress(r) ?? ''}`.toLowerCase();
+const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
 // By prefix, so "Lotte World Tower" and "lotte world seoul" are Lotte World.
 const aliasMatch = (r, w) => Object.keys(AREA_ALIASES).some(k => w.startsWith(k) && AREA_ALIASES[k].some(a => areaText(r).includes(a)));
 
@@ -184,9 +184,11 @@ function searchCore(r, rawQuery) {
   // The halal level is searchable too, so "pork-free" finds every pork-free
   // place (the Halal filter leaves them out: pork-free is not halal).
   const halal = r.dietary?.halal;
-  const fields = [r.name, r.vibe, r.zone, r.address?.value, koAddress(r),
+  const fields = [r.name, r.vibe, r.zone, r.address?.value,
     halal && halal.confidence !== 'unknown' ? halal.value : null];
   if (fields.some(f => startsWord(f, q))) return true;
+  // The address in Korean, by its own words ("용산구", "이태원로"): see koAddressHas.
+  if (koAddressHas(r, q)) return true;
   // …or as it is written, punctuation and all: "A.A.A" is a bakery's name.
   const asTyped = squash(String(rawQuery ?? ''));
   if (asTyped !== q && fields.some(f => startsWord(f, asTyped))) return true;
@@ -209,7 +211,7 @@ function searchCore(r, rawQuery) {
   // A pork-free word is answered from the record alone, never from the text:
   // a story that says "uses no pork" about a halal kitchen, or "no pork
   // belly" about one that serves it, is not the pork-free level.
-  return words.every(w => (PORK_FREE_WORDS.has(w) ? dietWordMatch(r, w) : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w)));
+  return words.every(w => (PORK_FREE_WORDS.has(w) ? dietWordMatch(r, w) : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w)));
 }
 
 // Does a search word name this place's area (neighbourhood or address)?
@@ -220,9 +222,9 @@ function areaCore(r, rawQuery) {
   // The whole query first ("mapo gu" is Mapo-gu), then its longer words:
   // a two-letter "gu" or "ro" starts a word in nearly every address.
   const whole = squash(query ?? '');
-  if (whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole))) return true;
-  const words = String(query ?? '').trim().split(/\s+/).map(squash).filter(w => w.length >= 3);
-  return words.some(w => startsWord(areaText(r), w) || aliasMatch(r, w));
+  if (whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole) || koAddressHas(r, whole))) return true;
+  const words = String(query ?? '').trim().split(/\s+/).map(squash);
+  return words.some(w => (w.length >= 3 && (startsWord(areaText(r), w) || aliasMatch(r, w))) || koAddressHas(r, w));
 }
 
 // A query is tried as typed and, when it contains a place name written in
@@ -239,7 +241,7 @@ export function matchesSearch(r, query) {
 // buk-ro" in it). Used to decide where "nearest" is measured from.
 const areaWhole = (r, query) => {
   const whole = squash(unpunct(query));
-  return whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole));
+  return whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole) || koAddressHas(r, whole));
 };
 // A kind of cooking is not a place: "temple" starts a word in one address
 // ("Templestay Information Center"), and the map went there for 사찰음식.

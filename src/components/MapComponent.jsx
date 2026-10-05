@@ -655,14 +655,17 @@ const sameBox = (a, b) => Boolean(a && b) && ['s', 'w', 'n', 'e'].every(k => Mat
 function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, hidden }) {
   const { t } = useTranslation();
   const [offer, setOffer] = useState(false);
+  const offered = useRef(false);
   const latest = useRef({ restaurants, mapBox });
   latest.current = { restaurants, mapBox };
   const check = useRef(() => {});
   useEffect(() => {
     let map = null;
     const byHand = () => { touched.current = true; };
+    // Only the move a hand made is asked about: a pin pressed afterwards
+    // moves the map by itself, and that is not a reason to offer.
+    const moved = () => { if (touched.current) { touched.current = false; read(); } };
     const read = () => {
-      if (!touched.current) return;
       const now = latest.current;
       const box = visibleBox(map);
       let inside = 0;
@@ -670,7 +673,9 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
         const c = coordsOf(r);
         if (c.lat >= box.s && c.lat <= box.n && c.lng >= box.w && c.lng <= box.e) inside += 1;
       }
-      setOffer(inside > 0 && inside < now.restaurants.length && !sameBox(box, now.mapBox));
+      const next = inside > 0 && inside < now.restaurants.length && !sameBox(box, now.mapBox);
+      offered.current = next;
+      setOffer(next);
     };
     // The map is created after this first render.
     const wait = setInterval(() => {
@@ -678,14 +683,15 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
       if (!map) return;
       clearInterval(wait);
       check.current = read;
-      map.on('moveend', read);
+      map.on('moveend', moved);
       map.on('dragstart', byHand);
       map.on('dblclick', byHand);
     }, 200);
-    return () => { clearInterval(wait); check.current = () => {}; map?.off('moveend', read); map?.off('dragstart', byHand); map?.off('dblclick', byHand); };
+    return () => { clearInterval(wait); check.current = () => {}; map?.off('moveend', moved); map?.off('dragstart', byHand); map?.off('dblclick', byHand); };
   }, [mapRef, touched]);
   // A chip or a search changes what is listed without moving the map.
-  useEffect(() => { check.current(); }, [restaurants, mapBox]);
+  // …which can only take the offer away (it is not a move by hand).
+  useEffect(() => { if (offered.current) check.current(); }, [restaurants, mapBox]);
   if (!offer || hidden) return null;
   return (
     <button
@@ -694,6 +700,7 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
       onClick={() => {
         const map = mapRef.current;
         if (!map) return;
+        offered.current = false;
         setOffer(false);
         onSearchArea(visibleBox(map));
       }}
@@ -707,11 +714,14 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
 // A press on the bare map (not on a pin, which does not reach the map).
 // Acted on a moment later: the first tap of a double tap (zoom in) is a
 // click too, and two quick taps must not close twice.
-function MapClicks({ onMapClick }) {
+function MapClicks({ onMapClick, selectedId }) {
   const timer = useRef(null);
+  // …and not the place a pin opened in that moment.
+  const open = useRef(selectedId);
+  open.current = selectedId;
   const cancel = () => { clearTimeout(timer.current); timer.current = null; };
   useMapEvents({
-    click: () => { cancel(); timer.current = setTimeout(() => { timer.current = null; onMapClick(); }, 280); },
+    click: () => { cancel(); const was = open.current; timer.current = setTimeout(() => { timer.current = null; if (open.current === was) onMapClick(); }, 280); },
     dblclick: cancel,
     zoomstart: cancel,
     dragstart: cancel,
@@ -845,7 +855,7 @@ function MapComponent({
         {onCenterChange && <CenterReporter onCenterChange={onCenterChange} sheetState={sheetState} userLocation={userLocation} />}
         <ResizeSync />
         <MapA11y />
-        {onMapClick && <MapClicks onMapClick={onMapClick} />}
+        {onMapClick && <MapClicks onMapClick={onMapClick} selectedId={selectedId} />}
         {/* This attribution is legally required credit markup for OpenStreetMap,
             not UI copy, so it stays hardcoded rather than moving to i18n.
 

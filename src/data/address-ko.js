@@ -12,18 +12,21 @@
 //     building number is the one in the recorded address; or
 //   - the Korean address quoted in the record's own address evidence, kept
 //     only when its building number is the one in the recorded address.
-// A floor ("2층", "지하 1층") is added only where the recorded address
-// gives one. A place with no entry here simply shows its romanised address.
+// (One record, vegan-insa, gives a lot number rather than a road address:
+// its entry is the road address of the Kakao place of the same name on the
+// same coordinates.)
+// A floor ("2층", "지하 1층", "3~4층") is added only where the recorded
+// address gives one. A place with no entry here simply shows its romanised address.
 export const ADDRESS_KO = {
   balwoo: '서울 종로구 우정국로 56 5층',
   sanchon: '서울 종로구 인사동길 30-13',
   osegyehyang: '서울 종로구 인사동12길 14-5',
   'plant-cafe': '서울 용산구 보광로 117 2층',
-  'monks-butcher': '서울 용산구 이태원로 228-1',
+  'monks-butcher': '서울 용산구 이태원로 228-1 3~4층',
   camouflage: '서울 용산구 이태원로26길 19 2층',
   eid: '서울 용산구 우사단로10길 15 1층',
   kampungku: '서울 중구 퇴계로20길 25',
-  'nono-shop': '서울 중구 퇴계로4길 2',
+  'nono-shop': '서울 중구 퇴계로4길 2 1~2층',
   'ggot-epida': '서울 종로구 북촌로 39 1층',
   maji: '서울 종로구 자하문로5길 19',
   'chaeyuk-songdo': '인천 연수구 테크노파크로111번길 5 1층',
@@ -42,9 +45,9 @@ export const ADDRESS_KO = {
   glunic: '서울 성동구 서울숲2길 16-12 1층',
   morococo: '서울 용산구 신흥로 34',
   urt: '서울 마포구 월드컵북로7길 34 1층',
-  'persian-palace': '서울 종로구 성균관로6길 9',
-  'halal-busan-jib': '서울 중구 명동8길 11-8',
-  'busan-jib-hongdae': '서울 마포구 어울마당로 100-6',
+  'persian-palace': '서울 종로구 성균관로6길 9 지하 1층~1층',
+  'halal-busan-jib': '서울 중구 명동8길 11-8 1~2층',
+  'busan-jib-hongdae': '서울 마포구 어울마당로 100-6 2~3층',
   'vegan-kitchen-myeongdong': '서울 중구 퇴계로20길 21 1층',
   'hajj-korea-halal-food': '서울 용산구 우사단로10길 39',
   'cherry-garden-dongdaemun': '서울 종로구 종로 326 2층',
@@ -71,8 +74,8 @@ export const ADDRESS_KO = {
   'sultan-kebab-itaewon': '서울 용산구 보광로 126',
   'vegetus-haebangchon': '서울 용산구 신흥로 59',
   'yang-good': '서울 강남구 논현로95길 15',
-  'plantude-coex': '서울 강남구 영동대로 513',
-  'kervan-coex': '서울 강남구 영동대로 513',
+  'plantude-coex': '서울 강남구 영동대로 513 지하 1층',
+  'kervan-coex': '서울 강남구 영동대로 513 지하 1층',
   'chick-peace-sinsa': '서울 강남구 강남대로152길 69 1층',
   'bium-cheongdam': '서울 강남구 학동로97길 41 1층',
   'star-samarkand-dongdaemun': '서울 중구 을지로42길 14',
@@ -97,7 +100,7 @@ export const ADDRESS_KO = {
   'everest-starfield-hanam': '경기 하남시 미사대로 750 1층',
   'masala-bucheon': '경기 부천시 원미구 석천로169번길 30 3층',
   'spice-village-pyeongtaek': '경기 평택시 쇼핑로 17-1',
-  'bella-tunisie-suwon': '경기 수원시 장안구 서부로2106번길 21',
+  'bella-tunisie-suwon': '경기 수원시 장안구 서부로2106번길 21 지하 1층',
   'agra-starfield-suwon': '경기 수원시 장안구 수성로 175 7층',
   'agra-starfield-anseong': '경기 안성시 공도읍 서동대로 3930-39 1층',
   'suembu-dongtan': '경기 화성시 동탄구 노작로4길 18-15 1층',
@@ -121,10 +124,10 @@ export const ADDRESS_KO = {
   'bina-anam': '서울 동대문구 안암로24길 4 1층',
   'le-vegiwang-seongsu': '서울 성동구 연무장1길 15-1 1층',
   'ooh-breado-sangdo': '서울 동작구 상도로37길 3',
-  'rudys-vegan-dangsan': '서울 영등포구 당산로 95',
+  'rudys-vegan-dangsan': '서울 영등포구 당산로 95 지하 1층',
   'vegan-mama-seoul-univ': '서울 관악구 봉천로 457-1 1층',
   'godeuni-magok': '서울 강서구 마곡중앙로 161-1 2층',
-  'otsal-seoul-univ': '서울 관악구 관악로 164',
+  'otsal-seoul-univ': '서울 관악구 관악로 164 지하 1층',
   'durga-uijeongbu': '경기 의정부시 태평로73번길 50 2층',
   'grey-paju': '경기 파주시 경의로 1114 10층',
   'asia-asia-ilsan': '경기 고양시 일산동구 정발산로 24 2층',
@@ -156,7 +159,7 @@ export const ADDRESS_KO = {
   'bsj-chicken-wok-myeongdong': '서울 중구 명동9길 7',
   'iftar-gyeongbokgung': '서울 종로구 자하문로1길 50-1 1층',
   myeongdongjeong: '서울 중구 삼일대로 299 1층',
-  'myeongdong-chaeum': '서울 중구 퇴계로18길 7',
+  'myeongdong-chaeum': '서울 중구 퇴계로18길 7 지하 2층',
   'bali-holiday-myeongdong': '서울 중구 퇴계로20길 15 2층',
   'samarkand-main-dongdaemun': '서울 중구 마른내로 159-21 1층',
   'mari-meokja-myeongdong': '서울 중구 퇴계로 114 2층',
@@ -192,34 +195,34 @@ export const ADDRESS_KO = {
   'plant-yeonnam': '서울 마포구 월드컵북로4길 87 1층',
   'plant-bakery-haebangchon': '서울 용산구 신흥로3가길 2 2층',
   'yongtokki-imun': '서울 동대문구 이문로9길 105-13 1층',
-  'ssingpu-coffee-ansan': '경기 안산시 상록구 시낭로 56',
+  'ssingpu-coffee-ansan': '경기 안산시 상록구 시낭로 56 1~2층',
   'duduri-dupang-mangwon': '서울 마포구 월드컵로23길 19 1층',
   'dou-luv-me-bupyeong': '인천 부평구 경인로931번길 12-4',
   'ever-halal-yongin': '경기 용인시 처인구 포곡읍 성산로 461 1층',
   'kwanho-gwanghwamun': '서울 중구 세종대로 135-7 2층',
   'pasha-kebab-sinchon': '서울 서대문구 연세로7안길 31 1층',
   'nirvana-insadong': '서울 종로구 인사동길 58 2층',
-  'om-restaurant-gwanghwamun': '서울 종로구 새문안로 103',
+  'om-restaurant-gwanghwamun': '서울 종로구 새문안로 103 지하 1층',
   'snack-pack-melbourne-paju': '경기 파주시 동패로63번길 48 1층',
   'sechawan-hoehyeon': '서울 중구 소공로6길 13-7 2층',
   'byeollan-ori-changsin': '서울 종로구 종로46길 12 2층',
   'hyeongje-yukhoe-jongno': '서울 종로구 종로 200-1 1층',
-  'ildossi-dakgalbi-gwanghwamun': '서울 중구 세종대로 136',
+  'ildossi-dakgalbi-gwanghwamun': '서울 중구 세종대로 136 지하 1층',
   'ildossi-dakgalbi-bangbae': '서울 서초구 방배로8길 4 1층',
-  'hamcho-ganjang-gejang-myeongdong': '서울 중구 명동8가길 27',
+  'hamcho-ganjang-gejang-myeongdong': '서울 중구 명동8가길 27 지하 1층',
   'zaffran-itaewon': '서울 용산구 우사단로10길 36',
   'itaewon-kitchen': '서울 용산구 우사단로 34 2층',
   'kervan-cafe-usadan': '서울 용산구 우사단로10길 17 1층',
   'kervan-bakery-itaewon': '서울 용산구 이태원로 208 1층',
   'kali-daehakro': '서울 종로구 대학로11길 43 2층',
   'couscous-seochon': '서울 종로구 자하문로5길 16-2 1층',
-  'durga-gwanghwamun': '서울 종로구 종로 19',
+  'durga-gwanghwamun': '서울 종로구 종로 19 지하 1층',
   'luna-asia-samseong': '서울 강남구 삼성로100길 15 1층',
   'casablanca-sandwicherie': '서울 용산구 신흥로 35 1층',
   'manokamana-daehakro': '서울 종로구 창경궁로 236 2층',
   'hello-india-yeonnam': '서울 마포구 연남로3길 9 1층',
   'om-restaurant-gongdeok': '서울 마포구 마포대로 73 2층',
-  'kitchen-of-india-jamsil': '서울 송파구 올림픽로 336',
+  'kitchen-of-india-jamsil': '서울 송파구 올림픽로 336 지하 1층',
   'manokamana-sinchon': '서울 서대문구 연세로11길 13 2층',
   'pooja-2-dongdaemun': '서울 중구 을지로43길 13 4층',
   'aangan-ewha': '서울 서대문구 이화여대길 37 2층',
@@ -258,7 +261,7 @@ export const ADDRESS_KO = {
   'taj-mahal-gimhae': '경남 김해시 분성로335번길 13 2층',
   'samsoo-jangeo-suseong': '대구 수성구 신천동로 442 2층',
   'new-saladin-seongseo': '대구 달서구 계대동문로 17 3층',
-  'new-saladin-dongseongro': '대구 중구 동성로3길 67',
+  'new-saladin-dongseongro': '대구 중구 동성로3길 67 지하 1층',
   'baraji-dongseongro': '대구 중구 동성로 73 2층',
   'tara-banwoldang': '대구 중구 달구벌대로 2109-25 3층',
   'indo-bangnanggi-knu': '대구 북구 대학로 81',
@@ -279,7 +282,7 @@ export const ADDRESS_KO = {
   'samarkand-busan-station': '부산 동구 대영로243번길 37 1층',
   'half-moon-meat-bupyeong': '부산 중구 부평1길 56 1층',
   'warung-jaya-nampo': '부산 중구 광복중앙로 3-1 2층',
-  'bakso-bejo-nampo': '부산 중구 남포길 6',
+  'bakso-bejo-nampo': '부산 중구 남포길 6 3~4층',
   'royal-india-seomyeon': '부산 부산진구 중앙대로 672 6층',
   'asha-hadan': '부산 사하구 낙동남로1406번길 7 2층',
   'loving-hut-seosin-jeonju': '전북 전주시 완산구 감나무로 61-13 1층',
@@ -375,7 +378,7 @@ export const ADDRESS_KO = {
   'dalyang-hyehwa': '서울 종로구 혜화로 45 2층',
   'jihwaja-cheongun': '서울 종로구 자하문로 125 1층',
   'malgeumine-changdong': '서울 도봉구 도봉로118길 38 1층',
-  'baengnyeonok-seocho': '서울 서초구 남부순환로 2407',
+  'baengnyeonok-seocho': '서울 서초구 남부순환로 2407 1~2층',
   'cheongchun-sujebi-insadong': '서울 종로구 인사동12길 14-7',
   'mokmyeoksanbang-namsan': '서울 중구 퇴계로20길 71 1층',
   'mokmyeoksanbang-namsan-tower': '서울 중구 남산공원길 627 1층',
@@ -423,18 +426,18 @@ export const ADDRESS_KO = {
   'bonjuk-nangok': '서울 관악구 난곡로 219 1층',
   'bonjuk-sillim-nokdu': '서울 관악구 호암로 598 1층',
   'bonjuk-singil-sareoga': '서울 영등포구 신길로 166 1층',
-  'bibiri-hongdae': '서울 마포구 와우산로23길 48',
+  'bibiri-hongdae': '서울 마포구 와우산로23길 48 지하 1층',
   'cham-bareun-gimbap-hapjeong': '서울 마포구 독막로 43-1 1층',
   'fully-gimbap-seongsu': '서울 성동구 성수일로10길 26 1층',
   'samcheongdang-anam': '서울 성북구 고려대로28길 31 1층',
   'samcheongdang-hongdae': '서울 마포구 와우산로 116 1층',
-  'soonnam-siraegi-myeongdong': '서울 중구 명동10길 35-20',
+  'soonnam-siraegi-myeongdong': '서울 중구 명동10길 35-20 지하 1층',
   'soonnam-siraegi-chungmuro': '서울 중구 마른내로2길 8 1층',
   'guksuga-daehakro': '서울 종로구 동숭2길 1 1층',
   'korea-house-pildong': '서울 중구 퇴계로36길 10',
   'parc-hannam': '서울 용산구 이태원로55가길 26-5',
   'eden-sikdang-yeouido': '서울 영등포구 의사당대로 127 지하 1층',
-  'dos-tacos-snu-station': '서울 관악구 관악로14길 6',
+  'dos-tacos-snu-station': '서울 관악구 관악로14길 6 2~3층',
   'shin-old-teahouse-insadong': '서울 종로구 인사동길 47-8 1층',
   'traditional-teahouse-insadong': '서울 종로구 인사동길 33-1 1층',
   'gangjeong-house-cheongdam': '서울 강남구 학동로 435 1층',
@@ -512,19 +515,19 @@ export const ADDRESS_KO = {
   'base-is-nice-dohwa': '서울 마포구 도화2길 20 1층',
   'hwangsaengga-kalguksu-samcheong': '서울 종로구 북촌로5길 78 1층',
   'everest-curry-world-dongdaemun': '서울 종로구 종로 305 2층',
-  'hummus-kitchen-parnas-samseong': '서울 강남구 테헤란로 521',
-  'aum-huam': '서울 용산구 후암로 66-1',
+  'hummus-kitchen-parnas-samseong': '서울 강남구 테헤란로 521 지하 1층',
+  'aum-huam': '서울 용산구 후암로 66-1 1~2층',
   'myeongga-uyukmyeon-seolleung': '서울 강남구 선릉로90길 56',
   'seongwon-uyukmyeon-sillim': '서울 관악구 난곡로 343',
   'sunny-bowl-yeomni': '서울 마포구 숭문16길 18 1층',
-  'abiko-curry-times-square': '서울 영등포구 영중로 15',
+  'abiko-curry-times-square': '서울 영등포구 영중로 15 지하 1층',
   'aloha-poke-hakdong': '서울 강남구 논현로 705 1층',
   'aloha-poke-ifc-yeouido': '서울 영등포구 국제금융로 10',
   'casa-latina-hongdae': '서울 마포구 와우산로29가길 13',
   'crispy-fresh-seoul-square': '서울 중구 한강대로 416 1층',
   'prathet-thai-yeoksam': '서울 강남구 테헤란로21길 13 1층',
   'salad-box-mullae': '서울 영등포구 문래북로 8',
-  'salad-house-jeokseon': '서울 종로구 새문안로5가길 28',
+  'salad-house-jeokseon': '서울 종로구 새문안로5가길 28 지하 1층',
   'saladus-eunpyeong': '서울 은평구 연서로20길 3 1층',
   'slow-cali-yeonnam': '서울 마포구 동교로38길 35 2층',
   'southside-parlor-itaewon': '서울 용산구 녹사평대로 218 4층',
@@ -545,11 +548,11 @@ export const ADDRESS_KO = {
   'cafe-manderley-suyu': '서울 강북구 수유로 18 1층',
   'hidden-gem-sogong': '서울 중구 소공로6길 28 1층',
   'trou8les-sinsa': '서울 강남구 가로수길 78 1층',
-  'ny-lots-o-bagels-apgujeong': '서울 강남구 압구정로48길 28',
+  'ny-lots-o-bagels-apgujeong': '서울 강남구 압구정로48길 28 1~2층',
   'jaedong-maetdol-sundubu': '서울 종로구 북촌로2길 6 1층',
-  'onmaeul-samcheong': '서울 종로구 삼청로 127',
+  'onmaeul-samcheong': '서울 종로구 삼청로 127 2~3층',
   'mokwon-seochon-garak': '서울 종로구 자하문로7길 59 1층',
-  'midang-sundubu-jongno': '서울 종로구 청계천로 97-12',
+  'midang-sundubu-jongno': '서울 종로구 청계천로 97-12 1~2층',
   'gangnam-gyoja-ttukseom': '서울 성동구 상원1길 26 1층',
   'okrumong-sinchon': '서울 서대문구 연대동문길 18 1층',
   'jayeon-bapsang-imun': '서울 동대문구 천장산로 39 1층',
@@ -570,9 +573,9 @@ export const ADDRESS_KO = {
   'meokgo-bori-gwanggyo': '경기 수원시 영통구 웰빙타운로36번길 46-107 1층',
   'sodamgol-maetan': '경기 수원시 영통구 인계로291번길 10 1층',
   'sondubuga-ajou': '경기 수원시 영통구 월드컵로179번길 6 1층',
-  'gung-janggijitteok-gwanggyo': '경기 수원시 영통구 센트럴타운로 85',
+  'gung-janggijitteok-gwanggyo': '경기 수원시 영통구 센트럴타운로 85 지하 1층',
   'gung-janggijitteok-suwon-station': '경기 수원시 팔달구 매산로 29 1층',
-  'yellow-forest-gwanggyo': '경기 수원시 영통구 광교호수공원로 277',
+  'yellow-forest-gwanggyo': '경기 수원시 영통구 광교호수공원로 277 지하 1층',
   'vegan-begins-gwanggyo': '경기 수원시 영통구 센트럴타운로 106 1층',
   'bakery-ilsang-songjuk': '경기 수원시 장안구 경수대로955번길 6',
   'bonjuk-seolleung': '서울 강남구 선릉로 424 2층',
@@ -589,9 +592,9 @@ export const ADDRESS_KO = {
   'robot-gimbap-express-terminal': '서울 서초구 신반포로 194 1층',
   'gaeseong-jip-nonhyeon': '서울 강남구 봉은사로1길 6',
   'the-dream-yeoksam': '서울 강남구 언주로85길 13 1층',
-  'daedune-sundubu-gasan': '서울 금천구 가산디지털1로 131',
+  'daedune-sundubu-gasan': '서울 금천구 가산디지털1로 131 지하 1층',
   'daon-memil-makguksu-sinjeong': '서울 양천구 오목로50길 8 1층',
-  'nae-yeoja-seolleung': '서울 강남구 테헤란로 322',
+  'nae-yeoja-seolleung': '서울 강남구 테헤란로 322 지하 1층',
   'cherry-garden-insadong': '서울 종로구 인사동길 29 3층',
   'jyoti-chungmuro': '서울 중구 서애로 12-4',
   'jyoti-sinchon': '서울 마포구 신촌로20길 6 3층',
@@ -619,7 +622,7 @@ export const ADDRESS_KO = {
   'neulimi-gwajajeom-macheon': '서울 송파구 성내천로32길 18 1층',
   'pyeonghyeong-mangwon': '서울 마포구 포은로5길 6 1층',
   'immu-bake-shop-hapjeong': '서울 마포구 양화로6길 57-13 2층',
-  'goodness-club-yongsan': '서울 용산구 신흥로 99-9',
+  'goodness-club-yongsan': '서울 용산구 신흥로 99-9 지하 1층',
   'haedeun-bueok-gwangmyeong': '경기 광명시 일직로12번길 24 2층',
   'kikicoco-mokdong': '서울 양천구 목동중앙본로 52 1층',
   'boot-bread-eungam': '서울 은평구 은평로8길 46 1층',
@@ -634,7 +637,7 @@ export const ADDRESS_KO = {
   'neugeutan-ssalppang-gurye': '전남광주통합특별시 구례군 구례읍 봉서산정길 61-8',
   'ssalssal-hadang-beomeo': '대구 수성구 상록로 80 1층',
   'simsim-bread-chilgok': '경북 칠곡군 북삼읍 금오대로10길 23-5 1층',
-  'hooa-bbanggeut-ulsan': '울산 중구 종가로 655',
+  'hooa-bbanggeut-ulsan': '울산 중구 종가로 655 지하 1층',
   'the-soonsu-bread-daegu': '대구 북구 침산로 153',
   'heeso-jeonpo': '부산 부산진구 전포대로186번길 16 1층',
   'classy-vegan-gwangju': '전남광주통합특별시 광산구 풍영로101번길 22',
@@ -675,11 +678,11 @@ export const ADDRESS_KO = {
   'nanal-sikppang-haengsin': '경기 고양시 덕양구 용현로 3 1층',
   'owol-jegwajeom-gimpo': '경기 김포시 양촌읍 황금로70번길 5-13 1층',
   'ppang-hyanghyun-junghwa': '서울 중랑구 동일로136길 25 1층',
-  'ppang-hyanghyun-dasan': '경기 남양주시 경춘로 490',
+  'ppang-hyanghyun-dasan': '경기 남양주시 경춘로 490 지하 1층',
   'plat-o-yangjae': '서울 서초구 양재천로 103-1 1층',
   'petit-tong-seochon': '서울 종로구 자하문로6길 11-9',
   'uuum-eatery-dogok': '서울 강남구 논현로28길 47 1층',
-  'cafe-songbird-junggye': '서울 노원구 중계로 106',
+  'cafe-songbird-junggye': '서울 노원구 중계로 106 지하 1층',
   'monil2-house-yeonnam': '서울 마포구 성미산로26길 9 1층',
   'backstube-395-seogyo': '서울 마포구 양화로8길 25-3 1층',
   'nuave-gojan-ansan': '경기 안산시 단원구 중앙대로 885 1층',
@@ -692,6 +695,11 @@ export const ADDRESS_KO = {
   'uio-field-station-daejeong': '제주 서귀포시 대정읍 무영로254번길 17',
   'sweet-home-oven-naedong': '대전 서구 도산로 239-2 1층',
   'nutjimi-bakery-mungyeong': '경북 문경시 호계면 부천로 133-1',
+  'nimat-incheon-airport-t2': '인천 영종구 제2터미널대로 446 4층',
+  'annapurna-bucheon': '경기 부천시 원미구 부흥로402번길 45 2층',
+  'haetteuneun-jip-gwangju': '전남광주통합특별시 남구 대남대로223번길 62-2',
+  'hyegyeong-eonni-kalguksu-suncheon': '전남광주통합특별시 순천시 호남길 49',
+  'hello-india-al-waha-jangpyeong': '경남 거제시 장평1로7길 11 1층',
 };
 
 export const koAddress = (place) => ADDRESS_KO[place?.id] ?? null;
@@ -702,5 +710,33 @@ export const koAddress = (place) => ADDRESS_KO[place?.id] ?? null;
 export function koArea(place) {
   const parts = (koAddress(place) ?? '').split(' ');
   if (!parts[0]) return null;
-  return /[시군구]$/.test(parts[1] ?? '') ? `${parts[0]} ${parts[1]}` : parts[0];
+  // Kakao writes Gwangju and Jeollanam-do addresses under the merged
+  // "전남광주통합특별시": too long for a card's one line, so the area line
+  // says which of the two it is — a district (구) is Gwangju's, a city or
+  // county is the province's.
+  const head = parts[0] === '전남광주통합특별시' ? (/구$/.test(parts[1] ?? '') ? '광주' : '전남') : parts[0];
+  return /[시군구]$/.test(parts[1] ?? '') ? `${head} ${parts[1]}` : head;
+}
+
+// The words of the Korean address a search can match: its city, district,
+// town and road — not the building number or the floor, and not Kakao's
+// merged "전남광주통합특별시" (searched as 광주 or 전남, whichever it is).
+const WORDS = new Map();
+function koAddressWords(place) {
+  const id = place?.id;
+  if (!WORDS.has(id)) {
+    const parts = (koAddress(place) ?? '').split(' ').filter(Boolean);
+    if (parts[0] === '전남광주통합특별시') parts[0] = /구$/.test(parts[1] ?? '') ? '광주' : '전남';
+    WORDS.set(id, parts.filter(w => /^[가-힣]/.test(w) && !/층$/.test(w) && w !== '지하'));
+  }
+  return WORDS.get(id);
+}
+// A word of the address, whole: "종로" is 종로 and 종로구, not 태종로; "대구"
+// is not 해운대구; "이태원로" is also 이태원로26길. Two syllables at least —
+// "구" or "로" is in every address. As a substring, "광주" found every
+// address in Jeollanam-do and "층" most of the map (review, 2026-10-05).
+export function koAddressHas(place, word) {
+  if (typeof word !== 'string' || word.length < 2 || !/^[가-힣][가-힣0-9]*$/.test(word)) return false;
+  return koAddressWords(place).some(w => w === word
+    || (w.startsWith(word) && /^(?:\d[0-9가-힣]*|[시군구읍면동])$/.test(w.slice(word.length))));
 }

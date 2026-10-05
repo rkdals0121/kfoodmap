@@ -211,3 +211,18 @@ test('the suggestions under the search box search as the areas they name, in eve
     names.forEach((name, i) => assert.equal(romaniseQuery(name), en[i], `${lang} ${name}`));
   }
 });
+
+// The Korean address is matched by its own words, whole — as a substring
+// "광주" found every address in Jeollanam-do (written under
+// "전남광주통합특별시"), "대구" found Busan's 해운대구, and "층" most of the map.
+test('a Korean address word finds its own district, not one that contains it', async () => {
+  const { koAddressHas, koArea } = await import('../../src/data/address-ko.js');
+  const { restaurants: all } = await import('../../src/data/restaurants.js');
+  const areasOf = (word) => new Set(all.filter(r => koAddressHas(r, word)).map(r => koArea(r)));
+  for (const a of areasOf('광주')) assert.match(a, /^(광주 |경기 광주시)/, a);
+  for (const a of areasOf('대구')) assert.match(a, /^대구 /, a);
+  for (const a of areasOf('동구')) assert.match(a, / 동구$/, a);
+  assert.ok(areasOf('용산구').has('서울 용산구'));
+  assert.ok(all.some(r => koAddressHas(r, '이태원로')), 'a road is found without its side-street number');
+  for (const word of ['층', '로', '구', '1층', '지하']) assert.equal(all.filter(r => koAddressHas(r, word)).length, 0, word);
+});

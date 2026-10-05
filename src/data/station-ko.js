@@ -4,7 +4,8 @@
 // station as a record's transit fact names it and the one Korean station
 // name (…역) quoted in that same fact's evidence. A romanised name whose
 // records quote different Korean names, or none, has no entry and is shown
-// as it is. Generated 2026-10-05 from src/data/restaurants.js.
+// as it is. Generated 2026-10-05 from src/data/restaurants.js. (A bus
+// terminal is not a station: one such pair was taken out by hand.)
 export const STATION_KO = {
   "Amsa": "암사역",
   "Anam": "안암역",
@@ -129,7 +130,6 @@ export const STATION_KO = {
   "Jeongbalsan": "정발산역",
   "Jeongdongjin Station": "정동진역",
   "Jeonpo": "전포역",
-  "Jinju Intercity Bus Terminal": "진주역",
   "Jochiwon": "조치원역",
   "Jonggak": "종각역",
   "Jongno 3-ga": "종로3가역",

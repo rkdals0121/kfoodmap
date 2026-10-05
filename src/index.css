@@ -6485,3 +6485,12 @@ html[data-text='larger'] .detail-bar__map svg {
   word-break: keep-all;
   text-wrap: balance;
 }
+
+/* Korean interface: the romanised address under the Korean one (it can
+   name a building or a unit the Korean line does not). */
+.practical-address-roman {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--muted-strong);
+}

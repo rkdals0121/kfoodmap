@@ -355,13 +355,14 @@ export default function RestaurantDetail({
     // Opened by a shared link, the page already carried this title; closing
     // then returns to the app's own.
     const own = `${placeName} · K-Food Map`;
-    const before = document.title === own ? 'K-Food Map · Vegan & Halal Food in Korea' : document.title;
+    const before = document.title === own ? 'K-Food Map' : document.title;
     document.title = own;
     return () => { document.title = before; };
   }, [placeName]);
 
   useEffect(() => {
     setCopied(false);
+    setKoAddrCopied(false);
     setShared(false);
     setOpenClaim(null);
     if (!restaurant) return;
@@ -489,7 +490,7 @@ export default function RestaurantDetail({
     // The claims as the page states them, with how sure each is — the
     // place's own line can say more ("a halal kitchen") than the record does.
     const claims = dietaryBadges(place).map(b => `${b.label} (${trustBadge(b.fact).label})`).join(' · ');
-    const how = await shareOrCopy({ title: place.name, text: [place.name, claims, place.zone].filter(Boolean).join(' — '), url });
+    const how = await shareOrCopy({ title: place.name, text: [place.name, claims, placeArea(place)].filter(Boolean).join(' — '), url });
     if (how === 'failed') { window.prompt(t('detail.share'), url); return; }
     if (how === 'dismissed') return;
     setShared(how);
@@ -927,6 +928,9 @@ export default function RestaurantDetail({
                 <MapPinIcon size={17} />
                 <span lang={shownAddress === koAddr ? 'ko' : undefined}>
                   {shownAddress}
+                  {shownAddress !== place.address.value && (
+                    <span className="practical-address-roman" lang="en">{place.address.value}</span>
+                  )}
                   {place.address.precision === 'area' && (
                     <span className="practical-muted">{t('detail.areaOnly')}</span>
                   )}

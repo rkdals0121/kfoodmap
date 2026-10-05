@@ -19,6 +19,7 @@ import { matchesArea } from '../src/filters.js';
 import { AREA_NAMES } from '../src/data/area-names.js';
 import { displayName } from '../src/utils.js';
 import { cardById } from '../src/data/staff-cards.js';
+import { koAddress } from '../src/data/address-ko.js';
 
 const SITE_URL = 'https://kfoodmap.vercel.app';
 
@@ -109,6 +110,8 @@ function placeBody(place) {
     + (claims.length ? `<p style="margin:0 0 12px;font-weight:600">${claims.map(escapeHtml).join(' · ')}</p>` : '')
     + (place.vibe ? `<p style="margin:0 0 12px">${escapeHtml(place.vibe)}</p>` : '')
     + (address ? `<p style="margin:0 0 12px;color:#3F444A">${escapeHtml(address)}</p>` : '')
+    // The same address as it is written in Korea (data/address-ko.js).
+    + (koAddress(place) ? `<p lang="ko" style="margin:0 0 12px;color:#3F444A">${escapeHtml(koAddress(place))}</p>` : '')
     + `<p style="margin:0;font-size:13px;color:#616875">Confirmed: checked against a primary source. Reported: a source says so. Our reading: our best guess. If your diet is strict, ask staff before you order.</p>`
     // Where to go from here, for a reader without the app and for a
     // crawler: the guides this place is listed in.
