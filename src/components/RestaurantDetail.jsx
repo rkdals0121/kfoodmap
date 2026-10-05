@@ -207,6 +207,9 @@ export default function RestaurantDetail({
   // …unless it is come back to (Back from "Also nearby", from the cards):
   // then where it was being read, three screens down, not its top again.
   const navigationType = useNavigationType();
+  // Read through a ref by the effects that must not re-run when it changes.
+  const navType = useRef(navigationType);
+  navType.current = navigationType;
   useEffect(() => {
     const sc = scrollRef.current;
     if (!sc) return undefined;
@@ -332,7 +335,12 @@ export default function RestaurantDetail({
     setShared(false);
     setOpenClaim(null);
     if (!restaurant) return;
-    if (focusStory && storyRef.current) {
+    // Come back to (Back from another place): where it was being read,
+    // not the section the first visit asked for.
+    const cameBack = navType.current === 'POP' && scrollMemory.has(restaurant.id);
+    if (cameBack) {
+      sheetRef.current?.focus({ preventScroll: true });
+    } else if (focusStory && storyRef.current) {
       storyRef.current.scrollIntoView({ block: 'start' });
     } else if (focusDirections && directionsRef.current) {
       directionsRef.current.scrollIntoView({ block: 'start' });
@@ -679,7 +687,7 @@ export default function RestaurantDetail({
                     {today && (() => {
                       // The sentence around the hours, and the hours in pieces that
                       // do not break inside a time ("6:00 PM – / 8:20 PM", "午 / 後8:20").
-                      const [before, after = ''] = t('detail.todayHours', { hours: ' ' }).split(' ');
+                      const [before, after = ''] = t('detail.todayHours', { hours: '\u0000' }).split('\u0000');
                       return <span className="practical-muted practical-today">{before}{hoursPieces(today)}{after}</span>;
                     })()}
                     {/* A device on another clock (planning from abroad): say

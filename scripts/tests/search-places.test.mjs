@@ -131,6 +131,10 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.equal(n('ブサン'), n('Busan'));
   assert.equal(n('不含猪肉餐厅'), n('不含猪肉'));
   assert.equal(n('ハラールレストラン'), n('ハラール'));
+  // …but a name that merely ends so is searched as it is.
+  const { romaniseQuery: roman } = await import('../../src/data/area-names.js');
+  assert.equal(roman('아빠의양식당'), null);
+  assert.equal(roman('한식당'), null);
   // A layover's words.
   assert.ok(n('musala') > 0 && n('musala') === n('prayer'));
   assert.equal(n('기도실'), n('prayer'));

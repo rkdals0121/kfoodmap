@@ -63,7 +63,10 @@ export default function usePlaceRecord(place) {
     return () => window.removeEventListener('online', retry);
   }, [failed, retry]);
 
-  return { full: full?.id === id ? full : null, failed, retry };
+  // A record already fetched is returned at once, not a render later: a
+  // page come back to is restored to a scroll position, and without its
+  // menu and transit the page was too short to hold it.
+  return { full: full?.id === id ? full : (id && cache.get(id)) || null, failed, retry };
 }
 
 // Fetch the full records of places someone has saved, so their detail pages

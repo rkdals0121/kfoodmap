@@ -595,7 +595,15 @@ function AppShell() {
     });
   };
   const closeSharedList = () => {
-    setSelectedFilters(prev => prev.filter(f => f !== SHARED_LIST));
+    // Back to what the map showed before the journey took it over (the
+    // diet chosen at the start), not to every place in the country.
+    const kept = beforeList.current;
+    beforeList.current = null;
+    if (kept) {
+      setQuery(kept.q);
+      setAreaOnly(kept.area);
+      setSelectedFilters(kept.filters);
+    } else setSelectedFilters(prev => prev.filter(f => f !== SHARED_LIST));
     navigate('/', { replace: true });
   };
 
@@ -619,7 +627,12 @@ function AppShell() {
           ? { ...before, updatedAt: at }
           : { ...e, savedAt: null, visitedAt: null, updatedAt: at };
       }));
-      setToast({ text: t('detail.visitedNote'), undo, at: now });
+      const undone = () => {
+        undo();
+        setToast({ text: t('detail.unvisitedNote'), undo: null, at: Date.now() });
+        setTimeout(() => (document.querySelector('.detail-sheet') ?? document.getElementById('place-list'))?.focus?.({ preventScroll: true }), 0);
+      };
+      setToast({ text: t('detail.visitedNote'), undo: undone, at: now });
     }
     // …and taking one back is answered too: the button alone gave no sign.
     else setToast({ text: t('detail.unvisitedNote'), undo: null, at: now });
@@ -994,6 +1007,7 @@ function AppShell() {
                   // A shared list lives in the address too; clear it there,
                   // or a reload brings the filter back.
                   if (selectedFilters.includes(SHARED_LIST)) navigate('/', { replace: true });
+                  beforeList.current = null;
                   setSelectedFilters([]);
                   setQuery('');
                   setAreaOnly(false);

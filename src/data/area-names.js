@@ -231,6 +231,7 @@ const peel = (text) => {
   }
 };
 
+const GLUE_HEADS = new Set(['할랄', '비건', '채식', '무슬림', '清真', '纯素', '純素', '素食', '不含猪肉', '不含豬肉', 'ハラール', 'ハラル', 'ヴィーガン', 'ビーガン', '豚肉不使用']);
 const peelEnd = (text) => {
   let rest = text;
   for (;;) {
@@ -268,8 +269,11 @@ export function romaniseQuery(query) {
     }
     // "不含猪肉餐厅", "ハラールレストラン": such a word glued to the end of
     // any other is dropped too.
+    // Only from a word known here — a diet, a kind of kitchen, an area:
+    // from any word, a restaurant called "아빠의양식당" was also searched
+    // as "아빠의양", and "한식당" as "한".
     const head = peelEnd(w);
-    if (head !== w) { changed = true; return [head]; }
+    if (head !== w && (GLUE_HEADS.has(head) || TO_ROMAN.has(head) || LATIN_VARIANTS.has(head.toLowerCase()))) { changed = true; return [head]; }
     return [w];
   });
   // Nothing but such words ("restaurant"): no other reading to offer.

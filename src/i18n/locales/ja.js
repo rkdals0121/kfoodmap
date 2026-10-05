@@ -110,7 +110,7 @@ export default {
     nearestTitle: '「{{query}}」から近い、条件に合うお店:',
     clearSearchOnly: '検索だけクリア(フィルターはそのまま)',
     withoutFilters: 'フィルターなしでは「{{query}}」で {{n}} 件あります。',
-    askStaffHint: '食材やアレルギーは、この地図では記録していません。お店で見せる韓国語のカードにその質問があります:',
+    askStaffHint: '食材やアレルギーは、お店ごとに確認した項目ではありません。説明に記載があっても保証ではありません。お店で尋ねるときは:',
     showPorkFree: '豚肉不使用のお店を見る(ハラールではない)',
     suggestThis: '地図にないお店ですか?提案する',
     nearResults: '上のお店の近くにも:',

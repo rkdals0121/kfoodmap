@@ -66,7 +66,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
   }, [savedFirst]);
   const savedChip = (
     <button
-      className={`chip${selectedFilters.includes(SAVED_ONLY) ? ' active' : ''}`}
+      className={`chip chip--saved${selectedFilters.includes(SAVED_ONLY) ? ' active' : ''}`}
       aria-pressed={selectedFilters.includes(SAVED_ONLY)}
       onClick={() => onToggleFilter(SAVED_ONLY)}
     >

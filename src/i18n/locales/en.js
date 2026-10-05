@@ -111,7 +111,7 @@ export default {
     nearestTitle: 'Nearest places that match, measured from “{{query}}”:',
     clearSearchOnly: 'Clear the search, keep the filters',
     withoutFilters: '“{{query}}” finds {{n}} without the filters.',
-    askStaffHint: 'Ingredients and allergies are not something the map records. The cards have those questions, in Korean, to show staff:',
+    askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
     showPorkFree: 'See pork-free places (not halal)',
     suggestThis: 'Not on the map? Suggest it',
     nearResults: 'Also close to these:',

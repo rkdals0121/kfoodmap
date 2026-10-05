@@ -107,7 +107,7 @@ export default {
     nearestTitle: 'Tempat terdekat yang cocok, diukur dari “{{query}}”:',
     clearSearchOnly: 'Hapus pencarian saja (filter tetap)',
     withoutFilters: 'Tanpa filter, ada {{n}} tempat untuk “{{query}}”.',
-    askStaffHint: 'Bahan dan alergi tidak dicatat di peta ini. Kartu berbahasa Korea untuk ditunjukkan kepada staf memuat pertanyaan itu:',
+    askStaffHint: 'Bahan dan alergen tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya, tetapi itu bukan jaminan. Untuk bertanya kepada dapur:',
     showPorkFree: 'Lihat tempat tanpa babi (bukan halal)',
     suggestThis: 'Belum ada di peta? Usulkan',
     nearResults: 'Dekat tempat-tempat di atas juga ada:',

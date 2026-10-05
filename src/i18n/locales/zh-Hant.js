@@ -106,7 +106,7 @@ export default {
     nearestTitle: '離「{{query}}」最近、符合條件的店：',
     clearSearchOnly: '只清除搜尋字詞（保留篩選）',
     withoutFilters: '不加篩選時，「{{query}}」有 {{n}} 家。',
-    askStaffHint: '食材和過敏資訊不在本地圖的記錄範圍內。給店員看的韓語卡片裡有這些問題：',
+    askStaffHint: '食材和過敏原並非逐店核實的項目，說明裡即使提到也不代表保證。向店員詢問時可用：',
     showPorkFree: '查看不含豬肉的店（非清真）',
     suggestThis: '地圖上沒有？推薦這家店',
     nearResults: '上面的店附近還有：',
