@@ -2826,7 +2826,25 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       ingredient search at the cards; `detail.mapAppsNote` and the
       place's name head the directions section. `detail.halalAlcohol`
       must not say alcohol is "not recorded": half the notes mention it.
-    - Left (docs/MOBILE-AUDIT §14–§17): no Korean addresses, no card or
+    - Map (§18): a cluster tap that would not zoom by fitting (the strip
+      above the sheet is ~248x128 px) zooms one step around the cluster
+      instead; `zoomBy` / `visiblePoint` zoom on the middle of the map
+      that is visible (above the sheet, or right of the panel in
+      landscape); `minZoom={5}` and `maxBounds` keep Korea on screen;
+      `stopIcon(n, true)` keeps a journey stop's number while it is
+      open; the map's buttons hide under an open same-spot popup.
+    - Wording audit (§18): the app's own copy was checked against what
+      the records can support — both-diets note, temple journey and
+      trivia, zero-waste and halal tips, "Fully vegan" note, the bone
+      stock gloss, the update band. The static pages' descriptions say
+      "places recorded as halal-friendly" and carry the no-certificate
+      sentence (`places` / `caveat` on DIETS in prerender-places.mjs).
+      When writing copy: a category-level or tradition-level fact must
+      not be worded as a fact about the place on the page.
+    - `hoursPieces` (RestaurantDetail) prints hours in pieces that do
+      not break inside a time; `usePlaceRecord` returns a cached record
+      in the first render.
+    - Left (docs/MOBILE-AUDIT §14–§18): no Korean addresses, no card or
       choice for vegetarians who eat egg and dairy, area names in the
       reader's script (the lists in area-names.js are not tagged by
       language).
