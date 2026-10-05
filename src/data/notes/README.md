@@ -13,3 +13,8 @@ note changes — retranslate that entry or delete it (the English shows).
 Rules of the translation: complete, nothing added, every hedge and every
 limit of a source kept at its strength, quotations kept as quotations,
 URLs and source names untouched.
+
+An entry may also carry `cert: { body, note }` (the record's
+`dietary.halalCertClaim`, shown as "Certification claimed: …") and
+`timeline` (the record's timeline events, in order), with `of2` as the hash
+of their English.

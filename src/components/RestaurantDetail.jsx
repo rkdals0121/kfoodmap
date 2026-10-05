@@ -700,9 +700,11 @@ export default function RestaurantDetail({
               )}
               {certClaim && (
                 <p className="diet-note__cert">
+                  {/* In the reader's language where it has been translated
+                      (data/notes), else as the record words it. */}
                   {certClaim.note
-                    ? t('detail.certificationClaimedNote', { body: certClaim.body, note: certClaim.note })
-                    : t('detail.certificationClaimed', { body: certClaim.body })}
+                    ? t('detail.certificationClaimedNote', { body: notes?.cert?.body ?? plainNote(certClaim.body), note: notes?.cert?.note ?? plainNote(certClaim.note) })
+                    : t('detail.certificationClaimed', { body: notes?.cert?.body ?? plainNote(certClaim.body) })}
                 </p>
               )}
             </div>
@@ -1022,16 +1024,16 @@ export default function RestaurantDetail({
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
               {/* The UI is translated; a place's own text is not. Say so once,
                   where the English starts, and mark it for screen readers. */}
-              {i18n.language !== 'en' && (!stories?.[place.id]?.story || place.timeline?.length > 0) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
+              {i18n.language !== 'en' && (!stories?.[place.id]?.story || (place.timeline?.length > 0 && !notes?.timeline)) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
               {stories?.[place.id]?.story
                 ? <p className="detail-body" lang={i18n.language}>{stories[place.id].story}</p>
                 : <p className="detail-body" lang="en">{place.story}</p>}
               {place.timeline?.length > 0 && (
-                <ol className="timeline" lang="en">
-                  {place.timeline.map(t => (
+                <ol className="timeline" lang={notes?.timeline ? i18n.language : 'en'}>
+                  {place.timeline.map((t, n) => (
                     <li key={`${t.year}-${t.event}`} className="timeline__item">
                       <span className="timeline__year">{t.year}</span>
-                      <span className="timeline__event">{t.event}</span>
+                      <span className="timeline__event">{notes?.timeline?.[n] ?? t.event}</span>
                     </li>
                   ))}
                 </ol>

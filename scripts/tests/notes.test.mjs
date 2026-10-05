@@ -14,6 +14,10 @@ const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../src/d
 const SHARDS = 16;
 const shardOf = (id) => [...String(id)].reduce((n, ch) => (n + ch.charCodeAt(0)) % SHARDS, 0);
 const shown = (f) => (f && (f.confidence === 'supported' || f.confidence === 'inferred') && typeof f.evidence === 'string' && f.evidence.trim() ? plainNote(f.evidence) : null);
+const certHash = (r) => {
+  const c = r.dietary?.halalCertClaim;
+  return createHash('sha1').update(`${c?.body ? plainNote(c.body) : ''}|${c?.note ? plainNote(c.note) : ''}|${(r.timeline ?? []).map(t => t.event).join('|')}`).digest('hex').slice(0, 8);
+};
 export const noteHash = (r) => createHash('sha1').update(`${shown(r.dietary?.vegan) ?? ''}|${shown(r.dietary?.halal) ?? ''}`).digest('hex').slice(0, 8);
 
 test('every translated note belongs to a place, to its file and to its current English', async () => {
@@ -35,6 +39,12 @@ test('every translated note belongs to a place, to its file and to its current E
         }
         assert.doesNotMatch(entry[key] ?? '', /`/, where);
       }
+      // The certification line and the timeline, where the record has them.
+      const claim = place.dietary?.halalCertClaim;
+      assert.equal(Boolean(entry.cert?.body), Boolean(claim?.body), `${where}: certification body on one side only`);
+      assert.equal(Boolean(entry.cert?.note), Boolean(claim?.note), `${where}: certification note on one side only`);
+      assert.equal(entry.timeline?.length ?? 0, place.timeline?.length ?? 0, `${where}: timeline length`);
+      if (entry.cert || entry.timeline) assert.equal(entry.of2, certHash(place), `${where}: the certification line or timeline changed — retranslate or remove`);
     }
   }
 });
