@@ -79,6 +79,10 @@ const fromMinutes = (total) => {
   // The 12-hour reading, worded by the locale: "10:30 AM", "오전 10:30".
   // Japanese writes the first hour of each half as 0 (午前0:30, 午後0:30):
   // "午前12:00" reads as noon there.
+  // Korean says midnight and noon by name: "오전 12:00" is read as noon by
+  // some and midnight by others.
+  if (tr('clock') === '12k' && h === 0) return m === '00' ? '자정' : `밤 12:${m}`;
+  if (tr('clock') === '12k' && h === 12) return `낮 12:${m}`;
   const hour = tr('clock') === '12h0' ? h % 12 : ((h + 11) % 12) + 1;
   return tr(h < 12 ? 'timeAm' : 'timePm', { time: `${hour}:${m}` });
 };

@@ -86,7 +86,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
     const title = t('journal.shareListTitle');
     // The names with it: a bare address in a chat says nothing of what
     // the list holds.
-    const names = savedList.slice(0, 8).map(x => displayName(x.place.name)).join(', ');
+    // As recorded — "Luna Asia (루나아시아)" — whatever the sender's language:
+    // the list is as often for a visitor as from one.
+    const names = savedList.slice(0, 8).map(x => x.place.name).join(', ');
     const how = await shareOrCopy({ title, text: `${title}: ${names}${savedList.length > 8 ? ', …' : ''}`, url });
     if (how === 'failed') { window.prompt(title, url); return; }
     if (how === 'copied') { setListShared(true); setTimeout(() => setListShared(false), 2500); }

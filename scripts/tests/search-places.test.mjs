@@ -129,6 +129,11 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.ok(n('restaurants in Hongdae') >= n('Hongdae'));
   assert.ok(n('釜山 ランチ') >= n('Busan'));
   assert.equal(n('ブサン'), n('Busan'));
+  // As a Korean host types.
+  assert.equal(n('돼지고기 없는 식당'), n('pork-free'));
+  assert.equal(n('무슬림 프렌들리'), n('halal'));
+  assert.equal(n('이태원 할랄 맛집 추천'), n('이태원 할랄'));
+  assert.ok(n('인도 음식') >= 10 && n('인도 음식') === n('indian'));
   // "pork-free" typed with the Halal chip on is the pork-free places, as the note says.
   assert.equal(searchPlaces({ places, query: 'pork-free', filters: ['Halal'], now: new Date() }).filteredRestaurants.length, n('pork-free'));
   // A town with places but none halal: the nearest halal ones, not a dead end.

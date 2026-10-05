@@ -66,12 +66,17 @@ const ALSO_NAMED = {
   cake: ['ケーキ', '蛋糕', '케이크'],
   coffee: ['コーヒー', '咖啡', '커피'],
   brunch: ['ブランチ', '早午餐', '브런치'],
+  // Kinds of kitchen, as the records' own lines name them in English.
+  indian: ['인도', 'インド', '印度'],
+  turkish: ['터키', '튀르키예', 'トルコ', '土耳其'],
+  nepali: ['네팔', 'ネパール', '尼泊尔', '尼泊爾'],
+  uzbek: ['우즈벡', '우즈베크', '우즈베키스탄', 'ウズベク', '乌兹别克', '烏茲別克'],
   breakfast: ['朝食', '朝ごはん', '早餐', '早饭', '早飯', '아침식사', '아침'],
   Jamsil: ['롯데월드', 'ロッテワールド', '乐天世界', '樂天世界'],
 };
 
 // The entries of ALSO_NAMED that are kinds of cooking, not places.
-export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast']);
+export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'indian', 'turkish', 'nepali', 'uzbek']);
 
 const TO_ROMAN = new Map([
   ...Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
@@ -186,7 +191,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'places', 'lunch', 'dinner',
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の',
-  '附近', '美食', '午餐', '晚餐', '근처', '점심', '저녁', '밥집']);
+  '附近', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
 
 // The query without those words, for the checks that read it whole (is it
 // a station?). The query itself when nothing would be left.

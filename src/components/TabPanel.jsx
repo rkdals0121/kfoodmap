@@ -63,7 +63,10 @@ function claimSummary(stops, t) {
       counts[tone].n += 1;
     }
   }
-  const parts = order.filter(k => counts[k]).map(k => `${counts[k].n} ${counts[k].label.toLowerCase()}`);
+  // Korean puts the count after the word, with a counter.
+  const parts = order.filter(k => counts[k]).map(k => (i18next.language === 'ko'
+    ? `${counts[k].label} ${counts[k].n}건`
+    : `${counts[k].n} ${counts[k].label.toLowerCase()}`));
   return parts.length ? t('discover.journeyClaims', { summary: parts.join(/^(zh|ja)/.test(i18next.language ?? '') ? '、' : ', ') }) : null;
 }
 

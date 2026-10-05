@@ -727,7 +727,10 @@ function AppShell() {
     // Hangul being typed ends in a lone consonant or vowel between
     // syllables ("홍ㄷ" on the way to "홍대"): searched as typed, the list
     // fell to "no places" and back at every letter.
-    const settled = searchQuery.replace(/[\u3131-\u318E]+$/, '');
+    // (Nothing but such letters is left as typed, and finds nothing: emptied,
+    // "ㅎㄹ" listed every place.)
+    const cut = searchQuery.replace(/[\u3131-\u318E]+$/, '');
+    const settled = cut.trim() ? cut : searchQuery;
     if (settled === filterQuery) return undefined;
     if (searchQuery === '') { setFilterQuery(''); return undefined; }
     const id = setTimeout(() => setFilterQuery(settled), 120);
