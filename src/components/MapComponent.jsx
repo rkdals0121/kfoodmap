@@ -585,13 +585,20 @@ function visiblePoint(map) {
   let y = size.y / 2;
   if (sheet && sheet.width > 0 && sheet.height > 0) {
     const acrossWidth = sheet.left <= m.left + 1 && sheet.right >= m.right - 1;
-    const acrossHeight = sheet.top <= m.top + 1 && sheet.bottom >= m.bottom - 65;
+    // (Most of the way down: the tab bar under it is 64 px plus the
+    // phone's home-indicator inset.)
+    const acrossHeight = sheet.top <= m.top + 1 && sheet.bottom >= m.bottom - m.height * 0.4;
     if (acrossWidth && sheet.top > m.top && sheet.top < m.bottom) y = (sheet.top - m.top) / 2;
     else if (acrossHeight && sheet.right > m.left && sheet.right < m.right) {
       x = (sheet.right - m.left) + (m.right - sheet.right) / 2;
       // …and above the tab bar, which lies over the map's foot there.
       y = (Math.min(sheet.bottom, m.bottom) - m.top) / 2;
     }
+  }
+  // A place open beside the list on a wide screen lies over the map's left.
+  const docked = document.querySelector('.detail-sheet--docked')?.getBoundingClientRect();
+  if (docked && docked.width > 0 && docked.right > m.left && docked.right < m.right && docked.left <= m.left + 1) {
+    x = (docked.right - m.left) + (m.right - docked.right) / 2;
   }
   return L.point(x, y);
 }

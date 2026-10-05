@@ -34,8 +34,9 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // redrawn for nothing was most of the wait. The place is the record itself
 // (not a copy), its distance comes beside it, and `tick` is the minute, so
 // "Open" still turns to "Closed" on time.
-// (ナッツ alone: not the end of ドーナッツ or ココナッツ. No lookbehind — older iOS cannot parse one.)
-const ASKS_INGREDIENT = /allerg|alergi|peanut|kacang tanah|gluten|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|アレルギー|ピーナッツ|(?:^|[^ーコ])ナッツ|过敏|過敏|花生/i;
+// (ナッツ: not ドーナッツ or ココナッツ, which are taken out first. No lookbehind — older iOS cannot parse one.)
+const INGREDIENT_WORDS = /allerg|alergi|peanut|kacang tanah|kacang mete|gluten|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
+const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(/ドーナッツ|ココナッツ/g, '')) };
 
 const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null, atLabel = '' }) {
   const { t } = useTranslation();

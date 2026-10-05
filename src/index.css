@@ -6310,3 +6310,11 @@ html[data-text='larger'] .detail-bar__map svg {
   background: var(--ink);
   box-shadow: 0 0 0 3px var(--green-strong);
 }
+
+/* Hours kept as one free sentence ("last order around 9:20-9:40 PM; opening
+   time not confirmed") are a single piece: it goes to the next line whole
+   when it fits there, and wraps inside itself when it is longer than a line. */
+.hours-piece {
+  white-space: normal;
+  max-width: 100%;
+}

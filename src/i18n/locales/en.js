@@ -464,7 +464,7 @@ export default {
     'vegan-dining': {
       didYouKnow: 'Korea\'s plant-based scene is powered by a very old idea: 나물 (namul), the art of seasoning wild greens. Long before \'vegan\' was a word, a proper Korean table was already built around dozens of vegetable dishes.',
       tips: [
-        'Say it when you order: \'저는 비건이에요\' (jeoneun bigeon-ieyo — "I\'m vegan"). Many kitchens do not know the word, so also name what you do not eat — the Korean cards do that for you.',
+        'Say it when you order: \'저는 비건이에요\' (jeoneun bigeon-ieyo — "I\'m vegan"). Many kitchens do not know the word, so also name what you do not eat, or show the Korean card.',
         'In Korean cooking the usual hidden animal ingredients are fish sauce (액젓), anchovy stock (멸치 육수) and egg in batters — worth asking about anywhere, and above all where a place offers vegan options rather than an all-vegan menu.',
       ],
     },
