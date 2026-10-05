@@ -92,6 +92,10 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
     </div>
   );
 
+  // The time in Korea now, in minutes of the day.
+  const korea = new Date(Date.now() + 9 * 3600e3);
+  const nowMinutes = korea.getUTCHours() * 60 + korea.getUTCMinutes();
+
   return (
     <header className="home-header">
       {/* A form, so the keyboard's Search key does something: it puts the
@@ -181,7 +185,12 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
         <div className="plan-row" id="plan-row" role="group" aria-label={t('filters.openAt')}>
           <label>
             <span>{t('filters.openAtDay')}</span>
-            <select value={planAt.day} onChange={(e) => onPlanAt({ ...planAt, day: Number(e.target.value) })}>
+            <select value={planAt.day} onChange={(e) => {
+              const day = Number(e.target.value);
+              // Back to today with a time that has gone by: the next half hour.
+              const minutes = day === koreaToday() && planAt.minutes < nowMinutes ? Math.min(1410, Math.ceil(nowMinutes / 30) * 30) : planAt.minutes;
+              onPlanAt({ day, minutes });
+            }}>
               {/* The week from today, in Korea. */}
               {Array.from({ length: 7 }, (_, i) => (koreaToday() + i) % 7).map((d, i) => (
                 <option key={d} value={d}>
@@ -196,7 +205,10 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
             <span>{t('filters.openAtTime')}</span>
             <select value={planAt.minutes} onChange={(e) => onPlanAt({ ...planAt, minutes: Number(e.target.value) })}>
               {Array.from({ length: 48 }, (_, i) => i * 30).map(m => (
-                <option key={m} value={m}>{formatClock(m)}</option>
+                // Today's hours that have gone by cannot be chosen: picked,
+                // they showed what was open this morning with no word that
+                // the moment had passed.
+                <option key={m} value={m} disabled={planAt.day === koreaToday() && m + 30 <= nowMinutes && m !== planAt.minutes}>{formatClock(m)}</option>
               ))}
             </select>
           </label>
