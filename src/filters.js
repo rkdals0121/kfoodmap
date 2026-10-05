@@ -114,7 +114,13 @@ const DIET_WORDS = {
 // so it is reached by typing it — in any of these wordings.
 // The whole search asks for pork-free places (search.js: the Halal chip then
 // steps aside, since pork-free is by definition not in it).
-export const isPorkFreeQuery = (query) => PORK_FREE_WORDS.has(squash(unpunct(query)));
+// …or one of its words does ("Seoul pork-free", "pork free places").
+export const isPorkFreeQuery = (query) => {
+  const words = unpunct(query).trim().split(/\s+/).filter(Boolean);
+  if (PORK_FREE_WORDS.has(squash(words.join(' ')))) return true;
+  return words.some((w, i) => PORK_FREE_WORDS.has(squash(w))
+    || (i + 1 < words.length && PORK_FREE_WORDS.has(squash(`${w} ${words[i + 1]}`))));
+};
 const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'withoutpork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '포크프리']);
 const dietWordMatch = (r, w) => {
   // Object.hasOwn: typing "constructor" must not find Object.prototype's.

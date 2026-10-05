@@ -194,7 +194,7 @@ export default function RestaurantDetail({
   const retryPressed = useRef(false);
   const placeId = restaurant?.id;
   useEffect(() => { setRetriedFor(null); retryPressed.current = false; }, [placeId]);
-  useEffect(() => { if (fullFailed) setRetriedFor(placeId); }, [fullFailed, placeId]);
+  useEffect(() => { if (fullFailed) { setRetriedFor(placeId); retryPressed.current = false; } }, [fullFailed, placeId]);
   // Loaded after a press on Try again: the line and its button go, and
   // focus goes to the sheet rather than nowhere.
   useEffect(() => {

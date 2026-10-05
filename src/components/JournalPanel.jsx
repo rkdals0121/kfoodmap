@@ -128,11 +128,16 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
   const earnedCount = badges.filter(b => b.earned).length;
   // The row leaves with its button: focus moves to the next row's (or the
   // one before, or the panel) instead of falling off the page.
-  const removeSaved = (id, e) => {
+  const removeSaved = async (id, e) => {
     const li = e?.currentTarget?.closest('li');
     const next = (li?.nextElementSibling ?? li?.previousElementSibling)?.querySelector('.saved-row__remove');
-    onRemoveSaved?.(id);
-    setTimeout(() => (next?.isConnected ? next : panelRef.current)?.focus({ preventScroll: true }), 0);
+    // Awaited: a question may be asked first, and answered "Cancel" — the
+    // row is then still there and focus stays on it.
+    await onRemoveSaved?.(id);
+    setTimeout(() => {
+      if (li?.isConnected) return;
+      (next?.isConnected ? next : panelRef.current)?.focus({ preventScroll: true });
+    }, 0);
   };
   // Where the reader was, kept for this visit: the Journal opened at its
   // top again after every look at the map or another tab.

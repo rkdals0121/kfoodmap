@@ -133,6 +133,10 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.equal(searchPlaces({ places, query: 'pork-free', filters: ['Halal'], now: new Date() }).filteredRestaurants.length, n('pork-free'));
   // A town with places but none halal: the nearest halal ones, not a dead end.
   assert.ok(searchPlaces({ places, query: 'Gyeongju', filters: ['Halal'], now: new Date() }).nearest.length > 0);
+  assert.ok(searchPlaces({ places, query: 'Seogwipo', filters: ['Halal'], now: new Date() }).nearest.length > 0);
+  // A district name six cities share has no middle to measure from.
+  assert.equal(searchPlaces({ places, query: 'Seo-gu', filters: ['Halal', 'Vegan'], now: new Date() }).nearest.length, 0);
+  assert.equal(searchPlaces({ places, query: 'Seoul pork-free', filters: ['Halal'], now: new Date() }).filteredRestaurants.length, n('Seoul pork-free'));
   // …and a station stays a station with them around it.
   assert.equal(ids(go('near Seoul Station')), ids(go('Seoul Station')));
   assert.equal(ids(go('서울역 근처')), ids(go('서울역')));

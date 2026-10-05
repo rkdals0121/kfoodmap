@@ -194,14 +194,18 @@ export function searchPlaces({
     const fromResults = !anchorPlaces && from !== area;
     // From an area, far enough to reach the next city: "Gyeongju" with the
     // Halal chip ended at "no places" while Ulsan, 40 km on, has one.
-    const reach = anchorPlaces ? 4 : fromResults ? 5 : 90;
+    // …but only for a name several places share: one word from a single
+    // address ("Hostel", "Performance") passes for an area too, and from
+    // there 90 km is nonsense.
+    const reach = anchorPlaces ? 4 : fromResults ? 5 : area.length >= 3 ? 90 : 40;
     const points = from.map(coordsOf);
     if (points.length > 0) {
       const lat = points.reduce((sum, c) => sum + c.lat, 0) / points.length;
       const lng = points.reduce((sum, c) => sum + c.lng, 0) / points.length;
       // "Seo-gu" is a district in six cities: its middle is a mountain.
       const spread = Math.max(...points.map(c => haversineKm(lat, lng, c.lat, c.lng)));
-      if (spread <= 30) {
+      // 45, not 30: Seogwipo runs 38 km east to west.
+      if (spread <= 45) {
         nearest = places
           .filter(r => chips(r) && !result.list.includes(r) && openEnough(r) === 'yes')
           .map((r) => { const c = coordsOf(r); return { place: r, km: haversineKm(lat, lng, c.lat, c.lng), soon: openOn && getOpenStatus(r.hours, now)?.soon ? 1 : 0 }; })
