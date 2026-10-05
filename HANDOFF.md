@@ -2764,6 +2764,33 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
     - Left: duplicate reports when the response is lost (needs a client
       id column on `leads`), the sign-in button missing after one failed check,
       the colour tokens that pass AA by a hair.
+74. **2026-10-05 morning — towns without a match, evidence wording.**
+    - `search.js`: `nearest` reaches 90 km from an area three or more
+      places share (40 otherwise), and an area may spread 45 km
+      (Seogwipo); "Gyeongju" + Halal now names the nearest halal places.
+    - Pork-free under the Halal chip: `isPorkFreeQuery` (filters.js, a
+      whole query or one of its words). `App.jsx` turns the Halal chip
+      OFF when such a search is typed — pork-free is not halal and must
+      not be listed under that chip; `search.js` keeps the same rule as
+      a net for the frame before the chip goes.
+    - Cards show a distance only when it is from the visitor
+      (`BottomSheetList`); a planned time is labelled with day and time
+      (`filters.dayTime`) on cards, nearest rows and the Journal; the
+      plan defaults to today 12:00 before 11:00 KST; past half-hours of
+      today are disabled in the picker (`FilterBar`).
+    - `RestaurantDetail`: `NOTE_TERMS` also rewrites the research
+      notes' workshop words for display (tool names, "the X researcher",
+      "(x precedent)", "batch N") — display only, the data is untouched;
+      `noteWithLinks` turns an address in a note into a link.
+    - `index.html`: the loading line and the watchdog's words in six
+      languages (same rule as `detectLanguage`; ES5 only — this script
+      is not transpiled).
+    - Journal: `removeSaved` moves focus on, `removedRef` in `App.jsx`
+      lets one Undo restore every row removed while it showed.
+    - Left (docs/MOBILE-AUDIT §14): no Korean addresses, no card or
+      choice for vegetarians who eat egg and dairy, area names in the
+      reader's script (the lists in area-names.js are not tagged by
+      language).
 
 
 ---
