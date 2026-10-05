@@ -6318,3 +6318,12 @@ html[data-text='larger'] .detail-bar__map svg {
   white-space: normal;
   max-width: 100%;
 }
+
+/* A zoom button at the end of its range. */
+.map-zoom__btn[aria-disabled="true"] {
+  color: #9AA0A6;
+  cursor: default;
+}
+.map-zoom__btn[aria-disabled="true"]:active {
+  background: none;
+}

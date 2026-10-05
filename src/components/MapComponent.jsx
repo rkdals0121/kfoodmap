@@ -611,12 +611,31 @@ function zoomBy(map, step) {
 
 function ZoomButtons({ mapRef }) {
   const { t } = useTranslation();
+  // At the end of the range a button shows that it has nothing left to do
+  // (still focusable: a keyboard does not lose its place when it gets there).
+  const [edge, setEdge] = useState(null);
+  useEffect(() => {
+    let map = null;
+    const read = () => {
+      const z = map.getZoom();
+      setEdge(z <= map.getMinZoom() ? 'min' : z >= map.getMaxZoom() ? 'max' : null);
+    };
+    // The map is created after this first render.
+    const wait = setInterval(() => {
+      map = mapRef.current;
+      if (!map) return;
+      clearInterval(wait);
+      map.on('zoomend', read);
+      read();
+    }, 200);
+    return () => { clearInterval(wait); map?.off('zoomend', read); };
+  }, [mapRef]);
   return (
     <div className="map-zoom">
-      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomIn')} title={t('map.zoomIn')} onClick={() => zoomBy(mapRef.current, 1)}>
+      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomIn')} title={t('map.zoomIn')} aria-disabled={edge === 'max' || undefined} onClick={() => zoomBy(mapRef.current, 1)}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
       </button>
-      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomOut')} title={t('map.zoomOut')} onClick={() => zoomBy(mapRef.current, -1)}>
+      <button type="button" className="map-zoom__btn" aria-label={t('map.zoomOut')} title={t('map.zoomOut')} aria-disabled={edge === 'min' || undefined} onClick={() => zoomBy(mapRef.current, -1)}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M5 12h14" /></svg>
       </button>
     </div>
