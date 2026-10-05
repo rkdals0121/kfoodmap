@@ -2808,7 +2808,15 @@ No known defect that misleads a user. That is the bar P0/P1 were run to; keep it
       indonesian, turkish, nepal, uzbek) — each also in `COOKING` so it
       is never taken for an area; "muslim"/"무슬림 …" are halal diet
       words; `SUGGESTED_IN` gives the datalist in ja / zh.
-    - Left (docs/MOBILE-AUDIT §14, §15): no Korean addresses, no card or
+    - 320 px and landscape (§16): claim marks wrap inside cards and saved
+      rows; `.app-shell.sheet-full .map-zoom` is hidden only in portrait;
+      the welcome button is not sticky under 600 px of height. Strings:
+      `hours.closedTodayLabel` per language, `detail.halalAlcohol` names
+      the cards by each locale's own title, `map.locate*` speak of the
+      list's order (no distance is shown without a location).
+      `slotText` / `lateOrder` pass past-midnight ends as +1440 so the
+      week table says "자정" as the status line does.
+    - Left (docs/MOBILE-AUDIT §14–§16): no Korean addresses, no card or
       choice for vegetarians who eat egg and dairy, area names in the
       reader's script (the lists in area-names.js are not tagged by
       language).
