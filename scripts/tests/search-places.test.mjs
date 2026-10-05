@@ -129,6 +129,16 @@ test('a kind of cooking is searched, and is not an area', async () => {
   assert.ok(n('restaurants in Hongdae') >= n('Hongdae'));
   assert.ok(n('釜山 ランチ') >= n('Busan'));
   assert.equal(n('ブサン'), n('Busan'));
+  // A two-word diet phrase among other words is still the diet, never the
+  // two words apart: nothing that serves pork under "no pork".
+  const got = (q, f = []) => searchPlaces({ places, query: q, filters: f, now: new Date() }).filteredRestaurants;
+  for (const q of ['seoul no pork', 'no pork belly', 'busan no pork']) {
+    for (const r of got(q, ['Halal'])) assert.equal(r.dietary?.halal?.value, 'porkFree', `${q}: ${r.id}`);
+  }
+  assert.equal(n('서울 돼지고기 없는 식당'), n('Seoul pork-free'));
+  assert.equal(n('이태원 무슬림 프렌들리'), n('이태원 할랄'));
+  assert.equal(n('인도네시아 음식'), n('indonesian'));
+  assert.ok(n('indonesian') > 0 && n('네팔') === n('nepal'));
   // As a Korean host types.
   assert.equal(n('돼지고기 없는 식당'), n('pork-free'));
   assert.equal(n('무슬림 프렌들리'), n('halal'));

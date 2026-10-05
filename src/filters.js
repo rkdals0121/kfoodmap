@@ -160,6 +160,15 @@ const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
 // By prefix, so "Lotte World Tower" and "lotte world seoul" are Lotte World.
 const aliasMatch = (r, w) => Object.keys(AREA_ALIASES).some(k => w.startsWith(k) && AREA_ALIASES[k].some(a => areaText(r).includes(a)));
 
+function dietPairs(parts) {
+  const out = [];
+  for (let i = 0; i < parts.length; i += 1) {
+    const pair = i + 1 < parts.length ? squash(`${parts[i]} ${parts[i + 1]}`) : '';
+    if (pair && (PORK_FREE_WORDS.has(pair) || Object.hasOwn(DIET_WORDS, pair))) { out.push(pair); i += 1; } else out.push(squash(parts[i]));
+  }
+  return out;
+}
+
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
   const q = squash(query);
@@ -182,7 +191,10 @@ function searchCore(r, rawQuery) {
   if (asTyped !== q && fields.some(f => startsWord(f, asTyped))) return true;
   // Several words ("Busan korean", "itaewon vegan bakery"): every word must
   // appear somewhere in the place's name, area, address or story.
-  const words = String(query).trim().split(/\s+/).map(squash).filter(w => w.length >= 2);
+  // "no pork", "pork free", "무슬림 프렌들리": two words that are one diet
+  // word stay together. Apart, "seoul no pork" was every Seoul record with a
+  // "no" and a "pork" in its story — places that serve pork among them.
+  const words = dietPairs(String(query).trim().split(/\s+/)).filter(w => w.length >= 2);
   // Words of one letter are dropped, not required: "busan v" (mid-typing)
   // and "제주도" (split into Jeju + 도) are then judged on what is left.
   if (words.length === 0) return false;
@@ -193,7 +205,10 @@ function searchCore(r, rawQuery) {
     const dropped = String(query).trim().split(/\s+/).length > 1;
     return dropped && (fields.some(f => startsWord(f, words[0])) || dietWordMatch(r, words[0]) || aliasMatch(r, words[0]));
   }
-  return words.every(w => startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w));
+  // A pork-free word is answered from the record alone, never from the text:
+  // a story that says "uses no pork" about a halal kitchen, or "no pork
+  // belly" about one that serves it, is not the pork-free level.
+  return words.every(w => (PORK_FREE_WORDS.has(w) ? dietWordMatch(r, w) : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w)));
 }
 
 // Does a search word name this place's area (neighbourhood or address)?

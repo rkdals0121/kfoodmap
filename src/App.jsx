@@ -677,6 +677,17 @@ function AppShell() {
       window.removeEventListener('popstate', onHashChange);
     };
   }, []);
+  // A time of today that has gone by (a link made this morning, a default
+  // set last night, the app left open): on to the next half hour, as the
+  // picker would not let it be chosen.
+  useEffect(() => {
+    if (!openAtOn || !planAt) return;
+    const korea = new Date(clock + 9 * 3600e3);
+    const nowMinutes = korea.getUTCHours() * 60 + korea.getUTCMinutes();
+    if (planAt.day === koreaToday() && planAt.minutes + 30 <= nowMinutes) {
+      setPlanAt({ day: planAt.day, minutes: Math.min(1410, Math.ceil(nowMinutes / 30) * 30) });
+    }
+  }, [openAtOn, planAt, clock]);
   const planDate = useMemo(
     () => (openAtOn ? koreaDateAt(planAt.day, planAt.minutes) : null),
     [openAtOn, planAt],

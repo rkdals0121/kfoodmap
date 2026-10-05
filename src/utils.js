@@ -81,7 +81,9 @@ const fromMinutes = (total) => {
   // "午前12:00" reads as noon there.
   // Korean says midnight and noon by name: "오전 12:00" is read as noon by
   // some and midnight by others.
-  if (tr('clock') === '12k' && h === 0) return m === '00' ? '자정' : `밤 12:${m}`;
+  // …midnight only as the end of a day ("자정까지"): as a start, "내일 자정에
+  // 열어요" is read a day late, so an opening at 00:00 keeps its clock time.
+  if (tr('clock') === '12k' && h === 0 && total >= 1440) return m === '00' ? '자정' : `밤 12:${m}`;
   if (tr('clock') === '12k' && h === 12) return `낮 12:${m}`;
   const hour = tr('clock') === '12h0' ? h % 12 : ((h + 11) % 12) + 1;
   return tr(h < 12 ? 'timeAm' : 'timePm', { time: `${hour}:${m}` });
@@ -207,7 +209,7 @@ export function getOpenStatus(hoursFact, now = new Date(), { nameDay = false } =
     const next = nextOpening();
     // "Closed · opens tomorrow 5:00 PM". With no next opening on record the
     // label stands alone: "Closed · closed today" said it twice.
-    return { open: false, label: tr('closed'), detail: next };
+    return { open: false, label: nameDay ? tr('closed') : tr('closedTodayLabel'), detail: next };
   }
 
   for (const slot of today) {

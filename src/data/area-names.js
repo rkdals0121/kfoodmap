@@ -67,16 +67,18 @@ const ALSO_NAMED = {
   coffee: ['コーヒー', '咖啡', '커피'],
   brunch: ['ブランチ', '早午餐', '브런치'],
   // Kinds of kitchen, as the records' own lines name them in English.
+  indonesian: ['인도네시아', 'インドネシア', '印度尼西亚', '印度尼西亞', '印尼'],
   indian: ['인도', 'インド', '印度'],
   turkish: ['터키', '튀르키예', 'トルコ', '土耳其'],
-  nepali: ['네팔', 'ネパール', '尼泊尔', '尼泊爾'],
+  // "nepal" finds Nepal, Nepali and Nepalese.
+  nepal: ['네팔', 'ネパール', '尼泊尔', '尼泊爾'],
   uzbek: ['우즈벡', '우즈베크', '우즈베키스탄', 'ウズベク', '乌兹别克', '烏茲別克'],
   breakfast: ['朝食', '朝ごはん', '早餐', '早饭', '早飯', '아침식사', '아침'],
   Jamsil: ['롯데월드', 'ロッテワールド', '乐天世界', '樂天世界'],
 };
 
 // The entries of ALSO_NAMED that are kinds of cooking, not places.
-export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'indian', 'turkish', 'nepali', 'uzbek']);
+export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'indian', 'indonesian', 'turkish', 'nepal', 'uzbek']);
 
 const TO_ROMAN = new Map([
   ...Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
@@ -102,6 +104,10 @@ const LATIN_VARIANTS = new Map(Object.entries({
   chigae: 'jjigae',
   kimchee: 'kimchi',
   sarapan: 'breakfast',
+  uzbekistan: 'uzbek',
+  turkey: 'turkish',
+  turkiye: 'turkish',
+  'türkiye': 'turkish',
   // Indonesian words for what the records say in English.
   roti: 'bread',
   kopi: 'coffee',
@@ -257,7 +263,8 @@ const SUGGESTED = ['Seoul', 'Itaewon', 'Myeongdong', 'Hongdae', 'Gangnam', 'Insa
 // suggestion in a list that was all Latin letters. In the order of
 // SUGGESTED; each is also in AREAS above, so it searches as the area.
 const SUGGESTED_IN = {
-  ja: ['ソウル', '梨泰院', '明洞', '弘大', '江南', '仁寺洞', '聖水', '釜山', '仁川', '大邱', '大田', '光州', '蔚山', '済州', '水原', '全州', '慶州', '江陵', '安山'],
+  // Neighbourhoods in kana, as they are typed in Japanese; cities in kanji.
+  ja: ['ソウル', 'イテウォン', 'ミョンドン', 'ホンデ', 'カンナム', 'インサドン', 'ソンス', '釜山', '仁川', '大邱', '大田', '光州', '蔚山', '済州', '水原', '全州', '慶州', '江陵', '安山'],
   'zh-Hans': ['首尔', '梨泰院', '明洞', '弘大', '江南', '仁寺洞', '圣水', '釜山', '仁川', '大邱', '大田', '光州', '蔚山', '济州', '水原', '全州', '庆州', '江陵', '安山'],
   'zh-Hant': ['首爾', '梨泰院', '明洞', '弘大', '江南', '仁寺洞', '聖水', '釜山', '仁川', '大邱', '大田', '光州', '蔚山', '濟州', '水原', '全州', '慶州', '江陵', '安山'],
 };

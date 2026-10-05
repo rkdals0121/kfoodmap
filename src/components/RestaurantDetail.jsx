@@ -200,44 +200,52 @@ export default function RestaurantDetail({
   const { full, failed: fullFailed, retry: retryFull } = usePlaceRecord(restaurant);
   // The menu, transit and phone arrive after the page is up and are put in
   // above the directions: on a slow link the reader has scrolled by then,
-  // and the button under the thumb moved a quarter of a screen. What was
-  // at the top of the view is noted as the page scrolls, and when the
-  // details land the scroll is moved by as much as that element moved.
+  // and the button under the thumb moved a quarter of a screen. The first
+  // thing in view is noted (as the page scrolls and after every render),
+  // and when the details land the scroll moves by as much as it moved.
+  // The first thing, not the middle one: what grows below the top of the
+  // view — an open "Why?" being filled in — must not push its own start
+  // out of sight.
   const anchor = useRef(null);
+  const hadFull = useRef(false);
+  const noteAnchor = () => {
+    const sc = scrollRef.current;
+    if (!sc) return;
+    const top = sc.getBoundingClientRect().top;
+    // Found by its box, level by level (a few levels is fine enough).
+    let el = sc.scrollTop > 0 ? sc.querySelector('.detail-content') : null;
+    for (let depth = 0; el && depth < 4; depth += 1) {
+      const child = [...el.children].find((c) => {
+        const r = c.getBoundingClientRect();
+        // Not the loading line, which goes when the details come.
+        return r.height > 0 && r.bottom > top + 1 && !c.classList.contains('detail-loading');
+      });
+      if (!child) break;
+      el = child;
+    }
+    if (el?.classList.contains('detail-content')) el = null;
+    anchor.current = el ? { el, top: el.getBoundingClientRect().top } : null;
+  };
   useEffect(() => {
     const sc = scrollRef.current;
     if (!sc) return undefined;
-    const note = () => {
-      // What is under the middle of the view — not the loading line, which
-      // goes when the details come.
-      const box = sc.getBoundingClientRect();
-      const mid = box.top + box.height / 2;
-      // Found by its box, level by level (a few levels is fine enough).
-      let el = sc.scrollTop > 0 ? sc.querySelector('.detail-content') : null;
-      for (let depth = 0; el && depth < 4; depth += 1) {
-        const child = [...el.children].find((c) => {
-          const r = c.getBoundingClientRect();
-          return r.height > 0 && r.top <= mid && r.bottom >= mid;
-        });
-        if (!child) break;
-        el = child;
-      }
-      if (el?.classList.contains('detail-content')) el = null;
-      const loading = el?.closest('.detail-loading');
-      if (loading) el = loading.nextElementSibling ?? loading.previousElementSibling;
-      anchor.current = el ? { el, top: el.getBoundingClientRect().top } : null;
-    };
-    sc.addEventListener('scroll', note, { passive: true });
-    return () => { sc.removeEventListener('scroll', note); anchor.current = null; };
+    sc.addEventListener('scroll', noteAnchor, { passive: true });
+    return () => { sc.removeEventListener('scroll', noteAnchor); anchor.current = null; };
     // Per place: the sheet (and its scroller) is only there while one is open.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurant?.id]);
+  // After every render: move once, in the render that brought the details;
+  // then measure again, so the note is never older than the layout.
   useLayoutEffect(() => {
     const sc = scrollRef.current;
     const a = anchor.current;
-    if (!full || !sc || !a?.el.isConnected) return;
-    const moved = a.el.getBoundingClientRect().top - a.top;
-    if (Math.abs(moved) > 1) sc.scrollTop += moved;
-  }, [full]);
+    if (sc && full && !hadFull.current && a?.el.isConnected) {
+      const moved = a.el.getBoundingClientRect().top - a.top;
+      if (Math.abs(moved) > 1) sc.scrollTop += moved;
+    }
+    hadFull.current = Boolean(full);
+    noteAnchor();
+  });
   // The place whose details have failed to load at least once: from then on
   // the retry button stays (dimmed while asking), so focus is not lost when
   // the app asks again by itself.
@@ -590,6 +598,10 @@ export default function RestaurantDetail({
                       {t(claimFull ? 'detail.claimLess' : 'detail.claimMore')}
                     </button>
                   )}
+                  {/* What the halal label leaves out, said in the reader's
+                      language: the note above is in English, and "alcohol
+                      may be sold" was its last line when it was there at all. */}
+                  {id === 'halal' && <p className="claim-explain__meta">{t('detail.halalAlcohol')}</p>}
                   <p className="claim-explain__meta">
                     {t('detail.claimSource', { source: sourceWithSite(f) })}
                     {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
