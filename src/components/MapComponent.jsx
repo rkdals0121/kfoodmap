@@ -252,7 +252,10 @@ const reduceMotion = () => typeof window !== 'undefined' && Boolean(window.match
 // with every place under one dot beneath it and no way back but pinching.
 // Korea with room around it (the list covers half the screen, so the
 // south needs slack for Jeju to sit above it).
-const KOREA_AND_AROUND = [[24, 114], [46, 142]];
+// Wide to the south: at the lowest zoom the screen is a dozen degrees
+// tall, and with tighter bounds Korea sat fixed behind the list, unable to
+// be dragged up into view.
+const KOREA_AND_AROUND = [[10, 104], [52, 150]];
 
 function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
   const size = map.getSize();
@@ -584,7 +587,11 @@ function visiblePoint(map) {
     const acrossWidth = sheet.left <= m.left + 1 && sheet.right >= m.right - 1;
     const acrossHeight = sheet.top <= m.top + 1 && sheet.bottom >= m.bottom - 65;
     if (acrossWidth && sheet.top > m.top && sheet.top < m.bottom) y = (sheet.top - m.top) / 2;
-    else if (acrossHeight && sheet.right > m.left && sheet.right < m.right) x = (sheet.right - m.left) + (m.right - sheet.right) / 2;
+    else if (acrossHeight && sheet.right > m.left && sheet.right < m.right) {
+      x = (sheet.right - m.left) + (m.right - sheet.right) / 2;
+      // …and above the tab bar, which lies over the map's foot there.
+      y = (Math.min(sheet.bottom, m.bottom) - m.top) / 2;
+    }
   }
   return L.point(x, y);
 }
@@ -675,7 +682,7 @@ function MapComponent({
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
       {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} />}
       <ZoomButtons mapRef={mapRef} />
-      <MapContainer ref={mapRef} center={MAP_CENTER} zoom={12} minZoom={5} maxBounds={KOREA_AND_AROUND} maxBoundsViscosity={0.6} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
+      <MapContainer ref={mapRef} center={MAP_CENTER} zoom={12} minZoom={6} maxBounds={KOREA_AND_AROUND} maxBoundsViscosity={0.6} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>
         {/* Top right, not Leaflet's bottom right: on a phone the list sheet
             and tab bar cover the map's bottom edge, which hid the
             OpenStreetMap credit its licence requires. */}
