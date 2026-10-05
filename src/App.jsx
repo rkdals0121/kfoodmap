@@ -276,7 +276,10 @@ function AppShell() {
     );
   };
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [sheetState, setSheetState] = useState(1); // 0: Collapsed, 1: Half, 2: Expanded
+  // A link that opens with "Open at…" on (the day and time row showing)
+  // starts with the sheet fully open on a phone: at half height that row
+  // and the notes left no card in view (the first one began under the tab bar).
+  const [sheetState, setSheetState] = useState(() => (typeof window !== 'undefined' && /[#&]f=[^&]*Open(\+|%20)at/i.test(window.location.hash) ? 2 : 1)); // 0: Collapsed, 1: Half, 2: Expanded
   const [handleDown, setHandleDown] = useState(false);
   // Which way the handle's next tap goes from the half height: down if the
   // sheet came there from full — by a tap, a drag or the list's scroll.
