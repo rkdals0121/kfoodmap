@@ -323,11 +323,12 @@ export default defineConfig({
             },
           },
           // The stories in the visitor's language: kept once fetched, so a
-          // saved place reads in that language offline too. The file name
-          // carries a hash of its content, so a stored copy is never stale.
+          // saved place reads in that language offline too. Revalidated
+          // like the auth chunk above, for the same reason: a captive
+          // portal's page stored under this name must not stay for good.
           {
             urlPattern: /\/assets\/story-[^/]+\.js$/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'kfm-stories',
               expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 365 },

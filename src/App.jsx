@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import { loadStories } from './hooks/useStories';
 import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from './data/restaurants';
@@ -161,6 +162,13 @@ function AppShell() {
       ? `${titles[activeTab]} · K-Food Map`
       : `K-Food Map · ${t('prologue.title').replace(/[.。]$/, '')}`;
   }, [activeTab, id, location.pathname, i18n.language, t]);
+  // The stories in the reader's language are fetched in a quiet moment
+  // after the map is up, so that a place saved for later reads in that
+  // language without a connection too — not with the first screen.
+  useEffect(() => {
+    const id = setTimeout(() => { if (navigator.onLine !== false) loadStories(i18n.language); }, 6000);
+    return () => clearTimeout(id);
+  }, [i18n.language]);
   const beforeList = useRef(null);
   // Only the map's own address decides the list: while a place or a sheet
   // is open over it, the list in force stays.

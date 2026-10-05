@@ -664,7 +664,14 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
     const byHand = () => { touched.current = true; };
     // Only the move a hand made is asked about: a pin pressed afterwards
     // moves the map by itself, and that is not a reason to offer.
-    const moved = () => { if (touched.current) { touched.current = false; read(); } };
+    // Asked once the gesture has settled: a drag that turns into a pinch
+    // ends twice, and the first end is not where the map comes to rest.
+    let settle = null;
+    const moved = () => {
+      if (!touched.current) return;
+      clearTimeout(settle);
+      settle = setTimeout(() => { touched.current = false; read(); }, 350);
+    };
     const read = () => {
       const now = latest.current;
       const box = visibleBox(map);
@@ -687,7 +694,7 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
       map.on('dragstart', byHand);
       map.on('dblclick', byHand);
     }, 200);
-    return () => { clearInterval(wait); check.current = () => {}; map?.off('moveend', moved); map?.off('dragstart', byHand); map?.off('dblclick', byHand); };
+    return () => { clearInterval(wait); clearTimeout(settle); check.current = () => {}; map?.off('moveend', moved); map?.off('dragstart', byHand); map?.off('dblclick', byHand); };
   }, [mapRef, touched]);
   // A chip or a search changes what is listed without moving the map.
   // …which can only take the offer away (it is not a move by hand).

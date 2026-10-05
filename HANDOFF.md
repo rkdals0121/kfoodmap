@@ -3396,6 +3396,39 @@ Run `--prove-can-fail` before trusting a green `verify-rls`: it substitutes
 an over-privileged key for the test user's token, and failures are then the
 expected result. A suite that still passes under a wrong identity is proving
 nothing. As of 2026-09-28 it reports 11 of 15 failing.
+75. **2026-10-05 afternoon and evening — owner's decisions, Korean data, stories in five languages** (docs/MOBILE-AUDIT §17–§21).
+    - Brand line is "The other side of K-food." / "K-푸드의 또 다른 매력, 미식
+      지도" (owner: a food map showing another side of K-food, not a
+      vegan/halal directory); what the places are is said in the line
+      under it. The Confirmed legend no longer cites visits (none on
+      record). Korean label for Reported is 알려짐.
+    - Phone: a place opened from its pin opens at the list's height
+      (`placePeek` in `App.jsx`, `location.state.peek`,
+      `.detail-sheet--peek`); the map stays live, a press on the bare
+      map closes it (`MapClicks`, delayed 280 ms), a scroll or pull up
+      makes it the full modal page. "Search this area"
+      (`SearchAreaButton`, `mapBox` in `App.jsx`) narrows the list only,
+      and only after a move made by hand.
+    - `src/data/address-ko.js`: 682 of 684 addresses as written in Korea,
+      each tied to its record (Kakao place search through
+      `/api/place-search` on the recorded coordinates with the recorded
+      building number, or quoted in the record's own evidence) — never
+      transliterated. `koAddressHas` matches whole address words
+      (substring matching made "광주" find all of Jeollanam-do).
+      `src/data/station-ko.js`: station names quoted in the transit
+      evidence. `src/place-area.js`: the area line by language.
+    - `src/data/story-<lang>.js` (ko, ja, zh-Hans, zh-Hant, id): every
+      `story` and `esg_point` translated, nothing added, hedges kept.
+      Each entry has `of`, a hash of its English; `scripts/tests/
+      stories.test.mjs` fails when a record's English changes — then
+      retranslate that entry or delete it (the English shows).
+      `useStories` loads the file for the interface language; the files
+      are left out of the precache and kept by a runtime route
+      (`kfm-stories`).
+    - Left: evidence notes and menu names are English in every
+      language; two places have no Korean address (makan, akiya); the
+      translations were checked against the English on a sample (100
+      Korean, 75 each of the others), not place by place.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

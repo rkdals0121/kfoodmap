@@ -55,11 +55,15 @@ function SectionHead({ Icon, title, kr }) {
 // Menu prices as one format: most records say "14,000 KRW", 91 dishes carry
 // a bare "11000", and a few carry a placeholder word ("unknown") that is
 // not a price.
-function formatPrice(price) {
+// …and in the currency word of the reader's language where it has one
+// ("14,000원", "約19,000ウォン"): the figure is the record's, untouched.
+const WON = { ko: ['원', '약 '], ja: ['ウォン', '約'], 'zh-Hans': ['韩元', '约'], 'zh-Hant': ['韓元', '約'] };
+function formatPrice(price, lang) {
   const p = typeof price === 'number' ? String(price) : (price ?? '').trim();
-  if (/^\d+$/.test(p)) return `${Number(p).toLocaleString('en-US')} KRW`;
   if (p === '' || /^(unknown|price not listed)$/i.test(p)) return null;
-  return p;
+  const krw = /^\d+$/.test(p) ? `${Number(p).toLocaleString('en-US')} KRW` : p;
+  const [unit, about] = WON[lang] ?? [];
+  return unit ? krw.replace(/\s?KRW/g, unit).replace(/^~\s?/, about) : krw;
 }
 
 // Where a claim was read, by site: "The restaurant (mahinavegan.com)" and
@@ -884,7 +888,7 @@ export default function RestaurantDetail({
                   {place.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
                       <span><KoText>{m.name}</KoText></span>
-                      <span className="menu-row__price">{formatPrice(m.price) ?? t('detail.priceNotListed')}</span>
+                      <span className="menu-row__price">{formatPrice(m.price, i18n.language) ?? t('detail.priceNotListed')}</span>
                     </div>
                   ))}
                 </div>
@@ -1040,12 +1044,12 @@ export default function RestaurantDetail({
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
               {/* The UI is translated; a place's own text is not. Say so once,
                   where the English starts, and mark it for screen readers. */}
-              {i18n.language !== 'en' && !stories?.[place.id]?.story && <p className="section-note">{t('detail.contentInEnglish')}</p>}
+              {i18n.language !== 'en' && (!stories?.[place.id]?.story || place.timeline?.length > 0) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
               {stories?.[place.id]?.story
                 ? <p className="detail-body" lang={i18n.language}>{stories[place.id].story}</p>
                 : <p className="detail-body" lang="en">{place.story}</p>}
               {place.timeline?.length > 0 && (
-                <ol className="timeline">
+                <ol className="timeline" lang="en">
                   {place.timeline.map(t => (
                     <li key={`${t.year}-${t.event}`} className="timeline__item">
                       <span className="timeline__year">{t.year}</span>

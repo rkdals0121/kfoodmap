@@ -39,3 +39,13 @@ test('the Korean stories keep to the map\'s wording', () => {
     assert.doesNotMatch(entry.story, /`/, `${lang}/${key}`);
   }
 });
+
+// A place left out of a language would show English there without anyone
+// noticing: every listed place has its story in each of the five.
+test('every listed place has a story in each language', async () => {
+  const { isQuarantined } = await import('../../src/data/verification.js');
+  for (const [lang, stories] of Object.entries(ALL)) {
+    const missing = restaurants.filter(r => !isQuarantined(r) && !stories[r.id]).map(r => r.id);
+    assert.deepEqual(missing, [], `${lang}: no story for these places`);
+  }
+});

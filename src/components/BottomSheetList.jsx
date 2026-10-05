@@ -42,7 +42,7 @@ const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ??
 
 const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null, atLabel = '' }) {
   const { t, i18n } = useTranslation();
-  const stories = useStories();
+  const stories = useStories(Boolean(lens));
   const name = displayName(place.name);
   // With "Open at…" on, the card answers for that time, as the list does.
   const status = getOpenStatus(place.hours, at ?? undefined, { nameDay: Boolean(at) });
@@ -353,7 +353,9 @@ export default function BottomSheetList({
 
       {/* "Pusan" or "釜山" was also searched as "Busan": say so, so the
           results are not a mystery and the spelling on signs is learned. */}
-      {searchQuery.trim() && (romaniseQuery(matchQuery) || matchQuery !== searchQuery) && (
+      {/* Not a half-romanised one ("Itaewon 로" for 이태원로): that was found
+          by its Korean address, and the line only looked like a mistake. */}
+      {searchQuery.trim() && (romaniseQuery(matchQuery) || matchQuery !== searchQuery) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && (
         <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(matchQuery) ?? matchQuery })}</p>
       )}
 

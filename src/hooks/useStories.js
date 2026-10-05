@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // The places' stories in the language of the interface (data/story-*.js),
-// fetched the first time that language is used and kept for the visit.
+// fetched the first time that language needs them and kept for the visit.
 // Null in English — the records' own text — and until the file has
 // arrived: the English shows meanwhile.
 const LOADERS = {
@@ -13,23 +13,33 @@ const LOADERS = {
   id: () => import('../data/story-id.js'),
 };
 const cache = new Map();
-const pending = new Map();
+const pending = new Set();
+// Everything showing a story hears of an arrival, whichever of them asked.
+const listeners = new Set();
+const subscribe = (fn) => { listeners.add(fn); return () => listeners.delete(fn); };
 
-export function useStories() {
+export function loadStories(lang) {
+  if (!LOADERS[lang] || cache.has(lang) || pending.has(lang)) return;
+  pending.add(lang);
+  LOADERS[lang]()
+    .then((m) => { cache.set(lang, m.STORIES); })
+    // Offline with the file not yet stored: asked again when back online.
+    .catch(() => {})
+    .finally(() => { pending.delete(lang); listeners.forEach(fn => fn()); });
+}
+
+// `wanted` false: read what is already here without asking for the file (a
+// list card only shows its line under a sustainability chip).
+export function useStories(wanted = true) {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const [, arrived] = useState(0);
+  const stories = useSyncExternalStore(subscribe, () => cache.get(lang) ?? null, () => null);
   useEffect(() => {
-    if (!LOADERS[lang] || cache.has(lang)) return undefined;
-    let live = true;
-    if (!pending.has(lang)) {
-      pending.set(lang, LOADERS[lang]()
-        .then((m) => { cache.set(lang, m.STORIES); return true; })
-        // Offline with the file not yet stored: asked again next time.
-        .catch(() => { pending.delete(lang); return false; }));
-    }
-    pending.get(lang).then((ok) => { if (live && ok) arrived(n => n + 1); });
-    return () => { live = false; };
-  }, [lang]);
-  return cache.get(lang) ?? null;
+    if (!wanted) return undefined;
+    loadStories(lang);
+    const again = () => loadStories(lang);
+    window.addEventListener('online', again);
+    return () => window.removeEventListener('online', again);
+  }, [lang, wanted]);
+  return stories;
 }

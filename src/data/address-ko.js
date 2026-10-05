@@ -732,11 +732,11 @@ function koAddressWords(place) {
   return WORDS.get(id);
 }
 // A word of the address, whole: "종로" is 종로 and 종로구, not 태종로; "대구"
-// is not 해운대구; "이태원로" is also 이태원로26길. Two syllables at least —
+// is not 해운대구; "이태원로" and "이태원로26" are also 이태원로26길. Two syllables at least —
 // "구" or "로" is in every address. As a substring, "광주" found every
 // address in Jeollanam-do and "층" most of the map (review, 2026-10-05).
 export function koAddressHas(place, word) {
   if (typeof word !== 'string' || word.length < 2 || !/^[가-힣][가-힣0-9]*$/.test(word)) return false;
   return koAddressWords(place).some(w => w === word
-    || (w.startsWith(word) && /^(?:\d[0-9가-힣]*|[시군구읍면동])$/.test(w.slice(word.length))));
+    || (w.startsWith(word) && /^(?:\d[0-9가-힣]*|[시군구읍면동리가길]|번길)$/.test(w.slice(word.length))));
 }
