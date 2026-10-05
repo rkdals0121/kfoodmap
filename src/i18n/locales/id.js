@@ -436,7 +436,7 @@ export default {
   // tips makan singkat. Tips umum, bukan fakta tentang suatu tempat.
   cultureText: {
     'temple': {
-      didYouKnow: 'Masakan kuil Korea melarang bawang putih, bawang bombai, kucai, bawang prei, dan daun bawang — \'lima sayuran beraroma tajam\' — karena para biksu percaya bahan-bahan itu membangkitkan emosi yang kuat. Setiap rasa mendalam yang Anda cicipi di sini justru berasal dari fermentasi dan kesabaran.',
+      didYouKnow: 'Masakan kuil Korea melarang bawang putih, bawang bombai, kucai, bawang prei, dan daun bawang — \'lima sayuran beraroma tajam\' — karena para biksu percaya bahan-bahan itu membangkitkan emosi yang kuat. Dalam tradisi itu, rasa yang mendalam justru berasal dari fermentasi dan kesabaran. Apakah dapur ini mengikutinya, tanyakan kepada mereka.',
       tips: [
         'Makanlah seperti biksu: menghabiskan semua isi mangkuk adalah intinya — praktik yang disebut 발우공양 (balwoo gongyang) tidak menyisakan sebutir nasi pun.',
         'Cicipi hidangan kecil satu per satu. Setiap banchan dibumbui untuk dimakan bersama nasi, bukan dimakan tersendiri.',

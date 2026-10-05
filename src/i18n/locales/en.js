@@ -446,7 +446,7 @@ export default {
   // short dining tips. General tips, not facts about a place.
   cultureText: {
     'temple': {
-      didYouKnow: 'Korean temple cuisine bans garlic, onions, chives, leeks and green onions — the \'five pungent vegetables\' — because monks believe they stir up strong emotions. Every deep flavor you taste here comes from fermentation and slow patience instead.',
+      didYouKnow: 'Korean temple cuisine bans garlic, onions, chives, leeks and green onions — the \'five pungent vegetables\' — because monks believe they stir up strong emotions. In that tradition the deep flavors come from fermentation and slow patience instead. Whether this kitchen keeps to it is for the kitchen to say.',
       tips: [
         'Eat like a monk: finishing everything in your bowl is the point — the practice called 발우공양 (balwoo gongyang) leaves not a single grain of rice behind.',
         'Taste the small dishes one by one. Each banchan is seasoned to be eaten with rice, not on its own.',
