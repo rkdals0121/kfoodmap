@@ -84,6 +84,7 @@ const fromMinutes = (total) => {
   // …midnight only as the end of a day ("자정까지"): as a start, "내일 자정에
   // 열어요" is read a day late, so an opening at 00:00 keeps its clock time.
   if (tr('clock') === '12k' && h === 0 && total >= 1440) return m === '00' ? '자정' : `밤 12:${m}`;
+  if (tr('clock') === '12k' && h === 0) return `오전 0:${m}`;
   if (tr('clock') === '12k' && h === 12) return `낮 12:${m}`;
   const hour = tr('clock') === '12h0' ? h % 12 : ((h + 11) % 12) + 1;
   return tr(h < 12 ? 'timeAm' : 'timePm', { time: `${hour}:${m}` });
@@ -209,7 +210,9 @@ export function getOpenStatus(hoursFact, now = new Date(), { nameDay = false } =
     const next = nextOpening();
     // "Closed · opens tomorrow 5:00 PM". With no next opening on record the
     // label stands alone: "Closed · closed today" said it twice.
-    return { open: false, label: nameDay ? tr('closed') : tr('closedTodayLabel'), detail: next };
+    // For a day the reader picked: the day-off word ("휴무", "Closed").
+    const dayOff = tr('closedWord');
+    return { open: false, label: nameDay ? dayOff.charAt(0).toUpperCase() + dayOff.slice(1) : tr('closedTodayLabel'), detail: next };
   }
 
   for (const slot of today) {
@@ -271,7 +274,16 @@ const slotText = (sl) => {
   const from = toMinutes(sl.from);
   const to = toMinutes(sl.to);
   if (from != null && to != null && (to - from >= 1440 || (from === 0 && (to === 0 || to === 1440)))) return tr('allDay');
-  return `${fromMinutes(from)} – ${fromMinutes(to)}`;
+  // An end at or before its start is past midnight: said as the status
+  // line says it ("자정", not "오전 12:00").
+  return `${fromMinutes(from)} – ${fromMinutes(from != null && to != null && to <= from ? to + 1440 : to)}`;
+};
+
+// A last order earlier on the clock than the slot's start is after midnight.
+const lateOrder = (sl) => {
+  const from = toMinutes(sl.from);
+  const lo = toMinutes(sl.lastOrder);
+  return from != null && lo != null && lo < from ? lo + 1440 : lo;
 };
 
 /** Today's printed hours, e.g. "11:30 AM – 3:00 PM, 6:00 PM – 8:20 PM". */
@@ -307,7 +319,7 @@ export function weekHours(hoursFact, now = new Date()) {
         // has capitals ("Closed"), not the "closed now" label.
         ? tr('closedWord').charAt(0).toUpperCase() + tr('closedWord').slice(1)
         : slots.map(sl => (sl.lastOrder
-          ? `${slotText(sl)} (${tr('lastOrderAt', { time: fromMinutes(toMinutes(sl.lastOrder)) })})`
+          ? `${slotText(sl)} (${tr('lastOrderAt', { time: fromMinutes(lateOrder(sl)) })})`
           : slotText(sl))).join(', ');
     return { key, day: tr(`day.${key}`), text, today: key === todayKey };
   });
