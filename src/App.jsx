@@ -29,7 +29,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery } from './filters';
 import { searchPlaces } from './search';
 import { takeFreshList } from './freshList';
 import './index.css';
@@ -744,6 +744,16 @@ function AppShell() {
     bookmarkedIds,
     sharedIds,
   }), [selectedFilters, filterQuery, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
+
+  // "pork-free" typed with the Halal chip on: the chip goes off, as it does
+  // when the note's own button is pressed. The search finds them either
+  // way (search.js), but a list of pork-free places must not stand under a
+  // chip that says Halal — pork-free is not halal.
+  useEffect(() => {
+    if (isPorkFreeQuery(filterQuery) && selectedFilters.includes('Halal')) {
+      setSelectedFilters(prev => prev.filter(f => f !== 'Halal'));
+    }
+  }, [filterQuery, selectedFilters]);
 
   // The same function object on every render, always calling the latest
   // version: what lets the memoised map skip renders it does not need.
