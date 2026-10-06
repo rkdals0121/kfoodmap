@@ -11,15 +11,23 @@ import { MENU as zhHant } from '../../src/data/menu-zh-Hant.js';
 import { MENU as id } from '../../src/data/menu-id.js';
 
 const names = new Set(restaurants.flatMap(r => (Array.isArray(r.menus?.value) ? r.menus.value.map(m => m.name) : [])));
-const DIET = /비건|vegan|ヴィーガン|ビーガン|纯素|純素|할랄|halal|ハラール|ハラル|清真/i;
-const SAYS = /비건|vegan|할랄|halal|채식|vegetarian|veggie|veg\b|plant/i;
+// Each diet word in a gloss needs its own word in the name: "vegan" is not
+// licensed by "vegetarian", "veggie" or "plant" (eggplant).
+const VEGAN = /vegan|ヴィーガン|ビーガン|纯素|純素|全素/i;
+const HALAL = /halal|ハラール|ハラル|清真/i;
+const NAME_VEGAN = /비건|vegan|\bvg\b/i;
+const NAME_HALAL = /할랄|halal/i;
 
 test('every menu gloss is for a menu item on record and adds no diet word', () => {
+  let count = 0;
   for (const [lang, glosses] of Object.entries({ en, ja, 'zh-Hans': zhHans, 'zh-Hant': zhHant, id })) {
     for (const [name, gloss] of Object.entries(glosses)) {
       assert.ok(names.has(name), `${lang}: no menu item named "${name}"`);
       assert.ok(typeof gloss === 'string' && gloss.trim(), `${lang}: empty gloss for "${name}"`);
-      if (DIET.test(gloss)) assert.ok(SAYS.test(name), `${lang}: "${gloss}" says more than "${name}"`);
+      if (VEGAN.test(gloss)) assert.ok(NAME_VEGAN.test(name), `${lang}: "${gloss}" says vegan, "${name}" does not`);
+      if (HALAL.test(gloss)) assert.ok(NAME_HALAL.test(name), `${lang}: "${gloss}" says halal, "${name}" does not`);
+      count += 1;
     }
   }
+  assert.ok(count > 5000, `only ${count} glosses`);
 });

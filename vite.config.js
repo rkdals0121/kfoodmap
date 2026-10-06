@@ -332,7 +332,7 @@ export default defineConfig({
             handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'kfm-stories',
-              expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [200] },
             },
           },

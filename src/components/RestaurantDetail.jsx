@@ -102,7 +102,14 @@ const hoursPieces = (text) => String(text).split(', ').map((slot, i, all) => {
 const scrollMemory = new Map();
 // A web address inside a note becomes a link named by its site: as bare
 // text it ran 100 characters wide and could not be opened.
-const noteWithLinks = (text) => text.split(/(https?:\/\/\S+)/).map((part, k) => {
+// How long a note reads: a Korean, Japanese or Chinese character takes the
+// room of two or three Latin ones, so 420 characters of Chinese is three
+// screens where 420 of English is one.
+const noteWeight = (text) => text.length + 1.6 * (text.match(/[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/g)?.length ?? 0);
+// An address ends where its own characters end: in a translated note the
+// next thing may be Korean or a full-width bracket with no space between
+// ("https://x.example/a에서", "…/guide.pdf）。").
+const noteWithLinks = (text) => text.split(/(https?:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)/).map((part, k) => {
   if (k % 2 === 0) return part;
   // What closes the sentence or the bracket around it is not the address.
   const tail = /[).,;:'"”]+$/.exec(part)?.[0] ?? '';
@@ -156,7 +163,7 @@ export default function RestaurantDetail({
   const { t, i18n } = useTranslation();
   const stories = useStories();
   const notes = useNotes(restaurant?.id);
-  const menuGloss = useMenuGloss(Boolean(restaurant));
+  const menuGloss = useMenuGloss(Array.isArray(restaurant?.menus?.value) && restaurant.menus.value.length > 0);
   const location = useLocation();
   const [copied, setCopied] = useState(false);
   const [koAddrCopied, setKoAddrCopied] = useState(false);
@@ -436,6 +443,11 @@ export default function RestaurantDetail({
   const traitFacts = place.traits.filter(id => TRAIT_META[id])
     .map(id => ({ id, Icon: TRAIT_META[id].Icon, label: t(TRAIT_META[id].labelKey), fact: null }));
   const certClaim = place.dietary.halalCertClaim;
+  // The translated certification line and timeline, while they still match
+  // the record they were made from (same check as the notes above them).
+  const extrasFit = notes?.n2 && notes.n2[0] === plainNote(certClaim?.body ?? '').length && notes.n2[1] === plainNote(certClaim?.note ?? '').length && notes.n2[2] === (place.timeline?.length ?? 0);
+  const certNotes = extrasFit ? notes.cert : null;
+  const timelineNotes = extrasFit ? notes.timeline : null;
   const caveatKeys = DIET_CAVEAT_KEYS[dietaryConfidence(place)] ?? DIET_CAVEAT_KEYS[CONFIDENCE.UNKNOWN];
   const caveat = { title: t(caveatKeys.titleKey), body: t(caveatKeys.bodyKey) };
   const lastChecked = [
@@ -661,14 +673,17 @@ export default function RestaurantDetail({
             {claimFacts.map(({ id, label, fact: f }) => {
               // The note in the reader's language when there is one (it was
               // translated from the plain wording, so it is not reworded again).
-              const translated = notes?.[id];
+              // …and only while it is still the translation of this note:
+              // a record corrected since (the page's data is fetched fresh,
+              // the translations may be a deploy behind) shows its English.
+              const translated = notes?.n?.[id === 'vegan' ? 0 : 1] === plainNote(f.evidence ?? '').length ? notes?.[id] : null;
               const { label: level, detail } = trustBadge(translated ? { ...f, evidence: translated } : f);
               return (
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   {/* The research note can run to two screens: the first
                       lines, and the rest on request. */}
-                  <p className={`claim-explain__text${detail.length > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {noteWithLinks(translated ? detail : plainNote(detail))}</p>
-                  {detail.length > 420 && (
+                  <p className={`claim-explain__text${noteWeight(detail) > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {noteWithLinks(translated ? detail : plainNote(detail))}</p>
+                  {noteWeight(detail) > 420 && (
                     <button type="button" className="claim-explain__more" aria-expanded={claimFull} onClick={() => setClaimFull(v => !v)}>
                       {t(claimFull ? 'detail.claimLess' : 'detail.claimMore')}
                     </button>
@@ -705,8 +720,8 @@ export default function RestaurantDetail({
                   {/* In the reader's language where it has been translated
                       (data/notes), else as the record words it. */}
                   {certClaim.note
-                    ? t('detail.certificationClaimedNote', { body: notes?.cert?.body ?? plainNote(certClaim.body), note: notes?.cert?.note ?? plainNote(certClaim.note) })
-                    : t('detail.certificationClaimed', { body: notes?.cert?.body ?? plainNote(certClaim.body) })}
+                    ? t('detail.certificationClaimedNote', { body: certNotes?.body ?? plainNote(certClaim.body), note: certNotes?.note ?? plainNote(certClaim.note) })
+                    : t('detail.certificationClaimed', { body: certNotes?.body ?? plainNote(certClaim.body) })}
                 </p>
               )}
             </div>
@@ -1031,16 +1046,16 @@ export default function RestaurantDetail({
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
               {/* The UI is translated; a place's own text is not. Say so once,
                   where the English starts, and mark it for screen readers. */}
-              {i18n.language !== 'en' && (!stories?.[place.id]?.story || (place.timeline?.length > 0 && !notes?.timeline)) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
+              {i18n.language !== 'en' && (!stories?.[place.id]?.story || (place.timeline?.length > 0 && !timelineNotes)) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
               {stories?.[place.id]?.story
                 ? <p className="detail-body" lang={i18n.language}>{stories[place.id].story}</p>
                 : <p className="detail-body" lang="en">{place.story}</p>}
               {place.timeline?.length > 0 && (
-                <ol className="timeline" lang={notes?.timeline ? i18n.language : 'en'}>
+                <ol className="timeline" lang={timelineNotes ? i18n.language : 'en'}>
                   {place.timeline.map((t, n) => (
                     <li key={`${t.year}-${t.event}`} className="timeline__item">
                       <span className="timeline__year">{t.year}</span>
-                      <span className="timeline__event">{notes?.timeline?.[n] ?? t.event}</span>
+                      <span className="timeline__event">{timelineNotes?.[n] ?? t.event}</span>
                     </li>
                   ))}
                 </ol>

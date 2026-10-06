@@ -1,13 +1,12 @@
 import { useEffect, useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
+import { noteShard } from '../data/note-shard';
 
 // The research notes under "Why?" in the language of the interface
 // (data/notes/notes-<lang>-<n>.js). Sixteen files per language: a place page
 // fetches the one its place is in. Null until it has arrived, and in a
 // language with no translation: the record's own English shows.
 const FILES = import.meta.glob('../data/notes/notes-*.js');
-export const NOTE_SHARDS = 16;
-export const noteShard = (id) => [...String(id)].reduce((n, ch) => (n + ch.charCodeAt(0)) % NOTE_SHARDS, 0);
 
 const cache = new Map();
 const pending = new Set();
