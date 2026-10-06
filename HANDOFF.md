@@ -3446,6 +3446,44 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       100 Korean, 75 each of the others; notes: 80 Korean, 60 each), not
       place by place.
 
+76. **2026-10-06 night to 10-07 morning — every translation read against its English; a functional pass over every feature** (docs/MOBILE-AUDIT §24).
+    - Stories, research notes, menu glosses and interface strings in all
+      five languages were read entry by entry beside the English (not
+      sampled). The recurring defect: "no certificate has been sighted"
+      rendered "could not be confirmed" — it must read "we have not seen
+      one" (目にしていません / 보지 못했어요 / 没有见到 / 沒有見到 / kami
+      belum melihat). Also Zabihah's "No alcohol allowed" (not "not
+      served"), "handed over by" (not "issued by"), "mixed menu" (vegan
+      and non-vegan, not meat), translated quotations in plain form.
+    - Corrections arrive as find/replace lists and are applied by scripts
+      that check the find occurs once and that links and Hangul
+      quotations are unchanged (`scripts/translation-review/`: `rv_apply.py`,
+      `rvn_apply.py`, `rvm_apply.py`, `rvl_apply.mjs`). Not applied:
+      anything that needed a guessed Hangul spelling or a fact the record
+      does not hold (e.g. beef for a "short ribs" set).
+    - Search (`src/filters.js`): an alias (`AREA_ALIASES`) answers the
+      whole query only when it is the whole query or a several-word name
+      opening it, never with a diet word beside it; a diet word among
+      other words is answered from the record; the labels shown on chips
+      are searchable; a certification word (`CERT_WORD`) is a question,
+      answered with the halal places and the certificate note; one
+      compiled pattern per search word (`WORD_START`) — compiling per
+      field per place made each keystroke take over a second after about
+      a hundred different searches.
+    - Place page: the docked sheet at 768–1199 px starts below the
+      measured chip rows (`--below-filters`); closing on a phone returns
+      focus to the place's own card (`lastFocusInApp`); `closed()` ends
+      one-clause notes and hides record ids (`RECORD_NAME`);
+      `detail.certificationSelf` for self-certified places.
+    - `src/i18n/index.js`: `typeof localStorage` sits inside its `try` —
+      with site data blocked the bare word throws.
+    - Staff cards: the vegan card names ham, sausage, fish cake and crab
+      stick; answers 8 and 9 (있어요 / 없어요).
+    - A list of 406 features (`docs/FEATURE-CHECKLIST.md`) was tested on the
+      live site in three passes; what could not be tested there needs a
+      real phone: touch drags, the location prompt, install, iOS, real
+      offline, sign-in.
+
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
 *Windows note: the repo path contains spaces and Korean characters. Some

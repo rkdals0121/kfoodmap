@@ -45,6 +45,13 @@ const SUSTAINABILITY_AXIS = ['Sustainability', ...TRAIT_GROUPS.Sustainability];
 // discovery surface — map, search, cards, Journal — at this single point.
 const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
 const ACTIVE_IDS = new Set(activeRestaurants.map(r => r.id));
+// The likeliest next meal: today's lunch in the morning, tonight's dinner
+// until late afternoon in Korea, tomorrow's lunch after that.
+const nextMeal = () => {
+  const hour = new Date(Date.now() + 9 * 3600e3).getUTCHours();
+  if (hour < 11) return { day: koreaToday(), minutes: 720 };
+  return hour < 17 ? { day: koreaToday(), minutes: 1140 } : { day: (koreaToday() + 1) % 7, minutes: 720 };
+};
 // The same condition as index.css uses for a phone held sideways.
 const LANDSCAPE_PHONE = '(max-width: 767px) and (orientation: landscape) and (max-height: 500px)';
 
@@ -541,6 +548,12 @@ function AppShell() {
     // The day and time pickers take most of a phone's half-height sheet:
     // open it fully so the results are in view under them.
     if (filter === OPEN_AT) setSheetState(selectedFilters.includes(OPEN_AT) ? 1 : 2);
+    // Still on the time guessed when the page loaded: guess again now (a
+    // page open since the morning offered lunch at six in the evening).
+    if (filter === OPEN_AT && !selectedFilters.includes(OPEN_AT) && planAt === guessedPlan.current) {
+      guessedPlan.current = nextMeal();
+      setPlanAt(guessedPlan.current);
+    }
     if (id) navigate(tabPath, { replace: true });
   };
 
@@ -699,13 +712,12 @@ function AppShell() {
   const [showUnknown, setShowUnknown] = useState(false);
   const includeUnknown = showUnknown && (openNowOn || openAtOn);
   useEffect(() => { if (!openNowOn && !openAtOn) setShowUnknown(false); }, [openNowOn, openAtOn]);
+  // The time "Open at…" starts from while the reader has chosen none.
+  const guessedPlan = useRef(null);
   const [planAt, setPlanAt] = useState(() => {
     if (startView.planAt) return startView.planAt;
-    // The likeliest next meal: today's lunch in the morning, tonight's
-    // dinner until late afternoon in Korea, tomorrow's lunch after that.
-    const hour = new Date(Date.now() + 9 * 3600e3).getUTCHours();
-    if (hour < 11) return { day: koreaToday(), minutes: 720 };
-    return hour < 17 ? { day: koreaToday(), minutes: 1140 } : { day: (koreaToday() + 1) % 7, minutes: 720 };
+    guessedPlan.current = nextMeal();
+    return guessedPlan.current;
   });
   // …and written back as the view changes, on whatever page is showing, so
   // a reload from a place page returns to the same list. Replaces the

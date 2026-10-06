@@ -832,7 +832,7 @@ export default function RestaurantDetail({
               {/* The whole week, for planning tomorrow or the weekend. A day
                   the record does not cover is said to be not recorded. */}
               {week && (
-                <details className="week-hours" onToggle={(e) => { if (e.currentTarget.open) e.currentTarget.scrollIntoView({ block: 'nearest' }); }}>
+                <details key={place.id} className="week-hours" onToggle={(e) => { if (e.currentTarget.open) e.currentTarget.scrollIntoView({ block: 'nearest' }); }}>
                   <summary>{t('detail.weekHours')}</summary>
                   <dl>
                     {week.map(d => (
