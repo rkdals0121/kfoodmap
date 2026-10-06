@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next';
 // What each menu item is, in the reader's language (data/menu-<lang>.js):
 // a few words under the name as the restaurant writes it. Most names are
 // Korean, so there is an English file too — for the names that carry no
-// English of their own. Korean readers need none. Null until the file has
+// English of their own, and a Korean one for the few recorded in English
+// alone. Null until the file has
 // arrived; the name alone shows meanwhile.
 const LOADERS = {
   en: () => import('../data/menu-en.js'),
+  // Korean: only for the names recorded in English alone.
+  ko: () => import('../data/menu-ko.js'),
   ja: () => import('../data/menu-ja.js'),
   'zh-Hans': () => import('../data/menu-zh-Hans.js'),
   'zh-Hant': () => import('../data/menu-zh-Hant.js'),
