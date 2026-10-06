@@ -502,7 +502,9 @@ function ProfileTab({
     // or iOS, where the row explains the two taps it takes.
     ...(installable === 'prompt' || installable === 'ios' ? [{
       label: t('profile.install'),
-      value: t('profile.installHint'),
+      // A sentence, not a value: under the label (beside it, "Add to Home
+      // Screen" was squeezed onto three lines).
+      hint: t('profile.installHint'),
       icon: <HomeAddIcon />,
       action: installable === 'prompt' ? install : () => setIosHelp(v => !v),
     }] : []),
@@ -530,6 +532,7 @@ function ProfileTab({
             <span className="settings-icon" aria-hidden="true">{item.icon}</span>
             <span className="settings-text">
               <span className="settings-label">{item.label}</span>
+              {item.hint && <span className="settings-hint">{item.hint}</span>}
             </span>
             {item.value && <span className="settings-value">{item.value}</span>}
             <ChevronRightIcon size={18} />

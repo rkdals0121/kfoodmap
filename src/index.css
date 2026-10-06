@@ -6539,3 +6539,23 @@ html[data-text='larger'] .detail-bar__map svg {
 .detail-header + .fact-row {
   margin-top: -10px;
 }
+
+/* With a claim explained above, the note holds only the cards link: no
+   empty line over it. */
+.diet-note > .diet-note__ask:first-child {
+  margin-top: 0;
+}
+.diet-note:has(> .diet-note__ask:first-child) {
+  padding-block: 4px;
+}
+
+/* A sentence about a setting sits under its name. */
+.settings-hint {
+  display: block;
+  margin-top: 2px;
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--muted);
+  text-align: start;
+}
