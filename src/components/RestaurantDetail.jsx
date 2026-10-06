@@ -163,7 +163,6 @@ export default function RestaurantDetail({
   const { t, i18n } = useTranslation();
   const stories = useStories();
   const notes = useNotes(restaurant?.id);
-  const menuGloss = useMenuGloss(Array.isArray(restaurant?.menus?.value) && restaurant.menus.value.length > 0);
   const location = useLocation();
   const [copied, setCopied] = useState(false);
   const [koAddrCopied, setKoAddrCopied] = useState(false);
@@ -224,6 +223,9 @@ export default function RestaurantDetail({
   // The bundle carries a lighter record; the full one (evidence, menus,
   // transit, phone, links) is fetched when the detail opens.
   const { full, failed: fullFailed, retry: retryFull } = usePlaceRecord(restaurant);
+  // The menu comes with the full record (the list's record has none): only
+  // then is it known whether this page has a menu to gloss.
+  const menuGloss = useMenuGloss(Array.isArray(full?.menus?.value) && full.menus.value.length > 0);
   // The menu, transit and phone arrive after the page is up and are put in
   // above the directions: on a slow link the reader has scrolled by then,
   // and the button under the thumb moved a quarter of a screen. The first
