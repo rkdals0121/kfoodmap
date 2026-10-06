@@ -226,3 +226,13 @@ test('a Korean address word finds its own district, not one that contains it', a
   assert.ok(all.some(r => koAddressHas(r, '이태원로')), 'a road is found without its side-street number');
   for (const word of ['층', '로', '구', '1층', '지하']) assert.equal(all.filter(r => koAddressHas(r, word)).length, 0, word);
 });
+
+// An area's name is answered by where a place is (or what it is called):
+// "itaewon vegan" listed a shop whose story says it "moved from Itaewon".
+test('an area word does not match a place that only mentions the area', () => {
+  const active = restaurants.filter(r => !isQuarantined(r));
+  const found = searchPlaces({ places: active, query: 'itaewon vegan', filters: [] }).filteredRestaurants;
+  assert.ok(found.length >= 5);
+  for (const r of found) assert.match(`${r.zone} ${r.address?.value ?? ''} ${r.name}`, /itaewon|hannam|yongsan/i, r.id);
+  assert.ok(!found.some(r => r.id === 'nono-shop'), 'Nono Shop moved to Hoehyeon');
+});

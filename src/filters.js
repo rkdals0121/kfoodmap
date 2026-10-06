@@ -11,7 +11,7 @@
 // string); the rest are descriptive traits.
 import { matchesDietary } from './data/verification.js';
 import { koAddressHas } from './data/address-ko.js';
-import { romaniseQuery, COOKING } from './data/area-names.js';
+import { romaniseQuery, COOKING, AREA_NAMES } from './data/area-names.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 
@@ -181,6 +181,9 @@ function searchCore(r, rawQuery) {
   // "no pork" was every record with a "no" and a "pork" in it.
   if (Object.hasOwn(DIET_WORDS, q) || PORK_FREE_WORDS.has(q)) return dietWordMatch(r, q);
   if (aliasMatch(r, q)) return true;
+  // The whole search is an area's name: answered by where the place is or
+  // what it is called — not by a line saying it "moved from Itaewon".
+  if (AREA_WORDS.has(q)) return inAreaOrName(r, q);
   // The halal level is searchable too, so "pork-free" finds every pork-free
   // place (the Halal filter leaves them out: pork-free is not halal).
   const halal = r.dietary?.halal;
@@ -211,8 +214,15 @@ function searchCore(r, rawQuery) {
   // A pork-free word is answered from the record alone, never from the text:
   // a story that says "uses no pork" about a halal kitchen, or "no pork
   // belly" about one that serves it, is not the pork-free level.
-  return words.every(w => (PORK_FREE_WORDS.has(w) ? dietWordMatch(r, w) : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w)));
+  // A word that names an area is answered by where the place is (or what
+  // it is called), not by its story: "itaewon vegan" listed a shop that
+  // "moved from Itaewon" to Hoehyeon and one that "began in Itaewon".
+  return words.every(w => (PORK_FREE_WORDS.has(w) ? dietWordMatch(r, w)
+    : AREA_WORDS.has(squash(w)) ? inAreaOrName(r, w)
+      : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w)));
 }
+const AREA_WORDS = new Set(Object.keys(AREA_NAMES).map(name => squash(name)));
+const inAreaOrName = (r, w) => startsWord(areaText(r), w) || aliasMatch(r, w) || koAddressHas(r, w) || startsWord(r.name, w);
 
 // Does a search word name this place's area (neighbourhood or address)?
 // While searching, these places come first in the list and are where the
