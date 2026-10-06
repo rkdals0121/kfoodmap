@@ -115,7 +115,7 @@
      not show through around it. */
   position: sticky;
   bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  box-shadow: 0 -10px 14px 6px var(--bg), 0 24px 0 6px var(--bg);
+  box-shadow: 0 -10px 14px 6px var(--bg), 0 44px 0 6px var(--bg);
 }
 
 .prologue-btn:hover {

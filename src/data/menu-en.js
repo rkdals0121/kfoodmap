@@ -6,4 +6,5 @@ export const MENU = {
   "머노까머나 세트A (1인)": "Manokamana set A (for one)",
   "머노까머나 세트B (1인)": "Manokamana set B (for one)",
   "피자 바게트 (with vegan cheese)": "pizza baguette (with vegan cheese)",
+  "오늘의마지": "Today's Maji set",
 };

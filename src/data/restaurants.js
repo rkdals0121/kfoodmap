@@ -46,10 +46,11 @@ export const restaurants = [
       },
     }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode per-day schedule (11:30–20:20, break 15:00–18:00, 일요일 휴무); last order 19:10 listed by DiningCode only" }),
     menus: fact([
-      { name: "Michelin Temple Course", price: "45,000 KRW" },
-      { name: "Meditation Set Meal", price: "65,000 KRW" },
-      { name: "Fermented Plum Tea", price: "~8,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Seon Course (선식)", price: "36,000 KRW" },
+      { name: "Won Course (원식)", price: "50,000 KRW" },
+      { name: "Maeum Course (마음식)", price: "70,000 KRW" },
+      { name: "Hee Course (희식)", price: "120,000 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.OPERATOR, url: "http://balwoo.or.kr/responsible_foodmenu_fall.php", method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-10-07", evidence: "The operator's own autumn menu page (가을메뉴; dish photos filed under /images/menu/fall/2026/, named menu_food_img202609_*) lists four courses: '선식(禪食) Seon Course : 36,000원 (10% Tax 포함) - 평일 점심 한정메뉴 -', '원식(願食) Won Course : 50,000원', '마음식(念食) Maeum Course : 70,000원', '희식(喜食) Hee Course : 120,000원 … 사전예약메뉴(최소 1일이전, 2인 이상, 선입금 50%)'. Fetched twice on 2026-10-07; the visible text was identical both times. The operator's English page (eng.balwoo.or.kr/responsible_foodmenu_fall.php) gives the same four as 'Seon(Meditation) Course … 36,000won (VAT included) - Weekday Lunch Special menu', 'Won(Vow) Course … 50,000won', 'Maeum(Mind) Course … 70,000won', 'Hee(Joy) Course … 120,000won', and the summer page carries the same prices. DiningCode (rid gFxIOnl6TMQV) lists the same four at the same prices. The page says '계절마다 제철음식으로 메뉴가 바뀝니다' — the dishes inside each course change by season. Not confirmed: whether prices differ at dinner; the page shows one price per course." }),
 
     phone: fact("02-733-2081", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing" }),
     officialUrl: fact("http://balwoo.or.kr/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
@@ -96,10 +97,8 @@ export const restaurants = [
       },
     }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode: 11:30–22:00 across every listed day, 연중무휴; no break or last order listed" }),
     menus: fact([
-      { name: "Traditional Temple Banchan Set", price: "33,000 KRW" },
-      { name: "Wild Mountain Greens Rice", price: "22,000 KRW" },
-      { name: "Lotus Root Pancakes", price: "~15,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Temple set meal (사찰정식)", price: "29,000 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.OPERATOR, url: "http://www.sanchon.com/home/sub02/sub02_01.php", method: METHOD.CORROBORATED, lastCheckedAt: "2026-10-07", evidence: "The operator's own menu page (산촌음식) shows, under the 산촌 정식 table of about 20 components (물김치, 죽, 산채 모듬나물, 더덕무침, 산채잡채, 튀김류, 전류, 밥, 찌개, 차, 유과 …): '비빔밥 15,000원 / 사찰정식 29,000원'; its English page (/en/sub02/sub02_01.php) reads 'Bibimbap 15,000won / Temple set meal 29,000won'. Fetched twice on 2026-10-07, same text. The page is undated and still carries COVID-era notices ('코로나19 … 저녁 식사 가격이 점심 식사 가격과 동일하게 서비스됩니다'), so on its own it could be stale; a commented-out line in the HTML shows an older '점심 33,000원 / 저녁 33,000원'. DiningCode (rid JtndD0NkYklt, newest review dated 2026-04-18) lists '정식 a set menu - 29,000원'; Kakao Map (place 16650740) lists '산촌정식(점심) 29,000' (edited 2023-10-06). All three agree on 29,000 for the set. Not confirmed: the dinner price — Kakao still shows '산촌정식(저녁) 33,000' (edited 2022-07-19) while the operator's page says dinner is charged at the lunch price." }),
 
     phone: fact("0507-1393-0312", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing; a 0507 number forwards to the venue's real line" }),
     officialUrl: fact("http://www.sanchon.com/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
@@ -113,7 +112,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A lantern-lit Hanok hidden in Insadong's alleys.",
-    story: "Sanchon serves Korean temple food in a hanok on Insadong-gil: set meals of seasonal mountain greens, temple-style banchan and lotus-root pancakes, with no meat or fish.",
+    story: "Sanchon serves Korean temple food in a hanok on Insadong-gil: a temple set meal of some twenty parts — porridge, seasoned mountain greens, pancakes, rice and stew among them — with no meat or fish.",
     esg_point: "Locally sourced ingredients directly foraged from Gangwon-do mountains",
 
     image: "/images/temple_food.svg",
@@ -143,10 +142,13 @@ export const restaurants = [
       },
     }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode: 11:30–21:00, break 16:00–17:00, last orders 15:00 and 20:00. Thursday closure stated by a listing summary (월~수, 금~일 / 매주 목요일 정기휴무), not by DiningCode's own schedule block" }),
     menus: fact([
-      { name: "Vegan Jajangmyeon", price: "9,000 KRW" },
-      { name: "Soy Meat Sweet and Sour", price: "18,000 KRW" },
-      { name: "Spicy Vegan Jjamppong", price: "10,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Gondeure Gangdoenjang Bibimbap (곤드레 강된장 비빔밥)", price: "12,000 KRW" },
+      { name: "Spicy Vegan Bulgogi Stew (불구이뚝배기)", price: "13,000 KRW" },
+      { name: "Soft Tofu Gang-doenjang Bibimbab (국산콩순두부강된장비빔밥)", price: "12,000 KRW" },
+      { name: "Korean Black Bean Noodles (비건 자장면)", price: "9,000 KRW" },
+      { name: "Vegan Sundae (비건 순대)", price: "8,000 KRW" },
+      { name: "Vegan Yuba (비건 유바말이)", price: "6,000 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.OPERATOR, url: "http://www.go5.co.kr/default/02/02.php", method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-10-07", evidence: "The operator's own site lists its menu under Noodles / Rice / Dishes (default/02/01.php, 02.php, 03.php), each item with its own Korean and English name and price: '곤드레 강된장 비빔밥 - ₩12,000 (무오신채) … Gondeure Gangdoenjang Bibimbap (Korean Thistle Green Rice)'; '불구이뚝배기 - ₩13,000 (오신채) … Spicy Vegan Bulgogi Stew'; '국산콩순두부강된장비빔밥 - ₩12,000 (무오신채) … Soft Tofu Gang-doenjang Bibimbab'; '비건 자장면 - R. 9,000/ L. 11,000(오신채) … Jjajangmyeon (Korean Black Bean Noodles)'; '비건순대 S- ₩8,000 / L- ₩15,000 … Vegan Sundae (Korean-Style Vegan Sausage)'; '비건 유바말이 ₩6,000 … Vegan Yuba'. List pages fetched twice on 2026-10-07 (byte-identical); item pages read once. The site is maintained: its notice board's newest post is '2026년 추석연휴 9월 23,24,25일..'. Kakao Map (place 12069878, owner-registered; menu updated 2026-04-10) agrees: '곤드레비빔밥 12,000' (edited 2026-04-10), '비건순대 8,000 — M 8,000 / L 15,000' (2026-03-03), '유바말이 6,000' (2026-03-03), '불구이뚝배기 13,000' and '순두부와 강된장비빔밥 12,000' (2024-06). DiningCode (rid hlaFHotow0ZR) lists '비건자장면 - 9,000원' and the others at the same prices. The jajangmyeon and sundae prices recorded are the regular / small size." }),
 
     phone: fact("02-735-7171", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode listing" }),
     officialUrl: fact("http://www.go5.co.kr/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
@@ -191,10 +193,13 @@ export const restaurants = [
       },
     }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "The venue's own site: \"Tues-Sun 11am-10pm\", \"Closed every Monday\", last order \"9pm\", \"NO Kitchen break\". The draft never recorded the Monday closure" }),
     menus: fact([
-      { name: "Lentil Veggie Burrito Bowl", price: "14,500 KRW" },
-      { name: "Avocado Burger", price: "15,500 KRW" },
-      { name: "Vegan Chocolate Cake", price: "~8,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "Hummus Tempeh Bowl (후무스 템페 보울)", price: "15,000 KRW" },
+      { name: "Lentil Veggie Bowl (렌틸 베지 보울)", price: "15,000 KRW" },
+      { name: "Teriyaki Bowl (데리야끼 보울)", price: "15,000 KRW" },
+      { name: "Sesame Peanut Soba Bowl (세서미 피넛 소바 보울)", price: "15,000 KRW" },
+      { name: "Truffle Mushroom Cream Pasta (트러플 머쉬룸 크림 파스타)", price: "20,000 KRW" },
+      { name: "Chili Cheese Fries (칠리 치즈 프라이즈)", price: "13,000 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.OPERATOR, url: "https://plantcafeseoul.com/plant-itaewon-menu/", method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-10-07", evidence: "The operator's 'Plant Itaewon Menu' page (page metadata: modified 2026-09-06) shows the printed menu as images uploaded 2026/09 (plant-ITAEWON-menu-20263 English, -20262 Korean). Read from the images: 'HUMMUS TEMPEH BOWL … (NF) 15.0' / '후무스 템페 보울'; 'LENTIL VEGGIE BOWL … (GF, NF) 15.0' / '렌틸 베지 보울'; 'TERIYAKI BOWL … (NF) 15.0' / '데리야끼 보울'; 'SESAME PEANUT SOBA BOWL … 15.0' / '세서미 피넛 소바 보울'; 'TRUFFLE MUSHROOM CREAM PASTA … (SF, NF) 20.0' / '트러플 머쉬룸 크림 파스타'; 'CHILI CHEESE FRIES … (NF) 13.0' / '칠리 치즈 프라이즈'. Footer on each page: 'EVERYTHING IS VEGAN'. The menu prints prices as '15.0' (thousands of won); the won amounts are borne out by Kakao Map (place 131087887, owner-registered), whose delivery menu, edited 2025-11 to 2026-01, has 'Hummus Tempeh Bowl / 후무스 템페 보울 15,000', 'Lentil Veggie Bowl 15,000', 'Teriyaki Rice Bowl 15,000', 'Sesame Peanut Soba Bowl 15,000', 'Truffle Mushroom Cream Pasta 20,000', 'Chili Cheese Fries 13,000'. Page fetched twice on 2026-10-07 (same three image files); the English and Korean images were each read once and agree item by item." }),
 
     phone: fact("02-749-1981", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "The venue's own site" }),
     officialUrl: fact("https://plantcafeseoul.com/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site; the site itself confirms the Itaewon branch" }),
@@ -215,7 +220,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "A sunlit Itaewon hub with its own vegan bakery.",
-    story: "Plant Cafe & Kitchen is a vegan restaurant and bakery café on Bogwang-ro in Itaewon; its own site calls it 100% vegan. The menu runs from lentil burrito bowls and burgers to cakes from its own bakery.",
+    story: "Plant Cafe & Kitchen is a vegan restaurant and bakery café on Bogwang-ro in Itaewon; its own site calls it 100% vegan. The menu runs from lentil and tempeh bowls and burgers to cakes from its own bakery.",
     esg_point: "In-house vegan bakery cutting dairy and egg supply chains",
 
     image: "/images/vegan_cafe.svg",
@@ -245,10 +250,11 @@ export const restaurants = [
       },
     }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode: 12:00–22:30 every listed day, break 15:00–17:00, last order 21:30, no closing day. The operator's site shows \"C/S 10:00-18:00 … Sat, Sun, Holiday OFF\" — that is customer service, not the dining room, so it is deliberately not used" }),
     menus: fact([
-      { name: "Beyond Meat Burger", price: "~18,000 KRW" },
-      { name: "Vegan Mushroom Risotto", price: "~20,000 KRW" },
-      { name: "Plant-based Steak", price: "~28,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate. DiningCode instead lists 비건 비프 치즈 버거 (18,000) and 콰트로 버섯 리조또 (21,000) — same shape, different names, so the draft's wording is unconfirmed" }),
+      { name: "Orange tofu chicken gangjeong (오렌지두부치킨강정)", price: "19,000 KRW" },
+      { name: "Black lemon pasta (블랙레몬파스타)", price: "19,000 KRW" },
+      { name: "Avocado gim-pesto soba (아보카도 김페스토 소바)", price: "23,000 KRW" },
+      { name: "Mushroom bourguignon bruschetta (버섯부르기뇽부르스케타)", price: "23,000 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.MAP_SERVICE, url: "https://place.map.kakao.com/1701160594", method: METHOD.CORROBORATED, lastCheckedAt: "2026-10-07", evidence: "Kakao Map place 1701160594 ('몽크스부처 이태원', 이태원로 228-1; listing registered by the owner, intro '캐주얼 비건 레스토랑&와인바 몽크스부처 입니다'), panel3 menu block, all four items edited 2026-09-02: '오렌지두부치킨강정 19,000', '아보카도 김페스토 소바 23,000', '버섯부르기뇽부르스케타 23,000', '블랙레몬파스타 19,000'. Read twice on 2026-10-07, identical. DiningCode (rid rOLdQ8mQg3d7, newest review 2026-05-13) lists the same four at the same prices ('오렌지 두부 치킨 강정 - 19,000원', '블랙 레몬 파스타 - 19,000원', '아보카도 김페스토 소바 - 23,000원', '버섯 부르기뇽 부르스케타 - 23,000원') among 13 dishes. Neither source gives English names; the English here is a plain gloss. The operator's own site (monksbutcher.com) is a shop/catering site with no restaurant menu; its Catchtable page showed no menu to a plain fetch; Instagram was not read." }),
 
     phone: fact("02-790-1108", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.OPERATOR, method: METHOD.OPERATOR_SITE, lastCheckedAt: "2026-07-17", evidence: "The venue's own site; DiningCode lists the same number" }),
     officialUrl: fact("https://monksbutcher.com", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),
@@ -272,7 +278,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "Plant-based fare, served like fine dining.",
-    story: "Monk's Butcher serves plant-based versions of butcher-shop dishes — burgers, steak, risotto — on the third and fourth floors of a building on Itaewon-ro. DiningCode lists only vegan dishes on its menu.",
+    story: "Monk's Butcher describes itself as a casual vegan restaurant and wine bar, on the third and fourth floors of a building on Itaewon-ro. Its listed dishes include an orange tofu 'chicken' gangjeong, a black lemon pasta and a mushroom bourguignon bruschetta. DiningCode lists only vegan dishes on its menu.",
     esg_point: "High-end plant proteins replacing butcher-shop staples",
 
     image: "/images/temple_food.svg",
@@ -304,10 +310,12 @@ export const restaurants = [
       },
     }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "DiningCode lists 11:00–00:00; several independent visitor write-ups give 매일 11:00~24:00 with a 23:00 last order. No closing day found" }),
     menus: fact([
-      { name: "Vegan Kung Pao Chick'n", price: "~19,000 KRW" },
-      { name: "Plant-based Chow Mein", price: "~16,000 KRW" },
-      { name: "Crispy Mushroom Bites", price: "~12,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft. DiningCode lists KungpaoChicken at 21,000 and 차우면 (Chow Mein) at 9,000 — the dishes exist, the draft's prices do not match" }),
+      { name: "Tofu Crumble Bowl (두부 크럼블 볼)", price: "18,000 KRW" },
+      { name: "Spicy Fried Noodle (매운 볶음면)", price: "18,000 KRW" },
+      { name: "Tofu and Mushroom Stir-fry (두부 버섯 베지터블 볶음)", price: "16,500 KRW" },
+      { name: "Chow Mein (차우면)", price: "9,000 KRW" },
+      { name: "Fried Rice (볶음밥)", price: "8,500 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.MAP_SERVICE, url: "https://place.map.kakao.com/903817107", method: METHOD.CORROBORATED, lastCheckedAt: "2026-10-07", evidence: "Kakao Map place 903817107 ('카무플라주', 이태원로26길 19; listing registered by the owner, intro '이태원에 위치한 비건 아메리칸차이니즈 음식 그리고 와인'), panel3 menu block (edited 2024-07-06): 'Tofu Crumble Bowl (두부 크럼블 볼) 18,000 — 매콤한 다진 콩고기 소스를 곁들인 두부크럼블 라이스 볼', 'Spicy Fried Noodle(매운 볶음면) 18,000', 'Tofu and Mushroom Stir-fry(두부 버섯 베지터블 볶음) 16,500', 'Chow Mein(차우면) 9,000', 'Fried Rice(볶음밥) 8,500 — 두부 스크램블과 각종 야채와 볶은 볶음밥', 'Sweet Chilli Shrimp(스윗칠리새우) 9,000 — … 비건새우 Vegan shrimp'. That block is two years old, so it is used only where newer sources agree: the delivery menu shown on the same Kakao listing (edited 2026-05-29/30) has '두부크럼블볼 18,000', '매운볶음면 18,000', '두부 버섯 베지터블 볶음 16,500', '차우면 9,000', '볶음밥 8,500', '비건칠리새우 6pcs 9,000'; DiningCode (rid qPO6PpLZTGm8, newest review 2026-07-23) lists 'Tofu Crumble Bowl - 18,000원', 'Fried Noodle - 18,000원', 'Stir-fry - 16,500원', '차우면(Chow Mein) - 9,000원', '볶음밥(Fried Rice) - 8,500원', 'Sweet Chilli Shrimp - 9,000원'. Kakao read twice on 2026-10-07, identical; DiningCode read twice, identical. The operator's Instagram was not read." }),
 
     instagram: fact("https://www.instagram.com/camouflage_iteawon", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this account as the venue's own" }),
     transit: fact({ station: "Itaewon", line: "Line 6", exit: null, walkingMinutes: 4, distanceM: 237 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 이태원역 6호선: 237 m / 240 s. Exit not given by the routing API" }),
@@ -324,7 +332,7 @@ export const restaurants = [
 
     // Editorial copy from the project draft; claims inside are not confirmed.
     vibe: "Bold Chinese-American flavors that happen to be vegan.",
-    story: "Camouflage serves American-Chinese dishes made without animal products — kung pao chick'n, chow mein, crispy mushroom bites — on the second floor of a building off Itaewon-ro.",
+    story: "Camouflage serves American-Chinese dishes made without animal products — a tofu crumble bowl, chow mein, fried rice — on the second floor of a building off Itaewon-ro.",
     esg_point: "Bold sauces and textures that make plant-based eating effortless",
 
     image: "/images/vegan_cafe.svg",
@@ -354,10 +362,11 @@ export const restaurants = [
       },
     }, { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17", evidence: "Seoul tourism site: \"12:00 ~ 21:00\", 휴무일 매일 (none); DiningCode independently lists 12:00–21:00. The draft's 11:30 open was wrong" }),
     menus: fact([
-      { name: "Halal Bulgogi", price: "~15,000 KRW" },
-      { name: "Halal Samgyetang", price: "~18,000 KRW" },
-      { name: "Halal Bibimbap", price: "~10,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate. Seoul's tourism site lists 비빔밥/소불고기/소고기김치볶음밥 in the 1만원대 range, which is consistent but not itemised" }),
+      { name: "Bibimbap (비빔밥)", price: null },
+      { name: "Beef bulgogi (소불고기)", price: null },
+      { name: "Beef kimchi fried rice (소고기김치볶음밥)", price: null },
+      { name: "Omija tea (오미자차)", price: null },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, url: "https://korean.visitseoul.net/yongsan-yeouido/%EC%9D%B4%EB%93%9C_/18263", method: METHOD.GOV_LISTING, lastCheckedAt: "2026-10-07", evidence: "Seoul's official tourism page for 이드 (제작일 2016.07.21 / 수정일 2026.06.15) gives '대표메뉴: 비빔밥, 소불고기, 소고기김치볶음밥, 오미자차' and '가격대: 1만원대'. Read twice on 2026-10-07, identical. The English edition (english.visitseoul.net/restaurants/EID/ENP018263, 'Edited Date : Jun 15, 2026') has no menu field, only 'Price Range 10,000 Won', so the English names here are plain glosses. No current per-item price could be confirmed: DiningCode (rid 0WXy7Qprwbt7; no dated reviews) lists '비빔밥 - 8,000원', '소고기김치볶음밥 - 8,000원', '소불고기 - 10,000원', '오미자차 - 3,000원', while Kakao Map (place 26533982, not owner-registered, menu last edited 2022-12-15) lists '비빔밥 10,000', '불고기 12,000', '삼계탕 14,000', '찜닭 12,000' — the two disagree and neither is dated current, so prices are left null." }),
 
     phone: fact("0507-1404-8219", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.GOVERNMENT, lastCheckedAt: "2026-07-17", evidence: "Seoul tourism site listing; a 0507 number forwards to the venue's real line" }),
     transit: fact({ station: "Itaewon", line: "Line 6", exit: null, walkingMinutes: 8, distanceM: 395 }, { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.ROUTING_API, lastCheckedAt: "2026-07-17", evidence: "Kakao Map walking route from 이태원역 6호선: 395 m / 475 s. Exit not given by the routing API" }),
@@ -390,7 +399,7 @@ export const restaurants = [
     // Reworded: both lines used to assert KMF certification as fact while the
     // dietary record deliberately declines to confirm it — the page contradicted
     // itself. The claim is now attributed to the source that makes it.
-    story: "EID sits beside the Seoul Central Mosque. Seoul's tourism office has described it as the only Korean restaurant certified by the Korea Muslim Federation, though KMF's own certificate list for 2023–2026 has no entry for it. It serves home-style Korean dishes such as mild bulgogi and samgyetang.",
+    story: "EID sits beside the Seoul Central Mosque. Seoul's tourism office has described it as the only Korean restaurant certified by the Korea Muslim Federation, though KMF's own certificate list for 2023–2026 has no entry for it. It serves home-style Korean dishes such as bibimbap and beef bulgogi.",
     esg_point: "Family-run kitchen serving inclusive Korean home cooking by the Central Mosque",
 
     image: "/images/halal_meat.svg",
@@ -648,10 +657,13 @@ export const restaurants = [
     // closing days, so picking one would be a guess dressed as a fact.
     hours: unknownFact("Sources conflict — DiningCode: closed Mon–Tue, Wed–Sat 11:30–20:00 (break 15:00–17:30), Sun 11:30–15:00. A listing summary instead says Mon–Sat 11:00–21:00, Sun 12:00–20:00, break 15:30–17:00. Unresolved"),
     menus: fact([
-      { name: "Temple-style Jang Course", price: "~35,000 KRW" },
-      { name: "Fermented Soybean Stew", price: "~14,000 KRW" },
-      { name: "Seasonal Namul Plate", price: "~12,000 KRW" },
-    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.RESEARCH, evidence: "Menu names and prices from the draft; most prices are approximate" }),
+      { name: "오늘의마지", price: "11,000 KRW" },
+      { name: "Lotus leaf rice (연잎밥)", price: "16,000 KRW" },
+      { name: "Walnut dumpling soup (호두만두국)", price: "14,000 KRW" },
+      { name: "Perilla seed sujebi (들깨수제비)", price: "12,000 KRW" },
+      { name: "Burdock japchae rice (우엉잡채밥)", price: "11,000 KRW" },
+      { name: "Maji gujeolpan course (마지구절판코스)", price: "45,000 KRW" },
+    ], { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.MAP_SERVICE, url: "https://place.map.kakao.com/19119689", method: METHOD.CORROBORATED, lastCheckedAt: "2026-10-07", evidence: "Kakao Map place 19119689 ('마지', 자하문로5길 19; listing registered by the owner, intro '한국전통채식입니다. 주말에는 반드시 예약부탁드려요.'), panel3 menu block (27 items, updated 2026-08-20): '오늘의마지 11,000 — 기장밥or현미밥+된장국 기본찬 전 샐러드' (edited 2026-08-19), '연잎밥 16,000 — 된장국 기본찬 전 샐러드' (2026-08-19), '호두만두국 14,000 — 서비스밥' (2026-08-19), '들깨수제비 12,000' (2026-08-19), '우엉잡채밥 11,000' (2026-08-20), '마지구절판코스 45,000' (2026-08-19). Read twice on 2026-10-07, identical. DiningCode (rid QBc1NKeAZ5DI, newest review 2026-06-28) agrees on each: '오늘의마지 - 11,000원', '오늘의마지 연밥 - 16,000원', '호두만두국(밥) - 14,000원', '들깨수제비 - 12,000원', '우엉잡채밥 - 11,000원', '마지 구절판 코스(1인) - 45,000원'. Neither source gives English names; the English is a plain gloss, and '오늘의마지' (the daily set) is left in Hangul. The recorded official site templefood.com returned 403 Forbidden on both tries, so nothing was read from the operator's own site." }),
 
     phone: fact("02-536-5228", { confidence: CONFIDENCE.SUPPORTED, source: SOURCE.DIRECTORY, lastCheckedAt: "2026-07-17", evidence: "Menupan listing. DiningCode instead lists 0507-1418-5228, a forwarding number — not contradictory, but unconfirmed" }),
     officialUrl: fact("http://templefood.com/", { confidence: CONFIDENCE.CONFIRMED, source: SOURCE.MAP_SERVICE, method: METHOD.MAP_LOOKUP, lastCheckedAt: "2026-07-17", evidence: "Naver Place links this as the venue's site" }),

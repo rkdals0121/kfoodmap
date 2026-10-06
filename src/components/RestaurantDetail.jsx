@@ -194,6 +194,10 @@ export default function RestaurantDetail({
   // box AND the chips: at a fixed 80 px it covered every chip, which wrap
   // onto three or four lines there. Measured, since the lines vary.
   const [filtersBottom, setFiltersBottom] = useState(null);
+  // Scrolled past its name, the page said nowhere whose it was: five
+  // screens of hours, menu and story under an empty band with a close
+  // button. The band carries the name from there on.
+  const [nameAway, setNameAway] = useState(false);
   useEffect(() => {
     if (!docked || !belowSearch) return undefined;
     const row = document.querySelector('.chip-row');
@@ -326,6 +330,14 @@ export default function RestaurantDetail({
   const [retriedFor, setRetriedFor] = useState(null);
   const retryPressed = useRef(false);
   const placeId = restaurant?.id;
+  useEffect(() => {
+    const sc = scrollRef.current;
+    setNameAway(false);
+    if (!sc) return undefined;
+    const onScroll = () => setNameAway(sc.scrollTop > 84);
+    sc.addEventListener('scroll', onScroll, { passive: true });
+    return () => sc.removeEventListener('scroll', onScroll);
+  }, [placeId, peek, docked]);
   useEffect(() => { setRetriedFor(null); retryPressed.current = false; }, [placeId]);
   // Half open (from a pin on a phone): as tall as the list it replaces, so
   // the strip of map above — and the pin in it — stays as it was. Scrolled
@@ -617,6 +629,9 @@ export default function RestaurantDetail({
         {!docked && <span className="detail-grabber" aria-hidden="true" />}
         {/* Half open: the bar at the top is also a button for the full page. */}
         {!docked && peek && <button type="button" className="detail-expand" aria-label={t('map.expandPlace')} onClick={() => onExpand?.()} />}
+        {/* For the eye only: the dialog is already named, and the H2 below is
+            the heading a screen reader lands on. */}
+        <p className={`detail-topname${nameAway && !peek ? ' is-shown' : ''}`} aria-hidden="true"><KoText>{name}</KoText></p>
         <button className="detail-close" aria-label={t('detail.close')} onClick={onClose}>
           <XIcon size={18} />
         </button>
@@ -677,8 +692,10 @@ export default function RestaurantDetail({
                 {distance && userLocation && <><span aria-hidden="true"> · </span>{t('detail.fromYou', { distance })}</>}
                 {/* Open/closed up here too, as on the list card: it is the first thing
                     a traveller acts on. The detail stays in the hours row below. */}
+                {/* …with when it opens or closes, as the card says it: half
+                    open over the map, the hours row is below the fold. */}
                 {status && (
-                  <><span aria-hidden="true"> · </span><strong className={statusClass(status)}>{status.label}</strong></>
+                  <><span aria-hidden="true"> · </span><span className="detail-meta__status"><strong className={statusClass(status)}>{status.label}</strong>{status.detail && <> · {status.detail}</>}</span></>
                 )}
               </p>
             </header>

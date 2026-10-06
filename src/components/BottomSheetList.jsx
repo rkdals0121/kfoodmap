@@ -403,7 +403,7 @@ export default function BottomSheetList({
           the "Open now" note it was folded out of sight. */}
       {(halalOn || asksCertificate) && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
-        <p className="section-note place-list__note">{t('list.halalCaveat')}</p>
+        <p className="section-note place-list__note place-list__note--key">{t('list.halalCaveat')}</p>
       )}
       {/* The caveat says pork-free places are left out and can be searched
           for — but searching with the Halal chip still on found nothing.

@@ -6561,3 +6561,114 @@ html[data-text='larger'] .detail-bar__map svg {
   color: var(--muted);
   text-align: start;
 }
+
+/* The place's name in the band at the top of its page, once the page has
+   scrolled past the name itself. */
+.detail-topname {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 60px;
+  margin: 0;
+  padding: 18px 68px 0 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28px;
+  color: var(--ink-title);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+.detail-topname.is-shown {
+  opacity: 1;
+}
+.detail-sheet--docked .detail-topname {
+  padding-top: 16px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .detail-topname {
+    transition: none;
+  }
+}
+
+/* The one note a Muslim visitor must not miss — that no certificate has
+   been seen — reads as text, not as fine print, and its second line is
+   not faded out where the list clamps it. */
+.place-list__note--key {
+  color: var(--ink-body);
+  font-weight: 500;
+}
+@media (max-width: 767px) {
+  .place-list:not(.notes-open) .place-list__note--key {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* "Closed · opens 11:30 AM" stays together: it wraps as one piece. */
+.detail-meta__status {
+  display: inline-block;
+}
+
+/* Discover and Profile on a phone: the title at the left edge the content
+   keeps, without the drawing above it — the centred icon, title and
+   subtitle took 240 px and the first card started below the fold. */
+@media (max-width: 767px) {
+  .tab-panel-header {
+    align-items: flex-start;
+    text-align: start;
+    padding-top: 20px;
+  }
+  .tab-panel-header .panel-icon {
+    display: none;
+  }
+  .tab-panel-header h2 {
+    margin-top: 0;
+    font-size: 22px;
+  }
+}
+
+/* A chip's outline has to be seen outdoors: #E5E7EB on white was 1.2:1. */
+.chip {
+  border-color: var(--line-hover);
+}
+/* One left edge down the screen: the header and the area chips were 20 px
+   inside the cards under them. */
+@media (max-width: 767px) {
+  .tab-panel-header,
+  .browse-areas {
+    padding-inline: 0;
+  }
+}
+
+/* The cards link is a 44 px target with its words in the middle: with the
+   box's own padding and an 8 px margin as well, 38 px of nothing stood
+   over it and 34 px under it. */
+.diet-note__ask {
+  margin-top: 0;
+}
+.diet-note:has(> .diet-note__ask:last-child) {
+  padding-bottom: 2px;
+}
+
+/* The Journal's seals two to a row on a phone: one to a row, three visits
+   were three screens (the column was 12 px short of fitting two). */
+@media (max-width: 767px) {
+  .journal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 8px;
+  }
+  .journal-grid .stamp-name,
+  .journal-grid .stamp-zone,
+  .journal-grid .stamp-date {
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+}
