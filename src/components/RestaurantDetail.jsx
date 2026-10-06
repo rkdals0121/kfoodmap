@@ -202,14 +202,18 @@ export default function RestaurantDetail({
     if (!docked || !belowSearch) return undefined;
     const row = document.querySelector('.chip-row');
     if (!row) return undefined;
+    // …and the day and time pickers of "Open at…", when they are out.
+    const box = row.parentElement ?? row;
     const measure = () => {
       const parent = sheetRef.current?.offsetParent?.getBoundingClientRect();
-      const bottom = row.getBoundingClientRect().bottom - (parent?.top ?? 0);
+      const plan = box.querySelector('.plan-row');
+      const bottom = Math.max(row.getBoundingClientRect().bottom, plan?.getBoundingClientRect().bottom ?? 0) - (parent?.top ?? 0);
       setFiltersBottom(bottom > 0 ? Math.round(bottom + 12) : null);
     };
     measure();
     const watch = typeof ResizeObserver === 'function' ? new ResizeObserver(measure) : null;
     watch?.observe(row);
+    watch?.observe(box);
     window.addEventListener('resize', measure);
     return () => { watch?.disconnect(); window.removeEventListener('resize', measure); };
   }, [docked, belowSearch]);
@@ -330,12 +334,15 @@ export default function RestaurantDetail({
   const [retriedFor, setRetriedFor] = useState(null);
   const retryPressed = useRef(false);
   const placeId = restaurant?.id;
+  const inSheet = (el) => Boolean(sheetRef.current?.contains(el));
   useEffect(() => {
     const sc = scrollRef.current;
     setNameAway(false);
     if (!sc) return undefined;
     const onScroll = () => setNameAway(sc.scrollTop > 84);
     sc.addEventListener('scroll', onScroll, { passive: true });
+    // Opened out from half height already scrolled: say so now.
+    onScroll();
     return () => sc.removeEventListener('scroll', onScroll);
   }, [placeId, peek, docked]);
   useEffect(() => { setRetriedFor(null); retryPressed.current = false; }, [placeId]);
@@ -393,6 +400,10 @@ export default function RestaurantDetail({
         ?? document.querySelector(`.place-card__open-btn[aria-describedby^="pc-where-${placeId} "]`)
         ?? document.getElementById('place-list') ?? document.querySelector('.journey-stop');
       if (!target) return;
+      // Closed because the reader went on to something else (typed in the
+      // search box beside a docked place): the focus is theirs, not ours.
+      const held = document.activeElement;
+      if (held && held !== document.body && !inSheet(held) && held.id !== 'place-list') return;
       focusAfterOverlay(target);
       setTimeout(() => {
         const now = document.activeElement;

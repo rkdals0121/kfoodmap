@@ -18,7 +18,7 @@ import { matchesDietary } from './data/verification.js';
 import { fuzzyQuery, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
-  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery } from './filters.js';
+  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
 
 // The longest search the box accepts. A page of pasted text built a regular
@@ -61,7 +61,9 @@ export function searchPlaces({
   places, query = '', filters = [], areaOnly = false, openOn = false, includeUnknown = false,
   now = new Date(), bookmarkedIds = [], sharedIds = [],
 }) {
-  const raw = String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim();
+  // A certification word is a question (filters.js): out before the
+  // station, filler and phrase readings below see the search.
+  const raw = stripCertWords(String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim());
 
   // Filter chips (AND across chips). A dietary chip only matches on
   // evidence — an unknown dietary record never matches, so we never send

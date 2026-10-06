@@ -279,7 +279,11 @@ test('a letter typed after an area does not widen it; a certification word is a 
   for (const q of ['busan v', 'v busan', 'busan 1']) assert.equal(ids(go(q)), ids(go('busan')), q);
   const halal = ids(go('halal'));
   for (const q of ['KMF', '인증', '認証', '할랄 인증', 'ハラール 認証', 'ハラール認証', '清真认证']) assert.equal(ids(go(q)), halal, q);
-  assert.equal(ids(go('Itaewon 인증')), ids(go('Itaewon')));
+  assert.equal(ids(go('Itaewon 인증')), ids(go('Itaewon halal')));
+  // …taken out before the station and filler readings see it.
+  assert.equal(ids(go('kmf seoul station')), ids(go('halal seoul station')));
+  assert.equal(ids(go('kmf restaurant')), halal);
+  assert.equal(ids(go('비건 인증')), ids(go('비건')));
 });
 
 // Every keystroke is a search. After a hundred or so different ones in a

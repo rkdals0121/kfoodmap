@@ -514,6 +514,9 @@ function AppShell() {
 
   const bookmarks = useMemo(() => savedOnly(entries), [entries]);
   const bookmarkedIds = useMemo(() => bookmarks.map(b => b.id), [bookmarks]);
+  // Counted where a number is shown: the places still on the map. A saved
+  // place since taken off it is in no list.
+  const savedOnMap = useMemo(() => bookmarkedIds.filter(id => ACTIVE_IDS.has(id)).length, [bookmarkedIds]);
   // Saved places should open fully offline, detail included.
   useEffect(() => { prefetchPlaceRecords(bookmarkedIds); }, [bookmarkedIds]);
   const visitedIds = useMemo(
@@ -1027,7 +1030,7 @@ function AppShell() {
                 onToggleFilter={handleToggleFilter}
                 planAt={planAt}
                 onPlanAt={setPlanAt}
-                savedCount={bookmarkedIds.length}
+                savedCount={savedOnMap}
               />
             </div>
 
@@ -1133,8 +1136,8 @@ function AppShell() {
             lastSyncFailed={lastSyncFailed}
             sessionEnded={sessionEnded}
             signInFailed={signInFailed}
-            savedCount={bookmarks.length}
-            visitedCount={visitedIds.length}
+            savedCount={savedOnMap}
+            visitedCount={visitedIds.filter(id => ACTIVE_IDS.has(id)).length}
             onBrowse={(chip, area) => {
               // Discover → an area: the map on that search and that chip alone.
               const next = viewHash({ q: area, filters: [chip], planAt, area: true });
@@ -1153,7 +1156,7 @@ function AppShell() {
           isCollapsed={isSidebarCollapsed} 
           // Places still on the map: a saved place since taken off it is
           // in no list, and the bubble said 5 over a Journal of 4.
-          savedCount={bookmarkedIds.filter(id => ACTIVE_IDS.has(id)).length}
+          savedCount={savedOnMap}
         />
       </div>
 

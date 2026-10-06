@@ -190,14 +190,24 @@ function dietPairs(parts) {
 // A word that asks about certification is a question, not a search term:
 // "KMF", "인증", "할랄 인증" and "ハラール認証" found nothing, where the
 // halal places and the note that none has a certificate we have seen are
-// the answer (BottomSheetList shows the note for these words).
-const CERT_WORD = /^(ハラール|ハラル|清真|할랄|halal)?(?:kmf|認証|认证|認證|인증)(?:書|서|证书|證書)?$/i;
+// the answer (BottomSheetList shows the note for these words). Taken out
+// of the search once, before anything reads it (search.js): left in for
+// the station and filler readings, "kmf seoul station" was all of Seoul.
+const CERT_WORD = /^(ハラール|ハラル|清真|할랄|halal)?(?:kmf|認証|认证|認證|인증)(?:書|서|证书|證書)?(?:店|餐厅|餐廳|식당|レストラン)?$/i;
+export function stripCertWords(query) {
+  const asked = String(query ?? '').trim().split(/\s+/).filter(Boolean);
+  const rest = asked.flatMap((w) => {
+    const halves = w.split('-').filter(Boolean);
+    if (!halves.some(h => CERT_WORD.test(unpunct(h).trim()))) return [w];
+    return halves.flatMap((h) => { const m = CERT_WORD.exec(unpunct(h).trim()); return m ? (m[1] ? [m[1]] : []) : [h]; });
+  });
+  if (rest.length === asked.length && rest.every((w, k) => w === asked[k])) return String(query ?? '');
+  // Certification is asked of halal places: "Itaewon 인증" and "kmf near
+  // me" are the halal places there, unless another diet was named.
+  const named = dietPairs(rest).some(w => Object.hasOwn(DIET_WORDS, w) || PORK_FREE_WORDS.has(w));
+  return named ? rest.join(' ') : ['halal', ...rest].join(' ');
+}
 function searchCore(r, rawQuery) {
-  const asked = unpunct(rawQuery).trim().split(/\s+/).filter(Boolean);
-  if (asked.some(w => CERT_WORD.test(w))) {
-    const rest = asked.flatMap((w) => { const m = CERT_WORD.exec(w); return m ? (m[1] ? [m[1]] : []) : [w]; });
-    return rest.length === 0 ? matchesDietary(r, 'Halal') : searchCore(r, rest.join(' '));
-  }
   const query = unpunct(rawQuery);
   const q = squash(query);
   // Nothing to search by (empty, or only signs such as "(" or "-"): every
