@@ -755,7 +755,7 @@ export default function RestaurantDetail({
                   {/* "Certification claimed: none — self-certified — we have
                       not seen the certificate" argued with itself: where the
                       record names no certifier at all, one plain sentence. */}
-                  {/^none/i.test(certClaim.body) && !certClaim.note
+                  {/^none\b/i.test(certClaim.body) && /self-certified/i.test(certClaim.body) && !certClaim.note
                     ? t('detail.certificationSelf')
                     : certClaim.note
                     ? t('detail.certificationClaimedNote', { body: certNotes?.body ?? plainNote(certClaim.body), note: certNotes?.note ?? plainNote(certClaim.note) })

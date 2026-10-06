@@ -30,7 +30,9 @@ export const STAFF_CARDS = [
     labelKey: 'cards.veganLabel',
     statement: [
       { ko: '안녕하세요. 저는 비건(완전 채식)입니다.', roman: 'Annyeonghaseyo. Jeoneun bigeon (wanjeon chaesik) imnida.', key: 'veganS1' },
-      { ko: '고기, 생선, 해산물, 달걀, 우유·유제품, 꿀을 먹지 않습니다.', roman: 'Gogi, saengseon, haesanmul, dalgyal, uyu·yujepum, kkureul meokji anseumnida.', key: 'veganS2' },
+      // "고기" alone leaves the ham in a gimbap and the fish cake in tteokbokki
+      // where they are: a kitchen hears whole cuts of meat.
+      { ko: '고기(소·돼지·닭, 햄·소시지 포함), 생선, 해산물(어묵·맛살 포함), 달걀, 우유·유제품, 꿀을 먹지 않습니다.', roman: 'Gogi (so·dwaeji·dak, haem·sosiji poham), saengseon, haesanmul (eomuk·matsal poham), dalgyal, uyu·yujepum, kkureul meokji anseumnida.', key: 'veganS2' },
       { ko: '육수나 양념에 동물성 재료가 들어간 음식도 먹지 않습니다. (예: 멸치 육수, 액젓, 새우젓)', roman: 'Yuksuna yangnyeome dongmulseong jaeryoga deureogan eumsikdo meokji anseumnida. (ye: myeolchi yuksu, aekjeot, saeujeot)', key: 'veganS3' },
       { ko: '제가 먹을 수 있는 메뉴가 있을까요?', roman: 'Jega meogeul su inneun menyuga isseulkkayo?', key: 'veganS4' },
     ],
@@ -78,6 +80,9 @@ export const STAFF_ANSWERS = [
   { ko: '빼 드릴게요', roman: 'ppae deurilgeyo', key: 'answer5' },
   { ko: '안 돼요', roman: 'an dwaeyo', key: 'answer6' },
   { ko: '잘 모르겠어요', roman: 'jal moreugesseoyo', key: 'answer7' },
+  // "Is there anything I can eat?" is answered "있어요" or "없어요".
+  { ko: '있어요', roman: 'isseoyo', key: 'answer8' },
+  { ko: '없어요', roman: 'eopseoyo', key: 'answer9' },
 ];
 
 // Words to look for on a menu or a packet. "Usually" is the honest word: a

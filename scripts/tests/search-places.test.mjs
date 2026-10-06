@@ -260,3 +260,16 @@ test('a diet label typed as it is shown finds its places', () => {
   const halal = ids(go('halal'));
   for (const q of ['ハラールフレンドリー', 'halal-friendly', 'ramah halal', '할랄 프렌들리', '清真友善', '清真友好']) assert.equal(ids(go(q)), halal, q);
 });
+
+// The same slip one step on (code review, 2026-10-07): an alias of two
+// words, or a hyphen in place of the space, let the diet word go unread.
+test('a diet word after a two-word area, or after a hyphen, is still read', async () => {
+  const { matchesDietary } = await import('../../src/data/verification.js');
+  for (const q of ['lotte world halal', 'hongdae-halal', 'lotteworld halal']) {
+    const found = go(q).filteredRestaurants;
+    assert.ok(found.length > 0, q);
+    for (const r of found) assert.ok(matchesDietary(r, 'Halal') || /halal/i.test(r.name), `${q}: ${r.id}`);
+  }
+  assert.equal(ids(go('hongdae-halal')), ids(go('hongdae halal')));
+  assert.equal(ids(go('lotte world halal')), ids(go('jamsil halal')));
+});

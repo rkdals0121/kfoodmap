@@ -6545,7 +6545,7 @@ html[data-text='larger'] .detail-bar__map svg {
 .diet-note > .diet-note__ask:first-child {
   margin-top: 0;
 }
-.diet-note:has(> .diet-note__ask:first-child) {
+.diet-note:has(> .diet-note__ask:only-child) {
   padding-block: 4px;
 }
 

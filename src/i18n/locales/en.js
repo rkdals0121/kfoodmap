@@ -512,7 +512,7 @@ export default {
   // must know exactly what they are showing.
   cardText: {
     veganS1: 'Hello. I am vegan (fully plant-based).',
-    veganS2: 'I do not eat meat, fish, seafood, eggs, milk or dairy, or honey.',
+    veganS2: 'I do not eat meat (beef, pork, chicken, including ham and sausage), fish, seafood (including fish cake and crab stick), eggs, milk or dairy, or honey.',
     veganS3: 'I also do not eat food with animal ingredients in its stock or seasoning (for example anchovy stock, fish sauce, salted shrimp).',
     veganS4: 'Is there a dish I can eat?',
     veganQ1: 'Is there meat or seafood in this dish?',
@@ -544,6 +544,8 @@ export default {
     answer5: 'I will leave it out',
     answer6: 'That is not possible',
     answer7: 'I am not sure',
+    answer8: 'Yes, there is',
+    answer9: 'No, there is not',
     word1: 'fish sauce — usual in kimchi and many side dishes',
     word2: 'salted shrimp — usual in kimchi and steamed egg',
     word3: 'salted seafood, the family both belong to',

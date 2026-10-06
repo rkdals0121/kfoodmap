@@ -499,7 +499,7 @@ export default {
   },
   cardText: {
     veganS1: 'Halo. Saya vegan (sepenuhnya nabati).',
-    veganS2: 'Saya tidak makan daging, ikan, makanan laut, telur, susu atau produk susu, maupun madu.',
+    veganS2: 'Saya tidak makan daging (sapi, babi, ayam, termasuk ham dan sosis), ikan, makanan laut (termasuk fish cake dan crab stick), telur, susu atau produk susu, maupun madu.',
     veganS3: 'Saya juga tidak makan hidangan yang kaldu atau bumbunya mengandung bahan hewani (misalnya kaldu ikan teri, kecap ikan, udang asin fermentasi).',
     veganS4: 'Apakah ada menu yang bisa saya makan?',
     veganQ1: 'Apakah makanan ini mengandung daging atau makanan laut?',
@@ -531,6 +531,8 @@ export default {
     answer5: 'Akan saya buatkan tanpa itu',
     answer6: 'Tidak bisa',
     answer7: 'Saya kurang tahu',
+    answer8: 'Ada',
+    answer9: 'Tidak ada',
     word1: 'kecap ikan — biasa ada di kimchi dan banyak lauk pendamping',
     word2: 'udang asin fermentasi — biasa ada di kimchi dan telur kukus',
     word3: 'makanan laut asin fermentasi, kelompok yang mencakup keduanya',

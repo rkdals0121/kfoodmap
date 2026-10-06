@@ -171,7 +171,8 @@ function dietPairs(parts) {
   const out = [];
   for (let i = 0; i < parts.length; i += 1) {
     const pair = i + 1 < parts.length ? squash(`${parts[i]} ${parts[i + 1]}`) : '';
-    if (pair && (PORK_FREE_WORDS.has(pair) || Object.hasOwn(DIET_WORDS, pair))) { out.push(pair); i += 1; } else out.push(squash(parts[i]));
+    // …and so do two words that are one area ("lotte world").
+    if (pair && (PORK_FREE_WORDS.has(pair) || Object.hasOwn(DIET_WORDS, pair) || Object.hasOwn(AREA_ALIASES, pair))) { out.push(pair); i += 1; } else out.push(squash(parts[i]));
   }
   return out;
 }
@@ -188,10 +189,14 @@ function searchCore(r, rawQuery) {
   if (Object.hasOwn(DIET_WORDS, q) || PORK_FREE_WORDS.has(q)) return dietWordMatch(r, q);
   // An alias answers the whole search when it is the whole search, or a
   // name of several words that opens it ("Lotte World Tower"). Not when
-  // it is one word among others: "hongdae halal" and "hongdae bakery"
-  // were every place around Hongdae, bakery or not.
-  const first = squash(query.trim().split(/\s+/)[0] ?? '');
-  if (aliasMatch(r, q) && (first === q || !Object.hasOwn(AREA_ALIASES, first))) return true;
+  // it is one word among others — "hongdae halal" and "hongdae bakery"
+  // were every place around Hongdae, bakery or not — and not when a diet
+  // word follows it ("lotte world halal", "hongdae-halal").
+  const parts = dietPairs(query.trim().split(/[\s-]+/).filter(Boolean));
+  const alias = Object.keys(AREA_ALIASES).find(k => q.startsWith(k));
+  const asksDiet = parts.some(w => Object.hasOwn(DIET_WORDS, w) || PORK_FREE_WORDS.has(w));
+  const firstWord = squash(query.trim().split(/[\s-]+/)[0] ?? '');
+  if (alias && !asksDiet && aliasMatch(r, q) && (q === alias || firstWord !== alias)) return true;
   // The whole search is an area's name: answered by where the place is or
   // what it is called — not by a line saying it "moved from Itaewon".
   if (AREA_WORDS.has(q)) return inAreaOrName(r, q);
@@ -211,7 +216,14 @@ function searchCore(r, rawQuery) {
   // "no pork", "pork free", "무슬림 프렌들리": two words that are one diet
   // word stay together. Apart, "seoul no pork" was every Seoul record with a
   // "no" and a "pork" in its story — places that serve pork among them.
-  const words = dietPairs(String(query).trim().split(/\s+/)).filter(w => w.length >= 2);
+  // "hongdae-halal": a hyphen beside a diet word is a space
+  // ("mapo-gu", "Jeju-si" and "pork-free" stay whole).
+  const spaced = String(query).trim().split(/\s+/).flatMap((w) => {
+    const halves = w.split('-').filter(Boolean);
+    return halves.length > 1 && !PORK_FREE_WORDS.has(squash(w)) && !Object.hasOwn(DIET_WORDS, squash(w))
+      && halves.some(h => Object.hasOwn(DIET_WORDS, squash(h))) ? halves : [w];
+  });
+  const words = dietPairs(spaced).filter(w => w.length >= 2);
   // Words of one letter are dropped, not required: "busan v" (mid-typing)
   // and "제주도" (split into Jeju + 도) are then judged on what is left.
   if (words.length === 0) return false;
