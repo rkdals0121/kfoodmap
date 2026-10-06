@@ -281,3 +281,14 @@ test('a letter typed after an area does not widen it; a certification word is a 
   for (const q of ['KMF', '인증', '認証', '할랄 인증', 'ハラール 認証', 'ハラール認証', '清真认证']) assert.equal(ids(go(q)), halal, q);
   assert.equal(ids(go('Itaewon 인증')), ids(go('Itaewon')));
 });
+
+// Every keystroke is a search. After a hundred or so different ones in a
+// visit each took over a second: a pattern was compiled for every field of
+// every place, and the engine's store of compiled patterns stopped keeping
+// up. One pattern per word now, kept (2026-10-07).
+test('search is as quick after many different searches as at first', () => {
+  for (let k = 0; k < 400; k += 1) go(`word${k} seoul`);
+  const t0 = performance.now();
+  for (const q of ['Seoul Station', 'Haeundae', 'zzzqqq', 'vegan restaurant near seoul station open now please']) go(q, ['Halal']);
+  assert.ok(performance.now() - t0 < 1500);
+});

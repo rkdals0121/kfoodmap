@@ -147,10 +147,20 @@ const dietWordMatch = (r, w) => {
 // "mapo gu" still finds "Mapo-gu". Hangul has no such word edge to lean
 // on, so a Korean query matches anywhere.
 const escapeRe = (c) => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const WORD_START = new Map();
 function startsWord(text, q) {
   if (typeof text !== 'string' || q === '') return false;
   if (!/^[a-z0-9]/.test(q)) return squash(text).includes(q);
-  const re = new RegExp('(?:^|[^a-z0-9])' + [...q].map(escapeRe).join('[\\s-]*'));
+  // One pattern per search word, kept: built afresh for every field of
+  // every place, a search took 60 ms at first and 1.5 s after a hundred
+  // different searches in one visit (the engine's own store of compiled
+  // patterns stops keeping up).
+  let re = WORD_START.get(q);
+  if (!re) {
+    re = new RegExp('(?:^|[^a-z0-9])' + [...q].map(escapeRe).join('[\\s-]*'));
+    if (WORD_START.size > 500) WORD_START.clear();
+    WORD_START.set(q, re);
+  }
   return re.test(fold(text));
 }
 
@@ -281,9 +291,15 @@ function areaCore(r, rawQuery) {
 // A query is tried as typed and, when it contains a place name written in
 // Korean, Japanese or Chinese, again with that name romanised (area-names.js)
 // — "釜山 ヴィーガン" finds what "Busan vegan" finds.
+// Asked once per place for the same search: read once, kept.
+const ROMAN = new Map();
+const romanOf = (query) => {
+  if (!ROMAN.has(query)) { if (ROMAN.size > 200) ROMAN.clear(); ROMAN.set(query, romaniseQuery(query)); }
+  return ROMAN.get(query);
+};
 export function matchesSearch(r, query) {
   if (searchCore(r, query)) return true;
-  const roman = romaniseQuery(query);
+  const roman = romanOf(query);
   return roman !== null && searchCore(r, roman);
 }
 
@@ -300,14 +316,14 @@ const isCooking = (q) => COOKING.has(squash(unpunct(q)));
 export function matchesAreaWhole(r, query) {
   if (isCooking(query)) return false;
   if (areaWhole(r, query)) return true;
-  const roman = romaniseQuery(query);
+  const roman = romanOf(query);
   return roman !== null && !isCooking(roman) && areaWhole(r, roman);
 }
 
 export function matchesArea(r, query) {
   if (isCooking(query)) return false;
   if (areaCore(r, query)) return true;
-  const roman = romaniseQuery(query);
+  const roman = romanOf(query);
   return roman !== null && !isCooking(roman) && areaCore(r, roman);
 }
 
