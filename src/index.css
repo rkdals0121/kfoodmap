@@ -6529,3 +6529,13 @@ html[data-text='larger'] .detail-bar__map svg {
   line-height: 1.35;
   color: var(--muted-strong);
 }
+
+/* The headline in even lines: "The other side of K-" / "food." broke the
+   name at its own hyphen. */
+.prologue-title {
+  text-wrap: balance;
+}
+/* The claims sit under the name, not a section away from it. */
+.detail-header + .fact-row {
+  margin-top: -10px;
+}
