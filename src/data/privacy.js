@@ -85,7 +85,7 @@ export const privacyPolicy = {
     ],
   },
   ko: {
-    title: '개인정보처리방침',
+    title: '개인정보 처리방침',
     effective: `시행일 ${PRIVACY_EFFECTIVE_DATE}`,
     contactPending: '개인정보 관련 문의처는 이곳에 게시될 예정입니다.',
     sections: [

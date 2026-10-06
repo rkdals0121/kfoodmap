@@ -159,7 +159,7 @@ export default {
     language: '語言',
     languageEnglish: 'English',
     chooseLanguage: '選擇語言',
-    languageNote: '譯文剛剛上線，可能有誤。店名、故事和菜單仍為英文。',
+    languageNote: '譯文剛剛上線，可能有誤。店名保持原樣，沒有譯文的地方顯示英文。',
     languageFailed: '無法載入該語言。請檢查網路後再試一次。',
     languageLoading: '載入中…',
     staffCards: '給店員看的韓文卡片',
@@ -405,7 +405,7 @@ export default {
       description: '三家梨泰院餐廳，對應三種不同飲食——首爾中央清真寺旁的清真友善韓式家常菜、一家純素咖啡廳兼烘焙坊，以及肉舖料理的植物性版本——全都在同一個街區內。',
     },
     'jongno-temple-food': {
-      title: '鐘路與仁寺洞：韓國寺院料理',
+      title: '鍾路與仁寺洞：韓國寺院料理',
       description: '首爾市中心三家步行可達的餐館，其中兩家被列為寺院料理店。寺院料理是不用肉、不用魚、也不用五辛的佛教傳統，但每家店是否完全依此做法，請向店家確認。一家有來源稱為全純素；至於兩家寺院料理餐館，全純素是本站依其傳統所做的推斷，並非店家自己的說法。',
     },
     'myeongdong-halal-korean': {

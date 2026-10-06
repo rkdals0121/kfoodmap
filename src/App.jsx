@@ -928,7 +928,14 @@ function AppShell() {
       <h1 className="visually-hidden">K-Food Map</h1>
       {/* The map holds hundreds of focusable pins; the same places are in
           the list, one Tab away with this link. */}
-      {activeTab === 'map' && !modalOpen && !placePeek && <a className="skip-link" href="#place-list">{t('app.skipToList')}</a>}
+      {activeTab === 'map' && !modalOpen && !placePeek && <a
+        className="skip-link"
+        href="#place-list"
+        // Focus only: followed as a link it rewrote the address to
+        // "#place-list", which the app read as a view with no search and
+        // no chips — the list a keyboard user had narrowed was wiped.
+        onClick={(e) => { e.preventDefault(); document.getElementById('place-list')?.focus({ preventScroll: true }); }}
+      >{t('app.skipToList')}</a>}
       {/* Above everything, on every tab: inside the map region they sat under
           the pins and vanished behind the other tabs and the sheets. */}
       {!isOnline && (

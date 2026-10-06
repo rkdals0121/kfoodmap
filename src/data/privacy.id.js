@@ -6,7 +6,7 @@
 // changes, this file must change with it.
 //
 // Quoted UI labels follow src/i18n/locales/id.js: profile.signInGoogle
-// (“Masuk dengan Google”), map.locate (“Tampilkan lokasi saya”),
+// (“Masuk dengan Google”), map.nearMe (“Lokasi saya”),
 // profile.deleteRecords (“Hapus tempat tersimpan saya”).
 
 import { PRIVACY_EFFECTIVE_DATE, LEAD_EMAIL_RETENTION_DAYS } from './privacy.js';
@@ -21,7 +21,7 @@ export default {
       heading: 'Ringkasan',
       items: [
         'Anda dapat menggunakan K-Food Map tanpa akun. Jika Anda tidak masuk, hal-hal di bawah ini tentang akun atau proses masuk tidak berlaku — bagian lain halaman ini tetap berlaku, karena pengiriman laporan, hosting, dan gambar peta tidak bergantung pada akun.',
-        'Kami tidak menjalankan analitik, tidak menampilkan iklan, dan tidak memasang cookie. Lokasi Anda hanya digunakan jika Anda menekan “Tampilkan lokasi saya” di peta, dan itu pun hanya di dalam browser Anda, untuk memusatkan peta dan menampilkan jarak dari Anda — lokasi itu tidak disimpan dan tidak dikirim kepada kami.',
+        'Kami tidak menjalankan analitik, tidak menampilkan iklan, dan tidak memasang cookie. Lokasi Anda hanya digunakan jika Anda menekan “Lokasi saya” di peta, dan itu pun hanya di dalam browser Anda, untuk memusatkan peta dan menampilkan jarak dari Anda — lokasi itu tidak disimpan dan tidak dikirim kepada kami.',
         'Jika Anda masuk dengan Google, Supabase (penyedia autentikasi kami) menyimpan alamat email dan ID akun Anda, dan akun Anda memuat tempat mana yang Anda simpan atau tandai sudah dikunjungi, beserta waktunya — tidak pernah nama, koordinat, foto, atau lokasi Anda.',
         'Kami juga menerima informasi pribadi jika Anda memilih mengirim laporan dan mencantumkan alamat email Anda.',
       ],
@@ -55,7 +55,7 @@ export default {
         'Kakao Corp. (Republik Korea) menyediakan pencarian restoran yang ditampilkan selama Anda mengetik nama di formulir laporan. Teks yang telah Anda ketik diteruskan ke Kakao oleh server kami, bukan dikirim langsung dari browser Anda, sehingga Kakao tidak menerima alamat IP Anda.',
         'Supabase Inc. (Amerika Serikat) menyimpan laporan yang Anda kirim, dan — jika Anda masuk — akun Anda (alamat email, ID akun) serta tempat yang Anda simpan atau tandai sudah dikunjungi. Browser Anda juga menanyakan langsung kepada Supabase, bahkan saat Anda tidak masuk, apakah proses masuk dengan Google diaktifkan, yang mengirimkan alamat IP Anda ke Supabase tetapi tidak mengirimkan informasi lain tentang Anda.',
         'Google LLC (Amerika Serikat), melalui Supabase, adalah pihak yang Anda gunakan untuk masuk jika Anda memilih masuk. Google memberikan alamat email dan ID akun Anda kepada Supabase; kami tidak pernah melihat kata sandi Google Anda.',
-        'OpenStreetMap menyediakan gambar peta. Browser Anda memintanya secara langsung, yang mengirimkan alamat IP Anda ke OpenStreetMap dan, seperti pada peta mana pun, area mana yang sedang Anda lihat — setelah “Tampilkan lokasi saya”, area itu adalah area di sekitar Anda. Jenis huruf (Pretendard GOV) disajikan dari situs ini sendiri, bukan dari layanan font.',
+        'OpenStreetMap menyediakan gambar peta. Browser Anda memintanya secara langsung, yang mengirimkan alamat IP Anda ke OpenStreetMap dan, seperti pada peta mana pun, area mana yang sedang Anda lihat — setelah “Lokasi saya”, area itu adalah area di sekitar Anda. Jenis huruf (Pretendard GOV) disajikan dari situs ini sendiri, bukan dari layanan font.',
         'Tautan ke Google Maps, Naver Map, Kakao Map, dan situs web restoran membawa Anda ke layanan-layanan tersebut; di sana berlaku kebijakan privasi masing-masing layanan.',
       ],
     },

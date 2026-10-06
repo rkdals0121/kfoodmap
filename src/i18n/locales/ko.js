@@ -160,7 +160,7 @@ export default {
     language: '언어',
     languageEnglish: 'English',
     chooseLanguage: '언어 선택',
-    languageNote: '번역은 이제 막 시작해서 틀린 곳이 있을 수 있어요. 장소 이름, 이야기, 메뉴는 영어로 나와요.',
+    languageNote: '번역은 이제 막 시작해서 틀린 곳이 있을 수 있어요. 번역이 없는 곳은 영어로 나와요.',
     languageFailed: '그 언어를 불러오지 못했어요. 연결을 확인하고 다시 시도해 주세요.',
     languageLoading: '불러오는 중…',
     staffCards: '직원에게 보여 줄 한국어 카드',

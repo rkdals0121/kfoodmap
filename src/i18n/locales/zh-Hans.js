@@ -159,7 +159,7 @@ export default {
     language: '语言',
     languageEnglish: 'English',
     chooseLanguage: '选择语言',
-    languageNote: '译文刚刚上线，可能有误。店名、故事和菜单仍为英文。',
+    languageNote: '译文刚刚上线，可能有误。店名保持原样，没有译文的地方显示英文。',
     languageFailed: '无法加载该语言。请检查网络后重试。',
     languageLoading: '加载中…',
     staffCards: '给店员看的韩语卡片',

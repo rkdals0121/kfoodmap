@@ -166,7 +166,7 @@ export default {
     language: 'Language',
     languageEnglish: 'English',
     chooseLanguage: 'Choose a language',
-    languageNote: 'Translations are new and may have mistakes. Place names, stories and menus stay in English.',
+    languageNote: 'Translations are new and may have mistakes. Place names stay as they are written; where a translation is missing, the English shows.',
     languageFailed: 'Could not load that language. Check your connection and try again.',
     languageLoading: 'Loading…',
     staffCards: 'Korean cards to show staff',

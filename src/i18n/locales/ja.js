@@ -164,7 +164,7 @@ export default {
     language: '言語',
     languageEnglish: 'English',
     chooseLanguage: '言語を選択',
-    languageNote: '翻訳は公開したばかりで、誤りが含まれる場合があります。店名、ストーリー、メニューは英語のまま表示されます。',
+    languageNote: '翻訳は公開したばかりで、誤りが含まれる場合があります。店名は元の表記のまま表示され、翻訳がない箇所は英語で表示されます。',
     languageFailed: 'その言語を読み込めませんでした。接続を確認して、もう一度お試しください。',
     languageLoading: '読み込み中…',
     staffCards: 'お店で見せる韓国語カード',

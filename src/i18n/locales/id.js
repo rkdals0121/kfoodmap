@@ -161,7 +161,7 @@ export default {
     language: 'Bahasa',
     languageEnglish: 'English',
     chooseLanguage: 'Pilih bahasa',
-    languageNote: 'Terjemahan masih baru dan mungkin ada kesalahan. Nama tempat, cerita, dan menu tetap dalam bahasa Inggris.',
+    languageNote: 'Terjemahan masih baru dan mungkin ada kesalahan. Nama tempat ditulis apa adanya; bagian yang belum diterjemahkan tampil dalam bahasa Inggris.',
     languageFailed: 'Bahasa itu tidak dapat dimuat. Periksa koneksi Anda, lalu coba lagi.',
     languageLoading: 'Memuat…',
     staffCards: 'Kartu bahasa Korea untuk staf',

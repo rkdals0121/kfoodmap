@@ -6672,3 +6672,9 @@ html[data-text='larger'] .detail-bar__map svg {
     overflow-wrap: anywhere;
   }
 }
+@media (max-width: 767px) {
+  .place-list:not(.notes-open) .place-list__note--key {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+}
