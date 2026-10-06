@@ -416,7 +416,7 @@ const KO_BRANCH = {
   Itaewon: '이태원', COEX: '코엑스', Seongsu: '성수', Sinsa: '신사', Godeok: '고덕', Mangwon: '망원',
   'Gyeongridan-gil': '경리단길', Kebab: '케밥', Bakery: '베이커리', 'Vegan Bakery': '비건 베이커리', 'Vegan Cafe': '비건 카페',
   "Seoul Nat'l Univ. Station": '서울대입구역', "I'Park Mall Yongsan": '아이파크몰 용산', 'Famille Station': '파미에스테이션',
-  'Terminal 1': '제1터미널', 'Nami Island': '남이섬',
+  'Terminal 1': '제1터미널', 'Nami Island': '남이섬', 'Terminal 1 East Food Court': '제1터미널 동편 푸드코트',
 };
 export function displayName(name) {
   // In Korean the name is the one on the sign: "EID Halal Korean Food (이드)"

@@ -67,6 +67,35 @@ function assertAuthChunkName() {
   };
 }
 
+// The translated texts (stories, research notes, menu glosses) are large and
+// one reader needs one language of them: the service-worker rules leave
+// `assets/story-*`, `assets/notes-*` and `assets/menu-*` out of the precache
+// and keep them at run time. The same kind of guard as above: each of those
+// modules must be emitted under such a name, and nothing else may be — a
+// component called menu-something.js would silently drop out of the precache.
+const TRANSLATION_SOURCE = /\/src\/data\/(?:story-[^/]+|menu-[^/]+|notes\/notes-[^/]+)\.js$/
+const TRANSLATION_CHUNK = /^assets\/(?:story|notes|menu)-[^/]+\.js$/
+function assertTranslationChunkNames() {
+  return {
+    name: 'kfm-assert-translation-chunks',
+    apply: 'build',
+    generateBundle(_options, bundle) {
+      for (const item of Object.values(bundle)) {
+        if (item.type !== 'chunk') continue;
+        const modules = Object.keys(item.modules ?? {}).map(id => id.replaceAll('\\', '/'));
+        const translated = modules.filter(id => TRANSLATION_SOURCE.test(id));
+        const named = TRANSLATION_CHUNK.test(item.fileName);
+        if (translated.length > 0 && (!named || translated.length !== modules.length)) {
+          this.error(`"${item.fileName}" carries translated text (${translated[0]}) but is not a chunk of its own named story-/notes-/menu-: it would be precached for every reader, or bundled into the app.`);
+        }
+        if (named && translated.length === 0) {
+          this.error(`"${item.fileName}" is named like a translation file but is not one: the service worker would leave it out of the precache. Rename the module.`);
+        }
+      }
+    },
+  };
+}
+
 // Dev only: Vite does not serve api/, so mount the same handler at the
 // same path. apply: 'serve' keeps it out of every build.
 // Ships src/data/restaurants.js to the browser without its `evidence` text
@@ -175,6 +204,7 @@ export default defineConfig({
     clientData(),
     apiDevServer(),
     assertAuthChunkName(),
+    assertTranslationChunkNames(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',
