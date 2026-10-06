@@ -107,7 +107,10 @@ const scrollMemory = new Map();
 // text it ran 100 characters wide and could not be opened.
 // A note that is one clause ("…the usual Korean-Chinese menu") still ends
 // as a sentence, in the reader's punctuation.
-const closed = (text, lang) => (/[.!?。！？…)）」』”’"']$/.test(text.trim()) || text.trim() === '' ? text : `${text.trim()}${/^(ja|zh)/.test(lang) ? '。' : '.'}`);
+// …and without the map's own record names: "the Osan branch
+// (samdaejjae-sondubu-osan)" is a note to the researcher, not the reader.
+const RECORD_NAME = /\s*[(（][a-z]+(?:-[a-z0-9]+){2,}[)）]/g;
+const closed = (raw, lang, text = raw.replace(RECORD_NAME, '')) => (/[.!?。！？…)）」』”’"']$/.test(text.trim()) || text.trim() === '' ? text : `${text.trim()}${/^(ja|zh)/.test(lang) ? '。' : '.'}`);
 // A gloss that only says the name again ("Halal Bulgogi" — "bulgogi
 // halal") is left out.
 const sameWords = (a, b) => {
