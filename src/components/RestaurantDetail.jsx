@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useMenuGloss } from '../hooks/useMenuGloss';
 import { useNotes } from '../hooks/useNotes';
 import { plainNote } from '../data/note-terms';
 import { useStories } from '../hooks/useStories';
@@ -155,6 +156,7 @@ export default function RestaurantDetail({
   const { t, i18n } = useTranslation();
   const stories = useStories();
   const notes = useNotes(restaurant?.id);
+  const menuGloss = useMenuGloss(Boolean(restaurant));
   const location = useLocation();
   const [copied, setCopied] = useState(false);
   const [koAddrCopied, setKoAddrCopied] = useState(false);
@@ -867,7 +869,12 @@ export default function RestaurantDetail({
                 <div className="menu-rows">
                   {place.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
-                      <span><KoText>{m.name}</KoText></span>
+                      <span>
+                        <KoText>{m.name}</KoText>
+                        {/* What the dish is, in the reader's language (most
+                            names are Korean): a gloss, not the menu's words. */}
+                        {menuGloss?.[m.name] && <span className="menu-row__gloss">{menuGloss[m.name]}</span>}
+                      </span>
                       <span className="menu-row__price">{formatPrice(m.price, i18n.language) ?? t('detail.priceNotListed')}</span>
                     </div>
                   ))}

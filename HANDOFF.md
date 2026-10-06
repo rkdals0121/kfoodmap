@@ -3425,10 +3425,17 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       `useStories` loads the file for the interface language; the files
       are left out of the precache and kept by a runtime route
       (`kfm-stories`).
-    - Left: evidence notes and menu names are English in every
-      language; two places have no Korean address (makan, akiya); the
-      translations were checked against the English on a sample (100
-      Korean, 75 each of the others), not place by place.
+    - `src/data/notes/notes-<lang>-<0..15>.js` (same five languages): the
+      research notes under "Why?" (`dietary.*.evidence` as `plainNote`
+      words it, `src/data/note-terms.js`), the certification-claim line
+      (`cert`) and the timeline, sixteen files per language by place id
+      (`useNotes`, `noteShard`); `scripts/tests/notes.test.mjs` ties each
+      entry to its English (`of`, `of2`) and to every link in it. Rules
+      in `src/data/notes/README.md`.
+    - Left: two places have no Korean address (makan, akiya); the
+      translations were checked against the English on samples (stories:
+      100 Korean, 75 each of the others; notes: 80 Korean, 60 each), not
+      place by place.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

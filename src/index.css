@@ -6494,3 +6494,12 @@ html[data-text='larger'] .detail-bar__map svg {
   font-size: 13px;
   color: var(--muted-strong);
 }
+
+/* A menu item's gloss in the reader's language, under its own name. */
+.menu-row__gloss {
+  display: block;
+  margin-top: 1px;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--muted-strong);
+}
