@@ -221,3 +221,19 @@ html[data-text] .prologue-content {
     position: static;
   }
 }
+
+/* Six languages in a fixed grid on a phone. Wrapped as they fitted, the
+   row count depended on the font: three rows in the fallback font, two
+   once the web font arrived, and the whole screen jumped 52 px a few
+   seconds in (layout shift 0.26 on a slow first load). */
+@media (max-width: 479px) {
+  .prologue-languages {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .prologue-languages .prologue-language {
+    padding: 4px 6px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+}

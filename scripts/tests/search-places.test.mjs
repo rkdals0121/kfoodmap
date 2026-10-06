@@ -296,3 +296,16 @@ test('search is as quick after many different searches as at first', () => {
   for (const q of ['Seoul Station', 'Haeundae', 'zzzqqq', 'vegan restaurant near seoul station open now please']) go(q, ['Halal']);
   assert.ok(performance.now() - t0 < 1500);
 });
+
+// A diet word typed beside a station is the chip and the station (live
+// regression, 2026-10-07): "halal seoul station" was every halal place in
+// Seoul, "seoul station halal" another list again.
+test('a diet word beside a station gives what the chip and the station give', () => {
+  const chip = go('seoul station', ['Halal']);
+  for (const q of ['halal seoul station', 'seoul station halal', 'kmf seoul station', '서울역 할랄']) {
+    const r = go(q);
+    assert.equal(ids(r), ids(chip), q);
+    assert.deepEqual(r.nearest.map(n => n.place.id), chip.nearest.map(n => n.place.id), q);
+  }
+  assert.equal(ids(go('vegan seoul station')), ids(go('seoul station', ['Vegan'])));
+});

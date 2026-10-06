@@ -207,6 +207,20 @@ export function stripCertWords(query) {
   const named = dietPairs(rest).some(w => Object.hasOwn(DIET_WORDS, w) || PORK_FREE_WORDS.has(w));
   return named ? rest.join(' ') : ['halal', ...rest].join(' ');
 }
+// The diet words of a search, as the chips they stand for, and the rest
+// of it: "halal seoul station" is the Halal chip and "seoul station"
+// (search.js reads a station only from the rest).
+export function liftDietWords(query) {
+  const parts = unpunct(query).trim().split(/\s+/).filter(Boolean);
+  const chips = [];
+  const rest = [];
+  for (let i = 0; i < parts.length; i += 1) {
+    const pair = i + 1 < parts.length ? squash(`${parts[i]} ${parts[i + 1]}`) : '';
+    if (pair && Object.hasOwn(DIET_WORDS, pair)) { chips.push(DIET_WORDS[pair]); i += 1; } else if (Object.hasOwn(DIET_WORDS, squash(parts[i]))) chips.push(DIET_WORDS[squash(parts[i])]);
+    else rest.push(parts[i]);
+  }
+  return { chips: [...new Set(chips)], rest: rest.join(' ') };
+}
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
   const q = squash(query);

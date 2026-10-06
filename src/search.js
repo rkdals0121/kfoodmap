@@ -18,7 +18,7 @@ import { matchesDietary } from './data/verification.js';
 import { fuzzyQuery, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
-  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords } from './filters.js';
+  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, liftDietWords } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
 
 // The longest search the box accepts. A page of pasted text built a regular
@@ -63,7 +63,17 @@ export function searchPlaces({
 }) {
   // A certification word is a question (filters.js): out before the
   // station, filler and phrase readings below see the search.
-  const raw = stripCertWords(String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim());
+  const typed = stripCertWords(String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim());
+  // A diet word beside a station is a chip, and the station the search:
+  // "halal seoul station" took "halal seoul" for the station's name and
+  // answered with every halal place in Seoul; "seoul station halal"
+  // answered with another list again. Both are now what the Halal chip
+  // and "seoul station" give — the places there, or the nearest.
+  const chosen = filters;
+  const lifted = liftDietWords(typed);
+  const atStation = lifted.chips.length > 0 && lifted.rest !== '' && stationOf(stripFillers(lifted.rest)) !== null;
+  const raw = atStation ? lifted.rest : typed;
+  if (atStation) filters = [...new Set([...filters, ...lifted.chips])];
 
   // Filter chips (AND across chips). A dietary chip only matches on
   // evidence — an unknown dietary record never matches, so we never send
@@ -125,10 +135,10 @@ export function searchPlaces({
     const asked = stripFillers(raw);
     const station = stationOf(asked);
     if (station) {
-      const atStation = (r) => matchesPhrase(r, station.phrase);
+      const here = (r) => matchesPhrase(r, station.phrase);
       const label = station.phrase.toLowerCase() === asked.toLowerCase() ? asked : `${titled(station.area)} Station`;
-      const named = select(atStation);
-      const spots = named.list.length > 0 ? [] : places.filter(atStation);
+      const named = select(here);
+      const spots = named.list.length > 0 ? [] : places.filter(here);
       if (named.list.length > 0) {
         result = named;
         used = label;
@@ -234,7 +244,7 @@ export function searchPlaces({
     // The same search run again with the chips off, so the number is the
     // one the reader will see. Not for "Saved" or a shared list: those are
     // the reader's own places, not a filter to suggest dropping.
-    withoutFilters: result.list.length === 0 && raw && filters.length > 0 && !areaOnly
+    withoutFilters: result.list.length === 0 && raw && chosen.length > 0 && !areaOnly
       && !filters.includes(SAVED_ONLY) && !filters.includes(SHARED_LIST)
       ? searchPlaces({ places, query, filters: [], now }).filteredRestaurants.length
       : 0,
