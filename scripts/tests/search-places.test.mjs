@@ -236,3 +236,27 @@ test('an area word does not match a place that only mentions the area', () => {
   for (const r of found) assert.match(`${r.zone} ${r.address?.value ?? ''} ${r.name}`, /itaewon|hannam|yongsan/i, r.id);
   assert.ok(!found.some(r => r.id === 'nono-shop'), 'Nono Shop moved to Hoehyeon');
 });
+
+// "hongdae halal" listed six vegan bakeries with no halal reading: the
+// Hongdae alias answered for the whole search, and "halal" was looked for
+// in stories that say "not halal" (live audit, 2026-10-07).
+test('a diet word beside an area is answered from the record', async () => {
+  const { matchesDietary } = await import('../../src/data/verification.js');
+  for (const q of ['hongdae halal', 'ホンデ ハラール', '弘大 清真', 'seomyeon halal', 'itaewon halal']) {
+    const found = go(q).filteredRestaurants;
+    for (const r of found) assert.ok(matchesDietary(r, 'Halal') || /halal/i.test(r.name), `${q}: ${r.id}`);
+  }
+  assert.ok(go('hongdae halal').filteredRestaurants.length >= 3);
+  assert.ok(go('hongdae bakery').filteredRestaurants.length < go('hongdae').filteredRestaurants.length);
+  // A sight's name of several words is still the area it stands in.
+  assert.equal(ids(go('lotte world tower')), ids(go('lotte world')));
+});
+
+// The words on the chips and cards, typed back, find what they label.
+test('a diet label typed as it is shown finds its places', () => {
+  const full = ids(go('fully vegan'));
+  assert.ok(go('fully vegan').filteredRestaurants.length > 50);
+  for (const q of ['完全ヴィーガン', '완전 비건', '全素', '全純素', '全纯素', 'vegan sepenuhnya']) assert.equal(ids(go(q)), full, q);
+  const halal = ids(go('halal'));
+  for (const q of ['ハラールフレンドリー', 'halal-friendly', 'ramah halal', '할랄 프렌들리', '清真友善', '清真友好']) assert.equal(ids(go(q)), halal, q);
+});

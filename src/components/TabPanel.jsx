@@ -58,12 +58,14 @@ const resolvedJourneys = journeys
 function claimSummary(stops, t) {
   const order = ['strong', 'medium', 'weak'];
   const counts = {};
+  // One count per stop, by its least sure claim: counted per claim, a
+  // course of "4 stops" read "6 reported" beside it.
   for (const place of stops) {
-    for (const b of dietaryBadges(place)) {
-      const { label, tone } = trustBadge(b.fact);
-      counts[tone] = counts[tone] ?? { label, n: 0 };
-      counts[tone].n += 1;
-    }
+    const marks = dietaryBadges(place).map(b => trustBadge(b.fact));
+    const mark = [...order].reverse().map(k => marks.find(m => m.tone === k)).find(Boolean);
+    if (!mark) continue;
+    counts[mark.tone] = counts[mark.tone] ?? { label: mark.label, n: 0 };
+    counts[mark.tone].n += 1;
   }
   // Korean puts the count after the word, with a counter.
   const parts = order.filter(k => counts[k]).map(k => (i18next.language === 'ko'

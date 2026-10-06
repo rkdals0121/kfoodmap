@@ -60,13 +60,16 @@ function SectionHead({ Icon, title, kr }) {
 // not a price.
 // …and in the currency word of the reader's language where it has one
 // ("14,000원", "約19,000ウォン"): the figure is the record's, untouched.
-const WON = { ko: ['원', '약 '], ja: ['ウォン', '約'], 'zh-Hans': ['韩元', '约'], 'zh-Hant': ['韓元', '約'] };
+const WON = { ko: ['원', '약 '], ja: ['ウォン', '約'], 'zh-Hans': ['韩元', '约'], 'zh-Hant': ['韓元', '約'], id: [' won', '±'] };
 function formatPrice(price, lang) {
   const p = typeof price === 'number' ? String(price) : (price ?? '').trim();
   if (p === '' || /^(unknown|price not listed)$/i.test(p)) return null;
   const krw = /^\d+$/.test(p) ? `${Number(p).toLocaleString('en-US')} KRW` : p;
   const [unit, about] = WON[lang] ?? [];
-  return unit ? krw.replace(/\s?KRW/g, unit).replace(/^~\s?/, about) : krw;
+  if (!unit) return krw;
+  const out = krw.replace(/\s?KRW/g, unit).replace(/^~\s?/, about);
+  // Indonesian writes thousands with a point: "15,000" there reads as fifteen.
+  return lang === 'id' ? out.replace(/(\d),(?=\d{3}(?!\d))/g, '$1.') : out;
 }
 
 // Where a claim was read, by site: "The restaurant (mahinavegan.com)" and
@@ -102,15 +105,29 @@ const hoursPieces = (text) => String(text).split(', ').map((slot, i, all) => {
 const scrollMemory = new Map();
 // A web address inside a note becomes a link named by its site: as bare
 // text it ran 100 characters wide and could not be opened.
+// A note that is one clause ("…the usual Korean-Chinese menu") still ends
+// as a sentence, in the reader's punctuation.
+const closed = (text, lang) => (/[.!?。！？…)）」』”’"']$/.test(text.trim()) || text.trim() === '' ? text : `${text.trim()}${/^(ja|zh)/.test(lang) ? '。' : '.'}`);
+// A gloss that only says the name again ("Halal Bulgogi" — "bulgogi
+// halal") is left out.
+const sameWords = (a, b) => {
+  const words = (x) => new Set(x.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').split(/[^\p{L}\p{N}]+/u).filter(Boolean));
+  const name = words(a);
+  const gloss = [...words(b)];
+  return gloss.length > 0 && gloss.every(w => name.has(w));
+};
 // How long a note reads: a Korean, Japanese or Chinese character takes the
 // room of two or three Latin ones, so 420 characters of Chinese is three
 // screens where 420 of English is one.
+const FOLD_AT = 560;
 const noteWeight = (text) => text.length + 1.6 * (text.match(/[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/g)?.length ?? 0);
 // An address ends where its own characters end: in a translated note the
 // next thing may be Korean or a full-width bracket with no space between
 // ("https://x.example/a에서", "…/guide.pdf）。").
 const noteWithLinks = (text) => text.split(/(https?:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)/).map((part, k) => {
-  if (k % 2 === 0) return part;
+  // The space a translator left to end the address, before a full-width
+  // mark, is not part of the sentence ("namisum-en.imweb.me 、").
+  if (k % 2 === 0) return k > 0 ? part.replace(/^ (?=[、。，；：）」』])/, '') : part;
   // What closes the sentence or the bracket around it is not the address.
   const tail = /[).,;:'"”]+$/.exec(part)?.[0] ?? '';
   const href = tail ? part.slice(0, -tail.length) : part;
@@ -684,9 +701,20 @@ export default function RestaurantDetail({
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   {/* The research note can run to two screens: the first
                       lines, and the rest on request. */}
-                  <p className={`claim-explain__text${noteWeight(detail) > 420 && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {noteWithLinks(translated ? detail : plainNote(detail))}</p>
-                  {noteWeight(detail) > 420 && (
-                    <button type="button" className="claim-explain__more" aria-expanded={claimFull} onClick={() => setClaimFull(v => !v)}>
+                  <p className={`claim-explain__text${noteWeight(detail) > FOLD_AT && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {noteWithLinks(closed(translated ? detail : plainNote(detail), translated ? i18n.language : 'en'))}</p>
+                  {noteWeight(detail) > FOLD_AT && (
+                    <button
+                      type="button"
+                      className="claim-explain__more"
+                      aria-expanded={claimFull}
+                      onClick={(e) => {
+                        // Folding a two-screen note left the reader two
+                        // screens down, in the middle of another section.
+                        const box = e.currentTarget.closest('.claim-explain');
+                        if (claimFull) requestAnimationFrame(() => box?.scrollIntoView({ block: 'nearest' }));
+                        setClaimFull(v => !v);
+                      }}
+                    >
                       {t(claimFull ? 'detail.claimLess' : 'detail.claimMore')}
                     </button>
                   )}
@@ -721,7 +749,12 @@ export default function RestaurantDetail({
                 <p className="diet-note__cert">
                   {/* In the reader's language where it has been translated
                       (data/notes), else as the record words it. */}
-                  {certClaim.note
+                  {/* "Certification claimed: none — self-certified — we have
+                      not seen the certificate" argued with itself: where the
+                      record names no certifier at all, one plain sentence. */}
+                  {/^none/i.test(certClaim.body) && !certClaim.note
+                    ? t('detail.certificationSelf')
+                    : certClaim.note
                     ? t('detail.certificationClaimedNote', { body: certNotes?.body ?? plainNote(certClaim.body), note: certNotes?.note ?? plainNote(certClaim.note) })
                     : t('detail.certificationClaimed', { body: certNotes?.body ?? plainNote(certClaim.body) })}
                 </p>
@@ -890,9 +923,11 @@ export default function RestaurantDetail({
                         <KoText>{m.name}</KoText>
                         {/* What the dish is, in the reader's language (most
                             names are Korean): a gloss, not the menu's words. */}
-                        {menuGloss?.[m.name] && <span className="menu-row__gloss">{menuGloss[m.name]}</span>}
+                        {menuGloss?.[m.name] && !sameWords(m.name, menuGloss[m.name]) && <span className="menu-row__gloss">{menuGloss[m.name]}</span>}
                       </span>
-                      <span className="menu-row__price">{formatPrice(m.price, i18n.language) ?? t('detail.priceNotListed')}</span>
+                      {formatPrice(m.price, i18n.language)
+                        ? <span className="menu-row__price">{formatPrice(m.price, i18n.language)}</span>
+                        : <span className="menu-row__price menu-row__price--none">{t('detail.priceNotListed')}</span>}
                     </div>
                   ))}
                 </div>
@@ -1099,8 +1134,8 @@ export default function RestaurantDetail({
                 <div>
                   <dt>{t('detail.dietary')}</dt>
                   <dd>
-                    {dietFacts.length > 0
-                      ? [...new Set(dietFacts.map(f => sourceWithSite(f.fact)))].join(' · ')
+                    {claimFacts.length > 0
+                      ? [...new Set(claimFacts.map(f => sourceWithSite(f.fact)))].join(' · ')
                       : t('detail.notRecorded')}
                   </dd>
                 </div>

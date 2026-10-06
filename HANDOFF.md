@@ -3432,6 +3432,15 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       (`useNotes`, `noteShard`); `scripts/tests/notes.test.mjs` ties each
       entry to its English (`of`, `of2`) and to every link in it. Rules
       in `src/data/notes/README.md`.
+    - `src/data/menu-<lang>.js` (en, ko, ja, zh-Hans, zh-Hant, id): a
+      short gloss per recorded menu name, shown under the name
+      (`useMenuGloss`, asked for from the full record — the bundled
+      record has no `menus`). A gloss says what the dish is and adds no
+      diet word the name lacks (`scripts/tests/menu-gloss.test.mjs`).
+      The page shows a translated note only while its recorded lengths
+      (`n`, `n2`) still match the English it was made from.
+    - Search: an area's name (`AREA_WORDS` in `src/filters.js`) matches
+      where a place is or what it is called, never its story.
     - Left: two places have no Korean address (makan, akiya); the
       translations were checked against the English on samples (stories:
       100 Korean, 75 each of the others; notes: 80 Korean, 60 each), not

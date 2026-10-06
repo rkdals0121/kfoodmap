@@ -111,6 +111,12 @@ const DIET_WORDS = {
   // …and in languages the app does not speak but its visitors do.
   helal: 'Halal', 'حلال': 'Halal', 'ฮาลาล': 'Halal',
   // "Muslim-friendly" is what Korean tourism lists call these places.
+  // The labels on the cards and chips, as written there: typed back, they
+  // found nothing ("完全ヴィーガン", "vegan sepenuhnya", "全素": 0 places).
+  fullyvegan: FULLY_VEGAN, '완전비건': FULLY_VEGAN, '完全ヴィーガン': FULLY_VEGAN, '完全ビーガン': FULLY_VEGAN,
+  '全纯素': FULLY_VEGAN, '全純素': FULLY_VEGAN, '全素': FULLY_VEGAN, vegansepenuhnya: FULLY_VEGAN, sepenuhnyavegan: FULLY_VEGAN,
+  veganoptions: 'Vegan', 'ヴィーガン対応あり': 'Vegan', '有纯素选项': 'Vegan', '有純素選項': 'Vegan',
+  halalfriendly: 'Halal', ramahhalal: 'Halal', 'ハラールフレンドリー': 'Halal', '할랄프렌들리': 'Halal', '清真友好': 'Halal', '清真友善': 'Halal',
   muslim: 'Halal', muslimfriendly: 'Halal', '무슬림': 'Halal', '무슬림프렌들리': 'Halal', '무슬림친화': 'Halal', 'ムスリム': 'Halal', '穆斯林': 'Halal',
 };
 // "Pork-free" is a halal level the Halal chip leaves out (it is not halal),
@@ -127,7 +133,7 @@ export const isPorkFreeQuery = (query) => {
 const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'withoutpork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '돼지고기없는', '돼지고기없는곳', '포크프리']);
 const dietWordMatch = (r, w) => {
   // Object.hasOwn: typing "constructor" must not find Object.prototype's.
-  if (Object.hasOwn(DIET_WORDS, w)) return matchesDietary(r, DIET_WORDS[w]);
+  if (Object.hasOwn(DIET_WORDS, w)) return DIET_WORDS[w] === FULLY_VEGAN ? matchesFullyVegan(r) : matchesDietary(r, DIET_WORDS[w]);
   if (PORK_FREE_WORDS.has(w)) {
     const h = r.dietary?.halal;
     return Boolean(h) && h.confidence !== 'unknown' && h.value === 'porkFree';
@@ -180,7 +186,12 @@ function searchCore(r, rawQuery) {
   // answered from the record's diet and nothing else — word by word,
   // "no pork" was every record with a "no" and a "pork" in it.
   if (Object.hasOwn(DIET_WORDS, q) || PORK_FREE_WORDS.has(q)) return dietWordMatch(r, q);
-  if (aliasMatch(r, q)) return true;
+  // An alias answers the whole search when it is the whole search, or a
+  // name of several words that opens it ("Lotte World Tower"). Not when
+  // it is one word among others: "hongdae halal" and "hongdae bakery"
+  // were every place around Hongdae, bakery or not.
+  const first = squash(query.trim().split(/\s+/)[0] ?? '');
+  if (aliasMatch(r, q) && (first === q || !Object.hasOwn(AREA_ALIASES, first))) return true;
   // The whole search is an area's name: answered by where the place is or
   // what it is called — not by a line saying it "moved from Itaewon".
   if (AREA_WORDS.has(q)) return inAreaOrName(r, q);
@@ -217,7 +228,11 @@ function searchCore(r, rawQuery) {
   // A word that names an area is answered by where the place is (or what
   // it is called), not by its story: "itaewon vegan" listed a shop that
   // "moved from Itaewon" to Hoehyeon and one that "began in Itaewon".
+  // So is a diet word: "hongdae halal" listed six vegan bakeries with no
+  // halal reading at all, for a "halal" in their stories ("not halal",
+  // "no halal claim"). A name with the word in it still counts.
   return words.every(w => (PORK_FREE_WORDS.has(w) ? dietWordMatch(r, w)
+    : Object.hasOwn(DIET_WORDS, w) ? dietWordMatch(r, w) || startsWord(r.name, w)
     : AREA_WORDS.has(squash(w)) ? inAreaOrName(r, w)
       : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w)));
 }
