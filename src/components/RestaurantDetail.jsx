@@ -23,7 +23,7 @@ import {
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
-import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay } from '../hooks/useOverlay';
+import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay, lastFocusInApp } from '../hooks/useOverlay';
 import { copyText, shareOrCopy } from '../share';
 import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
@@ -190,6 +190,25 @@ export default function RestaurantDetail({
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [openClaim, setOpenClaim] = useState(null);
   const [claimFull, setClaimFull] = useState(false);
+  // Docked over the list (768–1199 px) the place starts under the search
+  // box AND the chips: at a fixed 80 px it covered every chip, which wrap
+  // onto three or four lines there. Measured, since the lines vary.
+  const [filtersBottom, setFiltersBottom] = useState(null);
+  useEffect(() => {
+    if (!docked || !belowSearch) return undefined;
+    const row = document.querySelector('.chip-row');
+    if (!row) return undefined;
+    const measure = () => {
+      const parent = sheetRef.current?.offsetParent?.getBoundingClientRect();
+      const bottom = row.getBoundingClientRect().bottom - (parent?.top ?? 0);
+      setFiltersBottom(bottom > 0 ? Math.round(bottom + 12) : null);
+    };
+    measure();
+    const watch = typeof ResizeObserver === 'function' ? new ResizeObserver(measure) : null;
+    watch?.observe(row);
+    window.addEventListener('resize', measure);
+    return () => { watch?.disconnect(); window.removeEventListener('resize', measure); };
+  }, [docked, belowSearch]);
   useEffect(() => { setClaimFull(false); }, [openClaim, restaurant?.id]);
   // The Korean name on the whole screen, to show a driver or a passer-by.
   const [nameLarge, setNameLarge] = useState(false);
@@ -347,15 +366,26 @@ export default function RestaurantDetail({
   // effect below, which moves focus into the sheet.
   useEffect(() => {
     if (!placeId) return undefined;
-    const opener = document.activeElement;
+    // On a phone the sheet is modal and the app is already inert when this
+    // runs: the card that was pressed has lost focus to <body>, and the
+    // list as a whole got it back on close. The app's last focus is the card.
+    const active = document.activeElement;
+    const opener = active && active !== document.body ? active : lastFocusInApp();
     return () => {
-      if (opener && opener !== document.body && document.contains(opener) && typeof opener.focus === 'function') {
-        opener.focus({ preventScroll: true });
-      } else {
-        // The opener can be gone (the list re-sorted while the detail was
-        // open beside the map); land on the list, not the page body.
-        (document.getElementById('place-list') ?? document.querySelector('.journey-stop'))?.focus({ preventScroll: true });
-      }
+      // The opener, or — when it could not be told (above) or is gone (the
+      // list re-sorted) — this place's own card; the list only as a last
+      // resort. Once more after the sheet has left the page: while it is
+      // still there, focus is inside it and the app does not take it back.
+      const known = opener && opener !== document.body && document.contains(opener) && typeof opener.focus === 'function';
+      const target = (known ? opener : null)
+        ?? document.querySelector(`.place-card__open-btn[aria-describedby^="pc-where-${placeId} "]`)
+        ?? document.getElementById('place-list') ?? document.querySelector('.journey-stop');
+      if (!target) return;
+      focusAfterOverlay(target);
+      setTimeout(() => {
+        const now = document.activeElement;
+        if ((!now || now === document.body || now.id === 'place-list') && target.isConnected) target.focus({ preventScroll: true });
+      }, 0);
     };
   }, [placeId]);
 
@@ -572,7 +602,7 @@ export default function RestaurantDetail({
       {!docked && !peek && <div className="detail-backdrop" onClick={onClose} />}
       <div
         className={`detail-sheet${docked ? ' detail-sheet--docked' : ''}${docked && belowSearch ? ' detail-sheet--below-search' : ''}${peek && !docked ? ' detail-sheet--peek' : ''}`}
-        style={peek && !docked && peekHeight ? { '--peek-h': `${peekHeight}px` } : undefined}
+        style={peek && !docked && peekHeight ? { '--peek-h': `${peekHeight}px` } : docked && belowSearch && filtersBottom ? { '--below-filters': `${filtersBottom}px` } : undefined}
         role="dialog"
         aria-modal={docked || peek ? undefined : 'true'}
         aria-label={name}

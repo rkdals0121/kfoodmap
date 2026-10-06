@@ -239,6 +239,9 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: '/index.html',
+        // A file or an API address typed into the bar is that file, not
+        // the app ("/robots.txt" opened the map).
+        navigateFallbackDenylist: [/^\/api\//, /\/[^/?]+\.[a-z0-9]+$/i],
         // Default globPatterns only match js/wasm/css/html -- the SVG
         // illustrations under public/images/ are the app's only imagery
         // (every restaurant's photo/coverImage is null today) and would

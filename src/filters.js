@@ -177,7 +177,17 @@ function dietPairs(parts) {
   return out;
 }
 
+// A word that asks about certification is a question, not a search term:
+// "KMF", "인증", "할랄 인증" and "ハラール認証" found nothing, where the
+// halal places and the note that none has a certificate we have seen are
+// the answer (BottomSheetList shows the note for these words).
+const CERT_WORD = /^(ハラール|ハラル|清真|할랄|halal)?(?:kmf|認証|认证|認證|인증)(?:書|서|证书|證書)?$/i;
 function searchCore(r, rawQuery) {
+  const asked = unpunct(rawQuery).trim().split(/\s+/).filter(Boolean);
+  if (asked.some(w => CERT_WORD.test(w))) {
+    const rest = asked.flatMap((w) => { const m = CERT_WORD.exec(w); return m ? (m[1] ? [m[1]] : []) : [w]; });
+    return rest.length === 0 ? matchesDietary(r, 'Halal') : searchCore(r, rest.join(' '));
+  }
   const query = unpunct(rawQuery);
   const q = squash(query);
   // Nothing to search by (empty, or only signs such as "(" or "-"): every
@@ -232,7 +242,11 @@ function searchCore(r, rawQuery) {
     // A single remaining word that the whole-query check above did not
     // match can only match here if the query had dropped words.
     const dropped = String(query).trim().split(/\s+/).length > 1;
-    return dropped && (fields.some(f => startsWord(f, words[0])) || dietWordMatch(r, words[0]) || aliasMatch(r, words[0]));
+    // …read as it would be alone: "busan v" is "busan", an area, not
+    // every place with a Busan in its description.
+    if (!dropped) return false;
+    if (AREA_WORDS.has(words[0])) return inAreaOrName(r, words[0]);
+    return fields.some(f => startsWord(f, words[0])) || dietWordMatch(r, words[0]) || aliasMatch(r, words[0]);
   }
   // A pork-free word is answered from the record alone, never from the text:
   // a story that says "uses no pork" about a halal kitchen, or "no pork

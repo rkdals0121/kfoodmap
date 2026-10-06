@@ -17,7 +17,7 @@ import { journeys } from '../data/journeys';
 import { legDistances } from '../data/journey-nav';
 import useInstall from '../hooks/useInstall';
 import { askConfirm } from '../confirm';
-import { useBackToClose, useInertRoot } from '../hooks/useOverlay';
+import { useBackToClose, useInertRoot, focusAfterOverlay } from '../hooks/useOverlay';
 import { matchesArea } from '../filters';
 import { matchesDietary } from '../data/verification';
 import { AREA_NAMES } from '../data/area-names';
@@ -634,7 +634,7 @@ function ProfileTab({
       )}
       {languagePickerOpen && <LanguagePicker onClose={() => setLanguagePickerOpen(false)} />}
       {aboutOpen && createPortal(
-        <Prologue dialog ctaKey="prologue.close" onComplete={() => { setAboutOpen(false); aboutOpener.current?.focus(); }} />,
+        <Prologue dialog ctaKey="prologue.close" onComplete={() => { setAboutOpen(false); focusAfterOverlay(aboutOpener.current); }} />,
         document.body,
       )}
     </section>

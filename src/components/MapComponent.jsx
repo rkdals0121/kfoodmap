@@ -770,7 +770,7 @@ function ZoomButtons({ mapRef, onUse }) {
   );
 }
 
-function LocateControl({ state, location, onLocate }) {
+function LocateControl({ state, location, onLocate, onMessage }) {
   const { t } = useTranslation();
   const answerKey = LOCATE_MESSAGE[state] ?? (state === 'located' && isCoarse(location) ? 'map.locateCoarse' : null);
   const asking = state === 'asking';
@@ -785,6 +785,9 @@ function LocateControl({ state, location, onLocate }) {
     return () => clearTimeout(id);
   }, [state, at, answerKey]);
   const messageKey = shown ? answerKey : null;
+  // The map's other button steps aside only while the message is up.
+  const saying = asking || Boolean(messageKey);
+  useEffect(() => { onMessage?.(saying); }, [saying, onMessage]);
   return (
     <div className="map-locate">
       <p className="map-locate__status" role="status">
@@ -837,10 +840,11 @@ function MapComponent({
   // a double tap, its zoom buttons): only then is "Search this area"
   // offered — not after a pin was pressed and the map moved itself.
   const touched = useRef(false);
+  const [locateSaying, setLocateSaying] = useState(false);
   const touch = () => { touched.current = true; };
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }} onTouchStartCapture={(e) => { if (e.touches.length > 1) touch(); }} onWheelCapture={touch}>
-      {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} />}
+      {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} onMessage={setLocateSaying} />}
       <ZoomButtons mapRef={mapRef} onUse={touch} />
       {onSearchArea && (
         <SearchAreaButton
@@ -850,8 +854,10 @@ function MapComponent({
           mapBox={mapBox}
           onSearchArea={onSearchArea}
           // Not over a place, not while the list is whole by design, and
-          // not beside the location button's own message.
-          hidden={Boolean(selectedId) || fitAll || ['asking', 'denied', 'unavailable', 'outside'].includes(locateState)}
+          // not beside the location button's own message — while it is
+          // showing: hidden for as long as the answer stood ("denied"), the
+          // button was gone for the rest of the visit.
+          hidden={Boolean(selectedId) || fitAll || locateSaying}
         />
       )}
       <MapContainer ref={mapRef} center={MAP_CENTER} zoom={12} minZoom={6} maxBounds={KOREA_AND_AROUND} maxBoundsViscosity={0.6} style={{ height: '100%', width: '100%' }} zoomControl={false} attributionControl={false}>

@@ -4083,7 +4083,9 @@ a.btn-primary:focus-visible {
    stays usable while a place is open (as on Google and Naver maps): a new
    search closes the place. 16 + 48 + 16 px: the box and its margins. */
 .detail-sheet--docked.detail-sheet--below-search {
-  top: 80px;
+  /* …and below the chips, where they wrap under it (RestaurantDetail
+     measures them): a filter stays one press away while a place is open. */
+  top: var(--below-filters, 80px);
   height: auto;
 }
 

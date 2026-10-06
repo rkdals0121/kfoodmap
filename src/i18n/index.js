@@ -34,8 +34,10 @@ export const LANGUAGE_STORAGE_KEY = 'kfm-language';
 // assume a browser. An unrecognised stored value (stale key, hand-edited)
 // falls back rather than selecting a language that isn't registered.
 function storedLanguage() {
-  if (typeof localStorage === 'undefined') return null;
+  // Inside the try: with site data blocked, the browser throws on the
+  // word `localStorage` itself, and the app never started.
   try {
+    if (typeof localStorage === 'undefined') return null;
     const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
     return stored && byCode(stored) ? stored : null;
   } catch {
@@ -94,8 +96,8 @@ export async function setLanguage(code, { remember = true } = {}) {
     return i18next.language;
   }
   if (typeof document !== 'undefined') document.documentElement.lang = lang.html;
-  if (remember && typeof localStorage !== 'undefined') {
-    try { localStorage.setItem(LANGUAGE_STORAGE_KEY, lang.code); } catch { /* private mode */ }
+  if (remember) {
+    try { if (typeof localStorage !== 'undefined') localStorage.setItem(LANGUAGE_STORAGE_KEY, lang.code); } catch { /* private mode, or site data blocked */ }
   }
   return lang.code;
 }

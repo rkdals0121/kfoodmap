@@ -122,6 +122,9 @@ let lastInApp = null;
 // The element a closing overlay asked to hand focus to. Asked while the app
 // is still inert (focus() is ignored then), honoured when it is released.
 let wanted = null;
+// What had focus in the app last: an overlay that mounts after the app has
+// gone inert finds document.activeElement already on <body>.
+export const lastFocusInApp = () => lastInApp;
 export function focusAfterOverlay(el) {
   // Only while the app is inert: otherwise the focus() below simply works,
   // and a stale request would be honoured when some later overlay closed.

@@ -44,6 +44,7 @@ const SUSTAINABILITY_AXIS = ['Sustainability', ...TRAIT_GROUPS.Sustainability];
 // Quarantined records (existence itself unconfirmed) are excluded from every
 // discovery surface — map, search, cards, Journal — at this single point.
 const activeRestaurants = restaurants.filter(r => !isQuarantined(r));
+const ACTIVE_IDS = new Set(activeRestaurants.map(r => r.id));
 // The same condition as index.css uses for a phone held sideways.
 const LANDSCAPE_PHONE = '(max-width: 767px) and (orientation: landscape) and (max-height: 500px)';
 
@@ -1131,7 +1132,9 @@ function AppShell() {
           activeTab={activeTab} 
           onSelect={selectTab} 
           isCollapsed={isSidebarCollapsed} 
-          savedCount={bookmarkedIds.length}
+          // Places still on the map: a saved place since taken off it is
+          // in no list, and the bubble said 5 over a Journal of 4.
+          savedCount={bookmarkedIds.filter(id => ACTIVE_IDS.has(id)).length}
         />
       </div>
 
