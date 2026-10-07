@@ -35,6 +35,7 @@ import { searchPlaces } from './search';
 import { takeFreshList } from './freshList';
 import './index.css';
 import { startup } from './startup';
+import { ownBack, takeOwnBack } from './ownBack';
 
 // Selecting anything on the sustainability axis — the group chip or either
 // member — turns the list into a lens: each card states, in the restaurant's
@@ -81,8 +82,11 @@ const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => 
 // effect that writes the view to the address then saw the new address
 // with the old view and wrote the old view over it — Back changed nothing
 // and the entry it landed on was lost.
+// Not after a step back the app took itself (ownBack.js): the view on
+// screen then stays, and is written to the entry landed on.
 let landing = false;
-if (typeof window !== 'undefined') window.addEventListener('popstate', () => { landing = true; });
+let stepped = false;
+if (typeof window !== 'undefined') window.addEventListener('popstate', () => { stepped = takeOwnBack(); landing = !stepped; });
 
 // Reading storage can throw where it is blocked; the app opened to a
 // white screen there.
@@ -251,7 +255,7 @@ function AppShell() {
     const here = window.history.state?.usr ?? null;
     if (tab === 'map') {
       if (onMap) return;                                   // already there: no new entry
-      if (onTab && here?.overMap) navigate(-1);
+      if (onTab && here?.overMap) { ownBack(); navigate(-1); }
       else navigate(pathOf('map'), { replace: true });
       return;
     }
@@ -486,7 +490,7 @@ function AppShell() {
   };
   // Close returns to the list in one press, past any places opened one from
   // another (`depth`); Back still steps through them.
-  const closePlace = () => (location.state?.fromApp ? navigate(-1 - (location.state?.depth ?? 0)) : navigate(tabPath, { replace: true }));
+  const closePlace = () => (location.state?.fromApp ? (ownBack(), navigate(-1 - (location.state?.depth ?? 0))) : navigate(tabPath, { replace: true }));
   // While a journey's stops are on the map, a stop opened from the map or
   // the list is opened as that stop, with the stop before and after.
   const openDetail = (r, more = {}) => {
@@ -775,13 +779,22 @@ function AppShell() {
   const wantHashRef = useRef(wantHash);
   useEffect(() => { wantHashRef.current = wantHash; });
   useEffect(() => {
-    const onHashChange = () => {
+    // (A Back pressed before this was listening — over the welcome screen —
+    // is not waited for.)
+    landing = false;
+    const onHashChange = (e) => {
       landing = false;
+      // The app's own step back: the view stays as it is.
+      if (e?.type === 'popstate' && stepped) { stepped = false; return; }
       const view = parseViewHash(window.location.hash, VIEW_CHIPS);
       if (viewHash(view) === wantHashRef.current) return;
       setQuery(view.q);
       setAreaOnly(view.area);
-      setSelectedFilters(prev => [...prev.filter(f => f === SHARED_LIST || f === SAVED_ONLY), ...view.filters]);
+      // "Saved" is not in an address: an entry gone back to that names
+      // another view did not have it on (Journal → "See them on the map",
+      // then Back, showed the saved places under the chips of before —
+      // often none).
+      setSelectedFilters(prev => [...prev.filter(f => f === SHARED_LIST), ...view.filters]);
       if (view.planAt) setPlanAt(view.planAt);
     };
     window.addEventListener('hashchange', onHashChange);
@@ -1232,10 +1245,10 @@ function AppShell() {
           initialTopic={location.state?.topic ?? ''}
           // Opened from inside the app, it closes by going back — to the
           // place or the tab it came from, without a second copy of either.
-          onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(submitPlace ? `/place/${submitPlace.id}` : tabPath, { replace: true }))}
+          onClose={() => (location.state?.fromApp ? (ownBack(), navigate(-1)) : navigate(submitPlace ? `/place/${submitPlace.id}` : tabPath, { replace: true }))}
         />
       )}
-      {isPrivacy && <PrivacySheet onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(tabPath, { replace: true }))} />}
+      {isPrivacy && <PrivacySheet onClose={() => (location.state?.fromApp ? (ownBack(), navigate(-1)) : navigate(tabPath, { replace: true }))} />}
       {/* Opened from a place, the cards close back to that place. */}
       {isCards && (
         <StaffCardSheet
@@ -1243,7 +1256,7 @@ function AppShell() {
           // has filtered by (Halal alone → the Muslim card).
           initialCard={new URLSearchParams(location.search).get('card')
             ?? (selectedFilters.includes('Halal') && !selectedFilters.includes('Vegan') && !selectedFilters.includes(FULLY_VEGAN) ? 'muslim' : null)}
-          onClose={() => (location.state?.fromApp ? navigate(-1) : navigate(tabPath, { replace: true }))}
+          onClose={() => (location.state?.fromApp ? (ownBack(), navigate(-1)) : navigate(tabPath, { replace: true }))}
           onCardChange={(card) => navigate(`/cards?card=${card}`, { replace: true, state: location.state })}
         />
       )}

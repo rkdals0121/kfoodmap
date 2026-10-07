@@ -52,6 +52,10 @@ function MapA11y() {
 
 function CenterReporter({ onCenterChange, sheetState, userLocation }) {
   const map = useMap();
+  // A docked place opening or closing also moves the middle of what shows
+  // (visibleCenter) without moving the map. That is not reported: the list
+  // would reshuffle as the place closed, and the card to go back to — the
+  // place just read — could be sorted off its first page.
   const lastSheet = useRef(sheetState);
   const beforeFull = useRef(sheetState);
   // The sheet changing height moves the middle of what can be seen without

@@ -390,7 +390,11 @@ function LanguagePicker({ onClose }) {
       if (got === code) { onClose(); return; }
       // Given up on here, but still on its way: if it lands after all, the
       // language has changed and the picker closes rather than say it failed.
-      asked.then((late) => { if (late === code) onClose(); else failedLanguages.add(code); });
+      asked.then((late) => {
+        if (late === code) onClose();
+        // Failed, not merely overtaken by a later choice (its file is in then).
+        else if (!i18n.hasResourceBundle(code, 'translation')) failedLanguages.add(code);
+      });
       setPending(null);
       setFailed(true);
     });

@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
+import { ownBack } from '../ownBack';
 
 // Things that open over a screen without an address of their own — the
 // language picker, the Korean text shown large, the About dialog.
@@ -28,7 +29,7 @@ export function useBackToClose(open, close) {
     window.addEventListener('popstate', onPop);
     return () => {
       window.removeEventListener('popstate', onPop);
-      if (!popped && window.history.state?.kfmOverlay === mark) window.history.back();
+      if (!popped && window.history.state?.kfmOverlay === mark) { ownBack(); window.history.back(); }
     };
   }, [open]);
 }
@@ -124,7 +125,15 @@ let lastInApp = null;
 let wanted = null;
 // What had focus in the app last: an overlay that mounts after the app has
 // gone inert finds document.activeElement already on <body>.
-export const lastFocusInApp = () => lastInApp;
+// A box for typing is not handed focus on the strength of having been the
+// last thing focused: left by Enter or the keyboard's Done key it is still
+// "last", and on Safari a tapped card takes no focus of its own — closing
+// the place then put the cursor back in the search box and raised the
+// keyboard. (Focus actually in the box when something opens is another
+// matter: the opener is read from the page then, not from here.)
+const typing = (el) => Boolean(el) && (el.tagName === 'TEXTAREA' || el.isContentEditable || (el.tagName === 'INPUT' && !/^(button|submit|checkbox|radio|range)$/i.test(el.type)));
+const remembered = () => (typing(lastInApp) ? null : lastInApp);
+export const lastFocusInApp = () => remembered();
 // The same control after its part of the app has been drawn again. A place
 // opened from the Journal, from Discover or from Profile takes that tab
 // off the page; closed, the tab is back, but as new elements — the row
@@ -185,7 +194,7 @@ if (typeof document !== 'undefined') {
 export function useReturnFocus() {
   useEffect(() => {
     const active = document.activeElement;
-    const opener = active && active !== document.body ? active : lastInApp;
+    const opener = active && active !== document.body ? active : remembered();
     const mark = markOf(opener);
     return () => {
       const give = () => {
@@ -218,7 +227,8 @@ export function useInertRoot(open) {
       // drawn again (above) — looked for once more a moment later, when
       // that tab is back on the page.
       const give = () => {
-        const target = asked?.isConnected ? asked : lastInApp?.isConnected ? lastInApp : findByMark(lastMark);
+        const last = remembered();
+        const target = asked?.isConnected ? asked : last?.isConnected ? last : (last ? findByMark(lastMark) : null);
         if (!target) return false;
         if (!document.activeElement || document.activeElement === document.body) target.focus?.({ preventScroll: true });
         return true;
