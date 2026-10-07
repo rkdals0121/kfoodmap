@@ -3508,6 +3508,11 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       network: mounted at 4.5 s before, 3.5-3.9 s after; with CPU x4 the
       headline went from 7.5-8.5 s to 6.5 s. What remains is the places
       chunk's download.
+    - Discover's "Browse by area" shows an area as Japanese and Chinese
+      readers write it (`shownArea` / `AREA_SHOWN` in
+      `src/data/area-names.js`; each name must be one of the forms the
+      search knows — a test holds that). The report form keeps a draft
+      only once something is typed (`SubmitSheet.jsx`).
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
