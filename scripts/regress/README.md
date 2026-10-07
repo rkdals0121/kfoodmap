@@ -28,6 +28,7 @@ map, and against the live site after.
 | `docked-place-list-order` | 1280 px: the list while a place is docked stays in the same neighbourhood (`duringHas` true) and does not reshuffle on close |
 | `map-file-blocked` | no crash screen; the slow-connection text with "Try again"; after it the address carries `#f=Halal` |
 | `toast-on-top` | saving shows the toast and `onTop` is the toast's own text ("SPAN"), at both sizes — not the map or the place under it: for some days the toasts were drawn beneath everything |
+| `sideways-phone-and-rail` | 844×390: the list is some 190 px tall (not a 33 px strip) under one row of chips, and an open place fills the height (`[0,390]`); 1440 px in Japanese: the toast's centre is over the map (about 930) and the last tab ends inside the 420 px column; 1280 px: a tab pressed in the folded rail unfolds it and its panel is there |
 | `icons-and-lang` | `<html lang>` is the language; `notHidden` 0 |
 
 A check that reads focus needs a page that believes it has focus:

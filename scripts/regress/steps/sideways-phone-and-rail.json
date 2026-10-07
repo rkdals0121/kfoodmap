@@ -1,0 +1,35 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 844,
+  "h": 390,
+  "dpr": 2,
+  "lang": "en",
+  "load": 5000,
+  "js": "const r=s=>{const b=document.querySelector(s).getBoundingClientRect(); return [Math.round(b.top),Math.round(b.height)]}; return {list:r('#place-list'), chips:r('.chip-row')}"
+ },
+ {
+  "w": 844,
+  "h": 390,
+  "dpr": 2,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('#place-list .place-card__open-btn').click(); await w(1500); const b=document.querySelector('.detail-sheet').getBoundingClientRect(); return [Math.round(b.top),Math.round(b.height)]"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 1440,
+  "h": 900,
+  "dpr": 1,
+  "lang": "ja",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('#place-list .place-card button[aria-pressed]').click(); await w(700); const t=document.querySelector('.toast').getBoundingClientRect(); const bar=document.querySelector('.tab-bar').getBoundingClientRect(); const last=[...document.querySelectorAll('.tab-item')].pop().getBoundingClientRect(); return {toastCenter:Math.round(t.left+t.width/2), barRight:Math.round(bar.right), lastRight:Math.round(last.right)}"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 1280,
+  "h": 800,
+  "dpr": 1,
+  "lang": "en",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('.sidebar-toggle').click(); await w(800); [...document.querySelectorAll('.tab-item')][1].click(); await w(1200); return {collapsed:document.querySelector('.app-shell').className.includes('is-collapsed'), path:location.pathname, panel:!!document.querySelector('.tab-panel')}"
+ }
+]
