@@ -6314,8 +6314,22 @@ html[data-text='larger'] .detail-bar__map svg {
 }
 
 /* ---- Lunch-hour walkthrough, 2026-10-05 ---- */
-.journal-copy + .journal-copy {
-  margin-left: 14px;
+/* The space between the two links is on the right of the first: on the
+   left of the second, it stayed there when the second wrapped to a line
+   of its own (larger text, longer languages) and the two no longer lined
+   up. */
+.journal-copy {
+  margin-right: 14px;
+}
+/* "Share this list" keeps to one line; where it does not fit beside the
+   heading it goes under it, rather than both breaking in two. */
+.journal-section-header {
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.journal-share {
+  flex: none;
+  white-space: nowrap;
 }
 .detail-directions__for {
   margin-bottom: 2px;
