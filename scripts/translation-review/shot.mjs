@@ -1,5 +1,5 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
-// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), block (url patterns) }]
+// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), block (url patterns) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
@@ -32,6 +32,7 @@ await send('Runtime.enable');
 // As a window in front: without this no focus events fire in a headless page.
 await send('Emulation.setFocusEmulationEnabled', { enabled: true });
 let size = { w: 360, h: 640, dpr: 2 };
+let initId = null;
 for (const s of steps) {
   // A step that gives no size keeps the size of the step before it (the
   // first, 360x640): a follow-on step used to snap back to a phone.
@@ -52,6 +53,9 @@ for (const s of steps) {
     await send('Page.navigate', { url: origin + '/robots.txt' });
     await sleep(500);
     await evalJs(`localStorage.setItem('kfm-language', ${JSON.stringify(s.lang ?? 'en')}); ${s.seen === false ? '' : "localStorage.setItem('kfm-prologue','true');"} ${s.pre ?? ''}`);
+    // init: script run in the page before its own (a fixed clock, say).
+    if (initId) await send('Page.removeScriptToEvaluateOnNewDocument', { identifier: initId });
+    initId = s.init ? (await send('Page.addScriptToEvaluateOnNewDocument', { source: s.init })).result.identifier : null;
     await send('Page.navigate', { url: s.url });
     await sleep(s.load ?? 4500);
   }
