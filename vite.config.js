@@ -103,6 +103,31 @@ function assertTranslationChunkNames() {
 // scripts/lib/client-data.mjs for why. The data file is plain ESM (the QA
 // scripts import it the same way), so it is loaded in Node and re-emitted.
 // Runs in dev too, so dev shows exactly what production ships.
+// The file of each interface language, for the script in index.html that
+// asks for the reader's one beside the app's own script. A hint only: a
+// language missing here is fetched by the app as before (src/i18n/index.js).
+const LOCALE_SOURCE = /\/src\/i18n\/locales\/([A-Za-z-]+)\.js$/
+const LOCALE_SLOT = '/*KFM_LOCALE_CHUNKS*/{}'
+function localeChunkHints() {
+  return {
+    name: 'kfm-locale-chunk-hints',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        const files = {}
+        for (const item of Object.values(ctx.bundle ?? {})) {
+          const m = item.type === 'chunk' && item.isDynamicEntry && LOCALE_SOURCE.exec((item.facadeModuleId ?? '').replaceAll('\\', '/'))
+          if (m) files[m[1]] = `/${item.fileName}`
+        }
+        if (!html.includes(LOCALE_SLOT)) this.error(`index.html has no ${LOCALE_SLOT} for the language files`)
+        if (Object.keys(files).length < 5) this.error(`expected a chunk for each of the five loaded languages, found ${Object.keys(files).join(', ') || 'none'}`)
+        return html.replace(LOCALE_SLOT, JSON.stringify(files))
+      },
+    },
+  }
+}
+
 const RESTAURANTS_FILE = join(projectRoot, 'src', 'data', 'restaurants.js')
 function clientData() {
   let cached = null
@@ -205,6 +230,7 @@ export default defineConfig({
     apiDevServer(),
     assertAuthChunkName(),
     assertTranslationChunkNames(),
+    localeChunkHints(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',
