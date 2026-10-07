@@ -13,6 +13,7 @@ import { sharedListUrl } from '../filters';
 import { copyText, shareOrCopy } from '../share';
 import { colon, paren } from '../i18n/punct';
 import { koAddress } from '../data/address-ko';
+import { shownArea } from '../data/area-names';
 
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
@@ -234,9 +235,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
             // Saved across a trip: one list per region, so the Busan
             // places are together on the day in Busan.
             savedGroups.map(({ region, items }) => (
-              <section key={region ?? 'other'} className="saved-group" aria-label={region ?? t('journal.otherRegion')}>
+              <section key={region ?? 'other'} className="saved-group" aria-label={region ? shownArea(region, i18n.language) : t('journal.otherRegion')}>
                 <h4 className="saved-group__title">
-                  {region ?? t('journal.otherRegion')}
+                  {region ? shownArea(region, i18n.language) : t('journal.otherRegion')}
                   <span className="saved-group__count"> · {items.length}</span>
                 </h4>
                 <ul className="saved-list">

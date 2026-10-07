@@ -356,11 +356,10 @@ function TextSizeRow() {
             type="button"
             className={`text-size__btn text-size__btn--${s}${s === size ? ' is-on' : ''}`}
             aria-pressed={s === size}
-            title={t(LABEL[s])}
             onClick={() => choose(s)}
           >
             {/* Named by the letter it shows and what it means. */}
-            A<span className="visually-hidden"> {t(LABEL[s])}</span>
+            <span aria-hidden="true">A</span><span className="visually-hidden">{t(LABEL[s])}</span>
           </button>
         ))}
       </span>

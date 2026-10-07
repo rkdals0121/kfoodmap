@@ -32,11 +32,11 @@ const icons = {
 
 const tabIds = ['map', 'discover', 'journal', 'profile'];
 
-export default function TabBar({ activeTab, onSelect, isCollapsed, savedCount = 0 }) {
+export default function TabBar({ activeTab, onSelect, isCollapsed, savedCount = 0, covered = false }) {
   const { t } = useTranslation();
 
   return (
-    <nav className="tab-bar" aria-label={t('app.primaryNav')}>
+    <nav className="tab-bar" aria-label={t('app.primaryNav')} inert={covered || undefined}>
       {tabIds.map(id => (
         <button
           key={id}

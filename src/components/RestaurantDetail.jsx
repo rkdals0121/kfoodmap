@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useMenuGloss } from '../hooks/useMenuGloss';
-import { useNotes } from '../hooks/useNotes';
+import { useNotes, useNotesWaiting } from '../hooks/useNotes';
 import { plainNote } from '../data/note-terms';
 import { useStories } from '../hooks/useStories';
 import { placeArea } from '../place-area';
@@ -194,6 +194,7 @@ export default function RestaurantDetail({
   const { t, i18n } = useTranslation();
   const stories = useStories();
   const notes = useNotes(restaurant?.id);
+  const notesWaiting = useNotesWaiting(restaurant?.id);
   const location = useLocation();
   const [copied, setCopied] = useState(false);
   const [koAddrCopied, setKoAddrCopied] = useState(false);
@@ -412,7 +413,9 @@ export default function RestaurantDetail({
       const target = (known ? opener : null)
         ?? findByMark(mark)
         ?? document.querySelector(`.place-card__open-btn[aria-describedby^="pc-where-${placeId} "]`)
-        ?? document.getElementById('place-list') ?? document.querySelector('.journey-stop');
+        // …or the Journal itself, when the row that opened this is no longer
+        // a row (marked visited here, it is a seal now).
+        ?? document.getElementById('place-list') ?? document.querySelector('.journal-panel') ?? document.querySelector('.journey-stop');
       // Closed because the reader went on to something else (typed in the
       // search box beside a docked place): the focus is theirs, not ours.
       const held = document.activeElement;
@@ -840,8 +843,11 @@ export default function RestaurantDetail({
                   {/^none\b/i.test(certClaim.body) && /self-certified/i.test(certClaim.body) && !certClaim.note
                     ? t('detail.certificationSelf')
                     : certClaim.note
-                    ? t('detail.certificationClaimedNote', { body: certNotes?.body ?? plainNote(certClaim.body), note: certNotes?.note ?? plainNote(certClaim.note) })
-                    : t('detail.certificationClaimed', { body: certNotes?.body ?? plainNote(certClaim.body) })}
+                    // While the translation is on its way, "…" in its place: the
+                    // record's English came up first and changed to the
+                    // reader's language three seconds into reading it.
+                    ? t('detail.certificationClaimedNote', { body: certNotes?.body ?? (notesWaiting ? '…' : plainNote(certClaim.body)), note: certNotes?.note ?? (notesWaiting ? '…' : plainNote(certClaim.note)) })
+                    : t('detail.certificationClaimed', { body: certNotes?.body ?? (notesWaiting ? '…' : plainNote(certClaim.body)) })}
                 </p>
               )}
             </div>

@@ -10,6 +10,8 @@ const FILES = import.meta.glob('../data/notes/notes-*.js');
 
 const cache = new Map();
 const pending = new Set();
+// Files that have arrived or failed: nothing more is coming for them now.
+const settled = new Set();
 const listeners = new Set();
 const subscribe = (fn) => { listeners.add(fn); return () => listeners.delete(fn); };
 
@@ -21,7 +23,7 @@ function load(key) {
     .then((m) => { cache.set(key, m.NOTES); })
     // Offline with the file not yet stored: asked again when back online.
     .catch(() => {})
-    .finally(() => { pending.delete(key); listeners.forEach(fn => fn()); });
+    .finally(() => { pending.delete(key); settled.add(key); listeners.forEach(fn => fn()); });
 }
 
 export function useNotes(placeId) {
@@ -36,4 +38,13 @@ export function useNotes(placeId) {
     return () => window.removeEventListener('online', again);
   }, [key]);
   return notes;
+}
+
+// Whether the notes for this place in this language are still on their
+// way. While they are, a line that would show the record's English and
+// then change under the reader's eyes can hold back instead.
+export function useNotesWaiting(placeId) {
+  const { i18n } = useTranslation();
+  const key = placeId ? `${i18n.language}-${noteShard(placeId)}` : null;
+  return useSyncExternalStore(subscribe, () => Boolean(key && FILES[`../data/notes/notes-${key}.js`] && !settled.has(key)), () => false);
 }

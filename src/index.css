@@ -1137,6 +1137,9 @@ button {
 .claim__level::before,
 .claim-fact__level::before {
   content: '·';
+  /* Drawn, not read: the comma hidden beside it is what a screen reader
+     says ("Halal-friendly, Reported", not "comma dot"). */
+  content: '·' / '';
   margin-right: 5px;
 }
 .claim--confirmed,
@@ -6841,4 +6844,22 @@ html[data-text='larger'] .detail-bar__map svg {
    kana does not start a line ("ハラールフレンドリ / ーの" did). */
 :root:lang(ja) {
   line-break: strict;
+}
+
+/* Links in a claim's source line in the app's green, as its other links
+   are (the browser's own blue beside them looked like a stray). */
+.claim-explain__meta a {
+  color: var(--green-strong);
+  text-underline-offset: 3px;
+}
+/* The welcome screen's languages at the two larger text sizes: two to a
+   row. Three to a row broke the names inside words ("Englis / h"). */
+@media (max-width: 479px) {
+  html[data-text='large'] .prologue-languages,
+  html[data-text='larger'] .prologue-languages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  html[data-text] .prologue-languages .prologue-language {
+    overflow-wrap: normal;
+  }
 }

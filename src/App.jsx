@@ -278,10 +278,15 @@ function AppShell() {
   const [isWide, setIsWide] = useState(
     () => typeof window !== 'undefined' && window.matchMedia?.('(min-width: 768px)').matches,
   );
+  // From 1200 px a docked place has a column of its own; from 768 to 1199
+  // it lies over the list (and, on the other tabs, the whole panel).
+  const [threeColumns, setThreeColumns] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia?.('(min-width: 1200px)').matches,
+  );
   useEffect(() => {
     const mq = window.matchMedia?.('(min-width: 768px)');
     if (!mq) return undefined;
-    const onChange = () => setIsWide(mq.matches);
+    const onChange = () => { setIsWide(mq.matches); setThreeColumns(window.matchMedia('(min-width: 1200px)').matches); };
     mq.addEventListener('change', onChange);
     // Also on resize: the media query's own event was seen not to fire when
     // the width changed while the page was in the background, and a place
@@ -358,6 +363,18 @@ function AppShell() {
     );
   };
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  // Opened from the welcome screen: its button is gone and focus with it.
+  // The page's title takes it, so a keyboard or a screen reader starts at
+  // the top of the map screen and not nowhere.
+  const pageTitle = useRef(null);
+  useEffect(() => {
+    if (startup.welcomed && (!document.activeElement || document.activeElement === document.body)) pageTitle.current?.focus({ preventScroll: true });
+  }, []);
+  // What a docked place lies over between 768 and 1199 px is not to be
+  // tabbed into under it: the list and the tab bar on the map (the search
+  // box and the chips above it stay in use), the whole panel on another
+  // tab. Focus went to ninety-eight controls nobody could see.
+  const underDock = Boolean(selectedRestaurant) && isWide && !threeColumns && !isSidebarCollapsed;
   // A link that opens with "Open at…" on (the day and time row showing)
   // starts with the sheet fully open on a phone: at half height that row
   // and the notes left no card in view (the first one began under the tab bar).
@@ -978,7 +995,7 @@ function AppShell() {
     <main className={`app-shell ${isSidebarCollapsed ? 'is-collapsed' : ''}${activeTab === 'map' && sheetState === 2 ? ' sheet-full' : ''}${!isOnline || showUpdate ? ' has-band' : ''}${!isOnline && showUpdate ? ' has-bands-2' : ''}`}>
       {/* The page's one H1, for screen readers and outlines; the map screen
           has no visible title. */}
-      <h1 className="visually-hidden">K-Food Map</h1>
+      <h1 className="visually-hidden" tabIndex={-1} ref={pageTitle}>K-Food Map</h1>
       {/* The map holds hundreds of focusable pins; the same places are in
           the list, one Tab away with this link. */}
       {activeTab === 'map' && !modalOpen && !placePeek && <a
@@ -1044,7 +1061,7 @@ function AppShell() {
         </MapErrorBoundary>
       </div>
 
-      <div ref={sheetRef} className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || placePeek || undefined}>
+      <div ref={sheetRef} className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || placePeek || (underDock && activeTab !== 'map') || undefined}>
         {/* Render Map Items ONLY when activeTab is 'map' */}
         {activeTab === 'map' && (
           <>
@@ -1086,7 +1103,7 @@ function AppShell() {
             </div>
 
             {/* Restaurant list */}
-            <section className="list-region" id="place-list" tabIndex={-1} aria-label={t('app.restaurantList')} onScroll={handleListScroll}
+            <section className="list-region" id="place-list" tabIndex={-1} aria-label={t('app.restaurantList')} onScroll={handleListScroll} inert={underDock || undefined}
               // A finger on the results puts the keyboard away: it covered
               // the lower half of the list being scrolled.
               onTouchStart={blurSearch}>
@@ -1212,6 +1229,7 @@ function AppShell() {
           // Places still on the map: a saved place since taken off it is
           // in no list, and the bubble said 5 over a Journal of 4.
           savedCount={savedOnMap}
+          covered={underDock}
         />
       </div>
 

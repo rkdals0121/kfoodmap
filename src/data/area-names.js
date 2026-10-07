@@ -99,12 +99,15 @@ const ALSO_NAMED = {
   lamb: ['양고기', 'ラム肉', '羊肉'],
   buffet: ['뷔페', 'ビュッフェ', 'バイキング', '自助餐'],
   hanok: ['한옥마을', '한옥', '韓屋村', '韩屋村', '韓屋', '韩屋'],
+  bbq: ['바비큐', '焼肉', '烤肉'],
+  samgyetang: ['삼계탕', 'サムゲタン', '参鸡汤', '參雞湯', '蔘雞湯'],
+  chicken: ['치킨', 'チキン', '炸鸡', '炸雞'],
   Jamsil: ['롯데월드', 'ロッテワールド', '乐天世界', '樂天世界'],
 };
 
 // The entries of ALSO_NAMED that are kinds of cooking, not places.
 export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'prayer', 'mosque', 'indian', 'indonesian', 'turkish', 'nepal', 'uzbek',
-  'bibimbap', 'gimbap', 'tteokbokki', 'sundubu', 'tofu', 'noodle', 'curry', 'burger', 'pizza', 'pasta', 'salad', 'sandwich', 'bagel', 'kebab', 'lamb', 'buffet', 'hanok']);
+  'bibimbap', 'gimbap', 'tteokbokki', 'sundubu', 'tofu', 'noodle', 'curry', 'burger', 'pizza', 'pasta', 'salad', 'sandwich', 'bagel', 'kebab', 'lamb', 'buffet', 'hanok', 'bbq', 'samgyetang', 'chicken']);
 
 const TO_ROMAN = new Map([
   ...Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),
