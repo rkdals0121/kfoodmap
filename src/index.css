@@ -7067,3 +7067,84 @@ html[data-text='larger'] .stat-label {
     forced-color-adjust: none;
   }
 }
+
+/* ---------- On paper (or "Save as PDF") ----------
+   Printed, the app was one screen: the map, the list cut off at the fold.
+   What is printed is what is being read — an open place, the cards to show
+   staff, or else the list or panel — as a plain page, without the map and
+   the controls. A traveller prints the staff cards, or the place for the
+   day, to carry without a phone. */
+@media print {
+  html,
+  body,
+  #root,
+  .app-shell {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+    background: #fff !important;
+  }
+  .map-region,
+  .toast-region,
+  .border-region,
+  .detail-backdrop,
+  .tab-bar,
+  .skip-link,
+  .detail-close,
+  .detail-grabber,
+  .detail-topname,
+  .detail-bar,
+  .sheet-handle,
+  .offline-banner,
+  .update-banner,
+  .practical-actions,
+  .practical-copy,
+  .staff-card__large-btn,
+  .staff-cards__hint,
+  .detail-report,
+  .detail-scroll .btn-primary,
+  .claim-explain__more,
+  .place-card__actions,
+  .search-field,
+  .chip-row,
+  .plan-row {
+    display: none !important;
+  }
+  .app-shell:has(> .detail-sheet) > .sidebar-region {
+    display: none !important;
+  }
+  .sidebar-region,
+  .detail-sheet {
+    position: static !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    transform: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    animation: none !important;
+  }
+  .detail-scroll,
+  .list-region,
+  .tab-panel {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .place-card,
+  .detail-section,
+  .journey-card,
+  .staff-question,
+  .menu-row,
+  .saved-row,
+  .stamp {
+    break-inside: avoid;
+  }
+  a {
+    color: inherit !important;
+  }
+}

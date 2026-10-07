@@ -461,6 +461,8 @@ P10. Place details fail to load → F39. Language fails to load → I6. Sign-in 
 P11. Empty Journal → H2. Saved filter with nothing saved → E20. Open now at a time when nothing is open in the searched area → empty state with the criteria line and, with a search, the nearest open places.
 P12. Storage unavailable (blocked cookies / private mode) → app opens; saves, language and text size work for the visit; no white screen.
 P13. Old browsers (iOS 15, Chrome 100) → app renders (polyfills for `Object.hasOwn` / `.at`; CSS built for those targets). [needs: old device/emulator]
+P14. Printed, or saved as PDF from the browser's print (check with print emulation: `print: true` in a `shot.mjs` step) → what is being read comes out as a plain page of its full length: an open place (no map, no bottom bar, no copy / map buttons), the staff cards, or else the list, Discover or the Journal. Nothing is cut off at the height of the screen.
+P15. Windows high-contrast themes (`media: {"forced-colors": "active"}` in a step) → text and outlines stay readable; the map buttons of a place have an outline; pins keep their colours.
 
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 

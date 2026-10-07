@@ -1,5 +1,5 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
-// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), block (url patterns) }]
+// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), block (url patterns) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
@@ -41,7 +41,7 @@ for (const s of steps) {
   // cpu: 4 = a phone four times slower than this machine.
   await send('Emulation.setCPUThrottlingRate', { rate: s.cpu ?? 1 });
   // media: { 'forced-colors': 'active', 'prefers-reduced-motion': 'reduce', … }
-  await send('Emulation.setEmulatedMedia', { features: Object.entries(s.media ?? {}).map(([name, value]) => ({ name, value })) });
+  await send('Emulation.setEmulatedMedia', { media: s.print ? 'print' : '', features: Object.entries(s.media ?? {}).map(([name, value]) => ({ name, value })) });
   await send('Network.enable');
   await send('Network.emulateNetworkConditions', s.throttle ? { offline: false, latency: 150, downloadThroughput: 1.6e6 / 8, uploadThroughput: 750e3 / 8 } : { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
   await send('Network.setBlockedURLs', { urls: s.block ?? [] });
