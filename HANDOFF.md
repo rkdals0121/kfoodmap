@@ -3629,6 +3629,12 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       `CenterReporter` reports the open place's own coordinates when the
       map has brought it to the middle (`anchor`). Korean quoted in notes
       goes through `KoText`.
+    - A layout fix is checked in the case where the line does NOT wrap
+      as well as the one where it does: the first version of the meta
+      line's dots drew each part over the end of the one before, was
+      looked at only at the largest text (every part on its own line)
+      and stood on the live site for 23 minutes. `shot.mjs` steps take
+      `cpu` (slow-down factor) for interaction timings.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
