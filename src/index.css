@@ -6776,3 +6776,17 @@ html[data-text='larger'] .detail-bar__map svg {
 :root:lang(zh-Hant) .opening-map__name {
   font-weight: 700;
 }
+
+/* The list's handle is a strip 28 px tall: easy to see, small to press or
+   to catch for a drag. What is pressed reaches 8 px beyond it above and
+   below (44 px in all); what is drawn stays as it was. */
+@media (max-width: 767px) {
+  .sheet-handle-area {
+    position: relative;
+  }
+  .sheet-handle-area::after {
+    content: '';
+    position: absolute;
+    inset: -8px 0;
+  }
+}
