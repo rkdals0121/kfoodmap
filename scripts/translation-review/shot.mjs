@@ -1,5 +1,6 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
-// steps: [{ w, h, lang, url, js?, wait?, out, full? }]
+// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), block (url patterns) }]
+// One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 import { spawn } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -29,6 +30,9 @@ await send('Runtime.enable');
 for (const s of steps) {
   await send('Emulation.setDeviceMetricsOverride', { width: s.w ?? 360, height: s.h ?? 640, deviceScaleFactor: s.dpr ?? 2, mobile: (s.w ?? 360) < 768 });
   if (s.touch !== false && (s.w ?? 360) < 768) await send('Emulation.setTouchEmulationEnabled', { enabled: true });
+  await send('Network.enable');
+  await send('Network.emulateNetworkConditions', s.throttle ? { offline: false, latency: 150, downloadThroughput: 1.6e6 / 8, uploadThroughput: 750e3 / 8 } : { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
+  await send('Network.setBlockedURLs', { urls: s.block ?? [] });
   if (s.url) {
     const origin = new URL(s.url).origin;
     await send('Page.navigate', { url: origin + '/robots.txt' });
