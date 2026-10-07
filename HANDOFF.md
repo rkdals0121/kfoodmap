@@ -3635,6 +3635,14 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       looked at only at the largest text (every part on its own line)
       and stood on the live site for 23 minutes. `shot.mjs` steps take
       `cpu` (slow-down factor) for interaction timings.
+    - `shot.mjs` steps can now emulate most of what was "device only":
+      `drag` (real touch events), `geo` (the browser's own answer to "My
+      location", or a refusal), `init` (a script before the page's own —
+      a fixed clock), `tz`, `media` (forced colours, reduced motion),
+      `print`. Five regression steps use them (`touch-sheet`, `locate`,
+      `clock-status`, `place-meta-line`, `focus-next-stop-and-cards`).
+      There is a print stylesheet (end of `index.css`): what is being
+      read prints as a plain page.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
