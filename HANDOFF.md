@@ -3501,6 +3501,13 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       welcome screen per language at build, or loading the places chunk
       (195 kB) after the welcome screen. Measure with a throttled
       headless Chrome before and after.
+    - Done for it (09:25): the reader's language chunk is asked for by
+      `index.html` beside the app's script (`localeChunkHints` in
+      `vite.config.js` fills `/*KFM_LOCALE_CHUNKS*/{}` at build). It used
+      to leave only after every script had run. Live, Korean, throttled
+      network: mounted at 4.5 s before, 3.5-3.9 s after; with CPU x4 the
+      headline went from 7.5-8.5 s to 6.5 s. What remains is the places
+      chunk's download.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
