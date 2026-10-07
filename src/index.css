@@ -5826,6 +5826,12 @@ html[data-text='larger'] .map-locate__btn.has-label { font-size: 16px; }
   bottom: 0;
   width: 0;
   height: 0;
+  /* A fixed box is a layer of its own: without a place in the order it sat
+     at the bottom of the page's layers, and the toasts in it (their own
+     z-index counting only inside it) were drawn under the map, the list
+     and an open place. "Saved to your Journal" and its Undo were on the
+     page and could not be seen. */
+  z-index: 1200;
 }
 
 /* …and the map's buttons step down under a band at every width, not only

@@ -1,0 +1,17 @@
+[
+ {
+  "url": "{{BASE}}/place/balwoo",
+  "lang": "en",
+  "load": 5500,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const save=[...document.querySelectorAll('.detail-sheet button')].find(b=>b.textContent.trim().startsWith('Save')); save.click(); await w(600); const t=document.querySelector('.toast'); const r=t.getBoundingClientRect(); const top=document.elementFromPoint(r.left+r.width/2, r.top+r.height/2); return {toast:t.innerText, rect:[Math.round(r.left),Math.round(r.top),Math.round(r.width),Math.round(r.height)], onTop:(top.className||top.tagName).toString().slice(0,40), regionZ:getComputedStyle(document.querySelector('.toast-region')).zIndex, toastZ:getComputedStyle(t).zIndex}"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 1280,
+  "h": 800,
+  "dpr": 1,
+  "lang": "en",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('#place-list .place-card button[aria-pressed]').click(); await w(600); const t=document.querySelector('.toast'); const r=t.getBoundingClientRect(); const top=document.elementFromPoint(r.left+r.width/2, r.top+r.height/2); return {toast:t.innerText, rect:[Math.round(r.left),Math.round(r.top)], onTop:(top.className||top.tagName).toString().slice(0,40)}"
+ }
+]

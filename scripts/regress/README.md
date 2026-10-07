@@ -27,6 +27,7 @@ map, and against the live site after.
 | `focus-list-journal-links` | `cardBack` true, `rowBack` "saved-row", the suggest link, `back` "detail-report" (the general link, not the hours one); desktop: `cardBack` true and 40 → 80 cards 350 px before the end |
 | `docked-place-list-order` | 1280 px: the list while a place is docked stays in the same neighbourhood (`duringHas` true) and does not reshuffle on close |
 | `map-file-blocked` | no crash screen; the slow-connection text with "Try again"; after it the address carries `#f=Halal` |
+| `toast-on-top` | saving shows the toast and `onTop` is the toast's own text ("SPAN"), at both sizes — not the map or the place under it: for some days the toasts were drawn beneath everything |
 | `icons-and-lang` | `<html lang>` is the language; `notHidden` 0 |
 
 A check that reads focus needs a page that believes it has focus:
