@@ -577,6 +577,7 @@ export default {
     closingSoon: '即将打烊',
     lastOrderSoon: '即将停止点餐',
     closed: '未营业',
+    notYetOpen: '尚未营业',
     closedTodayLabel: '今日休息',
     until: '至 {{time}}',
     untilLastOrder: '至 {{time}} · 最后点餐 {{lastOrder}}',

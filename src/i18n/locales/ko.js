@@ -574,6 +574,7 @@ export default {
     closingSoon: '곧 영업 종료',
     lastOrderSoon: '곧 주문 마감',
     closed: '영업시간 아님',
+    notYetOpen: '영업 전',
     closedTodayLabel: '오늘 휴무',
     until: '{{time}}까지',
     untilLastOrder: '{{time}}까지 · 주문 마감 {{lastOrder}}',

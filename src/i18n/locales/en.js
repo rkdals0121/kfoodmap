@@ -593,6 +593,7 @@ export default {
     closingSoon: 'Closes soon',
     lastOrderSoon: 'Last order soon',
     closed: 'Closed',
+    notYetOpen: 'Closed',
     closedTodayLabel: 'Closed today',
     until: 'until {{time}}',
     untilLastOrder: 'until {{time}} · last order {{lastOrder}}',

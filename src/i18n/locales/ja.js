@@ -583,6 +583,7 @@ export default {
     closingSoon: 'まもなく閉店',
     lastOrderSoon: 'まもなくラストオーダー',
     closed: '営業時間外',
+    notYetOpen: '開店前',
     closedTodayLabel: '本日休業',
     until: '{{time}} まで',
     untilLastOrder: '{{time}} まで · ラストオーダー {{lastOrder}}',

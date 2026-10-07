@@ -580,6 +580,7 @@ export default {
     closingSoon: 'Segera tutup',
     lastOrderSoon: 'Pesanan terakhir sebentar lagi',
     closed: 'Tutup',
+    notYetOpen: 'Belum buka',
     closedTodayLabel: 'Tutup hari ini',
     until: 'sampai {{time}}',
     untilLastOrder: 'sampai {{time}} · pesanan terakhir {{lastOrder}}',
