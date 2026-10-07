@@ -892,7 +892,7 @@ export default function RestaurantDetail({
                         <dt>{d.day}{d.today && <span className="visually-hidden">{paren('', t('filters.today'))}</span>}</dt>
                         {/* Lunch and dinner each on a line of their own: run together
                             they wrapped mid-time on a phone. */}
-                        <dd>{d.text ? d.text.split(', ').map(part => <span key={part} className="week-hours__slot">{hoursPieces(part)}</span>) : t('detail.notRecorded')}</dd>
+                        <dd>{d.text ? d.text.split(listComma()).map(part => <span key={part} className="week-hours__slot">{hoursPieces(part)}</span>) : t('detail.notRecorded')}</dd>
                       </div>
                     ))}
                   </dl>

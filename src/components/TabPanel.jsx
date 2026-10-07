@@ -102,7 +102,7 @@ const browse = () => browseCache ?? (browseCache = CHIP_GROUPS.flatMap(g => g.ch
 // Where the reader was in Discover, for this visit: which journeys were
 // open and how far down. "Show on the map" and Back used to return to the
 // top with everything folded again.
-const discoverMemory = { open: new Map(), scrollTop: 0, rows: [] };
+const discoverMemory = { open: new Map(), scrollTop: 0, rows: {} };
 
 // A journey's stops, folded on a phone: seven journeys open in full made
 // Discover ten screens long, with the stories under all of it. The title,
@@ -169,10 +169,13 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
     // The rows of areas scroll sideways: where each was left, too ("Gangnam"
     // far along the row, then Back, started the row from Seoul again).
     const rows = () => [...el.querySelectorAll('.browse-areas__row, .browse-areas__links')];
-    rows().forEach((row, i) => { if (discoverMemory.rows[i]) row.scrollLeft = discoverMemory.rows[i]; });
+    // By the diet each row is for, not by its place in the list: the rows
+    // change order with the diet that is on.
+    const nameOf = (row) => `${row.closest('.browse-areas__row')?.getAttribute('aria-label') ?? ''}|${row.className}`;
+    rows().forEach((row) => { const left = discoverMemory.rows[nameOf(row)]; if (left) row.scrollLeft = left; });
     const onScroll = () => {
       discoverMemory.scrollTop = el.scrollTop;
-      discoverMemory.rows = rows().map(row => row.scrollLeft);
+      discoverMemory.rows = Object.fromEntries(rows().map(row => [nameOf(row), row.scrollLeft]));
     };
     el.addEventListener('scroll', onScroll, { passive: true });
     // Also at the tap that leaves: a scroll event can still be pending.

@@ -240,10 +240,14 @@ export function getOpenStatus(hoursFact, now = new Date(), { nameDay = false } =
     // night as "00:00–02:00" and "18:00–24:00" is closed all afternoon.
     const ended = Math.max(...today.map(s => span(s)).filter(sp => sp && sp.to <= cur).map(sp => sp.to), -1);
     const onBreak = ended >= 0 && next - ended <= MAX_BREAK_MIN;
+    // …and not in the small hours after a night that ran past midnight
+    // (18:00–02:00, at 03:00): that is after closing, not before opening.
+    const before = weekly[DAY_KEYS[(k.getUTCDay() + 6) % 7]];
+    const ranLate = Array.isArray(before) && before.some((sl) => { const from = toMinutes(sl.from); const to = toMinutes(sl.to); return from != null && to != null && to <= from && cur < 6 * 60; });
     // Before the day's first opening, some languages have a word of their
     // own ("영업 전", "開店前"): "영업시간 아님 · 오전 10:30에 열어요" read as a
     // translation. English says Closed for both.
-    return { open: false, onBreak, label: tr(onBreak ? 'onBreak' : ended < 0 ? 'notYetOpen' : 'closed'), detail: tr('opens', { time: fromMinutes(next) }) };
+    return { open: false, onBreak, label: tr(onBreak ? 'onBreak' : ended < 0 && !ranLate ? 'notYetOpen' : 'closed'), detail: tr('opens', { time: fromMinutes(next) }) };
   }
   return { open: false, label: tr('closed'), detail: nextOpening() };
 }

@@ -85,7 +85,9 @@ const ALSO_NAMED = {
   tteokbokki: ['떡볶이', 'トッポッキ', 'トッポギ', '炒年糕'],
   sundubu: ['순두부', 'スンドゥブ', '嫩豆腐'],
   tofu: ['두부', '豆腐'],
-  noodle: ['국수', '면', '麺', '面条', '麵'],
+  // (No one-character names here — '면', '麺': a name is also matched as the
+  // start of a longer word, and 麵包 is bread, 면목동 a neighbourhood.)
+  noodle: ['麺類', '面条', '麵條'],
   curry: ['카레', '커리', 'カレー', '咖喱', '咖哩'],
   burger: ['버거', '햄버거', 'バーガー', 'ハンバーガー', '汉堡', '漢堡'],
   pizza: ['피자', 'ピザ', '披萨', '披薩'],

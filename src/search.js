@@ -38,10 +38,11 @@ const LATIN_STATION = /^(.*?\S)\s+(?:subway\s+)?station$/i;
  */
 export function stationOf(query) {
   let s = String(query ?? '').trim();
+  // Indonesian puts the word first: "Stasiun Busan", "Stasiun Seoul exit 1".
+  // Turned round before anything else reads it.
+  s = s.replace(/^stasiun\s+(\S.*?)(\s+(?:exit|pintu(?:\s+keluar)?)\s*\d+)?$/i, (m, name, exit) => `${name} station${exit ? exit.replace(/pintu(?:\s+keluar)?/i, 'exit') : ''}`);
   const noExit = s.replace(EXIT_TAIL, '').trim();
   if (noExit !== s && ENDS_IN_STATION.test(noExit)) s = noExit;
-  // Indonesian puts the word first: "Stasiun Busan".
-  s = s.replace(/^stasiun\s+(\S.*)$/i, '$1 station');
   s = s.replace(/\bstn\.?$/i, 'station').replace(/\s+(역|駅|站)$/, '$1');
   const cjk = CJK_STATION.exec(s);
   if (cjk) {

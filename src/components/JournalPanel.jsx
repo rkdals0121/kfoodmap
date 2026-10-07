@@ -33,7 +33,7 @@ function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' })
           </span>
           <span className="saved-row__status">
             {status ? (
-              <>{atLabel && <span className="place-card__at">{atLabel}: </span>}<span className={statusClass(status)}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
+              <>{atLabel && <span className="place-card__at">{colon(atLabel, '')}</span>}<span className={statusClass(status)}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
             ) : (
               <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
             )}
