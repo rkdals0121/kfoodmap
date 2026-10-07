@@ -3617,6 +3617,18 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       FAIL` with the names of what failed. Do not push on anything else:
       twice a deploy went out with a test marked failed because only the
       tail of a long output was read.
+    - Third full pass (10-08 morning, 416 items, three agents on the live
+      site): 7 fails, all fixed (`462f093`, `87211c0`). Search: a township
+      typed in Korean ("용산면") is that township (`TOWNSHIP_SUFFIX` in
+      `area-names.js`), an area's own name matches a whole word of the
+      address (`inArea` in `filters.js`; "yeok" after it still counts),
+      and a romanised reading is read once more (`matchesSearch`) so
+      キンパ finds "kimbap" too. Focus: a journey stop carries
+      `data-place`; the staff cards use `useReturnFocus()`. The line
+      under a place's name draws its dots in CSS (`.detail-meta__part`).
+      `CenterReporter` reports the open place's own coordinates when the
+      map has brought it to the middle (`anchor`). Korean quoted in notes
+      goes through `KoText`.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
