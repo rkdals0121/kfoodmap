@@ -3577,6 +3577,15 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       is in its README). Run them on a preview before a deploy that
       touches start-up, history, focus or the map, and on the live site
       after.
+    - `vercel.json` sends `X-Content-Type-Options`, `Referrer-Policy`
+      and `Permissions-Policy` on every path. No CSP and no frame rule
+      yet: either could break sign-in, tiles or an embed, and none of
+      those can be tested without an account and a phone.
+    - Search: a township (-myeon, -eup, -ri; 면·읍·리) that shares its
+      name with a listed area is not that area (`areaText` in
+      `src/filters.js`, `koAddressHas(…, listed)`).
+    - A deploy is done when the remote has the commit and the build
+      status is success — check both; a push failed silently once.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
