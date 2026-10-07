@@ -278,7 +278,7 @@ test('a diet word after a two-word area, or after a hyphen, is still read', asyn
 test('a letter typed after an area does not widen it; a certification word is a question', () => {
   for (const q of ['busan v', 'v busan', 'busan 1']) assert.equal(ids(go(q)), ids(go('busan')), q);
   const halal = ids(go('halal'));
-  for (const q of ['KMF', '인증', '認証', '할랄 인증', 'ハラール 認証', 'ハラール認証', '清真认证']) assert.equal(ids(go(q)), halal, q);
+  for (const q of ['KMF', '인증', '認証', '할랄 인증', 'ハラール 認証', 'ハラール認証', '清真认证', 'certified', 'certificate', 'halal certified', 'halal certification', 'sertifikat halal', 'bersertifikat']) assert.equal(ids(go(q)), halal, q);
   assert.equal(ids(go('Itaewon 인증')), ids(go('Itaewon halal')));
   // …taken out before the station and filler readings see it.
   assert.equal(ids(go('kmf seoul station')), ids(go('halal seoul station')));

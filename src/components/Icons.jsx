@@ -1,6 +1,11 @@
 import React from 'react';
 
+// Every icon here sits beside words, or in a control that carries its own
+// name: none is read out (a screen reader otherwise stops on each as an
+// unnamed image).
 const base = {
+  'aria-hidden': true,
+  focusable: 'false',
   fill: 'none',
   stroke: 'currentColor',
   strokeWidth: 1.7,

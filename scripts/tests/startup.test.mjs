@@ -20,17 +20,18 @@ const head = scripts.find(s => s.includes('__kfmWelcome'));
 // Runs the head script as a browser would, with the given visit.
 function visit({ languages = ['en-US'], stored = {}, pathname = '/', search = '', blocked = false, locale = { ko: '/assets/ko-x.js', ja: '/assets/ja-x.js' }, map = ['/assets/App-x.js', '/assets/places-x.js'] } = {}) {
   const links = [];
+  const page = { lang: 'en' };
   const window = {};
   const context = {
     window,
     navigator: { languages, language: languages[0] },
     location: { pathname, search },
     localStorage: { getItem: (key) => { if (blocked) throw new Error('blocked'); return stored[key] ?? null; } },
-    document: { createElement: () => ({}), head: { appendChild: (el) => links.push(el) } },
+    document: { createElement: () => ({}), head: { appendChild: (el) => links.push(el) }, documentElement: page },
   };
   const code = head.replace('/*KFM_LOCALE_CHUNKS*/{}', JSON.stringify(locale)).replace('/*KFM_MAP_CHUNKS*/[]', JSON.stringify(map));
   vm.runInNewContext(code, context);
-  return { language: window.__kfmL, welcome: window.__kfmWelcome, asked: links.filter(l => l.rel === 'modulepreload').map(l => l.href), preconnect: links.filter(l => l.rel === 'preconnect').map(l => l.href) };
+  return { pageLang: page.lang, language: window.__kfmL, welcome: window.__kfmWelcome, asked: links.filter(l => l.rel === 'modulepreload').map(l => l.href), preconnect: links.filter(l => l.rel === 'preconnect').map(l => l.href) };
 }
 
 test('index.html has the head script, above the stylesheets, with both slots', () => {
@@ -111,4 +112,11 @@ test('a distance is written with the decimal mark of the language', async () => 
   assert.equal(formatDistance(1.94), '1,9 km');
   assert.equal(formatDistance(12.4), '12 km');
   await i18next.changeLanguage(before);
+});
+
+test('the page is marked with the language from the start, except the pages written out in English', () => {
+  assert.equal(visit({ languages: ['ja'] }).pageLang, 'ja');
+  assert.equal(visit({ languages: ['zh-TW'], pathname: '/cards' }).pageLang, 'zh-Hant');
+  assert.equal(visit({ languages: ['ko'], pathname: '/place/balwoo' }).pageLang, 'en');
+  assert.equal(visit({ languages: ['ko'], pathname: '/find/vegan/' }).pageLang, 'en');
 });

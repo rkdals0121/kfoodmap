@@ -193,7 +193,7 @@ function dietPairs(parts) {
 // the answer (BottomSheetList shows the note for these words). Taken out
 // of the search once, before anything reads it (search.js): left in for
 // the station and filler readings, "kmf seoul station" was all of Seoul.
-const CERT_WORD = /^(ハラール|ハラル|清真|할랄|halal)?(?:kmf|認証|认证|認證|인증)(?:書|서|证书|證書)?(?:店|餐厅|餐廳|식당|レストラン)?$/i;
+const CERT_WORD = /^(ハラール|ハラル|清真|할랄|halal)?(?:kmf|certified|certificates?|certification|bersertifikat|sertifikat|sertifikasi|認証|认证|認證|인증)(?:書|서|证书|證書)?(?:店|餐厅|餐廳|식당|レストラン)?$/i;
 export function stripCertWords(query) {
   const asked = String(query ?? '').trim().split(/\s+/).filter(Boolean);
   const rest = asked.flatMap((w) => {
