@@ -29,7 +29,7 @@ import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
 import ClaimChip from './ClaimChip';
 import KoText from './KoText';
-import { colon, paren, sentenceGap } from '../i18n/punct';
+import { colon, paren, sentenceGap, listComma } from '../i18n/punct';
 
 // Keyed by the identifier as stored in restaurant.traits / compared in
 // App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
@@ -77,6 +77,10 @@ function formatPrice(price, lang) {
 // "The restaurant (instagram.com)" are different grades of the same source,
 // and the page has to show why one is Confirmed and the other Reported.
 // The URL arrives with the full record; until then the source alone.
+// The page a claim was read on, if the record holds a web address for it.
+const sourcePage = (f) => {
+  try { const u = new URL(f.url); return /^https?:$/.test(u.protocol) ? u.href : null; } catch { return null; }
+};
 function sourceWithSite(f) {
   let host = null;
   try { host = f.url ? new URL(f.url).hostname.replace(/^www\./, '') : null; } catch { host = null; }
@@ -91,16 +95,22 @@ function sourceWithSite(f) {
 // those are given as the words the app shows for them.
 // Printed hours in pieces that hold together: each range, and each
 // bracketed last order, wraps as a whole or not at all.
-const hoursPieces = (text) => String(text).split(', ').map((slot, i, all) => {
-  const k = slot.indexOf(' (');
-  const parts = k > 0 ? [slot.slice(0, k), slot.slice(k + 1)] : [slot];
-  return (
-    <React.Fragment key={slot}>
-      {parts.map((part, j) => <React.Fragment key={part}>{j > 0 && ' '}<span className="hours-piece">{part}</span></React.Fragment>)}
-      {i < all.length - 1 && ', '}
-    </React.Fragment>
-  );
-});
+// (By the marks of the language the hours were written in: ", " and " ("
+// or, in Japanese and Chinese, "、" and "（" — utils.js, i18n/punct.js.)
+const hoursPieces = (text) => {
+  const comma = listComma();
+  return String(text).split(comma).map((slot, i, all) => {
+    const wide = slot.indexOf('（');
+    const k = wide > 0 ? wide : slot.indexOf(' (');
+    const parts = k > 0 ? [slot.slice(0, k), slot.slice(wide > 0 ? k : k + 1)] : [slot];
+    return (
+      <React.Fragment key={slot}>
+        {parts.map((part, j) => <React.Fragment key={part}>{j > 0 && wide <= 0 && ' '}<span className="hours-piece">{part}</span></React.Fragment>)}
+        {i < all.length - 1 && comma}
+      </React.Fragment>
+    );
+  });
+};
 
 // Where each place's page was scrolled to, for this visit.
 const scrollMemory = new Map();
@@ -790,9 +800,15 @@ export default function RestaurantDetail({
                   {/* What the halal label leaves out, said in the reader's
                       language: the note above is in English, and "alcohol
                       may be sold" was its last line when it was there at all. */}
+                  {/* …and what "Halal-friendly" itself means: the list says so
+                      above its cards; the place did not. */}
+                  {id === 'halal' && f.value === 'friendly' && <p className="claim-explain__meta">{t('detail.halalFriendlyMeans')}</p>}
                   {id === 'halal' && <p className="claim-explain__meta">{t('detail.halalAlcohol')}</p>}
                   <p className="claim-explain__meta">
+                    {/* …with the page it was read on, when the record has it: "the
+                        source is named but I cannot look at it". */}
                     {t('detail.claimSource', { source: sourceWithSite(f) })}
+                    {sourcePage(f) && <> · <a href={sourcePage(f)} target="_blank" rel="noopener noreferrer">{t('detail.claimSourceOpen')}</a></>}
                     {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
                   </p>
                 </div>

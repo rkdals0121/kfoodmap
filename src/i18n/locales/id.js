@@ -291,6 +291,8 @@ export default {
     loadFailed: 'Menu, transportasi, dan kontak tidak dapat dimuat.',
     loadRetry: 'Coba lagi',
     mapAppsNote: 'Naver Map dan Kakao Map adalah aplikasi peta yang umum dipakai di Korea. Google Maps juga tersedia di sini jika itu yang Anda pakai.',
+    halalFriendlyMeans: "‘Ramah halal’ adalah apa yang dilaporkan sebuah sumber; ini bukan sertifikat halal.",
+    claimSourceOpen: 'Buka sumbernya',
     halalAlcohol: 'Label ini tidak mencakup apakah tempat ini menjual alkohol. Jika sumbernya menyebutkannya, hal itu tertulis pada catatan di atas; jika tidak jelas, tanyakan kepada staf — “Kartu bahasa Korea untuk staf” memuat pertanyaan itu.',
     close: 'Tutup',
     dietaryFactsLabel: 'Info vegan, halal, dan bersantap',

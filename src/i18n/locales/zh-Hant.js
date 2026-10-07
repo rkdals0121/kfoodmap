@@ -288,6 +288,8 @@ export default {
     loadFailed: '無法載入菜單、交通和聯絡方式。',
     loadRetry: '再試一次',
     mapAppsNote: 'Naver Map 和 Kakao Map 是韓國常用的地圖 App。如果你用的是 Google Maps，這裡也有。',
+    halalFriendlyMeans: "「清真友善」是來源的說法，並不表示有清真認證。",
+    claimSourceOpen: '開啟來源',
     halalAlcohol: '是否販售酒類不在這個標示的範圍內。來源有說明時，寫在上面的說明裡；不確定時請詢問店員，「給店員看的韓文卡片」裡有這個問題。',
     close: '關閉',
     dietaryFactsLabel: '飲食與用餐資訊',

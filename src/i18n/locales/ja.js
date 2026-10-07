@@ -293,6 +293,8 @@ export default {
     loadFailed: 'メニュー、交通、連絡先を読み込めませんでした。',
     loadRetry: 'もう一度試す',
     mapAppsNote: 'Naver Map と Kakao Map は、韓国で使われている地図アプリです。Google Maps をお使いの場合は、そちらも選べます。',
+    halalFriendlyMeans: "「ハラールフレンドリー」は情報源の記載によるもので、ハラール認証を意味するものではありません。",
+    claimSourceOpen: '情報源を開く',
     halalAlcohol: 'お酒を販売しているかどうかは、この表示には含まれません。情報源に記載がある場合は上の説明に書かれています。はっきりしないときはお店の方にお尋ねください。「お店で見せる韓国語カード」にこの質問があります。',
     close: '閉じる',
     dietaryFactsLabel: '食事と料理に関する情報',

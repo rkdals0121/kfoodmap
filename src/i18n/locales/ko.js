@@ -287,6 +287,8 @@ export default {
     loadFailed: '메뉴, 교통, 연락처를 불러오지 못했어요.',
     loadRetry: '다시 시도',
     mapAppsNote: '네이버 지도와 카카오맵은 한국에서 많이 쓰는 지도 앱이에요. 구글 지도를 쓰신다면 그것도 여기 있어요.',
+    halalFriendlyMeans: "‘할랄 프렌들리’는 출처에 그렇게 나와 있다는 뜻이에요. 할랄 인증을 뜻하지는 않아요.",
+    claimSourceOpen: '출처 열기',
     halalAlcohol: '술을 파는지는 이 표시에 포함되지 않아요. 출처가 밝힌 경우에는 위 설명에 적혀 있어요. 확실하지 않으면 직원에게 물어보세요. ‘직원에게 보여 줄 한국어 카드’에 이 질문이 있어요.',
     close: '닫기',
     dietaryFactsLabel: '식이·식사 정보',

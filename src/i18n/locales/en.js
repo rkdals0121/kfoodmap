@@ -298,6 +298,8 @@ export default {
     loadFailed: 'Could not load the menu, transit and contact details.',
     loadRetry: 'Try again',
     mapAppsNote: 'Naver Map and Kakao Map are the map apps used in Korea. Google Maps is here too if it is the one you have.',
+    halalFriendlyMeans: "‘Halal-friendly’ is what a source reports; it is not a halal certificate.",
+    claimSourceOpen: 'Open the source',
     halalAlcohol: 'Whether alcohol is sold is not part of this label. Where a source says, it is in the note above; if it is not clear, ask the staff — the Korean cards to show staff have the question.',
     close: 'Close',
     dietaryFactsLabel: 'Dietary and dining facts',

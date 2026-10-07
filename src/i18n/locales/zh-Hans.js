@@ -288,6 +288,8 @@ export default {
     loadFailed: '无法加载菜单、交通和联系方式。',
     loadRetry: '重试',
     mapAppsNote: 'Naver Map 和 Kakao Map 是韩国常用的地图应用。如果你用的是 Google Maps，这里也有。',
+    halalFriendlyMeans: "“清真友好”只是来源的说法，并不表示有清真认证。",
+    claimSourceOpen: '打开来源',
     halalAlcohol: '是否售酒不在这个标记的范围内。来源有说明时，写在上面的说明里；不确定时请询问店员，“给店员看的韩语卡片”里有这个问题。',
     close: '关闭',
     dietaryFactsLabel: '饮食与用餐信息',
