@@ -315,7 +315,11 @@ test('an area shown by its Japanese or Chinese name is one of its written forms,
   for (const [language, names] of Object.entries(AREA_SHOWN)) {
     for (const [area, name] of Object.entries(names)) {
       assert.ok(AREA_NAMES[area]?.includes(name), `${language} ${area} ${name}`);
-      for (const chip of ['Vegan', 'Halal']) assert.equal(ids(go(name, [chip])), ids(go(area, [chip])), `${language} ${name} ${chip}`);
+      for (const chip of ['Vegan', 'Halal']) {
+        assert.equal(ids(go(name, [chip])), ids(go(area, [chip])), `${language} ${name} ${chip}`);
+        // …and as Discover asks: the area alone.
+        assert.equal(ids(searchPlaces({ places, query: name, filters: [chip], areaOnly: true })), ids(searchPlaces({ places, query: area, filters: [chip], areaOnly: true })), `${language} ${name} ${chip} area`);
+      }
     }
   }
   assert.equal(shownArea('Myeongdong', 'ja'), '明洞');

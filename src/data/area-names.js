@@ -285,11 +285,13 @@ export const AREA_NAMES = AREAS;
 // The name an area is shown by in "Browse by area" (Discover), for readers
 // of Japanese and Chinese: 明洞 is read at a glance where "Myeongdong" is
 // sounded out. Each is one of the written forms above — the test holds
-// that — and an area not listed here shows romanised, as before.
+// that — and an area not listed here shows romanised, as before. The
+// rows are the twelve areas with the most places, so the list runs past
+// today's twelve.
 const SHOWN = {
-  ja: { Seoul: 'ソウル', Gyeonggi: '京畿', Jeju: '済州', Jongno: '鍾路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龍山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '東大門' },
-  'zh-Hans': { Seoul: '首尔', Gyeonggi: '京畿', Jeju: '济州', Jongno: '钟路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龙山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '东大门' },
-  'zh-Hant': { Seoul: '首爾', Gyeonggi: '京畿', Jeju: '濟州', Jongno: '鍾路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龍山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '東大門' },
+  ja: { Seoul: 'ソウル', Gyeonggi: '京畿', Jeju: '済州', Jongno: '鍾路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龍山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '東大門', Gwangju: '光州', Seongsu: '聖水', Gangwon: '江原', Daejeon: '大田', Seogwipo: '西帰浦', Ulsan: '蔚山', Hongdae: '弘大', Suncheon: '順天', Insadong: '仁寺洞', Sinchon: '新村', Yongin: '龍仁', Jamsil: '蚕室' },
+  'zh-Hans': { Seoul: '首尔', Gyeonggi: '京畿', Jeju: '济州', Jongno: '钟路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龙山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '东大门', Gwangju: '光州', Seongsu: '圣水', Gangwon: '江原', Daejeon: '大田', Seogwipo: '西归浦', Ulsan: '蔚山', Hongdae: '弘大', Suncheon: '顺天', Insadong: '仁寺洞', Sinchon: '新村', Yongin: '龙仁', Jamsil: '蚕室' },
+  'zh-Hant': { Seoul: '首爾', Gyeonggi: '京畿', Jeju: '濟州', Jongno: '鍾路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龍山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '東大門', Gwangju: '光州', Seongsu: '聖水', Gangwon: '江原', Daejeon: '大田', Seogwipo: '西歸浦', Ulsan: '蔚山', Hongdae: '弘大', Suncheon: '順天', Insadong: '仁寺洞', Sinchon: '新村', Yongin: '龍仁', Jamsil: '蠶室' },
 };
 export const AREA_SHOWN = SHOWN;
 export const shownArea = (area, language) => (language === 'ko' ? AREAS[area]?.[0] : SHOWN[language]?.[area]) ?? area;
