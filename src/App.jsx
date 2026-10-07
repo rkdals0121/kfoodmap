@@ -1171,6 +1171,7 @@ function AppShell() {
         {activeTab !== 'map' && activeTab !== 'journal' && (
           <TabPanel
             tab={activeTab}
+            diets={dietChips}
             onNavigate={selectTab}
             session={session}
             googleReady={googleReady}

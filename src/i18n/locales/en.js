@@ -530,6 +530,7 @@ export default {
     veganQ7: 'Is there a dish that is not spicy, for a child?',
     veganQ8: 'Are any of the five pungent roots in it (garlic, green onion, chives, wild chives, onion)?',
     veganQ9: 'Are there nuts in it (peanuts, walnuts, pine nuts, etc.)? I have a nut allergy.',
+    veganQ10: 'Is there honey in it?',
     muslimS1: 'Hello. I am Muslim.',
     muslimS2: 'For religious reasons I do not have pork or alcohol.',
     muslimS3: 'I do not eat ham, bacon, sausage, lard or pork stock either.',

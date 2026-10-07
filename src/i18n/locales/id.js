@@ -517,6 +517,7 @@ export default {
     veganQ7: 'Apakah ada menu yang tidak pedas untuk anak?',
     veganQ8: 'Apakah ini mengandung salah satu dari lima sayuran beraroma tajam (bawang putih, daun bawang, kucai, bawang liar, bawang bombai)?',
     veganQ9: 'Apakah ini mengandung kacang tanah atau kacang pohon (kenari, kacang pinus, dan lainnya)? Saya alergi keduanya.',
+    veganQ10: 'Apakah ada madu di dalamnya?',
     muslimS1: 'Halo. Saya Muslim.',
     muslimS2: 'Karena alasan agama, saya tidak mengonsumsi daging babi dan alkohol.',
     muslimS3: 'Saya juga tidak makan ham, bacon, sosis, lemak babi, maupun kaldu babi.',

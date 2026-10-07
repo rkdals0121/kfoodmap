@@ -41,6 +41,9 @@ export const STAFF_CARDS = [
       { ko: '육수는 무엇으로 만드나요? (멸치, 고기, 가쓰오부시)', roman: 'Yuksuneun mueoseuro mandeunayo? (myeolchi, gogi, gasseuobusi)', key: 'veganQ2' },
       { ko: '김치에 액젓이나 새우젓이 들어가나요?', roman: 'Gimchie aekjeosina saeujeosi deureoganayo?', key: 'veganQ3' },
       { ko: '달걀이나 우유, 버터, 치즈가 들어가나요?', roman: 'Dalgyarina uyu, beoteo, chijeuga deureoganayo?', key: 'veganQ4' },
+      // Honey: not animal flesh, so a kitchen that has understood "no meat, no
+      // egg, no milk" may still sweeten with it.
+      { ko: '꿀이 들어가나요?', roman: 'Kkuri deureoganayo?', key: 'veganQ10' },
       { ko: '굴소스나 다시다(쇠고기 조미료)를 쓰나요?', roman: 'Gulsoseuna dasida (soegogi jomiryo) reul sseunayo?', key: 'veganQ5' },
       { ko: '고기와 달걀을 빼고 만들어 주실 수 있나요?', roman: 'Gogiwa dalgyareul ppaego mandeureo jusil su innayo?', key: 'veganQ6' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'veganQ7' },

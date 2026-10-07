@@ -153,7 +153,8 @@ function firstSentence(text) {
   return s;
 }
 
-function DiscoverTab({ onBrowse }) {
+const NO_DIETS = [];
+function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
   const { t, i18n } = useTranslation();
   const stories = useStories();
   const navigate = useNavigate();
@@ -199,7 +200,9 @@ function DiscoverTab({ onBrowse }) {
           {onBrowse && (
             <div className="browse-areas">
               <h3 className="browse-areas__title">{t('discover.byArea')}</h3>
-              {browse().map(({ chip, areas }) => (
+              {/* The diet the reader has on comes first: with Halal chosen, the
+                  halal areas were the second row, under the vegan ones. */}
+              {[...browse()].sort((a, b) => diets.includes(b.chip.id) - diets.includes(a.chip.id)).map(({ chip, areas }) => (
                 <div key={chip.id} className="browse-areas__row" role="group" aria-label={t(chip.labelKey)}>
                   <span className="browse-areas__diet">{t(chip.labelKey)}</span>
                   <div className="browse-areas__links">
@@ -660,9 +663,9 @@ function ProfileTab({
 
 export default function TabPanel({
   tab, onNavigate, session, googleReady, onSignIn, onSignOut, onDeleteRecords,
-  lastSyncFailed, sessionEnded, signInFailed, savedCount, visitedCount, onBrowse,
+  lastSyncFailed, sessionEnded, signInFailed, savedCount, visitedCount, onBrowse, diets = NO_DIETS,
 }) {
-  if (tab === 'discover') return <DiscoverTab onBrowse={onBrowse} />;
+  if (tab === 'discover') return <DiscoverTab onBrowse={onBrowse} diets={diets} />;
   if (tab === 'profile') {
     return (
       <ProfileTab
