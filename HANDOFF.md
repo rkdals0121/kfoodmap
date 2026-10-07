@@ -3586,6 +3586,32 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       `src/filters.js`, `koAddressHas(…, listed)`).
     - A deploy is done when the remote has the commit and the build
       status is success — check both; a push failed silently once.
+    - Walk-throughs as particular readers (an Indonesian Muslim, a
+      Japanese vegan, a Korean host, a Taiwanese family, a Hui Muslim, a
+      keyboard user, a screen-reader user, a man of 68 at the largest
+      text) found what the feature checklist had not; what was fixed and
+      what is the owner's to decide is in MOBILE-AUDIT §25. Worth doing
+      again after any large change.
+    - The toasts had been invisible since the cascade audit:
+      `.toast-region` is `position: fixed`, so a stacking context, and
+      had no z-index. Checks that read the DOM passed. Check what is on
+      top at a point (`document.elementFromPoint`) or look at pixels;
+      `scripts/regress/steps/toast-on-top.json` does the former.
+    - Punctuation joined in code goes through `src/i18n/punct.js`
+      (`colon`, `paren`, `listComma`, `sentenceGap`, `quoted`); hours are
+      written with it (`src/utils.js`), so anything that splits an hours
+      string must split on `listComma()` and look for `（` as well as
+      ` (` (`hoursPieces`, the week table).
+    - Japanese tells the time on the 24-hour clock (`clock: '24c'`), as
+      Chinese does. `hours.notYetOpen` is the status before the day's
+      first opening where the language has a word for it.
+    - Search aliases (`src/data/area-names.js`): dishes are there now
+      (bibimbap, gimbap, tofu, curry, …) and in `COOKING`. No alias of
+      one character: an alias also matches as the start of a longer word.
+    - Between 768 and 1199 px what a docked place covers is `inert`
+      (`underDock` in `App.jsx`). The page's `<h1>` takes focus after the
+      welcome screen; `useNotesWaiting` lets a line hold a "…" until its
+      translation arrives.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
