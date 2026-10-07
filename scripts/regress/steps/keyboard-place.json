@@ -1,0 +1,86 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 360,
+  "h": 640,
+  "lang": "en",
+  "js": "document.querySelector('.place-card__open-btn').focus()"
+ },
+ {
+  "keys": [
+   "Enter"
+  ],
+  "keyWait": 1500,
+  "js": "return {path:location.pathname, inSheet:!!document.activeElement.closest('.detail-sheet'), focus:String(document.activeElement.className).split(' ')[0]}"
+ },
+ {
+  "keys": [
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab"
+  ],
+  "keyWait": 60,
+  "js": "return {path:location.pathname, inSheet:!!document.activeElement.closest('.detail-sheet'), focus:String(document.activeElement.className).split(' ')[0]}"
+ },
+ {
+  "keys": [
+   "Escape"
+  ],
+  "keyWait": 1200,
+  "js": "return {path:location.pathname, inSheet:!!document.activeElement.closest('.detail-sheet'), focus:String(document.activeElement.className).split(' ')[0]}"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 1280,
+  "h": 800,
+  "lang": "en",
+  "keys": [
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab",
+   "Tab"
+  ],
+  "trail": true
+ }
+]

@@ -1,5 +1,5 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
-// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), drag (finger drags), block (url patterns) }]
+// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), drag (finger drags), keys (+ trail: real key presses), block (url patterns) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
@@ -79,6 +79,24 @@ for (const s of steps) {
     await sleep(d.hold ?? 0);
     await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
     await sleep(500);
+  }
+  // keys: ['Tab', 'Shift+Tab', 'Enter', 'Escape', 'ArrowDown', ' '] = real
+  // key presses, one after another; with `trail: true` what has focus after
+  // each is printed (its tag, class and first words).
+  if (s.keys) {
+    const CODES = { Tab: 9, Enter: 13, Escape: 27, ' ': 32, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Home: 36, End: 35 };
+    const trail = [];
+    for (const k of s.keys) {
+      const shift = k.startsWith('Shift+');
+      const key = shift ? k.slice(6) : k;
+      const base = { key, code: key === ' ' ? 'Space' : key, windowsVirtualKeyCode: CODES[key] ?? 0, nativeVirtualKeyCode: CODES[key] ?? 0, modifiers: shift ? 8 : 0 };
+      await send('Input.dispatchKeyEvent', { type: 'rawKeyDown', ...base });
+      if (key === 'Enter' || key === ' ') await send('Input.dispatchKeyEvent', { type: 'char', ...base, text: key === 'Enter' ? String.fromCharCode(13) : ' ' });
+      await send('Input.dispatchKeyEvent', { type: 'keyUp', ...base });
+      await sleep(s.keyWait ?? 250);
+      if (s.trail) trail.push(await evalJs(`(()=>{const e=document.activeElement; if(!e||e===document.body) return 'body'; return (e.tagName.toLowerCase()+'.'+String(e.className||'').split(' ')[0]+' "'+(e.getAttribute('aria-label')||e.textContent||e.placeholder||'').trim().slice(0,24)+'"');})()`));
+    }
+    if (s.trail) console.log(s.out ?? '', JSON.stringify(trail));
   }
   if (s.js) { const v = await evalJs(`(async()=>{${s.js}})()`); if (v !== undefined) console.log(s.out ?? '', JSON.stringify(v)); }
   await sleep(s.wait ?? 600);
