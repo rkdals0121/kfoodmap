@@ -149,7 +149,8 @@ const noteWeight = (text) => text.length + 1.6 * (text.match(/[\u3040-\u30ff\u34
 const noteWithLinks = (text) => text.split(/(https?:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)/).map((part, k) => {
   // The space a translator left to end the address, before a full-width
   // mark, is not part of the sentence ("namisum-en.imweb.me 、").
-  if (k % 2 === 0) return k > 0 ? part.replace(/^ (?=[、。，；：）」』])/, '') : part;
+  // (Korean quoted in a note breaks between its words: KoText.)
+  if (k % 2 === 0) return <KoText key={k}>{k > 0 ? part.replace(/^ (?=[、。，；：）」』])/, '') : part}</KoText>;
   // What closes the sentence or the bracket around it is not the address.
   const tail = /[).,;:'"”]+$/.exec(part)?.[0] ?? '';
   const href = tail ? part.slice(0, -tail.length) : part;
@@ -856,14 +857,15 @@ export default function RestaurantDetail({
                   {/* "Certification claimed: none — self-certified — we have
                       not seen the certificate" argued with itself: where the
                       record names no certifier at all, one plain sentence. */}
-                  {/^none\b/i.test(certClaim.body) && /self-certified/i.test(certClaim.body) && !certClaim.note
+                  {/* (Korean quoted in it — "할랄인증" — breaks between words, not inside one.) */}
+                  <KoText>{/^none\b/i.test(certClaim.body) && /self-certified/i.test(certClaim.body) && !certClaim.note
                     ? t('detail.certificationSelf')
                     : certClaim.note
                     // While the translation is on its way, "…" in its place: the
                     // record's English came up first and changed to the
                     // reader's language three seconds into reading it.
                     ? t('detail.certificationClaimedNote', { body: certNotes?.body ?? (notesWaiting ? '…' : plainNote(certClaim.body)), note: certNotes?.note ?? (notesWaiting ? '…' : plainNote(certClaim.note)) })
-                    : t('detail.certificationClaimed', { body: certNotes?.body ?? (notesWaiting ? '…' : plainNote(certClaim.body)) })}
+                    : t('detail.certificationClaimed', { body: certNotes?.body ?? (notesWaiting ? '…' : plainNote(certClaim.body)) })}</KoText>
                 </p>
               )}
             </div>
@@ -1195,7 +1197,7 @@ export default function RestaurantDetail({
               {i18n.language !== 'en' && (!stories?.[place.id]?.story || (place.timeline?.length > 0 && !timelineNotes)) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
               {stories?.[place.id]?.story
                 ? <p className="detail-body" lang={i18n.language}>{stories[place.id].story}</p>
-                : <p className="detail-body" lang="en">{place.story}</p>}
+                : <p className="detail-body" lang="en"><KoText>{place.story}</KoText></p>}
               {place.timeline?.length > 0 && (
                 <ol className="timeline" lang={timelineNotes ? i18n.language : 'en'}>
                   {place.timeline.map((t, n) => (
@@ -1208,7 +1210,7 @@ export default function RestaurantDetail({
               )}
               <div className="callout">
                 <p className="callout__label">{t('detail.didYouKnow')}</p>
-                <p>{culture.didYouKnow}</p>
+                <p><KoText>{culture.didYouKnow}</KoText></p>
               </div>
             </section>
 
@@ -1219,7 +1221,7 @@ export default function RestaurantDetail({
                 {culture.diningTips.map(tip => (
                   <li key={tip} className="tip">
                     <span className="tip__dot" aria-hidden="true" />
-                    <span>{tip}</span>
+                    <span><KoText>{tip}</KoText></span>
                   </li>
                 ))}
               </ul>

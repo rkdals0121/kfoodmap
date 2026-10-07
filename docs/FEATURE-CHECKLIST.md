@@ -102,7 +102,7 @@ C12. With no chip and no search and > 1 result → header hint "Nearest the map 
 C13. Any chip or search on, with results → the hint is replaced by a "Clear (n)" button (`.place-list__clear-inline`; n = chips + 1 if search text). Press → all chips and the search are cleared in place (no keyboard pops up); a shared list / journey stays.
 C14. Share-this-search icon (`.place-list__share`, aria-label "Share this search") → shown when a search or shareable chip is on and there are results. See K10–K12.
 C15. Cards are drawn 40 at a time → at the end a "Show N more" button (`.place-list__more`); it also loads automatically when it scrolls within ~400 px of view; pressing it adds the next 40.
-C34. [desktop >= 1024] Sidebar folded to the icon rail, press Discover / Journal / Profile in the rail → the sidebar unfolds and that panel shows (Map keeps it folded).
+C34. [desktop >= 1024] Sidebar folded to the icon rail, press Discover / Journal / Profile in the rail → the sidebar unfolds and that panel shows (pressing Map, already the current tab, unfolds the list as well).
 C35. [phone landscape >= 768 wide, e.g. 844x390] → list beside the map with ONE row of chips that scrolls sideways; the list is tall enough for a card; an opened place takes the full height of the column.
 C36. Two skip links at the top of the Map tab: "Skip to the list of places" and "Skip to the tabs" (the second focuses the current tab button).
 C16. New search or chip → the list scrolls back to its top and to the first page. Saving a place, the minute tick, or panning the map does NOT reset scroll or page.

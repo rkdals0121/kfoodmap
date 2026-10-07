@@ -261,7 +261,9 @@ function AppShell() {
     const onMap = path === '/';
     const here = window.history.state?.usr ?? null;
     if (tab === 'map') {
-      if (onMap) return;                                   // already there: no new entry
+      // Already there: no new entry. Pressed in the folded rail, it is the
+      // list that is asked for (its own tab did nothing at all there).
+      if (onMap) { setIsSidebarCollapsed(false); return; }
       if (onTab && here?.overMap) { ownBack(); navigate(-1); }
       else navigate(pathOf('map'), { replace: true });
       return;
