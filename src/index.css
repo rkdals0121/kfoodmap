@@ -6713,19 +6713,18 @@ html[data-text='larger'] .detail-bar__map svg {
   padding-bottom: 2px;
 }
 
-/* The Journal's seals two to a row on a phone: one to a row, three visits
-   were three screens (the column was 12 px short of fitting two). */
-@media (max-width: 767px) {
-  .journal-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 8px;
-  }
-  .journal-grid .stamp-name,
-  .journal-grid .stamp-zone,
-  .journal-grid .stamp-date {
-    text-align: center;
-    overflow-wrap: anywhere;
-  }
+/* The Journal's seals two to a row: one to a row, three visits were three
+   screens (the column was 12 px short of fitting two). At every width —
+   beside the map from 768 px the Journal is a column as narrow as a phone. */
+.journal-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 8px;
+}
+.journal-grid .stamp-name,
+.journal-grid .stamp-zone,
+.journal-grid .stamp-date {
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 @media (max-width: 767px) {
   .place-list:not(.notes-open) .place-list__note--key {
