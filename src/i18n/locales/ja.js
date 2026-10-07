@@ -348,7 +348,7 @@ export default {
     provenanceInferredSentence: '<0>当サイトの推定</0>は、前後の情報から当サイトが読み取ったことを、<1>不明</1>は、判明しなかったことを示します。営業時間、価格、食に関する情報は変わります。あくまで目安としてご利用ください。',
     location: '場所',
     dietary: '食事',
-    lastChecked: '最終確認',
+    lastChecked: 'ページの最終確認',
     notRecorded: '記録なし',
     never: '未確認',
     suggestEdit: '誤りがありましたか？',

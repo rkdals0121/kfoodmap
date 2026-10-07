@@ -342,7 +342,7 @@ export default {
     provenanceInferredSentence: '<0>추정</0>은 맥락으로 미루어 봤다는 뜻이고, <1>알 수 없음</1>은 알아내지 못했다는 뜻이에요. 영업시간, 가격, 식이 정보는 바뀌어요. 출발점으로만 참고해 주세요.',
     location: '위치',
     dietary: '식이 정보',
-    lastChecked: '마지막 확인',
+    lastChecked: '페이지 최근 확인',
     notRecorded: '기록 없음',
     never: '없음',
     suggestEdit: '틀린 곳이 있나요?',

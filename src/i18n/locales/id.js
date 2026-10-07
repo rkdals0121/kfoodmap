@@ -346,7 +346,7 @@ export default {
     provenanceInferredSentence: '<0>Perkiraan kami</0> berarti kami menyimpulkannya dari konteks; <1>Tidak diketahui</1> berarti kami belum dapat memastikannya. Jam buka, harga, dan info vegan atau halal bisa berubah — anggap ini sebagai titik awal.',
     location: 'Lokasi',
     dietary: 'Vegan dan halal',
-    lastChecked: 'Terakhir dicek',
+    lastChecked: 'Halaman terakhir dicek',
     notRecorded: 'Tidak tercatat',
     never: 'Belum pernah',
     suggestEdit: 'Ada yang salah?',

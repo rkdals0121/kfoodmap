@@ -343,7 +343,7 @@ export default {
     provenanceInferredSentence: '<0>本站推断</0>指我们根据上下文作出的判断；<1>未知</1>指我们未能查明。营业时间、价格和饮食信息会变——请把这些信息当作起点，而非定论。',
     location: '位置',
     dietary: '饮食',
-    lastChecked: '上次核查',
+    lastChecked: '本页最近核查',
     notRecorded: '未记录',
     never: '从未',
     suggestEdit: '信息有误？',

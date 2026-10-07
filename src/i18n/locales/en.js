@@ -353,7 +353,7 @@ export default {
     provenanceInferredSentence: '<0>Our reading</0> means we read it from context; <1>Not known</1> means we could not establish it. Hours, prices and dietary details change — treat this as a starting point.',
     location: 'Location',
     dietary: 'Dietary',
-    lastChecked: 'Last checked',
+    lastChecked: 'Page last checked',
     notRecorded: 'Not recorded',
     never: 'Never',
     suggestEdit: 'Something wrong?',
