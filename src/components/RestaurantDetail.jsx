@@ -778,9 +778,10 @@ export default function RestaurantDetail({
                 confidence, so they are plain text, not chips. */}
             {traitFacts.length > 0 && (
               <p className="detail-traits">
-                {traitFacts.map(({ id, Icon, label }, i) => (
+                {/* (The dots between them: the stylesheet, as in the line
+                    under the name.) */}
+                {traitFacts.map(({ id, Icon, label }) => (
                   <span key={id}>
-                    {i > 0 && <span aria-hidden="true"> · </span>}
                     <Icon size={14} aria-hidden="true" /> {label}
                   </span>
                 ))}

@@ -7018,19 +7018,25 @@ html[data-text='larger'] .stat-label {
 /* The line under a place's name: area · distance · open or closed. Each
    part carries its dot in front, in a gutter that is cut off at the start
    of a line — so no line ends or begins with a dot. */
-.detail-meta {
+.detail-meta,
+.detail-traits {
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
+  /* The line starts one gutter to the left, and that gutter is cut off. */
+  margin-left: -1em;
+  clip-path: inset(0 0 0 1em);
 }
-.detail-meta__part {
+.detail-meta__part,
+.detail-traits > span {
   position: relative;
   min-width: 0;
-  max-width: calc(100% + 1em);
-  margin-left: -1em;
+  max-width: 100%;
   padding-left: 1em;
 }
-.detail-meta__part::before {
+/* (The same for the plain traits under the claims: in Indonesian a line
+   began with the dot before "Nol sampah".) */
+.detail-meta__part::before,
+.detail-traits > span::before {
   content: '·';
   content: '·' / '';
   position: absolute;
