@@ -1,5 +1,5 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
-// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), block (url patterns) }]
+// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), block (url patterns) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
@@ -45,6 +45,14 @@ for (const s of steps) {
   await send('Emulation.setEmulatedMedia', { media: s.print ? 'print' : '', features: Object.entries(s.media ?? {}).map(([name, value]) => ({ name, value })) });
   // tz: the device's time zone ("America/New_York"); '' = this machine's.
   await send('Emulation.setTimezoneOverride', { timezoneId: s.tz ?? '' });
+  // geo: { lat, lng, acc } = a device that answers "My location" with this
+  // (a made-up position, in this throwaway profile); geo: 'deny' refuses.
+  if (s.geo && s.url) {
+    const origin = new URL(s.url).origin;
+    const r = await send(s.geo === 'deny' ? 'Browser.resetPermissions' : 'Browser.grantPermissions', s.geo === 'deny' ? {} : { origin, permissions: ['geolocation'] });
+    if (r.error) console.log('geo:', r.error.message);
+    if (s.geo !== 'deny') await send('Emulation.setGeolocationOverride', { latitude: s.geo.lat, longitude: s.geo.lng, accuracy: s.geo.acc ?? 20 });
+  }
   await send('Network.enable');
   await send('Network.emulateNetworkConditions', s.throttle ? { offline: false, latency: 150, downloadThroughput: 1.6e6 / 8, uploadThroughput: 750e3 / 8 } : { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
   await send('Network.setBlockedURLs', { urls: s.block ?? [] });
