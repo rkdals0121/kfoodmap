@@ -378,3 +378,24 @@ test('a dish name of one character does not rewrite longer words', () => {
   assert.ok(one.length > 0 && one.length < 5, `국수가: ${one.length}`);
 });
 
+
+test('a township typed in Korean is the township, not its namesake district', () => {
+  // 용산면 is in Yeongdong county, 대전면 in Damyang.
+  assert.equal(ids(go('용산면')), ids(go('Yongsan-myeon')));
+  assert.equal(go('용산면').filteredRestaurants.length, 1);
+  assert.equal(go('대전면').filteredRestaurants.length, 1);
+  assert.ok(go('용산').filteredRestaurants.length > 20);
+});
+
+test("an area's name is a whole word of the address", () => {
+  // Daejeong-eup is on Jeju; Gyeonggijeon-gil is a street in Jeonju.
+  assert.ok(go('Daejeon').filteredRestaurants.every(r => !/Daejeong/.test(r.address?.value ?? '')));
+  assert.ok(go('Gyeonggi').filteredRestaurants.every(r => !/Jeonju/.test(r.address?.value ?? '')));
+  // …and the road of Sinchon station is in Sinchon.
+  assert.ok(go('Sinchon').filteredRestaurants.some(r => /Sinchonyeok-ro/.test(r.address?.value ?? '') && !/Sinchon/.test(r.zone)));
+});
+
+test('gimbap is found alike in every script', () => {
+  const english = ids(go('gimbap'));
+  for (const typed of ['kimbap', '김밥', 'キンパ', '紫菜包饭', '紫菜包飯']) assert.equal(ids(go(typed)), english, typed);
+});

@@ -1298,7 +1298,9 @@ function AppShell() {
         docked={isWide}
         peek={placePeek}
         onExpand={() => setExpandedKey(location.key)}
-        belowSearch={activeTab === 'map'}
+        // (With the list folded to the rail there is no search box to keep
+        // clear of: the place takes the column's whole height.)
+        belowSearch={activeTab === 'map' && !isSidebarCollapsed}
       />
 
       {isSubmit && (

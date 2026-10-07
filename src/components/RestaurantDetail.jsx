@@ -122,6 +122,14 @@ const scrollMemory = new Map();
 // (samdaejjae-sondubu-osan)" is a note to the researcher, not the reader.
 const RECORD_NAME = /\s*[(（][a-z]+(?:-[a-z0-9]+){2,}[)）]/g;
 const closed = (raw, lang, text = raw.replace(RECORD_NAME, '')) => (/[.!?。！？…)）」』”’"']$/.test(text.trim()) || text.trim() === '' ? text : `${text.trim()}${/^(ja|zh)/.test(lang) ? '。' : '.'}`);
+// In Korean a dish written "Seon Course (선식)" is 선식, as the menu has
+// it: the romanised reading in front is for readers of other languages.
+// Only a name of exactly that shape — one with a note after it ("… — not
+// vegan") stays whole.
+const koMenuName = (name) => {
+  const m = /^[^()가-힣]*[A-Za-z][^()가-힣]*\(([^()]*[가-힣][^()]*)\)\s*$/.exec(name);
+  return m ? m[1].trim() : name;
+};
 // A gloss that only says the name again ("Halal Bulgogi" — "bulgogi
 // halal") is left out.
 const sameWords = (a, b) => {
@@ -413,6 +421,9 @@ export default function RestaurantDetail({
       const target = (known ? opener : null)
         ?? findByMark(mark)
         ?? document.querySelector(`.place-card__open-btn[aria-describedby^="pc-where-${placeId} "]`)
+        // …or its stop in an open journey (reached with "Next stop", the
+        // stop that opened the sheet is another place's).
+        ?? document.querySelector(`.journey-stop[data-place="${placeId}"]`)
         // …or the Journal itself, when the row that opened this is no longer
         // a row (marked visited here, it is a seal now).
         ?? document.getElementById('place-list') ?? document.querySelector('.journal-panel') ?? document.querySelector('.journey-stop');
@@ -717,17 +728,20 @@ export default function RestaurantDetail({
               {/* A Korean reader gets the Korean name here too, as on the list
                   and in the Journal. */}
               <h2>{i18n.language === 'ko' ? displayName(place.name) : <KoText>{place.name}</KoText>}</h2>
+              {/* The dots between the parts are drawn by the stylesheet, which
+                  leaves out the one a line would otherwise end or begin with
+                  ("…Jung-gu, Seoul ·" with the hours on the next line). */}
               <p className="detail-meta">
-                {placeArea(place)}
+                <span className="detail-meta__part">{placeArea(place)}</span>
                 {/* Only a distance from the reader: one from the map's centre means
                     nothing on the place's own page. */}
-                {distance && userLocation && <><span aria-hidden="true"> · </span>{t('detail.fromYou', { distance })}</>}
+                {distance && userLocation && <span className="detail-meta__part">{t('detail.fromYou', { distance })}</span>}
                 {/* Open/closed up here too, as on the list card: it is the first thing
                     a traveller acts on. The detail stays in the hours row below. */}
                 {/* …with when it opens or closes, as the card says it: half
                     open over the map, the hours row is below the fold. */}
                 {status && (
-                  <><span aria-hidden="true"> · </span><span className="detail-meta__status"><strong className={statusClass(status)}>{status.label}</strong>{status.detail && <> · {status.detail}</>}</span></>
+                  <span className="detail-meta__part detail-meta__status"><strong className={statusClass(status)}>{status.label}</strong>{status.detail && <> · {status.detail}</>}</span>
                 )}
               </p>
             </header>
@@ -1015,7 +1029,7 @@ export default function RestaurantDetail({
                   {place.menus.value.map(m => (
                     <div key={m.name} className="menu-row">
                       <span>
-                        <KoText>{m.name}</KoText>
+                        <KoText>{i18n.language === 'ko' ? koMenuName(m.name) : m.name}</KoText>
                         {/* What the dish is, in the reader's language (most
                             names are Korean): a gloss, not the menu's words. */}
                         {menuGloss?.[m.name] && !sameWords(m.name, menuGloss[m.name]) && <span className="menu-row__gloss">{menuGloss[m.name]}</span>}

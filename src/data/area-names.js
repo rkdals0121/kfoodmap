@@ -226,6 +226,7 @@ export const romanisedArea = (word) => TO_ROMAN.get(String(word ?? '').trim()) ?
 // "성수동"), nor "입구" on a station's name ("홍대입구").
 const CITY_SUFFIX = new Set(['市', '시', '市内', '시내', '도', '道', '구', '區', '区', '동', '洞', '입구', '入口', '岛', '島']);
 const SI_IN_ADDRESS = new Set(['Jeju']);
+const TOWNSHIP_SUFFIX = { '면': 'myeon', '읍': 'eup', '리': 'ri' };
 // Only a city suffix narrows to the city: "제주도" and "济州岛" are the island.
 const IS_CITY = new Set(['市', '시', '市内', '시내']);
 
@@ -283,6 +284,9 @@ export function romaniseQuery(query) {
         // "濟州市", "제주시": the city suffix is not a second word. Jeju's
         // addresses say "Jeju-si" (the island also holds Seogwipo-si), so
         // there the suffix narrows; elsewhere it is simply dropped.
+        // "용산면", "대전면": a township that shares the name is its own
+        // place (Yeongdong county, Damyang) — not Yongsan-gu, not Daejeon.
+        if (Object.hasOwn(TOWNSHIP_SUFFIX, rest)) return [`${roman}-${TOWNSHIP_SUFFIX[rest]}`];
         if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) && IS_CITY.has(rest) ? `${roman}-si` : roman];
         // What follows may be a name too ("首尔素食" is Seoul + vegetarian),
         // or a word that adds nothing ("素食餐厅", "롯데월드타워").

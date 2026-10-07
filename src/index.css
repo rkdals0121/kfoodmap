@@ -7001,3 +7001,40 @@ html[data-text='larger'] .stat-label {
     max-width: calc(100vw - 420px - 24px);
   }
 }
+
+/* A seal's name has the width of its column, not of the seal above it: at
+   the largest text "Gonghwachun" broke before its last letter, in a column
+   with 30 px to spare. */
+.journal-grid .stamp {
+  width: 100%;
+  min-width: 0;
+}
+.journal-grid .stamp-name,
+.journal-grid .stamp-zone,
+.journal-grid .stamp-date {
+  align-self: stretch;
+}
+
+/* The line under a place's name: area · distance · open or closed. Each
+   part carries its dot in front, in a gutter that is cut off at the start
+   of a line — so no line ends or begins with a dot. */
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.detail-meta__part {
+  position: relative;
+  min-width: 0;
+  max-width: calc(100% + 1em);
+  margin-left: -1em;
+  padding-left: 1em;
+}
+.detail-meta__part::before {
+  content: '·';
+  content: '·' / '';
+  position: absolute;
+  left: 0;
+  width: 1em;
+  text-align: center;
+}

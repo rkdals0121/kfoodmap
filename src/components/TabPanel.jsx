@@ -252,6 +252,7 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
                     <li key={place.id}>
                       <button
                         className="journey-stop"
+                        data-place={place.id}
                         onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover', journey: { id: journey.id, index: i } } })}
                       >
                         <span className="journey-stop__num" aria-hidden="true">{i + 1}</span>

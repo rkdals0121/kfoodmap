@@ -191,6 +191,22 @@ const areaText = (r) => {
   }
   return text;
 };
+// An area's own name is matched as a whole word: by its opening letters
+// "Daejeon" was also Daejeong-eup on Jeju, and "Gyeonggi" a shop on
+// Gyeonggijeon-gil in Jeonju. Any other word (one still being typed) is
+// matched from its start. ("Sinchonyeok-ro" is the road of Sinchon
+// station: "yeok" after the name is still the area.)
+const WHOLE_WORD = new Map();
+function inArea(r, w) {
+  const text = areaText(r);
+  if (!AREA_WORDS.has(w)) return startsWord(text, w);
+  let re = WHOLE_WORD.get(w);
+  if (!re) {
+    re = new RegExp('(?:^|[^a-z0-9])' + [...w].map(escapeRe).join('[\\s-]*') + '(?:yeok)?(?![a-z])');
+    WHOLE_WORD.set(w, re);
+  }
+  return re.test(text);
+}
 // By prefix, so "Lotte World Tower" and "lotte world seoul" are Lotte World.
 const aliasMatch = (r, w) => Object.keys(AREA_ALIASES).some(k => w.startsWith(k) && AREA_ALIASES[k].some(a => areaText(r).includes(a)));
 
@@ -318,7 +334,7 @@ const AREA_KEYS = new Set(Object.keys(AREA_NAMES).map(name => name.toLowerCase()
 // …and in Korean (the first written form of each): see koAddressHas.
 const AREA_KO = new Set(Object.values(AREA_NAMES).map(forms => forms[0]));
 function koAddressHas(r, w) { return koAddressWord(r, w, AREA_KO.has(w)); }
-const inAreaOrName = (r, w) => startsWord(areaText(r), w) || aliasMatch(r, w) || koAddressHas(r, w) || startsWord(r.name, w);
+const inAreaOrName = (r, w) => inArea(r, w) || aliasMatch(r, w) || koAddressHas(r, w) || startsWord(r.name, w);
 
 // Does a search word name this place's area (neighbourhood or address)?
 // While searching, these places come first in the list and are where the
@@ -328,9 +344,9 @@ function areaCore(r, rawQuery) {
   // The whole query first ("mapo gu" is Mapo-gu), then its longer words:
   // a two-letter "gu" or "ro" starts a word in nearly every address.
   const whole = squash(query ?? '');
-  if (whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole) || koAddressHas(r, whole))) return true;
+  if (whole.length >= 2 && (inArea(r, whole) || aliasMatch(r, whole) || koAddressHas(r, whole))) return true;
   const words = String(query ?? '').trim().split(/\s+/).map(squash);
-  return words.some(w => (w.length >= 3 && (startsWord(areaText(r), w) || aliasMatch(r, w))) || koAddressHas(r, w));
+  return words.some(w => (w.length >= 3 && (inArea(r, w) || aliasMatch(r, w))) || koAddressHas(r, w));
 }
 
 // A query is tried as typed and, when it contains a place name written in
@@ -345,7 +361,13 @@ const romanOf = (query) => {
 export function matchesSearch(r, query) {
   if (searchCore(r, query)) return true;
   const roman = romanOf(query);
-  return roman !== null && searchCore(r, roman);
+  if (roman === null) return false;
+  if (searchCore(r, roman)) return true;
+  // Once more: "gimbap" is also written "kimbap" in the records, and that
+  // second spelling was tried for "gimbap" as typed but not for "gimbap"
+  // as read from another script.
+  const again = romanOf(roman);
+  return again !== null && again !== query && searchCore(r, again);
 }
 
 // The whole query names this place's area — not merely one of its words
@@ -353,7 +375,7 @@ export function matchesSearch(r, query) {
 // buk-ro" in it). Used to decide where "nearest" is measured from.
 const areaWhole = (r, query) => {
   const whole = squash(unpunct(query));
-  return whole.length >= 2 && (startsWord(areaText(r), whole) || aliasMatch(r, whole) || koAddressHas(r, whole));
+  return whole.length >= 2 && (inArea(r, whole) || aliasMatch(r, whole) || koAddressHas(r, whole));
 };
 // A kind of cooking is not a place: "temple" starts a word in one address
 // ("Templestay Information Center"), and the map went there for 사찰음식.
