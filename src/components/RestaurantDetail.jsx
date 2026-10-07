@@ -783,7 +783,16 @@ export default function RestaurantDetail({
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   {/* The research note can run to two screens: the first
                       lines, and the rest on request. */}
-                  <p className={`claim-explain__text${noteWeight(detail) > FOLD_AT && !claimFull ? ' is-clamped' : ''}`}><strong>{label} · {level}</strong> — {noteWithLinks(closed(translated ? detail : plainNote(detail), translated ? i18n.language : 'en'))}</p>
+                  {/* First what it is and who says so, in a line each; then the
+                      research note. Led by the note, the answer to "can I
+                      trust this?" came after two screens of how it was looked up. */}
+                  <p className="claim-explain__head"><strong>{label} · {level}</strong></p>
+                  <p className="claim-explain__meta claim-explain__meta--lead">
+                    {t('detail.claimSource', { source: sourceWithSite(f) })}
+                    {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
+                    {sourcePage(f) && <> · <a href={sourcePage(f)} target="_blank" rel="noopener noreferrer">{t('detail.claimSourceOpen')}</a></>}
+                  </p>
+                  <p className={`claim-explain__text${noteWeight(detail) > FOLD_AT && !claimFull ? ' is-clamped' : ''}`}>{noteWithLinks(closed(translated ? detail : plainNote(detail), translated ? i18n.language : 'en'))}</p>
                   {noteWeight(detail) > FOLD_AT && (
                     <button
                       type="button"
@@ -807,13 +816,6 @@ export default function RestaurantDetail({
                       above its cards; the place did not. */}
                   {id === 'halal' && f.value === 'friendly' && <p className="claim-explain__meta">{t('detail.halalFriendlyMeans')}</p>}
                   {id === 'halal' && <p className="claim-explain__meta">{t('detail.halalAlcohol')}</p>}
-                  <p className="claim-explain__meta">
-                    {/* …with the page it was read on, when the record has it: "the
-                        source is named but I cannot look at it". */}
-                    {t('detail.claimSource', { source: sourceWithSite(f) })}
-                    {sourcePage(f) && <> · <a href={sourcePage(f)} target="_blank" rel="noopener noreferrer">{t('detail.claimSourceOpen')}</a></>}
-                    {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
-                  </p>
                 </div>
               );
             })}

@@ -6863,3 +6863,11 @@ html[data-text='larger'] .detail-bar__map svg {
     overflow-wrap: normal;
   }
 }
+
+/* A claim's explanation: its name and level, who says so, then the note. */
+.claim-explain__head {
+  margin-bottom: 2px;
+}
+.claim-explain__meta--lead {
+  margin-bottom: 8px;
+}
