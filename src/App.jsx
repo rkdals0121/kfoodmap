@@ -287,10 +287,20 @@ function AppShell() {
   const [threeColumns, setThreeColumns] = useState(
     () => typeof window !== 'undefined' && window.matchMedia?.('(min-width: 1200px)').matches,
   );
+  // A window 500 px tall or less (a phone on its side): there a docked
+  // place takes the whole height of the list's column, search box and
+  // chips included (index.css).
+  const [shortWindow, setShortWindow] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia?.('(max-height: 500px)').matches,
+  );
   useEffect(() => {
     const mq = window.matchMedia?.('(min-width: 768px)');
     if (!mq) return undefined;
-    const onChange = () => { setIsWide(mq.matches); setThreeColumns(window.matchMedia('(min-width: 1200px)').matches); };
+    const onChange = () => {
+      setIsWide(mq.matches);
+      setThreeColumns(window.matchMedia('(min-width: 1200px)').matches);
+      setShortWindow(window.matchMedia('(max-height: 500px)').matches);
+    };
     mq.addEventListener('change', onChange);
     // Also on resize: the media query's own event was seen not to fire when
     // the width changed while the page was in the background, and a place
@@ -378,7 +388,8 @@ function AppShell() {
   // tabbed into under it: the list and the tab bar on the map (the search
   // box and the chips above it stay in use), the whole panel on another
   // tab. Focus went to ninety-eight controls nobody could see.
-  const underDock = Boolean(selectedRestaurant) && isWide && !threeColumns && !isSidebarCollapsed;
+  // (Folded or not: below 1200 px the place lies over the folded rail too.)
+  const underDock = Boolean(selectedRestaurant) && isWide && !threeColumns;
   // A link that opens with "Open at…" on (the day and time row showing)
   // starts with the sheet fully open on a phone: at half height that row
   // and the notes left no card in view (the first one began under the tab bar).
@@ -949,8 +960,9 @@ function AppShell() {
   const nothingFound = filteredRestaurants.length === 0;
   useEffect(() => {
     if (nothingFound && activeTab === 'map') setSheetState(current => (current === 1 ? 2 : current));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nothingFound]);
+    // (Also on coming back to the map with nothing found: from the Journal's
+    // "See them on the map", say.)
+  }, [nothingFound, activeTab]);
 
   // "pork-free" typed with the Halal chip on: the chip goes off, as it does
   // when the note's own button is pressed. The search finds them either
@@ -1002,7 +1014,7 @@ function AppShell() {
       <h1 className="visually-hidden" tabIndex={-1} ref={pageTitle}>K-Food Map</h1>
       {/* The map holds hundreds of focusable pins; the same places are in
           the list, one Tab away with this link. */}
-      {activeTab === 'map' && !modalOpen && !placePeek && <a
+      {activeTab === 'map' && !modalOpen && !placePeek && !underDock && <a
         className="skip-link"
         href="#place-list"
         // Focus only: followed as a link it rewrote the address to
@@ -1012,7 +1024,7 @@ function AppShell() {
       >{t('app.skipToList')}</a>}
       {/* …and one past the list to the tabs: on the map they come after
           the search box, the chips and forty cards of four controls each. */}
-      {activeTab === 'map' && !modalOpen && !placePeek && <a
+      {activeTab === 'map' && !modalOpen && !placePeek && !underDock && <a
         className="skip-link skip-link--tabs"
         href="#tabs"
         onClick={(e) => { e.preventDefault(); document.querySelector('.tab-bar .tab-item.active, .tab-bar .tab-item')?.focus({ preventScroll: true }); }}
@@ -1074,7 +1086,7 @@ function AppShell() {
         </MapErrorBoundary>
       </div>
 
-      <div ref={sheetRef} className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || placePeek || (underDock && activeTab !== 'map') || undefined}>
+      <div ref={sheetRef} className={`sidebar-region ${activeTab === 'map' ? `sheet-state-${sheetState}` : 'non-map-tab'}`} inert={modalOpen || placePeek || (underDock && (activeTab !== 'map' || shortWindow)) || undefined}>
         {/* Render Map Items ONLY when activeTab is 'map' */}
         {activeTab === 'map' && (
           <>

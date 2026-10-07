@@ -56,7 +56,7 @@ export default {
     title: 'Paspor Kuliner Anda',
     visited: 'Dikunjungi',
     saved: 'Tersimpan',
-    toVisit: 'Disimpan',
+    toVisit: 'Rencana',
     unvisitConfirm: 'Hapus kunjungan ini? Tanggal dan cap Jurnalnya juga akan dihapus.',
     unsaveVisitedConfirm: 'Hapus tempat ini dari paspor Anda? Kunjungan dan capnya juga akan dihapus.',
     areas: 'Wilayah',

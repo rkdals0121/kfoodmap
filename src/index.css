@@ -6948,7 +6948,6 @@ html[data-text='larger'] .detail-bar__map svg {
      "List copied" (shorter than the link it replaces) does not pull the
      other link up beside it and the page up with it. */
 .stat-label {
-  font-size: 11px;
   letter-spacing: 0;
 }
 .action-btn {
@@ -6976,7 +6975,7 @@ html[data-text='larger'] .practical-actions .action-btn {
   padding: 8px 12px;
 }
 html[data-text='larger'] .stat-label {
-  font-size: 9px;
+  font-size: 10px;
 }
 .journal-copy {
   display: flex;
