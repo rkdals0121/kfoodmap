@@ -3517,6 +3517,33 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       (locale, notes, menu glosses); a name carried into the report form
       from a search is not a draft until edited.
 
+77. **2026-10-07 night — a first visit shows the welcome screen before the map is downloaded** (docs/MOBILE-AUDIT §25).
+    - `src/main.jsx` renders `src/Root.jsx`, which shows `Prologue` on a
+      first visit (`firstVisit()` in `src/startup.js`) and imports
+      `src/App.jsx` — the map and the places — after it has drawn. Any
+      other visit imports the map at once. `App.jsx` reads
+      `startup.welcomed` and `startup.diet`; its own `<Prologue>` branch
+      remains for a `?list=` link whose ids turn out to be invalid.
+    - `index.html` has a script at the top of the head that works out
+      the language and whether this is a first visit
+      (`window.__kfmL`, `window.__kfmWelcome`) and adds
+      `modulepreload` links: the language chunk always, the map's
+      chunks unless it is a first visit. `localeChunkHints`
+      (`vite.config.js`) fills `/*KFM_LOCALE_CHUNKS*/{}` and
+      `/*KFM_MAP_CHUNKS*/[]` at build and fails the build if the places
+      are back in the first file. Keep that script above the
+      stylesheets: below them it runs half a second later.
+    - `virtual:kfm-place-count` (the `clientData` plugin) gives the
+      welcome screen its count without the places. Nothing the first
+      file imports may import `src/data/restaurants.js`.
+    - Chunks: `vendor` (react, router, i18next), `maplib` (leaflet,
+      scripts only), `places`, `App`, `index` (entry). One stylesheet.
+    - Measured on the live site, throttled (1.6 Mbps, 150 ms): welcome
+      headline at 3.9-5.1 s before, 1.9-2.4 s after; with CPU x4,
+      6.5-8.5 s before, 3.4-4.3 s after. Returning visits unchanged.
+      Measure with `node scripts/perf/first-visit.mjs <url>` and
+      `returning-visit.mjs` (headless Chrome, throttled), several runs.
+
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
 *Windows note: the repo path contains spaces and Korean characters. Some
