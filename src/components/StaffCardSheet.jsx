@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay } from '../hooks/useOverlay';
+import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay, useReturnFocus } from '../hooks/useOverlay';
 import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
 import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-cards';
@@ -49,13 +49,11 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
   }, [t]);
   const card = cardById(cardId);
 
-  useEffect(() => {
-    const opener = document.activeElement;
-    sheetRef.current?.focus();
-    return () => {
-      if (opener && opener !== document.body && document.contains(opener)) opener.focus({ preventScroll: true });
-    };
-  }, []);
+  // Focus goes back to what opened the cards — or to its twin: the link on
+  // a place is drawn again when the place comes back under the closing
+  // cards, and focus was left on the place as a whole.
+  useReturnFocus();
+  useEffect(() => { sheetRef.current?.focus(); }, []);
 
   // Escape closes the big screen first, then the sheet.
   useEffect(() => {

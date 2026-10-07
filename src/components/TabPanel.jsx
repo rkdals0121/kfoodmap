@@ -325,7 +325,7 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
             <div className="story-card-content">
               <p className="story-card__kind">{t('discover.storyLabel')}</p>
               <h3>{displayName(place.name)}</h3>
-              <p lang={stories?.[place.id]?.story ? i18n.language : undefined}>{firstSentence(stories?.[place.id]?.story ?? place.story)}</p>
+              <p lang={stories?.[place.id]?.story ? i18n.language : 'en'}>{firstSentence(stories?.[place.id]?.story ?? place.story)}</p>
               <button className="story-card-btn" aria-label={t('list.readStoryAria', { name: displayName(place.name) })}>{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
             </div>
           </article>

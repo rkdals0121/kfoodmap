@@ -389,7 +389,7 @@ L11. Journey titles/descriptions, "Did you know?" and dining tips → translated
 L12. Privacy policy in ja / zh / id → the translation is shown first with a note that English and Korean are authoritative (see Q3).
 L13. Long strings at 360 px in every language → chips, buttons, bottom bar, notes and the tab bar do not overflow or overlap (visual pass per language; Indonesian and Japanese are the longest).
 L14. Searching in the UI language → the chip words typed in that language (D14) and localized suggestions (D5) work.
-L15. Two language choices in quick succession → the last one wins (a slow first chunk does not override it).
+L15. Two language choices in quick succession on the welcome screen → the last one wins (a slow first chunk does not override it). In Profile's language sheet the other rows are `aria-disabled` while one is loading, so a second press there is ignored.
 
 ## M. PWA, offline, install, updates
 
@@ -429,11 +429,11 @@ N14. Link preview (KakaoTalk / Facebook / X debugger) for a place URL and a guid
 
 ## O. Accessibility and keyboard
 
-O1. Skip link → first Tab on the map screen reveals "Skip to the list of places" (`a.skip-link[href="#place-list"]`); activating it moves to the list. Not present when a modal/peek place is open or on other tabs.
+O1. Skip link → first Tab on the map screen reveals "Skip to the list of places" (`a.skip-link[href="#place-list"]`); activating it moves to the list; the second Tab reveals "Skip to the tabs" (`a.skip-link--tabs[href="#tabs"]`, focus on the current tab button). Neither is present when a modal/peek place is open, when a place is docked at 768–1199 px, or on other tabs.
 O2. One `<h1>` per screen ("K-Food Map", visually hidden on the app); panels use `h2`, sections `h3`.
 O3. Visible focus → every interactive control shows a focus ring with keyboard focus (`:focus-visible`): chips, cards, hearts, claim buttons, map buttons, tab bar, sheet handle, rows, links, selects, dialog buttons.
 O4. Keyboard-only path: search → chips → list cards (open, story, save, directions) → tab bar works without touching the map; map markers are skipped.
-O5. Modal sheets (phone place page, cards, submit, privacy, language sheet, About, confirm, large Korean text) → focus moves in on open, the content behind is `inert` (Tab and screen-reader swipe cannot reach it), Escape closes the top-most layer only, focus returns to the opener on close. The Suggest / Report form returns focus to its opener too (the Profile row, the empty-search link, the place's own report link). After the welcome screen focus is on the page's `<h1>`.
+O5. Modal sheets (phone place page, cards, submit, privacy, language sheet, About, confirm, large Korean text) → focus moves in on open, the content behind is `inert` (Tab and screen-reader swipe cannot reach it), Escape closes the top-most layer only, focus returns to the opener on close. The staff cards opened from a place's "Ask in Korean" link return focus to that link. The Suggest / Report form returns focus to its opener too (the Profile row, the empty-search link, the place's own report link). After the welcome screen focus is on the page's `<h1>`.
 O6. Confirm dialog (`.confirm[role=alertdialog][aria-modal]`, message `#confirm-message`) → opens with focus on "Cancel"; Escape, a tap on the overlay, or browser Back = Cancel; the confirm button carries the action name ("Remove", "Sign out", "Delete my saved places"); focus returns to the asking control.
 O7. Live regions → result count (`aria-live=polite`), toasts (`role=status`, held while focused/hovered), locate status, Open-now/Open-at notes, shared-list note, offline band, detail loading line, language loading (`role=status`), language failure and submit failure (`role=alert`).
 O8. Toggle buttons expose state → chips, hearts, Save / Been here, card tabs, text-size buttons, prologue buttons (`aria-pressed`); claim "Why?", notes toggle, journey stops, Open at… (`aria-expanded`); tab bar (`aria-current=page`).

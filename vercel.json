@@ -30,6 +30,10 @@
   ],
   "rewrites": [
     {
+      "source": "/favicon.ico",
+      "destination": "/favicon.svg"
+    },
+    {
       "source": "/place/:id",
       "destination": "/index.html"
     }
