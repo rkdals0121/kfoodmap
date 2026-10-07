@@ -49,9 +49,11 @@ function OpeningMap({ failed }) {
   const stuck = failed || slow
   return (
     <main className="opening-map">
+      {/* The mark of the screen index.html shows first, so the two read as one. */}
+      <svg width="56" height="56" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#087F5B"/><g transform="translate(256 256) scale(1.0) translate(-256 -256)"><path d="M17 42.5C17 42.5 31.5 26.4 31.5 15.6C31.5 7.6 25 1.5 17 1.5C9 1.5 2.5 7.6 2.5 15.6C2.5 26.4 17 42.5 17 42.5Z" transform="translate(133.6 97.6) scale(7.2)" fill="#FFFFFF"/><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 1 0 10.5 10.5Z" transform="translate(188.8 141.4) scale(5.6)" fill="#087F5B"/><path d="M20 4c0 8.5-5.5 15-15 15C5 10.5 11.5 4 20 4Z" transform="translate(252.8 165.4) scale(2.0)" fill="#087F5B"/></g></svg>
       <p className="opening-map__name">K-Food Map</p>
       <p role="status" className="opening-map__status">{t(stuck ? 'app.loadingSlow' : 'app.loadingMap')}</p>
-      {stuck && <button type="button" className="btn-primary" onClick={startAgain}>{t('app.tryAgain')}</button>}
+      {stuck && <button type="button" className="opening-map__retry" onClick={startAgain}>{t('app.tryAgain')}</button>}
     </main>
   )
 }

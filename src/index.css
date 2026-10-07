@@ -5939,11 +5939,22 @@ html[data-text='larger'] .detail-bar__map svg {
   font-size: 14px;
   color: var(--muted-strong);
 }
-.opening-map .btn-primary {
-  flex: none;
-  width: auto;
+.opening-map__retry {
   margin-top: 8px;
-  padding: 0 28px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--green-strong);
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.opening-map__retry:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
 }
 .app-error a {
   min-height: 44px;
