@@ -1,0 +1,9 @@
+[
+ {
+  "url": "{{BASE}}/?list=mokmyeoksanbang-namsan-tower,balwoo-gongyang",
+  "seen": false,
+  "lang": "en",
+  "load": 5000,
+  "js": "return {prologue:!!document.querySelector('.prologue-layout'), count:(document.body.innerText.match(/[0-9]+ places?/)||[])[0], welcome:window.__kfmWelcome}"
+ }
+]

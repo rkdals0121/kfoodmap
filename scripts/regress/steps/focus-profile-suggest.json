@@ -1,0 +1,8 @@
+[
+ {
+  "url": "{{BASE}}/profile",
+  "lang": "en",
+  "load": 5000,
+  "js": "try { const w=ms=>new Promise(r=>setTimeout(r,ms)); const esc=()=>{const a=document.activeElement||document.body; a.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))}; const o={}; const b=[...document.querySelectorAll('.tab-panel button')].find(e=>e.textContent.includes('Suggest')); b.focus(); b.click(); await w(1500); o.open=location.pathname; esc(); await w(1500); o.after=location.pathname; o.same=document.activeElement===b; o.focus=document.activeElement.tagName; return o } catch(e) { return 'ERR '+e.message }"
+ }
+]

@@ -1,0 +1,8 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "lang": "ja",
+  "load": 5000,
+  "js": "return {prologue:!!document.querySelector('.prologue-layout'), cards:document.querySelectorAll('#place-list .place-card').length, hints:[...document.querySelectorAll('link[rel=modulepreload]')].map(l=>l.href.split('/').pop().split('-')[0]).join(',')}"
+ }
+]

@@ -1,0 +1,9 @@
+[
+ {
+  "url": "{{BASE}}/cards",
+  "seen": false,
+  "lang": "en",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={prologue:!!document.querySelector('.prologue-layout')}; document.querySelector('.prologue-btn')?.click(); await w(1200); o.path=location.pathname; o.text=document.body.innerText.slice(0,60); return o"
+ }
+]

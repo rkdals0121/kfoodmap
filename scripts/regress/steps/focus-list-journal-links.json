@@ -1,0 +1,29 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "lang": "en",
+  "load": 5000,
+  "js": "try { const w=ms=>new Promise(r=>setTimeout(r,ms)); const esc=()=>{const a=document.activeElement||document.body; a.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))}; const o={}; const c=document.querySelectorAll('#place-list .place-card__open-btn')[3]; c.focus(); c.click(); await w(2000); o.open=location.pathname; esc(); await w(1500); o.cardBack=document.activeElement===c; const tabs=[...document.querySelectorAll('nav[aria-label] button, nav[aria-label] a')]; document.querySelectorAll('#place-list .place-card__open-btn')[0].click(); await w(1500); const save=[...document.querySelectorAll('.detail-sheet button')].find(b=>b.textContent.trim().startsWith('Save')); save.click(); await w(400); esc(); await w(1200); tabs[2].click(); await w(1200); const row=document.querySelector('button.saved-row'); row.focus(); row.click(); await w(2000); o.open2=location.pathname; esc(); await w(1500); o.after2=location.pathname; o.rowBack=document.activeElement.className; return o } catch(e) { return 'ERR '+e.message }"
+ },
+ {
+  "url": "{{BASE}}/#q=asdfqq",
+  "lang": "en",
+  "load": 5000,
+  "js": "try { const w=ms=>new Promise(r=>setTimeout(r,ms)); const esc=()=>{const a=document.activeElement||document.body; a.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))}; const o={}; const sug=[...document.querySelectorAll('#place-list a, #place-list button')].find(e=>e.textContent.includes('Suggest')); sug.focus(); sug.click(); await w(1500); esc(); await w(1500); o.back=document.activeElement.textContent.slice(0,30); return o } catch(e) { return 'ERR '+e.message }"
+ },
+ {
+  "url": "{{BASE}}/place/balwoo",
+  "lang": "en",
+  "load": 5500,
+  "js": "try { const w=ms=>new Promise(r=>setTimeout(r,ms)); const esc=()=>{const a=document.activeElement||document.body; a.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))}; const o={}; const l=document.querySelector('.detail-report:not(.detail-report--hours)'); l.focus(); l.click(); await w(1500); o.open=location.pathname; esc(); await w(1500); o.after=location.pathname; o.back=document.activeElement.className; return o } catch(e) { return 'ERR '+e.message }"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 1280,
+  "h": 800,
+  "dpr": 1,
+  "lang": "en",
+  "load": 5000,
+  "js": "try { const w=ms=>new Promise(r=>setTimeout(r,ms)); const esc=()=>{const a=document.activeElement||document.body; a.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))}; const o={}; const c=document.querySelectorAll('#place-list .place-card__open-btn')[2]; c.focus(); c.click(); await w(1800); esc(); await w(1200); o.cardBack=document.activeElement===c||document.activeElement.className; const sc=[...document.querySelectorAll('#place-list, #place-list *')].find(e=>e.scrollHeight>e.clientHeight+200 && getComputedStyle(e).overflowY!=='visible'); o.sc=sc?.className||sc?.id; const n0=document.querySelectorAll('#place-list .place-card').length; sc.scrollTop=sc.scrollHeight-sc.clientHeight-350; await w(800); o.n=[n0,document.querySelectorAll('#place-list .place-card').length]; return o } catch(e) { return 'ERR '+e.message }"
+ }
+]

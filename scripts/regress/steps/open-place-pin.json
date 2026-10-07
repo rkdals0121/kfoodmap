@@ -1,0 +1,17 @@
+[
+ {
+  "url": "{{BASE}}/place/balwoo#q=Busan",
+  "w": 1280,
+  "h": 800,
+  "dpr": 1,
+  "lang": "en",
+  "load": 5500,
+  "js": "return {active:document.querySelectorAll('.k-pin--active').length, x:Math.round(document.querySelector('.k-pin--active')?.getBoundingClientRect().left||0)}"
+ },
+ {
+  "url": "{{BASE}}/place/balwoo#q=Busan",
+  "lang": "en",
+  "load": 5500,
+  "js": "return {active:document.querySelectorAll('.k-pin--active').length}"
+ }
+]

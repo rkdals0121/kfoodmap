@@ -3572,6 +3572,11 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
     - The second full pass of `docs/FEATURE-CHECKLIST.md` on the live
       site (2026-10-08 night) is in MOBILE-AUDIT §25, with what was
       left.
+    - `scripts/regress/` holds twenty scripted checks of the flows above
+      (`node scripts/regress/run.mjs <base url>`; what each should print
+      is in its README). Run them on a preview before a deploy that
+      touches start-up, history, focus or the map, and on the live site
+      after.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

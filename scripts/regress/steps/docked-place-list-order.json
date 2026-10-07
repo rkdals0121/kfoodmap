@@ -1,0 +1,11 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 1280,
+  "h": 800,
+  "dpr": 1,
+  "lang": "en",
+  "load": 6000,
+  "js": "try { const w=ms=>new Promise(r=>setTimeout(r,ms)); const esc=()=>{const a=document.activeElement||document.body; a.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))}; const o={}; const ids=()=>[...document.querySelectorAll('#place-list .place-card__open-btn')].map(b=>b.getAttribute('aria-describedby').split(' ')[0].slice(9)); o.before=ids().slice(0,4); const c=document.querySelectorAll('#place-list .place-card__open-btn')[2]; c.focus(); c.click(); await w(1800); o.during=ids().slice(0,4); o.duringHas=ids().includes('hidden-gem-sogong'); esc(); await w(50); o.after50=ids().slice(0,4); await w(1500); o.after=ids().slice(0,4); o.afterHas=ids().indexOf('hidden-gem-sogong'); return o } catch(e) { return 'ERR '+e.message }"
+ }
+]

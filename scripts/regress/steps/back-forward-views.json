@@ -1,0 +1,11 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 1280,
+  "h": 800,
+  "dpr": 1,
+  "lang": "en",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o=[]; const snap=()=>decodeURIComponent(location.hash)+' | '+(document.querySelector('input').value)+' | '+[...document.querySelectorAll('.chip.active')].map(c=>c.innerText.trim()).join(','); location.hash='#q=Jeju&f=Halal'; await w(1200); o.push(snap()); location.hash='#f=Fermented'; await w(1200); o.push(snap()); history.back(); await w(1500); o.push('back: '+snap()); history.forward(); await w(1500); o.push('fwd: '+snap()); return o"
+ }
+]

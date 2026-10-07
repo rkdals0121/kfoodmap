@@ -1,0 +1,23 @@
+[
+ {
+  "url": "{{BASE}}/place/balwoo#q=Busan&a=1&f=Vegan",
+  "lang": "en",
+  "load": 5500,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; const c=[...document.querySelectorAll('.detail-sheet button')].find(b=>(b.getAttribute('aria-label')||'').includes('Close')); c.click(); await w(3000); o.count=(document.body.innerText.match(/[0-9]+ places?/)||[])[0]; o.pins=document.querySelectorAll('.leaflet-marker-icon').length; return o"
+ },
+ {
+  "url": "{{BASE}}/place/balwoo",
+  "lang": "en",
+  "load": 5500,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; const c=[...document.querySelectorAll('.detail-sheet button')].find(b=>(b.getAttribute('aria-label')||'').includes('Close')); c.click(); await w(2500); o.pins=document.querySelectorAll('.leaflet-marker-icon').length; o.count=(document.body.innerText.match(/[0-9]+ places?/)||[])[0]; return o"
+ },
+ {
+  "url": "{{BASE}}/place/balwoo#q=Busan&a=1&f=Vegan",
+  "w": 1280,
+  "h": 800,
+  "dpr": 1,
+  "lang": "en",
+  "load": 5500,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; o.pinsOpen=document.querySelectorAll('.leaflet-marker-icon').length; const c=[...document.querySelectorAll('.detail-sheet button')].find(b=>(b.getAttribute('aria-label')||'').includes('Close')); c.click(); await w(3000); o.pins=document.querySelectorAll('.leaflet-marker-icon').length; return o"
+ }
+]

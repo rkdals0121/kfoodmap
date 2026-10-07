@@ -1,0 +1,10 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "seen": false,
+  "lang": "ko",
+  "throttle": true,
+  "load": 300,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; const t0=performance.now(); while(!document.querySelector('.prologue-btn')) await w(50); o.prologueAt=Math.round(performance.now()); [...document.querySelectorAll('.prologue-start__chips button')][1].click(); await w(200); document.querySelector('.prologue-btn').click(); await w(150); o.between=document.querySelector('.opening-map')?.innerText; while(!document.querySelector('#place-list .place-card')) await w(100); o.mapAt=Math.round(performance.now()); o.pressed=[...document.querySelectorAll('[aria-pressed=true]')].map(c=>c.innerText.trim()).slice(0,3); o.count=(document.body.innerText.match(/[0-9]+곳/)||[])[0]; o.seen=localStorage.getItem('kfm-prologue'); return o"
+ }
+]

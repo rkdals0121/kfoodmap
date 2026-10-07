@@ -1,0 +1,8 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "lang": "ja",
+  "load": 5000,
+  "js": "const svgs=[...document.querySelectorAll('svg')]; return {lang:document.documentElement.lang, svgs:svgs.length, notHidden:svgs.filter(s=>s.getAttribute('aria-hidden')!=='true').length, sample:svgs.filter(s=>s.getAttribute('aria-hidden')!=='true').slice(0,3).map(s=>s.parentElement.className.toString().slice(0,40))}"
+ }
+]

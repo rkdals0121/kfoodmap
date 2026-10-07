@@ -1,0 +1,9 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "seen": false,
+  "lang": "en",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; o.sub=document.querySelector('.prologue-subtitle').innerText.slice(0,40); document.querySelector('.prologue-btn').click(); await w(800); o.between=!!document.querySelector('.opening-map'); o.cards=document.querySelectorAll('#place-list .place-card').length; o.count=(document.body.innerText.match(/[0-9]+ places/)||[])[0]; o.pressed=[...document.querySelectorAll('.chip[aria-pressed=true], .chip-row [aria-pressed=true]')].length; return o"
+ }
+]

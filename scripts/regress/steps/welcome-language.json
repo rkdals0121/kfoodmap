@@ -1,0 +1,9 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "seen": false,
+  "lang": "en",
+  "load": 4000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; [...document.querySelectorAll('.prologue-languages button')].find(b=>b.lang==='ko').click(); await w(2000); o.title=document.querySelector('.prologue-title').innerText; document.querySelector('.prologue-btn').click(); await w(1500); o.ph=document.querySelector('input')?.placeholder; o.lang=localStorage.getItem('kfm-language'); return o"
+ }
+]

@@ -1,0 +1,8 @@
+[
+ {
+  "url": "{{BASE}}/profile",
+  "lang": "ko",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; const b=[...document.querySelectorAll('.tab-panel button')].find(e=>/소개|About|안내/.test(e.textContent)); o.btn=b?.textContent.trim().slice(0,20); b?.click(); await w(800); o.dialog=document.querySelector('.prologue-layout[role=dialog] .prologue-subtitle')?.innerText.slice(0,40); return o"
+ }
+]

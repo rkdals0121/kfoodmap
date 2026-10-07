@@ -1,0 +1,9 @@
+[
+ {
+  "url": "{{BASE}}/?list=zzzz-not-a-place",
+  "seen": false,
+  "lang": "en",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={prologue:!!document.querySelector('.prologue-layout'), welcome:window.__kfmWelcome}; document.querySelector('.prologue-btn')?.click(); await w(1000); o.cards=document.querySelectorAll('#place-list .place-card').length; return o"
+ }
+]

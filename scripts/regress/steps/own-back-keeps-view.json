@@ -1,0 +1,11 @@
+[
+ {
+  "url": "{{BASE}}/#q=Busan&f=Vegan",
+  "w": 1280,
+  "h": 800,
+  "dpr": 1,
+  "lang": "en",
+  "load": 5500,
+  "js": "try { const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; const snap=()=>decodeURIComponent(location.pathname+location.hash)+' | '+(document.body.innerText.match(/[0-9]+ places?/)||[])[0]; document.querySelectorAll('#place-list .place-card__open-btn')[0].click(); await w(1800); o.open=snap(); const clr=[...document.querySelectorAll('button')].find(b=>b.textContent.trim().startsWith('Clear')); o.clr=clr?.textContent.trim(); clr.click(); await w(1200); o.cleared=snap(); const x=[...document.querySelectorAll('.detail-sheet button')].find(b=>(b.getAttribute('aria-label')||'').includes('Close')); if(x){x.click(); await w(1500);} o.closed=snap(); return o } catch(e) { return 'ERR '+e.message }"
+ }
+]

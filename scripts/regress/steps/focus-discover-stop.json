@@ -1,0 +1,8 @@
+[
+ {
+  "url": "{{BASE}}/discover",
+  "lang": "en",
+  "load": 5000,
+  "js": "try { const w=ms=>new Promise(r=>setTimeout(r,ms)); const esc=()=>{const a=document.activeElement||document.body; a.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))}; const o={}; const tg=[...document.querySelectorAll('.journey-card__toggle')]; o.tg=tg.length; tg[0].click(); await w(300); tg[2].click(); await w(500); const stops=[...document.querySelectorAll('.journey-stop')]; o.stops=stops.length; const target=stops[stops.length-2]; target.focus(); o.targetText=target.innerText.slice(0,30); target.click(); await w(2000); o.open=location.pathname; esc(); await w(1500); o.after=location.pathname; o.focusText=(document.activeElement.innerText||'').slice(0,30); o.same=document.activeElement===target; return o } catch(e) { return 'ERR '+e.message }"
+ }
+]

@@ -1,0 +1,25 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "seen": false,
+  "lang": "ko",
+  "block": [
+   "*/assets/App-*"
+  ],
+  "load": 6000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const o={}; o.prologue=!!document.querySelector('.prologue-layout'); [...document.querySelectorAll('.prologue-start__chips button')][1].click(); await w(300); document.querySelector('.prologue-btn').click(); await w(300); o.t1=document.querySelector('.opening-map')?.innerText; await w(4000); o.t2=document.querySelector('.opening-map')?.innerText; o.crash=!!document.querySelector('.app-error'); setTimeout(()=>document.querySelector('.opening-map button')?.click(), 300); return o"
+ },
+ {
+  "block": [
+   "*/assets/App-*"
+  ],
+  "wait": 4000,
+  "js": "return 1"
+ },
+ {
+  "block": [
+   "*/assets/App-*"
+  ],
+  "js": "return {hash:decodeURIComponent(location.hash), t:document.querySelector('.opening-map')?.innerText, prologue:!!document.querySelector('.prologue-layout')}"
+ }
+]

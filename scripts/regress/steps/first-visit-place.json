@@ -1,0 +1,9 @@
+[
+ {
+  "url": "{{BASE}}/place/mokmyeoksanbang-namsan-tower",
+  "seen": false,
+  "lang": "en",
+  "load": 5000,
+  "js": "return {prologue:!!document.querySelector('.prologue-layout'), detail:document.querySelector('.detail-sheet h2, .detail-sheet h1')?.innerText, welcome:window.__kfmWelcome, seen:localStorage.getItem('kfm-prologue'), hints:[...document.querySelectorAll('link[rel=modulepreload]')].length}"
+ }
+]
