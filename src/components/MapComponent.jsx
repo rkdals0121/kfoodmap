@@ -50,8 +50,11 @@ function MapA11y() {
   return null;
 }
 
-function CenterReporter({ onCenterChange, sheetState, userLocation }) {
+function CenterReporter({ onCenterChange, sheetState, userLocation, anchor = null }) {
   const map = useMap();
+  // The open place, for the handler below (which is set once).
+  const anchorRef = useRef(anchor);
+  useEffect(() => { anchorRef.current = anchor; }, [anchor]);
   // A docked place opening or closing also moves the middle of what shows
   // (visibleCenter) without moving the map. That is not reported: the list
   // would reshuffle as the place closed, and the card to go back to — the
@@ -87,6 +90,15 @@ function CenterReporter({ onCenterChange, sheetState, userLocation }) {
   useMapEvents({
     moveend: (e) => {
       const c = visibleCenter(e.target);
+      // The map brought an opened place to the middle of what shows: the
+      // list is then sorted from the place itself. A few pixels off (the
+      // pan is in whole pixels), at the opening zoom, were 170 m — and the
+      // place just opened stood sixth in the list beside it.
+      const a = anchorRef.current;
+      if (a && e.target.latLngToContainerPoint([a.lat, a.lng]).distanceTo(e.target.latLngToContainerPoint(c)) < 16) {
+        onCenterChange([a.lat, a.lng]);
+        return;
+      }
       onCenterChange([c.lat, c.lng]);
     },
   });
@@ -903,7 +915,7 @@ function MapComponent({
             and tab bar cover the map's bottom edge, which hid the
             OpenStreetMap credit its licence requires. */}
         <AttributionControl position="topright" prefix={false} />
-        {onCenterChange && <CenterReporter onCenterChange={onCenterChange} sheetState={sheetState} userLocation={userLocation} />}
+        {onCenterChange && <CenterReporter onCenterChange={onCenterChange} sheetState={sheetState} userLocation={userLocation} anchor={selectedPlace && selectedPlace.id === selectedId ? coordsOf(selectedPlace) : null} />}
         <ResizeSync />
         <MapA11y />
         {onMapClick && <MapClicks onMapClick={onMapClick} selectedId={selectedId} />}
