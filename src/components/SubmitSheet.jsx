@@ -57,9 +57,13 @@ export default function SubmitSheet({ place, onClose, initialName = '', initialT
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed
   // Kept until it has been sent.
+  // …and only if something has been written: a subject alone is not a
+  // draft. Opened from "Hours wrong?" and closed, the form then opened
+  // from "Report a problem" with hours already chosen.
   useEffect(() => {
-    if (status === 'sent') DRAFTS.delete(draftKey); else DRAFTS.set(draftKey, form);
-  }, [draftKey, form, status]);
+    const typed = form.message || form.locationHint || form.sourceUrl || form.contactEmail || (!place && form.name);
+    if (status === 'sent' || !typed) DRAFTS.delete(draftKey); else DRAFTS.set(draftKey, form);
+  }, [draftKey, form, status, place]);
   const [selection, setSelection] = useState(null);
   const [listOpen, setListOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
