@@ -3483,6 +3483,24 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       live site in three passes; what could not be tested there needs a
       real phone: touch drags, the location prompt, install, iOS, real
       offline, sign-in.
+    - After the second review (10-07 03:00 on): certification words are
+      taken out once in `searchPlaces` (`stripCertWords`), before the
+      station and filler readings; a diet word beside a station becomes a
+      chip and the station the search (`liftDietWords`), so "halal seoul
+      station" and "seoul station halal" give one answer; the welcome
+      screen's six language buttons sit in a fixed three-column grid on a
+      phone (layout shift 0.315 to 0.008, measured again on the live
+      site); the saved count is `savedOnMap` everywhere.
+    - Open: first visit on a slow connection. On a throttled phone
+      profile (1.6 Mbps, CPU x4) the logo paints at 1.3 s and the welcome
+      headline at 7.5 s, after 544 kB of script. A static copy of the
+      welcome screen's top in `index.html` was considered and not done:
+      the column is centred vertically on a wide screen, so a partial
+      copy moves when React renders the rest, and its buttons would be
+      dead for seconds. Doing it properly means prerendering the whole
+      welcome screen per language at build, or loading the places chunk
+      (195 kB) after the welcome screen. Measure with a throttled
+      headless Chrome before and after.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
