@@ -6762,3 +6762,18 @@ html[data-text='larger'] .detail-bar__map svg {
     width: 380px;
   }
 }
+
+/* Japanese and Chinese headings at 700, not 800. Their system fonts stop
+   at bold, while the Latin beside them (Segoe UI) has a black: the "K-" of
+   "K-フードの、もうひとつの魅力。" stood out twice as heavy as the kana. */
+:root:lang(ja) .prologue-title,
+:root:lang(zh-Hans) .prologue-title,
+:root:lang(zh-Hant) .prologue-title,
+:root:lang(ja) .tab-panel-header h2,
+:root:lang(zh-Hans) .tab-panel-header h2,
+:root:lang(zh-Hant) .tab-panel-header h2,
+:root:lang(ja) .opening-map__name,
+:root:lang(zh-Hans) .opening-map__name,
+:root:lang(zh-Hant) .opening-map__name {
+  font-weight: 700;
+}
