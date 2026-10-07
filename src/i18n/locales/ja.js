@@ -406,6 +406,7 @@ export default {
     sidebarCollapse: 'サイドバーを閉じる',
     sheetExpand: '一覧を広げる',
     skipToList: 'お店の一覧へスキップ',
+    skipToTabs: 'タブへスキップ',
     sheetExpandFull: '一覧を全画面で表示',
     sheetCollapse: '地図を広げる',
   },

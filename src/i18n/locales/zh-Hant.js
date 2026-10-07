@@ -399,6 +399,7 @@ export default {
     sidebarCollapse: '收合側邊欄',
     sheetExpand: '顯示更多列表',
     skipToList: '跳至地點列表',
+    skipToTabs: '跳至分頁列',
     sheetExpandFull: '全螢幕顯示列表',
     sheetCollapse: '顯示更多地圖',
   },

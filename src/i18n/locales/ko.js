@@ -396,6 +396,7 @@ export default {
     sidebarCollapse: '사이드바 접기',
     sheetExpand: '목록 더 크게 보기',
     skipToList: '장소 목록으로 건너뛰기',
+    skipToTabs: '탭으로 건너뛰기',
     sheetExpandFull: '목록 전체 화면으로 보기',
     sheetCollapse: '지도 더 크게 보기',
   },

@@ -1006,6 +1006,13 @@ function AppShell() {
         // no chips — the list a keyboard user had narrowed was wiped.
         onClick={(e) => { e.preventDefault(); document.getElementById('place-list')?.focus({ preventScroll: true }); }}
       >{t('app.skipToList')}</a>}
+      {/* …and one past the list to the tabs: on the map they come after
+          the search box, the chips and forty cards of four controls each. */}
+      {activeTab === 'map' && !modalOpen && !placePeek && <a
+        className="skip-link skip-link--tabs"
+        href="#tabs"
+        onClick={(e) => { e.preventDefault(); document.querySelector('.tab-bar .tab-item.active, .tab-bar .tab-item')?.focus({ preventScroll: true }); }}
+      >{t('app.skipToTabs')}</a>}
       {/* Above everything, on every tab: inside the map region they sat under
           the pins and vanished behind the other tabs and the sheets. */}
       {!isOnline && (

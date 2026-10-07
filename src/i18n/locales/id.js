@@ -403,6 +403,7 @@ export default {
     sidebarCollapse: 'Ciutkan bilah sisi',
     sheetExpand: 'Tampilkan daftar lebih banyak',
     skipToList: 'Langsung ke daftar tempat',
+    skipToTabs: 'Langsung ke tab',
     sheetExpandFull: 'Tampilkan daftar layar penuh',
     sheetCollapse: 'Tampilkan peta lebih banyak',
   },

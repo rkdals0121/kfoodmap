@@ -413,6 +413,7 @@ export default {
     sidebarCollapse: 'Collapse sidebar',
     sheetExpand: 'Show more of the list',
     skipToList: 'Skip to the list of places',
+    skipToTabs: 'Skip to the tabs',
     sheetExpandFull: 'Show the list full screen',
     sheetCollapse: 'Show more of the map',
   },

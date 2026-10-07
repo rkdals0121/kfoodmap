@@ -399,6 +399,7 @@ export default {
     sidebarCollapse: '收起侧边栏',
     sheetExpand: '扩大列表区域',
     skipToList: '跳至地点列表',
+    skipToTabs: '跳至标签栏',
     sheetExpandFull: '全屏显示列表',
     sheetCollapse: '扩大地图区域',
   },
