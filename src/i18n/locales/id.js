@@ -347,7 +347,7 @@ export default {
     lastChecked: 'Terakhir dicek',
     notRecorded: 'Tidak tercatat',
     never: 'Belum pernah',
-    suggestEdit: 'Ada yang salah? Gunakan “{{link}}” di atas.',
+    suggestEdit: 'Ada yang salah?',
     traitMildTaste: 'Tidak terlalu pedas',
     traitFermented: 'Fermentasi',
     traitZeroWaste: 'Nol sampah',
@@ -380,6 +380,7 @@ export default {
     unvisitedNote: 'Kunjungan dihapus.',
     removedNote: 'Dihapus dari Jurnal Anda.',
     actionBeenHere: 'Sudah ke sini',
+    actionVisited: 'Sudah dikunjungi',
     galleryItem: 'Item galeri',
   },
   app: {

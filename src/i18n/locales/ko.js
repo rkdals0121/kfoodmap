@@ -343,7 +343,7 @@ export default {
     lastChecked: '마지막 확인',
     notRecorded: '기록 없음',
     never: '없음',
-    suggestEdit: '틀린 곳이 있나요? 위의 “{{link}}”을 눌러 주세요.',
+    suggestEdit: '틀린 곳이 있나요?',
     traitMildTaste: '순한 맛',
     traitFermented: '발효 음식',
     traitZeroWaste: '제로 웨이스트',
@@ -373,6 +373,7 @@ export default {
     unvisitedNote: '방문 기록을 지웠어요.',
     removedNote: '저널에서 뺐어요.',
     actionBeenHere: '다녀옴',
+    actionVisited: '다녀왔어요',
     galleryItem: '갤러리 사진',
   },
   app: {

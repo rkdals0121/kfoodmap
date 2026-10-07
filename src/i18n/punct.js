@@ -8,3 +8,7 @@ import i18next from 'i18next';
 const wide = () => /^(ja|zh)/.test(i18next.language ?? '');
 export const colon = (label, value) => (wide() ? `${label}：${value}` : `${label}: ${value}`);
 export const paren = (label, note) => (wide() ? `${label}（${note}）` : `${label} (${note})`);
+// Between the items of a short list ("11:30 – 15:00, 18:00 – 20:20") and
+// between two sentences set side by side.
+export const listComma = () => (wide() ? '、' : ', ');
+export const sentenceGap = () => (wide() ? '' : ' ');

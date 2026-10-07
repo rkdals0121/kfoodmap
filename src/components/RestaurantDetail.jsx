@@ -29,7 +29,7 @@ import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
 import ClaimChip from './ClaimChip';
 import KoText from './KoText';
-import { colon, paren } from '../i18n/punct';
+import { colon, paren, sentenceGap } from '../i18n/punct';
 
 // Keyed by the identifier as stored in restaurant.traits / compared in
 // App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
@@ -949,7 +949,9 @@ export default function RestaurantDetail({
                   onClick={() => onToggleVisited(place.id)}
                 >
                   <SealIcon size={20} />
-                  <span>{t('detail.actionBeenHere')}</span>
+                  {/* Says what it now is, as Save does: unchanged, only its colour
+                      told a press from none. */}
+                  <span>{t(isVisited ? 'detail.actionVisited' : 'detail.actionBeenHere')}</span>
                 </button>
                 <button type="button" className="action-btn" onClick={handleShare}>
                   <ShareIcon size={20} />
@@ -1190,7 +1192,7 @@ export default function RestaurantDetail({
               <p className="provenance__title">{t('detail.aboutThisInformation')}</p>
               <p>
                 <Trans i18nKey="detail.provenanceOfficialSentence" components={[<strong key="0" />]} />
-                <Trans i18nKey="detail.provenanceReportedSentence" components={[<strong key="0" />]} /> <Trans i18nKey="detail.provenanceInferredSentence" components={[<strong key="0" />, <strong key="1" />]} />
+                <Trans i18nKey="detail.provenanceReportedSentence" components={[<strong key="0" />]} />{sentenceGap()}<Trans i18nKey="detail.provenanceInferredSentence" components={[<strong key="0" />, <strong key="1" />]} />
               </p>
               <dl className="provenance__list">
                 <div>
@@ -1221,7 +1223,12 @@ export default function RestaurantDetail({
               {/* The date is in the list above, as "last checked". A second line
                   calling it "last verified" overstated it: a check can end in
                   "unknown". */}
-              <p>{t('detail.suggestEdit', { link: t('submit.reportLink') })}</p>
+              {/* The link itself, here at the end of the page: it used to name a
+                  link "above", four screens back up. */}
+              <p>
+                {t('detail.suggestEdit')}{' '}
+                <Link className="detail-report detail-report--end" to={`/submit?place=${place.id}`} state={{ fromApp: true, tab: location.state?.tab }}>{t('submit.reportLink')}</Link>
+              </p>
             </div>
 
           </div>

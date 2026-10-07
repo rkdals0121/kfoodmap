@@ -12,6 +12,7 @@ import { groupByRegion } from '../data/region';
 import { sharedListUrl } from '../filters';
 import { copyText, shareOrCopy } from '../share';
 import { colon, paren } from '../i18n/punct';
+import { koAddress } from '../data/address-ko';
 
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
@@ -105,6 +106,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
     const lines = savedList.map(({ place }) => [
       // In Korean the shown name is already the Korean one: once, not twice.
       [...new Set([displayName(place.name), koreanName(place.name)].filter(Boolean))].join(' · '),
+      // The address in Korean first, where the record has one: it is the
+      // one a taxi driver or a passer-by can read.
+      koAddress(place),
       isKnown(place.address) ? place.address.value : null,
       `${window.location.origin}/place/${place.id}`,
     ].filter(Boolean).join('\n'));

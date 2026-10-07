@@ -43,6 +43,14 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
     return () => window.removeEventListener('keydown', onKey);
   }, [dialog]);
 
+  // The tab's title in the reader's language while the welcome screen is
+  // up: the page arrives titled in English, and the map (which sets its
+  // own) has not been loaded yet.
+  const headline = t('prologue.title');
+  useEffect(() => {
+    if (!dialog) document.title = `K-Food Map · ${headline.replace(/[.。]$/, '')}`;
+  }, [dialog, headline]);
+
   const Wrapper = dialog ? 'div' : 'main';
   return (
     <div

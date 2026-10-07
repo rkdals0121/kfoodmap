@@ -344,7 +344,7 @@ export default {
     lastChecked: '上次核查',
     notRecorded: '未记录',
     never: '从未',
-    suggestEdit: '信息有误？请使用上方的“{{link}}”。',
+    suggestEdit: '信息有误？',
     traitMildTaste: '不太辣',
     traitFermented: '发酵食品',
     traitZeroWaste: '零浪费',
@@ -376,6 +376,7 @@ export default {
     unvisitedNote: '已移除这次到访。',
     removedNote: '已从手账移除。',
     actionBeenHere: '去过',
+    actionVisited: '已去过',
     galleryItem: '图片',
   },
   app: {

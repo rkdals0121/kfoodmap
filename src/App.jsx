@@ -72,6 +72,9 @@ const findView = (pathname) => {
   if (!m) return null;
   return { q: m[2] ? m[2][0].toUpperCase() + m[2].slice(1) : '', filters: [m[1] === 'vegan' ? 'Vegan' : 'Halal'], planAt: null, area: Boolean(m[2]) };
 };
+// The words to search for pork-free places, per language (each is one the
+// search reads: filters.js PORK_FREE_WORDS; a test holds that).
+const PORK_FREE_SEARCH = { en: 'pork-free', ko: '돼지고기 없음', ja: '豚肉不使用', 'zh-Hans': '不含猪肉', 'zh-Hant': '不含豬肉', id: 'tanpa babi' };
 // Every chip a link may name (filters.js parseViewHash).
 const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => g.chips.map(c => c.id))];
 
@@ -1116,9 +1119,12 @@ function AppShell() {
                   setSelectedFilters(prev => prev.filter(f => f !== 'Halal'));
                   // In the area being looked at, when it has any; else across
                   // the country (the list then shows where they are).
-                  const here = filterQuery.trim() ? `${filterQuery.trim()} pork-free` : '';
+                  // …by the word of the reader's language (the search knows
+                  // each): an Indonesian reader got "pork-free" in the box.
+                  const word = PORK_FREE_SEARCH[i18n.language] ?? PORK_FREE_SEARCH.en;
+                  const here = filterQuery.trim() ? `${filterQuery.trim()} ${word}` : '';
                   const local = here && searchPlaces({ places: activeRestaurants, query: here }).filteredRestaurants.length > 0;
-                  setQuery(local ? here : 'pork-free');
+                  setQuery(local ? here : word);
                   setAreaOnly(false);
                 }}
                 onSuggest={(name) => navigate('/submit', { state: { fromApp: true, tab: 'map', name } })}

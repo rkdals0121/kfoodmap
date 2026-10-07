@@ -349,7 +349,7 @@ export default {
     lastChecked: '最終確認',
     notRecorded: '記録なし',
     never: '未確認',
-    suggestEdit: '誤りがありましたか？上の「{{link}}」からお知らせください。',
+    suggestEdit: '誤りがありましたか？',
     traitMildTaste: '辛さ控えめ',
     traitFermented: '発酵食品',
     traitZeroWaste: 'ゼロウェイスト',
@@ -383,6 +383,7 @@ export default {
     unvisitedNote: '訪問記録を削除しました。',
     removedNote: 'ジャーナルから削除しました。',
     actionBeenHere: '行った',
+    actionVisited: '訪問済み',
     galleryItem: 'ギャラリーの項目',
   },
   app: {

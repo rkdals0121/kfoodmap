@@ -40,6 +40,8 @@ export function stationOf(query) {
   let s = String(query ?? '').trim();
   const noExit = s.replace(EXIT_TAIL, '').trim();
   if (noExit !== s && ENDS_IN_STATION.test(noExit)) s = noExit;
+  // Indonesian puts the word first: "Stasiun Busan".
+  s = s.replace(/^stasiun\s+(\S.*)$/i, '$1 station');
   s = s.replace(/\bstn\.?$/i, 'station').replace(/\s+(역|駅|站)$/, '$1');
   const cjk = CJK_STATION.exec(s);
   if (cjk) {

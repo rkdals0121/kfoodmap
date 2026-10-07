@@ -341,3 +341,21 @@ test('a township is not the district or city it shares a name with', () => {
   assert.equal(ids(go('애월')), ids(go('Aewol')));
 });
 
+
+test('the pork-free link searches by a word of the reader\'s language that the search reads', async () => {
+  const source = (await import('node:fs')).readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  const table = /PORK_FREE_SEARCH = (\{[^}]*\})/.exec(source);
+  assert.ok(table, 'PORK_FREE_SEARCH');
+  const words = Function(`return ${table[1]}`)();
+  const english = ids(go(words.en));
+  assert.ok(go(words.en).filteredRestaurants.length > 0);
+  for (const [lang, word] of Object.entries(words)) assert.equal(ids(go(word)), english, `${lang} ${word}`);
+  // …and with an area before it.
+  assert.equal(ids(go(`Itaewon ${words.id}`)), ids(go('Itaewon pork-free')));
+});
+
+test('an Indonesian station is a station', () => {
+  assert.deepEqual(stationOf('Stasiun Busan'), stationOf('Busan Station'));
+  assert.deepEqual(stationOf('stasiun seoul'), stationOf('seoul station'));
+  assert.equal(stationOf('stasiun'), null);
+});

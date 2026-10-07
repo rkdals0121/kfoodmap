@@ -354,7 +354,7 @@ export default {
     lastChecked: 'Last checked',
     notRecorded: 'Not recorded',
     never: 'Never',
-    suggestEdit: 'Something wrong? Use “{{link}}” above.',
+    suggestEdit: 'Something wrong?',
     traitMildTaste: 'Mild taste',
     traitFermented: 'Fermented',
     traitZeroWaste: 'Zero waste',
@@ -390,6 +390,7 @@ export default {
     unvisitedNote: 'Visit removed.',
     removedNote: 'Removed from your Journal.',
     actionBeenHere: 'Been here',
+    actionVisited: 'Visited',
     galleryItem: 'Gallery item',
   },
   app: {

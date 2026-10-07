@@ -6816,3 +6816,17 @@ html[data-text='larger'] .detail-bar__map svg {
 .language-picker__option.active {
   font-weight: 700;
 }
+
+/* The search box offers area names as it is typed in (a datalist). Chrome
+   then draws a small black arrow at its right edge when it has focus, over
+   the clear button's corner. */
+.search-field input::-webkit-calendar-picker-indicator {
+  display: none !important;
+}
+/* "Something wrong?" at the end of a place: its link on the same line. */
+.detail-report--end {
+  display: inline;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}

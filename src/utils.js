@@ -5,6 +5,7 @@ import i18next from 'i18next';
 // Initialises i18next for Node callers too (see src/i18n/index.js's header).
 import { dateLocale } from './i18n/index.js';
 import { isKnown } from './data/verification.js';
+import { listComma } from './i18n/punct.js';
 
 // Opening-hours wording comes from the locale files (hours.*), so it follows
 // the chosen language. Read at call time, never at module load.
@@ -295,7 +296,7 @@ export function todaysHours(hoursFact, now = new Date()) {
   const today = weekly[DAY_KEYS[inKorea(now).getUTCDay()]];
   if (!today) return null;
   if (today.length === 0) return tr('closedWord');
-  return today.map(slotText).join(', ');
+  return today.map(slotText).join(listComma());
 }
 
 /**
@@ -321,7 +322,7 @@ export function weekHours(hoursFact, now = new Date()) {
         ? tr('closedWord').charAt(0).toUpperCase() + tr('closedWord').slice(1)
         : slots.map(sl => (sl.lastOrder
           ? `${slotText(sl)} (${tr('lastOrderAt', { time: fromMinutes(lateOrder(sl)) })})`
-          : slotText(sl))).join(', ');
+          : slotText(sl))).join(listComma());
     return { key, day: tr(`day.${key}`), text, today: key === todayKey };
   });
 }
