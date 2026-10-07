@@ -285,6 +285,13 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
   const first = useRef(true);
   // '' so that a search the app opens with counts as a search just made.
   const framedFor = useRef('');
+  // The framing put off while the app opened on a place (below), and the
+  // closing of that place, which calls for it.
+  const owed = useRef(false);
+  const [closed, setClosed] = useState(0);
+  useEffect(() => {
+    if (!placeOpen && owed.current) { owed.current = false; setClosed(n => n + 1); }
+  }, [placeOpen]);
   useEffect(() => {
     // The first run is the app opening, where the map keeps its start
     // view — unless it opened on a list to frame (a shared list), or on a
@@ -292,7 +299,18 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
     // engine, or by a shared link, was shown Seoul with no pins in it.
     // Not when it opens on a place (a reload of /place/x#q=Busan): the
     // map is on that place, and framing the search took its pin away.
-    if (first.current) { first.current = false; if (placeOpen || (!fitAll && !searchQuery.trim())) return undefined; }
+    if (first.current) {
+      first.current = false;
+      if (placeOpen || (!fitAll && !searchQuery.trim())) {
+        // …but the search it came with is still to be framed, once the
+        // place is closed: the list then read "Busan" over a map of Seoul
+        // with no pin in it.
+        owed.current = placeOpen && (fitAll || Boolean(searchQuery.trim()));
+        return undefined;
+      }
+    } else if (!closed) {
+      owed.current = false;
+    }
     if (restaurants.length === 0) return undefined;
     // After a pause in typing, not on every letter: "se", "seo", "seou"
     // each name a different set and the map lurched between them.
@@ -318,7 +336,7 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
     return () => clearTimeout(timer);
     // key stands in for restaurants: same places, same key, no move.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, map, fitAll]);
+  }, [key, map, fitAll, closed]);
   return null;
 }
 
