@@ -100,3 +100,15 @@ test('src/startup.js follows the same rule when the head script has not run', as
   const { firstVisit } = await import('../../src/startup.js');
   assert.equal(firstVisit(), false); // no window: a script, not a visit
 });
+
+test('a distance is written with the decimal mark of the language', async () => {
+  const { default: i18next } = await import('i18next');
+  const { formatDistance } = await import('../../src/utils.js');
+  const before = i18next.language;
+  assert.equal(formatDistance(1.94), '1.9 km');
+  assert.equal(formatDistance(0.3), '300 m');
+  await i18next.changeLanguage('id');
+  assert.equal(formatDistance(1.94), '1,9 km');
+  assert.equal(formatDistance(12.4), '12 km');
+  await i18next.changeLanguage(before);
+});

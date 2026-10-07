@@ -15,9 +15,9 @@ Source of truth: the code in `k-food-map/src` (App.jsx, components, hooks, filte
 
 ## A. First visit, loading screen, prologue
 
-A1. Open `/` with cleared storage on a throttled connection → before React starts, a static loading screen shows the green logo, "K-Food Map", "The other side of K-food" and a `role=status` line "Loading the map…". (`#root [role=status]`)
+A1. Open `/` with cleared storage on a throttled connection → before React starts, a static loading screen shows the green logo, "K-Food Map", "The other side of K-food" and a `role=status` line "Loading the map…". (`#root [role=status]`) On a first visit it is replaced by the Prologue as soon as the small first file is in — before the map's code and the places are downloaded (the network panel shows `App-*.js`, `places-*.js`, `maplib-*.js` starting only after the Prologue has drawn).
 A2. Same with browser language ja / ko / zh-CN / zh-TW / id → the loading line is in that language ("地図を読み込み中…", "지도를 불러오는 중…", …); with `kfm-language` stored, the stored language wins.
-A3. Block the JS bundle (or wait 20 s on a stalled load) → the status line changes to "This is taking a while. The connection may be slow." plus a green "Try again" button that reloads the page. A failed font stylesheet does not trigger it.
+A3. Block the first JS file (`index-*.js`; or wait 20 s on a stalled load) → the status line changes to "This is taking a while. The connection may be slow." plus a green "Try again" button that reloads the page. A failed font stylesheet does not trigger it.
 A4. Disable JavaScript and open `/` → a `<noscript>` paragraph says the app needs JavaScript and links to `/find/vegan` and `/find/halal`; the page scrolls.
 A5. First visit to `/` (no `kfm-prologue`) → the Prologue screen replaces the whole app (`.prologue-layout`, `<main class="prologue-content">`): eyebrow "K-Food Map", H1 "The other side of K-food.", subtitle with the live count of active places ("A food map of N places…").
 A6. Prologue language row (`.prologue-languages`, 6 buttons: English, 日本語, 简体中文, 繁體中文, Bahasa Indonesia, 한국어) → tapping one switches all prologue text at once; the pressed one has `aria-pressed=true` / class `is-current`; each button carries its own `lang`.
@@ -31,6 +31,9 @@ A13. First visit to `/?list=balwoo,eid` (at least one valid id) → Prologue is 
 A14. First visit directly to `/cards`, `/discover`, `/journal`, `/profile`, `/privacy` or `/submit` → Prologue is shown first; after "Open the map" the requested sheet/tab is what appears.
 A15. With storage blocked (private mode that throws on localStorage) → the app still opens; Prologue greets again on the next visit; nothing crashes.
 A16. Slow language chunk on first visit (non-English browser) → the app waits at most 2.5 s for the language, then renders in English and switches when the strings arrive.
+A18. First visit, press "Open the map" before the map's files have arrived (throttle, or block `*/assets/App-*`) → an interim screen (`.opening-map`: logo, "K-Food Map", `role=status` "Loading the map…") shows until the map is in; the diet chosen is on when it opens. Pressed after the files are in, the map opens at once with no interim screen.
+A19. Same with `App-*.js` blocked for good → after two tries the interim screen says "This is taking a while. The connection may be slow." with a green "Try again"; pressing it reloads with the chosen diet in the address (`#f=Halal`), so the diet is still on when the map does open. No "Something went wrong" screen.
+A20. Any visit that is not a first visit to the map (returning; `/place/<id>`; `/find/...`; `?list=`) → the head script adds `modulepreload` links for the language file and the map's files at once, and a `preconnect` to the tile server; a first visit to the map adds only the language file (`window.__kfmWelcome === true`).
 A17. [phone] Prologue at 360x640 → the diet choice sits above the legend and is visible without scrolling; the page scrolls to reach the button; no horizontal scroll.
 
 ## B. Map
