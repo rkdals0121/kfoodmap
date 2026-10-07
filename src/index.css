@@ -6982,3 +6982,13 @@ html[data-text='larger'] .stat-label {
   width: fit-content;
   max-width: 100%;
 }
+
+/* Rail folded, a place docked, 1024 to 1199 px: the place is still the
+   width of the list (420 px from the left edge), so the toast keeps clear
+   of it as it does of the list. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .app-shell.is-collapsed .toast.toast--docked {
+    left: calc(420px + (100vw - 420px) / 2);
+    max-width: calc(100vw - 420px - 24px);
+  }
+}

@@ -1048,7 +1048,7 @@ function AppShell() {
           out by every screen reader. */}
       <div className="toast-region" role="status" aria-live="polite" onFocus={() => setToastHeld(true)} onBlur={() => setToastHeld(false)} onPointerEnter={() => setToastHeld(true)} onPointerLeave={() => setToastHeld(false)}>
         {toast && (
-          <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}${selectedRestaurant && isWide && threeColumns ? ' toast--beside-place' : ''}`} key={toast.at}>
+          <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}${selectedRestaurant && isWide && threeColumns ? ' toast--beside-place' : ''}${underDock ? ' toast--docked' : ''}`} key={toast.at}>
             <span>{toast.text}</span>
             {toast.undo && (
               <button type="button" className="toast__undo" onClick={() => { const undo = toast.undo; setToastHeld(false); setToast(null); undo(); }}>
