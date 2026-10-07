@@ -163,3 +163,13 @@ test("the loading screen's tagline is the welcome screen's headline in each lang
     assert.ok(body.includes(JSON.stringify(headline)), `${code}: ${headline}`);
   }
 });
+
+test('"near" beside a landmark is said in the language of the reader', async () => {
+  const { nearIn } = await import('../../src/place-area.js');
+  assert.equal(nearIn('Choryang-dong, Dong-gu, Busan (near Busan Station)', 'ja'), 'Choryang-dong, Dong-gu, Busan (Busan Station 付近)');
+  assert.equal(nearIn('Daeheung-dong, Dongnam-gu, Cheonan (by Cheonan Station)', 'id'), 'Daeheung-dong, Dongnam-gu, Cheonan (dekat Cheonan Station)');
+  assert.equal(nearIn('Eojin-dong, Sejong (near the Government Complex Sejong)', 'zh-Hans'), 'Eojin-dong, Sejong (Government Complex Sejong 附近)');
+  // A description in plain English, another kind of bracket, English itself: untouched.
+  for (const z of ['Ora 1-dong, Jeju City (near the intercity bus terminal)', 'Itaewon-dong, Yongsan-gu, Seoul (Itaewon)']) assert.equal(nearIn(z, 'ja'), z);
+  assert.equal(nearIn('Gyeong-dong, Mokpo (near Mokpo Station)', 'en'), 'Gyeong-dong, Mokpo (near Mokpo Station)');
+});
