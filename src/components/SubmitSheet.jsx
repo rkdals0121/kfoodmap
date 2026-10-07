@@ -48,7 +48,7 @@ export default function SubmitSheet({ place, onClose, initialName = '', initialT
     const kept = DRAFTS.get(draftKey);
     // A name brought from an empty search starts the form, unless one is
     // already being written.
-    const written = kept && (kept.message || kept.locationHint || kept.topic || kept.sourceUrl || kept.contactEmail);
+    const written = kept && (kept.name || kept.message || kept.locationHint || kept.topic || kept.sourceUrl || kept.contactEmail);
     if (initialName && !place && !written) return { ...EMPTY, name: initialName.slice(0, 80) };
     // Reached from the link under the hours: the subject is already chosen.
     const base = kept ?? EMPTY;
@@ -61,9 +61,10 @@ export default function SubmitSheet({ place, onClose, initialName = '', initialT
   // draft. Opened from "Hours wrong?" and closed, the form then opened
   // from "Report a problem" with hours already chosen.
   useEffect(() => {
-    const typed = form.message || form.locationHint || form.sourceUrl || form.contactEmail || (!place && form.name);
+    // (a name brought from a search and left as it came is not written either)
+    const typed = form.message || form.locationHint || form.sourceUrl || form.contactEmail || (!place && form.name && form.name !== initialName.slice(0, 80));
     if (status === 'sent' || !typed) DRAFTS.delete(draftKey); else DRAFTS.set(draftKey, form);
-  }, [draftKey, form, status, place]);
+  }, [draftKey, form, status, place, initialName]);
   const [selection, setSelection] = useState(null);
   const [listOpen, setListOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
