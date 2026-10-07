@@ -132,8 +132,12 @@ function AppShell() {
   const sharedJourney = journeys.find(j => j.id === sharedList.journeyId) ?? null;
   const [selectedFilters, setSelectedFilters] = useState(() => {
     const first = [...(sharedIds.length > 0 ? [SHARED_LIST] : []), ...startView.filters];
-    // The diet picked on the welcome screen (Root.jsx) turns its chip on.
-    return [...first, ...startup.diet.filter(d => !first.includes(d))];
+    // The diet picked on the welcome screen (Root.jsx) turns its chip on —
+    // unless the link opened already names a diet: "halal in Itaewon",
+    // sent by a friend, with Vegan picked on the way in, was both at once
+    // and an empty list. The link is what was asked for.
+    const named = first.some(f => DIETARY_CHIPS.includes(f) || f === FULLY_VEGAN);
+    return named ? first : [...first, ...startup.diet.filter(d => !first.includes(d))];
   });
   // The URL is the source of truth for which restaurant is open — no
   // separate state to keep in sync. activeRestaurants already excludes

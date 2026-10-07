@@ -12,6 +12,8 @@ map, and against the live site after.
 | `first-visit` | the welcome screen's count, then the map with every place and no chip on; `between` false (the map had arrived) |
 | `first-visit-slow` | slow line: `prologueAt` well before `mapAt`; `between` is the "Loading the map…" screen; the diet chosen is on when the map opens; `seen` "true" |
 | `first-visit-place`, `-guide`, `-shared-list` | no welcome screen (`prologue` false, `welcome` false); the place, the guide's list, the shared list |
+| `first-visit-link-with-diet` | a link that names a diet (`#q=Itaewon&f=Halal`) with Vegan picked on the welcome screen: Halal alone is on, the list is not empty |
+| `first-visit-link-search-only` | a link with a search and no diet: the diet picked is added |
 | `first-visit-bad-list` | `?list=` with no valid id: the welcome screen once, then the map |
 | `first-visit-cards` | welcome screen first, then `/cards` |
 | `returning` | no welcome screen; hints for the language, App, places, maplib |

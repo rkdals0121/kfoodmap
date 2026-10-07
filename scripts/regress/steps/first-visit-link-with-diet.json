@@ -1,0 +1,9 @@
+[
+ {
+  "url": "{{BASE}}/#q=Itaewon&f=Halal",
+  "seen": false,
+  "lang": "en",
+  "load": 5000,
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); [...document.querySelectorAll('.prologue-start__chips button')][0].click(); await w(300); document.querySelector('.prologue-btn').click(); await w(1500); return {hash:decodeURIComponent(location.hash), count:(document.body.innerText.match(/[0-9]+ places?/)||[])[0], on:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText.trim())}"
+ }
+]
