@@ -269,7 +269,7 @@ export default {
     fermented: '発酵食品',
     searchPlaceholder: '店名やエリアで検索',
     clearSearch: '検索をクリア',
-    clearFilters: 'クリア ({{n}})',
+    clearFilters: 'クリア（{{n}}）',
   },
   provenance: {
     sourceMaps: 'Naver Place / Kakao Map',

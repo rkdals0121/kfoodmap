@@ -9,16 +9,13 @@ import { startup, firstVisit } from './startup'
 // small file is in, and fetches the map while that is read; any other
 // visit asks for the map at once (index.html asks for its files beside
 // this one, so nothing arrives later than it did).
+//
+// A file that failed to arrive cannot be asked for again from the same
+// page: the browser remembers the failure and answers the second import()
+// with it at once, without a request. The way back is a new load of the
+// page (startAgain, below).
 let mapFile = null
-const loadMap = () => {
-  mapFile ??= import('./App.jsx').catch((error) => {
-    // Once more, a moment later: a dropped connection is the usual cause.
-    // A failure is not kept: the next call asks again.
-    mapFile = null
-    return new Promise(resolve => setTimeout(resolve, 1500)).then(() => import('./App.jsx')).catch(() => { throw error })
-  })
-  return mapFile
-}
+const loadMap = () => (mapFile ??= import('./App.jsx'))
 const welcome = firstVisit()
 if (!welcome) loadMap()
 
@@ -83,9 +80,6 @@ export default function Root() {
           try { localStorage.setItem('kfm-prologue', 'true') } catch { /* not remembered */ }
           startup.welcomed = true
           startup.diet = Array.isArray(diet) ? diet : []
-          // The connection dropped while the welcome screen was being read,
-          // and may be back by now: asked for once more.
-          if (map?.failed) { setMap(null); fetchMap() }
           setGreeting(false)
         }}
       />

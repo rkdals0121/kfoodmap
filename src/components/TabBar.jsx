@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { paren } from '../i18n/punct';
 
 const icons = {
   map: (
@@ -48,7 +49,7 @@ export default function TabBar({ activeTab, onSelect, isCollapsed, savedCount = 
           {/* Someone coming back sees at once that their places are here. */}
           {id === 'journal' && savedCount > 0 && <span className="tab-count" aria-hidden="true">{savedCount > 99 ? '99+' : savedCount}</span>}
           <span className="tab-label">{t(`tabBar.${id}`)}</span>
-          {id === 'journal' && savedCount > 0 && <span className="visually-hidden"> ({savedCount})</span>}
+          {id === 'journal' && savedCount > 0 && <span className="visually-hidden">{paren('', savedCount)}</span>}
         </button>
       ))}
     </nav>

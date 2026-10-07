@@ -292,9 +292,14 @@ export default function BottomSheetList({
   useEffect(() => {
     const el = sentinelRef.current;
     if (!el || !hasMore || typeof IntersectionObserver === 'undefined') return undefined;
+    // Measured against the box the list scrolls in. Against the screen (no
+    // root), the 400 px of warning was clipped by that box, and the next
+    // page came only when the button itself scrolled into view.
+    let root = el.parentElement;
+    while (root && !/(auto|scroll)/.test(getComputedStyle(root).overflowY)) root = root.parentElement;
     const io = new IntersectionObserver(entries => {
       if (entries.some(e => e.isIntersecting)) setShown(s => s + PAGE);
-    }, { rootMargin: '400px 0px' });
+    }, { root: root ?? null, rootMargin: '400px 0px' });
     io.observe(el);
     return () => io.disconnect();
   }, [hasMore, shown]);

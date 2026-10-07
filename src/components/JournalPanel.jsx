@@ -11,6 +11,7 @@ import { sealText } from '../data/seal-text';
 import { groupByRegion } from '../data/region';
 import { sharedListUrl } from '../filters';
 import { copyText, shareOrCopy } from '../share';
+import { colon, paren } from '../i18n/punct';
 
 // A saved place is somewhere you still mean to go, so it is a practical row
 // (where, open now, what it offers and how sure we are), not a keepsake.
@@ -45,7 +46,7 @@ function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' })
       {/* Taken off the list here, with the same Undo as on the map: the
           only way was to open the place and find its Save button. */}
       {onRemove && (
-        <button type="button" className="saved-row__remove" aria-label={`${t('app.remove')}: ${displayName(place.name)}`} onClick={(e) => onRemove(place.id, e)}>
+        <button type="button" className="saved-row__remove" aria-label={colon(t('app.remove'), displayName(place.name))} onClick={(e) => onRemove(place.id, e)}>
           <XIcon size={16} />
         </button>
       )}
@@ -215,7 +216,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
             <button type="button" className="journal-copy" onClick={onShowSaved}>
               {/* The map's Saved filter also holds the visited places: the
                   count says how many will be there. */}
-              {t('journal.showOnMap')} ({stamped.length})
+              {paren(t('journal.showOnMap'), stamped.length)}
             </button>
           )}
           <button type="button" className="journal-copy" onClick={copyListText}>

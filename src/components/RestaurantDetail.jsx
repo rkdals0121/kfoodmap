@@ -23,12 +23,13 @@ import {
 } from '../data/verification';
 import { sourceLabel } from '../i18n/labels';
 import usePlaceRecord from '../hooks/usePlaceRecord';
-import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay, lastFocusInApp } from '../hooks/useOverlay';
+import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay, lastFocusInApp, markOf, findByMark } from '../hooks/useOverlay';
 import { copyText, shareOrCopy } from '../share';
 import { CLAIM_CLASS } from './claim';
 import { cardForPlace } from '../data/staff-cards';
 import ClaimChip from './ClaimChip';
 import KoText from './KoText';
+import { colon, paren } from '../i18n/punct';
 
 // Keyed by the identifier as stored in restaurant.traits / compared in
 // App.jsx's trait groups (see src/i18n/labels.js for the same pattern with
@@ -79,7 +80,7 @@ function formatPrice(price, lang) {
 function sourceWithSite(f) {
   let host = null;
   try { host = f.url ? new URL(f.url).hostname.replace(/^www\./, '') : null; } catch { host = null; }
-  return host ? `${sourceLabel(f.source)} (${host})` : sourceLabel(f.source);
+  return host ? paren(sourceLabel(f.source), host) : sourceLabel(f.source);
 }
 
 // A dietary fact is a button: tapping it opens the source and reasoning
@@ -390,6 +391,8 @@ export default function RestaurantDetail({
     // list as a whole got it back on close. The app's last focus is the card.
     const active = document.activeElement;
     const opener = active && active !== document.body ? active : lastFocusInApp();
+    // …and how to find it again if its tab is drawn anew meanwhile.
+    const mark = markOf(opener);
     return () => {
       // The opener, or — when it could not be told (above) or is gone (the
       // list re-sorted) — this place's own card; the list only as a last
@@ -397,17 +400,21 @@ export default function RestaurantDetail({
       // still there, focus is inside it and the app does not take it back.
       const known = opener && opener !== document.body && document.contains(opener) && typeof opener.focus === 'function';
       const target = (known ? opener : null)
+        ?? findByMark(mark)
         ?? document.querySelector(`.place-card__open-btn[aria-describedby^="pc-where-${placeId} "]`)
         ?? document.getElementById('place-list') ?? document.querySelector('.journey-stop');
-      if (!target) return;
       // Closed because the reader went on to something else (typed in the
       // search box beside a docked place): the focus is theirs, not ours.
       const held = document.activeElement;
       if (held && held !== document.body && !inSheet(held) && held.id !== 'place-list') return;
-      focusAfterOverlay(target);
+      if (target) focusAfterOverlay(target);
       setTimeout(() => {
         const now = document.activeElement;
-        if ((!now || now === document.body || now.id === 'place-list') && target.isConnected) target.focus({ preventScroll: true });
+        // The tab the opener was on may only now be back on the page.
+        const twin = known ? null : findByMark(mark);
+        const to = twin ?? target;
+        if (!to?.isConnected) return;
+        if (!now || now === document.body || now.id === 'place-list' || (twin && now === target)) to.focus({ preventScroll: true });
       }, 0);
     };
   }, [placeId]);
@@ -559,7 +566,7 @@ export default function RestaurantDetail({
     const url = window.location.origin + window.location.pathname;
     // The claims as the page states them, with how sure each is — the
     // place's own line can say more ("a halal kitchen") than the record does.
-    const claims = dietaryBadges(place).map(b => `${b.label} (${trustBadge(b.fact).label})`).join(' · ');
+    const claims = dietaryBadges(place).map(b => paren(b.label, trustBadge(b.fact).label)).join(' · ');
     const how = await shareOrCopy({ title: place.name, text: [place.name, claims, placeArea(place)].filter(Boolean).join(' — '), url });
     if (how === 'failed') { window.prompt(t('detail.share'), url); return; }
     if (how === 'dismissed') return;
@@ -671,7 +678,7 @@ export default function RestaurantDetail({
                     <button
                       type="button"
                       className="journey-nav__btn journey-nav__btn--prev"
-                      aria-label={`${t('detail.journeyPrev', { index: journey.index })}: ${displayName(journey.prev.name)}`}
+                      aria-label={colon(t('detail.journeyPrev', { index: journey.index }), displayName(journey.prev.name))}
                       onClick={() => onJourneyStop(journey.prev, journey.index - 1)}
                     >
                       <ChevronLeftIcon size={16} />
@@ -681,7 +688,7 @@ export default function RestaurantDetail({
                   {journey.next ? (
                     <button type="button" className="journey-nav__btn journey-nav__btn--next" onClick={() => onJourneyStop(journey.next, journey.index + 1)}>
                       <span className="journey-nav__next-text">
-                        <span className="journey-nav__next-label">{t('detail.journeyNext')}: {displayName(journey.next.name)}</span>
+                        <span className="journey-nav__next-label">{colon(t('detail.journeyNext'), displayName(journey.next.name))}</span>
                         <span className="journey-nav__next-km">{t('detail.journeyNextKm', { distance: formatDistance(journey.nextKm) })}</span>
                       </span>
                       <ChevronRightIcon size={16} />
@@ -1041,7 +1048,7 @@ export default function RestaurantDetail({
                     <span className="practical-muted">{t('detail.areaOnly')}</span>
                   )}
                 </span>
-                <button className="practical-copy" aria-label={`${t('detail.copy')}: ${shownAddress}`} onClick={handleCopy}>
+                <button className="practical-copy" aria-label={colon(t('detail.copy'), shownAddress)} onClick={handleCopy}>
                   {copied ? t('detail.copied') : t('detail.copy')}
                 </button>
               </div>
@@ -1049,7 +1056,7 @@ export default function RestaurantDetail({
                 <div className="practical-row ko-name">
                   <span className="ko-name__label">{t('detail.koreanAddress')}</span>
                   <span className="ko-name__value ko-name__value--address" lang="ko">{koAddr}</span>
-                  <button type="button" className="practical-copy" aria-label={`${t('detail.copy')}: ${koAddr}`} onClick={copyKoAddr}>
+                  <button type="button" className="practical-copy" aria-label={colon(t('detail.copy'), koAddr)} onClick={copyKoAddr}>
                     {koAddrCopied ? t('detail.copied') : t('detail.copy')}
                   </button>
                 </div>
@@ -1060,7 +1067,7 @@ export default function RestaurantDetail({
                 <div className="practical-row ko-name">
                   <span className="ko-name__label">{t('detail.koreanName')}</span>
                   <span className="ko-name__value" lang="ko">{koName}</span>
-                  <button type="button" className="practical-copy" aria-label={`${t('detail.copy')}: ${koName}`} onClick={copyKoName}>
+                  <button type="button" className="practical-copy" aria-label={colon(t('detail.copy'), koName)} onClick={copyKoName}>
                     {nameCopied ? t('detail.copied') : t('detail.copy')}
                   </button>
                   <button type="button" className="practical-copy" ref={nameLargeBtn} aria-haspopup="dialog" onClick={() => setNameLarge(true)}>

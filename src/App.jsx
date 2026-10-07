@@ -74,6 +74,16 @@ const findView = (pathname) => {
 // Every chip a link may name (filters.js parseViewHash).
 const VIEW_CHIPS = [OPEN_NOW, OPEN_AT, FULLY_VEGAN, ...CHIP_GROUPS.flatMap(g => g.chips.map(c => c.id))];
 
+// Back or Forward has just landed on another entry, and the view its
+// address names has not been taken up yet (the listener in AppShell does
+// that). Heard here, when this file loads, so that it is heard before the
+// router's own listener: the router's update is drawn at once, and the
+// effect that writes the view to the address then saw the new address
+// with the old view and wrote the old view over it — Back changed nothing
+// and the entry it landed on was lost.
+let landing = false;
+if (typeof window !== 'undefined') window.addEventListener('popstate', () => { landing = true; });
+
 // Reading storage can throw where it is blocked; the app opened to a
 // white screen there.
 function seenPrologue() {
@@ -742,6 +752,9 @@ function AppShell() {
     // a second chip tapped in between was judged against the old address
     // and undone (live QA, 2026-10-03).
     const here = window.location;
+    // The address has just changed under Back or Forward: it is the view
+    // to show (below), not one to write over.
+    if (landing) return;
     // A guide's address has done its work once the view is set: it becomes
     // the map's own address, with the view in its fragment.
     const onGuide = here.pathname.startsWith('/find/');
@@ -763,6 +776,7 @@ function AppShell() {
   useEffect(() => { wantHashRef.current = wantHash; });
   useEffect(() => {
     const onHashChange = () => {
+      landing = false;
       const view = parseViewHash(window.location.hash, VIEW_CHIPS);
       if (viewHash(view) === wantHashRef.current) return;
       setQuery(view.q);
@@ -986,6 +1000,7 @@ function AppShell() {
             mapBox={inBox ? mapBox : null}
             onSearchArea={searchAreaStable}
             selectedId={selectedRestaurant?.id}
+            selectedPlace={selectedRestaurant}
             onCenterChange={setMapCenter}
             searchQuery={matchQuery}
             fitAll={selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST)}

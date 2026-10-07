@@ -24,7 +24,11 @@ import { AREA_NAMES, shownArea } from '../data/area-names';
 import { CHIP_GROUPS } from '../i18n/labels';
 import Prologue from './Prologue';
 import ClaimChip from './ClaimChip';
-import { LANGUAGES, setLanguage } from '../i18n/index.js';
+import { LANGUAGES, LANGUAGE_STORAGE_KEY, setLanguage } from '../i18n/index.js';
+import { colon } from '../i18n/punct';
+
+// Languages whose file could not be fetched on this page (LanguagePicker).
+const failedLanguages = new Set();
 
 // Stories for Discover's culture section, by id: the old name lookups had
 // quietly stopped matching three of four places, leaving one card. A place
@@ -117,7 +121,7 @@ function JourneyStops({ id, title, count, children }) {
   });
   return (
     <>
-      <button type="button" className="journey-card__toggle" aria-expanded={open} aria-label={`${title}: ${t('discover.stopsCount', { n: count })}`} onClick={() => setOpen(o => !o)}>
+      <button type="button" className="journey-card__toggle" aria-expanded={open} aria-label={colon(title, t('discover.stopsCount', { n: count }))} onClick={() => setOpen(o => !o)}>
         {t('discover.stopsCount', { n: count })}
         <ChevronRightIcon size={16} />
       </button>
@@ -242,7 +246,7 @@ function DiscoverTab({ onBrowse }) {
                         onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover', journey: { id: journey.id, index: i } } })}
                       >
                         <span className="journey-stop__num" aria-hidden="true">{i + 1}</span>
-                        <span className="visually-hidden">{t('detail.journeyPrev', { index: i + 1 })}: </span>
+                        <span className="visually-hidden">{colon(t('detail.journeyPrev', { index: i + 1 }), '')}</span>
                         {/* The page promises each stop says how sure we are:
                             so each stop carries its claim marks. */}
                         <span className="journey-stop__text">
@@ -368,6 +372,15 @@ function LanguagePicker({ onClose }) {
   const [pending, setPending] = useState(null);
   const [failed, setFailed] = useState(false);
   const selectLanguage = (code) => {
+    // Chosen again after it failed: the browser keeps the failure of a file
+    // for as long as the page lives, and a second request for it is never
+    // sent ("try again" then failed at once, for good). The choice is
+    // kept and the page loaded anew, which does ask again.
+    if (failedLanguages.has(code)) {
+      try { localStorage.setItem(LANGUAGE_STORAGE_KEY, code); } catch { /* not kept: the reload opens in the language as it was */ }
+      window.location.reload();
+      return;
+    }
     setPending(code);
     setFailed(false);
     // Ten seconds, then it is a failure: a stalled connection never answers
@@ -377,7 +390,7 @@ function LanguagePicker({ onClose }) {
       if (got === code) { onClose(); return; }
       // Given up on here, but still on its way: if it lands after all, the
       // language has changed and the picker closes rather than say it failed.
-      asked.then((late) => { if (late === code) onClose(); });
+      asked.then((late) => { if (late === code) onClose(); else failedLanguages.add(code); });
       setPending(null);
       setFailed(true);
     });

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { usePlaceSuggestions } from '../hooks/usePlaceSuggestions';
+import { useReturnFocus } from '../hooks/useOverlay';
 import { LEAD_TOPICS, LEAD_LIMITS, buildLead, supabaseConfig, submitLead } from '../data/leads';
 
 const config = supabaseConfig({
@@ -40,6 +41,7 @@ const DRAFTS = new Map();
 export default function SubmitSheet({ place, onClose, initialName = '', initialTopic = '' }) {
   const { t, i18n } = useTranslation();
   const isOnline = useOnlineStatus();
+  useReturnFocus();
   // What has been typed is kept for this visit (in memory only, nothing is
   // stored): closing the sheet to check the map, or a slip of the thumb on
   // a tab, used to throw the whole message away.

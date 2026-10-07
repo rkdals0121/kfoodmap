@@ -125,6 +125,31 @@ let wanted = null;
 // What had focus in the app last: an overlay that mounts after the app has
 // gone inert finds document.activeElement already on <body>.
 export const lastFocusInApp = () => lastInApp;
+// The same control after its part of the app has been drawn again. A place
+// opened from the Journal, from Discover or from Profile takes that tab
+// off the page; closed, the tab is back, but as new elements — the row
+// that was pressed is gone and its twin is there. Told apart by what kind
+// of thing it is (its first class) and the words on it; an id where it
+// has one.
+export function markOf(el) {
+  if (!el || typeof document === 'undefined') return null;
+  if (el.id) return { id: el.id };
+  const kind = typeof el.className === 'string' ? el.className.trim().split(/\s+/)[0] : '';
+  if (!kind) return null;
+  return { kind, classes: el.className, words: (el.textContent ?? '').slice(0, 80), nth: [...document.getElementsByClassName(kind)].indexOf(el) };
+}
+export function findByMark(mark) {
+  if (!mark || typeof document === 'undefined') return null;
+  if (mark.id) return document.getElementById(mark.id);
+  const said = [...document.getElementsByClassName(mark.kind)].filter(el => (el.textContent ?? '').slice(0, 80) === mark.words);
+  // Two with the same words: the one of the same make (the two "Report
+  // incorrect info" links of a place differ by a class), then the one in
+  // the same position (a place in two journeys), if it is among them.
+  const same = said.filter(el => el.className === mark.classes);
+  const all = same.length > 0 ? same : said;
+  return all.find(el => [...document.getElementsByClassName(mark.kind)].indexOf(el) === mark.nth) ?? all[0] ?? null;
+}
+let lastMark = null;
 export function focusAfterOverlay(el) {
   // Only while the app is inert: otherwise the focus() below simply works,
   // and a stale request would be honoured when some later overlay closed.
@@ -133,15 +158,47 @@ export function focusAfterOverlay(el) {
 }
 if (typeof document !== 'undefined') {
   document.addEventListener('focusin', (e) => {
-    if (document.getElementById('root')?.contains(e.target)) lastInApp = e.target;
+    if (document.getElementById('root')?.contains(e.target)) { lastInApp = e.target; lastMark = markOf(e.target); }
   }, true);
   // Focus that leaves for nowhere (a tap on plain content; Safari, where a
   // tapped button takes no focus) is not an opener to return to — the
   // search box focused a minute ago would otherwise be given focus, and
   // open the keyboard, when a confirmation closes.
+  // Told by the press that took it: focus also leaves with no press at
+  // all, when the part of the app it is in goes inert or out of sight
+  // under a sheet it has just opened (a Journal row, a Discover stop, a
+  // Profile row behind the suggest form) — and that element is the opener.
+  // Forgotten there, closing gave focus to <body>, or to the first journey
+  // stop on the page instead of the one pressed.
+  let pressed = { at: -1e9, on: null };
+  document.addEventListener('pointerdown', (e) => { pressed = { at: e.timeStamp, on: e.target }; }, true);
   document.addEventListener('focusout', (e) => {
-    if (!e.relatedTarget && e.target === lastInApp && !document.getElementById('root')?.inert) lastInApp = null;
+    if (e.relatedTarget || e.target !== lastInApp || document.getElementById('root')?.inert) return;
+    const byPressElsewhere = e.timeStamp - pressed.at < 700 && pressed.on instanceof Node && !e.target.contains(pressed.on);
+    if (byPressElsewhere) { lastInApp = null; lastMark = null; }
   }, true);
+}
+// A sheet with an address of its own (the suggest form) hands focus back
+// to what opened it — the Profile row, the link in an empty search, the
+// link on a place — or to that control's twin, where its part of the app
+// was drawn again meanwhile. Closing it left focus on <body>.
+export function useReturnFocus() {
+  useEffect(() => {
+    const active = document.activeElement;
+    const opener = active && active !== document.body ? active : lastInApp;
+    const mark = markOf(opener);
+    return () => {
+      const give = () => {
+        const target = opener?.isConnected ? opener : findByMark(mark);
+        const now = document.activeElement;
+        // (…or on the sheet the opener is in: a place takes focus as a whole
+        // when it is drawn again under the closing form.)
+        if (target && (!now || now === document.body || (now !== target && now.contains(target)))) focusAfterOverlay(target);
+      };
+      give();
+      setTimeout(give, 0);
+    };
+  }, []);
 }
 export function useInertRoot(open) {
   useEffect(() => {
@@ -155,11 +212,18 @@ export function useInertRoot(open) {
       if (inertCount > 0) return;
       inertCount = 0;
       root.inert = false;
-      const target = wanted?.isConnected ? wanted : lastInApp;
+      const asked = wanted;
       wanted = null;
-      if ((!document.activeElement || document.activeElement === document.body) && target?.isConnected) {
-        target.focus?.({ preventScroll: true });
-      }
+      // The opener itself, or its twin if the tab it was on has been
+      // drawn again (above) — looked for once more a moment later, when
+      // that tab is back on the page.
+      const give = () => {
+        const target = asked?.isConnected ? asked : lastInApp?.isConnected ? lastInApp : findByMark(lastMark);
+        if (!target) return false;
+        if (!document.activeElement || document.activeElement === document.body) target.focus?.({ preventScroll: true });
+        return true;
+      };
+      if (!give()) setTimeout(give, 0);
     };
   }, [open]);
 }

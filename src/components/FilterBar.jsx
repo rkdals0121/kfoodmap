@@ -6,6 +6,7 @@ import { CHIP_GROUPS } from '../i18n/labels';
 import { OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN } from '../filters';
 import { DAY_KEYS, formatClock, koreaToday } from '../utils';
 import { areaSuggestions } from '../data/area-names';
+import { paren } from '../i18n/punct';
 
 export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange, onSearchFocus, planAt, onPlanAt, savedCount = 0 }) {
   const { t, i18n } = useTranslation();
@@ -70,7 +71,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
       aria-pressed={selectedFilters.includes(SAVED_ONLY)}
       onClick={() => onToggleFilter(SAVED_ONLY)}
     >
-      {t('filters.savedOnly')}{savedCount > 0 ? ` (${savedCount})` : ''}
+      {savedCount > 0 ? paren(t('filters.savedOnly'), savedCount) : t('filters.savedOnly')}
     </button>
   );
   const chipGroup = (group) => (
@@ -204,8 +205,8 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
               {/* The week from today, in Korea. */}
               {Array.from({ length: 7 }, (_, i) => (koreaToday() + i) % 7).map((d, i) => (
                 <option key={d} value={d}>
-                  {i === 0 ? `${t('filters.today')} (${t(`hours.day.${DAY_KEYS[d]}`)})`
-                    : i === 1 ? `${t('filters.tomorrow')} (${t(`hours.day.${DAY_KEYS[d]}`)})`
+                  {i === 0 ? paren(t('filters.today'), t(`hours.day.${DAY_KEYS[d]}`))
+                    : i === 1 ? paren(t('filters.tomorrow'), t(`hours.day.${DAY_KEYS[d]}`))
                       : t(`hours.day.${DAY_KEYS[d]}`)}
                 </option>
               ))}

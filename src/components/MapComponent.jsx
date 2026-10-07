@@ -11,9 +11,24 @@ import { isCoarse } from '../data/locate';
 
 // The middle of the part of the map a person can see. On a phone the list
 // sheet covers the lower half, so the map's own centre sits under the sheet.
+// How much of the map's left a docked place lies over (three columns, from
+// 1200 px: the place sits beside the list, on the map).
+function dockCover(map) {
+  const panel = document.querySelector('.detail-sheet--docked')?.getBoundingClientRect();
+  if (!panel) return 0;
+  const box = map.getContainer().getBoundingClientRect();
+  return panel.right > box.left && panel.left < box.right ? Math.max(0, Math.min(panel.right - box.left, box.width - 240)) : 0;
+}
+
+// The middle of the part of the map that can be seen: above the sheet on a
+// phone, and to the right of a docked place. Without the second, opening a
+// place at 1280 px moved its pin clear of the panel and the list was then
+// sorted from a point 200 px to the pin's left — seven kilometres away at
+// the opening zoom, another part of the city, the open place not in it.
 function visibleCenter(map) {
   const size = map.getSize();
-  return map.containerPointToLatLng([size.x / 2, (size.y - sheetOverlap(map)) / 2]);
+  const cover = dockCover(map);
+  return map.containerPointToLatLng([cover + (size.x - cover) / 2, (size.y - sheetOverlap(map)) / 2]);
 }
 
 // Reports the visible centre upward after each pan/zoom so the list can
@@ -345,7 +360,7 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
 // reached again in the list, which holds every place on the map and is the
 // keyboard and screen-reader route (CRITIQUE-2 #12). Pointer and touch are
 // unchanged.
-function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, stopIds, peek = false }) {
+function ClusteredMarkers({ restaurants, selectedId, selectedPlace = null, onMarkerClick, savedIds, stopIds, peek = false }) {
   const map = useMap();
   const { t } = useTranslation();
   const [zoom, setZoom] = useState(() => map.getZoom());
@@ -353,7 +368,10 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, st
 
   // The open place always keeps its own pin, so it never disappears into a
   // count while its detail is on screen.
-  const selected = restaurants.find(r => r.id === selectedId);
+  // …also when the search or the chips leave it out of the list (a link
+  // to a place that carries another search, a saved place opened from
+  // the Journal): the open place had no pin, and the map was not moved to it.
+  const selected = restaurants.find(r => r.id === selectedId) ?? (selectedPlace?.id === selectedId ? selectedPlace : undefined);
   const savedKey = (savedIds ?? []).join(',');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const savedSet = useMemo(() => new Set(savedIds ?? []), [savedKey]);
@@ -387,9 +405,7 @@ function ClusteredMarkers({ restaurants, selectedId, onMarkerClick, savedIds, st
     // The place panel can lie over the map's left edge (three columns from
     // 1200 px): a pin under it is not in view either. Bring it to the
     // middle of the part of the map still showing.
-    const box = map.getContainer().getBoundingClientRect();
-    const panel = document.querySelector('.detail-sheet--docked')?.getBoundingClientRect();
-    const covered = panel && panel.right > box.left && panel.left < box.right ? Math.max(0, panel.right - box.left) : 0;
+    const covered = dockCover(map);
     const p = map.latLngToContainerPoint(ll);
     const size = map.getSize();
     const margin = 48;
@@ -849,7 +865,7 @@ function retryTile(e) {
 export default React.memo(MapComponent);
 
 function MapComponent({
-  restaurants, onMarkerClick, selectedId, onCenterChange, searchQuery = '',
+  restaurants, onMarkerClick, selectedId, selectedPlace = null, onCenterChange, searchQuery = '',
   userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [], sheetState = 1,
   placePeek = false, onMapClick, mapBox = null, onSearchArea,
 }) {
@@ -916,6 +932,7 @@ function MapComponent({
         <UserLocation location={userLocation} />
         <FollowResults restaurants={restaurants} searchQuery={searchQuery} fitAll={fitAll} placeOpen={Boolean(selectedId)} />
         <ClusteredMarkers
+          selectedPlace={selectedPlace}
           restaurants={restaurants}
           selectedId={selectedId}
           onMarkerClick={onMarkerClick}
