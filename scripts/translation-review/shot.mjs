@@ -31,9 +31,13 @@ await send('Page.enable');
 await send('Runtime.enable');
 // As a window in front: without this no focus events fire in a headless page.
 await send('Emulation.setFocusEmulationEnabled', { enabled: true });
+let size = { w: 360, h: 640, dpr: 2 };
 for (const s of steps) {
-  await send('Emulation.setDeviceMetricsOverride', { width: s.w ?? 360, height: s.h ?? 640, deviceScaleFactor: s.dpr ?? 2, mobile: (s.w ?? 360) < 768 });
-  if (s.touch !== false && (s.w ?? 360) < 768) await send('Emulation.setTouchEmulationEnabled', { enabled: true });
+  // A step that gives no size keeps the size of the step before it (the
+  // first, 360x640): a follow-on step used to snap back to a phone.
+  size = { w: s.w ?? size.w, h: s.h ?? size.h, dpr: s.dpr ?? size.dpr };
+  await send('Emulation.setDeviceMetricsOverride', { width: size.w, height: size.h, deviceScaleFactor: size.dpr, mobile: size.w < 768 });
+  if (s.touch !== false && size.w < 768) await send('Emulation.setTouchEmulationEnabled', { enabled: true });
   await send('Network.enable');
   await send('Network.emulateNetworkConditions', s.throttle ? { offline: false, latency: 150, downloadThroughput: 1.6e6 / 8, uploadThroughput: 750e3 / 8 } : { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
   await send('Network.setBlockedURLs', { urls: s.block ?? [] });

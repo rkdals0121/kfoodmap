@@ -12,6 +12,9 @@
   "url": "{{BASE}}/place/balwoo#q=Busan",
   "lang": "en",
   "load": 5500,
-  "js": "return {active:document.querySelectorAll('.k-pin--active').length}"
+  "js": "return {active:document.querySelectorAll('.k-pin--active').length}",
+  "w": 360,
+  "h": 640,
+  "dpr": 2
  }
 ]
