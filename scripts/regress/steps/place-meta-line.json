@@ -1,0 +1,24 @@
+[
+ {
+  "url": "{{BASE}}/place/balwoo",
+  "w": 360,
+  "h": 640,
+  "lang": "id",
+  "js": "const p=[...document.querySelectorAll('.detail-meta__part, .detail-traits > span')]; const R=document.createRange(); const box=e=>{R.selectNodeContents(e); return R.getBoundingClientRect()}; let overlap=0; for(let i=1;i<p.length;i++){const a=box(p[i-1]),b=box(p[i]); if(Math.abs(a.top-b.top)<4 && b.left<a.right+3) overlap++;} return {parts:p.length, overlap, text:document.querySelector('.detail-meta').textContent}"
+ },
+ {
+  "url": "{{BASE}}/place/balwoo",
+  "w": 1280,
+  "h": 800,
+  "lang": "ko",
+  "js": "const p=[...document.querySelectorAll('.detail-meta__part, .detail-traits > span')]; const R=document.createRange(); const box=e=>{R.selectNodeContents(e); return R.getBoundingClientRect()}; let overlap=0; for(let i=1;i<p.length;i++){const a=box(p[i-1]),b=box(p[i]); if(Math.abs(a.top-b.top)<4 && b.left<a.right+3) overlap++;} return {parts:p.length, overlap, text:document.querySelector('.detail-meta').textContent}"
+ },
+ {
+  "url": "{{BASE}}/place/gonghwachun",
+  "w": 320,
+  "h": 640,
+  "lang": "en",
+  "pre": "localStorage.setItem('kfm-text-size','larger');",
+  "js": "const p=[...document.querySelectorAll('.detail-meta__part, .detail-traits > span')]; const R=document.createRange(); const box=e=>{R.selectNodeContents(e); return R.getBoundingClientRect()}; let overlap=0; for(let i=1;i<p.length;i++){const a=box(p[i-1]),b=box(p[i]); if(Math.abs(a.top-b.top)<4 && b.left<a.right+3) overlap++;} return {parts:p.length, overlap, text:document.querySelector('.detail-meta').textContent}"
+ }
+]

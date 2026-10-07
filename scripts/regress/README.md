@@ -25,7 +25,7 @@ map, and against the live site after.
 | `place-link-with-search` | closing the place frames the search (pins in view, the count of the search); a plain place link is unchanged |
 | `focus-discover-stop`, `focus-profile-suggest` | `same` true: focus is back on the control pressed |
 | `focus-list-journal-links` | `cardBack` true, `rowBack` "saved-row", the suggest link, `back` "detail-report" (the general link, not the hours one); desktop: `cardBack` true and 40 → 80 cards 350 px before the end |
-| `docked-place-list-order` | 1280 px: the list while a place is docked stays in the same neighbourhood (`duringHas` true) and does not reshuffle on close |
+| `docked-place-list-order` | 1280 px: the list while a place is docked is led by the open place (`during` starts with it) and does not reshuffle on close |
 | `map-file-blocked` | no crash screen; the slow-connection text with "Try again"; after it the address carries `#f=Halal` |
 | `toast-on-top` | saving shows the toast and `onTop` is the toast's own text ("SPAN"), at both sizes — not the map or the place under it: for some days the toasts were drawn beneath everything |
 | `sideways-phone-and-rail` | 844×390: the list is some 190 px tall (not a 33 px strip) under one row of chips, and an open place fills the height (`[0,390]`); 1440 px in Japanese: the toast's centre is over the map (about 930) and the last tab ends inside the 420 px column; 1280 px: a tab pressed in the folded rail unfolds it and its panel is there |
@@ -34,3 +34,8 @@ map, and against the live site after.
 A check that reads focus needs a page that believes it has focus:
 `shot.mjs` emulates that. A step whose script leaves the app (a
 `history.back()` past its first entry) loses its result.
+| `touch-sheet` | real finger drags (phone): the list's sheet goes 2, 1, then the chips scroll sideways (`chips` > 0, sheet still 1), 0, and a short quick flick up brings 1; a pin opens the place half way (`peek` true), a pull up makes it full (and scrolls its text: `scrolledBy`), a short pull down leaves it, a long one closes it (`place` "/") |
+| `locate` | "My location" answered by the browser itself: inside Korea a dot and "Nearest to you"; a coarse fix the hollow dot and its message; Tokyo "outside Korea", no dot; refused "Location is blocked…" |
+| `clock-status` | a fixed clock (Korean time): the kinds of status on the cards at 12:30, 15:30 (breaks), 21:40 (closing soon, in Korean), 00:30 (not yet open, in Japanese); "Open now" re-filters when the clock moves on and the page is shown again; a device in New York gets the "Korean time — it is … there now" line |
+| `place-meta-line` | the parts of the line under a place's name and of its traits: `overlap` 0 at three sizes and languages (each part once drew over the end of the one before) |
+| `focus-next-stop-and-cards` | after "Next stop" and close, focus is on the stop shown (Stop 3); after the staff cards opened from a place, on the "Ask in Korean" link |

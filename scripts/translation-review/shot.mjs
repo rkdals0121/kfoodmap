@@ -1,5 +1,5 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
-// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), block (url patterns) }]
+// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), drag (finger drags), block (url patterns) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
@@ -66,6 +66,19 @@ for (const s of steps) {
     initId = s.init ? (await send('Page.addScriptToEvaluateOnNewDocument', { source: s.init })).result.identifier : null;
     await send('Page.navigate', { url: s.url });
     await sleep(s.load ?? 4500);
+  }
+  // drag: [{ from: [x, y], to: [x, y], ms, hold }] = a finger put down, moved
+  // and lifted (real touch events), one after another, before `js` runs.
+  for (const d of s.drag ?? []) {
+    const n = 12;
+    await send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: d.from[0], y: d.from[1] }] });
+    for (let i = 1; i <= n; i += 1) {
+      await sleep((d.ms ?? 240) / n);
+      await send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: d.from[0] + (d.to[0] - d.from[0]) * i / n, y: d.from[1] + (d.to[1] - d.from[1]) * i / n }] });
+    }
+    await sleep(d.hold ?? 0);
+    await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await sleep(500);
   }
   if (s.js) { const v = await evalJs(`(async()=>{${s.js}})()`); if (v !== undefined) console.log(s.out ?? '', JSON.stringify(v)); }
   await sleep(s.wait ?? 600);

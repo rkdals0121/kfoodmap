@@ -1,0 +1,141 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 360,
+  "h": 640,
+  "lang": "en",
+  "drag": [
+   {
+    "from": [
+     180,
+     330
+    ],
+    "to": [
+     180,
+     120
+    ],
+    "ms": 300
+   }
+  ],
+  "js": "return {state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ },
+ {
+  "drag": [
+   {
+    "from": [
+     180,
+     130
+    ],
+    "to": [
+     180,
+     330
+    ],
+    "ms": 300
+   }
+  ],
+  "js": "return {state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ },
+ {
+  "drag": [
+   {
+    "from": [
+     300,
+     340
+    ],
+    "to": [
+     60,
+     340
+    ],
+    "ms": 300
+   }
+  ],
+  "js": "return {state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ },
+ {
+  "drag": [
+   {
+    "from": [
+     180,
+     250
+    ],
+    "to": [
+     180,
+     520
+    ],
+    "ms": 300
+   }
+  ],
+  "js": "return {state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ },
+ {
+  "drag": [
+   {
+    "from": [
+     180,
+     440
+    ],
+    "to": [
+     180,
+     390
+    ],
+    "ms": 60
+   }
+  ],
+  "js": "return {state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 360,
+  "h": 640,
+  "lang": "en",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('.k-pin, .k-dot').click(); await w(1500); return {state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ },
+ {
+  "drag": [
+   {
+    "from": [
+     180,
+     520
+    ],
+    "to": [
+     180,
+     300
+    ],
+    "ms": 300
+   }
+  ],
+  "js": "const sc=document.querySelector('.detail-scroll'); const was=sc.scrollTop; sc.scrollTop=0; await new Promise(r=>setTimeout(r,300)); return {scrolledBy:was, state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ },
+ {
+  "drag": [
+   {
+    "from": [
+     180,
+     200
+    ],
+    "to": [
+     180,
+     255
+    ],
+    "ms": 300
+   }
+  ],
+  "js": "return {state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ },
+ {
+  "drag": [
+   {
+    "from": [
+     180,
+     200
+    ],
+    "to": [
+     180,
+     420
+    ],
+    "ms": 300
+   }
+  ],
+  "js": "return {state:document.querySelector('.sidebar-region').className.match(/sheet-state-[0-9]/)?.[0], chips:document.querySelector('.chip-row').scrollLeft, place:location.pathname, peek:(document.querySelector('.detail-sheet')?.className||'').includes('peek')}"
+ }
+]

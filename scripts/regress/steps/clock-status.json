@@ -1,0 +1,50 @@
+[
+ {
+  "url": "{{BASE}}/#q=seoul",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-08T12:30:00+09:00\").getTime()-R.now();window.__adv=(ms)=>{off+=ms};class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "js": "const u={};[...document.querySelectorAll('.place-card__meta')].forEach(e=>{const k=(e.querySelector('[class*=is-],.place-card__unknown')?.textContent||e.textContent).trim();u[k]=(u[k]||0)+1}); return u"
+ },
+ {
+  "url": "{{BASE}}/#q=seoul",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-08T15:30:00+09:00\").getTime()-R.now();window.__adv=(ms)=>{off+=ms};class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "js": "const u={};[...document.querySelectorAll('.place-card__meta')].forEach(e=>{const k=(e.querySelector('[class*=is-],.place-card__unknown')?.textContent||e.textContent).trim();u[k]=(u[k]||0)+1}); return u"
+ },
+ {
+  "url": "{{BASE}}/#q=seoul",
+  "w": 390,
+  "h": 844,
+  "lang": "ko",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-08T21:40:00+09:00\").getTime()-R.now();window.__adv=(ms)=>{off+=ms};class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "js": "const u={};[...document.querySelectorAll('.place-card__meta')].forEach(e=>{const k=(e.querySelector('[class*=is-],.place-card__unknown')?.textContent||e.textContent).trim();u[k]=(u[k]||0)+1}); return u"
+ },
+ {
+  "url": "{{BASE}}/#q=seoul",
+  "w": 390,
+  "h": 844,
+  "lang": "ja",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-09T00:30:00+09:00\").getTime()-R.now();window.__adv=(ms)=>{off+=ms};class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "js": "const u={};[...document.querySelectorAll('.place-card__meta')].forEach(e=>{const k=(e.querySelector('[class*=is-],.place-card__unknown')?.textContent||e.textContent).trim();u[k]=(u[k]||0)+1}); return u"
+ },
+ {
+  "url": "{{BASE}}/#f=Open+now",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-08T21:40:00+09:00\").getTime()-R.now();window.__adv=(ms)=>{off+=ms};class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const n=()=>document.querySelector('#place-list').textContent.match(/[0-9]+ places?/)?.[0]; const a=n(); window.__adv(45*60000); document.dispatchEvent(new Event('visibilitychange')); await w(1500); return {at2140:a, at2225:n()}"
+ },
+ {
+  "url": "{{BASE}}/place/kampungku",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "tz": "America/New_York",
+  "js": "return [...document.querySelectorAll('.practical-today')].map(e=>e.textContent)"
+ }
+]

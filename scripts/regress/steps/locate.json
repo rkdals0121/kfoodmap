@@ -1,0 +1,46 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "geo": {
+   "lat": 37.5345,
+   "lng": 126.9946,
+   "acc": 15
+  },
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const b=document.querySelector('.map-locate__btn'); b.click(); await w(4000); return {on:b.className.includes('is-on'), msg:document.querySelector('.map-locate__message')?.textContent??null, dot:[...document.querySelectorAll('.k-you')].map(e=>e.className.includes('coarse')?'coarse':'exact'), hint:(document.querySelector('#place-list').textContent.match(/Nearest[a-z ·]*?(you|centre)/)||[])[0], first:document.querySelector('.place-card__open-btn')?.textContent}"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "geo": {
+   "lat": 35.1152,
+   "lng": 129.0422,
+   "acc": 2500
+  },
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const b=document.querySelector('.map-locate__btn'); b.click(); await w(4000); return {on:b.className.includes('is-on'), msg:document.querySelector('.map-locate__message')?.textContent??null, dot:[...document.querySelectorAll('.k-you')].map(e=>e.className.includes('coarse')?'coarse':'exact'), hint:(document.querySelector('#place-list').textContent.match(/Nearest[a-z ·]*?(you|centre)/)||[])[0], first:document.querySelector('.place-card__open-btn')?.textContent}"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "geo": {
+   "lat": 35.6812,
+   "lng": 139.7671,
+   "acc": 15
+  },
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const b=document.querySelector('.map-locate__btn'); b.click(); await w(4000); return {on:b.className.includes('is-on'), msg:document.querySelector('.map-locate__message')?.textContent??null, dot:[...document.querySelectorAll('.k-you')].map(e=>e.className.includes('coarse')?'coarse':'exact'), hint:(document.querySelector('#place-list').textContent.match(/Nearest[a-z ·]*?(you|centre)/)||[])[0], first:document.querySelector('.place-card__open-btn')?.textContent}"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "geo": "deny",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const b=document.querySelector('.map-locate__btn'); b.click(); await w(4000); return {on:b.className.includes('is-on'), msg:document.querySelector('.map-locate__message')?.textContent??null, dot:[...document.querySelectorAll('.k-you')].map(e=>e.className.includes('coarse')?'coarse':'exact'), hint:(document.querySelector('#place-list').textContent.match(/Nearest[a-z ·]*?(you|centre)/)||[])[0], first:document.querySelector('.place-card__open-btn')?.textContent}"
+ }
+]
