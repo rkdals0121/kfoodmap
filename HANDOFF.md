@@ -3612,6 +3612,11 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       (`underDock` in `App.jsx`). The page's `<h1>` takes focus after the
       welcome screen; `useNotesWaiting` lets a line hold a "…" until its
       translation arrives.
+    - `bash scripts/gates.sh` runs every gate (data check, both test
+      runs, lint, build) and ends in one line, `GATES: ok` or `GATES:
+      FAIL` with the names of what failed. Do not push on anything else:
+      twice a deploy went out with a test marked failed because only the
+      tail of a long output was read.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
