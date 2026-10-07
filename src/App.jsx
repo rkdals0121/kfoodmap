@@ -920,6 +920,16 @@ function AppShell() {
   const locatedAt = userLocation?.at;
   useEffect(() => { if (locatedAt) setMapBox(null); }, [locatedAt]);
   const listedRestaurants = inBox ?? filteredRestaurants;
+  // Nothing found, on a phone with the list at half height: the list opens
+  // full. At half height the answer — "no places match", why, and the
+  // nearest places that do — was under the fold, below a note and a line
+  // or two of search talk, over a map with no pin left on it. Once, as the
+  // results run out; the reader can fold it again.
+  const nothingFound = filteredRestaurants.length === 0;
+  useEffect(() => {
+    if (nothingFound && activeTab === 'map') setSheetState(current => (current === 1 ? 2 : current));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nothingFound]);
 
   // "pork-free" typed with the Halal chip on: the chip goes off, as it does
   // when the note's own button is pressed. The search finds them either
