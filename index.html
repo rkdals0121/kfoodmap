@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <!-- Before the stylesheets and the app's script, so a file that fails is seen (the rest is at the end of the body). -->
     <script>window.addEventListener('error',function(e){var t=e.target;if(t&&(t.tagName==='SCRIPT'||(t.tagName==='LINK'&&t.rel==='stylesheet'&&!/\/fonts-/.test(t.href||'')))){window.__kfmFileFailed=1;if(window.__kfmFail)window.__kfmFail()}},true);</script>
+    <!-- The reader's language (the stored choice, else the browser's — the
+         rule of src/i18n/index.js detectLanguage), and the files to ask for
+         at once, beside the app's script: the language's file, and the
+         map's own files except on a first visit, which shows the welcome
+         screen first and fetches the map behind it (src/Root.jsx,
+         src/startup.js; vite.config.js fills in the names at build). Here
+         in the head, above the stylesheets: a script below them waits for
+         them, and the files left half a second late. -->
+    <script>(function(){var C={en:1,ko:1,ja:1,'zh-Hans':1,'zh-Hant':1,id:1},L='en',k=null;try{k=localStorage.getItem('kfm-language')}catch(e){}try{if(k&&C[k])L=k;else{var p=navigator.languages||[navigator.language];for(var i=0;i<p.length;i++){var t=String(p[i]).toLowerCase(),m=/^ja(-|$)/.test(t)?'ja':/^zh-(hant|tw|hk|mo)/.test(t)?'zh-Hant':/^zh(-|$)/.test(t)?'zh-Hans':/^ko(-|$)/.test(t)?'ko':(/^id(-|$)/.test(t)||t==='in')?'id':/^en(-|$)/.test(t)?'en':'';if(m){L=m;break}}}}catch(e){}window.__kfmL=L;var P=/*KFM_LOCALE_CHUNKS*/{},M=/*KFM_MAP_CHUNKS*/[];function ask(h){try{var q=document.createElement('link');q.rel='modulepreload';q.crossOrigin='';q.href=h;document.head.appendChild(q)}catch(e){}}if(P[L])ask(P[L]);var seen=false;try{seen=localStorage.getItem('kfm-prologue')==='true'}catch(e){}window.__kfmWelcome=!seen&&!/^\/(place|find)\//.test(location.pathname)&&!/[?&]list=/.test(location.search);if(!window.__kfmWelcome)for(var j=0;j<M.length;j++)ask(M[j]);})();</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -36,15 +45,10 @@
     <noscript><style>html,body{overflow:auto!important;height:auto!important}#root>div{min-height:0!important}#root [role=status]{display:none}</style><p style="padding:24px;font-family:sans-serif">K-Food Map needs JavaScript to show the map. Without it you can still read the lists of places by area: <a href="/find/vegan">vegan food in Korea</a>, <a href="/find/halal">halal food in Korea</a>.</p></noscript>
     <!-- The loading line is put in the reader's language (the stored choice,
          else the browser's — the rule of src/i18n/index.js detectLanguage). -->
-    <!-- The reader's language file is asked for here, beside the app's
-         script (vite.config.js fills in the file names at build): asked
-         for by the app itself it left only once everything else had
-         arrived and run, and the first screen waited a second or more
-         for it on a slow connection. -->
     <!-- If the app's files stall or fail (a dropped connection, a file a
          new deploy has removed), the loading line says so and offers a retry
          instead of staying for good. -->
-    <script>(function(){var s=document.querySelector('#root [role=status]');var T={en:['Loading the map…','This is taking a while. The connection may be slow. ','Try again'],ko:['지도를 불러오는 중…','시간이 걸리고 있어요. 연결이 느릴 수 있어요. ','다시 시도'],ja:['地図を読み込み中…','時間がかかっています。接続が遅い可能性があります。','もう一度試す'],'zh-Hans':['正在加载地图…','加载时间较长，网络可能较慢。','重试'],'zh-Hant':['正在載入地圖…','載入時間較長，網路可能較慢。','再試一次'],id:['Memuat peta…','Pemuatan memakan waktu lebih lama dari biasanya. Koneksi mungkin lambat. ','Coba lagi']};var L='en',k=null;try{k=localStorage.getItem('kfm-language')}catch(e){}try{if(k&&T[k])L=k;else{var p=navigator.languages||[navigator.language];for(var i=0;i<p.length;i++){var t=String(p[i]).toLowerCase(),m=/^ja(-|$)/.test(t)?'ja':/^zh-(hant|tw|hk|mo)/.test(t)?'zh-Hant':/^zh(-|$)/.test(t)?'zh-Hans':/^ko(-|$)/.test(t)?'ko':(/^id(-|$)/.test(t)||t==='in')?'id':/^en(-|$)/.test(t)?'en':'';if(m){L=m;break}}}}catch(e){}var P=/*KFM_LOCALE_CHUNKS*/{};try{if(P[L]){var q=document.createElement('link');q.rel='modulepreload';q.crossOrigin='';q.href=P[L];document.head.appendChild(q)}}catch(e){}var W=T[L];if(s&&L!=='en')s.textContent=W[0];function fail(){if(!s||!document.body.contains(s)||s.getAttribute('data-f'))return;s.setAttribute('data-f','1');s.textContent=W[1];var b=document.createElement('button');b.type='button';b.textContent=W[2];b.style.cssText='display:block;margin:12px auto 0;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:#087F5B;color:#fff;font-weight:600;font-size:15px;line-height:1;font-family:inherit';b.onclick=function(){location.reload()};s.appendChild(b)}window.__kfmFail=fail;if(window.__kfmFileFailed)fail();setTimeout(fail,20000);window.addEventListener('vite:preloadError',function(e){if(!/fonts-/.test(String(e&&e.payload&&e.payload.message)))fail()})})();</script>
+    <script>(function(){var s=document.querySelector('#root [role=status]');var T={en:['Loading the map…','This is taking a while. The connection may be slow. ','Try again'],ko:['지도를 불러오는 중…','시간이 걸리고 있어요. 연결이 느릴 수 있어요. ','다시 시도'],ja:['地図を読み込み中…','時間がかかっています。接続が遅い可能性があります。','もう一度試す'],'zh-Hans':['正在加载地图…','加载时间较长，网络可能较慢。','重试'],'zh-Hant':['正在載入地圖…','載入時間較長，網路可能較慢。','再試一次'],id:['Memuat peta…','Pemuatan memakan waktu lebih lama dari biasanya. Koneksi mungkin lambat. ','Coba lagi']};var L=window.__kfmL||'en';if(!T[L])L='en';var W=T[L];if(s&&L!=='en')s.textContent=W[0];function fail(){if(!s||!document.body.contains(s)||s.getAttribute('data-f'))return;s.setAttribute('data-f','1');s.textContent=W[1];var b=document.createElement('button');b.type='button';b.textContent=W[2];b.style.cssText='display:block;margin:12px auto 0;min-height:44px;padding:0 20px;border:0;border-radius:999px;background:#087F5B;color:#fff;font-weight:600;font-size:15px;line-height:1;font-family:inherit';b.onclick=function(){location.reload()};s.appendChild(b)}window.__kfmFail=fail;if(window.__kfmFileFailed)fail();setTimeout(fail,20000);window.addEventListener('vite:preloadError',function(e){if(!/fonts-/.test(String(e&&e.payload&&e.payload.message)))fail()})})();</script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

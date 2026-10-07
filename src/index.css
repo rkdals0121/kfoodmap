@@ -5915,6 +5915,36 @@ html[data-text='larger'] .detail-bar__map svg {
   width: auto;
   padding: 0 28px;
 }
+/* Between the welcome screen and the map, when "Open the map" is pressed
+   before the map's files have arrived (src/Root.jsx): the look of the
+   screen index.html shows while the first file loads. */
+.opening-map {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  background: var(--bg);
+  text-align: center;
+}
+.opening-map__name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink-title);
+}
+.opening-map__status {
+  font-size: 14px;
+  color: var(--muted-strong);
+}
+.opening-map .btn-primary {
+  flex: none;
+  width: auto;
+  margin-top: 8px;
+  padding: 0 28px;
+}
 .app-error a {
   min-height: 44px;
   display: inline-flex;

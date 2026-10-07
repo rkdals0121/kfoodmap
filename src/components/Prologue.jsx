@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { restaurants } from '../data/restaurants';
-import { isQuarantined } from '../data/verification';
+// The number of places on the map, counted at build (vite.config.js): this
+// screen is shown before the places themselves have been downloaded.
+import { activeCount } from 'virtual:kfm-place-count';
 import ClaimChip from './ClaimChip';
 import { LANGUAGES, setLanguage } from '../i18n/index.js';
 import './Prologue.css';
-
-const activeCount = restaurants.filter(r => !isQuarantined(r)).length;
 
 // One screen: what this map is, and how to read the claim mark that sits on
 // every dietary claim in it (docs/UI-DIRECTION.md). It replaced three steps,

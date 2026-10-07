@@ -108,6 +108,11 @@ function assertTranslationChunkNames() {
 // language missing here is fetched by the app as before (src/i18n/index.js).
 const LOCALE_SOURCE = /\/src\/i18n\/locales\/([A-Za-z-]+)\.js$/
 const LOCALE_SLOT = '/*KFM_LOCALE_CHUNKS*/{}'
+// …and the files of the map (src/App.jsx and what only it needs), which
+// the same script asks for on every visit but a first one to the map.
+const MAP_SOURCE = /\/src\/App\.jsx$/
+const MAP_SLOT = '/*KFM_MAP_CHUNKS*/[]'
+const PLACES_SOURCE = /\/src\/data\/restaurants\.js$/
 function localeChunkHints() {
   return {
     name: 'kfm-locale-chunk-hints',
@@ -122,13 +127,34 @@ function localeChunkHints() {
         }
         if (!html.includes(LOCALE_SLOT)) this.error(`index.html has no ${LOCALE_SLOT} for the language files`)
         if (Object.keys(files).length < 5) this.error(`expected a chunk for each of the five loaded languages, found ${Object.keys(files).join(', ') || 'none'}`)
-        return html.replace(LOCALE_SLOT, JSON.stringify(files))
+        // Every file the map imports that the first file does not already.
+        const slashed = (id) => (id ?? '').replaceAll('\\', '/')
+        const chunks = Object.values(ctx.bundle ?? {}).filter(item => item.type === 'chunk')
+        const byName = new Map(chunks.map(c => [c.fileName, c]))
+        const reach = (start) => {
+          const seen = new Set()
+          const walk = (name) => { if (seen.has(name) || !byName.has(name)) return; seen.add(name); byName.get(name).imports.forEach(walk) }
+          walk(start)
+          return seen
+        }
+        const entry = chunks.find(c => c.isEntry)
+        const map = chunks.filter(c => c.isDynamicEntry && MAP_SOURCE.test(slashed(c.facadeModuleId)))
+        if (!entry || map.length !== 1) this.error(`expected one entry and one chunk for src/App.jsx, found ${map.length}: the map must stay out of the first file (src/main.jsx)`)
+        const early = reach(entry.fileName)
+        const mapFiles = [...reach(map[0].fileName)].filter(name => !early.has(name)).map(name => `/${name}`)
+        if (!html.includes(MAP_SLOT)) this.error(`index.html has no ${MAP_SLOT} for the map's files`)
+        if ([...early].some(name => Object.keys(byName.get(name).modules ?? {}).some(id => PLACES_SOURCE.test(slashed(id))))) {
+          this.error('the places are back in the first file: something src/main.jsx imports reads src/data/restaurants.js')
+        }
+        return html.replace(LOCALE_SLOT, JSON.stringify(files)).replace(MAP_SLOT, JSON.stringify(mapFiles))
       },
     },
   }
 }
 
 const RESTAURANTS_FILE = join(projectRoot, 'src', 'data', 'restaurants.js')
+const PLACE_COUNT = 'virtual:kfm-place-count'
+const PLACE_COUNT_ID = '\0' + PLACE_COUNT
 function clientData() {
   let cached = null
   // Re-import only when the file changes; a fresh query string defeats
@@ -146,7 +172,15 @@ function clientData() {
   return {
     name: 'kfm-client-data',
     enforce: 'pre',
+    resolveId(id) {
+      return id === PLACE_COUNT ? PLACE_COUNT_ID : null
+    },
     async load(id, options) {
+      // The welcome screen's count, without the places (src/Root.jsx).
+      if (id === PLACE_COUNT_ID) {
+        this.addWatchFile(RESTAURANTS_FILE)
+        return `export const activeCount = ${(await loadRestaurants()).active.length};`
+      }
       if (options?.ssr || !isRestaurantsModule(id)) return null
       this.addWatchFile(RESTAURANTS_FILE)
       return clientModule((await loadRestaurants()).all)

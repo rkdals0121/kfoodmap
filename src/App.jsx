@@ -34,6 +34,7 @@ import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN
 import { searchPlaces } from './search';
 import { takeFreshList } from './freshList';
 import './index.css';
+import { startup } from './startup';
 
 // Selecting anything on the sustainability axis — the group chip or either
 // member — turns the list into a lens: each card states, in the restaurant's
@@ -115,7 +116,11 @@ function AppShell() {
   const [sharedList, setSharedList] = useState(readList);
   const sharedIds = sharedList.ids;
   const sharedJourney = journeys.find(j => j.id === sharedList.journeyId) ?? null;
-  const [selectedFilters, setSelectedFilters] = useState(() => [...(sharedIds.length > 0 ? [SHARED_LIST] : []), ...startView.filters]);
+  const [selectedFilters, setSelectedFilters] = useState(() => {
+    const first = [...(sharedIds.length > 0 ? [SHARED_LIST] : []), ...startView.filters];
+    // The diet picked on the welcome screen (Root.jsx) turns its chip on.
+    return [...first, ...startup.diet.filter(d => !first.includes(d))];
+  });
   // The URL is the source of truth for which restaurant is open — no
   // separate state to keep in sync. activeRestaurants already excludes
   // quarantined places, so an id that's quarantined or simply doesn't
@@ -348,7 +353,8 @@ function AppShell() {
     // Arriving on a place or an area guide (a search result, a shared
     // link): that page is what was asked for, and the welcome screen stood
     // over it. Not marked as seen — it greets the next visit to the map.
-    () => seenPrologue() || /^\/(place|find)\//.test(window.location.pathname)
+    // Greeted already, before this file arrived (Root.jsx).
+    () => startup.welcomed || seenPrologue() || /^\/(place|find)\//.test(window.location.pathname)
       // …or with a list someone sent: the friend who opens it sees the four
       // places, not a question about their own diet.
       || parseSharedList(new URLSearchParams(window.location.search).get('list'), activeRestaurants.map(r => r.id)).length > 0

@@ -1,7 +1,6 @@
 import './polyfills'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router'
 import 'leaflet/dist/leaflet.css'
 import './index.css'
 // The typeface arrives on its own, not in the stylesheet the first paint
@@ -11,8 +10,8 @@ import('./fonts.css').catch(() => {})
 import { startLanguage } from './i18n'
 import './hooks/useInstall'
 import { applyTextSize, readTextSize } from './textSize'
-import App from './App.jsx'
 import AppErrorBoundary from './components/AppErrorBoundary.jsx'
+import Root from './Root.jsx'
 
 // The reader's text size, before the first paint.
 applyTextSize(readTextSize())
@@ -31,9 +30,7 @@ Promise.race([startLanguage().catch(() => {}), patience]).then(() => {
   createRoot(document.getElementById('root')).render(
     <StrictMode>
       <AppErrorBoundary>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <Root />
       </AppErrorBoundary>
     </StrictMode>,
   )
