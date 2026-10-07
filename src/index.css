@@ -6739,3 +6739,12 @@ html[data-text='larger'] .detail-bar__map svg {
 .map-area-btn {
   min-height: 44px;
 }
+
+/* Between 768 and 1023 px the list beside the map is 380 px wide and the
+   docked place was 420: it hung 40 px over the map's edge, shadow and
+   all. As wide as the list it sits on. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .detail-sheet--docked.detail-sheet--below-search {
+    width: 380px;
+  }
+}
