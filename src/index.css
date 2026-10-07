@@ -6939,3 +6939,47 @@ html[data-text='larger'] .detail-bar__map svg {
     white-space: nowrap;
   }
 }
+
+/* Longer languages on a phone (Indonesian above all):
+   - the Journal's three counts keep their names inside their boxes;
+   - Save / Been here / Share keep their icons on one line when a name
+     takes two lines, and the names stay inside the buttons;
+   - the Journal's two links each have a line of their own, so that
+     "List copied" (shorter than the link it replaces) does not pull the
+     other link up beside it and the page up with it. */
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0;
+}
+.action-btn {
+  justify-content: flex-start;
+  padding: 11px 4px 9px;
+  min-width: 0;
+}
+.action-btn > span {
+  max-width: 100%;
+  text-align: center;
+  line-height: 1.25;
+}
+/* At the largest text three buttons side by side have no room for their
+   names ("Tersimpan", "Dikunjungi" broke inside the word): one under
+   another, icon beside name. The three counts keep their row with names
+   a size smaller. */
+html[data-text='larger'] .practical-actions {
+  flex-direction: column;
+}
+html[data-text='larger'] .practical-actions .action-btn {
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+}
+html[data-text='larger'] .stat-label {
+  font-size: 9px;
+}
+.journal-copy {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+}
