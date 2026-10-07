@@ -3513,6 +3513,9 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       `src/data/area-names.js`; each name must be one of the forms the
       search knows — a test holds that). The report form keeps a draft
       only once something is typed (`SubmitSheet.jsx`).
+    - Japanese text takes the full-width colon after Japanese characters
+      (locale, notes, menu glosses); a name carried into the report form
+      from a search is not a draft until edited.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
