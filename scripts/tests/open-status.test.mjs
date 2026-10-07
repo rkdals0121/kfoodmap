@@ -244,7 +244,7 @@ test('for a picked time the next opening is a named day, not "tomorrow"', async 
   assert.match(named, /Tue/);
 });
 
-test('Japanese writes the first hour of each half-day as 0', async () => {
+test('Japanese tells the time on the 24-hour clock', async () => {
   const i18next = (await import('i18next')).default;
   const { formatClock } = await import('../../src/utils.js');
   const ja = (await import('../../src/i18n/locales/ja.js')).default;
@@ -252,10 +252,10 @@ test('Japanese writes the first hour of each half-day as 0', async () => {
   i18next.addResourceBundle('ja', 'translation', ja, true, true);
   await i18next.changeLanguage('ja');
   try {
-    assert.equal(formatClock(0), '午前0:00');
-    assert.equal(formatClock(30), '午前0:30');
-    assert.equal(formatClock(720), '午後0:00');
-    assert.equal(formatClock(1410), '午後11:30');
+    assert.equal(formatClock(0), '00:00');
+    assert.equal(formatClock(30), '00:30');
+    assert.equal(formatClock(720), '12:00');
+    assert.equal(formatClock(1410), '23:30');
   } finally {
     await i18next.changeLanguage('en');
   }

@@ -873,7 +873,7 @@ export default function RestaurantDetail({
                   <dl>
                     {week.map(d => (
                       <div key={d.key} className={d.today ? 'is-today' : undefined}>
-                        <dt>{d.day}{d.today && <span className="visually-hidden"> ({t('filters.today')})</span>}</dt>
+                        <dt>{d.day}{d.today && <span className="visually-hidden">{paren('', t('filters.today'))}</span>}</dt>
                         {/* Lunch and dinner each on a line of their own: run together
                             they wrapped mid-time on a phone. */}
                         <dd>{d.text ? d.text.split(', ').map(part => <span key={part} className="week-hours__slot">{hoursPieces(part)}</span>) : t('detail.notRecorded')}</dd>
@@ -1127,7 +1127,7 @@ export default function RestaurantDetail({
                             <span className="saved-row__status">
                               {otherStatus ? (
                                 <>
-                                  {planDate && planAt && <span className="place-card__at">{t(`hours.day.${DAY_KEYS[planAt.day]}`)}: </span>}
+                                  {planDate && planAt && <span className="place-card__at">{colon(t(`hours.day.${DAY_KEYS[planAt.day]}`), '')}</span>}
                                   <span className={statusClass(otherStatus)}>{otherStatus.label}</span>
                                   {otherStatus.detail && <> · {otherStatus.detail}</>}
                                 </>

@@ -12,3 +12,5 @@ export const paren = (label, note) => (wide() ? `${label}（${note}）` : `${lab
 // between two sentences set side by side.
 export const listComma = () => (wide() ? '、' : ', ');
 export const sentenceGap = () => (wide() ? '' : ' ');
+// Words quoted back to the reader (what was searched for).
+export const quoted = (text) => (/^(ja|zh-Hant)/.test(i18next.language ?? '') ? `「${text}」` : `“${text}”`);

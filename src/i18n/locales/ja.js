@@ -598,7 +598,9 @@ export default {
     timeAm: '午前{{time}}',
     timePm: '午後{{time}}',
     // '12' or '24': which clock this language tells the time on (utils.js fromMinutes).
-    clock: '12h0',
+    // The 24-hour clock, as Japanese restaurant listings write hours
+    // (11:30, 22:00): 「午後0:00 開店」 for a noon opening read oddly.
+    clock: '24c',
     time24: '{{time}}',
     day: { sun: '日', mon: '月', tue: '火', wed: '水', thu: '木', fri: '金', sat: '土' },
   },

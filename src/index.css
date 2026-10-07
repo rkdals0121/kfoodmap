@@ -6830,3 +6830,9 @@ html[data-text='larger'] .detail-bar__map svg {
   margin: 0;
   padding: 0;
 }
+
+/* Japanese line breaking by the strict rules: a long-vowel mark or a small
+   kana does not start a line ("ハラールフレンドリ / ーの" did). */
+:root:lang(ja) {
+  line-break: strict;
+}

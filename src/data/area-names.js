@@ -77,11 +77,32 @@ const ALSO_NAMED = {
   nepal: ['네팔', 'ネパール', '尼泊尔', '尼泊爾'],
   uzbek: ['우즈벡', '우즈베크', '우즈베키스탄', 'ウズベク', '乌兹别克', '烏茲別克'],
   breakfast: ['朝食', '朝ごはん', '早餐', '早饭', '早飯', '아침식사', '아침'],
+  // Dishes, by the names a reader types for them: the records, their
+  // stories and their English menu lines say "bibimbap", "gimbap", "tofu".
+  // ("ビビンバ" found nothing, with the word on screen in the menu glosses.)
+  bibimbap: ['비빔밥', 'ビビンバ', 'ビビンパ', '拌饭', '拌飯'],
+  gimbap: ['김밥', 'キンパ', 'キムパプ', '紫菜包饭', '紫菜包飯'],
+  tteokbokki: ['떡볶이', 'トッポッキ', 'トッポギ', '炒年糕'],
+  sundubu: ['순두부', 'スンドゥブ', '嫩豆腐'],
+  tofu: ['두부', '豆腐'],
+  noodle: ['국수', '면', '麺', '面条', '麵'],
+  curry: ['카레', '커리', 'カレー', '咖喱', '咖哩'],
+  burger: ['버거', '햄버거', 'バーガー', 'ハンバーガー', '汉堡', '漢堡'],
+  pizza: ['피자', 'ピザ', '披萨', '披薩'],
+  pasta: ['파스타', 'パスタ', '意大利面', '義大利麵'],
+  salad: ['샐러드', 'サラダ', '沙拉'],
+  sandwich: ['샌드위치', 'サンドイッチ', 'サンド', '三明治'],
+  bagel: ['베이글', 'ベーグル', '贝果', '貝果'],
+  kebab: ['케밥', 'ケバブ'],
+  lamb: ['양고기', 'ラム肉', '羊肉'],
+  buffet: ['뷔페', 'ビュッフェ', 'バイキング', '自助餐'],
+  hanok: ['한옥마을', '한옥', '韓屋村', '韩屋村', '韓屋', '韩屋'],
   Jamsil: ['롯데월드', 'ロッテワールド', '乐天世界', '樂天世界'],
 };
 
 // The entries of ALSO_NAMED that are kinds of cooking, not places.
-export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'prayer', 'mosque', 'indian', 'indonesian', 'turkish', 'nepal', 'uzbek']);
+export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'prayer', 'mosque', 'indian', 'indonesian', 'turkish', 'nepal', 'uzbek',
+  'bibimbap', 'gimbap', 'tteokbokki', 'sundubu', 'tofu', 'noodle', 'curry', 'burger', 'pizza', 'pasta', 'salad', 'sandwich', 'bagel', 'kebab', 'lamb', 'buffet', 'hanok']);
 
 const TO_ROMAN = new Map([
   ...Object.entries(AREAS).flatMap(([roman, names]) => names.map(n => [n, roman])),

@@ -359,3 +359,14 @@ test('an Indonesian station is a station', () => {
   assert.deepEqual(stationOf('stasiun seoul'), stationOf('seoul station'));
   assert.equal(stationOf('stasiun'), null);
 });
+
+test('a dish is found by its name in the language of the reader', () => {
+  for (const [typed, english] of [['ビビンバ', 'bibimbap'], ['ビビンパ', 'bibimbap'], ['拌飯', 'bibimbap'], ['豆腐', 'tofu'], ['カレー', 'curry'], ['咖哩', 'curry'], ['サラダ', 'salad'], ['羊肉', 'lamb'], ['韓屋村', 'hanok']]) {
+    assert.ok(go(english).filteredRestaurants.length > 0, english);
+    assert.equal(ids(go(typed)), ids(go(english)), typed);
+  }
+  assert.equal(ids(go('全州 ビビンバ')), ids(go('Jeonju bibimbap')));
+  // A dish is not an area: the map does not go looking for a place called it.
+  assert.equal(go('ビビンバ').areaOnly ?? false, false);
+});
+

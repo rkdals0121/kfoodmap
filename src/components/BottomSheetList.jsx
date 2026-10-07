@@ -13,6 +13,7 @@ import { TRAIT_GROUPS } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
 import { romaniseQuery } from '../data/area-names';
+import { colon, quoted } from '../i18n/punct';
 
 const CHIP_LABEL_KEY = {
   ...Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey])),
@@ -77,7 +78,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
             {stop > 0 && (
               <>
                 <span className="place-card__stop" aria-hidden="true">{stop}</span>
-                <span className="visually-hidden">{t('detail.journeyPrev', { index: stop })}: </span>
+                <span className="visually-hidden">{colon(t('detail.journeyPrev', { index: stop }), '')}</span>
               </>
             )}
             {name}
@@ -104,7 +105,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
           {status ? (
             <>
               {/* Which day the answer is for: "Open" alone read as now. */}
-              {atLabel && <span className="place-card__at">{atLabel}: </span>}
+              {atLabel && <span className="place-card__at">{colon(atLabel, '')}</span>}
               <span className={statusClass(status)}>{status.label}</span>
               {status.detail && <> · {status.detail}</>}
             </>
@@ -200,7 +201,7 @@ export default function BottomSheetList({
                           const st = planDate ? getOpenStatus(place.hours, planDate, { nameDay: true }) : getOpenStatus(place.hours);
                           return (
                             <span className="saved-row__status">
-                              {st ? <>{planDate && planAt && <span className="place-card__at">{t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) })}: </span>}<span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>}
+                              {st ? <>{planDate && planAt && <span className="place-card__at">{colon(t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }), '')}</span>}<span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>}
                             </span>
                           );
                         })()}
@@ -505,7 +506,7 @@ export default function BottomSheetList({
                 ...activeFilters.map(id => (id === OPEN_AT && planAt
                   ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) })
                   : t(CHIP_LABEL_KEY[id] ?? id))),
-                ...(searchQuery.trim() ? [`“${searchQuery.trim()}”`] : []),
+                ...(searchQuery.trim() ? [quoted(searchQuery.trim())] : []),
               ].join(' + ')}
             </p>
           )}
