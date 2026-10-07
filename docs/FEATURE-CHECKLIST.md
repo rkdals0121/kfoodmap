@@ -23,7 +23,7 @@ A5. First visit to `/` (no `kfm-prologue`) → the Prologue screen replaces the 
 A6. Prologue language row (`.prologue-languages`, 6 buttons: English, 日本語, 简体中文, 繁體中文, Bahasa Indonesia, 한국어) → tapping one switches all prologue text at once; the pressed one has `aria-pressed=true` / class `is-current`; each button carries its own `lang`.
 A7. "What are you looking for?" group (`.prologue-start`) → two toggle buttons Vegan and Halal; both can be on at once; `aria-pressed` reflects state; hint "Optional — you can change it on the map."
 A8. Legend "How to read a claim" → 4 rows: "Fully vegan · Confirmed" (strong), "Halal-friendly · Reported" (medium), "Vegan options · Our reading" (weak), "Not known" (none), each with its explanation, then the note "Menus and kitchens change…".
-A9. Press "Open the map" (`.prologue-btn`) with no diet chosen → the map screen opens with no chip on; `localStorage.kfm-prologue = 'true'`.
+A9. Press "Open the map" (`.prologue-btn`) with no diet chosen → the map screen opens with no chip on; `localStorage.kfm-prologue = 'true'`. If the map's files are not in yet, the interim screen of A18 shows first.
 A10. Choose Vegan (or both) then "Open the map" → the map opens with those chips on (`.chip.active`), the list is filtered and the URL gains `#f=Vegan` (or `#f=Vegan,Halal`).
 A11. Reload after A9 → Prologue is not shown again.
 A12. First visit directly to `/place/<id>` or `/find/halal-busan` → Prologue is skipped (the place / guide shows); it is NOT marked seen, so a later first visit to `/` still shows it.
@@ -34,7 +34,7 @@ A16. Slow language chunk on first visit (non-English browser) → the app waits 
 A18. First visit, press "Open the map" before the map's files have arrived (throttle, or block `*/assets/App-*`) → an interim screen (`.opening-map`: logo, "K-Food Map", `role=status` "Loading the map…") shows until the map is in; the diet chosen is on when it opens. Pressed after the files are in, the map opens at once with no interim screen.
 A19. Same with `App-*.js` blocked for good → after two tries the interim screen says "This is taking a while. The connection may be slow." with a green "Try again"; pressing it reloads with the chosen diet in the address (`#f=Halal`), so the diet is still on when the map does open. No "Something went wrong" screen.
 A20. Any visit that is not a first visit to the map (returning; `/place/<id>`; `/find/...`; `?list=`) → the head script adds `modulepreload` links for the language file and the map's files at once, and a `preconnect` to the tile server; a first visit to the map adds only the language file (`window.__kfmWelcome === true`).
-A17. [phone] Prologue at 360x640 → the diet choice sits above the legend and is visible without scrolling; the page scrolls to reach the button; no horizontal scroll.
+A17. [phone] Prologue at 360x640 → the diet choice sits above the legend and is visible without scrolling; "Open the map" is held to the bottom of the screen and always visible, the legend scrolling under it (taller than 600 px; on a shorter screen it sits at the end of the page); no horizontal scroll.
 
 ## B. Map
 
@@ -63,7 +63,7 @@ B22. Turn on "Saved" or open a shared list / journey → the map fits ALL of tho
 B23. Load `/#q=Busan&f=Vegan` → on arrival the map frames the Busan results (not Seoul). Load `/place/<id>#q=Busan` → map stays on that place.
 B24. "Search this area" button (`.map-area-btn`, top-left) → appears only after the user moves the map by hand (drag, pinch, wheel, double-tap, zoom buttons), ~350 ms after the move settles, and only if some but not all listed places are inside the visible box. Not offered after a pin tap moved the map.
 B25. Press "Search this area" → the list is narrowed to places inside the visible map box; a line "Only places on the map" + "Show all" button (`.place-list__in-map`) appears; the count updates; the pins are NOT reduced; the button disappears.
-B26. After B25: press "Show all", edit the search, turn on Saved / open a shared list, press My location, or change a chip so nothing/everything is in the box → the narrowing is dropped and the full list returns.
+B26. After B25: press "Show all", edit the search, turn on Saved / open a shared list, press My location (once a position has actually been found — a refusal or a failure keeps the narrowing), or change a chip so nothing/everything is in the box → the narrowing is dropped and the full list returns.
 B27. "Search this area" is hidden while: a place is open, Saved/shared list is on, the locate status is asking/denied/unavailable/outside, or in phone landscape. At <= 340 px wide it shows text without the icon.
 B28. Tile fails to load (flaky network) → that tile is requested again after 2 s, then 6 s (max 2 retries) without moving the map. [needs: throttling]
 B29. Resize across 768 px (or rotate) → the map re-measures itself (no grey bands / cropped tiles).
@@ -178,7 +178,7 @@ E22. URL follows the chips → `#f=Vegan,Halal` (ids: Vegan, Fully vegan, Halal,
 E23. Reload with chips/search on (on the map, a tab, or a place page) → the same chips, search and planned time are restored.
 E24. Open `/#f=Open%20at&at=0-1140` on a phone → Open at… on for Sun 7:00 PM and the sheet starts fully open.
 E25. Malformed hash → unknown chip ids are dropped; `at` must be day 0–6 and minutes < 1440 in steps of 30 or it is ignored; `q` is cut to 80 chars; both "Open now" and "Open at" in `f` → Open at is dropped.
-E26. Edit the hash by hand in the address bar (or Back/Forward to an entry with another hash) → the view updates to that search / chips / time; a "Saved" filter or shared list in force is kept.
+E26. Edit the hash by hand in the address bar (or Back/Forward to an entry with another hash) → the view updates to that search / chips / time; a shared list in force is kept, and so is "Saved" when the address was edited to the same view; an entry gone back to that names another view drops "Saved". Closing a place or a sheet is not a Back: the view on screen stays and is written to the entry landed on (chips cleared beside a docked place stay cleared).
 
 ## F. Place detail (`/place/:id`)
 
@@ -188,7 +188,7 @@ F2. [phone] Bottom bar (`.detail-bar`) → Close (X), "Naver Map" link, "Kakao M
 F3. [phone] Peek (opened from a pin) → height matches the half-height list; has a top button `.detail-expand` (aria-label "Show the full page"); not modal (no backdrop, map live, list inert).
 F4. [phone] Peek → full page when: pressing `.detail-expand`, scrolling the content down (> 4 px), mouse wheel down, or pulling the sheet up [needs: touch]; rotating to landscape also makes it full and it stays full.
 F5. [phone][needs: touch] Pull the sheet down from the top of its content → it follows the finger; released past ~110 px it slides away and closes; short of that it springs back. Not when scrolled down, with two fingers, or under the large-name overlay.
-F6. [desktop 768–1199] → docked panel over the left part of the map (`.detail-sheet--docked`, plus `--below-search` on the Map tab so search/chips stay usable); no backdrop, no bottom bar, not `aria-modal`; map and list remain interactive.
+F6. [desktop 768–1199] → docked panel in the list's column, as wide as the list (380 px up to 1023, 420 px from 1024), under the search box and the chips; it covers the list, not the map (`.detail-sheet--docked`, plus `--below-search` on the Map tab so search/chips stay usable); no backdrop, no bottom bar, not `aria-modal`; map and list remain interactive.
 F7. [desktop >= 1200] → three columns: list (420 px), place panel (400 px, left: 420 px), map. With the sidebar collapsed the panel sits at left 64 px.
 F8. Close by X, backdrop tap (phone), bottom-bar X, or Escape → returns to the list/tab it was opened from; URL back to `/` (+ `?list=…` when a list is in force) or the tab path, hash kept.
 F9. Browser/Android Back with a place open (opened in-app) → closes it and does not reopen it on a second Back; Forward reopens.
@@ -197,13 +197,13 @@ F11. Open a place via "Also nearby" → a NEW history step: Back returns to the 
 F12. Direct link / reload on `/place/<id>` then Close → goes to the map (`/`, replace) with the current tab behind; never leaves the site or does nothing.
 F13. Unknown, withdrawn or quarantined id (`/place/nope`) → redirected to `/` and the list shows the note "That place isn't on the map any more, or the link is wrong…" (only while no search/chip is on).
 F14. Document title while open → "<Name> · K-Food Map"; restored on close.
-F15. Focus → on open, focus moves into the sheet; on close it returns to the element that opened it (card button, journey stop, stamp) or, if that is gone, to the list (`#place-list`).
+F15. Focus → on open, focus moves into the sheet; on close it returns to the element that opened it (card button, journey stop, stamp) on every tab (a saved row or a stamp in the Journal, a journey stop in Discover, a row in Profile — found again by its kind and words when the tab was drawn anew); if it is gone, to the place's own card, then the list (`#place-list`). A box for typing that merely was the last thing focused is not given focus. Test with a focused window: a headless page fires no focus events unless focus is emulated.
 F16. Scroll memory → opening a different place starts at its top; coming BACK to a place (Back from nearby place or from /cards) restores where it was scrolled.
 F17. Late details do not shove content → on a slow connection, scroll the page before menu/transit/phone arrive: what was at the top of the view stays put when they are inserted. [needs: throttling]
 
 ### Header and dietary claims
 F18. Header → place name as H2 (Korean part wrapped in `lang="ko"`; in Korean UI the Korean name alone), meta line: area · "X from you" (only when located) · open status word in bold (`is-open` / `is-soon` / `is-closed`).
-F19. Claim buttons (`ul.fact-row[aria-label="Dietary and dining facts"] button.claim-fact`) → each shows icon, label ("Fully vegan", "Vegan options", "Halal certified", "Halal-friendly", "Pork-free"), confidence word ("Confirmed", "Reported", "Our reading", "Community-checked") and "Why?"; styled by tone (`claim--…`). Pork-free has no crescent.
+F19. Claim buttons (`ul.fact-row[aria-label="Dietary and dining facts"] button.claim-fact`) → each shows icon, label ("Fully vegan", "Vegan options", "Halal certified", "Halal-friendly", "Pork-free"), confidence word ("Confirmed", "Reported", "Our reading", "Community-checked") and "Why?"; styled by tone (`claim--…`). Pork-free has no crescent. (No live place is at "Community-checked" or "Halal certified" at present.)
 F20. Tap a claim → `aria-expanded=true` and the explanation `#claim-explain-vegan|halal` opens: "<label> · <level> — <research note>", then "Source: <source> (<site host>) · last checked <date>". Tap again or another claim → closes / switches (one open at a time).
 F21. Long research note → clamped to ~6 lines with a "Read the full note" button (`.claim-explain__more`, `aria-expanded`) → "Show less".
 F22. URLs inside a note → rendered as links named by host (new tab), trailing punctuation outside the link.
@@ -211,7 +211,7 @@ F23. Halal claim explanation → also shows "Whether alcohol is sold is not part
 F24. A known "no" → "No vegan dishes" / "Not halal" appear as claim buttons without a diet icon and are tappable for their source.
 F25. A diet with no claim → a plain grey chip "Vegan: not known" / "Halal: not known" (`.detail-otherdiet`).
 F26. Traits line (`.detail-traits`) → "Mild taste · Fermented · Zero waste · Locally sourced" with small icons; not chips.
-F27. Caveat box (`.diet-note`) → title + body by the weakest confidence on the place: "Checked against a primary source." / "Reported, not confirmed." / "Our reading, not a stated fact." / "No dietary information yet."; hidden while a claim explanation is open.
+F27. Caveat box (`.diet-note`) → title + body by the weakest confidence on the place: "Checked against a primary source." / "Reported, not confirmed." / "Our reading, not a stated fact." / "No dietary information yet."; the caveat sentence hides while a claim explanation is open; the box with "Ask in Korean" and the certificate line stays.
 F28. "Ask in Korean: cards to show staff" link (`.diet-note__ask`) → opens `/cards?card=muslim` for a halal-only place, otherwise `?card=vegan`; closing the cards returns to this place at the same scroll position.
 F29. Place with a claimed certificate → line "Certification claimed: <body> — we have not seen the certificate." (or "… — <note>").
 
@@ -220,7 +220,7 @@ F30. Hours row → status + detail, then "Today: <hours>" (each time range wraps
 F31. Device clock not on Korean time (change OS time zone) → extra line "Korean time — it is <time> there now". Not shown on a KST device.
 F32. With "Open at…" on → a second labelled row "<Day time>: Open/Closed · …" under the now-status.
 F33. "Hours for the week" (`details.week-hours`) → opens a Mon–Sun list; today is marked (`.is-today`); lunch/dinner on separate lines with "(last order …)"; a day off reads "Closed"; an unrecorded day reads "Not recorded"; opening it scrolls it into view. Only for places with a weekly schedule.
-F34. "Report incorrect info" link under the week hours → `/submit?place=<id>` with topic "Opening hours" preselected.
+F34. "Report incorrect info" link under the week hours (`.detail-report--hours`; the general link lower down has the same words) → `/submit?place=<id>` with topic "Opening hours" preselected. The topic travels in the navigation state: `/submit?place=<id>` opened directly has none. A draft is kept only once something is typed — opened from the hours link and closed untouched, the general link opens with "Choose one".
 F35. Transit row (after full record loads) → "<Station> <Line>, exit N · M min walk"; when > 15 min adds " — a bus or taxi may be easier"; Korean UI shows Korean station/line names.
 F36. Phone row → link "Call 02-…" with `href="tel:+82…"` (leading 0 replaced by +82).
 F37. Links row → "Website" and/or "Instagram" open in a new tab.
@@ -238,7 +238,7 @@ F46. Toast region (`.toast-region[role=status][aria-live=polite]`) → one toast
 F47. "Share" → with Web Share: native sheet with title = name, text "Name — claims with confidence — area", URL = `origin/place/<id>` (no `#…`); button shows "Shared!" 2.5 s; dismissing the sheet changes nothing. Without Web Share: link copied, button shows "Link copied". If neither works: a `prompt` with the URL. [needs: share API for the first branch]
 
 ### Menu, directions, address
-F48. "Signature menu" section (only when the record has a menu) → rows of dish name (Korean in `lang=ko`), a small gloss under names (reader's language, when available), price formatted "14,000 KRW" (bare numbers get thousands separators; "unknown" → "Price not listed"; ko/ja/zh show 원 / ウォン / 韩元 / 韓元 and "약/約" for "~").
+F48. "Signature menu" section (only when the record has a menu) → rows of dish name (Korean in `lang=ko`), a small gloss under names (reader's language, when available), price formatted "14,000 KRW" (bare numbers get thousands separators; "unknown" → "Price not listed"; ko/ja/zh show 원 / ウォン / 韩元 / 韓元 and "약/約" for "~"). (No live price carries "~" at present; Indonesian writes "36.000 won".)
 F49. Menu notes → "Not every dish here is vegan: this place offers vegan options." (vegan = options) and "Dish names and prices are the restaurant's own, unverified, and may have changed." (menu not confirmed).
 F50. "Location and directions" → place name in bold, note about Naver/Kakao/Google, three links (`.detail-directions a`): Naver Map (`https://map.naver.com/p/directions/-/<x>,<y>,<name>/-/transit`), Kakao Map (`https://map.kakao.com/link/to/<name>,<lat>,<lng>`), Google Maps (`https://www.google.com/maps/dir/?api=1&destination=<lat>,<lng>`), all `target=_blank`, destination only (routing starts from the phone's location).
 F51. Address row → address + "Copy" button (aria-label "Copy: <address>") → clipboard gets the address, button reads "Copied!" for 2 s. Area-level addresses append " — area only".
@@ -261,8 +261,8 @@ F64. Photo hero / gallery (`.place-image--hero`, `.gallery-overlay`) → only fo
 ## G. Explore tab (Discover, `/discover`)
 
 G1. Header → bowl icon, H2 "Food Journeys", subtitle, and a link-button "Korean cards to show staff" (`.discover-cards-link`) → opens `/cards`; closing returns to Discover.
-G2. "Browse by area" (`.browse-areas`) → two rows, Vegan and Halal, each a horizontally scrollable list of up to 12 areas with at least 3 places, most first, each "Area <count>" (Korean names in Korean UI).
-G3. Tap an area link (e.g. Halal → Busan) → the Map tab opens with search "Busan", only the Halal chip on, in area-only mode (places IN Busan; Seoul's "Busan Jib" is excluded); URL `/#q=Busan&a=1&f=Halal`; the count equals the number on the link; the map frames them.
+G2. "Browse by area" (`.browse-areas`) → two rows, Vegan and Halal, each a horizontally scrollable list of up to 12 areas with at least 3 places, most first, each "Area <count>" (names in Korean in ko; in Japanese or Chinese script in ja, zh-Hans, zh-Hant; romanised in en and id).
+G3. Tap an area link (e.g. Halal → Busan) → the Map tab opens with search "Busan", only the Halal chip on, in area-only mode (places IN Busan; Seoul's "Busan Jib" is excluded); URL `/#q=Busan&a=1&f=Halal` (the name as shown: `/#q=ソウル&a=1&f=Vegan`, `/#q=서울&a=1&f=Vegan`); the count equals the number on the link; the map frames them.
 G4. Area link `href` → `/find/<diet>-<area>` (e.g. `/find/halal-busan`): opening it in a new tab loads the prerendered guide URL which the app turns into the same map view.
 G5. Edit the search text after G3 → area-only mode is dropped (`a=1` leaves the hash) and normal search applies.
 G6. Journey cards (`article.journey-card`) → 7 journeys (Itaewon, Jongno & Insadong temple food, Myeongdong halal-friendly, Jeonju, Busan, Jeju, Ansan Wongok-dong), each with title, description, a "N stops" toggle, a claims summary and a map button. A journey with a quarantined/missing stop is not shown at all.
@@ -275,7 +275,7 @@ G12. "Show these stops on the map" (`.journey-card__map`) → Map tab at `/?list
 G13. In journey view the list → a note "<Journey title> — N stops." (`.shared-list-note`), cards in journey order each prefixed with its stop number (`.place-card__stop`), "Save all" and "Show all places" buttons; [phone] the "N places" header row is hidden (`.place-list.is-shared`); [desktop] header hint "In the order of the journey".
 G14. Open a stop from the map or list in journey view → it opens with the journey nav and its numbered pin enlarges.
 G15. "Show all places" in journey view → the journey is closed, URL becomes `/`, and the search + chips that were on BEFORE the journey are restored (e.g. the diet chosen in the prologue).
-G16. Browser Back from the journey map → returns to Discover; the previous map view is restored when the list leaves the address.
+G16. Browser Back from the journey map → returns to Discover; the Map tab still shows the journey (K8); the earlier view returns with "Show all places".
 G17. "Food stories" section → H2 + subtitle; 4 story cards (Balwoo, Gamloheon Jeonju, Osegyehyang, Vegenarang Gwangalli; a missing one is dropped) with "Story" label, name, the story's first sentence and "Read story" → opens the place scrolled to its story.
 G18. Non-English UI before translated stories have loaded → note "Stories, menus and place descriptions are in English."; once loaded the first sentences are in the UI language.
 G19. Discover remembers for the visit → vertical scroll, which journeys are open, and the sideways scroll of each area row are restored when coming back from the map, a place or another tab.
@@ -306,7 +306,7 @@ I2. Settings rows (`.settings-list .settings-item`) in order → Language (value
 I3. Language row → opens the language sheet (`.language-picker[role=dialog][aria-modal]`, title "Choose a language") via a portal above the tab bar; the panel behind is inert.
 I4. Language sheet → 6 options in their own names with own `lang`; the current one has `active` + `aria-pressed=true` and receives focus; a note "Translations are new and may have mistakes…".
 I5. Choose a language → option shows " …" and `aria-busy` while its strings load (others `aria-disabled`); on success the sheet closes, the whole UI switches, `<html lang>` changes, and `kfm-language` is stored (reload keeps it).
-I6. Choose a language while offline / chunk blocked → after up to 10 s an alert "Could not load that language. Check your connection and try again."; the UI stays in the previous language; if the chunk arrives late after all, the language switches and the sheet closes. [needs: network control]
+I6. Choose a language while offline / chunk blocked → after up to 10 s an alert "Could not load that language. Check your connection and try again."; the UI stays in the previous language; if the chunk arrives late after all, the language switches and the sheet closes. [needs: network control] Pressed again after it failed, the choice is kept and the page loads anew (a browser never asks twice for a file that failed).
 I7. Close the language sheet → X button, tap on the dim overlay, Escape, or browser Back (Back closes only the sheet, staying on Profile); focus returns to the Language row.
 I8. Text size (`.text-size`, 3 "A" buttons titled Normal / Large / Larger, `aria-pressed`) → sets `html[data-text=large|larger]` (none for Normal): text in the list, place pages, tab panels, Journal, language sheet and confirm dialogs grows (x1.15 / x1.3); the map and bars keep their size; stored in `kfm-text-size` and applied before first paint on reload.
 I9. At Larger on 360x640 → no clipped or overlapping text in cards, chips, place page, bottom bar, Journal rows, Profile rows (visual check).
@@ -335,7 +335,7 @@ I28. iOS (Safari, not installed) → "Add to Home Screen" row toggles a help lin
 J1. Entry points → Discover link, Profile row, a place's "Ask in Korean" link, the empty-search ingredient hint, a direct URL, the installed app's shortcut. All open the same sheet (`.detail-sheet[role=dialog][aria-label="Korean cards to show staff"]`, content `.staff-cards`) over the current screen.
 J2. Card tabs (`.staff-cards__tabs`, group "Choose a card") → chips "I am vegan" / "I am Muslim" with `aria-pressed`; switching changes the statement, the questions and the word list, and the URL becomes `/cards?card=vegan|muslim` (replace, no new history entry).
 J3. Initial card → `?card=` in the URL wins; otherwise "muslim" when the Halal chip is on without Vegan/Fully vegan; otherwise vegan. From a place: the card matching that place's claims.
-J4. "Show this to staff" section → the Korean statement (4 lines, `lang=ko`, `.staff-card__paper`) with a "Show large" button ABOVE it; visible on the first screen at 360x640.
+J4. "Show this to staff" section → the Korean statement (4 lines, `lang=ko`, `.staff-card__paper`) with a "Show large" button ABOVE it; at 360x640 the button and the first three lines are on the first screen (the fourth line of the vegan card is cut by the fold).
 J5. "What it says" (`details.staff-card__meaning`, open by default) → the exact meaning of each line in the UI language. Hidden entirely in Korean UI.
 J6. "Show large" button or a tap on the card paper → full-screen overlay (`button.staff-large`) with the Korean lines sized as large as fits (22–120 px), "Tap to close"; app behind inert; screen kept awake; rotation re-fits.
 J7. "Questions to ask" → 9 questions per card, each a button with the meaning (UI language), the Korean, and the romanisation; tap → that one question large, with its meaning in small text under the Korean (no meaning in Korean UI).
@@ -373,7 +373,7 @@ L2. Chosen language persists across reloads (`kfm-language`); an invalid stored 
 L3. Switch to each of the 5 other languages → every UI string changes: tab bar, chips, search placeholder, list count/notes, empty states, place page headings/buttons, toasts, confirm dialogs, Discover, Journal, Profile, cards meanings, submit form, map buttons and messages, banners. No raw keys (e.g. `list.placeCount`) visible anywhere.
 L4. `<html lang>` equals the language; Korean fragments inside other languages carry `lang="ko"`; untranslated English content carries `lang="en"`.
 L5. Hours format per language → en "7:30 PM"; ja 午前/午後 with 0 for the 12 o'clock hour (午後0:30); zh 24-hour "19:30"; id 24-hour with a dot "19.30"; ko "오후 7:30", noon "낮 12:00", closing at midnight "자정".
-L6. Dates per language (saved / visited / last checked) → en "5 Oct 2026" style (en-GB), ja/zh/ko/id in their own format.
+L6. Dates per language → saved / visited in the Journal: en "5 Oct 2026" (en-GB, short month); a place's "Last checked" and its evidence lines: "5 October 2026" (long month); ja/zh/ko/id in their own format.
 L7. Korean UI specifics → place names show the Korean name (branch words translated: "미스터케밥 이태원"); areas show the Korean city + district; Discover area links in Hangul; the main address is the Korean one; station/line names in Korean; no Korean gloss beside section headings; cards hide the meaning lines.
 L8. Stories in the UI language → a place's "The food story" (and the sustainability line on cards, Discover story snippets) is shown translated once the language's story file has loaded; until then, or if it fails, the English text shows with the note "Stories, menus and place descriptions are in English." (loaded lazily; prefetched ~6 s after start when online; retried on reconnect).
 L9. "Why?" research notes in the UI language → shown translated when available; if the record was corrected after translation (length check mismatch) the English note is shown instead (stale-translation fallback). Certification line and timeline follow the same rule.
@@ -433,7 +433,7 @@ O8. Toggle buttons expose state → chips, hearts, Save / Been here, card tabs, 
 O9. Notes fold [phone] → the notes above the cards are clamped (2 lines; 1 line on a short phone, only the first note shown — the halal certificate note always keeps 2 lines, in body colour) and open on tapping a note or the toggle button (`.place-list__notes-toggle`, aria-label "Show or hide the notes", `aria-expanded`); with the Halal chip turned on and viewport height > 700 px they start open. [desktop] notes are shown in full, no toggle.
 O10. Non-drag alternatives → sheet handle button for the sheet heights; +/− buttons for pinch zoom; "Show the full page" button for the peek pull; X buttons for pull-to-close.
 O11. Reduced motion (`prefers-reduced-motion: reduce`) → no sheet slide transition, no map fly animation, chips scroll into view instantly.
-O12. Screen reader names → pins/clusters have `title`/`alt`; journey stop numbers are read as "Stop 1: Name"; card buttons are described by area, status and claims (`aria-describedby`); icon-only buttons all have aria-labels; decorative seals/icons are `aria-hidden`.
+O12. Screen reader names → pins/clusters have `title`/`alt`; journey stop numbers are read as "Stop 1: Name"; card buttons are described by area, status and claims (`aria-describedby`); icon-only buttons all have aria-labels; decorative seals/icons are `aria-hidden`. Every icon (`Icons.jsx`, the tab bar, the sidebar toggle) is `aria-hidden`.
 O13. Touch targets → interactive controls are at least ~44 px (32 px for map dots/clusters) at 360x640; nothing interactive sits under the tab bar or the bottom bar.
 O14. 320 px wide and 640x360 landscape → no horizontal page scroll; all primary actions reachable.
 O15. Zoom / text scaling → browser zoom 200 % and Text size "Larger" keep content readable and scrollable (no clipped dialogs).
@@ -441,12 +441,12 @@ O16. Forced dark mode → the page stays light (`color-scheme: only light`): pin
 
 ## P. Error and empty states
 
-P1. Search with no match, no chips (e.g. "zzzz") → empty block (`.place-list__empty`): pin icon, "No places match", criteria line "“zzzz”", "Clear search and filters" button, "Not on the map? Suggest it" button, hint "Try a different name or area."
+P1. Search with no match, no chips (e.g. "zzzz") → empty block (`.place-list__empty`): pin icon, "No places match", criteria line "“zzzz”", "Clear search and filters" button, "Not on the map? Suggest it" button, hint "Try a different name or area." (The hint line is hidden on a short phone — up to 767 px wide and 720 px tall.)
 P2. "Not on the map? Suggest it" → opens `/submit` with the typed text prefilled as the restaurant name; closing returns to the map with the search intact.
-P3. Search + chips with no match → criteria line "Halal + “xyz”" (Open at shown as "Open Tue 7:00 PM"), "Clear the search, keep the filters" (keeps chips), "“xyz” finds N without the filters." when the text alone finds something, "Clear search and filters", hint "Try removing a filter or searching a different name or area."; plus the nearest block when available (D27).
+P3. Search + chips with no match → criteria line "Halal + “xyz”" (Open at shown as "Open Tue 7:00 PM"), "Clear the search, keep the filters" (keeps chips), "“xyz” finds N without the filters." when the text alone finds something, "Clear search and filters", hint "Try removing a filter or searching a different name or area."; plus the nearest block when available (D27). (The hint line is hidden on a short phone — up to 767 px wide and 720 px tall.)
 P4. "Clear search and filters" → everything cleared (also a shared list: URL becomes `/`); focus goes to the search box on mouse/keyboard devices, to the list on touch devices (no keyboard pops up).
 P5. Ingredient/allergen search with nothing found ("peanut", "gluten", "allergy", "알레르기", "五辛", "ナッツ") → hint "The map does not check ingredients or allergens place by place…" with a link "Korean cards to show staff" → `/cards`. "ドーナッツ"/"ココナッツ" do not trigger it.
-P6. Chips only with no match (e.g. Fully vegan + Halal + Fermented) → "No places match", criteria "A + B + C", "Clear search and filters", hint about removing a filter.
+P6. Chips only with no match (e.g. Fully vegan + Halal + Fermented) → "No places match", criteria "A + B + C", "Clear search and filters", hint about removing a filter. (The hint line is hidden on a short phone — up to 767 px wide and 720 px tall.)
 P7. Missing place (F13) → note in the list; it does not block using the map.
 P8. Map crash → in place of the map: "The map could not be drawn. The list below still works." with a "Try the map again" button (`.map-error`); list, search, places, Journal keep working. (Hard to trigger; verify by code or by forcing a Leaflet error.)
 P9. App crash → full-screen "Something went wrong on this screen." (`main.app-error [role=alert]`) with a focused "Reload" button and a "K-Food Map" link to `/`.
@@ -461,7 +461,7 @@ P13. Old browsers (iOS 15, Chrome 100) → app renders (polyfills for `Object.ha
 Q1. Open from Profile → sheet (`.detail-sheet[aria-label="Privacy Policy"]`, content `.privacy-content`); title "Privacy Policy · K-Food Map"; close by X, backdrop or Escape → back to Profile with focus on the Privacy row; direct URL → Close goes to the map.
 Q2. English UI → English policy open (title, effective date, sections, contact e-mail as `mailto:` link or a "pending" line); Korean folded under `<details>` "한국어 전문". Korean UI → Korean open, "English (full text)" folded.
 Q3. ja / zh-Hans / zh-Hant / id UI → the translated policy is shown first (with its translation note); BOTH English and Korean are folded under their names. If the translation cannot be loaded → the note "This policy is written in English and Korean." and the English text open.
-Q4. Inline code marks in the policy (storage key names such as `kfm-bookmarks`) are rendered as `<code>`.
+Q4. Inline code marks in the policy (the one storage key the policy names, `kfm-auth-code-verifier`) are rendered as `<code>`.
 Q5. The submit form's "How we handle what you send" link opens `/privacy` in a NEW tab (typed text in the form is not lost).
 Q6. Policy content matches behaviour: location never stored or sent; search/filter kept in the URL fragment only; saved places local unless signed in. (Content check against Q/B/I items.)
 
@@ -479,7 +479,7 @@ Q16. Draft kept for the visit → type a message, close the sheet (or switch tab
 Q17. Honeypot → the hidden "Leave this empty" field is not reachable by Tab or screen reader; if filled (by script) the form shows the success screen and sends nothing.
 Q18. Build without Supabase config → the sheet shows only "Submissions aren't enabled in this build." (not the case on the live site unless misconfigured).
 Q19. Close → from inside the app: back to where it was opened (place, Profile, map with search intact); by direct URL: a correction closes to its place page, a new suggestion to the map. Escape and backdrop close too.
-Q20. `/api/place-search` contract → non-GET 405; `q` shorter than 2 → 400 `tooShort`; longer than 50 → 400 `tooLong`; > 30 requests/min from one IP → 429; upstream failure → 502; success → `{results:[{id,name,address,lat,lng,category}]}` (max 5) with `Cache-Control: s-maxage=3600, stale-while-revalidate=86400`; the Kakao key never reaches the browser.
+Q20. `/api/place-search` contract → non-GET 405; `q` shorter than 2 → 400 `tooShort`; longer than 50 → 400 `tooLong`; > 30 requests/min from one IP → 429; upstream failure → 502; success → `{results:[{id,name,address,lat,lng,category}]}` (max 5) with `Cache-Control: s-maxage=3600, stale-while-revalidate=86400`; the Kakao key never reaches the browser. The browser receives `public, max-age=0, must-revalidate`; `s-maxage` is consumed by the CDN (`X-Vercel-Cache: HIT` on a repeat).
 
 ### Misc
 Q21. Distance formatting → under ~1 km in metres rounded to 50 m (minimum "50 m"), 1–10 km with one decimal ("2.4 km"), above that whole km ("12 km").

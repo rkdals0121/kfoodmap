@@ -3543,6 +3543,35 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       6.5-8.5 s before, 3.4-4.3 s after. Returning visits unchanged.
       Measure with `node scripts/perf/first-visit.mjs <url>` and
       `returning-visit.mjs` (headless Chrome, throttled), several runs.
+    - Failed imports are final for the page: a browser answers a second
+      `import()` of a file that failed with the same failure, without a
+      request. So there is no in-page retry anywhere — the map's "Try
+      again" and a language pressed again after failing both reload
+      (`startAgain` in `Root.jsx` keeps the diet in `#f=`;
+      `failedLanguages` in `TabPanel.jsx` stores the choice first).
+    - History (`src/App.jsx`, `src/ownBack.js`): a module-level
+      `popstate` listener, registered when `App.jsx` loads and so heard
+      before the router's, marks a landing; the effect that writes the
+      view to the hash waits while it is set, and the AppShell listener
+      then shows the entry's view. A step back the app takes itself
+      (closing a place, a sheet, an overlay — call `ownBack()` first)
+      keeps the view on screen instead. Any new `navigate(-1)` or
+      `history.back()` in the app must call `ownBack()`.
+    - Focus (`src/hooks/useOverlay.js`): the last focus in the app is
+      forgotten only when a press elsewhere took it; `markOf` /
+      `findByMark` find an opener's twin after its tab was drawn again;
+      `useReturnFocus` for sheets with an address of their own; a typing
+      box is never focused from memory. Headless pages fire no focus
+      events: `shot.mjs` emulates a focused window.
+    - Map: the open place always has a pin (`selectedPlace`);
+      `visibleCenter` leaves out what a docked place covers
+      (`dockCover`); `FollowResults` frames a search owed from an
+      opening on a place when that place closes.
+    - `src/i18n/punct.js`: `colon(label, value)` and `paren(label,
+      note)` for text joined in code — full-width marks in ja and zh.
+    - The second full pass of `docs/FEATURE-CHECKLIST.md` on the live
+      site (2026-10-08 night) is in MOBILE-AUDIT §25, with what was
+      left.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

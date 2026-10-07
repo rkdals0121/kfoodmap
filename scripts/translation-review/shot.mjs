@@ -1,13 +1,15 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
 // steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), block (url patterns) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
+// A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const steps = JSON.parse(readFileSync(process.argv[2], 'utf8'));
-const port = 9300 + Math.floor(process.pid % 500);
+// A port of its own per run: two runs side by side used to land on one.
+const port = 9300 + Math.floor((process.pid * 7 + Date.now()) % 2000);
 const dir = mkdtempSync(join(tmpdir(), 'kfm-shot-'));
 const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', [
   '--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${dir}`, '--hide-scrollbars', '--no-first-run', '--disable-gpu', 'about:blank',
@@ -24,9 +26,11 @@ let id = 0;
 const pending = new Map();
 ws.onmessage = (e) => { const m = JSON.parse(e.data); if (m.id && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); } };
 const send = (method, params = {}) => new Promise(r => { const n = ++id; pending.set(n, r); ws.send(JSON.stringify({ id: n, method, params })); });
-const evalJs = async (expression) => (await send('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true })).result?.result?.value;
+const evalJs = async (expression) => { const r = (await send('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true })).result; if (r?.exceptionDetails) console.log('EXCEPTION', r.exceptionDetails.exception?.description ?? r.exceptionDetails.text); return r?.result?.value; };
 await send('Page.enable');
 await send('Runtime.enable');
+// As a window in front: without this no focus events fire in a headless page.
+await send('Emulation.setFocusEmulationEnabled', { enabled: true });
 for (const s of steps) {
   await send('Emulation.setDeviceMetricsOverride', { width: s.w ?? 360, height: s.h ?? 640, deviceScaleFactor: s.dpr ?? 2, mobile: (s.w ?? 360) < 768 });
   if (s.touch !== false && (s.w ?? 360) < 768) await send('Emulation.setTouchEmulationEnabled', { enabled: true });
