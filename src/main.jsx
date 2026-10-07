@@ -12,6 +12,7 @@ import './hooks/useInstall'
 import { applyTextSize, readTextSize } from './textSize'
 import AppErrorBoundary from './components/AppErrorBoundary.jsx'
 import Root from './Root.jsx'
+import { firstVisit, loadMap } from './startup'
 
 // The reader's text size, before the first paint.
 applyTextSize(readTextSize())
@@ -26,7 +27,13 @@ if (typeof caches !== 'undefined') caches.delete('kfm-tiles').catch(() => {})
 // …but not for long: on a slow first visit the app opens in English after
 // 2.5 s and switches when the language arrives.
 const patience = new Promise(resolve => setTimeout(resolve, 2500))
-Promise.race([startLanguage().catch(() => {}), patience]).then(() => {
+// On any visit but a first one the map is what is shown, and the screen
+// index.html put up stays until the map's file is in: drawn before that,
+// the app could only put up a loading screen of its own in its place (a
+// line shorter, so the page jumped). If the file cannot be had, the app
+// starts anyway and says so (Root.jsx).
+const mapIn = firstVisit() ? Promise.resolve() : loadMap().catch(() => {})
+Promise.all([Promise.race([startLanguage().catch(() => {}), patience]), mapIn]).then(() => {
   createRoot(document.getElementById('root')).render(
     <StrictMode>
       <AppErrorBoundary>

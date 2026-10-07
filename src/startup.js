@@ -15,3 +15,14 @@ export function firstVisit() {
   try { seen = localStorage.getItem('kfm-prologue') === 'true'; } catch { /* storage blocked: not seen */ }
   return !seen && !/^\/(place|find)\//.test(window.location.pathname) && !/[?&]list=/.test(window.location.search);
 }
+
+// The map — its code and the places, most of what there is to download —
+// is its own file, asked for once. (A file that failed to arrive cannot be
+// asked for again from the same page: the browser remembers the failure
+// and answers a second import() with it at once, without a request. The
+// way back is a new load of the page.)
+let mapFile = null;
+// …and the file itself once it is in, for whoever starts after that.
+let mapIn = null;
+export const mapLoaded = () => mapIn;
+export const loadMap = () => (mapFile ??= import('./App.jsx').then((file) => { mapIn = file; return file; }));

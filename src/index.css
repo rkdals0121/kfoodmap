@@ -5944,8 +5944,17 @@ html[data-text='larger'] .detail-bar__map svg {
   font-weight: 800;
   color: var(--ink-title);
 }
+.opening-map__name {
+  margin-top: 6px;
+  line-height: 1.25;
+}
+.opening-map__tagline {
+  margin-top: -10px;
+  font-size: 15px;
+  color: var(--ink-body);
+}
 .opening-map__status {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--muted-strong);
 }
 .opening-map__retry {

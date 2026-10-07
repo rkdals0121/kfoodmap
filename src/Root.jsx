@@ -2,22 +2,13 @@ import { useCallback, useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import Prologue from './components/Prologue.jsx'
-import { startup, firstVisit } from './startup'
+import { startup, firstVisit, loadMap, mapLoaded } from './startup'
 
-// The map — its code and the places, most of what there is to download —
-// is its own file. A first visit shows the welcome screen as soon as this
-// small file is in, and fetches the map while that is read; any other
-// visit asks for the map at once (index.html asks for its files beside
-// this one, so nothing arrives later than it did).
-//
-// A file that failed to arrive cannot be asked for again from the same
-// page: the browser remembers the failure and answers the second import()
-// with it at once, without a request. The way back is a new load of the
-// page (startAgain, below).
-let mapFile = null
-const loadMap = () => (mapFile ??= import('./App.jsx'))
+// A first visit shows the welcome screen as soon as this small file is in,
+// and fetches the map (startup.js loadMap) while that is read. Any other
+// visit asks for the map at once — index.html asks for its files beside
+// this one, and main.jsx keeps the first loading screen up until it is in.
 const welcome = firstVisit()
-if (!welcome) loadMap()
 
 // Start again, keeping the diet picked on the welcome screen: it is only
 // in memory, and the next load is no longer a first visit. Carried in the
@@ -49,6 +40,9 @@ function OpeningMap({ failed }) {
       {/* The mark of the screen index.html shows first, so the two read as one. */}
       <svg width="56" height="56" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#087F5B"/><g transform="translate(256 256) scale(1.0) translate(-256 -256)"><path d="M17 42.5C17 42.5 31.5 26.4 31.5 15.6C31.5 7.6 25 1.5 17 1.5C9 1.5 2.5 7.6 2.5 15.6C2.5 26.4 17 42.5 17 42.5Z" transform="translate(133.6 97.6) scale(7.2)" fill="#FFFFFF"/><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 1 0 10.5 10.5Z" transform="translate(188.8 141.4) scale(5.6)" fill="#087F5B"/><path d="M20 4c0 8.5-5.5 15-15 15C5 10.5 11.5 4 20 4Z" transform="translate(252.8 165.4) scale(2.0)" fill="#087F5B"/></g></svg>
       <p className="opening-map__name">K-Food Map</p>
+      {/* …tagline and all: without it the page lost a line as this took over
+          from that screen, on every visit after the first. */}
+      <p className="opening-map__tagline">{t('prologue.title').replace(/[.。]$/, '')}</p>
       <p role="status" className="opening-map__status">{t(stuck ? 'app.loadingSlow' : 'app.loadingMap')}</p>
       {stuck && <button type="button" className="opening-map__retry" onClick={startAgain}>{t('app.tryAgain')}</button>}
     </main>
@@ -61,7 +55,8 @@ export default function Root() {
   // ({ failed }). Kept in state rather than read through lazy(): pressed
   // after the map has arrived, "Open the map" goes straight to it, with no
   // loading screen for a frame in between.
-  const [map, setMap] = useState(null)
+  // (Already in on any visit but a first one: main.jsx waited for it.)
+  const [map, setMap] = useState(() => (mapLoaded() ? { App: mapLoaded().default } : null))
   const fetchMap = useCallback(() => {
     loadMap().then(
       (file) => setMap({ App: file.default }),
