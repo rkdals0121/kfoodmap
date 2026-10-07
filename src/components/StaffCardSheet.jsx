@@ -126,7 +126,8 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                     <button type="button" className="staff-question" onClick={() => openLarge([q.ko], gloss ? t(`cardText.${q.key}`) : '')}>
                       {gloss && <span className="staff-question__en">{t(`cardText.${q.key}`)}</span>}
                       <span className="staff-question__ko" lang="ko">{q.ko}</span>
-                      <span className="staff-question__roman">{q.roman}</span>
+                      {/* How it sounds, for a reader who cannot read Hangul — not for one who can. */}
+                      {gloss && <span className="staff-question__roman">{q.roman}</span>}
                     </button>
                   </li>
                 ))}
@@ -139,7 +140,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <dl className="staff-words">
                 {STAFF_ANSWERS.map(a => (
                   <div key={a.ko}>
-                    <dt><span lang="ko">{a.ko}</span> <span className="staff-words__roman">{a.roman}</span></dt>
+                    <dt><span lang="ko">{a.ko}</span>{gloss && <> <span className="staff-words__roman">{a.roman}</span></>}</dt>
                     <dd>{t(`cardText.${a.key}`)}</dd>
                   </div>
                 ))}
@@ -152,7 +153,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <dl className="staff-words">
                 {MENU_WORDS.filter(w => !w.only || w.only === cardId).map(w => (
                   <div key={w.ko}>
-                    <dt><span lang="ko">{w.ko}</span> <span className="staff-words__roman">{w.roman}</span></dt>
+                    <dt><span lang="ko">{w.ko}</span>{gloss && <> <span className="staff-words__roman">{w.roman}</span></>}</dt>
                     <dd>{t(`cardText.${w.key}`)}</dd>
                   </div>
                 ))}
