@@ -217,6 +217,9 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
                         className="browse-areas__link"
                         href={`/find/${chip.id.toLowerCase()}-${area.toLowerCase()}`}
                         onClick={(e) => { e.preventDefault(); onBrowse(chip.id, areaName(area)); }}
+                        // "Seoul, 244 places": the bare number after the name said
+                        // nothing of what it counts.
+                        aria-label={`${areaName(area)}, ${t('list.placeCount', { count })}`}
                       >
                         {areaName(area)} <span className="browse-areas__count">{count}</span>
                       </a>
@@ -294,6 +297,9 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
                 <button
                   type="button"
                   className="journey-card__map"
+                  // Named with its journey: seven buttons on the page all said
+                  // "Show these stops on the map".
+                  aria-label={colon(t('discover.showOnMap'), journey.text.title)}
                   onClick={() => { askFreshList(); navigate(`/?list=${journey.stops.map(p => p.id).join(',')}&journey=${journey.id}`); }}
                 >
                   {t('discover.showOnMap')}
