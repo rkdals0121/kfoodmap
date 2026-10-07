@@ -266,6 +266,10 @@ function AppShell() {
       else navigate(pathOf('map'), { replace: true });
       return;
     }
+    // From the folded rail (wide screens) a tab is opened to be read: the
+    // list unfolds. Folded, the press only moved the highlight and nothing
+    // of Discover, the Journal or Profile came up.
+    setIsSidebarCollapsed(false);
     // Only a step taken from the map itself can be undone back to the map.
     // From a place open beside the list (wide screens) the tab replaces the
     // place, so "Map" does not bring the place back.
@@ -1032,7 +1036,7 @@ function AppShell() {
           out by every screen reader. */}
       <div className="toast-region" role="status" aria-live="polite" onFocus={() => setToastHeld(true)} onBlur={() => setToastHeld(false)} onPointerEnter={() => setToastHeld(true)} onPointerLeave={() => setToastHeld(false)}>
         {toast && (
-          <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}`} key={toast.at}>
+          <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}${selectedRestaurant && isWide && threeColumns ? ' toast--beside-place' : ''}`} key={toast.at}>
             <span>{toast.text}</span>
             {toast.undo && (
               <button type="button" className="toast__undo" onClick={() => { const undo = toast.undo; setToastHeld(false); setToast(null); undo(); }}>
@@ -1052,7 +1056,9 @@ function AppShell() {
             onMapClick={mapClickStable}
             placePeek={placePeek}
             mapBox={inBox ? mapBox : null}
-            onSearchArea={searchAreaStable}
+            // On the map's own tab only: beside Discover or the Journal the
+            // button offered to narrow a list that is not on screen.
+            onSearchArea={activeTab === 'map' ? searchAreaStable : undefined}
             selectedId={selectedRestaurant?.id}
             selectedPlace={selectedRestaurant}
             onCenterChange={setMapCenter}

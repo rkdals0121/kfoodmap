@@ -152,3 +152,14 @@ test("the app's own step back is told from the reader's, once", async () => {
   await new Promise(resolve => setTimeout(resolve, 1700));
   assert.equal(takeOwnBack(), false); // no event came: not kept for a later Back
 });
+
+test("the loading screen's tagline is the welcome screen's headline in each language", async () => {
+  const body = scripts.find(s => s.includes('data-tagline'));
+  assert.ok(body, 'no script sets the tagline');
+  for (const { code, load } of LANGUAGES) {
+    if (!load) continue;
+    const locale = (await load()).default;
+    const headline = locale.prologue.title.replace(/[.。]$/, '');
+    assert.ok(body.includes(JSON.stringify(headline)), `${code}: ${headline}`);
+  }
+});
