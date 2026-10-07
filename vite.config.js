@@ -482,8 +482,14 @@ export default defineConfig({
             { name: 'places', test: /[\\/]src[\\/]data[\\/]restaurants\.js$/ },
             {
               name: 'vendor',
-              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|react-router|leaflet|react-leaflet|@react-leaflet|i18next|react-i18next)[\\/]/,
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|react-router|i18next|react-i18next)[\\/]/,
             },
+            // The map library on its own: the welcome screen of a first
+            // visit needs the libraries above and not this one, which
+            // arrives with the map (src/Root.jsx). Its scripts only: with
+            // leaflet.css in the group (main.jsx imports it, for the one
+            // stylesheet), the first file imported this one after all.
+            { name: 'maplib', test: /[\\/]node_modules[\\/](leaflet|react-leaflet|@react-leaflet)[\\/].*\.m?js$/ },
           ],
         },
       },
