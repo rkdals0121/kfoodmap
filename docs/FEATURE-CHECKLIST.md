@@ -221,7 +221,7 @@ F29. Place with a claimed certificate → line "Certification claimed: <body> �
 
 ### Practical rows
 F30. Hours row → status + detail, then "Today: <hours>" (each time range wraps as a unit); unknown → "Opening hours unknown — check before you go".
-F31. Device clock not on Korean time (change OS time zone) → extra line "Korean time — it is <time> there now". Not shown on a KST device.
+F31. Device clock not on Korean time (change OS time zone) → extra line "Korean time — it is <time> there now". Not shown on a KST device, nor on one with the same offset (Tokyo). Open / closed and "Today" stay Korea's. (`tz: "America/New_York"` in a `shot.mjs` step sets the device's zone.)
 F32. With "Open at…" on → a second labelled row "<Day time>: Open/Closed · …" under the now-status.
 F33. "Hours for the week" (`details.week-hours`) → opens a Mon–Sun list; today is marked (`.is-today`); lunch/dinner on separate lines with "(last order …)"; a day off reads "Closed"; an unrecorded day reads "Not recorded"; opening it scrolls it into view. Only for places with a weekly schedule.
 F34. "Report incorrect info" link under the week hours (`.detail-report--hours`; the general link lower down has the same words) → `/submit?place=<id>` with topic "Opening hours" preselected. The topic travels in the navigation state: `/submit?place=<id>` opened directly has none. A draft is kept only once something is typed — opened from the hours link and closed untouched, the general link opens with "Choose one".
