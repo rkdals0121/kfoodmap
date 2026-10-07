@@ -309,3 +309,17 @@ test('a diet word beside a station gives what the chip and the station give', ()
   }
   assert.equal(ids(go('vegan seoul station')), ids(go('seoul station', ['Vegan'])));
 });
+
+test('an area shown by its Japanese or Chinese name is one of its written forms, and finds the same places', async () => {
+  const { AREA_NAMES, AREA_SHOWN, shownArea } = await import('../../src/data/area-names.js');
+  for (const [language, names] of Object.entries(AREA_SHOWN)) {
+    for (const [area, name] of Object.entries(names)) {
+      assert.ok(AREA_NAMES[area]?.includes(name), `${language} ${area} ${name}`);
+      for (const chip of ['Vegan', 'Halal']) assert.equal(ids(go(name, [chip])), ids(go(area, [chip])), `${language} ${name} ${chip}`);
+    }
+  }
+  assert.equal(shownArea('Myeongdong', 'ja'), '明洞');
+  assert.equal(shownArea('Myeongdong', 'ko'), '명동');
+  assert.equal(shownArea('Myeongdong', 'en'), 'Myeongdong');
+  assert.equal(shownArea('Sokcho', 'ja'), 'Sokcho');
+});

@@ -20,7 +20,7 @@ import { askConfirm } from '../confirm';
 import { useBackToClose, useInertRoot, focusAfterOverlay } from '../hooks/useOverlay';
 import { matchesArea } from '../filters';
 import { matchesDietary } from '../data/verification';
-import { AREA_NAMES } from '../data/area-names';
+import { AREA_NAMES, shownArea } from '../data/area-names';
 import { CHIP_GROUPS } from '../i18n/labels';
 import Prologue from './Prologue';
 import ClaimChip from './ClaimChip';
@@ -153,9 +153,9 @@ function DiscoverTab({ onBrowse }) {
   const { t, i18n } = useTranslation();
   const stories = useStories();
   const navigate = useNavigate();
-  // Korean readers get the Korean name (first in each list); everyone else
-  // the romanised one, as on signs and in the records.
-  const areaName = (area) => (i18n.language === 'ko' ? AREA_NAMES[area][0] : area);
+  // Korean, Japanese and Chinese readers get the name as they write it;
+  // everyone else the romanised one, as on signs and in the records.
+  const areaName = (area) => shownArea(area, i18n.language);
   const panelRef = useRef(null);
   useEffect(() => {
     const el = panelRef.current;

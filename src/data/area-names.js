@@ -282,6 +282,18 @@ export function romaniseQuery(query) {
 
 export const AREA_NAMES = AREAS;
 
+// The name an area is shown by in "Browse by area" (Discover), for readers
+// of Japanese and Chinese: 明洞 is read at a glance where "Myeongdong" is
+// sounded out. Each is one of the written forms above — the test holds
+// that — and an area not listed here shows romanised, as before.
+const SHOWN = {
+  ja: { Seoul: 'ソウル', Gyeonggi: '京畿', Jeju: '済州', Jongno: '鍾路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龍山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '東大門' },
+  'zh-Hans': { Seoul: '首尔', Gyeonggi: '京畿', Jeju: '济州', Jongno: '钟路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龙山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '东大门' },
+  'zh-Hant': { Seoul: '首爾', Gyeonggi: '京畿', Jeju: '濟州', Jongno: '鍾路', Mapo: '麻浦', Busan: '釜山', Suwon: '水原', Incheon: '仁川', Gangnam: '江南', Jeonju: '全州', Yongsan: '龍山', Daegu: '大邱', Itaewon: '梨泰院', Ansan: '安山', Myeongdong: '明洞', Dongdaemun: '東大門' },
+};
+export const AREA_SHOWN = SHOWN;
+export const shownArea = (area, language) => (language === 'ko' ? AREAS[area]?.[0] : SHOWN[language]?.[area]) ?? area;
+
 // Areas offered as suggestions under the search box (FilterBar): the cities
 // and districts with the most places, so a first-time visitor sees that
 // the map is nationwide and what can be typed. Korean readers get the
