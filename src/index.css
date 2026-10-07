@@ -7044,3 +7044,9 @@ html[data-text='larger'] .stat-label {
   width: 1em;
   text-align: center;
 }
+
+/* "· 이야기" beside a heading wraps as one piece: the dot is not left at
+   the end of the line above (Indonesian, 320 px). */
+.section-head__kr {
+  white-space: nowrap;
+}

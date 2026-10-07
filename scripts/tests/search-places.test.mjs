@@ -399,3 +399,10 @@ test('gimbap is found alike in every script', () => {
   const english = ids(go('gimbap'));
   for (const typed of ['kimbap', '김밥', 'キンパ', '紫菜包饭', '紫菜包飯']) assert.equal(ids(go(typed)), english, typed);
 });
+
+test('면, 읍 or 리 after a name is a township only where a record has one', () => {
+  // 두부면 is tofu noodles; no record is in a "수원리" or a "제주읍".
+  assert.ok(go('두부면').filteredRestaurants.length > 10);
+  assert.ok(go('제주읍').filteredRestaurants.length > 10);
+  assert.ok(go('수원리').filteredRestaurants.length > 10);
+});

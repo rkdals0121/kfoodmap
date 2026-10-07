@@ -1,3 +1,5 @@
+import { ADDRESS_KO } from './address-ko.js';
+
 // Place names as a visitor types them. The records hold areas in English
 // romanisation ("Myeongdong, Seoul"); someone using the app in Japanese,
 // Chinese or Korean types 明洞, ソウル or 부산. Each entry maps the names a
@@ -227,6 +229,11 @@ export const romanisedArea = (word) => TO_ROMAN.get(String(word ?? '').trim()) ?
 const CITY_SUFFIX = new Set(['市', '시', '市内', '시내', '도', '道', '구', '區', '区', '동', '洞', '입구', '入口', '岛', '島']);
 const SI_IN_ADDRESS = new Set(['Jeju']);
 const TOWNSHIP_SUFFIX = { '면': 'myeon', '읍': 'eup', '리': 'ri' };
+let TOWNSHIPS = null;
+const isTownship = (word) => {
+  TOWNSHIPS ??= new Set(Object.values(ADDRESS_KO).flatMap(a => String(a).split(' ').filter(x => /[읍면리]$/.test(x))));
+  return TOWNSHIPS.has(word);
+};
 // Only a city suffix narrows to the city: "제주도" and "济州岛" are the island.
 const IS_CITY = new Set(['市', '시', '市内', '시내']);
 
@@ -286,7 +293,9 @@ export function romaniseQuery(query) {
         // there the suffix narrows; elsewhere it is simply dropped.
         // "용산면", "대전면": a township that shares the name is its own
         // place (Yeongdong county, Damyang) — not Yongsan-gu, not Daejeon.
-        if (Object.hasOwn(TOWNSHIP_SUFFIX, rest)) return [`${roman}-${TOWNSHIP_SUFFIX[rest]}`];
+        // Only a township some record's address names: "수원리" and "제주읍"
+        // are still Suwon and Jeju, and "두부면" (tofu noodles) is tofu.
+        if (Object.hasOwn(TOWNSHIP_SUFFIX, rest) && Object.hasOwn(AREAS, roman) && isTownship(w)) return [`${roman}-${TOWNSHIP_SUFFIX[rest]}`];
         if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) && IS_CITY.has(rest) ? `${roman}-si` : roman];
         // What follows may be a name too ("首尔素食" is Seoul + vegetarian),
         // or a word that adds nothing ("素食餐厅", "롯데월드타워").

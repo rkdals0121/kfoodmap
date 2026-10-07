@@ -127,8 +127,11 @@ const closed = (raw, lang, text = raw.replace(RECORD_NAME, '')) => (/[.!?。！�
 // Only a name of exactly that shape — one with a note after it ("… — not
 // vegan") stays whole.
 const koMenuName = (name) => {
-  const m = /^[^()가-힣]*[A-Za-z][^()가-힣]*\(([^()]*[가-힣][^()]*)\)\s*$/.exec(name);
-  return m ? m[1].trim() : name;
+  // (Nor one whose bracket holds more than the Korean — "(콩빠두, tofu in
+  // soybean broth)" — or whose English says something the Korean does
+  // not: "Pretzel, vegan (브렛첼)".)
+  const m = /^([^(),가-힣]*[A-Za-z][^(),가-힣]*)\(([가-힣0-9\s]+)\)\s*$/.exec(name);
+  return m && !/vegan|vegetarian|halal|plant|pork|beef|chicken|lamb|free/i.test(m[1]) ? m[2].trim() : name;
 };
 // A gloss that only says the name again ("Halal Bulgogi" — "bulgogi
 // halal") is left out.
