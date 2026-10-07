@@ -7050,3 +7050,20 @@ html[data-text='larger'] .stat-label {
 .section-head__kr {
   white-space: nowrap;
 }
+
+/* Windows' high-contrast themes drop every background: the map buttons of
+   a place (filled green and yellow otherwise) were left as bare link text
+   between two outlined buttons. An outline says they are buttons. */
+@media (forced-colors: active) {
+  .detail-bar__map,
+  .btn-primary,
+  .journey-card__map,
+  .story-card-btn {
+    border: 1px solid LinkText;
+  }
+  .k-cluster,
+  .k-dot,
+  .k-pin {
+    forced-color-adjust: none;
+  }
+}
