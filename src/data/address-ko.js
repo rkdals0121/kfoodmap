@@ -735,8 +735,14 @@ function koAddressWords(place) {
 // is not 해운대구; "이태원로" and "이태원로26" are also 이태원로26길. Two syllables at least —
 // "구" or "로" is in every address. As a substring, "광주" found every
 // address in Jeollanam-do and "층" most of the map (review, 2026-10-05).
-export function koAddressHas(place, word) {
+// `listed`: the word is the name of a district or city the map lists
+// ("용산", "대전"). A township of the same name elsewhere — 용산면 in
+// Yeongdong county, 대전면 in Damyang — is then not it, nor is the road
+// named after that township.
+export function koAddressHas(place, word, listed = false) {
   if (typeof word !== 'string' || word.length < 2 || !/^[가-힣][가-힣0-9]*$/.test(word)) return false;
-  return koAddressWords(place).some(w => w === word
-    || (w.startsWith(word) && /^(?:\d[0-9가-힣]*|[시군구읍면동리가길]|번길)$/.test(w.slice(word.length))));
+  const words = koAddressWords(place);
+  const namesake = listed && words.some(w => w.startsWith(word) && /^[읍면리]$/.test(w.slice(word.length)));
+  return words.some(w => w === word
+    || (w.startsWith(word) && (namesake ? /^[시군구동가]$/ : /^(?:\d[0-9가-힣]*|[시군구읍면동리가길]|번길)$/).test(w.slice(word.length))));
 }

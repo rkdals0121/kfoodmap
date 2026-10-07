@@ -120,3 +120,35 @@ test('the page is marked with the language from the start, except the pages writ
   assert.equal(visit({ languages: ['ko'], pathname: '/place/balwoo' }).pageLang, 'en');
   assert.equal(visit({ languages: ['ko'], pathname: '/find/vegan/' }).pageLang, 'en');
 });
+
+test('labels joined in code take the marks of the language', async () => {
+  const { default: i18next } = await import('i18next');
+  const { setLanguage } = await import('../../src/i18n/index.js');
+  const { colon, paren } = await import('../../src/i18n/punct.js');
+  const before = i18next.language;
+  assert.equal(colon('Copy', 'Seoul'), 'Copy: Seoul');
+  assert.equal(paren('Saved', 3), 'Saved (3)');
+  assert.equal(paren('', 3), ' (3)');
+  for (const lang of ['ja', 'zh-Hans', 'zh-Hant']) {
+    await setLanguage(lang, { remember: false });
+    assert.equal(colon('コピー', 'ソウル'), 'コピー：ソウル', lang);
+    assert.equal(paren('保存済み', 3), '保存済み（3）', lang);
+  }
+  for (const lang of ['ko', 'id', 'en']) {
+    await setLanguage(lang, { remember: false });
+    assert.equal(paren('A', 'b'), 'A (b)', lang);
+    assert.equal(colon('A', 'b'), 'A: b', lang);
+  }
+  await setLanguage(before, { remember: false });
+});
+
+test("the app's own step back is told from the reader's, once", async () => {
+  const { ownBack, takeOwnBack } = await import('../../src/ownBack.js');
+  assert.equal(takeOwnBack(), false);
+  ownBack();
+  assert.equal(takeOwnBack(), true);
+  assert.equal(takeOwnBack(), false); // the next Back is the reader's
+  ownBack();
+  await new Promise(resolve => setTimeout(resolve, 1700));
+  assert.equal(takeOwnBack(), false); // no event came: not kept for a later Back
+});

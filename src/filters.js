@@ -10,7 +10,7 @@
 // Dietary chips are answered by the structured dietary record (never a tag
 // string); the rest are descriptive traits.
 import { matchesDietary } from './data/verification.js';
-import { koAddressHas } from './data/address-ko.js';
+import { koAddressHas as koAddressWord } from './data/address-ko.js';
 import { romaniseQuery, COOKING, AREA_NAMES } from './data/area-names.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
@@ -173,7 +173,24 @@ const AREA_ALIASES = {
   // A sight searched by name, in the area it stands in.
   lotteworld: ['jamsil'],
 };
-const areaText = (r) => `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
+// Where a place is, for matching an area word: its area line and address.
+// A township that shares its name with a district or city on the map is
+// not that place: Yongsan-myeon in Yeongdong county came up for "Yongsan"
+// (Seoul), Daejeon-myeon in Damyang for "Daejeon". The township and the
+// road named after it are left out of the text; the county and province
+// around them still find the place.
+const TOWNSHIP = /\b([a-z]+)-(?:myeon|eup|ri)\b/g;
+const AREA_TEXT = new WeakMap();
+const areaText = (r) => {
+  let text = AREA_TEXT.get(r);
+  if (text === undefined) {
+    text = `${r.zone} ${r.address?.value ?? ''}`.toLowerCase();
+    const namesakes = [...text.matchAll(TOWNSHIP)].map(m => m[1]).filter(stem => AREA_KEYS.has(stem));
+    for (const stem of new Set(namesakes)) text = text.replace(new RegExp(`\\b${stem}-(?:myeon|eup|ri|ro|gil|daero)\\b`, 'g'), ' ');
+    AREA_TEXT.set(r, text);
+  }
+  return text;
+};
 // By prefix, so "Lotte World Tower" and "lotte world seoul" are Lotte World.
 const aliasMatch = (r, w) => Object.keys(AREA_ALIASES).some(k => w.startsWith(k) && AREA_ALIASES[k].some(a => areaText(r).includes(a)));
 
@@ -297,6 +314,10 @@ function searchCore(r, rawQuery) {
       : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w)));
 }
 const AREA_WORDS = new Set(Object.keys(AREA_NAMES).map(name => squash(name)));
+const AREA_KEYS = new Set(Object.keys(AREA_NAMES).map(name => name.toLowerCase()));
+// …and in Korean (the first written form of each): see koAddressHas.
+const AREA_KO = new Set(Object.values(AREA_NAMES).map(forms => forms[0]));
+function koAddressHas(r, w) { return koAddressWord(r, w, AREA_KO.has(w)); }
 const inAreaOrName = (r, w) => startsWord(areaText(r), w) || aliasMatch(r, w) || koAddressHas(r, w) || startsWord(r.name, w);
 
 // Does a search word name this place's area (neighbourhood or address)?

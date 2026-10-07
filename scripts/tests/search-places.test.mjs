@@ -327,3 +327,17 @@ test('an area shown by its Japanese or Chinese name is one of its written forms,
   assert.equal(shownArea('Myeongdong', 'en'), 'Myeongdong');
   assert.equal(shownArea('Sokcho', 'ja'), 'Sokcho');
 });
+
+test('a township is not the district or city it shares a name with', () => {
+  const has = (q, id) => go(q).filteredRestaurants.some(p => p.id === id);
+  // 용산면, Yeongdong county; 대전면, Damyang.
+  for (const q of ['Yongsan', 'yongsan-gu', '용산', '용산구']) assert.equal(has(q, 'loving-hut-yeongdong'), false, q);
+  for (const q of ['Daejeon', '대전']) assert.equal(has(q, 'off-the-cuff-damyang'), false, q);
+  // …and each is still found where it is.
+  for (const q of ['Yeongdong', '영동', 'Chungcheongbuk-do']) assert.equal(has(q, 'loving-hut-yeongdong'), true, q);
+  for (const q of ['Damyang', '담양']) assert.equal(has(q, 'off-the-cuff-damyang'), true, q);
+  // A township that is nobody's namesake is found by its name.
+  assert.ok(go('Aewol').filteredRestaurants.length > 0);
+  assert.equal(ids(go('애월')), ids(go('Aewol')));
+});
+
