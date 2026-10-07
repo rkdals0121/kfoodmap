@@ -57,10 +57,26 @@ function ogImageFor(place) {
 // Inside #root, so the rule goes when React renders.
 const STATIC_SCROLL = '<style>html,body{overflow:auto!important;height:auto!important}</style>';
 
+// How many places on the map carry each name; counted when first asked
+// (the list of places is read further down this file).
+let sameName = null;
+const namesakes = (name) => {
+  if (!sameName) {
+    sameName = new Map();
+    for (const r of active) sameName.set(displayName(r.name), (sameName.get(displayName(r.name)) ?? 0) + 1);
+  }
+  return sameName.get(name) ?? 0;
+};
+
 function replacements(place) {
   // displayName, not split('('): that cut "Nimat (니맛), Culinary Square T2"
   // to "Nimat", the same bug the app fixed for its own views.
-  const name = escapeHtml(displayName(place.name));
+  // Two places of one name (branches) are told apart in the title by
+  // where they are — the last part of the area line, the city: a search
+  // result showed two "Urikong Sondubu · K-Food Map".
+  const shared = namesakes(displayName(place.name)) > 1;
+  const where = shared ? String(place.zone ?? '').split(',').pop().replace(/\s*\(.*$/, '').trim() : '';
+  const name = escapeHtml(where ? `${displayName(place.name)}, ${where}` : displayName(place.name));
   // What a search result or a KakaoTalk preview shows: the claim with how
   // sure the record is, where, then the place's own line. The same words
   // as the page; nothing the record does not say.

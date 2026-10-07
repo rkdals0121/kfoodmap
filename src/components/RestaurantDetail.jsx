@@ -427,7 +427,8 @@ export default function RestaurantDetail({
     // Opened by a shared link, the page already carried this title; closing
     // then returns to the app's own.
     const own = `${placeName} · K-Food Map`;
-    const before = document.title === own ? 'K-Food Map' : document.title;
+    // (…or this title with the city after the name, where two places share one.)
+    const before = document.title === own || document.title.startsWith(`${placeName}, `) ? 'K-Food Map' : document.title;
     document.title = own;
     return () => { document.title = before; };
   }, [placeName]);
