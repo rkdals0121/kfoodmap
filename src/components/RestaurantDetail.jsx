@@ -960,7 +960,7 @@ export default function RestaurantDetail({
                 <div className="practical-row">
                   <PhoneIcon size={17} />
                   <a className="practical-link practical-link--call" href={`tel:${telHref(place.phone.value)}`}>
-                    {t('detail.call')} {place.phone.value}
+                    {t('detail.call')} <span className="practical-link__number">{place.phone.value}</span>
                   </a>
                 </div>
               )}

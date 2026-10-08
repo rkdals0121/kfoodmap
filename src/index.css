@@ -7273,9 +7273,34 @@ html[lang='id'] .stat-label {
   }
 }
 @media (max-width: 359px) {
+  html[data-text='larger'] .detail-bar {
+    gap: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
   html[data-text='larger'] .detail-bar__map {
     white-space: normal;
     text-align: center;
     line-height: 1.15;
   }
+}
+
+/* A place's phone number stays in one piece ("010-8008-" / "8358" at the
+   largest text on a small phone): the line breaks after "Call". And its
+   two links each keep to one line — "Situs web" was on two with
+   "Instagram" squeezed in beside it; the second goes below instead. */
+.practical-link__number {
+  white-space: nowrap;
+}
+/* (The link is a flex row: its two parts wrap as two items, and the gap
+   is the space between the words.) */
+.practical-link--call {
+  flex-wrap: wrap;
+  column-gap: 0.28em;
+}
+.practical-links {
+  flex-wrap: wrap;
+}
+.practical-links .practical-link {
+  white-space: nowrap;
 }
