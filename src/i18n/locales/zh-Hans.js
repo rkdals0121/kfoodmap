@@ -374,6 +374,8 @@ export default {
     actionSave: '收藏',
     actionSaved: '已收藏',
     savedNote: '已收藏到手账，离线也能打开。',
+    // Storage refused (private mode, cookies blocked): said instead of the line above.
+    savedForNow: '仅暂时保存。此浏览器无法存储，关闭页面后就会消失。',
     visitedNote: '已标记为去过，并在手账里盖了章。',
     unvisitedNote: '已移除这次到访。',
     removedNote: '已从手账移除。',

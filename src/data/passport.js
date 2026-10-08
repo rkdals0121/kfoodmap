@@ -41,8 +41,17 @@ export function loadLocalPassport() {
 export function saveLocalPassport(entries) {
   try {
     localStorage.setItem(PASSPORT_KEY, JSON.stringify(entries));
-  } catch { /* kept in memory only */ }
+    keeps = true;
+  } catch { keeps = false; /* kept in memory only */ }
 }
+
+// Whether this browser keeps what is saved. Where it does not (Safari with
+// all cookies blocked, some in-app browsers, storage full) the toast must
+// not say "It opens offline too": the place is gone with the page.
+// (Known from the last write: the passport is written when the app starts,
+// so no key of its own is needed to find out.)
+let keeps = true;
+export const storageKeeps = () => keeps;
 
 export function clearLocalPassport() {
   try {

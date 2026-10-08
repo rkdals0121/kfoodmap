@@ -388,6 +388,8 @@ export default {
     actionSave: 'Save',
     actionSaved: 'Saved',
     savedNote: 'Saved to your Journal. It opens offline too.',
+    // Storage refused (private mode, cookies blocked): said instead of the line above.
+    savedForNow: 'Saved for now. This browser is not storing it, so it will be gone when you close the page.',
     visitedNote: 'Marked as visited. It is stamped in your Journal.',
     unvisitedNote: 'Visit removed.',
     removedNote: 'Removed from your Journal.',

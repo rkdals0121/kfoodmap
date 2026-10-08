@@ -378,6 +378,8 @@ export default {
     actionSave: 'Simpan',
     actionSaved: 'Tersimpan',
     savedNote: 'Disimpan ke Jurnal Anda. Tetap bisa dibuka tanpa koneksi.',
+    // Storage refused (private mode, cookies blocked): said instead of the line above.
+    savedForNow: 'Tersimpan untuk sementara. Browser ini tidak menyimpannya, jadi akan hilang saat halaman ditutup.',
     visitedNote: 'Ditandai sudah dikunjungi. Capnya ada di Jurnal Anda.',
     unvisitedNote: 'Kunjungan dihapus.',
     removedNote: 'Dihapus dari Jurnal Anda.',

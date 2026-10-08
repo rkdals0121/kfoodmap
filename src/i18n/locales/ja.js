@@ -381,6 +381,8 @@ export default {
     actionSave: '保存',
     actionSaved: '保存済み',
     savedNote: 'ジャーナルに保存しました。オフラインでも開けます。',
+    // Storage refused (private mode, cookies blocked): said instead of the line above.
+    savedForNow: '今だけ保存されます。このブラウザでは保存できないため、ページを閉じると消えます。',
     visitedNote: '訪問済みにしました。ジャーナルにスタンプが付きました。',
     unvisitedNote: '訪問記録を削除しました。',
     removedNote: 'ジャーナルから削除しました。',

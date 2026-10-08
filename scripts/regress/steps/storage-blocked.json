@@ -1,0 +1,18 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "seen": false,
+  "init": "(()=>{ if(location.pathname==='/robots.txt') return; const boom=()=>{ throw new DOMException('The operation is insecure.','SecurityError'); }; for (const k of ['localStorage','sessionStorage']) { try { Object.defineProperty(window,k,{ configurable:true, get: boom }); } catch(e){} } window.__errs=[]; window.addEventListener('error',e=>__errs.push(String(e.message).slice(0,90))); })();",
+  "load": 5000,
+  "js": "return {welcome:!!document.querySelector('.prologue-btn'), crash:!!document.querySelector('.app-error'), errs:__errs}"
+ },
+ {
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('.prologue-btn')?.click(); await w(2500); document.querySelector('.place-card__actions .icon-btn')?.click(); await w(900); return {count:document.querySelector('.place-list__header h2')?.innerText, toast:document.querySelector('.toast')?.innerText, crash:!!document.querySelector('.app-error'), errs:__errs}"
+ },
+ {
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelectorAll('.tab-item')[2].click(); await w(1200); return {journalRows:document.querySelectorAll('.saved-row').length}"
+ }
+]

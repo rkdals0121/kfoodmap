@@ -28,7 +28,7 @@ import { journeyNav } from './data/journey-nav';
 import { nearbyPlaces } from './data/nearby';
 import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
-import { loadLocalPassport, saveLocalPassport, savedOnly } from './data/passport';
+import { loadLocalPassport, saveLocalPassport, savedOnly, storageKeeps } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
 import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery } from './filters';
 import { searchPlaces } from './search';
@@ -654,7 +654,7 @@ function AppShell() {
     // The time it was first saved, so it keeps its place in the Journal.
     setEntries(prev => prev.map(e => (when.has(e.id) && e.savedAt === null ? { ...e, savedAt: when.get(e.id) ?? now, updatedAt: now } : e)));
     removedRef.current = [];
-    setToast({ text: t('detail.savedNote'), undo: null, at: now });
+    setToast({ text: t(storageKeeps() ? 'detail.savedNote' : 'detail.savedForNow'), undo: null, at: now });
     // Undo pressed in the Journal: its button goes with the toast, so focus
     // returns to the list the place came back to.
     setTimeout(() => document.querySelector('.journal-panel')?.focus({ preventScroll: true }), 0);
@@ -676,7 +676,7 @@ function AppShell() {
     }
     setToast(removing
       ? { text: t('detail.removedNote'), removal: undoable, undo: undoable ? () => restoreSave(removedRef.current) : null, at: now }
-      : { text: t('detail.savedNote'), undo: null, at: now });
+      : { text: t(storageKeeps() ? 'detail.savedNote' : 'detail.savedForNow'), undo: null, at: now });
     setEntries(prev => {
       const held = prev.find(e => e.id === placeId);
       if (!held || held.savedAt === null) {

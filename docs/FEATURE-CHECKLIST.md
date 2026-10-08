@@ -474,6 +474,8 @@ P14. Printed, or saved as PDF from the browser's print (check with print emulati
 P15. Windows high-contrast themes (`media: {"forced-colors": "active"}` in a step) → text and outlines stay readable; the map buttons of a place have an outline; pins keep their colours.
 P16. An address that is nothing here (`/nope`, `/find/nope`, `/journal/x`), opened with no service worker (a first visit) → status 404 and the site's own page (`public/404.html`): logo, "This page is not on K-Food Map.", "Open the map" (to `/`) and the two guide links, in the reader's language (stored choice, else the browser's). With the service worker (any later visit) the app answers, shows the map and the address becomes `/` (the view in the fragment is kept). `/place/<unknown id>` is not this page: the app opens with the "no longer on the map" note (F-section).
 
+P17. A browser that refuses storage (Safari with all cookies blocked; regress step `storage-blocked`) → no crash anywhere; the welcome screen shows on every load and the language follows the browser; a save works for the visit and its toast says so ("Saved for now. This browser is not storing it, so it will be gone when you close the page.") instead of promising it opens offline.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
