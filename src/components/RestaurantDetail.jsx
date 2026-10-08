@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useMenuGloss } from '../hooks/useMenuGloss';
 import { useNotes, useNotesWaiting } from '../hooks/useNotes';
 import { plainNote } from '../data/note-terms';
-import { useStories } from '../hooks/useStories';
+import { useStories, useStoriesWaiting } from '../hooks/useStories';
 import { placeArea } from '../place-area';
 import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigationType } from 'react-router';
@@ -202,6 +202,7 @@ export default function RestaurantDetail({
 }) {
   const { t, i18n } = useTranslation();
   const stories = useStories();
+  const storiesWaiting = useStoriesWaiting();
   const notes = useNotes(restaurant?.id);
   const notesWaiting = useNotesWaiting(restaurant?.id);
   const location = useLocation();
@@ -1198,9 +1199,11 @@ export default function RestaurantDetail({
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
               {/* The UI is translated; a place's own text is not. Say so once,
                   where the English starts, and mark it for screen readers. */}
-              {i18n.language !== 'en' && (!stories?.[place.id]?.story || (place.timeline?.length > 0 && !timelineNotes)) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
+              {i18n.language !== 'en' && !storiesWaiting && (!stories?.[place.id]?.story || (place.timeline?.length > 0 && !timelineNotes)) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
               {stories?.[place.id]?.story
                 ? <p className="detail-body" lang={i18n.language}>{stories[place.id].story}</p>
+                // (On its way: "…", not the English that would change in a moment.)
+                : storiesWaiting ? <p className="detail-body" aria-busy="true">…</p>
                 : <p className="detail-body" lang="en"><KoText>{place.story}</KoText></p>}
               {place.timeline?.length > 0 && (
                 <ol className="timeline" lang={timelineNotes ? i18n.language : 'en'}>

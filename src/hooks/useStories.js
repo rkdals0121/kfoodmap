@@ -14,6 +14,8 @@ const LOADERS = {
 };
 const cache = new Map();
 const pending = new Set();
+// Asked for and answered, one way or the other.
+const settled = new Set();
 // Everything showing a story hears of an arrival, whichever of them asked.
 const listeners = new Set();
 const subscribe = (fn) => { listeners.add(fn); return () => listeners.delete(fn); };
@@ -25,7 +27,7 @@ export function loadStories(lang) {
     .then((m) => { cache.set(lang, m.STORIES); })
     // Offline with the file not yet stored: asked again when back online.
     .catch(() => {})
-    .finally(() => { pending.delete(lang); listeners.forEach(fn => fn()); });
+    .finally(() => { pending.delete(lang); settled.add(lang); listeners.forEach(fn => fn()); });
 }
 
 // `wanted` false: read what is already here without asking for the file (a
@@ -42,4 +44,14 @@ export function useStories(wanted = true) {
     return () => window.removeEventListener('online', again);
   }, [lang, wanted]);
   return stories;
+}
+
+// True while this language's stories are still on their way: a story can
+// then hold back, instead of showing the record's English and changing
+// under the reader's eyes a moment later. False in English, once the file
+// is in, and once it has failed (the English shows then).
+export function useStoriesWaiting() {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+  return useSyncExternalStore(subscribe, () => Boolean(LOADERS[lang] && !cache.has(lang) && !settled.has(lang)), () => false);
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useStories } from '../hooks/useStories';
+import { useStories, useStoriesWaiting } from '../hooks/useStories';
 import { placeArea } from '../place-area';
 import i18next from 'i18next';
 import { TEXT_SIZES, applyTextSize, readTextSize } from '../textSize';
@@ -157,6 +157,7 @@ const NO_DIETS = [];
 function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
   const { t, i18n } = useTranslation();
   const stories = useStories();
+  const storiesWaiting = useStoriesWaiting();
   const navigate = useNavigate();
   // Korean, Japanese and Chinese readers get the name as they write it;
   // everyone else the romanised one, as on signs and in the records.
@@ -316,7 +317,7 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
         <h2>{t('discover.cultureTitle')}</h2>
         <p>{t('discover.cultureSubtitle')}</p>
         {/* Said here as on a place's page: the stories below are English. */}
-        {i18n.language !== 'en' && !stories && <p className="practical-muted">{t('detail.contentInEnglish')}</p>}
+        {i18n.language !== 'en' && !stories && !storiesWaiting && <p className="practical-muted">{t('detail.contentInEnglish')}</p>}
       </div>
 
       <div className="story-grid">
@@ -325,7 +326,7 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
             <div className="story-card-content">
               <p className="story-card__kind">{t('discover.storyLabel')}</p>
               <h3>{displayName(place.name)}</h3>
-              <p lang={stories?.[place.id]?.story ? i18n.language : 'en'}>{firstSentence(stories?.[place.id]?.story ?? place.story)}</p>
+              <p lang={stories?.[place.id]?.story ? i18n.language : 'en'}>{storiesWaiting ? '…' : firstSentence(stories?.[place.id]?.story ?? place.story)}</p>
               <button className="story-card-btn" aria-label={t('list.readStoryAria', { name: displayName(place.name) })}>{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
             </div>
           </article>
