@@ -1,5 +1,5 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
-// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), drag (finger drags), keys (+ trail: real key presses), block (url patterns) }]
+// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), drag (finger drags), tap (finger taps on selectors), keys (+ trail: real key presses), block (url patterns) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
@@ -79,6 +79,16 @@ for (const s of steps) {
     await sleep(d.hold ?? 0);
     await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
     await sleep(500);
+  }
+  // tap: ['.css-selector', …] = a finger tap on the middle of the first
+  // visible element that matches (real touch events), one after another.
+  for (const sel of s.tap ?? []) {
+    const at = await evalJs(`(()=>{const e=[...document.querySelectorAll(${JSON.stringify(sel)})].find(x=>{const r=x.getBoundingClientRect();return r.width>0&&r.top>=0&&r.bottom<=innerHeight&&r.left>=0&&r.right<=innerWidth&&document.elementFromPoint(r.left+r.width/2,r.top+r.height/2)?.closest(${JSON.stringify(sel)})===x});if(!e)return null;const r=e.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]})()`);
+    if (!at) { console.log('tap: nothing to tap for', sel); continue; }
+    await send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: at[0], y: at[1] }] });
+    await sleep(60);
+    await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await sleep(s.tapWait ?? 1200);
   }
   // keys: ['Tab', 'Shift+Tab', 'Enter', 'Escape', 'ArrowDown', ' '] = real
   // key presses, one after another; with `trail: true` what has focus after
