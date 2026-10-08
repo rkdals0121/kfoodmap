@@ -162,10 +162,12 @@ export function searchPlaces({
       // records that say exactly that, when some but not all do.
       // Not with a comma in it: "Itaewon, Seoul" is two words about one
       // place, and narrowing kept only the records labelled exactly so.
-      // Nor when the words are an area and a word that only says what
-      // kind of place it is: "Suwon City" was the one record whose address
-      // spells it so, of the 29 in Suwon.
-      if (raw.includes(' ') && !/[,，、]/.test(raw) && !(asked !== raw && isListedArea(asked))) {
+      // Nor when the words are an area and the kind of place it is: "Suwon
+      // City" was the one record whose address spells it so, of 29.
+      // Nor when one word is left once the words of a question are set
+      // aside: "korean food" was the two records with those two words
+      // side by side, of the 128 that say Korean.
+      if (raw.includes(' ') && !/[,，、]/.test(raw) && !(asked !== raw && (!asked.includes(' ') || isListedArea(asked))) && !isListedArea((romaniseQuery(raw) ?? '').replace(/-si$/, ''))) {
         const exact = select(r => hits(raw).has(r) && matchesPhrase(r, raw));
         if (exact.list.length > 0 && exact.list.length < result.list.length) result = exact;
       }

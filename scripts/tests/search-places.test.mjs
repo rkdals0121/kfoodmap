@@ -434,3 +434,19 @@ test('the words of a question are no search terms in the other languages either'
     assert.equal(ids(go(asked)), ids(go(plain)), asked);
   }
 });
+
+test('a plural finds what its singular finds, and a kind of cooking is found in every script', () => {
+  for (const [many, one] of [['noodles', 'noodle'], ['burgers', 'burger'], ['salads', 'salad'], ['sandwiches', 'sandwich'], ['kebabs', 'kebab']]) {
+    assert.equal(ids(go(many)), ids(go(one)), many);
+  }
+  assert.equal(ids(go('餃子')), ids(go('dumplings')));
+  assert.equal(ids(go('mandu')), ids(go('dumpling')));
+  assert.ok(go('韓国料理').filteredRestaurants.length > 100);
+  assert.equal(ids(go('韩国料理')), ids(go('韓国料理')));
+  assert.ok(go('中餐').filteredRestaurants.length >= go('chinese').filteredRestaurants.length);
+  assert.ok(go('nepalese').filteredRestaurants.length > 10);
+  // "korean food" is what says Korean, not the two records with the words side by side.
+  assert.ok(go('korean food').filteredRestaurants.length > 100);
+  // A name ending in s is still itself.
+  assert.ok(go('Monks').filteredRestaurants.length > 0);
+});

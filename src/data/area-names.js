@@ -77,6 +77,13 @@ const ALSO_NAMED = {
   turkish: ['터키', '튀르키예', 'トルコ', '土耳其'],
   // "nepal" finds Nepal, Nepali and Nepalese.
   nepal: ['네팔', 'ネパール', '尼泊尔', '尼泊爾'],
+  // (No short Korean words here — 한식, 국수, 만두: a name is also matched
+  // as the start of a longer word, and 한식당 became "korean 당".)
+  korean: ['韓国料理', '韩国料理', '韓國料理', '韩餐'],
+  japanese: ['和食', '日本料理'],
+  chinese: ['中華料理', '中餐', '中国料理', '中國料理'],
+  dumpling: ['餃子', '饺子', 'ギョーザ', 'マンドゥ'],
+  kimchi: ['キムチ', '泡菜', '辛奇'],
   uzbek: ['우즈벡', '우즈베크', '우즈베키스탄', 'ウズベク', '乌兹别克', '烏茲別克'],
   breakfast: ['朝食', '朝ごはん', '早餐', '早饭', '早飯', '아침식사', '아침'],
   // Dishes, by the names a reader types for them: the records, their
@@ -108,7 +115,7 @@ const ALSO_NAMED = {
 };
 
 // The entries of ALSO_NAMED that are kinds of cooking, not places.
-export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'prayer', 'mosque', 'indian', 'indonesian', 'turkish', 'nepal', 'uzbek',
+export const COOKING = new Set(['temple', 'vegetarian', 'cafe', 'bakery', 'dessert', 'cake', 'coffee', 'brunch', 'breakfast', 'prayer', 'mosque', 'indian', 'indonesian', 'turkish', 'nepal', 'uzbek', 'korean', 'japanese', 'chinese', 'dumpling', 'kimchi',
   'bibimbap', 'gimbap', 'tteokbokki', 'sundubu', 'tofu', 'noodle', 'curry', 'burger', 'pizza', 'pasta', 'salad', 'sandwich', 'bagel', 'kebab', 'lamb', 'buffet', 'hanok', 'bbq', 'samgyetang', 'chicken']);
 
 const TO_ROMAN = new Map([
@@ -137,6 +144,9 @@ const LATIN_VARIANTS = new Map(Object.entries({
   chigae: 'jjigae',
   kimchee: 'kimchi',
   sarapan: 'breakfast',
+  nepalese: 'nepal',
+  mandu: 'dumpling',
+  gyoza: 'dumpling',
   // What a Muslim traveller looks for besides the food, in Indonesian.
   musala: 'prayer',
   mushola: 'prayer',
@@ -248,10 +258,6 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // rest of a question. ("me" alone started "menu" and "meat" in the
   // stories, and "halal near me" was 58 places of the 152.)
   'me', 'my', 'best', 'top', 'good', 'great', 'where', 'to', 'eat', 'eating', 'find', 'for', 'a', 'an', 'some', 'any', 'and', 'or', 'with',
-  // "Suwon City", "Jeju Island", "Gyeonggi Province": the kind of place it
-  // is adds nothing to its name. ("Jeju City" is read as the city first:
-  // CITY_OF below.)
-  'city', 'island', 'province',
   // "ソウル ヴィーガン おすすめ", "首尔 素食 推荐", "restoran halal terbaik di
   // Seoul": the same words of a question in the other languages (each
   // found nothing: the word is in no record).
@@ -293,12 +299,14 @@ const peelEnd = (text) => {
   }
 };
 
+// "Suwon City", "Jeju Island", "Gyeonggi Province": after an area's name,
+// the kind of place it is adds nothing ("City Hall" is another matter).
 // "Jeju City" is Jeju-si, the city — not the island with Seogwipo in it.
-const CITY_OF = new RegExp(`\\b(${[...SI_IN_ADDRESS].join('|')})\\s+city\\b`, 'gi');
+const KIND_OF = new RegExp(`\\b(${Object.keys(AREAS).join('|')})\\s+(city|island|province)\\b`, 'gi');
 
 export function romaniseQuery(query) {
   const asked = String(query ?? '');
-  const named = asked.replace(CITY_OF, (whole, name) => `${name}-si`);
+  const named = asked.replace(KIND_OF, (whole, name, kind) => (kind.toLowerCase() === 'city' && [...SI_IN_ADDRESS].some(a => a.toLowerCase() === name.toLowerCase()) ? `${name}-si` : name));
   if (named !== asked) return romaniseQuery(named) ?? named;
   // NFKC: half-width kana (ﾌﾟｻﾝ) are the same names.
   const words = String(query ?? '').normalize('NFKC').trim().split(/\s+/).filter(Boolean);
@@ -308,6 +316,11 @@ export function romaniseQuery(query) {
     if (FILLER.has(w.toLowerCase())) { changed = true; return []; }
     const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
     if (whole) { changed = true; return [whole]; }
+    // "noodles", "burgers", "dumplings": also the word without its
+    // plural (a word is matched from its start, so "noodle" finds both;
+    // "noodles" found 27 places of the 38).
+    if (/^[a-z]{3,}(?:ch|sh|x|ss)es$/i.test(w)) { changed = true; return [w.slice(0, -2)]; }
+    if (/^[a-z]{3,}[^s]s$/i.test(w)) { changed = true; return [w.slice(0, -1)]; }
     for (const [name, roman] of TO_ROMAN) {
       if (w.length > name.length && w.startsWith(name)) {
         changed = true;
