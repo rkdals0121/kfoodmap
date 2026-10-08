@@ -3655,6 +3655,22 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       Check a screen in its real state and at both ends of the layout: a
       seal fix was verified on the sample seals and a focus fix on a phone
       only, and both failed on the live site until a second look.
+    - Afternoon of 10-08 (to `d5f26d9`): a question typed out is searched
+      by what it names — `FILLER` in `area-names.js` holds the words of a
+      question in six languages, `QUESTION` the ones a place's own name
+      may carry (`questionWords`, used in `search.js` to keep "Yang Good
+      seoul" one place), `KIND_OF` reads "Suwon City" as Suwon (not before
+      "hall" / "centre"), a plural is read as its singular only for a
+      kind of food in `COOKING`. A search rule goes out only after the
+      side-by-side comparison with the build before it (old and new `src`
+      run on every place name, area and question): deployed before that
+      review came back, "인천시청" found 1 place for 43 minutes.
+      Three sweeps worth keeping as a method: every place page opened at
+      phone and desktop widths in rotating languages with its panels
+      unfolded, measuring overlap / sideways scroll / cut text / errors;
+      "text wider than its own box" over all views (found the Journal's
+      Indonesian labels); dialogs and the welcome screen at short heights
+      (found "Open the map" three screens down at 320x480).
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
