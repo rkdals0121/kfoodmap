@@ -408,3 +408,21 @@ test('면, 읍 or 리 after a name is a township only where a record has one', (
   // 남산면 is in Chuncheon (Nami Island), not the Namsan of Seoul.
   assert.ok(go('남산면').filteredRestaurants.length < go('남산').filteredRestaurants.length);
 });
+
+test('a question typed in English finds what its words name', () => {
+  // "city", "island", "province" say what kind of place it is; "near me",
+  // "best", "where to eat" are the rest of a question.
+  assert.equal(ids(go('Suwon City')), ids(go('Suwon')));
+  assert.equal(ids(go('Busan City')), ids(go('Busan')));
+  assert.equal(ids(go('Jeju Island')), ids(go('Jeju')));
+  assert.equal(ids(go('Gyeonggi Province')), ids(go('Gyeonggi')));
+  assert.equal(ids(go('halal near me')), ids(go('halal')));
+  assert.equal(ids(go('best vegan seoul')), ids(go('vegan seoul')));
+  assert.equal(ids(go('where to eat halal in busan')), ids(go('halal busan')));
+  // "Jeju City" is the city, not the island with Seogwipo in it.
+  assert.equal(ids(go('Jeju City')), ids(go('제주시')));
+  assert.ok(go('Jeju City').filteredRestaurants.length < go('Jeju').filteredRestaurants.length);
+  // A place's own name with such a word in it is still found.
+  assert.ok(go('eat anything').filteredRestaurants.some(r => /Eat Anything/.test(r.name)));
+  assert.ok(go('City Hall').filteredRestaurants.length < 10);
+});

@@ -244,6 +244,14 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // asked as a question, every word had to be found in the record, and
   // "near" or "dekat" is in none.
   'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'places', 'lunch', 'dinner',
+  // "halal near me", "best vegan in seoul", "where to eat in busan": the
+  // rest of a question. ("me" alone started "menu" and "meat" in the
+  // stories, and "halal near me" was 58 places of the 152.)
+  'me', 'my', 'best', 'top', 'good', 'great', 'where', 'to', 'eat', 'eating', 'find', 'for', 'a', 'an', 'some', 'any', 'and', 'or', 'with',
+  // "Suwon City", "Jeju Island", "Gyeonggi Province": the kind of place it
+  // is adds nothing to its name. ("Jeju City" is read as the city first:
+  // CITY_OF below.)
+  'city', 'island', 'province',
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の',
   '附近', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
@@ -277,7 +285,13 @@ const peelEnd = (text) => {
   }
 };
 
+// "Jeju City" is Jeju-si, the city — not the island with Seogwipo in it.
+const CITY_OF = new RegExp(`\\b(${[...SI_IN_ADDRESS].join('|')})\\s+city\\b`, 'gi');
+
 export function romaniseQuery(query) {
+  const asked = String(query ?? '');
+  const named = asked.replace(CITY_OF, (whole, name) => `${name}-si`);
+  if (named !== asked) return romaniseQuery(named) ?? named;
   // NFKC: half-width kana (ﾌﾟｻﾝ) are the same names.
   const words = String(query ?? '').normalize('NFKC').trim().split(/\s+/).filter(Boolean);
   let changed = false;
@@ -322,6 +336,9 @@ export function romaniseQuery(query) {
 }
 
 export const AREA_NAMES = AREAS;
+// Is this text, whole, the name of an area the map lists (in any script)?
+const LISTED = new Set(Object.keys(AREAS).map(k => k.toLowerCase()));
+export const isListedArea = (text) => { const t = String(text ?? '').trim(); return LISTED.has(t.toLowerCase()) || Object.hasOwn(AREAS, TO_ROMAN.get(t) ?? ''); };
 
 // The name an area is shown by in "Browse by area" (Discover), for readers
 // of Japanese and Chinese: 明洞 is read at a glance where "Myeongdong" is

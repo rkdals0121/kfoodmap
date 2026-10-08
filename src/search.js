@@ -15,7 +15,7 @@
 // A fallback never fires because the chips emptied the list: "Mangwon" +
 // Halal is no reason to show Gangwon.
 import { matchesDietary } from './data/verification.js';
-import { fuzzyQuery, romaniseQuery, stripFillers } from './data/area-names.js';
+import { fuzzyQuery, isListedArea, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
   matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, liftDietWords } from './filters.js';
@@ -162,7 +162,10 @@ export function searchPlaces({
       // records that say exactly that, when some but not all do.
       // Not with a comma in it: "Itaewon, Seoul" is two words about one
       // place, and narrowing kept only the records labelled exactly so.
-      if (raw.includes(' ') && !/[,，、]/.test(raw)) {
+      // Nor when the words are an area and a word that only says what
+      // kind of place it is: "Suwon City" was the one record whose address
+      // spells it so, of the 29 in Suwon.
+      if (raw.includes(' ') && !/[,，、]/.test(raw) && !(asked !== raw && isListedArea(asked))) {
         const exact = select(r => hits(raw).has(r) && matchesPhrase(r, raw));
         if (exact.list.length > 0 && exact.list.length < result.list.length) result = exact;
       }
