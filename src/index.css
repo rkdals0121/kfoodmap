@@ -7229,3 +7229,11 @@ html[data-text='larger'] .journal-grid .stamp-name {
 .week-hours__slot {
   white-space: normal;
 }
+
+/* The middle text size reaches the filter chips too (they stayed at 14 px
+   until the largest: a reader who chose "Large" saw the list grow and the
+   filters above it not). The row scrolls sideways on a phone and wraps
+   beside the map, so there is room. */
+html[data-text='large'] .chip {
+  font-size: 15px;
+}
