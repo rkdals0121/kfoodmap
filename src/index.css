@@ -7105,6 +7105,20 @@ html[data-text='larger'] .stat-label {
   .detail-report,
   .detail-scroll .btn-primary,
   .claim-explain__more,
+  .claim-fact__why,
+  .detail-report-line,
+  .detail-directions__apps,
+  .staff-cards__tabs,
+  .journal-empty__cta,
+  .journey-card__map,
+  .story-card-btn,
+  .place-card__story-btn,
+  .browse-areas,
+  .discover-cards-link,
+  .profile-panel .settings-list,
+  .profile-custody,
+  .place-list__share,
+  .place-list__clear-inline,
   .place-card__actions,
   .search-field,
   .chip-row,
@@ -7146,5 +7160,17 @@ html[data-text='larger'] .stat-label {
   }
   a {
     color: inherit !important;
+  }
+  /* The week's hours are printed whether or not they were unfolded. */
+  .week-hours::details-content {
+    content-visibility: visible;
+    display: block;
+  }
+  .week-hours summary {
+    display: none;
+  }
+  .journal-panel,
+  .tab-panel {
+    background: #fff !important;
   }
 }

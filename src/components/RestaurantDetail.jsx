@@ -122,16 +122,13 @@ const scrollMemory = new Map();
 // (samdaejjae-sondubu-osan)" is a note to the researcher, not the reader.
 const RECORD_NAME = /\s*[(（][a-z]+(?:-[a-z0-9]+){2,}[)）]/g;
 const closed = (raw, lang, text = raw.replace(RECORD_NAME, '')) => (/[.!?。！？…)）」』”’"']$/.test(text.trim()) || text.trim() === '' ? text : `${text.trim()}${/^(ja|zh)/.test(lang) ? '。' : '.'}`);
-// In Korean a dish written "Seon Course (선식)" is 선식, as the menu has
-// it: the romanised reading in front is for readers of other languages.
-// Only a name of exactly that shape — one with a note after it ("… — not
-// vegan") stays whole.
+// In Korean a dish written "Seon Course (선식)" leads with the Korean, as
+// the menu has it: 선식 (Seon Course). Nothing is left out — the English
+// often says what the Korean does not ("Lunch course", "buffet", "with
+// soy milk"). Only a name of exactly that shape, the bracket all Korean.
 const koMenuName = (name) => {
-  // (Nor one whose bracket holds more than the Korean — "(콩빠두, tofu in
-  // soybean broth)" — or whose English says something the Korean does
-  // not: "Pretzel, vegan (브렛첼)".)
-  const m = /^([^(),가-힣]*[A-Za-z][^(),가-힣]*)\(([가-힣0-9\s]+)\)\s*$/.exec(name);
-  return m && !/vegan|vegetarian|halal|plant|pork|beef|chicken|lamb|free/i.test(m[1]) ? m[2].trim() : name;
+  const m = /^([^()가-힣]*[A-Za-z][^()가-힣]*?)\s*\(([가-힣0-9\s]+)\)\s*$/.exec(name);
+  return m ? `${m[2].trim()} (${m[1].trim()})` : name;
 };
 // A gloss that only says the name again ("Halal Bulgogi" — "bulgogi
 // halal") is left out.
@@ -1066,7 +1063,7 @@ export default function RestaurantDetail({
                   is all that shows: it says whose directions these are, and
                   what the two Korean buttons are to someone from abroad. */}
               <p className="section-note detail-directions__for"><strong>{displayName(place.name)}</strong></p>
-              <p className="section-note">{t('detail.mapAppsNote')}</p>
+              <p className="section-note detail-directions__apps">{t('detail.mapAppsNote')}</p>
               
               {/* The map buttons before the address: on a 375x812 phone they
                   started just below the first screen (walkthrough 2). */}
@@ -1269,7 +1266,7 @@ export default function RestaurantDetail({
                   "unknown". */}
               {/* The link itself, here at the end of the page: it used to name a
                   link "above", four screens back up. */}
-              <p>
+              <p className="detail-report-line">
                 {t('detail.suggestEdit')}{' '}
                 <Link className="detail-report detail-report--end" to={`/submit?place=${place.id}`} state={{ fromApp: true, tab: location.state?.tab }}>{t('submit.reportLink')}</Link>
               </p>

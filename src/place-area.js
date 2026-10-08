@@ -8,7 +8,7 @@ import { koArea } from './data/address-ko.js';
 // the reader's language. The landmark keeps the spelling of the record —
 // its name in another script would be a guess — and a description in plain
 // English ("near the intercity bus terminal") is left as it is.
-const NEAR = /\((?:near|by) ((?:the )?[A-Z][^()]*?)\.?\)/;
+const NEAR = /\((?:near|by) ((?:the )?[A-Z][^()]*)\)/;
 const NEAR_IN = {
   ja: name => `(${name} 付近)`,
   'zh-Hans': name => `(${name} 附近)`,

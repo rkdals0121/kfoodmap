@@ -171,5 +171,6 @@ test('"near" beside a landmark is said in the language of the reader', async () 
   assert.equal(nearIn('Eojin-dong, Sejong (near the Government Complex Sejong)', 'zh-Hans'), 'Eojin-dong, Sejong (Government Complex Sejong 附近)');
   // A description in plain English, another kind of bracket, English itself: untouched.
   for (const z of ['Ora 1-dong, Jeju City (near the intercity bus terminal)', 'Itaewon-dong, Yongsan-gu, Seoul (Itaewon)']) assert.equal(nearIn(z, 'ja'), z);
+  assert.equal(nearIn('Yeomni-dong, Mapo-gu, Seoul (near Ewha Womans Univ.)', 'id'), 'Yeomni-dong, Mapo-gu, Seoul (dekat Ewha Womans Univ.)');
   assert.equal(nearIn('Gyeong-dong, Mokpo (near Mokpo Station)', 'en'), 'Gyeong-dong, Mokpo (near Mokpo Station)');
 });

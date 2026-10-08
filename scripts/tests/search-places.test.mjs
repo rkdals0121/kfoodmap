@@ -405,4 +405,6 @@ test('면, 읍 or 리 after a name is a township only where a record has one', (
   assert.ok(go('두부면').filteredRestaurants.length > 10);
   assert.ok(go('제주읍').filteredRestaurants.length > 10);
   assert.ok(go('수원리').filteredRestaurants.length > 10);
+  // 남산면 is in Chuncheon (Nami Island), not the Namsan of Seoul.
+  assert.ok(go('남산면').filteredRestaurants.length < go('남산').filteredRestaurants.length);
 });

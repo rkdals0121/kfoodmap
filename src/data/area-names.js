@@ -295,7 +295,7 @@ export function romaniseQuery(query) {
         // place (Yeongdong county, Damyang) — not Yongsan-gu, not Daejeon.
         // Only a township some record's address names: "수원리" and "제주읍"
         // are still Suwon and Jeju, and "두부면" (tofu noodles) is tofu.
-        if (Object.hasOwn(TOWNSHIP_SUFFIX, rest) && Object.hasOwn(AREAS, roman) && isTownship(w)) return [`${roman}-${TOWNSHIP_SUFFIX[rest]}`];
+        if (Object.hasOwn(TOWNSHIP_SUFFIX, rest) && isTownship(w)) return [`${roman}-${TOWNSHIP_SUFFIX[rest]}`];
         if (CITY_SUFFIX.has(rest)) return [SI_IN_ADDRESS.has(roman) && IS_CITY.has(rest) ? `${roman}-si` : roman];
         // What follows may be a name too ("首尔素食" is Seoul + vegetarian),
         // or a word that adds nothing ("素食餐厅", "롯데월드타워").

@@ -59,6 +59,8 @@ const LANDSCAPE_PHONE = '(max-width: 767px) and (orientation: landscape) and (ma
 
 const TAB_PATH = { map: '/', discover: '/discover', journal: '/journal', profile: '/profile' };
 const PATH_TAB = { '/discover': 'discover', '/journal': 'journal', '/profile': 'profile' };
+// The addresses the app has (with the slash a static copy of a page ends in).
+const OWN_PATH = /^\/(?:(?:place\/[^/]+|submit|privacy|cards|discover|journal|profile)\/?)?$/;
 
 const NO_STOPS = [];
 function useStableCallback(fn) {
@@ -802,7 +804,10 @@ function AppShell() {
     if (landing) return;
     // A guide's address has done its work once the view is set: it becomes
     // the map's own address, with the view in its fragment.
-    const onGuide = here.pathname.startsWith('/find/');
+    // …and so does an address that is none of the app's (an old link, a
+    // slip of the keys): the app shows the map for it, and the address
+    // bar kept saying "/nope".
+    const onGuide = here.pathname.startsWith('/find/') || !OWN_PATH.test(here.pathname);
     const goMap = onGuide || toMap.current;
     toMap.current = false;
     if (!goMap && viewHash(parseViewHash(here.hash, VIEW_CHIPS)) === wantHash) return;
