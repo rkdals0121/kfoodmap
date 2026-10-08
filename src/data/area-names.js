@@ -266,9 +266,19 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   '推荐', '推薦', '好吃', '哪里', '哪裡', '人气', '人氣', '有名的', '的',
   'terbaik', 'enak', 'rekomendasi', 'dimana', 'mana', 'yang', 'untuk', 'saya', 'terdekat', 'populer', 'terkenal',
   '맛있는', '유명한', '어디', '인기', '좋은',
+  // …and the particles that glue an area to them: "ソウルでおすすめの…",
+  // "서울에서 맛있는…", "首尔有什么好吃的…".
+  'で', 'にある', 'に', '에서', '에', '의', '有什么', '有什麼', '有',
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の',
   '附近', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
+
+// Of those, the words of a question (not "restaurant", "food", "the", which
+// many places carry in their names). A place whose own name has such a word
+// — "Yang Good", "Great Himalaya" — is found by it: see search.js.
+const QUESTION = new Set(['me', 'my', 'best', 'top', 'good', 'great', 'where', 'to', 'eat', 'eating', 'find', 'for', 'some', 'any', 'and', 'or', 'with',
+  'recommended', 'popular', 'famous', 'delicious', 'tasty', 'terbaik', 'enak', 'mana', 'yang', 'untuk', 'saya']);
+export const questionWords = (query) => String(query ?? '').toLowerCase().split(/\s+/).filter(w => QUESTION.has(w));
 
 // The query without those words, for the checks that read it whole (is it
 // a station?). The query itself when nothing would be left.
@@ -300,9 +310,10 @@ const peelEnd = (text) => {
 };
 
 // "Suwon City", "Jeju Island", "Gyeonggi Province": after an area's name,
-// the kind of place it is adds nothing ("City Hall" is another matter).
+// the kind of place it is adds nothing ("Incheon City Hall" and "Suwon city
+// centre" are other matters).
 // "Jeju City" is Jeju-si, the city — not the island with Seogwipo in it.
-const KIND_OF = new RegExp(`\\b(${Object.keys(AREAS).join('|')})\\s+(city|island|province)\\b`, 'gi');
+const KIND_OF = new RegExp(`\\b(${Object.keys(AREAS).join('|')})\\s+(city|island|province)\\b(?!\\s+(?:hall|cent))`, 'gi');
 
 export function romaniseQuery(query) {
   const asked = String(query ?? '');
@@ -319,8 +330,10 @@ export function romaniseQuery(query) {
     // "noodles", "burgers", "dumplings": also the word without its
     // plural (a word is matched from its start, so "noodle" finds both;
     // "noodles" found 27 places of the 38).
-    if (/^[a-z]{3,}(?:ch|sh|x|ss)es$/i.test(w)) { changed = true; return [w.slice(0, -2)]; }
-    if (/^[a-z]{3,}[^s]s$/i.test(w)) { changed = true; return [w.slice(0, -1)]; }
+    // Only a kind of food the map knows by name: from any word, "fries"
+    // was "frie" (fried, friendly — 161 places) and "Las Vegas" was vegan.
+    const one = /^[a-z]{3,}(?:ch|sh|x|ss)es$/i.test(w) ? w.slice(0, -2) : /^[a-z]{3,}[a-rt-z]s$/i.test(w) ? w.slice(0, -1) : null;
+    if (one && (COOKING.has(one.toLowerCase()) || LATIN_VARIANTS.has(one.toLowerCase()))) { changed = true; return [one]; }
     for (const [name, roman] of TO_ROMAN) {
       if (w.length > name.length && w.startsWith(name)) {
         changed = true;

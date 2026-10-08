@@ -15,7 +15,7 @@
 // A fallback never fires because the chips emptied the list: "Mangwon" +
 // Halal is no reason to show Gangwon.
 import { matchesDietary } from './data/verification.js';
-import { fuzzyQuery, isListedArea, romaniseQuery, stripFillers } from './data/area-names.js';
+import { COOKING, fuzzyQuery, isListedArea, questionWords, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
   matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, liftDietWords } from './filters.js';
@@ -164,12 +164,25 @@ export function searchPlaces({
       // place, and narrowing kept only the records labelled exactly so.
       // Nor when the words are an area and the kind of place it is: "Suwon
       // City" was the one record whose address spells it so, of 29.
-      // Nor when one word is left once the words of a question are set
-      // aside: "korean food" was the two records with those two words
-      // side by side, of the 128 that say Korean.
-      if (raw.includes(' ') && !/[,，、]/.test(raw) && !(asked !== raw && (!asked.includes(' ') || isListedArea(asked))) && !isListedArea((romaniseQuery(raw) ?? '').replace(/-si$/, ''))) {
+      // Nor when what is left, the words of a question set aside, is a kind
+      // of cooking: "korean food" was the two records named "… Korean
+      // Food", of the 128 that say Korean. (A name — "The India", "Royal
+      // Restaurant" — is still narrowed to.)
+      if (raw.includes(' ') && !/[,，、]/.test(raw) && !(asked !== raw && (COOKING.has(asked.toLowerCase()) || isListedArea(asked))) && !isListedArea((romaniseQuery(raw) ?? '').replace(/-si$/, ''))) {
         const exact = select(r => hits(raw).has(r) && matchesPhrase(r, raw));
         if (exact.list.length > 0 && exact.list.length < result.list.length) result = exact;
+      }
+      // A word of a question that is in a place's own name — "Yang Good
+      // seoul", "Great Himalaya" — means that place: with the word set
+      // aside, the first was every place in Seoul.
+      const said = questionWords(raw);
+      if (said.length > 0) {
+        // (Two such words, or one beside another word of the name: "halal
+        // near me" is not the café called "Dou Luv Me".)
+        const others = asked === raw ? [] : asked.toLowerCase().split(/\s+/);
+        const inName = (r) => { const words = String(r.name).toLowerCase().split(/[^a-z']+/); return said.every(w => words.includes(w)) && (said.length >= 2 || others.some(w => words.includes(w))); };
+        const named = result.list.filter(inName);
+        if (named.length > 0 && named.length < result.list.length) result = { list: named, unknown: result.unknown };
       }
       // Nothing on record under these words at all: perhaps one letter off
       // an area ("myongdong"). Not when the chips are what emptied the list.

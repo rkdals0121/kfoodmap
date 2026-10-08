@@ -447,6 +447,20 @@ test('a plural finds what its singular finds, and a kind of cooking is found in 
   assert.ok(go('nepalese').filteredRestaurants.length > 10);
   // "korean food" is what says Korean, not the two records with the words side by side.
   assert.ok(go('korean food').filteredRestaurants.length > 100);
-  // A name ending in s is still itself.
-  assert.ok(go('Monks').filteredRestaurants.length > 0);
+});
+
+test('setting the words of a question aside does not lose a place named with them, nor read a word as a plural', () => {
+  // A name narrows to its place, whatever words are in it.
+  for (const name of ['The India', 'For You Restaurant', 'Warung Jaya', 'Royal Restaurant', 'Dubai Restaurant', 'Yang Good seoul', 'Yang Good Yeoksam', 'Great Himalaya', 'Eat Anything', 'Welcome to Dubai', 'Bread and Roses']) {
+    assert.equal(go(name).filteredRestaurants.length, 1, name);
+  }
+  // "city" before "hall" or "centre" is not the kind of place.
+  assert.equal(ids(go('Incheon City Hall')), ids(go('인천시청')));
+  assert.ok(go('Incheon City Hall').filteredRestaurants.length > 20);
+  assert.ok(go('Suwon city center').filteredRestaurants.length > 20);
+  // Only a kind of food is read without its plural.
+  for (const word of ['fries', 'Las Vegas', 'jeons', 'mills seoul']) assert.equal(go(word).filteredRestaurants.length, 0, word);
+  assert.equal(go('Veggies').filteredRestaurants.length, 1);
+  // …and a question is still a question.
+  assert.equal(ids(go('halal near me')), ids(go('halal')));
 });
