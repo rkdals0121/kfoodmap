@@ -420,7 +420,11 @@ export default function RestaurantDetail({
       // resort. Once more after the sheet has left the page: while it is
       // still there, focus is inside it and the app does not take it back.
       const known = opener && opener !== document.body && document.contains(opener) && typeof opener.focus === 'function';
-      const target = (known ? opener : null)
+      // Opened from a journey's stop and moved on with "Next stop": the
+      // stop to go back to is the one now shown. (Beside the map, from
+      // 1200 px, the first stop is still on the page and was given focus.)
+      const ownStop = opener?.matches?.('.journey-stop') ? document.querySelector(`.journey-stop[data-place="${placeId}"]`) : null;
+      const target = ownStop ?? (known ? opener : null)
         ?? findByMark(mark)
         ?? document.querySelector(`.place-card__open-btn[aria-describedby^="pc-where-${placeId} "]`)
         // …or its stop in an open journey (reached with "Next stop", the

@@ -9,10 +9,11 @@ import { koArea } from './data/address-ko.js';
 // keeps the spelling of the record — its name in another script would be a
 // guess.
 const NEAR = /\(((?:[^(),]+, )?)(?:near|by) ((?:the )?[A-Z][^()]*)\)/;
+// (A word joiner inside 付近 / 附近: a line was ending between the two.)
 const NEAR_IN = {
-  ja: name => `${name} 付近`,
-  'zh-Hans': name => `${name} 附近`,
-  'zh-Hant': name => `${name} 附近`,
+  ja: name => `${name} 付⁠近`,
+  'zh-Hans': name => `${name} 附⁠近`,
+  'zh-Hant': name => `${name} 附⁠近`,
   id: name => `dekat ${name}`,
 };
 // The few descriptions in plain English, whole (the bracket's own words).

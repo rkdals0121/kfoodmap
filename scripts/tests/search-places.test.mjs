@@ -397,7 +397,7 @@ test("an area's name is a whole word of the address", () => {
 
 test('gimbap is found alike in every script', () => {
   const english = ids(go('gimbap'));
-  for (const typed of ['kimbap', '김밥', 'キンパ', '紫菜包饭', '紫菜包飯']) assert.equal(ids(go(typed)), english, typed);
+  for (const typed of ['kimbap', 'gimbab', 'kimbab', '김밥', 'キンパ', '紫菜包饭', '紫菜包飯']) assert.equal(ids(go(typed)), english, typed);
 });
 
 test('면, 읍 or 리 after a name is a township only where a record has one', () => {

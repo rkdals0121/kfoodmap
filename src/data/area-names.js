@@ -124,6 +124,8 @@ const LATIN_VARIANTS = new Map(Object.entries({
   // Dishes, in the other spellings in use: the records write "gimbap" in
   // some places and "kimbap" in others, and a visitor types either.
   kimbap: 'gimbap',
+  gimbab: 'gimbap',
+  kimbab: 'gimbap',
   gimbap: 'kimbap',
   ddukbokki: 'tteokbokki',
   dukbokki: 'tteokbokki',

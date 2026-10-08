@@ -7106,6 +7106,9 @@ html[data-text='larger'] .stat-label {
   .detail-scroll .btn-primary,
   .claim-explain__more,
   .claim-fact__why,
+  .journal-share,
+  .journal-copy,
+  .saved-row__remove,
   .detail-report-line,
   .detail-directions__apps,
   .staff-cards__tabs,
@@ -7173,4 +7176,13 @@ html[data-text='larger'] .stat-label {
   .tab-panel {
     background: #fff !important;
   }
+}
+
+/* At the largest text a seal's name is a size smaller: two seals to a row
+   leave 122 px on a 360 px phone, and "Gonghwachun" at 18 px lost its last
+   letter to a second line. */
+html[data-text='larger'] .journal-grid .stamp-name {
+  font-size: 16px;
+  /* …and reaches a little into the gap between the two columns. */
+  margin-inline: -9px;
 }

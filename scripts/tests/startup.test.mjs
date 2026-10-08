@@ -166,9 +166,9 @@ test("the loading screen's tagline is the welcome screen's headline in each lang
 
 test('"near" beside a landmark is said in the language of the reader', async () => {
   const { nearIn } = await import('../../src/place-area.js');
-  assert.equal(nearIn('Choryang-dong, Dong-gu, Busan (near Busan Station)', 'ja'), 'Choryang-dong, Dong-gu, Busan (Busan Station 付近)');
+  assert.equal(nearIn('Choryang-dong, Dong-gu, Busan (near Busan Station)', 'ja'), 'Choryang-dong, Dong-gu, Busan (Busan Station 付⁠近)');
   assert.equal(nearIn('Daeheung-dong, Dongnam-gu, Cheonan (by Cheonan Station)', 'id'), 'Daeheung-dong, Dongnam-gu, Cheonan (dekat Cheonan Station)');
-  assert.equal(nearIn('Eojin-dong, Sejong (near the Government Complex Sejong)', 'zh-Hans'), 'Eojin-dong, Sejong (Government Complex Sejong 附近)');
+  assert.equal(nearIn('Eojin-dong, Sejong (near the Government Complex Sejong)', 'zh-Hans'), 'Eojin-dong, Sejong (Government Complex Sejong 附⁠近)');
   // The few descriptions in plain English have their own wording; another kind of bracket, and English itself, are untouched.
   assert.equal(nearIn('Ora 1-dong, Jeju City (near the intercity bus terminal)', 'id'), 'Ora 1-dong, Jeju City (dekat terminal bus antarkota)');
   assert.equal(nearIn('Jung-gu, Busan (Nampo-dong, near Gukje Market)', 'id'), 'Jung-gu, Busan (Nampo-dong, dekat Gukje Market)');
