@@ -1199,7 +1199,7 @@ export default function RestaurantDetail({
               <SectionHead Icon={BookIcon} title={t('detail.foodStory')} kr="이야기" />
               {/* The UI is translated; a place's own text is not. Say so once,
                   where the English starts, and mark it for screen readers. */}
-              {i18n.language !== 'en' && !storiesWaiting && (!stories?.[place.id]?.story || (place.timeline?.length > 0 && !timelineNotes)) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
+              {i18n.language !== 'en' && !storiesWaiting && (!stories?.[place.id]?.story || (place.timeline?.length > 0 && !timelineNotes && !notesWaiting)) && <p className="section-note">{t('detail.contentInEnglish')}</p>}
               {stories?.[place.id]?.story
                 ? <p className="detail-body" lang={i18n.language}>{stories[place.id].story}</p>
                 // (On its way: "…", not the English that would change in a moment.)
@@ -1210,7 +1210,7 @@ export default function RestaurantDetail({
                   {place.timeline.map((t, n) => (
                     <li key={`${t.year}-${t.event}`} className="timeline__item">
                       <span className="timeline__year">{t.year}</span>
-                      <span className="timeline__event">{timelineNotes?.[n] ?? t.event}</span>
+                      <span className="timeline__event">{timelineNotes?.[n] ?? (notesWaiting ? '…' : t.event)}</span>
                     </li>
                   ))}
                 </ol>
