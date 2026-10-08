@@ -794,7 +794,10 @@ export default function RestaurantDetail({
               // a record corrected since (the page's data is fetched fresh,
               // the translations may be a deploy behind) shows its English.
               const translated = notes?.n?.[id === 'vegan' ? 0 : 1] === plainNote(f.evidence ?? '').length ? notes?.[id] : null;
-              const { label: level, detail } = trustBadge(translated ? { ...f, evidence: translated } : f);
+              // While the translation is on its way, "…" stands for the note: on
+              // a slow line the record's English came up first and turned into
+              // the reader's language a few seconds into reading it.
+              const { label: level, detail } = trustBadge(translated ? { ...f, evidence: translated } : notesWaiting && f.evidence ? { ...f, evidence: '…' } : f);
               return (
                 <div key={id} id={`claim-explain-${id}`} className="claim-explain" hidden={openClaim !== id}>
                   {/* The research note can run to two screens: the first
