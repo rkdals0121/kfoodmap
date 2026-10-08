@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#087F5B" />
+    <title>Page not found · K-Food Map</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- An address that is nothing here (an old link, a slip of the keys):
+         the host's own page said "404: NOT_FOUND" and led nowhere. This one
+         says so in the reader's language and leads to the map. A visitor
+         who has been here before never sees it: the app's own files answer
+         for any address and show the map. -->
+    <style>
+      html, body { margin: 0; }
+      body { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; box-sizing: border-box; padding: 24px; background: #F7F7F8; color: #1F2328; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; text-align: center; line-height: 1.5; }
+      h1 { margin: 6px 0 0; font-size: 22px; font-weight: 800; }
+      p { margin: 0; max-width: 34em; text-wrap: balance; word-break: keep-all; }
+      :lang(ja) p, :lang(zh-Hans) p, :lang(zh-Hant) p { word-break: normal; line-break: strict; }
+      .lead { font-size: 17px; font-weight: 600; margin-top: 10px; }
+      .more { font-size: 14px; color: #3F444A; }
+      .go { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; margin-top: 14px; padding: 0 28px; border-radius: 999px; background: #087F5B; color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+      .go:focus-visible, .links a:focus-visible { outline: 3px solid #1F2328; outline-offset: 2px; }
+      .links { margin-top: 8px; font-size: 14px; }
+      .links a { display: inline-block; padding: 12px 10px; color: #087F5B; }
+    </style>
+  </head>
+  <body>
+    <svg width="56" height="56" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#087F5B"/><path d="M17 42.5C17 42.5 31.5 26.4 31.5 15.6C31.5 7.6 25 1.5 17 1.5C9 1.5 2.5 7.6 2.5 15.6C2.5 26.4 17 42.5 17 42.5Z" transform="translate(133.6 97.6) scale(7.2)" fill="#FFFFFF"/><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 1 0 10.5 10.5Z" transform="translate(188.8 141.4) scale(5.6)" fill="#087F5B"/><path d="M20 4c0 8.5-5.5 15-15 15C5 10.5 11.5 4 20 4Z" transform="translate(252.8 165.4) scale(2.0)" fill="#087F5B"/></svg>
+    <h1>K-Food Map</h1>
+    <p class="lead" id="lead">This page is not on K-Food Map.</p>
+    <p class="more" id="more">The link may be old, or mistyped.</p>
+    <a class="go" id="go" href="/">Open the map</a>
+    <p class="links"><a id="vegan" href="/find/vegan">Vegan food in Korea</a><a id="halal" href="/find/halal">Halal food in Korea</a></p>
+    <!-- The reader's language: the stored choice, else the browser's (the
+         rule of index.html and src/i18n/index.js detectLanguage). -->
+    <script>(function(){var C={en:1,ko:1,ja:1,'zh-Hans':1,'zh-Hant':1,id:1},L='en',k=null;try{k=localStorage.getItem('kfm-language')}catch(e){}try{if(k&&C[k])L=k;else{var p=navigator.languages||[navigator.language];for(var i=0;i<p.length;i++){var t=String(p[i]).toLowerCase(),m=/^ja(-|$)/.test(t)?'ja':/^zh-(hant|tw|hk|mo)/.test(t)?'zh-Hant':/^zh(-|$)/.test(t)?'zh-Hans':/^ko(-|$)/.test(t)?'ko':(/^id(-|$)/.test(t)||t==='in')?'id':/^en(-|$)/.test(t)?'en':'';if(m){L=m;break}}}}catch(e){}
+var T={ko:['K-Food Map에 없는 페이지예요.','주소가 바뀌었거나 잘못 입력됐을 수 있어요.','지도 열기','한국의 비건 음식','한국의 할랄 음식'],ja:['このページは K-Food Map にありません。','リンクが古いか、入力に誤りがあるかもしれません。','地図を開く','韓国のヴィーガン料理','韓国のハラール料理'],'zh-Hans':['K-Food Map 上没有这个页面。','链接可能已过期，或输入有误。','打开地图','韩国的纯素美食','韩国的清真美食'],'zh-Hant':['K-Food Map 上沒有這個頁面。','連結可能已過期，或輸入有誤。','開啟地圖','韓國的純素美食','韓國的清真美食'],id:['Halaman ini tidak ada di K-Food Map.','Tautannya mungkin sudah lama atau salah ketik.','Buka peta','Makanan vegan di Korea','Makanan halal di Korea']};
+if(T[L]){document.documentElement.lang=L;var ids=['lead','more','go','vegan','halal'];for(var j=0;j<ids.length;j++){var el=document.getElementById(ids[j]);if(el)el.textContent=T[L][j]}}})();</script>
+  </body>
+</html>
