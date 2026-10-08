@@ -267,6 +267,7 @@ F66. In Korean a menu line written "Seon Course (선식)" leads with the Korean 
 F67. [desktop 1024–1199] A place open, then the list folded to the rail → the place takes the whole height of the column (no empty band where the search box was).
 F68. In a language other than English, on a slow line (`throttle: true`, read the text every 300 ms from the first second) → the "Why?" note, the certification line, the story, the timeline, Discover's story excerpts and a card's sustainability line show "…" until their translation arrives, then the translation — never the English first. With the translation's file blocked (`block: ["*story-ja-*"]`, `["*notes-ja-*"]`) the English shows, with the "in English" note where there is one.
 F69. The words in brackets after an area ("(near Busan Station)", "(opposite Haeundae Beach)", "(east coast)") are in the reader's language in ja / zh / id ("(Busan Station 付近)", "(dekat Busan Station)"); the landmark's own name keeps the record's spelling; Korean shows its Korean area line instead.
+F70. A Korean name of one long word (`/place/surinnal-jokbal-jangchung`, 17 letters without a space) at 320 / 360 px, normal and Larger → wraps inside the sheet (no sideways scroll, nothing past the right edge); Korean elsewhere still breaks between words, not inside them.
 
 ## G. Explore tab (Discover, `/discover`)
 

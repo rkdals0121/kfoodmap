@@ -4171,6 +4171,9 @@ a.btn-primary:focus-visible {
 /* A Korean name breaks between words, never inside one ("이 / 태원"). */
 :lang(ko), [lang='ko'] {
   word-break: keep-all;
+  /* …unless one word is longer than the line: "수릿날원조장충동할매족발보쌈설렁탕"
+     (17 letters, no space) ran off the right edge of a phone. */
+  overflow-wrap: anywhere;
 }
 
 /* Journal: the saved list as plain text. A quiet text button under the
