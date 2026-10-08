@@ -270,6 +270,7 @@ F67. [desktop 1024–1199] A place open, then the list folded to the rail → th
 F68. In a language other than English, on a slow line (`throttle: true`, read the text every 300 ms from the first second) → the "Why?" note, the certification line, the story, the timeline, Discover's story excerpts and a card's sustainability line show "…" until their translation arrives, then the translation — never the English first. With the translation's file blocked (`block: ["*story-ja-*"]`, `["*notes-ja-*"]`) the English shows, with the "in English" note where there is one.
 F69. The words in brackets after an area ("(near Busan Station)", "(opposite Haeundae Beach)", "(east coast)") are in the reader's language in ja / zh / id ("(Busan Station 付近)", "(dekat Busan Station)"); the landmark's own name keeps the record's spelling; Korean shows its Korean area line instead.
 F70. A Korean name of one long word (`/place/surinnal-jokbal-jangchung`, 17 letters without a space) at 320 / 360 px, normal and Larger → wraps inside the sheet (no sideways scroll, nothing past the right edge); Korean elsewhere still breaks between words, not inside them.
+F71. [desktop >= 768] A place opened by its own link (`/place/<id>`, no search in the address) at 768, 1024, 1280, 1920 px and on a phone on its side (844x390) → its pin stands in the middle of the visible map (clear of the docked place) and the place is the first card of the list beside it, its neighbours after it. With a search in the address the map frames the search as before.
 
 ## G. Explore tab (Discover, `/discover`)
 
