@@ -3643,6 +3643,18 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       `clock-status`, `place-meta-line`, `focus-next-stop-and-cards`).
       There is a print stylesheet (end of `index.css`): what is being
       read prints as a plain page.
+    - Later the same morning (to `b37f984`): `public/404.html` (the host's
+      404 led nowhere) and `OWN_PATH` in `App.jsx` (a stray address
+      becomes "/"); translations that are on their way show "…" instead
+      of the English first (`useStoriesWaiting`, `useNotesWaiting`); the
+      English words in an area's brackets are said in ja / zh / id
+      (`src/place-area.js`, the landmark's name untouched); a claim's
+      label and level wrap like the meta line (`.claim-fact__words`). In
+      Korean a menu line only changes order — "선식 (Seon Course)" —
+      because the Korean alone lost "Lunch" / "Dinner" / "with soy milk".
+      Check a screen in its real state and at both ends of the layout: a
+      seal fix was verified on the sample seals and a focus fix on a phone
+      only, and both failed on the live site until a second look.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
