@@ -55,6 +55,13 @@ function CenterReporter({ onCenterChange, sheetState, userLocation, anchor = nul
   // The open place, for the handler below (which is set once).
   const anchorRef = useRef(anchor);
   useEffect(() => { anchorRef.current = anchor; }, [anchor]);
+  // The centre to sort the list from: the open place itself when it stands
+  // (within a few pixels) in the middle of what shows.
+  const report = (m, c) => {
+    const a = anchorRef.current;
+    if (a && m.latLngToContainerPoint([a.lat, a.lng]).distanceTo(m.latLngToContainerPoint(c)) < 16) onCenterChange([a.lat, a.lng]);
+    else onCenterChange([c.lat, c.lng]);
+  };
   // A docked place opening or closing also moves the middle of what shows
   // (visibleCenter) without moving the map. That is not reported: the list
   // would reshuffle as the place closed, and the card to go back to — the
@@ -82,7 +89,7 @@ function CenterReporter({ onCenterChange, sheetState, userLocation, anchor = nul
       // Standing on "my location": folding the sheet must not turn "nearest
       // to you" into "nearest to a point 400 m up the road".
       if (userLocation && map.distance(c, [userLocation.lat, userLocation.lng]) < 1000) return;
-      onCenterChange([c.lat, c.lng]);
+      report(map, c);
     }, 350);
     return () => clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,12 +101,7 @@ function CenterReporter({ onCenterChange, sheetState, userLocation, anchor = nul
       // list is then sorted from the place itself. A few pixels off (the
       // pan is in whole pixels), at the opening zoom, were 170 m — and the
       // place just opened stood sixth in the list beside it.
-      const a = anchorRef.current;
-      if (a && e.target.latLngToContainerPoint([a.lat, a.lng]).distanceTo(e.target.latLngToContainerPoint(c)) < 16) {
-        onCenterChange([a.lat, a.lng]);
-        return;
-      }
-      onCenterChange([c.lat, c.lng]);
+      report(e.target, c);
     },
   });
   return null;
@@ -376,7 +378,7 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
 // reached again in the list, which holds every place on the map and is the
 // keyboard and screen-reader route (CRITIQUE-2 #12). Pointer and touch are
 // unchanged.
-function ClusteredMarkers({ restaurants, selectedId, selectedPlace = null, onMarkerClick, savedIds, stopIds, peek = false }) {
+function ClusteredMarkers({ restaurants, selectedId, selectedPlace = null, onMarkerClick, savedIds, stopIds, peek = false, searchQuery = '' }) {
   const map = useMap();
   const { t } = useTranslation();
   const [zoom, setZoom] = useState(() => map.getZoom());
@@ -410,6 +412,8 @@ function ClusteredMarkers({ restaurants, selectedId, selectedPlace = null, onMar
   }, [restaurants, selectedId, zoom, map, savedSet, stopNumber]);
 
   const atMaxZoom = zoom >= map.getMaxZoom();
+  // The place this map was first drawn with, if any (see below).
+  const arrived = useRef(selectedId ?? null);
 
   // From 768px up the detail docks beside the map, so bring an opened place
   // into view if it is off screen. Not on a phone, where the detail covers
@@ -426,7 +430,13 @@ function ClusteredMarkers({ restaurants, selectedId, selectedPlace = null, onMar
     const size = map.getSize();
     const margin = 48;
     const inView = p.x >= covered + margin && p.x <= size.x - margin && p.y >= margin && p.y <= size.y - margin;
-    if (!inView) map.panBy([p.x - (covered + (size.x - covered) / 2), p.y - size.y / 2]);
+    // A place the page was opened on (a shared link, with no search in it)
+    // is brought to the middle even when it is in view: the list beside it
+    // is sorted from the middle of the map, and on a wide screen it showed
+    // another part of the city than the place the link was about.
+    const arrivedOn = arrived.current === selectedId && !searchQuery;
+    arrived.current = null;
+    if (!inView || arrivedOn) map.panBy([p.x - (covered + (size.x - covered) / 2), p.y - size.y / 2], arrivedOn ? { animate: false } : undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId]);
 
@@ -955,6 +965,7 @@ function MapComponent({
           savedIds={savedIds}
           stopIds={stopIds}
           peek={placePeek}
+          searchQuery={searchQuery}
         />
       </MapContainer>
     </div>
