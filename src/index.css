@@ -7254,3 +7254,28 @@ html[lang='id'] .stat-label {
     padding-right: 3px;
   }
 }
+
+/* Narrower than a phone held upright, but real: the cover screen of a
+   folding phone (280 px), a phone with the page zoomed to 150%. "Naver Map"
+   and "Kakao Map" were wider than their buttons and ran into each other;
+   here each goes on two lines. */
+@media (max-width: 319px) {
+  .detail-bar {
+    gap: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .detail-bar__map {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+    font-size: 13px;
+  }
+}
+@media (max-width: 359px) {
+  html[data-text='larger'] .detail-bar__map {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+  }
+}
