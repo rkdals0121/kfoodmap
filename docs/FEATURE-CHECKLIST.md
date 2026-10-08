@@ -398,6 +398,8 @@ L13. Long strings at 360 px in every language → chips, buttons, bottom bar, no
 L14. Searching in the UI language → the chip words typed in that language (D14) and localized suggestions (D5) work.
 L15. Two language choices in quick succession on the welcome screen → the last one wins (a slow first chunk does not override it). In Profile's language sheet the other rows are `aria-disabled` while one is loading, so a second press there is ignored.
 
+L16. The page translated by the browser (Chrome's "Translate this page", for a reader of Thai, Vietnamese, Arabic, Russian…; imitated by `scripts/regress` step `page-translated`) → nothing crashes: a place opened and a place near it pressed, saving, chips, tabs all work; counts and "Clear (n)" follow what is on; closing a sheet puts focus back on what opened it. Left as written (`translate="no"`): Korean to read or show (staff cards, Korean name and address, Hangul in menus and notes, seals), place names, addresses, romanised readings, the names of the languages. A diet word typed in such a language (халяль, हलाल, веган, วีแกน, vegano, نباتي…) finds what the chip finds (D14).
+
 ## M. PWA, offline, install, updates
 
 M1. Web manifest (`/manifest.webmanifest`) → name/short_name "K-Food Map", `display: standalone`, `start_url: /`, `scope: /`, theme `#FFFFFF`, background `#F7F7F8`, icons favicon.svg, 180/192/512 PNG and a maskable 512; shortcuts "Korean cards to show staff" (`/cards`) and "Saved places" (`/journal`).

@@ -464,3 +464,12 @@ test('setting the words of a question aside does not lose a place named with the
   // …and a question is still a question.
   assert.equal(ids(go('halal near me')), ids(go('halal')));
 });
+
+test('a diet word of a language the app does not speak finds what the chip finds', () => {
+  // A reader whose browser translates the page types the word as they know it.
+  const halal = ids(go('halal'));
+  for (const q of ['халяль', 'Халяль', 'халал', 'ҳалол', 'halol', 'हलाल', 'হালাল', 'حلال', 'ฮาลาล']) assert.equal(ids(go(q)), halal, q);
+  const vegan = ids(go('vegan'));
+  for (const q of ['веган', 'วีแกน', 'มังสวิรัติ', 'vegano', 'vegana', 'végane', 'veganisch', 'végétalien', 'thuần chay', 'نباتي']) assert.equal(ids(go(q)), vegan, q);
+  assert.equal(ids(go('itaewon халяль')), ids(go('itaewon halal')));
+});

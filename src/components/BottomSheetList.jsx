@@ -80,7 +80,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
     <article className={`place-card${hasPhoto ? '' : ' place-card--text'}`}>
       <div className="place-card__body">
         {/* Stretched link: the name button's ::after covers the whole card */}
-        <h3 className="place-card__name">
+        <h3 className="place-card__name" translate="no">
           <button className="place-card__open-btn" aria-describedby={`pc-where-${place.id} pc-meta-${place.id} pc-claims-${place.id}`} onClick={() => onOpen(place)}>
             {/* In a journey, the same number as the stop's mark on the map. */}
             {/* Read as "Stop 1: EID…", not "1EID…". */}
@@ -202,7 +202,7 @@ export default function BottomSheetList({
                   <li key={place.id}>
                     <button type="button" className="saved-row" onClick={() => onRestaurantClick(place)}>
                       <span className="saved-row__main">
-                        <span className="saved-row__name">{displayName(place.name)}</span>
+                        <span className="saved-row__name" translate="no">{displayName(place.name)}</span>
                         <span className="saved-row__where">{placeArea(place)} · {t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
                         <span className="saved-row__claims">{dietaryBadges(place).map(b => <React.Fragment key={b.key}><ClaimChip kind={b.key} label={b.label} fact={b.fact} /><span className="visually-hidden">. </span></React.Fragment>)}</span>
                         {/* Whether it is open, as every other row says. */}

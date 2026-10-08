@@ -261,7 +261,7 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
                         {/* The page promises each stop says how sure we are:
                             so each stop carries its claim marks. */}
                         <span className="journey-stop__text">
-                          <span className="journey-stop__name">{displayName(place.name)}</span>
+                          <span className="journey-stop__name" translate="no">{displayName(place.name)}</span>
                           <span className="journey-stop__zone">
                             {placeArea(place)}
                             {/* How far apart the stops are, so "a half-day"
@@ -325,7 +325,7 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
           <article key={place.id} className="story-card" onClick={() => navigate(`/place/${place.id}`, { state: { fromApp: true, tab: 'discover', focusStory: true } })}>
             <div className="story-card-content">
               <p className="story-card__kind">{t('discover.storyLabel')}</p>
-              <h3>{displayName(place.name)}</h3>
+              <h3 translate="no">{displayName(place.name)}</h3>
               <p lang={stories?.[place.id]?.story ? i18n.language : 'en'}>{storiesWaiting ? '…' : firstSentence(stories?.[place.id]?.story ?? place.story)}</p>
               <button className="story-card-btn" aria-label={t('list.readStoryAria', { name: displayName(place.name) })}>{t('discover.readStory')} <ChevronRightIcon size={14} /></button>
             </div>
@@ -450,6 +450,7 @@ function LanguagePicker({ onClose }) {
           <button
             key={lang.code}
             lang={lang.html}
+            translate="no"
             autoFocus={i18n.language === lang.code || (i === 0 && !LANGUAGES.some(l => l.code === i18n.language))}
             className={`language-picker__option${i18n.language === lang.code ? ' active' : ''}`}
             aria-pressed={i18n.language === lang.code}

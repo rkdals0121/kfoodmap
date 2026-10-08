@@ -100,7 +100,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               </button>
               <div className="staff-card__paper" onClick={() => openLarge(card.statement.map(l => l.ko))}>
                 {card.statement.map(line => (
-                  <p key={line.ko} className="staff-card__ko" lang="ko">{line.ko}</p>
+                  <p key={line.ko} className="staff-card__ko" lang="ko" translate="no">{line.ko}</p>
                 ))}
               </div>
               {gloss && <details className="staff-card__meaning" open>
@@ -123,9 +123,9 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                   <li key={q.ko}>
                     <button type="button" className="staff-question" onClick={() => openLarge([q.ko], gloss ? t(`cardText.${q.key}`) : '')}>
                       {gloss && <span className="staff-question__en">{t(`cardText.${q.key}`)}</span>}
-                      <span className="staff-question__ko" lang="ko">{q.ko}</span>
+                      <span className="staff-question__ko" lang="ko" translate="no">{q.ko}</span>
                       {/* How it sounds, for a reader who cannot read Hangul — not for one who can. */}
-                      {gloss && <span className="staff-question__roman">{q.roman}</span>}
+                      {gloss && <span className="staff-question__roman" translate="no">{q.roman}</span>}
                     </button>
                   </li>
                 ))}
@@ -138,7 +138,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <dl className="staff-words">
                 {STAFF_ANSWERS.map(a => (
                   <div key={a.ko}>
-                    <dt><span lang="ko">{a.ko}</span>{gloss && <> <span className="staff-words__roman">{a.roman}</span></>}</dt>
+                    <dt><span lang="ko" translate="no">{a.ko}</span>{gloss && <> <span className="staff-words__roman" translate="no">{a.roman}</span></>}</dt>
                     <dd>{t(`cardText.${a.key}`)}</dd>
                   </div>
                 ))}
@@ -151,7 +151,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <dl className="staff-words">
                 {MENU_WORDS.filter(w => !w.only || w.only === cardId).map(w => (
                   <div key={w.ko}>
-                    <dt><span lang="ko">{w.ko}</span>{gloss && <> <span className="staff-words__roman">{w.roman}</span></>}</dt>
+                    <dt><span lang="ko" translate="no">{w.ko}</span>{gloss && <> <span className="staff-words__roman" translate="no">{w.roman}</span></>}</dt>
                     <dd>{t(`cardText.${w.key}`)}</dd>
                   </div>
                 ))}
@@ -174,7 +174,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
           // moving to the sheet hidden behind.
           onKeyDown={(e) => { if (e.key === 'Tab') e.preventDefault(); }}
         >
-          <span className="staff-large__text" lang="ko" ref={largeText}>
+          <span className="staff-large__text" lang="ko" translate="no" ref={largeText}>
             {large.map(line => <span key={line}>{line}</span>)}
           </span>
           {largeMeaning && <span className="staff-large__meaning">{largeMeaning}</span>}

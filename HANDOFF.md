@@ -3671,6 +3671,23 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       "text wider than its own box" over all views (found the Journal's
       Indonesian labels); dialogs and the welcome screen at short heights
       (found "Open the map" three screens down at 320x480).
+    - 10-09 before dawn (docs/MOBILE-AUDIT §26): a page translated by
+      the browser (what Chrome offers a phone set to Thai, Vietnamese,
+      Arabic, Russian… on a page in English) crashed the app on the
+      second press — the translator swaps every text node for
+      `<font><font>…</font></font>` and React then removes a node that
+      is no longer there. `src/pageTranslator.js` (imported second in
+      `main.jsx`) remembers what stands where a text node was and does
+      React's three operations to the stand-in; it patches
+      `Node.prototype.removeChild / insertBefore / appendChild` and
+      `Text.prototype.nodeValue`, so read it before touching either.
+      Text that must stay as written carries `translate="no"` (Korean
+      to show staff, place names, addresses, romanised readings,
+      language names) — a new place where a name or Korean is drawn
+      needs it too. Regression step `page-translated` imitates the
+      translator; Google's own library can be loaded into a page with
+      `shot.mjs` (`init` + `csp: false`) but stops answering after a
+      few runs from one machine.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

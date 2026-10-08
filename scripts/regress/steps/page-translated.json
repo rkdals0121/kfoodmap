@@ -1,0 +1,28 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "window.__errs=[]; const ce=console.error; console.error=(...a)=>{ __errs.push(a.map(x=>String(x&&x.message||x)).join(' ').slice(0,90)); ce(...a); };\nconst skip=n=>!n.parentElement||n.parentElement.closest('script,style,svg,textarea,select,title,[translate=no],.notranslate,font[data-t]');\nconst wrap=n=>{ if(!n.nodeValue.trim()||!n.isConnected||skip(n)) return; const a=document.createElement('font'); a.setAttribute('data-t','1'); const b=document.createElement('font'); b.textContent=n.nodeValue; a.appendChild(b); n.parentNode.replaceChild(a,n); };\nconst all=()=>{ const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT); const ns=[]; for(let n=w.nextNode();n;n=w.nextNode()) ns.push(n); ns.forEach(wrap); };\nall(); new MutationObserver(()=>{ clearTimeout(window.__tt); window.__tt=setTimeout(all,120); }).observe(document.body,{childList:true,subtree:true,characterData:true});\nreturn {wrapped: document.querySelectorAll('font[data-t]').length > 100};"
+ },
+ {
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('.place-card__open-btn')?.click(); await w(1800); document.querySelector('.detail-sheet .saved-row')?.click(); await w(1500); return {crash:!!document.querySelector('.app-error'), errs:__errs.splice(0), head:(document.querySelector('.place-list__header')?.innerText ?? '').split(String.fromCharCode(10)).join(' | '), path:location.pathname+location.hash}"
+ },
+ {
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('.detail-bar__save')?.click(); await w(700); document.querySelector('.detail-bar__save')?.click(); await w(700); document.querySelector('.detail-close')?.click(); await w(1300); return {crash:!!document.querySelector('.app-error'), errs:__errs.splice(0), head:(document.querySelector('.place-list__header')?.innerText ?? '').split(String.fromCharCode(10)).join(' | '), path:location.pathname+location.hash}"
+ },
+ {
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const chips=document.querySelectorAll('.chip'); chips[0]?.click(); await w(1300); chips[2]?.click(); await w(1300); return {crash:!!document.querySelector('.app-error'), errs:__errs.splice(0), head:(document.querySelector('.place-list__header')?.innerText ?? '').split(String.fromCharCode(10)).join(' | '), path:location.pathname+location.hash}"
+ },
+ {
+  "url": "{{BASE}}/cards",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "window.__errs=[]; const ce=console.error; console.error=(...a)=>{ __errs.push(a.map(x=>String(x&&x.message||x)).join(' ').slice(0,90)); ce(...a); };\nconst skip=n=>!n.parentElement||n.parentElement.closest('script,style,svg,textarea,select,title,[translate=no],.notranslate,font[data-t]');\nconst wrap=n=>{ if(!n.nodeValue.trim()||!n.isConnected||skip(n)) return; const a=document.createElement('font'); a.setAttribute('data-t','1'); const b=document.createElement('font'); b.textContent=n.nodeValue; a.appendChild(b); n.parentNode.replaceChild(a,n); };\nconst all=()=>{ const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT); const ns=[]; for(let n=w.nextNode();n;n=w.nextNode()) ns.push(n); ns.forEach(wrap); };\nall(); new MutationObserver(()=>{ clearTimeout(window.__tt); window.__tt=setTimeout(all,120); }).observe(document.body,{childList:true,subtree:true,characterData:true});\nreturn {wrapped: document.querySelectorAll('font[data-t]').length > 100};"
+ },
+ {
+  "js": "return {korean:document.querySelectorAll('[lang=ko]').length, koreanTranslated:document.querySelectorAll('[lang=ko] font').length}"
+ }
+]

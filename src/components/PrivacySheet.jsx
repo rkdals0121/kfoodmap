@@ -95,7 +95,7 @@ export default function PrivacySheet({ onClose }) {
             {/* The policy is a legal text and is kept in the two languages it
                 was written in; a reader of another language is told so. */}
             {translated?.lang === i18n.language
-              ? <PolicyVersion lang={document.documentElement.lang || i18n.language} policy={translated.policy} />
+              ? <PolicyVersion lang={i18n.language} policy={translated.policy} />
               : !['en', 'ko'].includes(i18n.language) && (
                 <p className="section-note privacy-language-note">{t('profile.privacyLanguageNote')}</p>
               )}

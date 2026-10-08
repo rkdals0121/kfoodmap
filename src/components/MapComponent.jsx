@@ -497,7 +497,7 @@ function ClusteredMarkers({ restaurants, selectedId, selectedPlace = null, onMar
                 <ul>
                   {members.map(({ r }) => (
                     <li key={r.id}>
-                      <button type="button" onClick={() => { map.closePopup(); onMarkerClick(r); }}>
+                      <button type="button" onClick={() => { map.closePopup(); onMarkerClick(r); }} translate="no">
                         {r.name}
                       </button>
                     </li>

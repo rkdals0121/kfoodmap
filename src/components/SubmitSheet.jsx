@@ -268,7 +268,7 @@ export default function SubmitSheet({ place, onClose, initialName = '', initialT
                                 aria-selected={index === activeIndex}
                                 className={`submit-suggestion${index === activeIndex ? ' is-active' : ''}`}
                                 onMouseDown={(event) => { event.preventDefault(); choose(result); }}>
-                              <span className="submit-suggestion__name">{result.name}</span>
+                              <span className="submit-suggestion__name" translate="no">{result.name}</span>
                               <span className="submit-suggestion__meta">{result.address}{result.category ? ` · ${result.category}` : ''}</span>
                             </li>
                           ))}

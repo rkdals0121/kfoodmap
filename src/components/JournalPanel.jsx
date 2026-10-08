@@ -27,7 +27,7 @@ function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' })
     <li className="saved-item">
       <button type="button" className="saved-row" onClick={() => onOpen(place)}>
         <span className="saved-row__main">
-          <span className="saved-row__name">{displayName(place.name)}</span>
+          <span className="saved-row__name" translate="no">{displayName(place.name)}</span>
           <span className="saved-row__where">
             {placeArea(place)}
             {savedAt > 0 && <> · {t('journal.savedOn', { date: formatShortDate(savedAt, i18n.language) })}</>}
@@ -197,7 +197,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 onClick={() => onRestaurantClick(place)}
               >
                 <Seal {...sealText(place.name)} />
-                <span className="stamp-name">{displayName(place.name)}</span>
+                <span className="stamp-name" translate="no">{displayName(place.name)}</span>
                 <span className="stamp-zone">{placeArea(place)}</span>
                 {/* "Visited …" in words: the seal says 방문, which most readers can't. */}
                 {visitedAt > 0 && <span className="stamp-date">{t('journal.visitedOn', { date: formatShortDate(visitedAt, i18n.language) })}</span>}
@@ -296,7 +296,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                     onClick={() => onRestaurantClick(place)}
                   >
                     <Seal {...sealText(place.name)} />
-                    <span className="stamp-name">{displayName(place.name)}</span>
+                    <span className="stamp-name" translate="no">{displayName(place.name)}</span>
                     <span className="stamp-zone">{placeArea(place)}</span>
                     <span className="stamp-sample-tag">{t('journal.sample')}</span>
                   </button>

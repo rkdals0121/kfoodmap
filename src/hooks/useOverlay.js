@@ -156,6 +156,13 @@ export function findByMark(mark) {
   // the same position (a place in two journeys), if it is among them.
   const same = said.filter(el => el.className === mark.classes);
   const all = same.length > 0 ? same : said;
+  // A page its browser has translated: the words read then are not the
+  // words there now (put back in English, or translated again), so the one
+  // in the same position stands for it.
+  if (all.length === 0 && document.querySelector('font')) {
+    const twin = document.getElementsByClassName(mark.kind)[mark.nth];
+    return twin && twin.className === mark.classes ? twin : null;
+  }
   return all.find(el => [...document.getElementsByClassName(mark.kind)].indexOf(el) === mark.nth) ?? all[0] ?? null;
 }
 let lastMark = null;

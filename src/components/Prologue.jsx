@@ -67,6 +67,7 @@ export default function Prologue({ onComplete, dialog = false, ctaKey = 'prologu
                 key={lang.code}
                 type="button"
                 lang={lang.html}
+                translate="no"
                 className={`prologue-language${i18n.language === lang.code ? ' is-current' : ''}`}
                 aria-pressed={i18n.language === lang.code}
                 onClick={() => setLanguage(lang.code)}

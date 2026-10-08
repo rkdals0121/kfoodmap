@@ -110,6 +110,13 @@ const DIET_WORDS = {
   '할랄': 'Halal', '비건': 'Vegan',
   // …and in languages the app does not speak but its visitors do.
   helal: 'Halal', 'حلال': 'Halal', 'ฮาลาล': 'Halal',
+  // (A reader of one of these has the page put into their language by the
+  // browser, and types the word as they know it: Russian, Kazakh, Uzbek,
+  // Hindi, Bengali; Thai, Spanish, Portuguese, Italian, German, French,
+  // Arabic and Vietnamese for vegan.)
+  'халяль': 'Halal', 'халал': 'Halal', 'ҳалол': 'Halal', halol: 'Halal', 'हलाल': 'Halal', 'হালাল': 'Halal',
+  'веган': 'Vegan', 'วีแกน': 'Vegan', 'มังสวิรัติ': 'Vegan', vegano: 'Vegan', vegana: 'Vegan', vegane: 'Vegan', veganisch: 'Vegan',
+  vegetalien: 'Vegan', 'نباتي': 'Vegan', thuanchay: 'Vegan',
   // "Muslim-friendly" is what Korean tourism lists call these places.
   // The labels on the cards and chips, as written there: typed back, they
   // found nothing ("完全ヴィーガン", "vegan sepenuhnya", "全素": 0 places).

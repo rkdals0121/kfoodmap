@@ -10,6 +10,7 @@ export default function Seal({ chars, cols, earned = true, size = 'md' }) {
       className={`seal seal--${size}${earned ? '' : ' seal--locked'}`}
       style={{ '--seal-cols': cols, '--seal-n': chars.length }}
       aria-hidden="true"
+      translate="no"
     >
       {chars.map((c, i) => <span key={i}>{c}</span>)}
     </span>

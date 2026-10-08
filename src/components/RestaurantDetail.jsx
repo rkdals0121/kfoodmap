@@ -51,7 +51,7 @@ function SectionHead({ Icon, title, kr }) {
   return (
     <div className="section-head">
       <span className="section-head__icon" aria-hidden="true"><Icon size={17} /></span>
-      <h3>{title}{kr && <span className="section-head__kr" lang="ko"> · {kr}</span>}</h3>
+      <h3>{title}{kr && <span className="section-head__kr" lang="ko" translate="no"> · {kr}</span>}</h3>
     </div>
   );
 }
@@ -681,7 +681,7 @@ export default function RestaurantDetail({
         {!docked && peek && <button type="button" className="detail-expand" aria-label={t('map.expandPlace')} onClick={() => onExpand?.()} />}
         {/* For the eye only: the dialog is already named, and the H2 below is
             the heading a screen reader lands on. */}
-        <p className={`detail-topname${nameAway && !peek ? ' is-shown' : ''}`} aria-hidden="true"><KoText>{name}</KoText></p>
+        <p className={`detail-topname${nameAway && !peek ? ' is-shown' : ''}`} aria-hidden="true" translate="no"><KoText>{name}</KoText></p>
         <button className="detail-close" aria-label={t('detail.close')} onClick={onClose}>
           <XIcon size={18} />
         </button>
@@ -720,7 +720,7 @@ export default function RestaurantDetail({
                   {journey.next ? (
                     <button type="button" className="journey-nav__btn journey-nav__btn--next" onClick={() => onJourneyStop(journey.next, journey.index + 1)}>
                       <span className="journey-nav__next-text">
-                        <span className="journey-nav__next-label">{colon(t('detail.journeyNext'), displayName(journey.next.name))}</span>
+                        <span className="journey-nav__next-label">{colon(t('detail.journeyNext'), '')}<span translate="no">{displayName(journey.next.name)}</span></span>
                         <span className="journey-nav__next-km">{t('detail.journeyNextKm', { distance: formatDistance(journey.nextKm) })}</span>
                       </span>
                       <ChevronRightIcon size={16} />
@@ -734,7 +734,7 @@ export default function RestaurantDetail({
             <header className="detail-header">
               {/* A Korean reader gets the Korean name here too, as on the list
                   and in the Journal. */}
-              <h2>{i18n.language === 'ko' ? displayName(place.name) : <KoText>{place.name}</KoText>}</h2>
+              <h2 translate="no">{i18n.language === 'ko' ? displayName(place.name) : <KoText>{place.name}</KoText>}</h2>
               {/* The dots between the parts are drawn by the stylesheet, which
                   leaves out the one a line would otherwise end or begin with
                   ("…Jung-gu, Seoul ·" with the hours on the next line). */}
@@ -945,7 +945,7 @@ export default function RestaurantDetail({
                   <TrainIcon size={17} />
                   <span>
                     {koUi && koStation(place.transit.value.station) && koLine(place.transit.value.line)
-                      ? <span lang="ko">{koStation(place.transit.value.station)} {koLine(place.transit.value.line)}</span>
+                      ? <span lang="ko" translate="no">{koStation(place.transit.value.station)} {koLine(place.transit.value.line)}</span>
                       : <>{place.transit.value.station} {place.transit.value.line}</>}
                     {place.transit.value.exit && t('detail.transitExit', { exit: place.transit.value.exit })}
                     {t('detail.transitWalk', { minutes: place.transit.value.walkingMinutes })}
@@ -1071,7 +1071,7 @@ export default function RestaurantDetail({
               {/* Reached straight from a card's directions button, this section
                   is all that shows: it says whose directions these are, and
                   what the two Korean buttons are to someone from abroad. */}
-              <p className="section-note detail-directions__for"><strong>{displayName(place.name)}</strong></p>
+              <p className="section-note detail-directions__for"><strong translate="no">{displayName(place.name)}</strong></p>
               <p className="section-note detail-directions__apps">{t('detail.mapAppsNote')}</p>
               
               {/* The map buttons before the address: on a 375x812 phone they
@@ -1093,9 +1093,11 @@ export default function RestaurantDetail({
               <div className="practical-row">
                 <MapPinIcon size={17} />
                 <span lang={shownAddress === koAddr ? 'ko' : undefined}>
-                  {shownAddress}
+                  {/* An address is copied into a map as it is written: a browser's
+                      page translator leaves it alone. */}
+                  <span translate="no">{shownAddress}</span>
                   {shownAddress !== place.address.value && (
-                    <span className="practical-address-roman" lang="en">{place.address.value}</span>
+                    <span className="practical-address-roman" lang="en" translate="no">{place.address.value}</span>
                   )}
                   {place.address.precision === 'area' && (
                     <span className="practical-muted">{t('detail.areaOnly')}</span>
@@ -1108,7 +1110,7 @@ export default function RestaurantDetail({
               {!koUi && koAddr && (
                 <div className="practical-row ko-name">
                   <span className="ko-name__label">{t('detail.koreanAddress')}</span>
-                  <span className="ko-name__value ko-name__value--address" lang="ko">{koAddr}</span>
+                  <span className="ko-name__value ko-name__value--address" lang="ko" translate="no">{koAddr}</span>
                   <button type="button" className="practical-copy" aria-label={colon(t('detail.copy'), koAddr)} onClick={copyKoAddr}>
                     {koAddrCopied ? t('detail.copied') : t('detail.copy')}
                   </button>
@@ -1119,7 +1121,7 @@ export default function RestaurantDetail({
               {koName && (
                 <div className="practical-row ko-name">
                   <span className="ko-name__label">{t('detail.koreanName')}</span>
-                  <span className="ko-name__value" lang="ko">{koName}</span>
+                  <span className="ko-name__value" lang="ko" translate="no">{koName}</span>
                   <button type="button" className="practical-copy" aria-label={colon(t('detail.copy'), koName)} onClick={copyKoName}>
                     {nameCopied ? t('detail.copied') : t('detail.copy')}
                   </button>
@@ -1133,10 +1135,10 @@ export default function RestaurantDetail({
                     // No aria-label: it would replace the Korean a screen
                     // reader should read out; the visible hint names the action.
                     <button type="button" className="staff-large" autoFocus onClick={closeNameLarge} onKeyDown={(e) => { if (e.key === 'Tab') e.preventDefault(); }}>
-                      <span className="staff-large__text staff-large__text--name" lang="ko" ref={nameLargeText}><span>{koName}</span></span>
+                      <span className="staff-large__text staff-large__text--name" lang="ko" translate="no" ref={nameLargeText}><span>{koName}</span></span>
                       {/* What a driver or a passer-by can use besides the
                           name: the number to ring for the way. */}
-                      {koAddr && <span className="staff-large__sub staff-large__sub--address" lang="ko">{koAddr}</span>}
+                      {koAddr && <span className="staff-large__sub staff-large__sub--address" lang="ko" translate="no">{koAddr}</span>}
                       {isKnown(place.phone) && <span className="staff-large__sub">{place.phone.value}</span>}
                       <span className="staff-large__close">{t('detail.tapToClose')}</span>
                     </button>,
@@ -1170,7 +1172,7 @@ export default function RestaurantDetail({
                       <li key={other.id}>
                         <button type="button" className="saved-row" onClick={() => onOpenPlace(other)}>
                           <span className="saved-row__main">
-                            <span className="saved-row__name">{displayName(other.name)}</span>
+                            <span className="saved-row__name" translate="no">{displayName(other.name)}</span>
                             <span className="saved-row__where">{t('detail.nearbyAway', { distance: formatDistance(km) })}</span>
                             {/* As on the list cards: no hours on record is
                                 said, so a missing line is not read as open. */}
