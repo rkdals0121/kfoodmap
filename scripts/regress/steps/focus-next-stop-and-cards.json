@@ -7,6 +7,13 @@
   "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('.journey-card__toggle').click(); await w(400); const s=document.querySelectorAll('.journey-stop')[1]; s.focus(); s.click(); await w(1500); [...document.querySelectorAll('button,a')].find(b=>((b.getAttribute('aria-label')||'')+b.textContent).includes('Next stop')).click(); await w(1500); [...document.querySelectorAll('.detail-close')].pop().click(); await w(1500); return {path:location.pathname, focus:(document.activeElement.textContent||'').slice(0,9)}"
  },
  {
+  "url": "{{BASE}}/discover",
+  "w": 1280,
+  "h": 800,
+  "lang": "en",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); document.querySelector('.journey-card__toggle').click(); await w(400); const s=document.querySelectorAll('.journey-stop')[1]; s.focus(); s.click(); await w(1500); [...document.querySelectorAll('button,a')].find(b=>((b.getAttribute('aria-label')||'')+b.textContent).includes('Next stop')).click(); await w(1500); [...document.querySelectorAll('.detail-close')].pop().click(); await w(1500); return {path:location.pathname, focus:(document.activeElement.textContent||'').slice(0,9)}"
+ },
+ {
   "url": "{{BASE}}/place/balwoo",
   "w": 360,
   "h": 640,
