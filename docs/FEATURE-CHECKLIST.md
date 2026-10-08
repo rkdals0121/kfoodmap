@@ -265,6 +265,8 @@ F64. Photo hero / gallery (`.place-image--hero`, `.gallery-overlay`) → only fo
 F65. The line under the name (area · distance · open or closed) wraps without a dot left at the end or the start of a line (360 px, Larger text; a long area such as "Chinatown, Jemulpo-gu, Incheon").
 F66. In Korean a menu line written "Seon Course (선식)" leads with the Korean and keeps the English: "선식 (Seon Course)" (only where the bracket is all Korean; any other line is shown as the record has it). Other languages show the record's line.
 F67. [desktop 1024–1199] A place open, then the list folded to the rail → the place takes the whole height of the column (no empty band where the search box was).
+F68. In a language other than English, on a slow line (`throttle: true`, read the text every 300 ms from the first second) → the "Why?" note, the certification line, the story, the timeline, Discover's story excerpts and a card's sustainability line show "…" until their translation arrives, then the translation — never the English first. With the translation's file blocked (`block: ["*story-ja-*"]`, `["*notes-ja-*"]`) the English shows, with the "in English" note where there is one.
+F69. The words in brackets after an area ("(near Busan Station)", "(opposite Haeundae Beach)", "(east coast)") are in the reader's language in ja / zh / id ("(Busan Station 付近)", "(dekat Busan Station)"); the landmark's own name keeps the record's spelling; Korean shows its Korean area line instead.
 
 ## G. Explore tab (Discover, `/discover`)
 
