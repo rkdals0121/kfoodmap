@@ -7186,3 +7186,35 @@ html[data-text='larger'] .journal-grid .stamp-name {
   /* …and reaches a little into the gap between the two columns. */
   margin-inline: -9px;
 }
+
+/* A claim's label and its level ("Ramah halal · Dilaporkan"): when the
+   level goes to a second line — the largest text, a narrow phone — its dot
+   stays behind in a gutter that is cut off, as under a place's name. */
+.claim-fact__words {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  row-gap: 2px;
+  min-width: 0;
+  margin-left: -14px;
+  clip-path: inset(0 0 0 14px);
+  text-align: left;
+}
+.claim-fact__words > * {
+  padding-left: 14px;
+}
+/* (The icon rides with the label, so it is not left alone on a line.) */
+.claim-fact__words svg {
+  vertical-align: -3px;
+  margin-right: 7px;
+}
+.claim-fact__words > .claim-fact__level {
+  position: relative;
+}
+.claim-fact__words > .claim-fact__level::before {
+  position: absolute;
+  left: 0;
+  width: 14px;
+  margin-right: 0;
+  text-align: center;
+}

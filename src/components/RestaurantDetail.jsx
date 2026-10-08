@@ -171,8 +171,9 @@ function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
         aria-controls={`claim-explain-${id}`}
         onClick={onToggle}
       >
-        {Icon && <Icon size={16} aria-hidden="true" />} {label}
-        <span className="claim-fact__level">{level}</span>
+        {/* The label and how sure it is, as one piece that may wrap: the dot
+            between them is not left to begin the second line (index.css). */}
+        <span className="claim-fact__words"><span>{Icon && <Icon size={16} aria-hidden="true" />}{label}</span><span className="claim-fact__level">{level}</span></span>
         {/* The word, not only the mark: a first-time reader did not take
             the chip for something that opens. */}
         <span className="claim-fact__why" aria-hidden="true">{t('detail.claimWhy')}<InfoIcon size={14} /></span>
