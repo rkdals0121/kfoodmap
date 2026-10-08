@@ -237,3 +237,16 @@ html[data-text] .prologue-content {
     overflow-wrap: anywhere;
   }
 }
+
+/* …and there the button comes before the guide to reading a claim, not
+   after it: at the end of the page it was three and a half screens down
+   on a small phone with the largest text (1,700 px), and a first visitor
+   had to scroll past the whole legend to get in. The legend is still read
+   in its place by a screen reader (it has nothing to press). Not in
+   "About", where the button is Close and belongs at the end. */
+@media (max-height: 600px) {
+  main.prologue-content .prologue-legend {
+    order: 1;
+    margin-top: 28px;
+  }
+}
