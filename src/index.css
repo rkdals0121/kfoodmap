@@ -7237,3 +7237,20 @@ html[data-text='larger'] .journal-grid .stamp-name {
 html[data-text='large'] .chip {
   font-size: 15px;
 }
+
+/* The Journal's three numbers in Indonesian: "DIKUNJUNGI" in capitals was
+   wider than its box on a phone (82 px in 56) and ran over the box's
+   edges. In that language the labels are written as words, and on the
+   narrowest phones the boxes give the labels a little more of the row. */
+html[lang='id'] .stat-label {
+  text-transform: none;
+}
+@media (max-width: 340px) {
+  .passport-stats {
+    gap: 6px;
+  }
+  .stat-box {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+}
