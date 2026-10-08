@@ -1,0 +1,21 @@
+[
+ {
+  "url": "{{BASE}}/place/balwoo",
+  "w": 390,
+  "h": 844,
+  "lang": "ja",
+  "load": 700,
+  "js": "const log=[]; for(let i=0;i<24;i++){ const b=document.querySelector('.detail-body'); log.push(b?b.textContent.slice(0,16):'-'); await new Promise(r=>setTimeout(r,250)); } return [...new Set(log)]"
+ },
+ {
+  "url": "{{BASE}}/place/balwoo",
+  "w": 390,
+  "h": 844,
+  "lang": "ja",
+  "block": [
+   "*story-ja-*"
+  ],
+  "load": 2500,
+  "js": "const log=[]; for(let i=0;i<24;i++){ const b=document.querySelector('.detail-body'); log.push(b?b.textContent.slice(0,16):'-'); await new Promise(r=>setTimeout(r,250)); } return [...new Set(log)]"
+ }
+]

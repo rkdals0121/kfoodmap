@@ -40,3 +40,4 @@ A check that reads focus needs a page that believes it has focus:
 | `place-meta-line` | the parts of the line under a place's name and of its traits: `overlap` 0 at three sizes and languages (each part once drew over the end of the one before) |
 | `focus-next-stop-and-cards` | after "Next stop" and close, focus is on the stop shown (Stop 3); after the staff cards opened from a place, on the "Ask in Korean" link |
 | `keyboard-place` | real key presses (phone): Enter on a card opens the place with focus inside it; forty Tabs later focus is still inside (`inSheet` true); Escape closes it and focus is the card's button again. Desktop: the first eight Tab stops are the two skip links, the map's three buttons, the map, the OpenStreetMap link, the search box |
+| `translations-wait` | a Japanese reader's story: "-" (no page yet), "…", then the Japanese — never the English in between; with the story file blocked, the English ("Balwoo Gongyang cooks…") |
