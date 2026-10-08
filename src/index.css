@@ -7221,3 +7221,11 @@ html[data-text='larger'] .journal-grid .stamp-name {
   margin-right: 0;
   text-align: center;
 }
+
+/* A slot of the week's hours may wrap at any width: at the largest text
+   "(last order 9:10 PM)" ran past the right edge of the sheet on phones
+   wider than 380 px and beside the map. Its pieces (the hours, the last
+   order) still move as wholes. */
+.week-hours__slot {
+  white-space: normal;
+}
