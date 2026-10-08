@@ -41,6 +41,14 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 const INGREDIENT_WORDS = /allerg|alergi|peanut|kacang|gluten|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(/ドーナッツ|ココナッツ/g, '')) };
 
+// Is this reading of a search the search itself with words left out or cut
+// short — no word of it spelt differently?
+const onlyShorter = (typed, read) => {
+  if (!read) return false;
+  const words = String(typed).toLowerCase().split(/\s+/);
+  return String(read).toLowerCase().split(/\s+/).every(w => words.some(t => t.startsWith(w)));
+};
+
 const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bookmarked, onOpen, onToggleBookmark, onReadStory, onDirections, lens, stop = 0, at = null, atLabel = '' }) {
   const { t, i18n } = useTranslation();
   const stories = useStories(Boolean(lens));
@@ -362,7 +370,9 @@ export default function BottomSheetList({
           results are not a mystery and the spelling on signs is learned. */}
       {/* Not a half-romanised one ("Itaewon 로" for 이태원로): that was found
           by its Korean address, and the line only looked like a mistake. */}
-      {searchQuery.trim() && (romaniseQuery(matchQuery) || matchQuery !== searchQuery) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && (
+      {/* Nor one that only left words out ("halal near me" as "halal",
+          "noodles" as "noodle"): nothing was spelt another way. */}
+      {searchQuery.trim() && (romaniseQuery(matchQuery) || matchQuery !== searchQuery) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
         <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(matchQuery) ?? matchQuery })}</p>
       )}
 
