@@ -426,3 +426,11 @@ test('a question typed in English finds what its words name', () => {
   assert.ok(go('eat anything').filteredRestaurants.some(r => /Eat Anything/.test(r.name)));
   assert.ok(go('City Hall').filteredRestaurants.length < 10);
 });
+
+test('the words of a question are no search terms in the other languages either', () => {
+  for (const [asked, plain] of [['ソウル ヴィーガン おすすめ', 'ソウル ヴィーガン'], ['首尔清真餐厅推荐', '首尔 清真'], ['釜山 清真 好吃', '釜山 清真'],
+    ['restoran halal terbaik di Seoul', 'halal Seoul'], ['rekomendasi vegan Seoul', 'vegan Seoul'], ['서울 맛있는 비건', '서울 비건']]) {
+    assert.ok(go(plain).filteredRestaurants.length > 0, plain);
+    assert.equal(ids(go(asked)), ids(go(plain)), asked);
+  }
+});

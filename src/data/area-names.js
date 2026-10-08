@@ -252,6 +252,14 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // is adds nothing to its name. ("Jeju City" is read as the city first:
   // CITY_OF below.)
   'city', 'island', 'province',
+  // "ソウル ヴィーガン おすすめ", "首尔 素食 推荐", "restoran halal terbaik di
+  // Seoul": the same words of a question in the other languages (each
+  // found nothing: the word is in no record).
+  'recommended', 'recommendation', 'recommendations', 'popular', 'famous', 'delicious', 'tasty',
+  'おすすめ', 'オススメ', 'お勧め', '人気', '美味しい', 'おいしい', '有名', 'どこ', '近くの',
+  '推荐', '推薦', '好吃', '哪里', '哪裡', '人气', '人氣', '有名的', '的',
+  'terbaik', 'enak', 'rekomendasi', 'dimana', 'mana', 'yang', 'untuk', 'saya', 'terdekat', 'populer', 'terkenal',
+  '맛있는', '유명한', '어디', '인기', '좋은',
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の',
   '附近', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
