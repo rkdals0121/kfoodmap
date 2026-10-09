@@ -211,7 +211,7 @@ export default function BottomSheetList({
   inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', fromStory = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', fromStory = '', withoutEach = [], onDropFilter, showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
   const { t, i18n } = useTranslation();
   // A Korean reader who typed Korean: "서울역" answered with “Seoul Station”도
@@ -668,6 +668,17 @@ export default function BottomSheetList({
               {t('list.showOpenNow')}
             </button>
           )}
+          {/* The chip that is in the way, by what taking it off would leave. */}
+          {onDropFilter && withoutEach.slice(0, 3).map(({ filter, n }) => (
+            <button key={filter} type="button" className="place-list__clear" onClick={() => onDropFilter(filter)}>
+              {t('list.withoutOne', {
+                filter: filter === OPEN_AT && planAt
+                  ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) })
+                  : t(CHIP_LABEL_KEY[filter] ?? filter),
+                n,
+              })}
+            </button>
+          ))}
           {withoutFilters > 0 && (
             <p className="place-list__hint-text">{t('list.withoutFilters', { query: searchQuery.trim(), n: withoutFilters })}</p>
           )}

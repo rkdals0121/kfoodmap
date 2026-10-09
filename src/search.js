@@ -62,7 +62,7 @@ const titled = (s) => s.replace(/(^|[ -])([a-z])/g, (m, a, b) => a + b.toUpperCa
 
 export function searchPlaces({
   places, query = '', filters = [], areaOnly = false, openOn = false, includeUnknown = false,
-  now = new Date(), bookmarkedIds = [], sharedIds = [],
+  now = new Date(), bookmarkedIds = [], sharedIds = [], asides = true,
 }) {
   // A certification word is a question (filters.js): out before the
   // station, filler and phrase readings below see the search.
@@ -310,5 +310,18 @@ export function searchPlaces({
     nearest,
     nearestFrom,
     fromStory,
+    // Two chips or more and nothing under them: what each chip, taken off by
+    // itself, would leave — so the list can offer the one that is in the way
+    // ("Halal + Open Sat 9:30 PM + Mild" ended at "clear everything").
+    withoutEach: asides && result.list.length === 0 && chosen.length >= 2
+      && !filters.includes(SAVED_ONLY) && !filters.includes(SHARED_LIST)
+      ? chosen.map((f) => ({
+        filter: f,
+        n: searchPlaces({
+          places, query, filters: chosen.filter(x => x !== f), areaOnly, includeUnknown, now, bookmarkedIds, sharedIds, asides: false,
+          openOn: openOn && f !== OPEN_NOW && f !== OPEN_AT,
+        }).filteredRestaurants.length,
+      })).filter(x => x.n > 0)
+      : [],
   };
 }

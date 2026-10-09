@@ -111,6 +111,7 @@ export default {
     nearestTitle: '「{{query}}」から近い、条件に合うお店：',
     clearSearchOnly: '検索だけクリア（フィルターはそのまま）',
     withoutFilters: 'フィルターなしでは「{{query}}」で {{n}} 件あります。',
+    withoutOne: '「{{filter}}」を外すと {{n}} 件',
     askStaffHint: '食材やアレルギーは、お店ごとに確認した項目ではありません。説明に記載があっても保証ではありません。お店で尋ねるときは：',
     showPorkFree: '豚肉不使用のお店を見る（ハラールではない）',
     // "open now" typed into the search: the chip is offered.

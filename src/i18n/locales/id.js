@@ -108,6 +108,7 @@ export default {
     nearestTitle: 'Tempat terdekat yang cocok, diukur dari “{{query}}”:',
     clearSearchOnly: 'Hapus pencarian saja (filter tetap)',
     withoutFilters: 'Tanpa filter, ada {{n}} tempat untuk “{{query}}”.',
+    withoutOne: 'Tanpa “{{filter}}”: {{n}} tempat',
     askStaffHint: 'Bahan dan alergen tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya, tetapi itu bukan jaminan. Untuk bertanya kepada dapur:',
     showPorkFree: 'Lihat tempat tanpa babi (bukan halal)',
     // "open now" typed into the search: the chip is offered.

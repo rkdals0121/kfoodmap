@@ -109,6 +109,7 @@ export default {
     nearestTitle: '“{{query}}”에서 가까운, 조건에 맞는 곳:',
     clearSearchOnly: '검색어만 지우기(필터 유지)',
     withoutFilters: '필터를 빼면 “{{query}}” 검색 결과가 {{n}}곳 있어요.',
+    withoutOne: '“{{filter}}” 빼면 {{n}}곳',
     askStaffHint: '재료·알레르기는 가게마다 확인한 항목이 아니에요. 설명에 언급이 있어도 보장은 아니에요. 직원에게 물어볼 때:',
     showPorkFree: '돼지고기 없는 곳 보기(할랄 아님)',
     // "open now" typed into the search: the chip is offered.

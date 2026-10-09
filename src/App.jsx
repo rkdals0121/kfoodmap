@@ -957,7 +957,7 @@ function AppShell() {
     if (plan?.sure || plan?.now) return plan.rest;
     return asksOpenNow(filterQuery) ? withoutOpenNow(filterQuery) : filterQuery;
   }, [filterQuery]);
-  const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters, fromStory } = useMemo(() => searchPlaces({
+  const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters, fromStory, withoutEach } = useMemo(() => searchPlaces({
     places: activeRestaurants,
     query: searchedFor,
     filters: selectedFilters,
@@ -1204,6 +1204,8 @@ function AppShell() {
                 nearest={nearest}
                 nearestFrom={nearestFrom}
                 fromStory={fromStory}
+                withoutEach={withoutEach}
+                onDropFilter={(f) => setSelectedFilters(prev => prev.filter(x => x !== f))}
                 withoutFilters={withoutFilters}
                 onClearSearch={() => { setQuery(''); setAreaOnly(false); }}
                 // Nothing found for a name: the way to tell us about it,

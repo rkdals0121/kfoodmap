@@ -107,6 +107,7 @@ export default {
     nearestTitle: '離「{{query}}」最近、符合條件的店：',
     clearSearchOnly: '只清除搜尋字詞（保留篩選）',
     withoutFilters: '不加篩選時，「{{query}}」有 {{n}} 家。',
+    withoutOne: '移除「{{filter}}」：{{n}} 家',
     askStaffHint: '本地圖不會逐店查證食材和過敏原；說明裡即使提到，也不代表保證。要問店家時可用：',
     showPorkFree: '查看不含豬肉的店（非清真）',
     // "open now" typed into the search: the chip is offered.

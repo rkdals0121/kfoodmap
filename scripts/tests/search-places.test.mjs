@@ -700,3 +700,16 @@ test('a night on another day is a plan; a one-syllable food beside an area is ke
   assert.ok(go('서울 떡').filteredRestaurants.length < 20);
   assert.ok(go('비건 빵 카페').filteredRestaurants.length <= go('비건 빵').filteredRestaurants.length);
 });
+
+test('several chips that find nothing say what each, taken off, would leave', () => {
+  const none = searchPlaces({ places, query: '', filters: ['Halal', 'Vegan', 'Mild Taste'], now: new Date('2026-10-09T03:00:00Z') });
+  assert.equal(none.filteredRestaurants.length, 0);
+  assert.ok(none.withoutEach.length >= 2);
+  for (const { filter, n } of none.withoutEach) {
+    const left = searchPlaces({ places, query: '', filters: ['Halal', 'Vegan', 'Mild Taste'].filter(f => f !== filter), now: new Date('2026-10-09T03:00:00Z') });
+    assert.equal(left.filteredRestaurants.length, n, filter);
+  }
+  // One chip, or a list with something in it: nothing to offer.
+  assert.deepEqual(searchPlaces({ places, query: 'xyzq', filters: ['Halal'], now: new Date() }).withoutEach, []);
+  assert.deepEqual(go('halal').withoutEach, []);
+});

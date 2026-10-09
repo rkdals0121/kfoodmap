@@ -112,6 +112,7 @@ export default {
     nearestTitle: 'Nearest places that match, measured from “{{query}}”:',
     clearSearchOnly: 'Clear the search, keep the filters',
     withoutFilters: '“{{query}}” finds {{n}} without the filters.',
+    withoutOne: 'Without “{{filter}}”: {{n}}',
     askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
     showPorkFree: 'See pork-free places (not halal)',
     // "open now" typed into the search: the chip is offered.

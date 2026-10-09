@@ -107,6 +107,7 @@ export default {
     nearestTitle: '离“{{query}}”最近、符合条件的店：',
     clearSearchOnly: '只清除搜索词（保留筛选）',
     withoutFilters: '不加筛选时，“{{query}}”可找到 {{n}} 家。',
+    withoutOne: '去掉“{{filter}}”：{{n}} 家',
     askStaffHint: '食材和过敏原并非逐店核实的项目，说明里即使提到也不代表保证。向店员询问时可用：',
     showPorkFree: '查看不含猪肉的店（非清真）',
     // "open now" typed into the search: the chip is offered.
