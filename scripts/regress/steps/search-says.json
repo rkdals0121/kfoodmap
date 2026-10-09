@@ -56,5 +56,19 @@
   "tz": "Asia/Seoul",
   "init": "const D=Date; const t0=D.now(); const base=new D('2026-10-08T16:00:00Z').getTime(); class F extends D{ constructor(...a){ if(a.length) super(...a); else super(base+(D.now()-t0)); } static now(){ return base+(D.now()-t0); } } window.Date=F;",
   "js": "return {at:'Fri 01:00 KST', lines:[...document.querySelectorAll('.practical-today')].map(e=>e.innerText)}"
+ },
+ {
+  "url": "{{BASE}}/?n=20#q=vegetarian%20seoul",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "const link=document.querySelector('.place-list__note--key a'); return {q:'vegetarian seoul', count:document.querySelector('.place-list__header h2')?.innerText, note:document.querySelector('.place-list__note--key')?.innerText.slice(0,40), card:link?.getAttribute('href')}"
+ },
+ {
+  "url": "{{BASE}}/cards?card=vegetarian&n=21",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {card:document.querySelector('.staff-cards__tabs .chip.active')?.innerText, first:[...document.querySelectorAll('.staff-cards [lang=ko]')].slice(0,3).map(e=>e.innerText.slice(0,30))}"
  }
 ]

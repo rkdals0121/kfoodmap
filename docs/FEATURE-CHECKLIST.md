@@ -522,6 +522,8 @@ P36. Words as people type them → "hallal", "vegitarian", "halal resturant", "b
 
 P37. Outbound links → no place links to a misspelt host (`instargram.com` was one: the record now shows no link and says why); a bakery with vegan options asks about egg, butter, milk and honey, a kitchen about fish sauce, anchovy stock and egg.
 
+P38. Vegetarians (egg and dairy eaten) → the cards page has three cards (vegan, vegetarian, Muslim); the vegetarian one says no meat, fish or seafood, that egg and dairy are eaten, and no meat or fish stock, fish sauce or salted shrimp, with five questions and their meaning in the reader's language; "vegetarian", "ベジタリアン", "素食", "채식" typed show a note that egg and dairy are not on record, linking to that card; the large view fits at 320×568.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
