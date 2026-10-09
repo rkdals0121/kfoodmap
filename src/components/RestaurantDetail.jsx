@@ -261,7 +261,20 @@ export default function RestaurantDetail({
   // By the longest word: "루나아시아" stays whole on one line; a name of
   // several words breaks between them. A word of seven or more goes on
   // two even lines (4 + 3), not six and a stray syllable.
-  const nameLen = Math.min(Math.max(...(koreanName(restaurant?.name ?? '') || '').split(/\s+/).map(w => { const n = [...w].length; return n > 6 ? Math.ceil(n / 2) : n; }), 2), 6);
+  // …and a longer one still ("수릿날원조장충동할매족발보쌈설렁탕", seventeen)
+  // on as many even lines as it takes: six syllables across a phone held
+  // upright, nine across one on its side — where it used to stand as
+  // fifteen and two. The breaks are put in here; the browser fills each
+  // line before starting the next and cannot even them out.
+  const nameAcross = typeof window !== 'undefined' && window.innerWidth > window.innerHeight ? 9 : 6;
+  const nameInLines = (koreanName(restaurant?.name ?? '') || '').split(/\s+/).map((word) => {
+    const letters = [...word];
+    if (letters.length <= 6) return word;
+    const lines = Math.max(2, Math.ceil(letters.length / nameAcross));
+    const each = Math.ceil(letters.length / lines);
+    return Array.from({ length: lines }, (_, i) => letters.slice(i * each, (i + 1) * each).join('')).join('\n');
+  }).join(' ');
+  const nameLen = Math.min(Math.max(...nameInLines.split(/\s+/).map(w => [...w].length), 2), nameAcross);
   const nameMax = () => Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
   useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax, words: false });
   const storyRef = useRef(null);
@@ -950,7 +963,10 @@ export default function RestaurantDetail({
                       ? <span lang="ko" translate="no">{koStation(place.transit.value.station)} {koLine(place.transit.value.line)}</span>
                       : <><span translate="no">{place.transit.value.station}</span> {String(place.transit.value.line ?? '').replace(/(Line) (?=\d)/g, '$1\u00A0')}</>}
                     {place.transit.value.exit && t('detail.transitExit', { exit: place.transit.value.exit })}
-                    {t('detail.transitWalk', { minutes: place.transit.value.walkingMinutes })}
+                    {/* "7 min walk" is one piece: on a very narrow screen it stood as
+                        "7 min" / "walk", and in Japanese as "徒" / "歩 7 分". The dot
+                        before it stays outside, so a line may end there. */}
+                    {' · '}<span className="keep-together">{t('detail.transitWalk', { minutes: place.transit.value.walkingMinutes }).replace(/^\s*·\s*/, '')}</span>
                     {/* Past a quarter of an hour the "nearest station" is not
                         near; say so rather than imply it. */}
                     {place.transit.value.walkingMinutes > 15 && t('detail.transitFar')}
@@ -1137,7 +1153,7 @@ export default function RestaurantDetail({
                     // No aria-label: it would replace the Korean a screen
                     // reader should read out; the visible hint names the action.
                     <button type="button" className="staff-large" autoFocus onClick={closeNameLarge} onKeyDown={(e) => { if (e.key === 'Tab') e.preventDefault(); }}>
-                      <span className="staff-large__text staff-large__text--name" lang="ko" translate="no" ref={nameLargeText}><span>{koName}</span></span>
+                      <span className="staff-large__text staff-large__text--name" lang="ko" translate="no" ref={nameLargeText}><span>{nameInLines || koName}</span></span>
                       {/* What a driver or a passer-by can use besides the
                           name: the number to ring for the way. */}
                       {koAddr && <span className="staff-large__sub staff-large__sub--address" lang="ko" translate="no">{koAddr}</span>}

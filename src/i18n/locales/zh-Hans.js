@@ -242,7 +242,7 @@ export default {
   filters: {
     groupNow: '营业中与已收藏',
     openNow: '营业中',
-    openAt: '指定时间',
+    openAt: '指定时间…',
     openAtSet: '{{day}} {{time}} 营业',
     dayTime: '{{day}} {{time}}',
     openAtDay: '星期',

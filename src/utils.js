@@ -397,14 +397,18 @@ function toLocaleDateStringSafe(date, locale, options) {
   }
 }
 
+// A record's date is a day, not a moment ("2026-07-17"): read as midnight UTC
+// and written in the device's time zone, it was the 16th on a phone set to
+// New York. A day is written as that day wherever the reader is.
+const dayOnly = (ts) => (typeof ts === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(ts) ? { timeZone: 'UTC' } : {});
 export function formatLongDate(ts, lang) {
   if (!ts) return null;
-  return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'long', year: 'numeric' });
+  return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'long', year: 'numeric', ...dayOnly(ts) });
 }
 
 export function formatShortDate(ts, lang) {
   if (!ts) return null;
-  return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'short', year: 'numeric' });
+  return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'short', year: 'numeric', ...dayOnly(ts) });
 }
 
 /**

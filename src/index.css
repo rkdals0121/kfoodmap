@@ -7312,3 +7312,41 @@ html[lang='id'] .stat-label {
 [data-fit='words'] * {
   overflow-wrap: normal;
 }
+
+/* After the fourth full pass (2026-10-09 evening). */
+/* A place's name held out large: a long word comes with its line breaks
+   already in it (RestaurantDetail, nameInLines), and they are kept. */
+.staff-large__text--name > span {
+  white-space: pre-line;
+}
+/* The largest text on a screen under 320 px: "Naver Map" filled its button
+   from edge to edge. */
+@media (max-width: 319px) {
+  html[data-text='larger'] .detail-bar__map {
+    font-size: 14px;
+  }
+}
+
+/* A few words that are read as one ("7 min walk", "徒歩 7 分"). */
+.keep-together {
+  white-space: nowrap;
+}
+/* "Something wrong?" at the end of a place: the link in that sentence was
+   16 px tall to a finger. The same line, with room above and below it. */
+.detail-report--end {
+  display: inline-block;
+  padding: 14px 0;
+  margin: -14px 0;
+}
+/* Printed from a phone (or on paper narrower than 768 px): Discover and the
+   Journal are fixed panels the height of the screen there, and the page
+   stopped where the screen did. */
+@media print {
+  .tab-panel,
+  .journal-panel {
+    position: static !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}

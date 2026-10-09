@@ -29,7 +29,7 @@ export const STAFF_CARDS = [
     id: 'vegan',
     labelKey: 'cards.veganLabel',
     statement: [
-      { ko: '안녕하세요. 저는 비건(완전 채식)입니다.', roman: 'Annyeonghaseyo. Jeoneun bigeon (wanjeon chaesik) imnida.', key: 'veganS1' },
+      { ko: '안녕하세요. 저는 비건(완전 채식)⁠입니다.', roman: 'Annyeonghaseyo. Jeoneun bigeon (wanjeon chaesik) imnida.', key: 'veganS1' },
       // "고기" alone leaves the ham in a gimbap and the fish cake in tteokbokki
       // where they are: a kitchen hears whole cuts of meat.
       { ko: '고기(소·돼지·닭, 햄·소시지 포함), 생선, 해산물(어묵·맛살 포함), 달걀, 우유·유제품, 꿀을 먹지 않습니다.', roman: 'Gogi (so·dwaeji·dak, haem·sosiji poham), saengseon, haesanmul (eomuk·matsal poham), dalgyal, uyu·yujepum, kkureul meokji anseumnida.', key: 'veganS2' },
@@ -44,7 +44,7 @@ export const STAFF_CARDS = [
       // Honey: not animal flesh, so a kitchen that has understood "no meat, no
       // egg, no milk" may still sweeten with it.
       { ko: '꿀이 들어가나요?', roman: 'Kkuri deureoganayo?', key: 'veganQ10' },
-      { ko: '굴소스나 다시다(쇠고기 조미료)를 쓰나요?', roman: 'Gulsoseuna dasida (soegogi jomiryo) reul sseunayo?', key: 'veganQ5' },
+      { ko: '굴소스나 다시다(쇠고기 조미료)⁠를 쓰나요?', roman: 'Gulsoseuna dasida (soegogi jomiryo) reul sseunayo?', key: 'veganQ5' },
       { ko: '고기와 달걀을 빼고 만들어 주실 수 있나요?', roman: 'Gogiwa dalgyareul ppaego mandeureo jusil su innayo?', key: 'veganQ6' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'veganQ7' },
       { ko: '오신채(마늘, 파, 부추, 달래, 양파)⁠가 들어가나요?', roman: 'Osinchae (maneul, pa, buchu, dallae, yangpa) ga deureoganayo?', key: 'veganQ8' },

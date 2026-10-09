@@ -63,6 +63,9 @@ function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' })
 const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 
 const journalMemory = { scrollTop: 0 };
+// Under a stamp the area is on two or three short lines: "Jemulpo-" / "gu"
+// was one of them. The hyphen inside a name is one that does not end a line.
+const stampZone = (zone) => String(zone ?? '').replace(/([A-Za-z])-(?=[a-z])/g, '$1\u2011');
 
 export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap, planAt = null, planDate = null, onShowSaved, onRemoveSaved }) {
   const { t, i18n } = useTranslation();
@@ -198,7 +201,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
               >
                 <Seal {...sealText(place.name)} />
                 <span className="stamp-name" translate="no">{displayName(place.name)}</span>
-                <span className="stamp-zone">{placeArea(place)}</span>
+                <span className="stamp-zone">{stampZone(placeArea(place))}</span>
                 {/* "Visited …" in words: the seal says 방문, which most readers can't. */}
                 {visitedAt > 0 && <span className="stamp-date">{t('journal.visitedOn', { date: formatShortDate(visitedAt, i18n.language) })}</span>}
               </button>
@@ -297,7 +300,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                   >
                     <Seal {...sealText(place.name)} />
                     <span className="stamp-name" translate="no">{displayName(place.name)}</span>
-                    <span className="stamp-zone">{placeArea(place)}</span>
+                    <span className="stamp-zone">{stampZone(placeArea(place))}</span>
                     <span className="stamp-sample-tag">{t('journal.sample')}</span>
                   </button>
                 ))}
