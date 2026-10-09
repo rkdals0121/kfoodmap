@@ -7371,3 +7371,17 @@ html[lang='id'] .stat-label {
   font-weight: 600;
   text-underline-offset: 2px;
 }
+
+/* A short phone with "Open at…" on: the note under the count already says
+   "by Korean time", and the line under the pickers cost the list a row. */
+@media (max-width: 767px) and (max-height: 600px) {
+  .plan-row__tz {
+    display: none;
+  }
+}
+
+/* The line about a mixed menu, in the note under a place's claims. */
+.diet-note__mixed {
+  margin: 6px 0 0;
+  color: var(--ink-body);
+}

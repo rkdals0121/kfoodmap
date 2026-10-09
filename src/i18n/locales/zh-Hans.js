@@ -328,6 +328,8 @@ export default {
     signatureMenu: '招牌菜',
     menuUnverified: '菜名和价格由餐厅提供，未经核实，可能已有变动。',
     menuNotAllVegan: '这里的菜品并非全部纯素：本店提供纯素选项。',
+    // On the page of a place with vegan options: what the list's note says, said there too.
+    veganOptionsAsk: '这里不是纯素餐厅，请询问是否含鱼露、鳀鱼高汤和鸡蛋。',
     hoursUnknown: '营业时间未知，去之前请先确认',
     website: '网站',
     instagram: 'Instagram',

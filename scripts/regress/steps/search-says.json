@@ -21,11 +21,11 @@
   "js": "return {q:'no pork', count:document.querySelector('.place-list__header h2')?.innerText, caution:!!document.querySelector('.place-list__note--key a')}"
  },
  {
-  "url": "{{BASE}}/#q=halal%20open%20now",
+  "url": "{{BASE}}/#q=halal%20food%20open%20now%20near%20hongdae",
   "w": 390,
   "h": 844,
   "lang": "en",
-  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const before=document.querySelector('.place-list__header h2')?.innerText; const b=[...document.querySelectorAll('.place-list__clear')].find(e=>/open now/i.test(e.innerText)); b?.click(); await w(1200); return {q:'halal open now', before, offered:!!b, after:document.querySelector('.place-list__header h2')?.innerText, hash:location.hash, chip:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}"
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const before=document.querySelector('.place-list__header h2')?.innerText; const b=[...document.querySelectorAll('.place-list__in-map button, .place-list__clear')].find(e=>/open now/i.test(e.innerText)); b?.click(); await w(1200); return {q:'halal food open now near hongdae', before, offered:!!b, after:document.querySelector('.place-list__header h2')?.innerText, hash:location.hash, chip:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}"
  },
  {
   "url": "{{BASE}}/#q=where%20can%20i%20find%20halal%20in%20myeongdong",

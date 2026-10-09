@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon, ShareIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, koreanName, statusClass, DAY_KEYS, formatClock } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, koreanName, statusClass, DAY_KEYS, formatClock, koreaToday } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
-import { TRAIT_GROUPS, asksOpenNow } from '../filters';
+import { TRAIT_GROUPS, asksOpenNow, plannedTime } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
-import { romaniseQuery } from '../data/area-names';
+import { romaniseQuery, AREA_NAMES } from '../data/area-names';
 import { colon, quoted } from '../i18n/punct';
 
 const CHIP_LABEL_KEY = {
@@ -27,6 +27,16 @@ const CHIP_LABEL_KEY = {
 };
 
 // How many cards the list draws at a time (see BottomSheetList).
+// The area a suggestion is measured from, by its Korean name for a reader of
+// Korean who typed it in Korean ("Gyeongju" → "경주"); as given when the
+// list of areas has no Korean for it.
+// For other readers, as the map spells it: "gyeongju" was typed, "Gyeongju"
+// is the name.
+const listedArea = (name) => Object.keys(AREA_NAMES).find(k => k.toLowerCase() === String(name).toLowerCase());
+const koreanArea = (name) => {
+  const key = listedArea(name);
+  return (key && [].concat(AREA_NAMES[key] ?? []).find(a => typeof a === 'string' && /[가-힣]/.test(a))) || name;
+};
 const PAGE = 40;
 // Where the list was left, kept while another tab is on screen (the list is
 // not drawn then): eighty cards down, a look at the Journal and back used to
@@ -184,11 +194,19 @@ export default function BottomSheetList({
   inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, onOpenNow, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, fromYou = false, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
-  const { t } = useTranslation();
-  const centredOnYou = Boolean(userLocation)
-    && haversineKm(mapCenter[0], mapCenter[1], userLocation.lat, userLocation.lng) < 0.3;
+  const { t, i18n } = useTranslation();
+  // A Korean reader who typed Korean: "서울역" answered with “Seoul Station”도
+  // 함께 검색했어요 read as if something else had been searched.
+  const typedKorean = i18n.language === 'ko' && /[가-힣]/.test(searchQuery);
+  // Ordered from the reader while the map has not been moved by hand since
+  // "My location" answered — and something listed is within reach of them
+  // (a search for Busan made from Seoul is ordered from the map, as before).
+  const nearYou = Boolean(userLocation) && fromYou
+    && restaurants.some((r) => { const c = coordsOf(r); return haversineKm(userLocation.lat, userLocation.lng, c.lat, c.lng) < 20; });
+  const centredOnYou = nearYou || (Boolean(userLocation)
+    && haversineKm(mapCenter[0], mapCenter[1], userLocation.lat, userLocation.lng) < 0.3);
   // Nearest first — but while searching, places whose area or address
   // matches a search word come before places that only match by name, so
   // "Busan korean" lists Busan before Seoul's "Busan Jib".
@@ -206,7 +224,7 @@ export default function BottomSheetList({
     ) : null;
   const nearestBlock = nearest.length > 0 ? (
             <div className="place-list__nearest">
-              <p>{nearestFrom ? t('list.nearestTitle', { query: nearestFrom }) : t('list.nearResults')}</p>
+              <p>{nearestFrom ? t('list.nearestTitle', { query: typedKorean ? koreanArea(nearestFrom) : listedArea(nearestFrom) ?? nearestFrom }) : t('list.nearResults')}</p>
               <ul className="saved-list">
                 {nearest.map(({ place, km }) => (
                   <li key={place.id}>
@@ -248,15 +266,16 @@ export default function BottomSheetList({
         // still works when someone in Seoul looks at Busan. The distance
         // printed is from the visitor once "My location" has answered, as
         // on Naver and Kakao; until then it is from the map centre.
-        const sortKm = haversineKm(mapCenter[0], mapCenter[1], lat, lng);
-        const distanceKm = userLocation ? haversineKm(userLocation.lat, userLocation.lng, lat, lng) : sortKm;
+        const fromCentre = haversineKm(mapCenter[0], mapCenter[1], lat, lng);
+        const distanceKm = userLocation ? haversineKm(userLocation.lat, userLocation.lng, lat, lng) : fromCentre;
+        const sortKm = nearYou ? distanceKm : fromCentre;
         return { place: r, sortKm, distanceKm, fromYou: Boolean(userLocation), areaMatch: inArea(r), nameIs: typed !== '' && names(r).includes(typed) };
       })
       .sort((a, b) => (journeyOrder
         ? stop(a) - stop(b)
         : (b.nameIs - a.nameIs) || (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restaurants, mapCenter, matchQuery, userLocation, journeyOrder, sharedIds.join(',')]);
+  }, [restaurants, mapCenter, matchQuery, userLocation, nearYou, journeyOrder, sharedIds.join(',')]);
   // The records in list order, for everything that asks about the places.
   const sorted = useMemo(() => ranked.map(x => x.place), [ranked]);
 
@@ -340,6 +359,8 @@ export default function BottomSheetList({
     return () => io.disconnect();
   }, [hasMore, shown]);
 
+  const plan = onPlan && !activeFilters.includes(OPEN_AT) ? plannedTime(searchQuery, koreaToday()) : null;
+  const planLabel = plan ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[plan.day]}`), time: formatClock(plan.minutes) }) : '';
   return (
     // The notes above the cards fold to two lines on a phone and open on a
     // tap: with a diet chip on they filled the half-height sheet and the
@@ -399,7 +420,7 @@ export default function BottomSheetList({
           by its Korean address, and the line only looked like a mistake. */}
       {/* Nor one that only left words out ("halal near me" as "halal",
           "noodles" as "noodle"): nothing was spelt another way. */}
-      {searchQuery.trim() && (romaniseQuery(matchQuery) || matchQuery !== searchQuery) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
+      {searchQuery.trim() && matchQuery.trim() && !typedKorean && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
         <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(matchQuery) ?? matchQuery })}</p>
       )}
 
@@ -429,7 +450,15 @@ export default function BottomSheetList({
       {/* "open now" typed into the search, with places found by those words
           in a name or a note: the chip is what was meant. (Outside the
           notes below, which are folded away when there is none.) */}
-      {onOpenNow && sorted.length > 0 && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
+      {/* …and a day named in it ("saturday dinner halal", "내일 점심"): "Open
+          at…" with that day and time. A weekday by itself may be a name
+          ("Sun Hansik"), so over results only when a meal or "open" is said. */}
+      {plan && plan.sure && sorted.length > 0 && (
+        <p className="place-list__in-map">
+          <button type="button" onClick={() => onPlan(plan)}>{planLabel}</button>
+        </p>
+      )}
+      {!plan && onOpenNow && sorted.length > 0 && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
         <p className="place-list__in-map">
           <button type="button" onClick={onOpenNow}>{t('list.showOpenNow')}</button>
         </p>
@@ -573,7 +602,12 @@ export default function BottomSheetList({
               {t('list.clearSearchOnly')}
             </button>
           )}
-          {onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
+          {plan && (
+            <button type="button" className="place-list__clear" onClick={() => onPlan(plan)}>
+              {planLabel}
+            </button>
+          )}
+          {!plan && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
             <button type="button" className="place-list__clear" onClick={onOpenNow}>
               {t('list.showOpenNow')}
             </button>

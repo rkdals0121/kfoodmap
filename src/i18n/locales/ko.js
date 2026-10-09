@@ -265,7 +265,7 @@ export default {
     fermented: '발효 음식',
     searchPlaceholder: '이름이나 지역으로 검색',
     clearSearch: '검색어 지우기',
-    clearFilters: '필터 해제 ({{n}})',
+    clearFilters: '지우기 ({{n}})',
   },
   provenance: {
     sourceMaps: '네이버 플레이스 / 카카오맵',
@@ -327,6 +327,8 @@ export default {
     signatureMenu: '대표 메뉴',
     menuUnverified: '메뉴 이름과 가격은 식당이 밝힌 내용이에요. 확인하지 못했고, 바뀌었을 수 있어요.',
     menuNotAllVegan: '여기 메뉴가 모두 비건은 아니에요. 비건 메뉴가 있는 곳이에요.',
+    // On the page of a place with vegan options: what the list's note says, said there too.
+    veganOptionsAsk: '비건 전용 식당이 아니에요. 액젓, 멸치 육수, 달걀이 들어가는지 물어보세요.',
     hoursUnknown: '영업시간을 알 수 없어요. 가기 전에 확인해 보세요',
     website: '웹사이트',
     instagram: '인스타그램',

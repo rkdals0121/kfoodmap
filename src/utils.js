@@ -425,14 +425,20 @@ function toLocaleDateStringSafe(date, locale, options) {
 // and written in the device's time zone, it was the 16th on a phone set to
 // New York. A day is written as that day wherever the reader is.
 const dayOnly = (ts) => (typeof ts === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(ts) ? { timeZone: 'UTC' } : {});
+// A date is read as one piece: "9 Oct 2026" is not left with its year on the
+// next line, nor "2026年10月9日" with its last letter there (a line may end
+// between any two letters of Japanese or Chinese).
+const wholeDate = (text) => (typeof text !== 'string' ? text
+  : /[年月日]/.test(text) && !text.includes(' ') ? [...text].join('\u2060')
+    : text.replace(/ /g, '\u00A0'));
 export function formatLongDate(ts, lang) {
   if (!ts) return null;
-  return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'long', year: 'numeric', ...dayOnly(ts) });
+  return wholeDate(toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'long', year: 'numeric', ...dayOnly(ts) }));
 }
 
 export function formatShortDate(ts, lang) {
   if (!ts) return null;
-  return toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'short', year: 'numeric', ...dayOnly(ts) });
+  return wholeDate(toLocaleDateStringSafe(new Date(ts), localeForDates(lang), { day: 'numeric', month: 'short', year: 'numeric', ...dayOnly(ts) }));
 }
 
 /**

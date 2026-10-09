@@ -49,3 +49,14 @@ export function groupByRegion(items) {
     .map(([region, list]) => ({ region, items: list }))
     .sort((a, b) => (a.region === null) - (b.region === null) || b.items.length - a.items.length);
 }
+
+// The three joined provinces are not areas the map lists by name, so the
+// Journal showed them romanised in every language: "Gyeongsang · 1" beside
+// "대구 · 1". Their names as written (경상도, 慶尚道…), without the "-do".
+const JOINED = {
+  ko: { Gyeongsang: '경상', Jeolla: '전라', Chungcheong: '충청' },
+  ja: { Gyeongsang: '慶尚', Jeolla: '全羅', Chungcheong: '忠清' },
+  'zh-Hans': { Gyeongsang: '庆尚', Jeolla: '全罗', Chungcheong: '忠清' },
+  'zh-Hant': { Gyeongsang: '慶尚', Jeolla: '全羅', Chungcheong: '忠清' },
+};
+export const joinedRegionName = (region, language) => JOINED[language]?.[region] ?? null;

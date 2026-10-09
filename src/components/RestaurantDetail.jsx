@@ -867,6 +867,10 @@ export default function RestaurantDetail({
             <div className="diet-note">
               {/* An open claim explanation already says this, with its source. */}
               {openClaim === null && <p><strong>{caveat.title}</strong> {caveat.body}</p>}
+              {/* Vegan options on a mixed menu: the broth and the fish sauce are
+                  what to ask about. The list says so above its cards; a place
+                  opened from a link, or read on its own, did not. */}
+              {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && <p className="diet-note__mixed">{t('detail.veganOptionsAsk')}</p>}
               {/* "Ask staff" needs a way to ask: the Korean cards, on the
                   card that fits this place's claims. */}
               {(
@@ -930,7 +934,7 @@ export default function RestaurantDetail({
                 <div className="practical-row practical-row--plan">
                   <span aria-hidden="true" style={{ width: 17 }} />
                   <span>
-                    <span className="practical-muted">{planWhen}: </span>
+                    <span className="practical-muted">{colon(planWhen, '')}</span>
                     <strong className={statusClass(planStatus)}>{planStatus.label}</strong>
                     {planStatus.detail && <> · {planStatus.detail}</>}
                   </span>

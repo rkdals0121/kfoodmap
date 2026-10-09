@@ -712,16 +712,20 @@ const sameBox = (a, b) => Boolean(a && b) && ['s', 'w', 'n', 'e'].every(k => Mat
 // first, whatever part of it the map shows. Once the map has been moved
 // by hand, this narrows the list to what is on it. Offered only when that
 // would change the list: some of its places in view and some not.
-function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, hidden }) {
+function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, hidden, onHandMove }) {
   const { t } = useTranslation();
   const [offer, setOffer] = useState(false);
   const offered = useRef(false);
   const latest = useRef({ restaurants, mapBox });
   latest.current = { restaurants, mapBox };
+  const hand = useRef(onHandMove);
+  hand.current = onHandMove;
   const check = useRef(() => {});
   useEffect(() => {
     let map = null;
-    const byHand = () => { touched.current = true; };
+    const byHand = () => { touched.current = true; hand.current?.(); };
+    // The arrows and + / - on a keyboard move it by hand as well.
+    const byKey = (e) => { if (/^(?:Arrow|[-+=_]$)/.test(e.originalEvent?.key ?? '')) hand.current?.(); };
     // Only the move a hand made is asked about: a pin pressed afterwards
     // moves the map by itself, and that is not a reason to offer.
     // Asked once the gesture has settled: a drag that turns into a pinch
@@ -753,8 +757,9 @@ function SearchAreaButton({ mapRef, touched, restaurants, mapBox, onSearchArea, 
       map.on('moveend', moved);
       map.on('dragstart', byHand);
       map.on('dblclick', byHand);
+      map.on('keydown', byKey);
     }, 200);
-    return () => { clearInterval(wait); clearTimeout(settle); check.current = () => {}; map?.off('moveend', moved); map?.off('dragstart', byHand); map?.off('dblclick', byHand); };
+    return () => { clearInterval(wait); clearTimeout(settle); check.current = () => {}; map?.off('moveend', moved); map?.off('dragstart', byHand); map?.off('dblclick', byHand); map?.off('keydown', byKey); };
   }, [mapRef, touched]);
   // A chip or a search changes what is listed without moving the map.
   // …which can only take the offer away (it is not a move by hand).
@@ -893,7 +898,7 @@ export default React.memo(MapComponent);
 function MapComponent({
   restaurants, onMarkerClick, selectedId, selectedPlace = null, onCenterChange, searchQuery = '',
   userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [], sheetState = 1,
-  placePeek = false, onMapClick, mapBox = null, onSearchArea,
+  placePeek = false, onMapClick, mapBox = null, onSearchArea, onHandMove,
 }) {
   const mapRef = useRef(null);
   // Whether the map has been moved by hand yet (a drag, a pinch, the wheel,
@@ -901,7 +906,7 @@ function MapComponent({
   // offered — not after a pin was pressed and the map moved itself.
   const touched = useRef(false);
   const [locateSaying, setLocateSaying] = useState(false);
-  const touch = () => { touched.current = true; };
+  const touch = () => { touched.current = true; onHandMove?.(); };
   return (
     <div style={{ height: '100%', width: '100%', position: 'relative' }} onTouchStartCapture={(e) => { if (e.touches.length > 1) touch(); }} onWheelCapture={touch}>
       {onLocate && <LocateControl state={locateState} location={userLocation} onLocate={onLocate} onMessage={setLocateSaying} />}
@@ -910,6 +915,7 @@ function MapComponent({
         <SearchAreaButton
           mapRef={mapRef}
           touched={touched}
+          onHandMove={onHandMove}
           restaurants={restaurants}
           mapBox={mapBox}
           onSearchArea={onSearchArea}

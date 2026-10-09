@@ -1,0 +1,47 @@
+[
+ {
+  "url": "{{BASE}}/#q=halal%20saturday%20dinner%20daegu",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "tz": "Asia/Seoul",
+  "init": "const D=Date; const t0=D.now(); const base=new D('2026-10-09T03:00:00Z').getTime(); class F extends D{ constructor(...a){ if(a.length) super(...a); else super(base+(D.now()-t0)); } static now(){ return base+(D.now()-t0); } } window.Date=F;",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const head=()=>document.querySelector('.place-list__header h2')?.innerText; const before=head(); const b=[...document.querySelectorAll('.place-list__in-map button, .place-list__clear')].find(e=>/[0-9]:[0-9]/.test(e.innerText)); const label=b?.innerText; b?.click(); await w(1200); return {q:\"halal saturday dinner daegu\", before, offered:label??null, after:head(), chip:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value, searchedAs:document.querySelector('.place-list__searched-as')?.innerText??null}"
+ },
+ {
+  "url": "{{BASE}}/#q=tomorrow%20lunch%20vegan%20jeju",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "tz": "Asia/Seoul",
+  "init": "const D=Date; const t0=D.now(); const base=new D('2026-10-09T03:00:00Z').getTime(); class F extends D{ constructor(...a){ if(a.length) super(...a); else super(base+(D.now()-t0)); } static now(){ return base+(D.now()-t0); } } window.Date=F;",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const head=()=>document.querySelector('.place-list__header h2')?.innerText; const before=head(); const b=[...document.querySelectorAll('.place-list__in-map button, .place-list__clear')].find(e=>/[0-9]:[0-9]/.test(e.innerText)); const label=b?.innerText; b?.click(); await w(1200); return {q:\"tomorrow lunch vegan jeju\", before, offered:label??null, after:head(), chip:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value, searchedAs:document.querySelector('.place-list__searched-as')?.innerText??null}"
+ },
+ {
+  "url": "{{BASE}}/#q=%E5%91%A8%E5%85%AD%E6%99%9A%E4%B8%8A%20%E6%B8%85%E7%9C%9F%20%E9%A6%96%E5%B0%94",
+  "w": 390,
+  "h": 844,
+  "lang": "zh-Hans",
+  "tz": "Asia/Seoul",
+  "init": "const D=Date; const t0=D.now(); const base=new D('2026-10-09T03:00:00Z').getTime(); class F extends D{ constructor(...a){ if(a.length) super(...a); else super(base+(D.now()-t0)); } static now(){ return base+(D.now()-t0); } } window.Date=F;",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const head=()=>document.querySelector('.place-list__header h2')?.innerText; const before=head(); const b=[...document.querySelectorAll('.place-list__in-map button, .place-list__clear')].find(e=>/[0-9]:[0-9]/.test(e.innerText)); const label=b?.innerText; b?.click(); await w(1200); return {q:\"周六晚上 清真 首尔\", before, offered:label??null, after:head(), chip:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value, searchedAs:document.querySelector('.place-list__searched-as')?.innerText??null}"
+ },
+ {
+  "url": "{{BASE}}/#q=%E6%98%8E%E6%97%A5%E3%81%AE%E3%83%A9%E3%83%B3%E3%83%81%20%E3%83%B4%E3%82%A3%E3%83%BC%E3%82%AC%E3%83%B3%20%E3%82%BD%E3%82%A6%E3%83%AB",
+  "w": 390,
+  "h": 844,
+  "lang": "ja",
+  "tz": "Asia/Seoul",
+  "init": "const D=Date; const t0=D.now(); const base=new D('2026-10-09T03:00:00Z').getTime(); class F extends D{ constructor(...a){ if(a.length) super(...a); else super(base+(D.now()-t0)); } static now(){ return base+(D.now()-t0); } } window.Date=F;",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const head=()=>document.querySelector('.place-list__header h2')?.innerText; const before=head(); const b=[...document.querySelectorAll('.place-list__in-map button, .place-list__clear')].find(e=>/[0-9]:[0-9]/.test(e.innerText)); const label=b?.innerText; b?.click(); await w(1200); return {q:\"明日のランチ ヴィーガン ソウル\", before, offered:label??null, after:head(), chip:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value, searchedAs:document.querySelector('.place-list__searched-as')?.innerText??null}"
+ },
+ {
+  "url": "{{BASE}}/#q=Sunday%20Bakery",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "tz": "Asia/Seoul",
+  "init": "const D=Date; const t0=D.now(); const base=new D('2026-10-09T03:00:00Z').getTime(); class F extends D{ constructor(...a){ if(a.length) super(...a); else super(base+(D.now()-t0)); } static now(){ return base+(D.now()-t0); } } window.Date=F;",
+  "js": "return {q:'Sunday Bakery (a name, not a plan)', head:document.querySelector('.place-list__header h2')?.innerText, strip:[...document.querySelectorAll('.place-list__in-map button')].map(e=>e.innerText)}"
+ }
+]

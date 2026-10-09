@@ -551,3 +551,38 @@ test('"late night", "tonight", "24 hours" are the question "open now"', async ()
   assert.equal(withoutOpenNow('심야 할랄'), '할랄');
   for (const q of ['latte', 'later', 'chocolate', 'translate', '24 seoul']) assert.equal(asksOpenNow(q), false, q);
 });
+
+test('a day and a meal named in the search are a plan', async () => {
+  const { plannedTime } = await import('../../src/filters.js');
+  // today = 5 (Friday)
+  assert.deepEqual(plannedTime('halal saturday dinner daegu', 5), { day: 6, minutes: 1140, rest: 'halal daegu', sure: true });
+  assert.deepEqual(plannedTime('tomorrow lunch vegan jeju', 5), { day: 6, minutes: 750, rest: 'vegan jeju', sure: true });
+  assert.equal(plannedTime('토요일 저녁에 여는 곳', 5)?.rest, '');
+  assert.equal(plannedTime('明日のランチ ヴィーガン ソウル', 5)?.rest, 'ヴィーガン ソウル');
+  assert.equal(plannedTime('周六晚上 清真 首尔', 5)?.minutes, 1140);
+  assert.equal(plannedTime('besok malam halal', 5)?.day, 6);
+  // A weekday alone may be a name; a meal alone is no plan.
+  assert.equal(plannedTime('Sun Hansik', 5)?.sure, false);
+  assert.equal(plannedTime('lunch', 5), null);
+  assert.equal(plannedTime('Sunrise', 5), null);
+});
+
+test('a diet typed beside an area with none of it is answered with the nearest', () => {
+  const typed = go('경주 할랄');
+  assert.equal(typed.filteredRestaurants.length, 0);
+  assert.ok(typed.nearest.length > 0);
+  assert.deepEqual(typed.nearest.map(x => x.place.id), go('경주', ['Halal']).nearest.map(x => x.place.id));
+});
+
+test('a day and a meal run together in Chinese and Japanese are a plan; a name is not', async () => {
+  const { plannedTime } = await import('../../src/filters.js');
+  assert.equal(plannedTime('周六晚上 清真 首尔', 5)?.rest, '清真 首尔');
+  assert.equal(plannedTime('明天中午清真', 5)?.minutes, 750);
+  assert.equal(plannedTime('周日营业的店', 5)?.sure, true);
+  assert.equal(plannedTime('明日 朝鮮料理', 5)?.sure, false);
+  assert.equal(plannedTime('今日 夜市', 5)?.sure, false);
+  assert.equal(plannedTime('오늘통닭', 5), null);
+  assert.equal(plannedTime('minggu depan', 5), null);
+  assert.equal(plannedTime('weds lunch', 5)?.day, 3);
+  assert.equal(plannedTime('Sunday Bakery', 5)?.sure, false);
+});

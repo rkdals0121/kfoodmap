@@ -333,6 +333,8 @@ export default {
     signatureMenu: '看板メニュー',
     menuUnverified: '料理名と価格はお店が公表しているもので、当サイトでは未確認です。変更されている場合があります。',
     menuNotAllVegan: 'ここにある料理がすべてヴィーガンというわけではありません。このお店は「ヴィーガン対応あり」です。',
+    // On the page of a place with vegan options: what the list's note says, said there too.
+    veganOptionsAsk: 'ヴィーガン専門店ではありません。魚醤、煮干しだし、卵が入っていないか尋ねてください。',
     hoursUnknown: '営業時間不明 — お出かけ前にご確認ください',
     website: 'ウェブサイト',
     instagram: 'Instagram',

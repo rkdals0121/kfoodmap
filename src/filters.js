@@ -29,6 +29,58 @@ export const OPEN_NOW = 'Open now';
 const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b24[- ]?(?:hours?|hr|h)\b|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:larut|tengah)\s+malam|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
 export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
 export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
+// A day named in the search — "halal saturday dinner", "tomorrow lunch
+// vegan jeju", "토요일 저녁에 여는 곳", "明日のランチ", "周六晚上", "besok malam":
+// no place's notes hold those words either. It is the "Open at…" chip's
+// question, with its day and time already said. `today` is the weekday in
+// Korea (0 = Sunday). Null when no day is named: "lunch" alone is no plan.
+// Each is read only as a word of its own: after a space (or the start, or a
+// particle) and before one. "오늘통닭", "내일도 칼국수", "明日 朝鮮料理" and
+// "今日 夜市" hold the letters and are names of other things.
+// Chinese and Japanese run a day and a meal together ("周六晚上",
+// "明天中午清真"): a meal word of two letters or more may follow a day
+// directly, and needs no gap after it. One letter (朝, 夜, 昼) still does.
+const MEAL_JOINED = '晚上|晚餐|中午|午餐|早上|早餐|下午|ランチ|ディナー|朝ごはん|朝食|夕食|夕方|午後|晩ごはん';
+const WORD = (alternatives, joined) => new RegExp(`(^|[\\sのにはでも的，、,])(?:(?:${alternatives})(?=$|[\\sのにはでも的에，、,?!.]|${MEAL_JOINED}|营业|營業|开门|開門)${joined ? `|(?:${joined})` : ''})`, 'i');
+const DAY_SAID = [
+  [WORD('(?:on\\s+)?sun(?:day)?|일요일|日曜日?|(?:周|週|星期|礼拜|禮拜)[日天]|(?:hari\\s+)?minggu(?!\\s+(?:depan|ini|lalu))'), 0],
+  [WORD('(?:on\\s+)?mon(?:day)?|월요일|月曜日?|(?:周|週|星期|礼拜|禮拜)一|(?:hari\\s+)?senin'), 1],
+  [WORD('(?:on\\s+)?tue(?:s(?:day)?)?|화요일|火曜日?|(?:周|週|星期|礼拜|禮拜)二|(?:hari\\s+)?selasa'), 2],
+  [WORD('(?:on\\s+)?wed(?:s|nesday)?|수요일|水曜日?|(?:周|週|星期|礼拜|禮拜)三|(?:hari\\s+)?rabu'), 3],
+  [WORD('(?:on\\s+)?thu(?:rs(?:day)?)?|목요일|木曜日?|(?:周|週|星期|礼拜|禮拜)四|(?:hari\\s+)?kamis'), 4],
+  [WORD('(?:on\\s+)?fri(?:day)?|금요일|金曜日?|(?:周|週|星期|礼拜|禮拜)五|(?:hari\\s+)?jumat'), 5],
+  [WORD('(?:on\\s+)?sat(?:urday)?|토요일|土曜日?|(?:周|週|星期|礼拜|禮拜)六|(?:hari\\s+)?sabtu'), 6],
+];
+const DAY_FROM_NOW = [
+  [WORD('day\\s+after\\s+tomorrow|모레|明後日|[后後]天|lusa'), 2],
+  [WORD('tomorrow|내일|明日|明天|besok'), 1],
+  [WORD('today|오늘|今日|今天|hari\\s+ini'), 0],
+];
+const MEAL_SAID = [
+  [WORD('breakfast|morning|아침|朝|pagi|sarapan', '朝ごはん|朝食|早上|早餐'), 540],
+  [WORD('lunch(?:time)?|noon|점심|お?昼(?:ごはん)?|(?:makan\\s+)?siang', 'ランチ|中午|午餐'), 750],
+  [WORD('afternoon|오후|sore', '午後|下午'), 900],
+  [WORD('dinner|evening|night|저녁|밤|夜|(?:makan\\s+)?malam', 'ディナー|夕方|夕食|晩ごはん|晚上|晚餐'), 1140],
+];
+// What is left around them: "open", "여는 곳", "に開いている店", "营业的店".
+const PLAN_REST = /\b(?:open|opens|opening)\b|(?:에\s*)?(?:여는|영업하는|문\s*여는)(?:\s*(?:곳|식당|가게))?|(?:に|の)?(?:開いている|営業している|営業中)(?:の?(?:お店|店))?|(?:营业|營業|开门|開門)(?:的(?:店|餐厅|餐廳))?|\b(?:yang\s+)?buka\b/gi;
+export function plannedTime(query, today = 0) {
+  let rest = ` ${String(query ?? '')} `;
+  let day = null;
+  for (const [said, n] of DAY_FROM_NOW) { if (day === null && said.test(rest)) { day = (today + n) % 7; rest = rest.replace(said, '$1 '); } }
+  for (const [said, n] of DAY_SAID) { if (day === null && said.test(rest)) { day = n; rest = rest.replace(said, '$1 '); } }
+  if (day === null) return null;
+  let minutes = 750;
+  // A day alone may be a name ("Sunday Bakery", "Today Kitchen"): with a
+  // meal or "open" beside it, it is a plan beyond doubt.
+  let sure = false;
+  for (const [said, at] of MEAL_SAID) { if (said.test(rest)) { minutes = at; rest = rest.replace(said, '$1 '); sure = true; break; } }
+  PLAN_REST.lastIndex = 0;
+  if (PLAN_REST.test(rest)) sure = true;
+  // …and "late", "tonight" beside it are the same question, not a search.
+  rest = withoutOpenNow(rest.replace(PLAN_REST, ' ').replace(/\s+(?:の|に|で|에|的)(?=\s)/g, ' ').replace(/[?!？！]+\s*$/, ''));
+  return { day, minutes, rest, sure };
+}
 // Open at a chosen weekday and time (planning ahead); never on with OPEN_NOW.
 export const OPEN_AT = 'Open at';
 

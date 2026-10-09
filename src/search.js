@@ -74,8 +74,15 @@ export function searchPlaces({
   // and "seoul station" give — the places there, or the nearest.
   const chosen = filters;
   const lifted = liftDietWords(typed);
-  const atStation = lifted.chips.length > 0 && lifted.rest !== '' && stationOf(stripFillers(lifted.rest)) !== null;
-  const raw = atStation ? lifted.rest : typed;
+  // …and beside an area: "경주 할랄" ended at "no places" with nothing
+  // offered, while "경주" under the Halal chip names the nearest one, 41 km
+  // on. The same question gets the same answer: the diet is the chip, the
+  // area the search.
+  const restAsked = stripFillers(lifted.rest);
+  const besideArea = lifted.chips.length > 0 && lifted.rest !== ''
+    && (isListedArea(restAsked) || isListedArea((romaniseQuery(restAsked) ?? '').replace(/-si$/, '')));
+  const atStation = lifted.chips.length > 0 && lifted.rest !== '' && (besideArea || stationOf(restAsked) !== null);
+  const raw = besideArea ? restAsked : atStation ? lifted.rest : typed;
   if (atStation) filters = [...new Set([...filters, ...lifted.chips])];
 
   // Filter chips (AND across chips). A dietary chip only matches on

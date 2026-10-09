@@ -85,7 +85,7 @@ const ALSO_NAMED = {
   dumpling: ['餃子', '饺子', 'ギョーザ', 'マンドゥ'],
   kimchi: ['キムチ', '泡菜', '辛奇'],
   uzbek: ['우즈벡', '우즈베크', '우즈베키스탄', 'ウズベク', '乌兹别克', '烏茲別克'],
-  breakfast: ['朝食', '朝ごはん', '早餐', '早饭', '早飯', '아침식사', '아침'],
+  breakfast: ['朝食', '朝ごはん', 'モーニング', '早餐', '早饭', '早飯', '아침식사', '아침'],
   // Dishes, by the names a reader types for them: the records, their
   // stories and their English menu lines say "bibimbap", "gimbap", "tofu".
   // ("ビビンバ" found nothing, with the word on screen in the menu glosses.)
@@ -278,7 +278,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // "서울에서 맛있는…", "首尔有什么好吃的…".
   'で', 'にある', 'に', '에서', '에', '의', '有什么', '有什麼', '有',
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat', 'sini', 'terdekat',
-  'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の', 'フード', '食品', '朝ごはん', '朝食', '早餐', 'sarapan', '아침', '손님', '외국인',
+  'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の', 'フード', '食品', '朝ごはん', 'モーニング', '朝食', '早餐', 'sarapan', '아침', '손님', '외국인',
   '附近', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
 
 // Of those, the words of a question (not "restaurant", "food", "the", which

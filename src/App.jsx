@@ -30,7 +30,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly, storageKeeps } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery, withoutOpenNow } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery, asksOpenNow, withoutOpenNow, plannedTime } from './filters';
 import { searchPlaces } from './search';
 import { takeFreshList } from './freshList';
 import './index.css';
@@ -360,6 +360,12 @@ function AppShell() {
   // this visit only. `at` changes with every answer so the map knows to go
   // there again when the button is pressed a second time.
   const [userLocation, setUserLocation] = useState(null);
+  // With "My location" answered, the list is ordered from the reader — until
+  // they move the map themselves. A chip that puts the whole country on the
+  // map used to reorder the list from the middle of that map: at Hongdae,
+  // the first card was in Daejeon, 143 km away.
+  const [listFromYou, setListFromYou] = useState(false);
+  const handMoved = useCallback(() => setListFromYou(false), []);
   const [locateState, setLocateState] = useState('idle'); // idle | asking | located | outside | denied | unavailable
   const locate = () => {
     if (!('geolocation' in navigator)) { setLocateState('unavailable'); return; }
@@ -374,6 +380,7 @@ function AppShell() {
         const answer = readPosition(position);
         setLocateState(answer.state);
         setUserLocation(answer.state === 'located' ? { ...answer.location, at: Date.now() } : null);
+        setListFromYou(true);
       },
       (error) => { clearTimeout(giveUp); setLocateState(readError(error).state); setUserLocation(null); },
       // A recent fix is fine for "what is near me"; do not hold the radio on.
@@ -719,7 +726,11 @@ function AppShell() {
       setAreaOnly(kept.area);
       setSelectedFilters(kept.filters);
     } else setSelectedFilters(prev => prev.filter(f => f !== SHARED_LIST));
-    navigate('/', { replace: true });
+    // A step forward, not in place of the list, when it was opened from a
+    // friend's link: "Show all places" and then Back left the app instead of
+    // going back to the list. A journey opened from Discover goes back in
+    // place: Back from there is Discover, with the chips as they were.
+    navigate('/', { replace: Boolean(kept) });
   };
 
   const handleToggleVisited = async (placeId) => {
@@ -930,9 +941,19 @@ function AppShell() {
     const id = setTimeout(() => setFilterQuery(settled), 120);
     return () => clearTimeout(id);
   }, [searchQuery, filterQuery]);
+  // "halal food open now near hongdae", "토요일 저녁 대구 할랄": the words
+  // that ask about the hour are in no place's notes, and the search found
+  // nothing until the offered chip was pressed. They are left out of what is
+  // searched for (the list still offers the chip, which is what answers
+  // them). A weekday by itself may be a name ("Sun Hansik") and stays.
+  const searchedFor = useMemo(() => {
+    const plan = plannedTime(filterQuery, koreaToday());
+    if (plan?.sure) return plan.rest;
+    return asksOpenNow(filterQuery) ? withoutOpenNow(filterQuery) : filterQuery;
+  }, [filterQuery]);
   const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters } = useMemo(() => searchPlaces({
     places: activeRestaurants,
-    query: filterQuery,
+    query: searchedFor,
     filters: selectedFilters,
     areaOnly,
     openOn: openNowOn || openAtOn,
@@ -940,7 +961,7 @@ function AppShell() {
     now: planDate ?? new Date(filterClock || Date.now()),
     bookmarkedIds,
     sharedIds,
-  }), [selectedFilters, filterQuery, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
+  }), [selectedFilters, searchedFor, areaOnly, openNowOn, openAtOn, includeUnknown, planDate, filterClock, bookmarkedIds, sharedIds]);
 
   // "Search this area" (the map's button): the list is narrowed to the
   // part of the map that was showing. The pins are not — moving the map
@@ -1083,6 +1104,7 @@ function AppShell() {
             selectedId={selectedRestaurant?.id}
             selectedPlace={selectedRestaurant}
             onCenterChange={setMapCenter}
+            onHandMove={handMoved}
             searchQuery={matchQuery}
             fitAll={selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST)}
             savedIds={bookmarkedIds}
@@ -1146,6 +1168,7 @@ function AppShell() {
                 inMapOnly={Boolean(inBox)}
                 onShowAll={() => setMapBox(null)}
                 mapCenter={mapCenter}
+                fromYou={listFromYou}
                 userLocation={userLocation}
                 bookmarkedIds={bookmarkedIds}
                 onRestaurantClick={openDetailStable}
@@ -1169,6 +1192,7 @@ function AppShell() {
                 // so its notes and its cards speak of the same search.
                 searchQuery={filterQuery}
                 matchQuery={matchQuery}
+                asked={searchedFor}
                 nearest={nearest}
                 nearestFrom={nearestFrom}
                 withoutFilters={withoutFilters}
@@ -1177,6 +1201,15 @@ function AppShell() {
                 // with the name already written.
                 // "halal open now" typed out: the chip goes on and the words
                 // come out of the box.
+                // "saturday dinner halal": the day and time go to "Open at…".
+                onPlan={(plan) => {
+                  guessedPlan.current = null;
+                  setPlanAt({ day: plan.day, minutes: plan.minutes });
+                  setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_AT]);
+                  setQuery(plan.rest);
+                  // The day and time pickers take half the sheet: open it fully.
+                  setSheetState(2);
+                }}
                 onOpenNow={() => {
                   setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_NOW]);
                   setQuery(withoutOpenNow(searchQuery));

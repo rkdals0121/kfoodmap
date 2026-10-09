@@ -338,6 +338,8 @@ export default {
     signatureMenu: 'Signature menu',
     menuUnverified: "Dish names and prices are the restaurant's own, unverified, and may have changed.",
     menuNotAllVegan: 'Not every dish here is vegan: this place offers vegan options.',
+    // On the page of a place with vegan options: what the list's note says, said there too.
+    veganOptionsAsk: 'A mixed menu: ask about fish sauce, anchovy stock and egg.',
     hoursUnknown: 'Opening hours unknown — check before you go',
     website: 'Website',
     instagram: 'Instagram',

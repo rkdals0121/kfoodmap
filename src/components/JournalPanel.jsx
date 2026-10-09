@@ -8,7 +8,7 @@ import ClaimChip from './ClaimChip';
 import { ChevronRightIcon, ShareIcon, XIcon } from './Icons';
 import Seal from './Seal';
 import { sealText } from '../data/seal-text';
-import { groupByRegion } from '../data/region';
+import { groupByRegion, joinedRegionName } from '../data/region';
 import { sharedListUrl } from '../filters';
 import { copyText, shareOrCopy } from '../share';
 import { colon, paren } from '../i18n/punct';
@@ -238,9 +238,9 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
             // Saved across a trip: one list per region, so the Busan
             // places are together on the day in Busan.
             savedGroups.map(({ region, items }) => (
-              <section key={region ?? 'other'} className="saved-group" aria-label={region ? shownArea(region, i18n.language) : t('journal.otherRegion')}>
+              <section key={region ?? 'other'} className="saved-group" aria-label={region ? (joinedRegionName(region, i18n.language) ?? shownArea(region, i18n.language)) : t('journal.otherRegion')}>
                 <h4 className="saved-group__title">
-                  {region ? shownArea(region, i18n.language) : t('journal.otherRegion')}
+                  {region ? (joinedRegionName(region, i18n.language) ?? shownArea(region, i18n.language)) : t('journal.otherRegion')}
                   <span className="saved-group__count"> · {items.length}</span>
                 </h4>
                 <ul className="saved-list">
