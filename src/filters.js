@@ -23,7 +23,10 @@ export const OPEN_NOW = 'Open now';
 // The same question typed into the search box ("halal open now", "지금 영업",
 // "営業中"): no place's notes hold those words, so it found nothing. The list
 // offers the chip instead (BottomSheetList), and the words are taken out.
-const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|지금\s*영업(?:\s*중)?|영업\s*중|営業中|现在营业|現在營業|营业中|營業中|buka\s+sekarang/gi;
+// (With what trails the words in each language — "営業中のお店", "现在营业的店",
+// "지금 영업하는 곳" — so that taking them out leaves no stray particle; not
+// "영업중단", closed for good.)
+const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
 export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
 export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
 // Open at a chosen weekday and time (planning ahead); never on with OPEN_NOW.

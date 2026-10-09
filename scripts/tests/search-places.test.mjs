@@ -485,3 +485,14 @@ test('"open now" typed into the search is recognised, and taken out', async () =
   assert.equal(withoutOpenNow('이태원 지금 영업 중'), '이태원');
   assert.equal(withoutOpenNow('itaewon open now vegan'), 'itaewon vegan');
 });
+
+test('"open now" comes out of the search with what trails it', async () => {
+  const { asksOpenNow, withoutOpenNow } = await import('../../src/filters.js');
+  assert.equal(withoutOpenNow('ハラル 営業中のお店'), 'ハラル');
+  assert.equal(withoutOpenNow('现在营业的店'), '');
+  assert.equal(withoutOpenNow('지금 영업하는 곳'), '');
+  assert.equal(withoutOpenNow('할랄 지금 영업 중인 곳'), '할랄');
+  assert.equal(withoutOpenNow('yang buka sekarang itaewon'), 'itaewon');
+  // "영업중단" is a place that has closed for good, not a question.
+  assert.equal(asksOpenNow('영업중단'), false);
+});

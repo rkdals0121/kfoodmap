@@ -9,7 +9,7 @@ import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, kore
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
-import { TRAIT_GROUPS, isPorkFreeQuery, asksOpenNow } from '../filters';
+import { TRAIT_GROUPS, asksOpenNow } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
 import { romaniseQuery } from '../data/area-names';
@@ -46,8 +46,10 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // places, among them one whose note says its kimchi contains it; "not spicy"
 // finds thirteen that are. The words are found in the notes one by one.
 const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|魚醤|はちみつ|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
-// (Not "no pork" / "pork-free": that is a level the records do carry.)
-const ASKS_INGREDIENT = { test: (query) => !isPorkFreeQuery(query ?? '') && INGREDIENT_WORDS.test(String(query ?? '').replace(/ドーナッツ|ココナッツ/g, '')) };
+// (Not "no pork" / "pork-free" by itself: that is a level the records do
+// carry. Beside another such word — "no pork gluten free" — the note stands.)
+const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|tanpa\s+babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|不含猪肉|无猪肉|不含豬肉/gi;
+const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(PORK_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
 // short — no word of it spelt differently?
@@ -450,7 +452,7 @@ export default function BottomSheetList({
           caution an empty search for an allergen already gets, said over
           the results too: a list under that search read as a promise. */}
       {sorted.length > 0 && ASKS_INGREDIENT.test(searchQuery) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()}>{t('profile.staffCards')}</Link></p>
+        <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* With both diets on, why the list is short comes before all else. */}
       {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
