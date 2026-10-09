@@ -12,7 +12,7 @@ import { shareOrCopy } from '../share';
 import { TRAIT_GROUPS, asksOpenNow, plannedTime } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
-import { romaniseQuery, AREA_NAMES } from '../data/area-names';
+import { romaniseQuery, AREA_NAMES, isListedArea } from '../data/area-names';
 import { colon, quoted } from '../i18n/punct';
 
 const CHIP_LABEL_KEY = {
@@ -61,6 +61,12 @@ const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi
 const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|bebas)\s+babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
 // "No meat", "meat-free", "고기 없는": the vegan question, answered from the
 // record like "no pork" — not an ingredient the map cannot check.
+// "Halal near me", "근처 맛집", "附近的清真餐厅": near the reader — which the map
+// knows only once "My location" is pressed. Not "near Myeongdong": that
+// names where.
+const NEAR_ME_TYPED = /\bnear\s*me\b|\bnear(?:by|est)\b|\b(?:around|close\s+to)\s+me\b|\bclosest\b|근처|주변|가까운|近く|周辺|最寄り|附近|离我|離我|\bdekat\s+(?:sini|saya)\b|\bterdekat\b|\bsekitar\s+sini\b/i;
+const asksNearMe = (query) => NEAR_ME_TYPED.test(String(query ?? ''))
+  && !(romaniseQuery(query) ?? String(query ?? '')).split(/\s+/).some(w => isListedArea(w.replace(/-si$/, '')));
 const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
@@ -197,7 +203,7 @@ export default function BottomSheetList({
   inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, fromYou = false, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
   const { t, i18n } = useTranslation();
   // A Korean reader who typed Korean: "서울역" answered with “Seoul Station”도
@@ -459,6 +465,11 @@ export default function BottomSheetList({
       {plan && plan.sure && sorted.length > 0 && (
         <p className="place-list__in-map">
           <button type="button" onClick={() => onPlan(plan)}>{planLabel}</button>
+        </p>
+      )}
+      {onLocate && sorted.length > 0 && !fromYou && locateState !== 'located' && locateState !== 'asking' && asksNearMe(searchQuery) && (
+        <p className="place-list__in-map">
+          <button type="button" onClick={onLocate}>{t('map.nearMe')}</button>
         </p>
       )}
       {!plan && onOpenNow && sorted.length > 0 && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (

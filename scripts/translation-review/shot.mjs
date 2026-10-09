@@ -2,14 +2,20 @@
 // steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), drag (finger drags), tap (finger taps on selectors), tapAt (+tapGap: finger taps at points), keys (+ trail: real key presses), block (url patterns), csp (false: the page's Content-Security-Policy is not applied) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
-import { spawn } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { spawn, spawnSync } from 'node:child_process';
+import { readFileSync, writeFileSync, mkdtempSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const steps = JSON.parse(readFileSync(process.argv[2], 'utf8'));
 // A port of its own per run: two runs side by side used to land on one.
 const port = 9300 + Math.floor((process.pid * 7 + Date.now()) % 2000);
+// Folders earlier runs could not delete (a browser process that would not
+// end was still holding them) go now: nothing is left to pile up.
+for (const old of readdirSync(tmpdir())) {
+  if (!old.startsWith('kfm-shot-')) continue;
+  try { if (Date.now() - statSync(join(tmpdir(), old)).mtimeMs > 10 * 60 * 1000) rmSync(join(tmpdir(), old), { recursive: true, force: true }); } catch { /* still held, or gone */ }
+}
 const dir = mkdtempSync(join(tmpdir(), 'kfm-shot-'));
 const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', [
   '--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${dir}`, '--hide-scrollbars', '--no-first-run', '--disable-gpu', 'about:blank',
@@ -128,9 +134,30 @@ for (const s of steps) {
     console.log('wrote', s.out);
   }
 }
+// Asked to close, the browser ends every process of its own and lets go of
+// its files; killed, some of them lived on and the folder could not go.
+await Promise.race([send('Browser.close'), sleep(3000)]).catch(() => {});
+await sleep(800);
 ws.close();
 // The browser's own folder goes with it: every run left one behind (some
 // 20 MB each), and after a few thousand runs the machine was slow.
-await new Promise((done) => { chrome.once('exit', done); chrome.kill(); setTimeout(done, 3000); });
-try { rmSync(dir, { recursive: true, force: true, maxRetries: 15, retryDelay: 200 }); } catch { /* still held: the next clean-up takes it */ }
+// (On Windows the browser's helper processes outlive a plain kill and keep
+// the folder's files open: the whole tree is ended.)
+await new Promise((done) => {
+  chrome.once('exit', done);
+  if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(chrome.pid), '/T', '/F'], { stdio: 'ignore' });
+  else chrome.kill();
+  setTimeout(done, 1500);
+});
+// One of its processes sometimes takes a minute to end and keeps the
+// folder's files open till then: tried now, and otherwise left to a small
+// command that outlives this script and deletes the folder a while later.
+// (What even that misses, the next run's sweep above takes.)
+try { rmSync(dir, { recursive: true, force: true }); } catch { /* still held */ }
+if (existsSync(dir)) {
+  const later = process.platform === 'win32'
+    ? spawn('cmd', ['/d', '/s', '/c', `"ping -n 90 127.0.0.1 >nul & rd /s /q "${dir}""`], { detached: true, stdio: 'ignore', windowsHide: true, windowsVerbatimArguments: true })
+    : spawn('sh', ['-c', `sleep 60; rm -rf "${dir}"`], { detached: true, stdio: 'ignore' });
+  later.unref();
+}
 process.exit(0);

@@ -1210,6 +1210,8 @@ function AppShell() {
                   // The day and time pickers take half the sheet: open it fully.
                   setSheetState(2);
                 }}
+                onLocate={locateStable}
+                locateState={locateState}
                 onOpenNow={() => {
                   setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_NOW]);
                   setQuery(withoutOpenNow(searchQuery));

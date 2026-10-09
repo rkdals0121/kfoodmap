@@ -502,6 +502,12 @@ P26. The copy buttons (address, Korean address, Korean name) → pressed, a tick
 
 P27. After "my location" → the list is ordered from the reader ("Nearest to you") through a filter pressed, until the map is dragged, pinched, zoomed or moved with the keyboard.
 
+P28. A search that names no place ("맛집", "근처 맛집", "レストラン", "餐厅", "restaurants near me", "tempat makan") → every place is listed, as with an empty box; "restaurant" (some places are called so) is searched as typed. Over one that asks for places near the reader ("halal near me", "근처", "附近", "近く", "terdekat") the list offers "My location" until it is on (regress step `near-me`); not over "near Myeongdong".
+
+P29. Other wordings of the diet questions → "plant based", "meatless", "no meat", "식물성", "고기 없는", "プラントベース", "无肉", "tanpa daging", "素食主义" give the Vegan chip's places with no ingredient caution; "ramah muslim" the Halal chip's; "bebas babi" the pork-free ones; "한식", "한식당" Korean food.
+
+P30. Names in Japanese and Chinese → 汝矣島, 乙支路, 狎鴎亭, 三清洞, 大学路, 南大門市場, 広蔵市場, 南山タワー, 春川, 束草, 益善洞, 延南洞, 漢南洞, グルテンフリー, 无麸质 each find what the romanised name finds (unit test "more wordings of the same questions").
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
