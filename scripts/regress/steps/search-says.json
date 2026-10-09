@@ -1,0 +1,60 @@
+[
+ {
+  "url": "{{BASE}}/#q=gluten%20free",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "return {q:'gluten free', count:document.querySelector('.place-list__header h2')?.innerText, caution:!!document.querySelector('.place-list__note--key a')}"
+ },
+ {
+  "url": "{{BASE}}/#q=no%20fish%20sauce",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "return {q:'no fish sauce', count:document.querySelector('.place-list__header h2')?.innerText, caution:!!document.querySelector('.place-list__note--key a')}"
+ },
+ {
+  "url": "{{BASE}}/#q=no%20pork",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "return {q:'no pork', count:document.querySelector('.place-list__header h2')?.innerText, caution:!!document.querySelector('.place-list__note--key a')}"
+ },
+ {
+  "url": "{{BASE}}/#q=halal%20open%20now",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const before=document.querySelector('.place-list__header h2')?.innerText; const b=[...document.querySelectorAll('.place-list__clear')].find(e=>/open now/i.test(e.innerText)); b?.click(); await w(1200); return {q:'halal open now', before, offered:!!b, after:document.querySelector('.place-list__header h2')?.innerText, hash:location.hash, chip:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}"
+ },
+ {
+  "url": "{{BASE}}/#q=where%20can%20i%20find%20halal%20in%20myeongdong",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "return {sentence:document.querySelector('.place-list__header h2')?.innerText}"
+ },
+ {
+  "url": "{{BASE}}/#q=myeongdong%20halal",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "return {bare:document.querySelector('.place-list__header h2')?.innerText}"
+ },
+ {
+  "url": "{{BASE}}/#q=%E8%BF%91%E3%81%8F%E3%81%AE%E3%83%8F%E3%83%A9%E3%83%BC%E3%83%AB",
+  "w": 390,
+  "h": 844,
+  "lang": "ja",
+  "js": "return {glued:document.querySelector('.place-list__header h2')?.innerText}"
+ },
+ {
+  "url": "{{BASE}}/place/the-halal-fitzza-hongdae",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "tz": "Asia/Seoul",
+  "init": "const D=Date; const t0=D.now(); const base=new D('2026-10-08T16:00:00Z').getTime(); class F extends D{ constructor(...a){ if(a.length) super(...a); else super(base+(D.now()-t0)); } static now(){ return base+(D.now()-t0); } } window.Date=F;",
+  "js": "return {at:'Fri 01:00 KST', lines:[...document.querySelectorAll('.practical-today')].map(e=>e.innerText)}"
+ }
+]
