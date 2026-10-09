@@ -7350,3 +7350,24 @@ html[lang='id'] .stat-label {
     overflow: visible !important;
   }
 }
+
+/* The action inside the list's grey strip ("Show all", "Show places open
+   now"): the brand green on that grey is 4.47 to 1, a hair under the 4.5 a
+   line of text needs. A shade darker here only. */
+.place-list__in-map button {
+  color: #06704F;
+}
+/* The link to the Korean cards inside a note of the list: 17 px tall to a
+   finger in Japanese and Chinese. The same line, with room above and below. */
+.place-list__note a,
+.place-list__hint-text a {
+  display: inline-block;
+  padding: 13px 0;
+  margin: -13px 0;
+}
+/* …and in the list's own colour for a link (it was the browser's blue). */
+.place-list__note a {
+  color: var(--green-strong);
+  font-weight: 600;
+  text-underline-offset: 2px;
+}
