@@ -107482,13 +107482,13 @@ export const restaurants = [
       "evidence": "Kakao Map: 0507-1392-8975. Single source."
     },
     "officialUrl": {
-      "value": "http://instargram.com/kongmidang",
-      "confidence": "supported",
-      "source": "Naver Place / Kakao Map",
-      "url": "https://place.map.kakao.com/1073774543",
-      "method": "Map service lookup",
-      "lastCheckedAt": "2026-09-29",
-      "evidence": "Linked from the Kakao listing."
+      "value": null,
+      "confidence": "unknown",
+      "source": null,
+      "url": null,
+      "method": null,
+      "lastCheckedAt": null,
+      "evidence": "The Kakao listing links 'instargram.com/kongmidang', a misspelt address that belongs to someone else, so no link is shown. The Instagram account it presumably means has not been read by us."
     },
     "instagram": {
       "value": null,

@@ -334,6 +334,7 @@ export default {
     menuNotAllVegan: 'Tidak semua hidangan di sini vegan: tempat ini menyediakan pilihan vegan.',
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: 'Ini bukan dapur vegan sepenuhnya: tanyakan soal kecap ikan, kaldu teri, dan telur.',
+    veganOptionsAskBakery: 'Tidak semua di sini vegan: tanyakan soal telur, mentega, susu, dan madu.',
     hoursUnknown: 'Jam buka tidak diketahui — periksa dulu sebelum berangkat',
     website: 'Situs web',
     instagram: 'Instagram',

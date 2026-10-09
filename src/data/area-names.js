@@ -185,6 +185,7 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '중동': 'middle eastern', '아랍': 'arab', '파키스탄': 'pakistan', '말레이시아': 'malaysia', '태국': 'thai', '베트남': 'vietnamese',
   '팔라펠': 'falafel', '후무스': 'hummus', '포케': 'poke', '타코': 'taco', '부리토': 'burrito', '쿠키': 'cookie', '스콘': 'scone', '도넛': 'doughnut',
   '비리야니': 'biryani', '브리야니': 'biryani', '사모사': 'samosa', '해산물': 'seafood', '쌀국수': 'pho', '필라프': 'pilaf',
+  '麵包': 'bread', '面包': 'bread', '辣炒年糕': 'tteokbokki', '飯捲': 'gimbap', '饭卷': 'gimbap', '海苔飯捲': 'gimbap', '螃蟹': 'crab', kepiting: 'crab',
   'ビリヤニ': 'biryani', 'サモサ': 'samosa', 'シーフード': 'seafood', '海鮮': 'seafood', '海鲜': 'seafood', 'フォー': 'pho', '香饭': 'biryani', '印度香饭': 'biryani', '咖喱角': 'samosa',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',
@@ -333,7 +334,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   '추천해줘', '추천해주세요', '알려줘', '알려주세요', '있어', '있어요', '있나요', '먹을', '곳', '찾아줘', '어디야', '어디에', '어디서',
   'を', 'が', 'は', '食べたい', '食べられる', '教えて', 'ください', 'ありますか',
   '在', '吃', '想吃', '吗', '嗎', '请问', '請問', '哪儿',
-  'cari', 'mencari', 'ada', 'ingin', 'mau', 'tolong', 'apa',
+  'cari', 'mencari', 'ada', 'ingin', 'mau', 'tolong', 'apa', 'apakah', 'adakah', 'dimana',
   'recommended', 'recommendation', 'recommendations', 'popular', 'famous', 'delicious', 'tasty',
   'おすすめ', 'オススメ', 'お勧め', '人気', '美味しい', 'おいしい', '有名', 'どこ', '近くの',
   '推荐', '推薦', '好吃', '哪里', '哪裡', '人气', '人氣', '有名的', '的',
@@ -350,7 +351,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
 // many places carry in their names). A place whose own name has such a word
 // — "Yang Good", "Great Himalaya" — is found by it: see search.js.
 const QUESTION = new Set(['me', 'my', 'best', 'top', 'good', 'great', 'where', 'to', 'eat', 'eating', 'find', 'for', 'some', 'any', 'and', 'or', 'with',
-  'can', 'i', 'is', 'there', 'are', 'show', 'want', 'looking', 'please', 'what', 'here', 'which', 'need', 'cari', 'ada', 'mau', 'apa',
+  'can', 'i', 'is', 'there', 'are', 'show', 'want', 'looking', 'please', 'what', 'here', 'which', 'need', 'cari', 'ada', 'mau', 'apa', 'apakah', 'adakah', 'dimana',
   'recommended', 'popular', 'famous', 'delicious', 'tasty', 'terbaik', 'enak', 'mana', 'yang', 'untuk', 'saya']);
 export const questionWords = (query) => String(query ?? '').toLowerCase().split(/\s+/).filter(w => QUESTION.has(w));
 

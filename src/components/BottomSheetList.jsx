@@ -342,7 +342,7 @@ export default function BottomSheetList({
   // on, rather than folded to a line that ends before it says so.
   const halalOn = activeFilters.includes('Halal');
   useEffect(() => {
-    if (halalOn && typeof window !== 'undefined' && window.innerHeight > 700) setNotesOpen(true);
+    if (halalOn && typeof window !== 'undefined' && window.innerHeight > 800) setNotesOpen(true);
   }, [halalOn]);
   // Someone searching for "certified", "인증" or "KMF" is asking the same
   // question: the caveat answers it whether or not the chip is on.

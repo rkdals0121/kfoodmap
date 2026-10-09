@@ -341,6 +341,7 @@ export default {
     menuNotAllVegan: 'Not every dish here is vegan: this place offers vegan options.',
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: 'A mixed menu: ask about fish sauce, anchovy stock and egg.',
+    veganOptionsAskBakery: 'Not everything here is vegan: ask about egg, butter, milk and honey.',
     hoursUnknown: 'Opening hours unknown — check before you go',
     website: 'Website',
     instagram: 'Instagram',

@@ -7421,3 +7421,11 @@ html[lang='id'] .stat-label {
   border-radius: 0;
   background-clip: padding-box;
 }
+
+/* Slanted letters are a Latin habit: Hangul, kana and Chinese characters have
+   no italic, and a browser fakes one by leaning them over. */
+:lang(ko) .place-card__unknown,
+:lang(ja) .place-card__unknown,
+:lang(zh) .place-card__unknown {
+  font-style: normal;
+}

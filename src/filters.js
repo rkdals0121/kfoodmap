@@ -204,7 +204,7 @@ const DIET_WORDS = {
   // their descriptions — every one of them among the Vegan chip's 521, with
   // "경주 채식" finding none of Gyeongju's four.
   vegetarian: 'Vegan', vegetarisch: 'Vegan', vegetariano: 'Vegan', vegetariana: 'Vegan', vegetarien: 'Vegan',
-  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '素食主义': 'Vegan', '素食主義': 'Vegan', '素食者': 'Vegan', '蛋奶素': 'Vegan', '净素': 'Vegan', '淨素': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
+  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '維根': 'Vegan', '维根': 'Vegan', '素食主义': 'Vegan', '素食主義': 'Vegan', '素食者': 'Vegan', '蛋奶素': 'Vegan', '净素': 'Vegan', '淨素': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
   // "Plant-based", "meatless", "no meat": the same question again ("plant
   // based" found 64 places by their descriptions, "meatless" none).
   plantbased: 'Vegan', meatless: 'Vegan', meatfree: 'Vegan', nomeat: 'Vegan', withoutmeat: 'Vegan', tanpadaging: 'Vegan', vegetaris: 'Vegan', nabati: 'Vegan',
@@ -344,6 +344,16 @@ const PORK_FREE_SAID = [
   [/돼지고기(?:를|가|는)?\s*(?:안\s*(?:쓰는|넣는|들어간|들어가는|파는|먹는)|빼고|없이|없는)(?:\s*(?:집|식당|곳|가게|음식점|음식))?/g, '돼지고기없는'],
   [/豚肉(?:を|は)?(?:使わない|使っていない|なし|抜き|不使用)(?:の?(?:店|お店|レストラン))?/g, '豚肉不使用'],
   [/(?:没有|不用|不含|无|無|沒有)(?:猪|豬)肉(?:的(?:店|餐厅|餐廳))?/g, '不含猪肉'],
+  // Two words that are one thing, said as the records say it: Indonesian puts
+  // the kind after the noun ("makanan korea" is Korean food — "korea" alone
+  // found Korea University), and a name is sometimes typed in its syllables.
+  [/\b(?:makanan|masakan|kuliner)\s+korea\b/gi, 'korean'],
+  [/\bayam\s+goreng\b/gi, 'fried chicken'],
+  [/\bmakanan\s+laut\b/gi, 'seafood'],
+  [/\bdaging\s+sapi\b/gi, 'beef'],
+  [/\bes\s+krim\b/gi, 'ice cream'],
+  [/\bmyeong\s+dong\b/gi, 'myeongdong'],
+  [/\bitae\s+won\b/gi, 'itaewon'],
 ];
 export const porkFreeSaid = (query) => PORK_FREE_SAID.reduce((q, [said, word]) => q.replace(said, ` ${word} `), String(query ?? '')).replace(/\s+/g, ' ').trim();
 

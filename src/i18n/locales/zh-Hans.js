@@ -331,6 +331,7 @@ export default {
     menuNotAllVegan: '这里的菜品并非全部纯素：本店提供纯素选项。',
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: '这里不是纯素餐厅，请询问是否含鱼露、鳀鱼高汤和鸡蛋。',
+    veganOptionsAskBakery: '这里并非全部纯素，请询问是否含鸡蛋、黄油、牛奶和蜂蜜。',
     hoursUnknown: '营业时间未知，去之前请先确认',
     website: '网站',
     instagram: 'Instagram',

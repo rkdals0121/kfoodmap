@@ -330,6 +330,7 @@ export default {
     menuNotAllVegan: '여기 메뉴가 모두 비건은 아니에요. 비건 메뉴가 있는 곳이에요.',
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: '비건 전용 식당이 아니에요. 액젓, 멸치 육수, 달걀이 들어가는지 물어보세요.',
+    veganOptionsAskBakery: '전부 비건은 아니에요. 달걀, 버터, 우유, 꿀이 들어가는지 물어보세요.',
     hoursUnknown: '영업시간을 알 수 없어요. 가기 전에 확인해 보세요',
     website: '웹사이트',
     instagram: '인스타그램',
