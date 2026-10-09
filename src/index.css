@@ -7366,7 +7366,8 @@ html[lang='id'] .stat-label {
   margin: -13px 0;
 }
 /* …and in the list's own colour for a link (it was the browser's blue). */
-.place-list__note a {
+.place-list__note a,
+.place-list__hint-text a {
   color: var(--green-strong);
   font-weight: 600;
   text-underline-offset: 2px;
@@ -7428,4 +7429,12 @@ html[lang='id'] .stat-label {
 :lang(ja) .place-card__unknown,
 :lang(zh) .place-card__unknown {
   font-style: normal;
+}
+
+/* "Open the source" beside a claim: a 15 px line to a finger. The same line,
+   with room above and below. */
+.claim-explain__meta a[target='_blank'] {
+  display: inline-block;
+  padding: 14px 0;
+  margin: -14px 0;
 }

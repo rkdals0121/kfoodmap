@@ -109,6 +109,7 @@ export default {
     withoutFilters: '不加筛选时，“{{query}}”可找到 {{n}} 家。',
     withoutOne: '去掉“{{filter}}”：{{n}} 家',
     askStaffHint: '食材和过敏原并非逐店核实的项目，说明里即使提到也不代表保证。向店员询问时可用：',
+    vegetarianNote: '是否含蛋、奶并未记录。这里显示的是有纯素菜品的店，其余请向店员询问：',
     showPorkFree: '查看不含猪肉的店（非清真）',
     // "open now" typed into the search: the chip is offered.
     showOpenNow: '查看现在营业的店',
@@ -510,7 +511,17 @@ export default {
   },
   // 店员卡片上每句韩语的意思（韩语原文和键在 src/data/staff-cards.js）。
   // 是原意，不是意译：读者必须确切知道自己出示的是什么。
-  cardText: {
+  cardText: {
+    vegeS1: '您好。我吃素（蛋奶素）。',
+    vegeS2: '我不吃肉（牛、猪、鸡，包括火腿和香肠）、鱼和海鲜（包括鱼糕和蟹肉棒）。',
+    vegeS3: '鸡蛋、牛奶和乳制品可以吃。',
+    vegeS4: '用肉或鱼熬的高汤，以及含鱼露、虾酱的菜我也不吃。',
+    vegeS5: '有我能吃的菜吗？',
+    vegeQ1: '这道菜里有肉或海鲜吗？',
+    vegeQ2: '高汤是用什么做的？（鳀鱼、肉、鲣鱼干）',
+    vegeQ3: '泡菜里放鱼露或虾酱（腌虾）吗？',
+    vegeQ4: '你们用蚝油或大喜大（牛肉调味粉）吗？',
+    vegeQ5: '可以不放肉吗？',
     veganS1: '您好。我是纯素食者（只吃植物性食物）。',
     veganS2: '我不吃肉（牛、猪、鸡，包括火腿和香肠）、鱼、海鲜（包括鱼糕和蟹肉棒）、鸡蛋、牛奶及乳制品、蜂蜜。',
     veganS3: '高汤或调料里含有动物性食材的菜，我也不吃（例如：鳀鱼高汤、鱼露、虾酱）。',
@@ -566,6 +577,7 @@ export default {
     intro: '多数餐厅店员看不懂英文，而“纯素”和“清真”在韩国后厨也不是日常用语。请出示韩语；旁边的中文就是韩语的原意。',
     chooseCard: '选择卡片',
     veganLabel: '我是纯素食者',
+    vegetarianLabel: '我吃蛋奶素',
     muslimLabel: '我是穆斯林',
     showThis: '请出示给店员',
     showLarge: '放大显示',

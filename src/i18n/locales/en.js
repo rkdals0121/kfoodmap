@@ -114,6 +114,7 @@ export default {
     withoutFilters: '“{{query}}” finds {{n}} without the filters.',
     withoutOne: 'Without “{{filter}}”: {{n}}',
     askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
+    vegetarianNote: 'Egg and dairy are not on record. These are the places with vegan dishes — a vegetarian can eat those. To ask about the rest:',
     showPorkFree: 'See pork-free places (not halal)',
     // "open now" typed into the search: the chip is offered.
     showOpenNow: 'Show places open now',
@@ -526,7 +527,17 @@ export default {
   // What each Korean line on the staff cards says (src/data/staff-cards.js
   // holds the Korean and the key). A meaning, not a paraphrase: the reader
   // must know exactly what they are showing.
-  cardText: {
+  cardText: {
+    vegeS1: 'Hello. I am vegetarian.',
+    vegeS2: 'I do not eat meat (beef, pork, chicken, including ham and sausage), fish or seafood (including fish cake and crab stick).',
+    vegeS3: 'I do eat eggs, milk and dairy.',
+    vegeS4: 'I also do not eat food with stock made from meat or fish, fish sauce or salted shrimp in it.',
+    vegeS5: 'Is there a dish I can eat?',
+    vegeQ1: 'Is there meat or seafood in this dish?',
+    vegeQ2: 'What is the stock made from? (anchovy, meat, bonito)',
+    vegeQ3: 'Is there fish sauce or salted shrimp in the kimchi?',
+    vegeQ4: 'Do you use oyster sauce or dasida (beef stock powder)?',
+    vegeQ5: 'Could you make it without the meat?',
     veganS1: 'Hello. I am vegan (fully plant-based).',
     veganS2: 'I do not eat meat (beef, pork, chicken, including ham and sausage), fish, seafood (including fish cake and crab stick), eggs, milk or dairy, or honey.',
     veganS3: 'I also do not eat food with animal ingredients in its stock or seasoning (for example anchovy stock, fish sauce, salted shrimp).',
@@ -582,6 +593,7 @@ export default {
     intro: 'Most restaurant staff do not read English, and “vegan” and “halal” are not everyday words in a Korean kitchen. Show the Korean; the meaning shown with it is exactly what it says.',
     chooseCard: 'Choose a card',
     veganLabel: 'I am vegan',
+    vegetarianLabel: 'I am vegetarian',
     muslimLabel: 'I am Muslim',
     showThis: 'Show this to staff',
     showLarge: 'Show large',

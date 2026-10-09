@@ -41,7 +41,9 @@ const PAGE = 40;
 // Where the list was left, kept while another tab is on screen (the list is
 // not drawn then): eighty cards down, a look at the Journal and back used to
 // land on the first card again. Discover and the Journal remember the same.
-const listMemory = { key: null, shown: PAGE, scrollTop: 0 };
+// (…and whether the halal note has unfolded by itself once: the second time
+// the chip goes on, it is as the reader left it.)
+const listMemory = { key: null, shown: PAGE, scrollTop: 0, halalNoteShown: false };
 
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
@@ -55,7 +57,7 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // …and what is asked for by leaving something out: "no fish sauce" finds twelve
 // places, among them one whose note says its kimchi contains it; "not spicy"
 // finds thirteen that are. The words are found in the notes one by one.
-const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
+const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|出汁|だし|ダシ|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
 // (Not "no pork" / "pork-free" by itself: that is a level the records do
 // carry. Beside another such word — "no pork gluten free" — the note stands.)
 const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|bebas)\s+babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
@@ -75,6 +77,10 @@ const asksNearMe = (query, plan = null) => {
   const rest = liftDietWords((romaniseQuery(base) ?? base).replace(new RegExp(NEAR_ME_TYPED.source, 'gi'), ' ')).rest.trim();
   return rest === '' || onlyFillers(rest);
 };
+// "Vegetarian" is answered with the places that have vegan dishes (the map
+// records no more than that): the list says so, since a vegetarian who eats
+// egg and dairy is asking a wider question than the one answered.
+const VEGETARIAN_TYPED = /veg[aei]t[ae]r|vegetaris|ベジタリアン|ベジ(?!タブル)|菜食|素食|蔬食|吃素|蛋奶素|채식/i;
 const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
 // (Read without the signs a search is wrapped in, as the search reads it:
 // “not spicy” in a phone's curly quotes found places and showed no caution.)
@@ -344,7 +350,7 @@ export default function BottomSheetList({
   // on, rather than folded to a line that ends before it says so.
   const halalOn = activeFilters.includes('Halal');
   useEffect(() => {
-    if (halalOn && typeof window !== 'undefined' && window.innerHeight > 800) setNotesOpen(true);
+    if (halalOn && !listMemory.halalNoteShown && typeof window !== 'undefined' && window.innerHeight > 800) { listMemory.halalNoteShown = true; setNotesOpen(true); }
   }, [halalOn]);
   // Someone searching for "certified", "인증" or "KMF" is asking the same
   // question: the caveat answers it whether or not the chip is on.
@@ -538,6 +544,9 @@ export default function BottomSheetList({
           place's notes, which nobody has checked dish by dish. The same
           caution an empty search for an allergen already gets, said over
           the results too: a list under that search read as a promise. */}
+      {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(searchQuery) && (
+        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to="/cards?card=vegetarian" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()}>{t('profile.staffCards')}</Link></p>
+      )}
       {sorted.length > 0 && ASKS_INGREDIENT.test(searchQuery) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}

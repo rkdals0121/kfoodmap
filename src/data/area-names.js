@@ -186,7 +186,7 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '팔라펠': 'falafel', '후무스': 'hummus', '포케': 'poke', '타코': 'taco', '부리토': 'burrito', '쿠키': 'cookie', '스콘': 'scone', '도넛': 'doughnut',
   '비리야니': 'biryani', '브리야니': 'biryani', '사모사': 'samosa', '해산물': 'seafood', '쌀국수': 'pho', '필라프': 'pilaf',
   '麵包': 'bread', '面包': 'bread', '辣炒年糕': 'tteokbokki', '飯捲': 'gimbap', '饭卷': 'gimbap', '海苔飯捲': 'gimbap', '螃蟹': 'crab', kepiting: 'crab',
-  'パン': 'bread', 'お寺の料理': 'temple',
+  'パン': 'bread', 'お寺の料理': 'temple', 'お寺': 'temple', 'カルグクス': 'kalguksu', 'チャプチェ': 'japchae', '石焼ビビンバ': 'bibimbap', '石焼きビビンバ': 'bibimbap', seomyun: 'Seomyeon', seomyon: 'Seomyeon',
   'ビリヤニ': 'biryani', 'サモサ': 'samosa', 'シーフード': 'seafood', '海鮮': 'seafood', '海鲜': 'seafood', 'フォー': 'pho', '香饭': 'biryani', '印度香饭': 'biryani', '咖喱角': 'samosa',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',

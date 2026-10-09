@@ -51,6 +51,28 @@ export const STAFF_CARDS = [
       { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'veganQ9' },
     ],
   },
+  // For someone who eats egg and dairy: the vegan card tells a kitchen they
+  // refuse both, and a visitor who is "vegetarian" was left to show a card
+  // that is not true of them. Fish stock, fish sauce and salted shrimp are
+  // still what a Korean kitchen will not think of as meat or fish.
+  {
+    id: 'vegetarian',
+    labelKey: 'cards.vegetarianLabel',
+    statement: [
+      { ko: '안녕하세요. 저는 채식주의자입니다.', roman: 'Annyeonghaseyo. Jeoneun chaesikjuuijaimnida.', key: 'vegeS1' },
+      { ko: '고기(소·돼지·닭, 햄·소시지 포함), 생선, 해산물(어묵·맛살 포함)⁠을 먹지 않습니다.', roman: 'Gogi (so·dwaeji·dak, haem·sosiji poham), saengseon, haesanmul (eomuk·matsal poham) eul meokji anseumnida.', key: 'vegeS2' },
+      { ko: '달걀과 우유·유제품은 먹습니다.', roman: 'Dalgyalgwa uyu·yujepumeun meokseumnida.', key: 'vegeS3' },
+      { ko: '고기나 생선으로 낸 육수, 액젓, 새우젓이 들어간 음식도 먹지 않습니다.', roman: 'Gogina saengseoneuro naen yuksu, aekjeot, saeujeosi deureogan eumsikdo meokji anseumnida.', key: 'vegeS4' },
+      { ko: '제가 먹을 수 있는 메뉴가 있을까요?', roman: 'Jega meogeul su inneun menyuga isseulkkayo?', key: 'vegeS5' },
+    ],
+    questions: [
+      { ko: '이 음식에 고기나 해산물이 들어가나요?', roman: 'I eumsige gogina haesanmuri deureoganayo?', key: 'vegeQ1' },
+      { ko: '육수는 무엇으로 만드나요? (멸치, 고기, 가쓰오부시)', roman: 'Yuksuneun mueoseuro mandeunayo? (myeolchi, gogi, gasseuobusi)', key: 'vegeQ2' },
+      { ko: '김치에 액젓이나 새우젓이 들어가나요?', roman: 'Gimchie aekjeosina saeujeosi deureoganayo?', key: 'vegeQ3' },
+      { ko: '굴소스나 다시다(쇠고기 조미료)⁠를 쓰나요?', roman: 'Gulsoseuna dasida (soegogi jomiryo) reul sseunayo?', key: 'vegeQ4' },
+      { ko: '고기를 빼고 만들어 주실 수 있나요?', roman: 'Gogireul ppaego mandeureo jusil su innayo?', key: 'vegeQ5' },
+    ],
+  },
   {
     id: 'muslim',
     labelKey: 'cards.muslimLabel',

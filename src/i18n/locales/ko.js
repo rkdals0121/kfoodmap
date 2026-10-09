@@ -111,6 +111,7 @@ export default {
     withoutFilters: '필터를 빼면 “{{query}}” 검색 결과가 {{n}}곳 있어요.',
     withoutOne: '“{{filter}}” 빼면 {{n}}곳',
     askStaffHint: '재료·알레르기는 가게마다 확인한 항목이 아니에요. 설명에 언급이 있어도 보장은 아니에요. 직원에게 물어볼 때:',
+    vegetarianNote: '달걀·유제품이 들어가는지는 기록하지 않아요. 비건 메뉴가 있는 곳을 보여 드려요. 나머지는 직원에게 물어볼 때:',
     showPorkFree: '돼지고기 없는 곳 보기(할랄 아님)',
     // "open now" typed into the search: the chip is offered.
     showOpenNow: '지금 영업 중인 곳 보기',
@@ -508,6 +509,16 @@ export default {
   },
   // What each Korean line on the staff cards says, in plain Korean.
   cardText: {
+    vegeS1: '안녕하세요. 저는 채식주의자입니다.',
+    vegeS2: '고기(소·돼지·닭, 햄·소시지 포함), 생선, 해산물(어묵·맛살 포함)을 먹지 않습니다.',
+    vegeS3: '달걀과 우유·유제품은 먹습니다.',
+    vegeS4: '고기나 생선으로 낸 육수, 액젓, 새우젓이 들어간 음식도 먹지 않습니다.',
+    vegeS5: '제가 먹을 수 있는 메뉴가 있나요?',
+    vegeQ1: '이 음식에 고기나 해산물이 들어가나요?',
+    vegeQ2: '육수는 무엇으로 만드나요? (멸치, 고기, 가쓰오부시)',
+    vegeQ3: '김치에 액젓이나 새우젓이 들어가나요?',
+    vegeQ4: '굴소스나 다시다(쇠고기 조미료)를 쓰나요?',
+    vegeQ5: '고기를 빼고 만들어 주실 수 있나요?',
     veganS1: '안녕하세요. 저는 비건(완전 채식)이에요.',
     veganS2: '고기(소·돼지·닭, 햄·소시지 포함), 생선, 해산물(어묵·맛살 포함), 달걀, 우유·유제품, 꿀을 먹지 않아요.',
     veganS3: '육수나 양념에 동물성 재료가 들어간 음식도 먹지 않아요. (예: 멸치 육수, 액젓, 새우젓)',
@@ -563,6 +574,7 @@ export default {
     intro: '식당 직원은 대부분 영어를 잘 읽지 못하고, ‘비건’과 ‘할랄’은 한국 주방에서 흔히 쓰는 말이 아니에요. 한국어 문장을 보여 주세요. 함께 나오는 풀이는 그 문장의 뜻 그대로예요.',
     chooseCard: '카드 선택',
     veganLabel: '저는 비건이에요',
+    vegetarianLabel: '저는 채식주의자예요',
     muslimLabel: '저는 무슬림이에요',
     showThis: '직원에게 보여 주세요',
     showLarge: '크게 보기',
