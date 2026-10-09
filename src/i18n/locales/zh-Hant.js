@@ -367,7 +367,7 @@ export default {
     todayHours: '今天：{{hours}}',
     weekHours: '一週營業時間',
     koreaTime: '韓國時間——當地現在是 {{time}}',
-    transitExit: '，{{exit}} 號出口',
+    transitExit: '，{{exit}}\u00A0號出口',
     // 開頭的空格不可省略——同上；緊接在 transitExit（或車站/路線文字）之後算繪。
     transitWalk: ' · 步行\u00A0{{minutes}}\u00A0分鐘',
     transitFar: ' — 搭公車或計程車可能更方便',

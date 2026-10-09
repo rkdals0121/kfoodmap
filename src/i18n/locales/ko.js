@@ -365,7 +365,7 @@ export default {
     todayHours: '오늘: {{hours}}',
     weekHours: '요일별 영업시간',
     koreaTime: '한국 시간 기준 — 지금 한국은 {{time}}',
-    transitExit: ', {{exit}}번 출구',
+    transitExit: ', {{exit}}번\u00A0출구',
     transitWalk: ' · 걸어서 {{minutes}}분',
     transitFar: ' — 버스나 택시가 편할 수 있어요',
     actionSave: '저장',

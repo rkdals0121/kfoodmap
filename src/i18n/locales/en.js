@@ -380,7 +380,7 @@ export default {
     todayHours: 'Today: {{hours}}',
     weekHours: 'Hours for the week',
     koreaTime: 'Korean time — it is {{time}} there now',
-    transitExit: ', exit {{exit}}',
+    transitExit: ', exit\u00A0{{exit}}',
     // Leading space is load-bearing — see areaOnly above; rendered right
     // after transitExit (or the station/line text) with no separator supplied by the JSX.
     transitWalk: ' · {{minutes}}\u00A0min walk',

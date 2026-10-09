@@ -373,7 +373,7 @@ export default {
     todayHours: '本日：{{hours}}',
     weekHours: '1週間の営業時間',
     koreaTime: '韓国時間 — 現地は今 {{time}} です',
-    transitExit: ', {{exit}} 番出口',
+    transitExit: ', {{exit}}\u00A0番出口',
     // Leading space is load-bearing — see areaOnly above; rendered right
     // after transitExit (or the station/line text).
     transitWalk: ' · 徒歩\u00A0{{minutes}}\u00A0分',

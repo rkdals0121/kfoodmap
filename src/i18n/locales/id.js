@@ -371,7 +371,7 @@ export default {
     todayHours: 'Hari ini: {{hours}}',
     weekHours: 'Jam buka seminggu',
     koreaTime: 'Waktu Korea — di sana sekarang pukul {{time}}',
-    transitExit: ', pintu keluar {{exit}}',
+    transitExit: ', pintu keluar\u00A0{{exit}}',
     // Spasi di awal wajib dipertahankan — lihat areaOnly.
     transitWalk: ' · {{minutes}}\u00A0mnt jalan kaki',
     transitFar: ' — mungkin lebih mudah naik bus atau taksi',
