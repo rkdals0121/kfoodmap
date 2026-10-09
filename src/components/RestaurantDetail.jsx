@@ -269,12 +269,14 @@ export default function RestaurantDetail({
   const nameAcross = typeof window !== 'undefined' && window.innerWidth > window.innerHeight ? 9 : 6;
   const nameInLines = (koreanName(restaurant?.name ?? '') || '').split(/\s+/).map((word) => {
     const letters = [...word];
-    if (letters.length <= 6) return word;
+    // (Only a word that is all Hangul: "본죽&비빔밥cafe" is not cut through
+    // "cafe" — the browser breaks that one where it can.)
+    if (letters.length <= 6 || !/^[가-힣]+$/.test(word)) return word;
     const lines = Math.max(2, Math.ceil(letters.length / nameAcross));
     const each = Math.ceil(letters.length / lines);
     return Array.from({ length: lines }, (_, i) => letters.slice(i * each, (i + 1) * each).join('')).join('\n');
   }).join(' ');
-  const nameLen = Math.min(Math.max(...nameInLines.split(/\s+/).map(w => [...w].length), 2), nameAcross);
+  const nameLen = Math.min(Math.max(...nameInLines.split(/\s+/).map(w => { const n = [...w].length; return n > nameAcross ? Math.ceil(n / 2) : n; }), 2), nameAcross);
   const nameMax = () => Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
   useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax, words: false });
   const storyRef = useRef(null);

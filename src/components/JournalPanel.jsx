@@ -65,7 +65,7 @@ const SAMPLE_IDS = ['gonghwachun', 'kampungku', 'plant-cafe'];
 const journalMemory = { scrollTop: 0 };
 // Under a stamp the area is on two or three short lines: "Jemulpo-" / "gu"
 // was one of them. The hyphen inside a name is one that does not end a line.
-const stampZone = (zone) => String(zone ?? '').replace(/([A-Za-z])-(?=[a-z])/g, '$1\u2011');
+const stampZone = (zone) => String(zone ?? '').replace(/([A-Za-z0-9])-(?=[a-z])/g, '$1\u2011');
 
 export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnded, onGoMap, planAt = null, planDate = null, onShowSaved, onRemoveSaved }) {
   const { t, i18n } = useTranslation();

@@ -3720,6 +3720,16 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       across a reload (it would add to what the device holds and so to
       the privacy policy). The list on the Map tab keeps its place
       across tabs (`listMemory` in `BottomSheetList.jsx`).
+    - Night of 10-09, fourth full pass (431 items on the live site, no
+      regression from the two global files). **A regex that looks behind
+      (`(?<=`, `(?<!`) must not reach a shipped file**: Safari before
+      16.4 cannot parse it and the whole file fails to load on an iPhone
+      on iOS 15; the build target does not rewrite a regex.
+      `scripts/gates.sh` now fails on one in `dist` (one written that
+      evening was caught before it went out). A record's date is a day
+      and is written as that day in every time zone (`dayOnly` in
+      `utils.js`). A long Korean name shown large gets its line breaks
+      in code (`nameInLines`), not from the browser.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

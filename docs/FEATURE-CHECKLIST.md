@@ -484,6 +484,10 @@ P20. The large Korean card ("Show large", a question tapped in `/cards`) → the
 
 P21. Coming back to where one was (regress step `list-returns`) → the list keeps its opened count and scroll through a place opened and closed (X or Back) and through a look at another tab; Discover and the Journal keep their scroll and open journey; a place keeps its scroll after a nearby place and Back. A new filter or search starts the list at the top. A reload keeps the address's view (filters, search, the open place and its journey).
 
+P22. A device in another time zone (`tz: America/Los_Angeles`, `Pacific/Auckland`) → a record's "last checked" date is the day in the record (17 July 2026 for `kampungku`'s claim), not the day before or after. `[needs: clock]`
+
+P23. Old iPhones (iOS 15.0–16.3) → no shipped file contains a look-behind regex (`(?<=`, `(?<!`): `bash scripts/gates.sh` fails if one does.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)

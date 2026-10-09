@@ -11,6 +11,6 @@ out=$(npm run build 2>&1); echo "$out" | grep -q "Prerendered" || fail="$fail bu
 # A regex that looks behind ("(?<=", "(?<!") does not parse on Safari before 16.4:
 # one in a shipped file stops the whole file loading on an iPhone on iOS 15.
 # (The build targets safari15, but a regex is not rewritten for the target.)
-old=$(grep -lE '\(\?<[=!]' dist/assets/*.js dist/*.js 2>/dev/null | tr '\n' ' '); [ -z "$old" ] || fail="$fail lookbehind-regex[$old]"
+old=$(grep -lE '\(\?<[=!]' dist/assets/*.js dist/*.js dist/index.html 2>/dev/null | tr '\n' ' '); [ -z "$old" ] || fail="$fail lookbehind-regex[$old]"
 if [ -n "$fail" ]; then echo "GATES: FAIL$fail"; exit 1; fi
 echo "GATES: ok ($(echo "$out" | grep -o 'Prerendered [0-9]* place' ))"
