@@ -508,6 +508,14 @@ P29. Other wordings of the diet questions → "plant based", "meatless", "no mea
 
 P30. Names in Japanese and Chinese → 汝矣島, 乙支路, 狎鴎亭, 三清洞, 大学路, 南大門市場, 広蔵市場, 南山タワー, 春川, 束草, 益善洞, 延南洞, 漢南洞, グルテンフリー, 无麸质 each find what the romanised name finds (unit test "more wordings of the same questions").
 
+P31. A single word only the stories hold → "biryani" (16), "samosa" (5), "seafood" (60), "pho" (2), and 비리야니 / ビリヤニ / 海鲜, list the places whose story speaks of it, under the line "No place is named or summed up as “biryani”. These mention it in their story."; a story that says "no meat or seafood" is not listed for "seafood"; "itaewon", "bulgogi" (found elsewhere) show no such line; "xyzq" finds nothing.
+
+P32. A list spread over the country → "Namsan" (Seoul, Chuncheon's Namsan-myeon, Busan) starts with the places on Namsan in Seoul, where most of them are, while the map stands as the app framed it; after a drag, pinch, zoom or key press on the map the order is from the map's centre again.
+
+P33. Korean words for dishes and kitchens → 불고기, 만두, 닭갈비, 막걸리, 일식, 중국집, "태국 음식", 포케, "글루텐 프리", 락토프리 find what the English word finds; "비건 옵션", "채식 가능 한식", "할랄 메뉴 있는 곳" are the diet's question; 성동로 is the road (1 place), not Seongdong-gu (16).
+
+P34. Several offers at once ("내일 점심 근처 비건", "halal near me open now") → one band holds them side by side with a line between (one under another at 320 px when they do not fit); "halal open now today" and "오늘 심야 식당" offer "Show places open now", and pressed leave "halal" / "식당" in the box.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
