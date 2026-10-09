@@ -64,6 +64,15 @@ const MEAL_ALONE = {
   breakfast: 'breakfast', sarapan: 'breakfast', '朝食': 'breakfast', '朝ごはん': 'breakfast', 'モーニング': 'breakfast', '早餐': 'breakfast', '아침': 'breakfast', '아침식사': 'breakfast',
   lunch: 'lunch', '점심': 'lunch', 'ランチ': 'lunch', '午餐': 'lunch',
 };
+// The search with each of its words left out in turn (words of a question
+// are not offered: leaving out "in" changes nothing).
+function leftOut(typed) {
+  const words = String(typed ?? '').trim().split(/\s+/).filter(Boolean);
+  if (words.length < 2 || words.length > 5) return [];
+  return words.map((word, i) => ({ word, rest: words.filter((w, k) => k !== i).join(' ') }))
+    .filter(({ word, rest }) => !onlyFillers(word) && !onlyFillers(rest));
+}
+
 const titled = (s) => s.replace(/(^|[ -])([a-z])/g, (m, a, b) => a + b.toUpperCase());
 
 export function searchPlaces({
@@ -332,5 +341,13 @@ export function searchPlaces({
         }).filteredRestaurants.length,
       })).filter(x => x.n > 0)
       : [],
+    // Two to five words and nothing under them ("hongdae vegan cafe": no café
+    // is on record in Hongdae): what the search finds with each word left
+    // out, so the list can offer the nearest thing to what was asked.
+    withoutWords: asides && result.list.length === 0 && !areaOnly ? leftOut(typed).map(({ word, rest }) => ({
+      word,
+      rest,
+      n: searchPlaces({ places, query: rest, filters, openOn, includeUnknown, now, bookmarkedIds, sharedIds, asides: false }).filteredRestaurants.length,
+    })).filter(x => x.n > 0 && x.n < places.length) : [],
   };
 }

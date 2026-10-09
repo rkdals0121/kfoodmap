@@ -213,7 +213,7 @@ export default function BottomSheetList({
   inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', fromStory = '', withoutEach = [], onDropFilter, showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', fromStory = '', withoutEach = [], onDropFilter, withoutWords = [], onSearchInstead, showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
   const { t, i18n } = useTranslation();
   // A Korean reader who typed Korean: "서울역" answered with “Seoul Station”도
@@ -679,6 +679,12 @@ export default function BottomSheetList({
                   : t(CHIP_LABEL_KEY[filter] ?? filter),
                 n,
               })}
+            </button>
+          ))}
+          {/* …or the word: "hongdae vegan cafe" is ten places without "cafe". */}
+          {onSearchInstead && withoutEach.length === 0 && [...withoutWords].sort((a, b) => a.n - b.n).slice(0, 3).map(({ word, rest, n }) => (
+            <button key={`${word}|${rest}`} type="button" className="place-list__clear" onClick={() => onSearchInstead(rest)}>
+              {t('list.withoutOne', { filter: word, n })}
             </button>
           ))}
           {withoutFilters > 0 && (

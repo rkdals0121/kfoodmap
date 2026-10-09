@@ -716,3 +716,14 @@ test('several chips that find nothing say what each, taken off, would leave', ()
   assert.deepEqual(searchPlaces({ places, query: 'xyzq', filters: ['Halal'], now: new Date() }).withoutEach, []);
   assert.deepEqual(go('halal').withoutEach, []);
 });
+
+test('several words that find nothing say what the search finds without each', () => {
+  const none = go('hongdae vegan cafe');
+  assert.equal(none.filteredRestaurants.length, 0);
+  assert.deepEqual(none.withoutWords.map(x => x.rest).sort(), ['hongdae vegan', 'vegan cafe']);
+  for (const { rest, n } of none.withoutWords) assert.equal(go(rest).filteredRestaurants.length, n, rest);
+  // One word, nonsense, or a search that finds something: nothing to offer.
+  assert.deepEqual(go('xyzq').withoutWords, []);
+  assert.deepEqual(go('xyzq abcd').withoutWords, []);
+  assert.deepEqual(go('vegan seoul').withoutWords, []);
+});
