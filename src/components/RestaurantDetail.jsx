@@ -62,7 +62,9 @@ function SectionHead({ Icon, title, kr }) {
 // …and in the currency word of the reader's language where it has one
 // ("14,000원", "約19,000ウォン"): the figure is the record's, untouched.
 const WON = { ko: ['원', '약 '], ja: ['ウォン', '約'], 'zh-Hans': ['韩元', '约'], 'zh-Hant': ['韓元', '約'], id: [' won', '±'] };
-function formatPrice(price, lang) {
+// A figure and its currency word stay on one line ("8.000" / "won").
+const formatPrice = (price, lang) => priceWords(price, lang)?.replace(/(\d) (KRW|won)/g, '$1\u00A0$2') ?? null;
+function priceWords(price, lang) {
   const p = typeof price === 'number' ? String(price) : (price ?? '').trim();
   if (p === '' || /^(unknown|price not listed)$/i.test(p)) return null;
   const krw = /^\d+$/.test(p) ? `${Number(p).toLocaleString('en-US')} KRW` : p;
