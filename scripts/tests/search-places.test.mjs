@@ -512,3 +512,15 @@ test('more ways a visitor writes the diet, in Japanese and Chinese', () => {
   assert.equal(ids(go('豚肉なし')), ids(go('pork free')));
   for (const q of ['蔬食', '吃素']) assert.equal(ids(go(q)), ids(go('素食')), q);
 });
+
+test('a whole sentence, as spoken to a phone, is searched by what it names', () => {
+  const halal = ids(go('halal'));
+  for (const q of ['i want halal food', 'halal food please', 'what is halal near here', '할랄 음식점 알려줘']) assert.equal(ids(go(q)), halal, q);
+  const myeongdong = ids(go('myeongdong halal'));
+  for (const q of ['where can i find halal in myeongdong', '明洞でハラールを食べたい', '在明洞吃清真']) assert.equal(ids(go(q)), myeongdong, q);
+  assert.equal(ids(go('is there vegan food in jeju')), ids(go('jeju vegan')));
+  assert.equal(ids(go('부산에 비건 있어?')), ids(go('부산 비건')));
+  assert.equal(ids(go('ada halal di busan?')), ids(go('busan halal')));
+  // A place whose own name has such a word is still that place.
+  for (const q of ['Base is Nice', 'base is nice', "Plantude I'Park Mall Yongsan"]) assert.equal(go(q).filteredRestaurants.length, 1, q);
+});

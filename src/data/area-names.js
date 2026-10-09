@@ -261,6 +261,14 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // "ソウル ヴィーガン おすすめ", "首尔 素食 推荐", "restoran halal terbaik di
   // Seoul": the same words of a question in the other languages (each
   // found nothing: the word is in no record).
+  // A whole sentence, as spoken to a phone: "where can i find halal in
+  // myeongdong", "is there vegan food in jeju", "할랄 음식점 알려줘",
+  // "明洞でハラールを食べたい", "釜山有清真吗", "ada halal di busan?".
+  'can', 'i', 'is', 'there', 'are', 'show', 'want', 'looking', 'please', 'what', 'here', 'which', 'need',
+  '추천해줘', '추천해주세요', '알려줘', '알려주세요', '있어', '있어요', '있나요', '먹을', '곳', '찾아줘', '어디야', '어디에', '어디서',
+  'を', 'が', 'は', '食べたい', '食べられる', '教えて', 'ください', 'ありますか',
+  '在', '吃', '想吃', '吗', '嗎', '请问', '請問', '哪儿',
+  'cari', 'mencari', 'ada', 'ingin', 'mau', 'tolong', 'apa',
   'recommended', 'recommendation', 'recommendations', 'popular', 'famous', 'delicious', 'tasty',
   'おすすめ', 'オススメ', 'お勧め', '人気', '美味しい', 'おいしい', '有名', 'どこ', '近くの',
   '推荐', '推薦', '好吃', '哪里', '哪裡', '人气', '人氣', '有名的', '的',
@@ -277,14 +285,17 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
 // many places carry in their names). A place whose own name has such a word
 // — "Yang Good", "Great Himalaya" — is found by it: see search.js.
 const QUESTION = new Set(['me', 'my', 'best', 'top', 'good', 'great', 'where', 'to', 'eat', 'eating', 'find', 'for', 'some', 'any', 'and', 'or', 'with',
+  'can', 'i', 'is', 'there', 'are', 'show', 'want', 'looking', 'please', 'what', 'here', 'which', 'need', 'cari', 'ada', 'mau', 'apa',
   'recommended', 'popular', 'famous', 'delicious', 'tasty', 'terbaik', 'enak', 'mana', 'yang', 'untuk', 'saya']);
 export const questionWords = (query) => String(query ?? '').toLowerCase().split(/\s+/).filter(w => QUESTION.has(w));
 
 // The query without those words, for the checks that read it whole (is it
 // a station?). The query itself when nothing would be left.
+// "있어?", "busan?": the mark at the end of a question is not part of the word.
+const bare = (word) => word.toLowerCase().replace(/[?!.,？！。]+$/, '');
 export function stripFillers(query) {
   const words = String(query ?? '').trim().split(/\s+/).filter(Boolean);
-  const kept = words.filter(w => !FILLER.has(w.toLowerCase()));
+  const kept = words.filter(w => !FILLER.has(bare(w)));
   return kept.length > 0 && kept.length < words.length ? kept.join(' ') : String(query ?? '');
 }
 // Written without spaces ("釜山のランチ", "明洞附近美食"), such words follow
@@ -324,7 +335,7 @@ export function romaniseQuery(query) {
   let changed = false;
   const out = words.flatMap((w) => {
     // "부산 맛집", "首尔 餐厅": a word for "restaurant" is no search term.
-    if (FILLER.has(w.toLowerCase())) { changed = true; return []; }
+    if (FILLER.has(bare(w))) { changed = true; return []; }
     const whole = TO_ROMAN.get(w) ?? LATIN_VARIANTS.get(w.toLowerCase());
     if (whole) { changed = true; return [whole]; }
     // "noodles", "burgers", "dumplings": also the word without its
@@ -364,8 +375,14 @@ export function romaniseQuery(query) {
     // "近くのハラール", "附近的清真餐厅", "附近素食": the same words in front
     // of a diet or an area, written without a space — taken off the front,
     // then the end, when what is left is a word known here.
-    const inner = peelEnd(peel(w)) || peel(w);
-    if (inner !== '' && inner !== w && peel(w) !== w && (GLUE_HEADS.has(inner) || TO_ROMAN.has(inner) || LATIN_VARIANTS.has(inner.toLowerCase()))) { changed = true; return [TO_ROMAN.get(inner) ?? inner]; }
+    const front = peel(w);
+    if (front !== w && front !== '') {
+      const inner = peelEnd(front) || front;
+      if (GLUE_HEADS.has(inner) || TO_ROMAN.has(inner) || LATIN_VARIANTS.has(inner.toLowerCase())) { changed = true; return [TO_ROMAN.get(inner) ?? inner]; }
+      // "在明洞吃清真": an area follows, and more after it.
+      const more = romaniseQuery(front);
+      if (more !== null) { changed = true; return more.split(' ').filter(Boolean); }
+    }
     const head = peelEnd(w);
     if (head !== w && (GLUE_HEADS.has(head) || TO_ROMAN.has(head) || LATIN_VARIANTS.has(head.toLowerCase()))) { changed = true; return [head]; }
     return [w];
