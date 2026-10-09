@@ -9,7 +9,7 @@ import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, kore
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
-import { TRAIT_GROUPS } from '../filters';
+import { TRAIT_GROUPS, isPorkFreeQuery } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
 import { romaniseQuery } from '../data/area-names';
@@ -42,8 +42,12 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // (not a copy), its distance comes beside it, and `tick` is the minute, so
 // "Open" still turns to "Closed" on time.
 // (ナッツ: not ドーナッツ or ココナッツ, which are taken out first. No lookbehind — older iOS cannot parse one.)
-const INGREDIENT_WORDS = /allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|egg[- ]free|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
-const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(/ドーナッツ|ココナッツ/g, '')) };
+// …and what is asked for by leaving something out: "no fish sauce" finds twelve
+// places, among them one whose note says its kimchi contains it; "not spicy"
+// finds thirteen that are. The words are found in the notes one by one.
+const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|魚醤|はちみつ|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
+// (Not "no pork" / "pork-free": that is a level the records do carry.)
+const ASKS_INGREDIENT = { test: (query) => !isPorkFreeQuery(query ?? '') && INGREDIENT_WORDS.test(String(query ?? '').replace(/ドーナッツ|ココナッツ/g, '')) };
 
 // Is this reading of a search the search itself with words left out or cut
 // short — no word of it spelt differently?
