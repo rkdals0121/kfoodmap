@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useStories, useStoriesWaiting } from '../hooks/useStories';
 import { placeArea } from '../place-area';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,10 @@ const CHIP_LABEL_KEY = {
 
 // How many cards the list draws at a time (see BottomSheetList).
 const PAGE = 40;
+// Where the list was left, kept while another tab is on screen (the list is
+// not drawn then): eighty cards down, a look at the Journal and back used to
+// land on the first card again. Discover and the Journal remember the same.
+const listMemory = { key: null, shown: PAGE, scrollTop: 0 };
 
 // The traits that make up the sustainability axis (see TRAIT_GROUPS in App).
 const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
@@ -288,7 +292,7 @@ export default function BottomSheetList({
   // (the list re-sorts by the map's centre) was the main cost of panning.
   // A new search or filter starts from the top again; a map move keeps what
   // has been opened so far.
-  const [shown, setShown] = useState(PAGE);
+  const [shown, setShown] = useState(() => (listMemory.key === restaurants.map(r => r.id).join(',') ? listMemory.shown : PAGE));
   // Keyed on which places are listed, not on the array: saving a place or
   // the "Open now" minute tick rebuilds the array with the same places, and
   // resetting then threw the reader back to the first page.
@@ -299,6 +303,22 @@ export default function BottomSheetList({
   if (shownFor !== listKey) { setShownFor(listKey); setShown(PAGE); }
   const sentinelRef = useRef(null);
   const hasMore = shown < sorted.length;
+  const listRef = useRef(null);
+  useLayoutEffect(() => {
+    const box = listRef.current?.closest('.list-region');
+    if (!box) return undefined;
+    if (listMemory.key === listKey && listMemory.scrollTop > 0) box.scrollTop = listMemory.scrollTop;
+    const onScroll = () => { listMemory.scrollTop = box.scrollTop; };
+    box.addEventListener('scroll', onScroll, { passive: true });
+    return () => box.removeEventListener('scroll', onScroll);
+    // Once, when the list is drawn again: a new search scrolls by itself.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (listMemory.key !== listKey) listMemory.scrollTop = 0;
+    listMemory.key = listKey;
+    listMemory.shown = shown;
+  }, [listKey, shown]);
   useEffect(() => {
     const el = sentinelRef.current;
     if (!el || !hasMore || typeof IntersectionObserver === 'undefined') return undefined;
@@ -319,6 +339,7 @@ export default function BottomSheetList({
     // tap: with a diet chip on they filled the half-height sheet and the
     // first result was under the tab bar.
     <div
+      ref={listRef}
       className={`place-list${notesOpen ? ' notes-open' : ''}${activeFilters.includes(SHARED_LIST) && !searchQuery.trim() && activeFilters.length === 1 ? ' is-shared' : ''}`}
       onClick={(e) => { if (e.target.closest?.('.place-list__note')) setNotesOpen(o => !o); }}
     >

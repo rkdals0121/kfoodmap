@@ -1,0 +1,9 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const box=document.querySelector('.list-region'); document.querySelector('.sheet-handle-area').click(); await w(700); for(let i=0;i<4&&document.querySelectorAll('.place-card').length<80;i++){ [...document.querySelectorAll('.place-card')].pop().scrollIntoView(); await w(900); } document.querySelectorAll('.place-card')[59].scrollIntoView({block:'center'}); await w(500); const before=[document.querySelectorAll('.place-card').length, Math.round(box.scrollTop)]; document.querySelectorAll('.tab-item')[2].click(); await w(1000); document.querySelectorAll('.tab-item')[0].click(); await w(1200); const b2=document.querySelector('.list-region'); const after=[document.querySelectorAll('.place-card').length, Math.round(b2.scrollTop)]; document.querySelectorAll('.chip')[2].click(); await w(1200); return {before, after, same:before.join()===after.join(), afterNewFilter:[document.querySelectorAll('.place-card').length, Math.round(document.querySelector('.list-region').scrollTop)]}"
+ }
+]
