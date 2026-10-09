@@ -3744,6 +3744,15 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       "biryani" finds nothing though seventeen stories mention it; menus
       are not in the list's data. Changing that is a search-rule change
       and needs the side-by-side comparison.
+    - End of 10-09: a filler word glued to the front of a diet or area
+      word is taken off (`romaniseQuery`: "近くのハラール", "附近的清真餐厅");
+      more diet wordings in Japanese and Chinese. Both were compared
+      with the build before over some 6,360 searches before going out
+      (`bash scripts/search-compare/run.sh`: the committed `src` against the
+      working one, every place name, name word, area and test query
+      run through both — run it before a search rule is committed).
+      Past midnight a place still open shows the hours of the day
+      before under that day's name (`lastNightHours`).
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
