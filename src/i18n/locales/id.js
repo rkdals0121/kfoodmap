@@ -94,7 +94,7 @@ export default {
     nearestYou: 'Terdekat dari Anda',
     areaFirst: 'Area yang dicari lebih dulu',
     searchedAs: 'Juga dicari sebagai “{{query}}”',
-    fromStory: 'Tidak ada tempat yang nama atau ringkasannya memuat “{{query}}”. Tempat-tempat ini menyebutnya dalam ceritanya.',
+    fromStory: 'Tidak ada tempat yang nama atau deskripsinya memuat “{{query}}”. Tempat-tempat ini menyebutnya dalam ceritanya.',
     shareView: 'Bagikan pencarian ini',
     fromMapCentre: 'dari pusat peta',
     fromYou: 'dari Anda',

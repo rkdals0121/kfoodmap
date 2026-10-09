@@ -367,7 +367,8 @@ function AppShell() {
   const [listFromYou, setListFromYou] = useState(false);
   // Whether the map was last moved by the app, to hold what a search found
   // (and not since by hand): its middle is then no place in particular (see
-  // the list's order in BottomSheetList).
+  // the list's order in BottomSheetList). It stays so through another chip
+  // or letter that leaves the map where it is — only a hand takes it back.
   const [mapFramed, setMapFramed] = useState(false);
   const handMoved = useCallback(() => { setListFromYou(false); setMapFramed(false); }, []);
   const framed = useCallback(() => setMapFramed(true), []);
@@ -956,7 +957,6 @@ function AppShell() {
     if (plan?.sure || plan?.now) return plan.rest;
     return asksOpenNow(filterQuery) ? withoutOpenNow(filterQuery) : filterQuery;
   }, [filterQuery]);
-  useEffect(() => { setMapFramed(false); }, [selectedFilters, searchedFor, areaOnly]);
   const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters, fromStory } = useMemo(() => searchPlaces({
     places: activeRestaurants,
     query: searchedFor,

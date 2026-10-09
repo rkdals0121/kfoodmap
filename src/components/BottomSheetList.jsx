@@ -211,7 +211,7 @@ export default function BottomSheetList({
   inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', fromStory = false, showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', fromStory = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
   const { t, i18n } = useTranslation();
   // A Korean reader who typed Korean: "서울역" answered with “Seoul Station”도
@@ -272,9 +272,15 @@ export default function BottomSheetList({
   // 140 km from anywhere most of them are. While the map stands as the app
   // drew it for that search (not moved by hand since), such a list starts where most of what it found is (the fullest patch of
   // some 17 km, by a count), and goes outwards from there.
+  // Worked out once for a search and its chips, and kept while they stand:
+  // with "Open now" on, the list changes on the minute, and the fullest patch
+  // changed with it — the order turned over under the reader twice a morning.
+  const heartFor = useRef({ key: null, at: null });
   const heart = useMemo(() => {
     const narrowed = searchQuery.trim() !== '' || activeFilters.some(f => f !== SHARED_LIST);
-    if (!mapFramed || !narrowed || restaurants.length < 3) return null;
+    if (!mapFramed || !narrowed || restaurants.length < 3) { heartFor.current = { key: null, at: null }; return null; }
+    const asked = `${searchQuery.trim()}|${activeFilters.join(',')}`;
+    if (heartFor.current.key === asked) return heartFor.current.at;
     let n = -90, s = 90, e = -180, w = 180;
     const cells = new Map();
     for (const r of restaurants) {
@@ -286,10 +292,11 @@ export default function BottomSheetList({
       cells.set(key, cell);
     }
     // All in one town: the middle of the map is the middle of them.
-    if (haversineKm(n, w, s, e) < 40) return null;
     let most = null;
     for (const cell of cells.values()) if (!most || cell.count > most.count) most = cell;
-    return [most.lat / most.count, most.lng / most.count];
+    const at = haversineKm(n, w, s, e) < 40 ? null : [most.lat / most.count, most.lng / most.count];
+    heartFor.current = { key: asked, at };
+    return at;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restaurants, mapFramed, searchQuery, activeFilters.join(',')]);
   const ranked = useMemo(() => {
@@ -470,7 +477,7 @@ export default function BottomSheetList({
         <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(matchQuery) ?? matchQuery })}</p>
       )}
       {fromStory && sorted.length > 0 && (
-        <p className="place-list__searched-as">{t('list.fromStory', { query: searchQuery.trim() })}</p>
+        <p className="place-list__searched-as">{t('list.fromStory', { query: fromStory })}</p>
       )}
 
       {/* Said once for the whole list rather than on every card: the same

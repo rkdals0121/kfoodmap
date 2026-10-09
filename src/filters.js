@@ -67,8 +67,12 @@ const MEAL_SAID = [
 ];
 // What is left around them: "open", "여는 곳", "に開いている店", "营业的店".
 const PLAN_REST = /\b(?:open|opens|opening)\b|(?:에\s*)?(?:여는|영업하는|문\s*여는)(?:\s*(?:곳|식당|가게))?|(?:に|の)?(?:開いている|営業している|営業中)(?:の?(?:お店|店))?|(?:营业|營業|开门|開門)(?:的(?:店|餐厅|餐廳))?|\b(?:yang\s+)?buka\b/gi;
-// "This", "next", "이번 주", "来週の", "and": said with a day, and no search word.
-const PLAN_WHICH = /(^|\s)(?:this|next|coming|and|&|이번\s*주?|다음\s*주|今週|来週|來週|这周|這週|下周|下週|minggu\s+(?:ini|depan))(?:の|에)?(?=\s|$)/gi;
+// "This", "next", "이번 주", "来週の", "and": said with a day, and no search
+// word — beside the day only.
+const DAY_STOOD = '\uE000';
+const WHICH_BEFORE = /(?:this|next|coming|이번\s*주?|다음\s*주|今週|来週|來週|这周|這週|下周|下週)(?:の|에)?\s*\uE000/gi;
+const WHICH_AFTER = /\uE000\s*(?:this|next)\s+week\b|\uE000\s*minggu\s+(?:ini|depan)\b/gi;
+const BETWEEN_DAYS = /\uE000\s*(?:and|&|or|-|–|,|、|と|和|및|dan)\s*(?=\uE000)/gi;
 export function plannedTime(query, today = 0) {
   // "Open now", "late", "tonight" beside a day are the same question, not
   // a search — taken out first ("halal open now today" was left as "halal now").
@@ -80,14 +84,14 @@ export function plannedTime(query, today = 0) {
   if (/\bminggu\s+(?:depan|ini|lalu)\b/i.test(rest) && !DAY_SAID.slice(1).some(([said]) => said.test(rest)) && !DAY_FROM_NOW.some(([said]) => said.test(rest))) return null;
   let day = null;
   let isToday = false;
-  for (const [said, n] of DAY_FROM_NOW) { if (said.test(rest)) { if (day === null) { day = (today + n) % 7; isToday = n === 0; } rest = rest.replace(said, '$1 '); } }
-  // ("minggu depan" is next week, not Sunday.)
-  rest = rest.replace(PLAN_WHICH, '$1 ');
+  // (Where a day stood is marked, so that "this", "next", "and" go only from
+  // beside it: "next door tomorrow lunch" keeps its "next".)
+  for (const [said, n] of DAY_FROM_NOW) { if (said.test(rest)) { if (day === null) { day = (today + n) % 7; isToday = n === 0; } rest = rest.replace(said, `$1${DAY_STOOD}`); } }
   // Every day named goes from what is searched ("saturday and sunday"); the
   // first one read is the one offered.
-  for (const [said, n] of DAY_SAID) { while (said.test(rest)) { if (day === null) day = n; rest = rest.replace(said, '$1 '); } }
+  for (const [said, n] of DAY_SAID) { while (said.test(rest)) { if (day === null) day = n; rest = rest.replace(said, `$1${DAY_STOOD}`); } }
   if (day === null) return null;
-  rest = rest.replace(PLAN_WHICH, '$1 ');
+  rest = rest.replace(WHICH_BEFORE, DAY_STOOD).replace(WHICH_AFTER, DAY_STOOD).replace(BETWEEN_DAYS, DAY_STOOD).split(DAY_STOOD).join(' ');
   let minutes = 750;
   // A day alone may be a name ("Sunday Bakery", "Today Kitchen"): with a
   // meal or "open" beside it, it is a plan beyond doubt.
@@ -95,7 +99,10 @@ export function plannedTime(query, today = 0) {
   for (const [said, at] of MEAL_SAID) { if (said.test(rest)) { minutes = at; rest = rest.replace(said, '$1 '); sure = true; break; } }
   PLAN_REST.lastIndex = 0;
   if (PLAN_REST.test(rest)) sure = true;
-  rest = rest.replace(PLAN_REST, ' ').replace(/\s+(?:の|に|で|에|은|는|的)(?=\s)/g, ' ').replace(/[?!？！]+\s*$/, '').replace(/\s+/g, ' ').trim();
+  // "Friday late night", "tomorrow late night halal", "besok larut malam":
+  // another day's night is a plan (today's is the "Open now" question).
+  if (!isToday && asksOpenNow(query)) { if (!sure) minutes = 1140; sure = true; }
+  rest = rest.replace(PLAN_REST, ' ').replace(/\s+(?:の|に|で|에|은|는|的)(?=\s)/g, ' ').replace(/(^|\s)[-–.,·?!？！]+(?=\s|$)/g, ' ').replace(/[?!？！.]+\s*$/, '').replace(/\s+/g, ' ').trim();
   // "Open now today", "오늘 심야": today, and now — the "Open now" question
   // with a word to spare, not a plan for another hour.
   // What is left may be no search at all: "오늘 심야 식당", "saturday dinner
@@ -353,22 +360,33 @@ export function stripCertWords(query) {
 // The diet words of a search, as the chips they stand for, and the rest
 // of it: "halal seoul station" is the Halal chip and "seoul station"
 // (search.js reads a station only from the rest).
-// Whether a place's story speaks of the word: as a whole word ("pho" is not
-// "phone"; a plural counts), in a sentence that is not saying the place is
-// without it — "no meat or seafood", "free of gluten", "instead of beef".
-const SAYS_WITHOUT = /\b(?:no|not|non|never|without|free|instead|avoids?|excludes?|excluding|neither|nor|rather\s+than|n't|cannot|can't)\b|n't\b/i;
+// Whether a place's story speaks of the word as something the place serves:
+// a whole word ("pho" is not "phone"; a plural counts either way), in a
+// sentence about what is served, sold or made there, and not one saying the
+// place is without it — "no meat or seafood", "instead of beef". Words about
+// the record itself or its opening days are no dish: "sunday" was the twenty
+// places whose story says "closed Sundays".
+const SAYS_WITHOUT = /\b(?:no|not|non|never|without|free|instead|avoids?|excludes?|excluding|neither|nor|rather\s+than|cannot|closed|closes)\b|n't\b/i;
+const SAYS_SERVED = /\b(?:serv(?:es?|ing|ed)|menu|dish(?:es)?|sells?|makes?|bak(?:es?|ing)|offers?|cooks?|grills?|speciali[sz]es?|includes?|covers?|lists?|plates?|bowls?)\b/i;
+const NOT_A_DISH = new Set(['open', 'opens', 'close', 'check', 'hour', 'hours', 'instagram', 'kakao', 'naver', 'google', 'happycow', 'krw', 'won', 'moved', 'business', 'visitor', 'visitors', 'unknown', 'people', 'person', 'nothing', 'how', 'help', 'date', 'dates', 'live', 'baby', 'list', 'lists', 'listing', 'menu', 'dish', 'dishes', 'place', 'places', 'street', 'floor', 'station', 'exit', 'building', 'year', 'years', 'month', 'day', 'days', 'week', 'time', 'price', 'prices', 'page', 'site', 'website', 'review', 'reviews', 'map', 'maps', 'says', 'said', 'record', 'recorded', 'confirmed', 'reported', 'serves', 'serve', 'makes', 'sells', 'offers', 'also', 'with', 'and', 'from', 'its', 'has', 'are', 'was', 'for', 'that', 'this', 'which', 'such', 'some', 'most', 'many']);
 const storyWords = new Map();
+/** The word a story is asked about: lower case, no mark at its end; '' when it is none. */
+export function storyWord(word) {
+  const w = fold(word).trim().replace(/[?!.,;:]+$/, '');
+  return /^[a-z][a-z'-]{2,}$/.test(w) && !NOT_A_DISH.has(w) && plannedTime(w) === null && plannedTime(`${w} lunch`) === null ? w : '';
+}
 export function mentionsInStory(r, word) {
-  if (typeof r.story !== 'string') return false;
-  const w = fold(word).trim();
-  if (!/^[a-z][a-z'-]{2,}$/.test(w)) return false;
+  const w = storyWord(word);
+  if (w === '' || typeof r.story !== 'string') return false;
   let said = storyWords.get(w);
   if (!said) {
-    said = new RegExp(`\\b${w.replace(/[-']/g, '.?')}(?:e?s)?\\b`, 'i');
+    // "biryanis" asks about biryani, "samosa" finds "samosas".
+    const stem = (w.length > 4 && /[^s]s$/.test(w) ? w.slice(0, -1) : w).replace(/[-']/g, '.?');
+    said = new RegExp(`\\b${stem}(?:e?s)?\\b`, 'i');
     if (storyWords.size > 200) storyWords.clear();
     storyWords.set(w, said);
   }
-  return r.story.split(/[.!?;]\s+/).some(sentence => said.test(sentence) && !SAYS_WITHOUT.test(sentence));
+  return r.story.split(/[.!?;]\s+/).some(sentence => said.test(sentence) && SAYS_SERVED.test(sentence) && !SAYS_WITHOUT.test(sentence));
 }
 export function liftDietWords(query) {
   const parts = unpunct(query).trim().split(/\s+/).filter(Boolean);
@@ -433,10 +451,13 @@ function searchCore(r, rawQuery) {
   });
   // (A food that is one syllable in Korean is a word all the same: "비건 빵"
   // was every vegan place, 521 of them, with the 빵 thrown away.)
-  // Only beside a diet word and nothing else: "떡 카페" is searched as before.
+  // Only beside words the map knows (a diet, an area, a kind of place): next to
+  // any other word it is set aside as before.
   const paired = dietPairs(spaced);
   const isDiet = (w) => Object.hasOwn(DIET_WORDS, w) || PORK_FREE_WORDS.has(w);
-  const words = paired.filter(w => w.length >= 2 || (ONE_SYLLABLE_FOOD.has(w) && paired.every(other => other === w || isDiet(other))));
+  // …or beside an area or a kind of place as well: "이태원 빵", "비건 빵 카페".
+  const known = (w) => isDiet(w) || AREA_WORDS.has(squash(w)) || COOKING.has(w.toLowerCase());
+  const words = paired.filter(w => w.length >= 2 || (ONE_SYLLABLE_FOOD.has(w) && paired.every(other => other === w || known(other))));
   // Words of one letter are dropped, not required: "busan v" (mid-typing)
   // and "제주도" (split into Jeju + 도) are then judged on what is left.
   if (words.length === 0) return false;

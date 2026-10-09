@@ -97,7 +97,7 @@ export default {
     nearestYou: '現在地から近い順',
     areaFirst: '検索したエリアを優先',
     searchedAs: '「{{query}}」でも検索しました',
-    fromStory: '「{{query}}」は店名や紹介文にはなく、ストーリーの中に出てくるお店です。',
+    fromStory: '店名や紹介文に「{{query}}」はありません。ストーリーで触れているお店です。',
     shareView: 'この検索を共有',
     fromMapCentre: '地図の中心から',
     fromYou: '現在地から',

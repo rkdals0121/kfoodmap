@@ -462,7 +462,7 @@ test('setting the words of a question aside does not lose a place named with the
   assert.ok(go('Incheon City Hall').filteredRestaurants.length > 20);
   assert.ok(go('Suwon city center').filteredRestaurants.length > 20);
   // Only a kind of food is read without its plural.
-  for (const word of ['Las Vegas', 'jeons', 'mills seoul']) assert.equal(go(word).filteredRestaurants.length, 0, word);
+  for (const word of ['Las Vegas', 'mills seoul']) assert.equal(go(word).filteredRestaurants.length, 0, word);
   // ("fries" is not "frie" — fried, friendly, 161 places: it is the places
   // whose story speaks of fries, and the list says so.)
   assert.ok(go('fries').filteredRestaurants.every(r => /\bfries\b/i.test(r.story)));
@@ -639,7 +639,8 @@ test('a day said with more around it; a street is not its district', async () =>
   // 성동로 is a road, not every place in Seongdong-gu; 중앙대로 is "-daero".
   assert.ok(go('성동로').filteredRestaurants.every(r => /Seongdong-ro/.test(r.address.value) || /성동로/.test(JSON.stringify(r))));
   assert.ok(go('성동로').filteredRestaurants.length < go('성동구').filteredRestaurants.length);
-  assert.equal(go('떡 카페').filteredRestaurants.length, go('카페').filteredRestaurants.length);
+  // 떡 beside a kind of place is kept: the cafés with 떡, not every café.
+  assert.ok(go('떡 카페').filteredRestaurants.length < go('카페').filteredRestaurants.length);
 });
 
 test('dishes and kitchens by their Korean names', () => {
@@ -657,7 +658,7 @@ test('dishes and kitchens by their Korean names', () => {
 test('a single word only the stories hold lists the places whose story speaks of it', async () => {
   const { mentionsInStory } = await import('../../src/filters.js');
   const biryani = go('biryani');
-  assert.equal(biryani.fromStory, true);
+  assert.equal(biryani.fromStory, 'biryani');
   assert.ok(biryani.filteredRestaurants.length >= 10);
   assert.ok(biryani.filteredRestaurants.every(r => /biryani/i.test(r.story)));
   // Under a chip, the same places that pass it.
@@ -666,10 +667,36 @@ test('a single word only the stories hold lists the places whose story speaks of
   // A whole word, in a sentence that is not saying the place is without it.
   assert.equal(mentionsInStory({ story: 'Call by phone to book.' }, 'pho'), false);
   assert.equal(mentionsInStory({ story: 'The kitchen uses no meat or seafood. Rice bowls and noodles.' }, 'seafood'), false);
-  assert.equal(mentionsInStory({ story: 'Curries, samosas and breads.' }, 'samosa'), true);
+  assert.equal(mentionsInStory({ story: 'It serves curries, samosas and breads.' }, 'samosa'), true);
+  // …and only in a sentence about what is served.
+  assert.equal(mentionsInStory({ story: 'The owner once ate samosas in Delhi.' }, 'samosa'), false);
   // Not when the word is on record another way, an area, or nowhere.
-  assert.equal(go('itaewon').fromStory, false);
-  assert.equal(go('bulgogi').fromStory, false);
+  assert.equal(go('itaewon').fromStory, '');
+  assert.equal(go('bulgogi').fromStory, '');
   assert.equal(go('xyzq').filteredRestaurants.length, 0);
-  assert.equal(searchPlaces({ places, query: 'Gyeongju', filters: ['Halal'], now: new Date('2026-10-09T03:00:00Z') }).fromStory, false);
+  assert.equal(searchPlaces({ places, query: 'Gyeongju', filters: ['Halal'], now: new Date('2026-10-09T03:00:00Z') }).fromStory, '');
+  // Asked with a mark or in the plural, it is the same word.
+  assert.equal(ids(go('Biryani?')), ids(biryani));
+  assert.equal(ids(go('biryanis')), ids(biryani));
+  // Words about the record or its opening days are no dish.
+  for (const q of ['sunday', 'monday', 'closed', 'check', 'hours', 'instagram', 'kakao']) assert.equal(go(q).fromStory, '', q);
+  assert.equal(mentionsInStory({ story: 'It serves curries and is closed Sundays.' }, 'sundays'), false);
+  assert.equal(mentionsInStory({ story: 'The owner moved here with a baby.' }, 'owner'), false);
+});
+
+test('a night on another day is a plan; a one-syllable food beside an area is kept', async () => {
+  const { plannedTime } = await import('../../src/filters.js');
+  assert.deepEqual(plannedTime('tomorrow late night halal', 5), { day: 6, minutes: 1140, rest: 'halal', sure: true });
+  assert.equal(plannedTime('friday late night', 5)?.sure, true);
+  assert.equal(plannedTime('open late sunday', 5)?.sure, true);
+  // "next" and "and" go only from beside the day.
+  assert.equal(plannedTime('next door tomorrow lunch', 5)?.rest, 'next door');
+  assert.equal(plannedTime('fish and chips tomorrow lunch', 5)?.rest, 'fish and chips');
+  assert.equal(plannedTime('sunday - monday dinner', 5)?.rest, '');
+  assert.equal(plannedTime('Sunday Lunch.', 5)?.rest, '');
+  assert.equal(plannedTime('friday this week dinner', 5)?.rest, '');
+  // 이태원 빵 is not every place in Itaewon.
+  assert.ok(go('이태원 빵').filteredRestaurants.length < go('이태원').filteredRestaurants.length);
+  assert.ok(go('서울 떡').filteredRestaurants.length < 20);
+  assert.ok(go('비건 빵 카페').filteredRestaurants.length <= go('비건 빵').filteredRestaurants.length);
 });
