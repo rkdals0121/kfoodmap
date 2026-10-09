@@ -371,7 +371,7 @@ function AppShell() {
   // or letter that leaves the map where it is — only a hand takes it back.
   const [mapFramed, setMapFramed] = useState(false);
   const handMoved = useCallback(() => { setListFromYou(false); setMapFramed(false); }, []);
-  const framed = useCallback(() => setMapFramed(true), []);
+  const framed = useCallback((on = true) => setMapFramed(on), []);
   const [locateState, setLocateState] = useState('idle'); // idle | asking | located | outside | denied | unavailable
   const locate = () => {
     if (!('geolocation' in navigator)) { setLocateState('unavailable'); return; }

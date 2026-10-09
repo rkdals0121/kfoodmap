@@ -58,6 +58,12 @@ export function stationOf(query) {
   return null;
 }
 
+// Words set aside inside a longer search ("vegan breakfast jeju") that, alone,
+// name something a record can say.
+const MEAL_ALONE = {
+  breakfast: 'breakfast', sarapan: 'breakfast', '朝食': 'breakfast', '朝ごはん': 'breakfast', 'モーニング': 'breakfast', '早餐': 'breakfast', '아침': 'breakfast', '아침식사': 'breakfast',
+  lunch: 'lunch', '점심': 'lunch', 'ランチ': 'lunch', '午餐': 'lunch',
+};
 const titled = (s) => s.replace(/(^|[ -])([a-z])/g, (m, a, b) => a + b.toUpperCase());
 
 export function searchPlaces({
@@ -81,7 +87,10 @@ export function searchPlaces({
   // searched as typed, as it always was.)
   const low = said.toLowerCase();
   const aName = (r) => { const name = String(r.name).toLowerCase(); return low.includes(' ') ? name.includes(low) : name.split(/[^\p{L}\p{N}']+/u).some(part => part.startsWith(low)); };
-  const typed = onlyFillers(said) && !places.some(aName) ? '' : said;
+  // (A meal named by itself is still asked of the records: "breakfast" is the
+  // six places that say they serve one, in whatever language it was typed.)
+  const meal = Object.hasOwn(MEAL_ALONE, low) ? MEAL_ALONE[low] : undefined;
+  const typed = meal ?? (onlyFillers(said) && !places.some(aName) ? '' : said);
   // A diet word beside a station is a chip, and the station the search:
   // "halal seoul station" took "halal seoul" for the station's name and
   // answered with every halal place in Seoul; "seoul station halal"

@@ -46,7 +46,7 @@ const WORD = (alternatives, joined) => new RegExp(`(^|[\\sのにはでも的，�
 // (Whole names and the longer short forms only: "sun", "mon", "sat" and
 // "thu" open the names of places — Sun Hansik, Mon Cher, Thu Duc.)
 const DAY_SAID = [
-  [WORD('(?:on\\s+)?sunday|일요일|日曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))[日天]|(?:hari\\s+)?minggu'), 0],
+  [WORD('(?:on\\s+)?sunday|일요일|日曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))[日天]|(?:hari\\s+)?minggu(?!\\s+(?:depan|ini|lalu))'), 0],
   [WORD('(?:on\\s+)?monday|월요일|月曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))一|(?:hari\\s+)?senin'), 1],
   [WORD('(?:on\\s+)?tue(?:s|sday)|화요일|火曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))二|(?:hari\\s+)?selasa'), 2],
   [WORD('(?:on\\s+)?wed(?:s|nesday)|수요일|水曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))三|(?:hari\\s+)?rabu'), 3],
@@ -101,7 +101,9 @@ export function plannedTime(query, today = 0) {
   if (PLAN_REST.test(rest)) sure = true;
   // "Friday late night", "tomorrow late night halal", "besok larut malam":
   // another day's night is a plan (today's is the "Open now" question).
-  if (!isToday && asksOpenNow(query)) { if (!sure) minutes = 1140; sure = true; }
+  // (At ten, not seven: of the places open on a Friday at 7 pm, one in ten is
+  // still open at half past ten.)
+  if (!isToday && asksOpenNow(query)) { if (!sure) minutes = 1320; sure = true; }
   rest = rest.replace(PLAN_REST, ' ').replace(/\s+(?:の|に|で|에|은|는|的)(?=\s)/g, ' ').replace(/(^|\s)[-–.,·?!？！]+(?=\s|$)/g, ' ').replace(/[?!？！.]+\s*$/, '').replace(/\s+/g, ' ').trim();
   // "Open now today", "오늘 심야": today, and now — the "Open now" question
   // with a word to spare, not a plan for another hour.
@@ -352,7 +354,7 @@ const PORK_FREE_SAID = [
   [/\bmakanan\s+laut\b/gi, 'seafood'],
   [/\bdaging\s+sapi\b/gi, 'beef'],
   [/\bes\s+krim\b/gi, 'ice cream'],
-  [/\bmyeong\s+dong\b/gi, 'myeongdong'],
+  [/\bmyeong\s+dong\b(?![-\w])/gi, 'myeongdong'],
   [/\bitae\s+won\b/gi, 'itaewon'],
 ];
 export const porkFreeSaid = (query) => PORK_FREE_SAID.reduce((q, [said, word]) => q.replace(said, ` ${word} `), String(query ?? '')).replace(/\s+/g, ' ').trim();
@@ -380,7 +382,7 @@ export function stripCertWords(query) {
 // the record itself or its opening days are no dish: "sunday" was the twenty
 // places whose story says "closed Sundays".
 const SAYS_WITHOUT = /\b(?:no|not|non|never|without|free|instead|avoids?|excludes?|excluding|neither|nor|rather\s+than|cannot|closed|closes)\b|n't\b/i;
-const SAYS_SERVED = /\b(?:serv(?:es?|ing|ed)|menu|dish(?:es)?|sells?|makes?|bak(?:es?|ing)|offers?|cooks?|grills?|speciali[sz]es?|includes?|covers?|lists?|plates?|bowls?)\b/i;
+const SAYS_SERVED = /\b(?:serv(?:es?|ing|ed)|menu|dish(?:es)?|sells?|makes?|bak(?:es?|ing)|offers?|cooks?|grills?|speciali[sz]es?|includes?|covers?|lists?|plates?|bowls?|sold|made|baked|choices?|options?|such\s+as|food\s+is|curries|snacks)\b/i;
 const NOT_A_DISH = new Set(['open', 'opens', 'close', 'check', 'hour', 'hours', 'instagram', 'kakao', 'naver', 'google', 'happycow', 'krw', 'won', 'moved', 'business', 'visitor', 'visitors', 'unknown', 'people', 'person', 'nothing', 'how', 'help', 'date', 'dates', 'live', 'baby', 'list', 'lists', 'listing', 'menu', 'dish', 'dishes', 'place', 'places', 'street', 'floor', 'station', 'exit', 'building', 'year', 'years', 'month', 'day', 'days', 'week', 'time', 'price', 'prices', 'page', 'site', 'website', 'review', 'reviews', 'map', 'maps', 'says', 'said', 'record', 'recorded', 'confirmed', 'reported', 'serves', 'serve', 'makes', 'sells', 'offers', 'also', 'with', 'and', 'from', 'its', 'has', 'are', 'was', 'for', 'that', 'this', 'which', 'such', 'some', 'most', 'many']);
 const storyWords = new Map();
 /** The word a story is asked about: lower case, no mark at its end; '' when it is none. */

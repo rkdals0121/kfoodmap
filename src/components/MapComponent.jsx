@@ -365,7 +365,13 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
     const searched = framedFor.current !== searchQuery;
     framedFor.current = searchQuery;
     const framed = fitAll || (searched && inArea.length > 0);
-    if (!framed && latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
+    if (!framed && latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) {
+      // Left where it was — and unless it still holds all of what is listed,
+      // it is no longer a map drawn for this list ("Haeundae" framed, then
+      // cleared for the Vegan chip: the list is the country's, the map Busan's).
+      if (!latlngs.every(ll => visible.contains(map.latLngToContainerPoint(ll)))) framedNow.current?.(false);
+      return;
+    }
     safeFlyToBounds(map, latlngs, [56, 56], [56, 56 + overlap], { maxZoom: 15, duration: 0.6 });
     // The map now shows what was found, not somewhere the reader chose.
     framedNow.current?.();

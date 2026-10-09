@@ -686,7 +686,10 @@ test('a single word only the stories hold lists the places whose story speaks of
 
 test('a night on another day is a plan; a one-syllable food beside an area is kept', async () => {
   const { plannedTime } = await import('../../src/filters.js');
-  assert.deepEqual(plannedTime('tomorrow late night halal', 5), { day: 6, minutes: 1140, rest: 'halal', sure: true });
+  assert.deepEqual(plannedTime('tomorrow late night halal', 5), { day: 6, minutes: 1320, rest: 'halal', sure: true });
+  // Indonesian "minggu depan" after a weekday is next week, not Sunday.
+  assert.deepEqual(plannedTime('sabtu minggu depan makan siang', 5), { day: 6, minutes: 750, rest: '', sure: true });
+  assert.equal(plannedTime('jumat minggu ini makan malam halal', 5)?.day, 5);
   assert.equal(plannedTime('friday late night', 5)?.sure, true);
   assert.equal(plannedTime('open late sunday', 5)?.sure, true);
   // "next" and "and" go only from beside the day.

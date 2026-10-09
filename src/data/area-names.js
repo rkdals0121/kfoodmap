@@ -319,7 +319,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // "halal food near Itaewon", "makanan halal dekat Itaewon", "釜山 ランチ":
   // asked as a question, every word had to be found in the record, and
   // "near" or "dekat" is in none.
-  'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'resturant', 'resturants', 'restaurent', 'restaraunt', 'restraunt', 'restorant', 'restoran', 'fod', 'foods', 'places', 'lunch', 'dinner', 'breakfast',
+  'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'resturant', 'resturants', 'restaurent', 'restaraunt', 'restraunt', 'restorant', 'restoran', 'fod', 'places', 'lunch', 'dinner', 'breakfast',
   // "halal near me", "best vegan in seoul", "where to eat in busan": the
   // rest of a question. ("me" alone started "menu" and "meat" in the
   // stories, and "halal near me" was 58 places of the 152.)

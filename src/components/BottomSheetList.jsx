@@ -76,7 +76,9 @@ const asksNearMe = (query, plan = null) => {
   return rest === '' || onlyFillers(rest);
 };
 const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
-const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
+// (Read without the signs a search is wrapped in, as the search reads it:
+// “not spicy” in a phone's curly quotes found places and showed no caution.)
+const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
 // short — no word of it spelt differently?
@@ -279,7 +281,7 @@ export default function BottomSheetList({
   const heart = useMemo(() => {
     const narrowed = searchQuery.trim() !== '' || activeFilters.some(f => f !== SHARED_LIST);
     if (!mapFramed || !narrowed || restaurants.length < 3) { heartFor.current = { key: null, at: null }; return null; }
-    const asked = `${searchQuery.trim()}|${activeFilters.join(',')}`;
+    const asked = `${searchQuery.trim()}|${activeFilters.join(',')}|${planAt ? `${planAt.day}:${planAt.minutes}` : ''}|${showUnknown}|${areaOnly}`;
     if (heartFor.current.key === asked) return heartFor.current.at;
     let n = -90, s = 90, e = -180, w = 180;
     const cells = new Map();
@@ -298,7 +300,7 @@ export default function BottomSheetList({
     heartFor.current = { key: asked, at };
     return at;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restaurants, mapFramed, searchQuery, activeFilters.join(',')]);
+  }, [restaurants, mapFramed, searchQuery, activeFilters.join(','), planAt?.day, planAt?.minutes, showUnknown, areaOnly]);
   const ranked = useMemo(() => {
     // "Itaewon, Seoul": the part before the comma is the area to lead
     // with — every result is in Seoul, and that told the order nothing.
@@ -669,7 +671,7 @@ export default function BottomSheetList({
             </button>
           )}
           {/* The chip that is in the way, by what taking it off would leave. */}
-          {onDropFilter && withoutEach.slice(0, 3).map(({ filter, n }) => (
+          {onDropFilter && [...withoutEach].sort((a, b) => b.n - a.n).slice(0, 3).map(({ filter, n }) => (
             <button key={filter} type="button" className="place-list__clear" onClick={() => onDropFilter(filter)}>
               {t('list.withoutOne', {
                 filter: filter === OPEN_AT && planAt

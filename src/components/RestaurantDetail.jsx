@@ -881,7 +881,7 @@ export default function RestaurantDetail({
             {(
             <div className="diet-note">
               {/* An open claim explanation already says this, with its source. */}
-              {openClaim === null && <p><strong>{caveat.title}</strong> {caveat.body}</p>}
+              {openClaim === null && <p><strong>{caveat.title}</strong>{sentenceGap()}{caveat.body}</p>}
               {/* Vegan options on a mixed menu: the broth and the fish sauce are
                   what to ask about. The list says so above its cards; a place
                   opened from a link, or read on its own, did not. */}
