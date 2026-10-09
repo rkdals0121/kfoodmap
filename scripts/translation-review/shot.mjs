@@ -145,7 +145,9 @@ ws.close();
 // the folder's files open: the whole tree is ended.)
 await new Promise((done) => {
   chrome.once('exit', done);
-  if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(chrome.pid), '/T', '/F'], { stdio: 'ignore' });
+  // Already gone after being asked to close: nothing to end, nothing to wait for.
+  if (chrome.exitCode !== null) { done(); return; }
+  if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(chrome.pid), '/T', '/F'], { stdio: 'ignore', timeout: 5000 });
   else chrome.kill();
   setTimeout(done, 1500);
 });

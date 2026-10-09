@@ -3,6 +3,7 @@ import { placeArea } from '../place-area';
 import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
+import { Whole } from './Whole';
 import { formatShortDate, displayName, getOpenStatus, statusClass, koreanName, DAY_KEYS, formatClock } from '../utils';
 import ClaimChip from './ClaimChip';
 import { ChevronRightIcon, ShareIcon, XIcon } from './Icons';
@@ -30,7 +31,7 @@ function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' })
           <span className="saved-row__name" translate="no">{displayName(place.name)}</span>
           <span className="saved-row__where">
             {placeArea(place)}
-            {savedAt > 0 && <> · {t('journal.savedOn', { date: formatShortDate(savedAt, i18n.language) })}</>}
+            {savedAt > 0 && <> · <Whole text={t('journal.savedOn', { date: formatShortDate(savedAt, i18n.language) })} part={formatShortDate(savedAt, i18n.language)} /></>}
           </span>
           <span className="saved-row__status">
             {status ? (
@@ -203,7 +204,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
                 <span className="stamp-name" translate="no">{displayName(place.name)}</span>
                 <span className="stamp-zone">{stampZone(placeArea(place))}</span>
                 {/* "Visited …" in words: the seal says 방문, which most readers can't. */}
-                {visitedAt > 0 && <span className="stamp-date">{t('journal.visitedOn', { date: formatShortDate(visitedAt, i18n.language) })}</span>}
+                {visitedAt > 0 && <span className="stamp-date"><Whole text={t('journal.visitedOn', { date: formatShortDate(visitedAt, i18n.language) })} part={formatShortDate(visitedAt, i18n.language)} /></span>}
               </button>
             ))}
           </div>

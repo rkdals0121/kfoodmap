@@ -310,8 +310,10 @@ function safeFlyToBounds(map, latlngs, padTL, padBR, options) {
 // When the search names an area, the places in that area are the ones to
 // show: "Busan" also finds Seoul's "Busan Jib", which used to keep the map
 // on Seoul because one result was already in view.
-function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpen = false }) {
+function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpen = false, onFramed }) {
   const map = useMap();
+  const framedNow = useRef(onFramed);
+  framedNow.current = onFramed;
   const inArea = all.filter(r => matchesArea(r, searchQuery));
   const restaurants = inArea.length > 0 ? inArea : all;
   const key = restaurants.map(r => r.id).join(',');
@@ -365,6 +367,8 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
     const framed = fitAll || (searched && inArea.length > 0);
     if (!framed && latlngs.some(ll => visible.contains(map.latLngToContainerPoint(ll)))) return;
     safeFlyToBounds(map, latlngs, [56, 56], [56, 56 + overlap], { maxZoom: 15, duration: 0.6 });
+    // The map now shows what was found, not somewhere the reader chose.
+    framedNow.current?.();
     }, searchQuery.trim() ? 400 : 0);
     return () => clearTimeout(timer);
     // key stands in for restaurants: same places, same key, no move.
@@ -898,7 +902,7 @@ export default React.memo(MapComponent);
 function MapComponent({
   restaurants, onMarkerClick, selectedId, selectedPlace = null, onCenterChange, searchQuery = '',
   userLocation = null, locateState = 'idle', onLocate, fitAll = false, savedIds = [], stopIds = [], sheetState = 1,
-  placePeek = false, onMapClick, mapBox = null, onSearchArea, onHandMove,
+  placePeek = false, onMapClick, mapBox = null, onSearchArea, onHandMove, onFramed,
 }) {
   const mapRef = useRef(null);
   // Whether the map has been moved by hand yet (a drag, a pinch, the wheel,
@@ -962,7 +966,7 @@ function MapComponent({
         />
         <StartInView />
         <UserLocation location={userLocation} />
-        <FollowResults restaurants={restaurants} searchQuery={searchQuery} fitAll={fitAll} placeOpen={Boolean(selectedId)} />
+        <FollowResults restaurants={restaurants} searchQuery={searchQuery} fitAll={fitAll} placeOpen={Boolean(selectedId)} onFramed={onFramed} />
         <ClusteredMarkers
           selectedPlace={selectedPlace}
           restaurants={restaurants}

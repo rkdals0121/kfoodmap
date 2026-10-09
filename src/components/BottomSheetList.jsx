@@ -9,10 +9,10 @@ import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, kore
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
-import { TRAIT_GROUPS, asksOpenNow, plannedTime } from '../filters';
+import { TRAIT_GROUPS, asksOpenNow, withoutOpenNow, plannedTime, liftDietWords } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
-import { romaniseQuery, AREA_NAMES, isListedArea } from '../data/area-names';
+import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted } from '../i18n/punct';
 
 const CHIP_LABEL_KEY = {
@@ -65,8 +65,16 @@ const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|be
 // knows only once "My location" is pressed. Not "near Myeongdong": that
 // names where.
 const NEAR_ME_TYPED = /\bnear\s*me\b|\bnear(?:by|est)\b|\b(?:around|close\s+to)\s+me\b|\bclosest\b|근처|주변|가까운|近く|周辺|最寄り|附近|离我|離我|\bdekat\s+(?:sini|saya)\b|\bterdekat\b|\bsekitar\s+sini\b/i;
-const asksNearMe = (query) => NEAR_ME_TYPED.test(String(query ?? ''))
-  && !(romaniseQuery(query) ?? String(query ?? '')).split(/\s+/).some(w => isListedArea(w.replace(/-si$/, '')));
+// …nor "해방촌 근처", "광장시장 근처": whatever is left beside the diet and the
+// words that name nothing is a place.
+const asksNearMe = (query, plan = null) => {
+  const said = String(query ?? '');
+  if (!NEAR_ME_TYPED.test(said)) return false;
+  const base = plan?.sure || plan?.now ? plan.rest : withoutOpenNow(said);
+  // (Read as the search reads it: "附近的清真餐厅" is written without spaces.)
+  const rest = liftDietWords((romaniseQuery(base) ?? base).replace(new RegExp(NEAR_ME_TYPED.source, 'gi'), ' ')).rest.trim();
+  return rest === '' || onlyFillers(rest);
+};
 const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
@@ -203,7 +211,7 @@ export default function BottomSheetList({
   inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
   const { t, i18n } = useTranslation();
   // A Korean reader who typed Korean: "서울역" answered with “Seoul Station”도
@@ -258,6 +266,32 @@ export default function BottomSheetList({
               </ul>
             </div>
   ) : null;
+  // A filter or a search spread over the country — "Halal", 152 places from
+  // Seoul to Jeju — is shown on a map drawn out to hold them all, and the
+  // middle of that map is somewhere near Daejeon: the first card was a place
+  // 140 km from anywhere most of them are. While the map stands as the app
+  // drew it for that search (not moved by hand since), such a list starts where most of what it found is (the fullest patch of
+  // some 17 km, by a count), and goes outwards from there.
+  const heart = useMemo(() => {
+    const narrowed = searchQuery.trim() !== '' || activeFilters.some(f => f !== SHARED_LIST);
+    if (!mapFramed || !narrowed || restaurants.length < 3) return null;
+    let n = -90, s = 90, e = -180, w = 180;
+    const cells = new Map();
+    for (const r of restaurants) {
+      const { lat, lng } = coordsOf(r);
+      n = Math.max(n, lat); s = Math.min(s, lat); e = Math.max(e, lng); w = Math.min(w, lng);
+      const key = `${Math.floor(lat / 0.15)}:${Math.floor(lng / 0.2)}`;
+      const cell = cells.get(key) ?? { count: 0, lat: 0, lng: 0 };
+      cell.count += 1; cell.lat += lat; cell.lng += lng;
+      cells.set(key, cell);
+    }
+    // All in one town: the middle of the map is the middle of them.
+    if (haversineKm(n, w, s, e) < 40) return null;
+    let most = null;
+    for (const cell of cells.values()) if (!most || cell.count > most.count) most = cell;
+    return [most.lat / most.count, most.lng / most.count];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [restaurants, mapFramed, searchQuery, activeFilters.join(',')]);
   const ranked = useMemo(() => {
     // "Itaewon, Seoul": the part before the comma is the area to lead
     // with — every result is in Seoul, and that told the order nothing.
@@ -277,14 +311,14 @@ export default function BottomSheetList({
         // on Naver and Kakao; until then it is from the map centre.
         const fromCentre = haversineKm(mapCenter[0], mapCenter[1], lat, lng);
         const distanceKm = userLocation ? haversineKm(userLocation.lat, userLocation.lng, lat, lng) : fromCentre;
-        const sortKm = nearYou ? distanceKm : fromCentre;
+        const sortKm = nearYou ? distanceKm : heart ? haversineKm(heart[0], heart[1], lat, lng) : fromCentre;
         return { place: r, sortKm, distanceKm, fromYou: Boolean(userLocation), areaMatch: inArea(r), nameIs: typed !== '' && names(r).includes(typed) };
       })
       .sort((a, b) => (journeyOrder
         ? stop(a) - stop(b)
         : (b.nameIs - a.nameIs) || (b.areaMatch - a.areaMatch) || (a.sortKm - b.sortKm)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restaurants, mapCenter, matchQuery, userLocation, nearYou, journeyOrder, sharedIds.join(',')]);
+  }, [restaurants, mapCenter, matchQuery, userLocation, nearYou, heart, journeyOrder, sharedIds.join(',')]);
   // The records in list order, for everything that asks about the places.
   const sorted = useMemo(() => ranked.map(x => x.place), [ranked]);
 
@@ -370,8 +404,8 @@ export default function BottomSheetList({
 
   const plan = onPlan && !activeFilters.includes(OPEN_AT) ? plannedTime(searchQuery, koreaToday()) : null;
   const offerPlan = Boolean(plan && plan.sure);
-  const offerOpenNow = Boolean(!plan && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery));
-  const offerLocate = Boolean(onLocate && !fromYou && locateState !== 'located' && locateState !== 'asking' && asksNearMe(searchQuery));
+  const offerOpenNow = Boolean(!plan?.sure && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery));
+  const offerLocate = Boolean(onLocate && !fromYou && locateState !== 'located' && locateState !== 'asking' && asksNearMe(searchQuery, plan));
   const planLabel = plan ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[plan.day]}`), time: formatClock(plan.minutes) }) : '';
   return (
     // The notes above the cards fold to two lines on a phone and open on a
@@ -614,12 +648,12 @@ export default function BottomSheetList({
               {t('list.clearSearchOnly')}
             </button>
           )}
-          {plan && (
+          {plan && !plan.now && (
             <button type="button" className="place-list__clear" onClick={() => onPlan(plan)}>
               {planLabel}
             </button>
           )}
-          {!plan && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
+          {(!plan || plan.now) && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
             <button type="button" className="place-list__clear" onClick={onOpenNow}>
               {t('list.showOpenNow')}
             </button>

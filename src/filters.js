@@ -27,7 +27,7 @@ export const OPEN_NOW = 'Open now';
 // (With what trails the words in each language — "営業中のお店", "现在营业的店",
 // "지금 영업하는 곳" — so that taking them out leaves no stray particle; not
 // "영업중단", closed for good.)
-const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b24[- ]?(?:hours?|hr|h|jam)\b|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:larut|tengah)\s+malam|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
+const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b(?:buka\s+)?24[- ]?(?:hours?|hr|h|jam)\b|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:larut|tengah)\s+malam|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
 export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
 export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
 // A day named in the search — "halal saturday dinner", "tomorrow lunch
@@ -42,15 +42,17 @@ export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TY
 // "明天中午清真"): a meal word of two letters or more may follow a day
 // directly, and needs no gap after it. One letter (朝, 夜, 昼) still does.
 const MEAL_JOINED = '晚上|晚餐|中午|午餐|早上|早餐|下午|ランチ|ディナー|朝ごはん|朝食|夕食|夕方|午後|晩ごはん';
-const WORD = (alternatives, joined) => new RegExp(`(^|[\\sのにはでも的，、,])(?:(?:${alternatives})(?=$|[\\sのにはでも的에，、,?!.]|${MEAL_JOINED}|营业|營業|开门|開門)${joined ? `|(?:${joined})` : ''})`, 'i');
+const WORD = (alternatives, joined) => new RegExp(`(^|[\\sのにはでも的，、,])(?:(?:${alternatives})(?=$|[\\sのにはでも的에은는，、,?!.]|${MEAL_JOINED}|营业|營業|开门|開門)${joined ? `|(?:${joined})` : ''})`, 'i');
+// (Whole names and the longer short forms only: "sun", "mon", "sat" and
+// "thu" open the names of places — Sun Hansik, Mon Cher, Thu Duc.)
 const DAY_SAID = [
-  [WORD('(?:on\\s+)?sun(?:day)?|일요일|日曜日?|(?:周|週|星期|礼拜|禮拜)[日天]|(?:hari\\s+)?minggu(?!\\s+(?:depan|ini|lalu))'), 0],
-  [WORD('(?:on\\s+)?mon(?:day)?|월요일|月曜日?|(?:周|週|星期|礼拜|禮拜)一|(?:hari\\s+)?senin'), 1],
-  [WORD('(?:on\\s+)?tue(?:s(?:day)?)?|화요일|火曜日?|(?:周|週|星期|礼拜|禮拜)二|(?:hari\\s+)?selasa'), 2],
-  [WORD('(?:on\\s+)?wed(?:s|nesday)?|수요일|水曜日?|(?:周|週|星期|礼拜|禮拜)三|(?:hari\\s+)?rabu'), 3],
-  [WORD('(?:on\\s+)?thu(?:rs(?:day)?)?|목요일|木曜日?|(?:周|週|星期|礼拜|禮拜)四|(?:hari\\s+)?kamis'), 4],
-  [WORD('(?:on\\s+)?fri(?:day)?|금요일|金曜日?|(?:周|週|星期|礼拜|禮拜)五|(?:hari\\s+)?jumat'), 5],
-  [WORD('(?:on\\s+)?sat(?:urday)?|토요일|土曜日?|(?:周|週|星期|礼拜|禮拜)六|(?:hari\\s+)?sabtu'), 6],
+  [WORD('(?:on\\s+)?sunday|일요일|日曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))[日天]|(?:hari\\s+)?minggu'), 0],
+  [WORD('(?:on\\s+)?monday|월요일|月曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))一|(?:hari\\s+)?senin'), 1],
+  [WORD('(?:on\\s+)?tue(?:s|sday)|화요일|火曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))二|(?:hari\\s+)?selasa'), 2],
+  [WORD('(?:on\\s+)?wed(?:s|nesday)|수요일|水曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))三|(?:hari\\s+)?rabu'), 3],
+  [WORD('(?:on\\s+)?thu(?:rs|rsday)|목요일|木曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))四|(?:hari\\s+)?kamis'), 4],
+  [WORD('(?:on\\s+)?fri(?:day)?|금요일|金曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))五|(?:hari\\s+)?jum.?at'), 5],
+  [WORD('(?:on\\s+)?saturday|토요일|土曜日?|(?:(?:这|這|本|今|下|来|來)?(?:周|週|星期|礼拜|禮拜))六|(?:hari\\s+)?sabtu'), 6],
 ];
 const DAY_FROM_NOW = [
   [WORD('day\\s+after\\s+tomorrow|모레|明後日|[后後]天|lusa'), 2],
@@ -65,12 +67,27 @@ const MEAL_SAID = [
 ];
 // What is left around them: "open", "여는 곳", "に開いている店", "营业的店".
 const PLAN_REST = /\b(?:open|opens|opening)\b|(?:에\s*)?(?:여는|영업하는|문\s*여는)(?:\s*(?:곳|식당|가게))?|(?:に|の)?(?:開いている|営業している|営業中)(?:の?(?:お店|店))?|(?:营业|營業|开门|開門)(?:的(?:店|餐厅|餐廳))?|\b(?:yang\s+)?buka\b/gi;
+// "This", "next", "이번 주", "来週の", "and": said with a day, and no search word.
+const PLAN_WHICH = /(^|\s)(?:this|next|coming|and|&|이번\s*주?|다음\s*주|今週|来週|來週|这周|這週|下周|下週|minggu\s+(?:ini|depan))(?:の|에)?(?=\s|$)/gi;
 export function plannedTime(query, today = 0) {
-  let rest = ` ${String(query ?? '')} `;
+  // "Open now", "late", "tonight" beside a day are the same question, not
+  // a search — taken out first ("halal open now today" was left as "halal now").
+  let rest = ` ${withoutOpenNow(String(query ?? ''))} `;
+  // Indonesian: "akhir minggu" is the weekend, no one day; "malam minggu" is
+  // the night before Sunday, as "malam jumat" is Thursday night.
+  if (/\bakhir\s+(?:minggu|pekan)\b/i.test(rest)) return null;
+  rest = rest.replace(/\bmalam\s+minggu\b/gi, 'sabtu malam').replace(/\bmalam\s+sabtu\b/gi, 'jumat malam').replace(/\bmalam\s+jum'?at\b/gi, 'kamis malam');
+  if (/\bminggu\s+(?:depan|ini|lalu)\b/i.test(rest) && !DAY_SAID.slice(1).some(([said]) => said.test(rest)) && !DAY_FROM_NOW.some(([said]) => said.test(rest))) return null;
   let day = null;
-  for (const [said, n] of DAY_FROM_NOW) { if (day === null && said.test(rest)) { day = (today + n) % 7; rest = rest.replace(said, '$1 '); } }
-  for (const [said, n] of DAY_SAID) { if (day === null && said.test(rest)) { day = n; rest = rest.replace(said, '$1 '); } }
+  let isToday = false;
+  for (const [said, n] of DAY_FROM_NOW) { if (said.test(rest)) { if (day === null) { day = (today + n) % 7; isToday = n === 0; } rest = rest.replace(said, '$1 '); } }
+  // ("minggu depan" is next week, not Sunday.)
+  rest = rest.replace(PLAN_WHICH, '$1 ');
+  // Every day named goes from what is searched ("saturday and sunday"); the
+  // first one read is the one offered.
+  for (const [said, n] of DAY_SAID) { while (said.test(rest)) { if (day === null) day = n; rest = rest.replace(said, '$1 '); } }
   if (day === null) return null;
+  rest = rest.replace(PLAN_WHICH, '$1 ');
   let minutes = 750;
   // A day alone may be a name ("Sunday Bakery", "Today Kitchen"): with a
   // meal or "open" beside it, it is a plan beyond doubt.
@@ -78,8 +95,10 @@ export function plannedTime(query, today = 0) {
   for (const [said, at] of MEAL_SAID) { if (said.test(rest)) { minutes = at; rest = rest.replace(said, '$1 '); sure = true; break; } }
   PLAN_REST.lastIndex = 0;
   if (PLAN_REST.test(rest)) sure = true;
-  // …and "late", "tonight" beside it are the same question, not a search.
-  rest = withoutOpenNow(rest.replace(PLAN_REST, ' ').replace(/\s+(?:の|に|で|에|的)(?=\s)/g, ' ').replace(/[?!？！]+\s*$/, ''));
+  rest = rest.replace(PLAN_REST, ' ').replace(/\s+(?:の|に|で|에|은|는|的)(?=\s)/g, ' ').replace(/[?!？！]+\s*$/, '').replace(/\s+/g, ' ').trim();
+  // "Open now today", "오늘 심야": today, and now — the "Open now" question
+  // with a word to spare, not a plan for another hour.
+  if (isToday && asksOpenNow(query)) return { day, minutes, rest, sure: false, now: true };
   return { day, minutes, rest, sure };
 }
 // Open at a chosen weekday and time (planning ahead); never on with OPEN_NOW.
@@ -344,7 +363,8 @@ export function liftDietWords(query) {
 }
 // (Not 면, 국, 전, 차: they are also the ends of other words — 두부면 is read
 // as tofu with a 면 left over, 제주도 as Jeju with a 도.)
-const ONE_SYLLABLE_FOOD = new Set(['빵', '죽', '떡', '밥', '탕', '찜', '쌈', '콩', '묵', '술']);
+// (Nor 밥 and 술, which say "a meal" and "a drink" more than they name a dish.)
+const ONE_SYLLABLE_FOOD = new Set(['빵', '죽', '떡', '탕', '찜', '쌈', '콩', '묵']);
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
   const q = squash(query);
@@ -393,7 +413,10 @@ function searchCore(r, rawQuery) {
   });
   // (A food that is one syllable in Korean is a word all the same: "비건 빵"
   // was every vegan place, 521 of them, with the 빵 thrown away.)
-  const words = dietPairs(spaced).filter(w => w.length >= 2 || ONE_SYLLABLE_FOOD.has(w));
+  // Only beside a diet word and nothing else: "떡 카페" is searched as before.
+  const paired = dietPairs(spaced);
+  const isDiet = (w) => Object.hasOwn(DIET_WORDS, w) || PORK_FREE_WORDS.has(w);
+  const words = paired.filter(w => w.length >= 2 || (ONE_SYLLABLE_FOOD.has(w) && paired.every(other => other === w || isDiet(other))));
   // Words of one letter are dropped, not required: "busan v" (mid-typing)
   // and "제주도" (split into Jeju + 도) are then judged on what is left.
   if (words.length === 0) return false;
@@ -430,26 +453,32 @@ const AREA_KO = new Set(Object.values(AREA_NAMES).map(forms => forms[0]));
 // on file is the road-name one and names no neighbourhood; the English one
 // says "Ikseon-dong". The word is spelt as the records spell it and looked
 // for there. (Two syllables or more before 동: 우동 is a bowl of noodles.)
-const DONG_TYPED = /^([가-힣]{2,5})(?:제?\d+)?동$/;
-// So with any other place word of two syllables or more that the lists
-// above do not know — 해방촌, 판교, 혜화, 황리단길 (a street, without its 길):
-// found where the English address or zone holds that very word.
-const STREET_TYPED = /^([가-힣]{2,6})[길로]$/;
+const DONG_TYPED = /^([가-힣]{2,5})(?:제?\d+)?([동리읍면])$/;
+const UNIT = { 동: 'dong', 리: 'ri', 읍: 'eup', 면: 'myeon' };
+// So with a street — 경리단길, 황리단길 — found as that street ("…-gil"; 로 is
+// "-ro" or "-daero"), not as the district or the town of the same name:
+// 성동로 was every place in Seongdong-gu.
+const STREET_TYPED = /^([가-힣]{2,6})([길로])$/;
+// And with any other place word of two syllables or more that the lists
+// above do not know — 해방촌, 판교, 혜화, 합정: found where the English address
+// or zone holds that very word, as a name of its own. Not on the road named
+// after it (시흥 is not Siheung-daero in Seoul), nor in the name of a
+// building (세종 is not "Sejong Tower" in Seongsu).
 const placeAsked = new Map();
 function koPlaceHas(r, w) {
   if (!placeAsked.has(w)) {
     // A word the lists of names read (두부면 is tofu + noodles, 성수동 is
     // Seongsu) is theirs to answer.
-    const known = romaniseQuery(w) !== null;
-    const dong = known ? null : romaniseKorean(DONG_TYPED.exec(w)?.[1]);
-    const street = dong || known ? null : romaniseKorean(STREET_TYPED.exec(w)?.[1]);
-    // Not the road named after somewhere else: 시흥 is not Siheung-daero in
-    // Seoul. Nor a name the lists know (they answer for it themselves).
-    const word = dong || street || known || AREA_KO.has(w) ? null : romaniseKorean(w.length >= 2 ? w : '');
+    const free = romaniseQuery(w) === null && !AREA_KO.has(w);
+    const unit = free ? DONG_TYPED.exec(w) : null;
+    const street = free && !unit ? STREET_TYPED.exec(w) : null;
+    const word = free && !unit && !street && w.length >= 2 ? romaniseKorean(w) : null;
+    const named = (text) => text.charAt(0).toUpperCase() + text.slice(1);
     if (placeAsked.size > 200) placeAsked.clear();
-    placeAsked.set(w, dong ? new RegExp(`\\b${dong}\\d*-dong\\b`, 'i')
-      : street ? new RegExp(`\\b${street}\\b`, 'i')
-        : word ? new RegExp(`\\b${word}\\b(?!-(?:dae)?ro|-gil|\\s(?:buk|nam|dong|seo)-ro)`, 'i') : null);
+    placeAsked.set(w, unit ? new RegExp(`\\b${romaniseKorean(unit[1])}\\d*-${UNIT[unit[2]]}\\b`, 'i')
+      // (중앙대로 is "Jungang-daero": the 대 belongs to the kind of road.)
+      : street ? new RegExp(`\\b${street[2] === '로' && street[1].length > 2 && street[1].endsWith('대') ? `${romaniseKorean(street[1].slice(0, -1))}-daero` : `${romaniseKorean(street[1])}-${street[2] === '길' ? 'gil' : 'ro'}`}\\b`, 'i')
+        : word ? new RegExp(`\\b${named(word)}\\b(?!-(?:dae)?ro|-gil|\\s(?:buk|nam|dong|seo)-ro|\\s+(?!Station)[A-Z])`) : null);
   }
   const said = placeAsked.get(w);
   return said !== null && (said.test(r.address?.value ?? '') || said.test(r.zone ?? ''));

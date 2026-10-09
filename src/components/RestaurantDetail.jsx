@@ -14,6 +14,7 @@ import {
   BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, SealIcon, ShareIcon, InfoIcon,
   ChevronLeftIcon, ChevronRightIcon, CheckIcon,
 } from './Icons';
+import { Whole } from './Whole';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock, lastNightHours } from '../utils';
 import { koAddress } from '../data/address-ko';
@@ -45,14 +46,14 @@ const DIETARY_ICON = { vegan: LeafIcon, halal: CrescentIcon };
 
 // "Copy", and a tick in its place once copied: "복사했어요" and "コピーしました"
 // are three times as wide as "복사", and the address beside the button was
-// set again on narrower lines the moment it was pressed. The words are
-// still there to be read out.
+// set again on narrower lines the moment it was pressed. (What a screen
+// reader says is the button's label, which changes to "Copied" with it.)
 function CopyLabel({ done }) {
   const { t } = useTranslation();
   return (
     <span className="copy-label">
       <span className="copy-label__word" aria-hidden={done || undefined}>{t('detail.copy')}</span>
-      {done && <span className="copy-label__done"><CheckIcon size={16} /><span className="visually-hidden">{t('detail.copied')}</span></span>}
+      {done && <span className="copy-label__done"><CheckIcon size={16} /></span>}
     </span>
   );
 }
@@ -846,7 +847,7 @@ export default function RestaurantDetail({
                   <p className="claim-explain__head"><strong>{label} · {level}</strong></p>
                   <p className="claim-explain__meta claim-explain__meta--lead">
                     {t('detail.claimSource', { source: sourceWithSite(f) })}
-                    {f.lastCheckedAt && <> · {t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })}</>}
+                    {f.lastCheckedAt && <> · <Whole text={t('detail.claimChecked', { date: formatLongDate(f.lastCheckedAt, i18n.language) })} part={formatLongDate(f.lastCheckedAt, i18n.language)} /></>}
                     {sourcePage(f) && <> · <a href={sourcePage(f)} target="_blank" rel="noopener noreferrer">{t('detail.claimSourceOpen')}</a></>}
                   </p>
                   <p className={`claim-explain__text${noteWeight(detail) > FOLD_AT && !claimFull ? ' is-clamped' : ''}`}>{noteWithLinks(closed(translated ? detail : plainNote(detail), translated ? i18n.language : 'en'))}</p>
@@ -1146,7 +1147,7 @@ export default function RestaurantDetail({
                     <span className="practical-muted">{t('detail.areaOnly')}</span>
                   )}
                 </span>
-                <button className="practical-copy" aria-label={colon(t('detail.copy'), shownAddress)} onClick={handleCopy}>
+                <button className="practical-copy" aria-label={copied ? t('detail.copied') : colon(t('detail.copy'), shownAddress)} onClick={handleCopy}>
                   <CopyLabel done={copied} />
                 </button>
               </div>
@@ -1154,7 +1155,7 @@ export default function RestaurantDetail({
                 <div className="practical-row ko-name">
                   <span className="ko-name__label">{t('detail.koreanAddress')}</span>
                   <span className="ko-name__value ko-name__value--address" lang="ko" translate="no">{koAddr}</span>
-                  <button type="button" className="practical-copy" aria-label={colon(t('detail.copy'), koAddr)} onClick={copyKoAddr}>
+                  <button type="button" className="practical-copy" aria-label={koAddrCopied ? t('detail.copied') : colon(t('detail.copy'), koAddr)} onClick={copyKoAddr}>
                     <CopyLabel done={koAddrCopied} />
                   </button>
                 </div>
@@ -1165,7 +1166,7 @@ export default function RestaurantDetail({
                 <div className="practical-row ko-name">
                   <span className="ko-name__label">{t('detail.koreanName')}</span>
                   <span className="ko-name__value" lang="ko" translate="no">{koName}</span>
-                  <button type="button" className="practical-copy" aria-label={colon(t('detail.copy'), koName)} onClick={copyKoName}>
+                  <button type="button" className="practical-copy" aria-label={nameCopied ? t('detail.copied') : colon(t('detail.copy'), koName)} onClick={copyKoName}>
                     <CopyLabel done={nameCopied} />
                   </button>
                   <button type="button" className="practical-copy" ref={nameLargeBtn} aria-haspopup="dialog" onClick={() => setNameLarge(true)}>
@@ -1311,7 +1312,7 @@ export default function RestaurantDetail({
                   <dt>{t('detail.lastChecked')}</dt>
                   {/* Dates arrive with the full record; until then say nothing
                       rather than "Never". */}
-                  <dd>{lastChecked ? formatLongDate(lastChecked, i18n.language) : full ? t('detail.never') : fullFailed ? '—' : '…'}</dd>
+                  <dd className={lastChecked ? 'keep-together' : undefined}>{lastChecked ? formatLongDate(lastChecked, i18n.language) : full ? t('detail.never') : fullFailed ? '—' : '…'}</dd>
                 </div>
               </dl>
             </footer>

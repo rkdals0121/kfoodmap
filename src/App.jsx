@@ -365,7 +365,12 @@ function AppShell() {
   // map used to reorder the list from the middle of that map: at Hongdae,
   // the first card was in Daejeon, 143 km away.
   const [listFromYou, setListFromYou] = useState(false);
-  const handMoved = useCallback(() => setListFromYou(false), []);
+  // Whether the map was last moved by the app, to hold what a search found
+  // (and not since by hand): its middle is then no place in particular (see
+  // the list's order in BottomSheetList).
+  const [mapFramed, setMapFramed] = useState(false);
+  const handMoved = useCallback(() => { setListFromYou(false); setMapFramed(false); }, []);
+  const framed = useCallback(() => setMapFramed(true), []);
   const [locateState, setLocateState] = useState('idle'); // idle | asking | located | outside | denied | unavailable
   const locate = () => {
     if (!('geolocation' in navigator)) { setLocateState('unavailable'); return; }
@@ -948,9 +953,10 @@ function AppShell() {
   // them). A weekday by itself may be a name ("Sun Hansik") and stays.
   const searchedFor = useMemo(() => {
     const plan = plannedTime(filterQuery, koreaToday());
-    if (plan?.sure) return plan.rest;
+    if (plan?.sure || plan?.now) return plan.rest;
     return asksOpenNow(filterQuery) ? withoutOpenNow(filterQuery) : filterQuery;
   }, [filterQuery]);
+  useEffect(() => { setMapFramed(false); }, [selectedFilters, searchedFor, areaOnly]);
   const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters } = useMemo(() => searchPlaces({
     places: activeRestaurants,
     query: searchedFor,
@@ -1105,6 +1111,7 @@ function AppShell() {
             selectedPlace={selectedRestaurant}
             onCenterChange={setMapCenter}
             onHandMove={handMoved}
+            onFramed={framed}
             searchQuery={matchQuery}
             fitAll={selectedFilters.includes(SAVED_ONLY) || selectedFilters.includes(SHARED_LIST)}
             savedIds={bookmarkedIds}
@@ -1169,6 +1176,7 @@ function AppShell() {
                 onShowAll={() => setMapBox(null)}
                 mapCenter={mapCenter}
                 fromYou={listFromYou}
+                mapFramed={mapFramed}
                 userLocation={userLocation}
                 bookmarkedIds={bookmarkedIds}
                 onRestaurantClick={openDetailStable}
@@ -1214,7 +1222,9 @@ function AppShell() {
                 locateState={locateState}
                 onOpenNow={() => {
                   setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_NOW]);
-                  setQuery(withoutOpenNow(searchQuery));
+                  // ("halal open now today": the day goes with it.)
+                  const plan = plannedTime(searchQuery, koreaToday());
+                  setQuery(plan?.now ? plan.rest : withoutOpenNow(searchQuery));
                 }}
                 onPorkFree={() => {
                   // Pork-free is not halal: the Halal chip goes off with it.

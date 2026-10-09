@@ -565,7 +565,7 @@ test('a day and a meal named in the search are a plan', async () => {
   assert.equal(plannedTime('周六晚上 清真 首尔', 5)?.minutes, 1140);
   assert.equal(plannedTime('besok malam halal', 5)?.day, 6);
   // A weekday alone may be a name; a meal alone is no plan.
-  assert.equal(plannedTime('Sun Hansik', 5)?.sure, false);
+  assert.equal(plannedTime('Sun Hansik', 5), null);
   assert.equal(plannedTime('lunch', 5), null);
   assert.equal(plannedTime('Sunrise', 5), null);
 });
@@ -614,4 +614,25 @@ test('more wordings of the same questions', () => {
     assert.ok(go(typed).filteredRestaurants.length > 0, typed);
     assert.equal(ids(go(typed)), ids(go(roman)), `${typed} = ${roman}`);
   }
+});
+
+test('a day said with more around it; a street is not its district', async () => {
+  const { plannedTime } = await import('../../src/filters.js');
+  assert.deepEqual(plannedTime('next monday dinner halal', 5), { day: 1, minutes: 1140, rest: 'halal', sure: true });
+  assert.equal(plannedTime('이번 주 토요일 저녁 할랄', 5)?.rest, '할랄');
+  assert.equal(plannedTime('来週の土曜日 ランチ', 5)?.rest, '');
+  assert.equal(plannedTime('saturday and sunday lunch halal', 5)?.rest, 'halal');
+  assert.equal(plannedTime('下周六晚上清真', 5)?.rest, '清真');
+  assert.equal(plannedTime('토요일은 여는 곳', 5)?.sure, true);
+  // Indonesian: the night before Sunday; the weekend is no one day.
+  assert.equal(plannedTime('malam minggu halal', 5)?.day, 6);
+  assert.equal(plannedTime('akhir minggu makan malam halal', 5), null);
+  // "Open now today" is the open-now question, with the day set aside.
+  assert.deepEqual(plannedTime('halal open now today', 5), { day: 5, minutes: 750, rest: 'halal', sure: false, now: true });
+  // Names that open with a short day.
+  for (const q of ['sun hansik lunch', 'mon cher dinner', 'thu duc pho dinner']) assert.equal(plannedTime(q, 5), null, q);
+  // 성동로 is a road, not every place in Seongdong-gu; 중앙대로 is "-daero".
+  assert.ok(go('성동로').filteredRestaurants.every(r => /Seongdong-ro/.test(r.address.value) || /성동로/.test(JSON.stringify(r))));
+  assert.ok(go('성동로').filteredRestaurants.length < go('성동구').filteredRestaurants.length);
+  assert.equal(go('떡 카페').filteredRestaurants.length, go('카페').filteredRestaurants.length);
 });
