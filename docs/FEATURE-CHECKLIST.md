@@ -160,6 +160,8 @@ D28. With "Open now"/"Open at…" on, the nearest block lists only open places, 
 
 D30. "open now" typed into the search ("halal open now", "이태원 지금 영업", "営業中", "buka sekarang") → a button "Show places open now" (in the empty state, or under the count when the words found something); pressing it turns the Open now chip on and takes the words out of the box (`#q=halal&f=Open+now`). Not offered when the chip is already on.
 
+D31. A question asked as a sentence ("where can i find halal in myeongdong", "i want halal food", "할랄 음식점 알려줘", "부산에 비건 있어?", "明洞でハラールを食べたい", "在明洞吃清真", "ada halal di busan?") → the same places as the bare words ("myeongdong halal", "halal", "부산 비건"); "nearby" glued to a diet word ("近くのハラール", "附近的清真餐厅") likewise. A place with such a word in its name ("Base is Nice") is still found by its name. Before a search rule is committed: `bash scripts/search-compare/run.sh`.
+
 ## E. Filters (chip row, Open now, Open at…, Saved)
 
 E1. Chip row (`.chip-row`, horizontally scrollable) order → Vegan, Fully vegan, Halal | Open now, Open at…, Saved | Sustainability, Zero waste, Local sourcing | Mild taste, Fermented. Groups have aria-labels ("Dietary filters", "Open now and saved places", "Sustainability filters", "Dining filters"). Each chip is a button with `aria-pressed`; active class `.chip.active`.
