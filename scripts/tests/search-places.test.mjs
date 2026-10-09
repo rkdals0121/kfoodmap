@@ -727,3 +727,13 @@ test('several words that find nothing say what the search finds without each', (
   assert.deepEqual(go('xyzq abcd').withoutWords, []);
   assert.deepEqual(go('vegan seoul').withoutWords, []);
 });
+
+test('a polite question in Japanese, and what is glued after a station', () => {
+  assert.equal(ids(go('明洞でベジタリアンでも食べられるお店はありますか')), ids(go('明洞 ベジタリアン')));
+  assert.equal(ids(go('弘大でヴィーガンのお店はどこですか')), ids(go('弘大 ヴィーガン')));
+  for (const q of ['ソウル駅の近くでランチ', 'ソウル駅の近く']) assert.equal(ids(go(q)), ids(go('ソウル駅')), q);
+  assert.equal(ids(go('首尔站附近的素食')), ids(go('ソウル駅 ヴィーガン')));
+  assert.equal(ids(go('パン')), ids(go('bread')));
+  // One kana is no filler: もも is not every place.
+  assert.equal(go('もも').filteredRestaurants.length, 0);
+});

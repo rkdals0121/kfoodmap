@@ -86,7 +86,10 @@ export function searchPlaces({
   // an address holds brackets, a name an ampersand.)
   const bare = String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim()
     .replace(/^#+(?=\p{L})/u, '').replace(/^["“”„「『(（[]+(?=[^\s"“”„「『(（[])/, '').replace(/([^\s"“”」』)）\]])["“”」』)）\]]+$/, '$1');
-  const said = stripCertWords(porkFreeSaid(bare.includes('(') || bare.includes('（') ? String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim() : bare));
+  // "ソウル駅の近くでランチ", "首尔站附近的素食", "서울역근처 비건": what is glued
+  // after a station's name is the rest of the search, not part of the name.
+  const unglued = (text) => text.replace(/(駅|站|역)(?:の近く|の周辺|周辺|付近|附近|근처|주변)(?:で|に|の|的|에서|에)?/g, '$1 ').replace(/\s+/g, ' ').trim();
+  const said = stripCertWords(porkFreeSaid(unglued(bare.includes('(') || bare.includes('（') ? String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim() : bare)));
   // "맛집", "근처 맛집", "レストラン", "restaurants near me": words that name no
   // place and no kind of place found nothing, or whatever record happened to
   // hold them. Every place is one — unless some place is called so

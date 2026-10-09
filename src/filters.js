@@ -27,7 +27,7 @@ export const OPEN_NOW = 'Open now';
 // (With what trails the words in each language — "営業中のお店", "现在营业的店",
 // "지금 영업하는 곳" — so that taking them out leaves no stray particle; not
 // "영업중단", closed for good.)
-const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b(?:buka\s+)?24[- ]?(?:hours?|hr|h|jam)\b|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:buka\s+)?(?:sampai\s+)?(?:larut|tengah)\s+malam|\bbuka\s+(?:sampai\s+)?malam\b|\bopen\s+(?:at|till|until)\s+(?:night|late)\b|밤늦게(?:까지)?(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
+const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b(?:buka\s+)?24[- ]?(?:hours?|hr|h|jam)\b|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:buka\s+)?(?:sampai\s+)?(?:larut|tengah)\s+malam|\bbuka\s+(?:sampai\s+)?malam\b|\bopen\s+(?:at|till|until)\s+(?:night|late)\b|밤늦게(?:까지)?(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:いま|今)(?:、)?(?:開|あ)いて(?:い)?る(?:お店|店|ところ)?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
 export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
 export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
 // A day named in the search — "halal saturday dinner", "tomorrow lunch
@@ -228,7 +228,7 @@ const DIET_WORDS = {
   // found nothing ("完全ヴィーガン", "vegan sepenuhnya", "全素": 0 places).
   fullyvegan: FULLY_VEGAN, '완전비건': FULLY_VEGAN, '完全ヴィーガン': FULLY_VEGAN, '完全ビーガン': FULLY_VEGAN,
   '全纯素': FULLY_VEGAN, '全純素': FULLY_VEGAN, '全素': FULLY_VEGAN, vegansepenuhnya: FULLY_VEGAN, sepenuhnyavegan: FULLY_VEGAN,
-  veganoptions: 'Vegan', '비건옵션': 'Vegan', '비건가능': 'Vegan', '채식가능': 'Vegan', 'ヴィーガン対応あり': 'Vegan', '有纯素选项': 'Vegan', '有純素選項': 'Vegan',
+  veganoptions: 'Vegan', 'ヴィーガン対応': 'Vegan', 'ビーガン対応': 'Vegan', 'ベジタリアン対応': 'Vegan', 'ベジ': 'Vegan', '비건옵션': 'Vegan', '비건가능': 'Vegan', '채식가능': 'Vegan', 'ヴィーガン対応あり': 'Vegan', '有纯素选项': 'Vegan', '有純素選項': 'Vegan',
   halalfriendly: 'Halal', ramahhalal: 'Halal', ramahmuslim: 'Halal', 'ハラールフレンドリー': 'Halal', '할랄프렌들리': 'Halal', '清真友好': 'Halal', '清真友善': 'Halal',
   muslim: 'Halal', muslimfriendly: 'Halal', '무슬림': 'Halal', '무슬림프렌들리': 'Halal', '무슬림친화': 'Halal', 'ムスリム': 'Halal', 'ムスリムフレンドリー': 'Halal', 'ムスリム対応': 'Halal', '穆斯林': 'Halal', '穆斯林友好': 'Halal',
 };

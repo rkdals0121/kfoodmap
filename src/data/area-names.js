@@ -186,6 +186,7 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '팔라펠': 'falafel', '후무스': 'hummus', '포케': 'poke', '타코': 'taco', '부리토': 'burrito', '쿠키': 'cookie', '스콘': 'scone', '도넛': 'doughnut',
   '비리야니': 'biryani', '브리야니': 'biryani', '사모사': 'samosa', '해산물': 'seafood', '쌀국수': 'pho', '필라프': 'pilaf',
   '麵包': 'bread', '面包': 'bread', '辣炒年糕': 'tteokbokki', '飯捲': 'gimbap', '饭卷': 'gimbap', '海苔飯捲': 'gimbap', '螃蟹': 'crab', kepiting: 'crab',
+  'パン': 'bread', 'お寺の料理': 'temple',
   'ビリヤニ': 'biryani', 'サモサ': 'samosa', 'シーフード': 'seafood', '海鮮': 'seafood', '海鲜': 'seafood', 'フォー': 'pho', '香饭': 'biryani', '印度香饭': 'biryani', '咖喱角': 'samosa',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',
@@ -332,7 +333,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // "明洞でハラールを食べたい", "釜山有清真吗", "ada halal di busan?".
   'can', 'i', 'is', 'there', 'are', 'show', 'want', 'looking', 'please', 'what', 'here', 'which', 'need',
   '추천해줘', '추천해주세요', '알려줘', '알려주세요', '있어', '있어요', '있나요', '먹을', '곳', '찾아줘', '어디야', '어디에', '어디서',
-  'を', 'が', 'は', '食べたい', '食べられる', '教えて', 'ください', 'ありますか',
+  'を', 'が', 'は', '食べたい', '食べられる', '教えて', 'ください', 'ありますか', 'でも', 'お店', 'お店は', 'あります', '探しています', '探してます', '知りたい', 'どこですか', 'どこ', '行きたい', 'です',
   '在', '吃', '想吃', '吗', '嗎', '请问', '請問', '哪儿',
   'cari', 'mencari', 'ada', 'ingin', 'mau', 'tolong', 'apa', 'apakah', 'adakah', 'dimana',
   'recommended', 'recommendation', 'recommendations', 'popular', 'famous', 'delicious', 'tasty',
