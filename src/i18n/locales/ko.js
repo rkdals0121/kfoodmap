@@ -106,7 +106,7 @@ export default {
     showUnknown: '영업시간 기록이 없는 {{n}}곳도 보기',
     hideUnknown: '영업시간 기록이 없는 {{n}}곳 숨기기',
     unknownShown: '영업시간 기록이 없는 {{n}}곳도 함께 보여요. 가기 전에 확인하세요.',
-    nearestTitle: '“{{query}}”에서 가까운, 조건에 맞는 곳:',
+    nearestTitle: '“{{query}}” 가까이에서 조건에 맞는 곳:',
     clearSearchOnly: '검색어만 지우기(필터 유지)',
     withoutFilters: '필터를 빼면 “{{query}}” 검색 결과가 {{n}}곳 있어요.',
     withoutOne: '“{{filter}}” 빼면 {{n}}곳',
