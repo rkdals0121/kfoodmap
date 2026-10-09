@@ -274,6 +274,8 @@ F69. The words in brackets after an area ("(near Busan Station)", "(opposite Hae
 F70. A Korean name of one long word (`/place/surinnal-jokbal-jangchung`, 17 letters without a space) at 320 / 360 px, normal and Larger → wraps inside the sheet (no sideways scroll, nothing past the right edge); Korean elsewhere still breaks between words, not inside them.
 F71. [desktop >= 768] A place opened by its own link (`/place/<id>`, no search in the address) at 768, 1024, 1280, 1920 px and on a phone on its side (844x390) → its pin stands in the middle of the visible map (clear of the docked place) and the place is the first card of the list beside it, its neighbours after it. With a search in the address the map frames the search as before.
 
+F72. Past midnight, inside the hours of the day before (fixed clock Fri 01:00 KST, `/place/the-halal-fitzza-hongdae`: Thursday runs to 2:00 AM) → under the status ("… until 2:00 AM") a line with that day's name and hours ("Thu: 11:00 AM – 2:00 AM"), then "Today: 11:00 AM – 5:00 AM". At any other time only "Today: …". `[needs: clock]`
+
 ## G. Explore tab (Discover, `/discover`)
 
 G1. Header → bowl icon, H2 "Food Journeys", subtitle, and a link-button "Korean cards to show staff" (`.discover-cards-link`) → opens `/cards`; closing returns to Discover.

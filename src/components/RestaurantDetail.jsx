@@ -15,7 +15,7 @@ import {
   ChevronLeftIcon, ChevronRightIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock, lastNightHours } from '../utils';
 import { koAddress } from '../data/address-ko';
 import { koStation, koLine } from '../data/station-ko';
 import {
@@ -531,6 +531,7 @@ export default function RestaurantDetail({
   const name = displayName(place.name);
   const status = getOpenStatus(place.hours);
   const today = todaysHours(place.hours);
+  const lastNight = lastNightHours(place.hours);
   const week = weekHours(place.hours);
   const planStatus = planDate && planAt ? getOpenStatus(place.hours, planDate, { nameDay: true }) : null;
   const planWhen = planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : '';
@@ -906,6 +907,9 @@ export default function RestaurantDetail({
                   <span>
                     <strong className={statusClass(status)}>{status.label}</strong>
                     {status.detail && <>{' '}· {status.detail}</>}{' '}
+                    {/* Past midnight, still inside yesterday's hours: those first,
+                        under their day's name, then today's. */}
+                    {lastNight && <span className="practical-muted practical-today">{colon(t(`hours.day.${lastNight.day}`), '')}{hoursPieces(lastNight.text)}</span>}
                     {today && (() => {
                       // The sentence around the hours, and the hours in pieces that
                       // do not break inside a time ("6:00 PM – / 8:20 PM", "午 / 後8:20").

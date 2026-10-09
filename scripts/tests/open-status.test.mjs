@@ -275,3 +275,18 @@ test('Chinese tells the time on the 24-hour clock, with a colon', async () => {
     await i18next.changeLanguage('en');
   }
 });
+
+test('after midnight, the hours still being kept are those of the day before', async () => {
+  const { lastNightHours } = await import('../../src/utils.js');
+  const h = { value: { weekly: { thu: [{ from: '11:00', to: '02:00' }], fri: [{ from: '11:00', to: '05:00' }] } }, confidence: 'supported' };
+  // Friday 01:00 in Korea is Thursday 16:00 UTC.
+  const fri0100 = new Date('2026-10-08T16:00:00Z');
+  assert.equal(lastNightHours(h, fri0100)?.day, 'thu');
+  // 03:00: Thursday's hours are over.
+  assert.equal(lastNightHours(h, new Date('2026-10-08T18:00:00Z')), null);
+  // Friday noon: nothing of last night.
+  assert.equal(lastNightHours(h, new Date('2026-10-09T03:00:00Z')), null);
+  // A day that ends before midnight leaves nothing over.
+  assert.equal(lastNightHours({ value: { weekly: { thu: [{ from: '11:00', to: '22:00' }] } }, confidence: 'supported' }, fri0100), null);
+  assert.equal(lastNightHours(null, fri0100), null);
+});

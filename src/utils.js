@@ -311,6 +311,30 @@ export function todaysHours(hoursFact, now = new Date()) {
 }
 
 /**
+ * After midnight, inside the hours of the day before: at 1 a.m. on Friday a
+ * place whose Thursday runs to 2 a.m. is "Open · until 2:00 AM", and the
+ * line under it said "Today: 11:00 AM – 5:00 AM" — Friday's, which have not
+ * begun. This gives the hours being kept right now, with their day
+ * ({ day: 'thu', text: '11:00 AM – 2:00 AM' }), or null at any other time.
+ */
+export function lastNightHours(hoursFact, now = new Date()) {
+  if (!isKnown(hoursFact)) return null;
+  const { weekly } = hoursFact.value;
+  if (!weekly) return null;
+  const k = inKorea(now);
+  const cur = k.getUTCHours() * 60 + k.getUTCMinutes();
+  const day = DAY_KEYS[(k.getUTCDay() + 6) % 7];
+  const slots = weekly[day];
+  if (!Array.isArray(slots)) return null;
+  const slot = slots.find((sl) => {
+    const from = toMinutes(sl.from);
+    const to = toMinutes(sl.to);
+    return from != null && to != null && to < from && cur < to;
+  });
+  return slot ? { day, text: slotText(slot) } : null;
+}
+
+/**
  * The week's hours, Monday first, for the detail page: one row per day with
  * its printed hours, "closed", or null where that day is not recorded (said
  * as such, never guessed). `today` marks the current day in Korea. Null when
