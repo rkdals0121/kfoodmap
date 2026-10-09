@@ -3730,6 +3730,20 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       and is written as that day in every time zone (`dayOnly` in
       `utils.js`). A long Korean name shown large gets its line breaks
       in code (`nameInLines`), not from the browser.
+    - Same night, two things the list says about a search without
+      changing what the search finds: (1) over the results of a search
+      for an ingredient, an allergen, or anything asked by leaving
+      something out ("gluten free", "no fish sauce", "not spicy") stands
+      the note that the map does not check ingredients — several words
+      are found one by one, in the story too, so such a list can hold a
+      place whose note says the opposite (`INGREDIENT_WORDS` in
+      `BottomSheetList.jsx`; not for "no pork", a level on record);
+      (2) "open now" typed out offers the chip (`asksOpenNow` /
+      `withoutOpenNow` in `filters.js`). One word alone is matched
+      against name, area, address and the one-line description only —
+      "biryani" finds nothing though seventeen stories mention it; menus
+      are not in the list's data. Changing that is a search-rule change
+      and needs the side-by-side comparison.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
