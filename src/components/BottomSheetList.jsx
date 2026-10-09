@@ -42,7 +42,7 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // (not a copy), its distance comes beside it, and `tick` is the minute, so
 // "Open" still turns to "Closed" on time.
 // (ナッツ: not ドーナッツ or ココナッツ, which are taken out first. No lookbehind — older iOS cannot parse one.)
-const INGREDIENT_WORDS = /allerg|alergi|peanut|kacang|gluten|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
+const INGREDIENT_WORDS = /allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|egg[- ]free|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(/ドーナッツ|ココナッツ/g, '')) };
 
 // Is this reading of a search the search itself with words left out or cut
@@ -432,6 +432,13 @@ export default function BottomSheetList({
       />
       {missingPlace && !searchQuery.trim() && activeFilters.length === 0 && (
         <p className="section-note place-list__note" role="status">{t('list.missingPlace')}</p>
+      )}
+      {/* "gluten free" finds 37 places, "dairy free" 14 — by a word in a
+          place's notes, which nobody has checked dish by dish. The same
+          caution an empty search for an allergen already gets, said over
+          the results too: a list under that search read as a promise. */}
+      {sorted.length > 0 && ASKS_INGREDIENT.test(searchQuery) && (
+        <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()}>{t('profile.staffCards')}</Link></p>
       )}
       {/* With both diets on, why the list is short comes before all else. */}
       {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
