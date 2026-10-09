@@ -3787,6 +3787,15 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       a reviewer: on 10-10 two reviews each found rules that undid one
       another (a street matched its district; "sunday" listed places
       closed on Sundays).
+      The cards page has a third card, for a vegetarian who eats egg and
+      dairy (`src/data/staff-cards.js`, `cardText.vege*`): its Korean was
+      written on 10-10 and is waiting for the owner's read. Several words
+      that find nothing offer the search without each (`withoutWords`).
+      Left for the owner (docs/MOBILE-AUDIT, 10-10 sections): the 純素
+      chip's name in Traditional Chinese, places named after another city
+      in an area search ("Busan Jib" in Seoul under "Busan"), "not open
+      yet" in red, prayer rooms as a fact of their own, the research
+      voice of the evidence text.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
