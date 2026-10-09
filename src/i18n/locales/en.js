@@ -538,6 +538,8 @@ export default {
     vegeQ3: 'Is there fish sauce or salted shrimp in the kimchi?',
     vegeQ4: 'Do you use oyster sauce or dasida (beef stock powder)?',
     vegeQ5: 'Could you make it without the meat?',
+    vegeQ6: 'Is there a dish that is not spicy, for a child?',
+    vegeQ7: 'Are there nuts in it (peanuts, walnuts, pine nuts, etc.)? I have a nut allergy.',
     veganS1: 'Hello. I am vegan (fully plant-based).',
     veganS2: 'I do not eat meat (beef, pork, chicken, including ham and sausage), fish, seafood (including fish cake and crab stick), eggs, milk or dairy, or honey.',
     veganS3: 'I also do not eat food with animal ingredients in its stock or seasoning (for example anchovy stock, fish sauce, salted shrimp).',

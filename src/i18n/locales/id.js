@@ -525,6 +525,8 @@ export default {
     vegeQ3: 'Apakah kimchinya mengandung kecap ikan atau udang asin fermentasi?',
     vegeQ4: 'Apakah Anda memakai saus tiram atau dasida (penyedap rasa sapi)?',
     vegeQ5: 'Bisakah dibuat tanpa daging?',
+    vegeQ6: 'Apakah ada menu yang tidak pedas untuk anak?',
+    vegeQ7: 'Apakah ini mengandung kacang tanah atau kacang pohon (kenari, kacang pinus, dan lainnya)? Saya alergi keduanya.',
     veganS1: 'Halo. Saya vegan (sepenuhnya nabati).',
     veganS2: 'Saya tidak makan daging (sapi, babi, ayam, termasuk ham dan sosis), ikan, makanan laut (termasuk fish cake dan crab stick), telur, susu atau produk susu, maupun madu.',
     veganS3: 'Saya juga tidak makan hidangan yang kaldu atau bumbunya mengandung bahan hewani (misalnya kaldu ikan teri, kecap ikan, udang asin fermentasi).',

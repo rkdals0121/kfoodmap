@@ -72,6 +72,9 @@ export const STAFF_CARDS = [
       { ko: '김치에 액젓이나 새우젓이 들어가나요?', roman: 'Gimchie aekjeosina saeujeosi deureoganayo?', key: 'vegeQ3' },
       { ko: '굴소스나 다시다(쇠고기 조미료)⁠를 쓰나요?', roman: 'Gulsoseuna dasida (soegogi jomiryo) reul sseunayo?', key: 'vegeQ4' },
       { ko: '고기를 빼고 만들어 주실 수 있나요?', roman: 'Gogireul ppaego mandeureo jusil su innayo?', key: 'vegeQ5' },
+      // The two every card carries: a child at the table, and nuts.
+      { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'vegeQ6' },
+      { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'vegeQ7' },
     ],
   },
   {
