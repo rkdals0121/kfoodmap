@@ -27,7 +27,7 @@ export const OPEN_NOW = 'Open now';
 // (With what trails the words in each language — "営業中のお店", "现在营业的店",
 // "지금 영업하는 곳" — so that taking them out leaves no stray particle; not
 // "영업중단", closed for good.)
-const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b24[- ]?(?:hours?|hr|h)\b|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:larut|tengah)\s+malam|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
+const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b24[- ]?(?:hours?|hr|h|jam)\b|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:larut|tengah)\s+malam|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
 export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
 export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
 // A day named in the search — "halal saturday dinner", "tomorrow lunch
@@ -172,7 +172,11 @@ const DIET_WORDS = {
   // their descriptions — every one of them among the Vegan chip's 521, with
   // "경주 채식" finding none of Gyeongju's four.
   vegetarian: 'Vegan', vegetarisch: 'Vegan', vegetariano: 'Vegan', vegetariana: 'Vegan', vegetarien: 'Vegan',
-  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
+  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '素食主义': 'Vegan', '素食主義': 'Vegan', '素食者': 'Vegan', '蛋奶素': 'Vegan', '净素': 'Vegan', '淨素': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
+  // "Plant-based", "meatless", "no meat": the same question again ("plant
+  // based" found 64 places by their descriptions, "meatless" none).
+  plantbased: 'Vegan', meatless: 'Vegan', meatfree: 'Vegan', nomeat: 'Vegan', withoutmeat: 'Vegan', tanpadaging: 'Vegan', vegetaris: 'Vegan', nabati: 'Vegan',
+  '식물성': 'Vegan', '고기없는': 'Vegan', 'プラントベース': 'Vegan', '植物性': 'Vegan', '植物基': 'Vegan', '肉なし': 'Vegan', '无肉': 'Vegan', '無肉': 'Vegan',
   'ハラール': 'Halal', 'ハラル': 'Halal', 'ヴィーガン': 'Vegan', 'ビーガン': 'Vegan',
   '清真': 'Halal', '纯素': 'Vegan', '純素': 'Vegan',
   '할랄': 'Halal', '비건': 'Vegan',
@@ -191,7 +195,7 @@ const DIET_WORDS = {
   fullyvegan: FULLY_VEGAN, '완전비건': FULLY_VEGAN, '完全ヴィーガン': FULLY_VEGAN, '完全ビーガン': FULLY_VEGAN,
   '全纯素': FULLY_VEGAN, '全純素': FULLY_VEGAN, '全素': FULLY_VEGAN, vegansepenuhnya: FULLY_VEGAN, sepenuhnyavegan: FULLY_VEGAN,
   veganoptions: 'Vegan', 'ヴィーガン対応あり': 'Vegan', '有纯素选项': 'Vegan', '有純素選項': 'Vegan',
-  halalfriendly: 'Halal', ramahhalal: 'Halal', 'ハラールフレンドリー': 'Halal', '할랄프렌들리': 'Halal', '清真友好': 'Halal', '清真友善': 'Halal',
+  halalfriendly: 'Halal', ramahhalal: 'Halal', ramahmuslim: 'Halal', 'ハラールフレンドリー': 'Halal', '할랄프렌들리': 'Halal', '清真友好': 'Halal', '清真友善': 'Halal',
   muslim: 'Halal', muslimfriendly: 'Halal', '무슬림': 'Halal', '무슬림프렌들리': 'Halal', '무슬림친화': 'Halal', 'ムスリム': 'Halal', 'ムスリムフレンドリー': 'Halal', 'ムスリム対応': 'Halal', '穆斯林': 'Halal', '穆斯林友好': 'Halal',
 };
 // "Pork-free" is a halal level the Halal chip leaves out (it is not halal),
@@ -205,7 +209,7 @@ export const isPorkFreeQuery = (query) => {
   return words.some((w, i) => PORK_FREE_WORDS.has(squash(w))
     || (i + 1 < words.length && PORK_FREE_WORDS.has(squash(`${w} ${words[i + 1]}`))));
 };
-const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'withoutpork', 'tanpababi', '豚肉不使用', '豚肉なし', 'ポークフリー', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '돼지고기없는', '돼지고기없는곳', '포크프리']);
+const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'withoutpork', 'tanpababi', 'bebasbabi', '豚肉不使用', '豚肉なし', 'ポークフリー', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '돼지고기없는', '돼지고기없는곳', '포크프리']);
 const dietWordMatch = (r, w) => {
   // Object.hasOwn: typing "constructor" must not find Object.prototype's.
   if (Object.hasOwn(DIET_WORDS, w)) return DIET_WORDS[w] === FULLY_VEGAN ? matchesFullyVegan(r) : matchesDietary(r, DIET_WORDS[w]);

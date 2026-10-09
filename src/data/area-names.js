@@ -54,7 +54,8 @@ const ALSO_NAMED = {
   'City Hall': ['시청', '市庁', '市厅', '市廳'],
   Mangwon: ['망원', '望遠', '望远'],
   Bukchon: ['북촌', '北村'],
-  Namsan: ['남산', '南山'],
+  // (The tower is on the hill: its names are read as the hill's.)
+  Namsan: ['남산', '南山', '남산타워', 'N서울타워', 'Nソウルタワー', '南山タワー', 'ソウルタワー', 'N首尔塔', 'N首爾塔', '南山塔', '首尔塔', '首爾塔'],
   COEX: ['코엑스'],
   Gwangalli: ['광안리', '広安里', '广安里', '廣安里', 'クァンアンリ'],
   Nampo: ['남포동', '남포', '南浦洞', '南浦', 'ナンポドン'],
@@ -66,6 +67,40 @@ const ALSO_NAMED = {
   Aewol: ['涯月'],
   Seongsan: ['城山日出峰', '城山'],
   Jagalchi: ['チャガルチ'],
+  Yeouido: ['汝矣島', '汝矣岛', 'ヨイド'],
+  Samcheong: ['三清洞'],
+  Euljiro: ['乙支路', 'ウルチロ'],
+  Apgujeong: ['狎鴎亭', '狎鷗亭', '狎鸥亭', 'アックジョン'],
+  Cheongdam: ['清潭洞', '清潭', 'チョンダム'],
+  Namdaemun: ['南大門', '南大门', 'ナンデムン'],
+  Gwangjang: ['広蔵', '廣藏', '广藏', 'クァンジャン'],
+  Ewha: ['梨大', '梨花女子大学', '梨花女子大學', 'イデ'],
+  'Daehak-ro': ['大学路', '大學路', 'テハンノ'],
+  Garosu: ['カロスキル'],
+  Gimpo: ['金浦', 'キンポ'],
+  Hannam: ['漢南洞', '汉南洞'],
+  Konkuk: ['建大', '建国大学', '建國大學'],
+  'gluten free': ['グルテンフリー', '无麸质', '無麩質', '글루텐프리'],
+  // Cities, in the letters their names are written in.
+  Chuncheon: ['春川', 'チュンチョン'],
+  Sokcho: ['束草', 'ソクチョ'],
+  Yeosu: ['麗水', '丽水', 'ヨス'],
+  Mokpo: ['木浦'],
+  Gunsan: ['群山'],
+  Cheonan: ['天安'],
+  Cheongju: ['清州'],
+  Changwon: ['昌原'],
+  Pyeongtaek: ['平沢', '平澤', '平泽'],
+  Paju: ['坡州'],
+  Ilsan: ['一山'],
+  Bundang: ['盆唐'],
+  Jinju: ['晋州', '晉州'],
+  Geoje: ['巨済', '巨濟', '巨济'],
+  Damyang: ['潭陽', '潭阳'],
+  Gapyeong: ['加平'],
+  market: ['市場', '市场'],
+  organic: ['オーガニック', '有机', '有機', '유기농'],
+  porridge: ['お粥', 'おかゆ'],
   // Kinds of cooking, searched in the reader's own words for them: the
   // records say "temple" and "vegetarian".
   temple: ['사찰음식', '寺院料理', '寺庙料理', '寺廟料理', '寺刹料理', '精進料理', '寺庙', '寺廟', '寺院', '斋菜', '齋菜', '素斋', '素齋'],
@@ -76,7 +111,7 @@ const ALSO_NAMED = {
   cake: ['ケーキ', '蛋糕', '케이크'],
   coffee: ['コーヒー', '咖啡', '커피'],
   brunch: ['ブランチ', '早午餐', '브런치'],
-  prayer: ['기도실', '礼拝室', '礼拜室', '祈祷室', '祈禱室'],
+  prayer: ['기도실', '礼拝室', '礼拜室', '祈祷室', '祈禱室', 'お祈り'],
   mosque: ['모스크', 'モスク', '清真寺'],
   airport: ['공항', '空港', '机场', '機場'],
   // Kinds of kitchen, as the records' own lines name them in English.
@@ -140,6 +175,8 @@ const TO_ROMAN = new Map([
 const LATIN_VARIANTS = new Map(Object.entries({
   // Dishes, in the other spellings in use: the records write "gimbap" in
   // some places and "kimbap" in others, and a visitor types either.
+  // Whole words only (as every entry here): "한식당" is not "korean 당".
+  '한식': 'korean', '한식당': 'korean', '한식집': 'korean', '한국': 'korean', '한국음식': 'korean', '한국요리': 'korean',
   kimbap: 'gimbap',
   gimbab: 'gimbap',
   kimbab: 'gimbap',
@@ -176,6 +213,12 @@ const LATIN_VARIANTS = new Map(Object.entries({
   kopi: 'coffee',
   kue: 'cake',
   kafe: 'cafe',
+  kari: 'curry',
+  mie: 'noodle',
+  tahu: 'tofu',
+  ayam: 'chicken',
+  bubur: 'porridge',
+  pasar: 'market',
   manis: 'dessert',
   pusan: 'Busan',
   inchon: 'Incheon',
@@ -287,9 +330,9 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // …and the particles that glue an area to them: "ソウルでおすすめの…",
   // "서울에서 맛있는…", "首尔有什么好吃的…".
   'で', 'にある', 'に', '에서', '에', '의', '有什么', '有什麼', '有',
-  'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat', 'sini', 'terdekat',
+  'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat', 'sini', 'terdekat', 'siang', 'malam', 'pagi', 'ruang', 'pulau', 'kota',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の', 'フード', '食品', '朝ごはん', 'モーニング', '朝食', '早餐', 'sarapan', '아침', '손님', '외국인',
-  '附近', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
+  '附近', '我附近', '离我最近', '離我最近', '我', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
 
 // Of those, the words of a question (not "restaurant", "food", "the", which
 // many places carry in their names). A place whose own name has such a word
@@ -320,6 +363,13 @@ const peel = (text) => {
   }
 };
 
+// A search of nothing but such words — "맛집", "근처 맛집", "レストラン", "餐厅",
+// "restaurants near me" — names no place and no kind of place: every place
+// on the map is a restaurant.
+export const onlyFillers = (query) => {
+  const words = String(query ?? '').normalize('NFKC').trim().split(/\s+/).filter(Boolean);
+  return words.length > 0 && words.every(w => FILLER.has(bare(w)) || (/[\u0080-\uFFFF]/.test(w) && peel(w) === ''));
+};
 const GLUE_HEADS = new Set(['할랄', '비건', '채식', '무슬림', '清真', '纯素', '純素', '素食', '不含猪肉', '不含豬肉', 'ハラール', 'ハラル', 'ヴィーガン', 'ビーガン', '豚肉不使用']);
 const peelEnd = (text) => {
   let rest = text;

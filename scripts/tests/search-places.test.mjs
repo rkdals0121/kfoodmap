@@ -134,7 +134,10 @@ test('a kind of cooking is searched, and is not an area', async () => {
   // …but a name that merely ends so is searched as it is.
   const { romaniseQuery: roman } = await import('../../src/data/area-names.js');
   assert.equal(roman('아빠의양식당'), null);
-  assert.equal(roman('한식당'), null);
+  // (한식당 was once read as "한" with the 식당 taken off; it is now a word the
+  // map knows whole: Korean food.)
+  assert.equal(roman('한식당'), 'korean');
+  assert.equal(roman('양식당'), null);
   // A layover's words.
   assert.ok(n('musala') > 0 && n('musala') === n('prayer'));
   assert.equal(n('기도실'), n('prayer'));
@@ -585,4 +588,30 @@ test('a day and a meal run together in Chinese and Japanese are a plan; a name i
   assert.equal(plannedTime('minggu depan', 5), null);
   assert.equal(plannedTime('weds lunch', 5)?.day, 3);
   assert.equal(plannedTime('Sunday Bakery', 5)?.sure, false);
+});
+
+test('words that name no place and no kind of place are no search', () => {
+  const all = go('').filteredRestaurants.length;
+  for (const q of ['맛집', '근처 맛집', 'レストラン', '餐厅', '附近', 'restaurants near me', 'near me', 'tempat makan', 'where to eat']) {
+    assert.equal(go(q).filteredRestaurants.length, all, q);
+  }
+  // A place called so is still what was meant.
+  assert.ok(go('restaurant').filteredRestaurants.length < all);
+  assert.equal(ids(go('서울 맛집')), ids(go('서울')));
+});
+
+test('more wordings of the same questions', () => {
+  const vegan = ids(go('vegan'));
+  for (const q of ['plant based', 'plant-based', 'meatless', 'no meat', 'meat free', '식물성', '고기 없는 식당', 'プラントベース', '无肉', 'tanpa daging', '素食主义']) assert.equal(ids(go(q)), vegan, q);
+  assert.equal(ids(go('plant based jeju')), ids(go('vegan jeju')));
+  assert.equal(ids(go('ramah muslim')), ids(go('halal')));
+  assert.equal(ids(go('bebas babi')), ids(go('no pork')));
+  assert.equal(ids(go('makan siang halal')), ids(go('halal')));
+  assert.equal(ids(go('我附近的清真餐厅')), ids(go('halal')));
+  assert.equal(ids(go('한식당')), ids(go('korean')));
+  // Names in the letters a guidebook writes them in.
+  for (const [typed, roman] of [['汝矣島', 'Yeouido'], ['乙支路', 'Euljiro'], ['狎鴎亭', 'Apgujeong'], ['春川', 'Chuncheon'], ['束草', 'Sokcho'], ['大学路', 'Daehak-ro'], ['南大門市場', 'Namdaemun Market'], ['南山タワー', 'Namsan'], ['グルテンフリー', 'gluten free'], ['无麸质', 'gluten free']]) {
+    assert.ok(go(typed).filteredRestaurants.length > 0, typed);
+    assert.equal(ids(go(typed)), ids(go(roman)), `${typed} = ${roman}`);
+  }
 });

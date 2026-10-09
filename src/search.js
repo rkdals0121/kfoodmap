@@ -15,7 +15,7 @@
 // A fallback never fires because the chips emptied the list: "Mangwon" +
 // Halal is no reason to show Gangwon.
 import { matchesDietary } from './data/verification.js';
-import { COOKING, fuzzyQuery, isListedArea, questionWords, romaniseQuery, stripFillers } from './data/area-names.js';
+import { COOKING, fuzzyQuery, isListedArea, onlyFillers, questionWords, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
   matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, porkFreeSaid, liftDietWords } from './filters.js';
@@ -66,7 +66,12 @@ export function searchPlaces({
 }) {
   // A certification word is a question (filters.js): out before the
   // station, filler and phrase readings below see the search.
-  const typed = stripCertWords(porkFreeSaid(String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim()));
+  const said = stripCertWords(porkFreeSaid(String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim()));
+  // "맛집", "근처 맛집", "レストラン", "restaurants near me": words that name no
+  // place and no kind of place found nothing, or whatever record happened to
+  // hold them. Every place is one — unless some place is called so
+  // ("… Restaurant", "… Halal Food"), which is then searched as typed.
+  const typed = onlyFillers(said) && !places.some(r => String(r.name).toLowerCase().includes(said.toLowerCase())) ? '' : said;
   // A diet word beside a station is a chip, and the station the search:
   // "halal seoul station" took "halal seoul" for the station's name and
   // answered with every halal place in Seoul; "seoul station halal"

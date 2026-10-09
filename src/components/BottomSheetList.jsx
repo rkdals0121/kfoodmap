@@ -58,8 +58,11 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
 // (Not "no pork" / "pork-free" by itself: that is a level the records do
 // carry. Beside another such word — "no pork gluten free" — the note stands.)
-const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|tanpa\s+babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
-const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(PORK_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
+const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|bebas)\s+babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
+// "No meat", "meat-free", "고기 없는": the vegan question, answered from the
+// record like "no pork" — not an ingredient the map cannot check.
+const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
+const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
 // short — no word of it spelt differently?
