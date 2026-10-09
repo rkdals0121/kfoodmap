@@ -3702,6 +3702,14 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       their own button" (found the map buttons and a broken phone
       number), one tap against a double tap on every button of a
       screen, the app with `localStorage` throwing, the page translated.
+    - A clock time, a walk in minutes, a distance, "exit n" and "Line n"
+      carry a no-break space (`fromMinutes`, `formatDistance`, the
+      `transitWalk` / `transitExit` strings): a test that compares such
+      a string writes ` `. `useFitText` measures with words whole
+      (`data-fit="words"`): since Korean may break anywhere (the rule
+      for long names), the large card for staff had been cutting
+      "들어가나요?" in two. A rule added for one case is checked against
+      the screens that depend on the old behaviour.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
