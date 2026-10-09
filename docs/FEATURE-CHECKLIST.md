@@ -478,6 +478,10 @@ P17. A browser that refuses storage (Safari with all cookies blocked; regress st
 
 P18. A quick double tap (two presses at one spot within half a second; regress step `double-tap`) → the second press counts only on the same control (zoom, a chip on and off, "Next stop"). On a card it does not reach the place that opens (no accidental "Call", Save or unfolded hours); on the list's handle it does not open a card; a confirm dialog is not confirmed by the tap that raised it. Keyboard presses are never dropped.
 
+P19. Very narrow screens (240–319 px: a folding phone's cover screen, a page zoomed to 150%) → no sideways scroll on any screen; the place's two map buttons keep their words inside (on two lines). At any width a clock time ("11:00 AM", "오전 10:30"), a walk ("7 min walk"), a distance ("300 m") and "Line 2" do not split across lines; a phone number stays whole; a place's Website and Instagram links each keep to one line.
+
+P20. The large Korean card ("Show large", a question tapped in `/cards`) → the text is as big as fits with every word whole (no "들어가나" / "요?"), at 320×568, sideways and at the largest text size.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
