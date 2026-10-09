@@ -28,3 +28,25 @@ test('a neighbourhood typed in Korean finds the places whose address names it', 
   // 우동 is a bowl of noodles before it is U-dong in Haeundae.
   assert.ok(found('우동').every(r => !/\bU-dong\b/.test(r.address.value) || /우동/.test(r.name)));
 });
+
+test('other place words typed in Korean are found by the word in the English address or zone', () => {
+  const places = restaurants.filter(r => !isQuarantined(r));
+  const found = (query) => searchPlaces({ places, query, selectedFilters: [], now: new Date('2026-10-09T03:00:00Z') }).filteredRestaurants;
+  for (const [ko, roman] of [['합정', 'Hapjeong'], ['해방촌', 'Haebangchon'], ['혜화', 'Hyehwa'], ['경리단길', 'Gyeongnidan']]) {
+    const list = found(ko);
+    assert.ok(list.length > 0, `${ko} finds something`);
+    assert.ok(list.every(r => `${r.address.value} ${r.zone ?? ''}`.includes(roman)), `${ko}: every place found says ${roman}`);
+  }
+  // A road named after somewhere else is not that place.
+  assert.ok(found('시흥').every(r => !/Siheung-daero/.test(r.address.value) || /Siheung(?!-daero)/.test(`${r.address.value} ${r.zone ?? ''}`)));
+});
+
+test('a food of one syllable beside a diet word is still searched for', () => {
+  const places = restaurants.filter(r => !isQuarantined(r));
+  const found = (query) => searchPlaces({ places, query, selectedFilters: [], now: new Date('2026-10-09T03:00:00Z') }).filteredRestaurants;
+  const vegan = found('비건').length;
+  assert.ok(found('비건 빵').length > 0 && found('비건 빵').length < vegan / 4, '"비건 빵" is not every vegan place');
+  assert.ok(found('비건 빵').length <= found('빵').length);
+  // One letter of a word still being typed is set aside as before.
+  assert.equal(found('부산 v').length, found('부산').length);
+});

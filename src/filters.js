@@ -338,6 +338,9 @@ export function liftDietWords(query) {
   }
   return { chips: [...new Set(chips)], rest: rest.join(' ') };
 }
+// (Not 면, 국, 전, 차: they are also the ends of other words — 두부면 is read
+// as tofu with a 면 left over, 제주도 as Jeju with a 도.)
+const ONE_SYLLABLE_FOOD = new Set(['빵', '죽', '떡', '밥', '탕', '찜', '쌈', '콩', '묵', '술']);
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
   const q = squash(query);
@@ -384,7 +387,9 @@ function searchCore(r, rawQuery) {
     return halves.length > 1 && !PORK_FREE_WORDS.has(squash(w)) && !Object.hasOwn(DIET_WORDS, squash(w))
       && halves.some(h => Object.hasOwn(DIET_WORDS, squash(h))) ? halves : [w];
   });
-  const words = dietPairs(spaced).filter(w => w.length >= 2);
+  // (A food that is one syllable in Korean is a word all the same: "비건 빵"
+  // was every vegan place, 521 of them, with the 빵 thrown away.)
+  const words = dietPairs(spaced).filter(w => w.length >= 2 || ONE_SYLLABLE_FOOD.has(w));
   // Words of one letter are dropped, not required: "busan v" (mid-typing)
   // and "제주도" (split into Jeju + 도) are then judged on what is left.
   if (words.length === 0) return false;
@@ -422,17 +427,30 @@ const AREA_KO = new Set(Object.values(AREA_NAMES).map(forms => forms[0]));
 // says "Ikseon-dong". The word is spelt as the records spell it and looked
 // for there. (Two syllables or more before 동: 우동 is a bowl of noodles.)
 const DONG_TYPED = /^([가-힣]{2,5})(?:제?\d+)?동$/;
-const dongAsked = new Map();
-function koDongHas(r, w) {
-  if (!dongAsked.has(w)) {
-    const roman = romaniseKorean(DONG_TYPED.exec(w)?.[1]);
-    if (dongAsked.size > 200) dongAsked.clear();
-    dongAsked.set(w, roman ? new RegExp(`\\b${roman}\\d*-dong\\b`, 'i') : null);
+// So with any other place word of two syllables or more that the lists
+// above do not know — 해방촌, 판교, 혜화, 황리단길 (a street, without its 길):
+// found where the English address or zone holds that very word.
+const STREET_TYPED = /^([가-힣]{2,6})[길로]$/;
+const placeAsked = new Map();
+function koPlaceHas(r, w) {
+  if (!placeAsked.has(w)) {
+    // A word the lists of names read (두부면 is tofu + noodles, 성수동 is
+    // Seongsu) is theirs to answer.
+    const known = romaniseQuery(w) !== null;
+    const dong = known ? null : romaniseKorean(DONG_TYPED.exec(w)?.[1]);
+    const street = dong || known ? null : romaniseKorean(STREET_TYPED.exec(w)?.[1]);
+    // Not the road named after somewhere else: 시흥 is not Siheung-daero in
+    // Seoul. Nor a name the lists know (they answer for it themselves).
+    const word = dong || street || known || AREA_KO.has(w) ? null : romaniseKorean(w.length >= 2 ? w : '');
+    if (placeAsked.size > 200) placeAsked.clear();
+    placeAsked.set(w, dong ? new RegExp(`\\b${dong}\\d*-dong\\b`, 'i')
+      : street ? new RegExp(`\\b${street}\\b`, 'i')
+        : word ? new RegExp(`\\b${word}\\b(?!-(?:dae)?ro|-gil|\\s(?:buk|nam|dong|seo)-ro)`, 'i') : null);
   }
-  const said = dongAsked.get(w);
+  const said = placeAsked.get(w);
   return said !== null && (said.test(r.address?.value ?? '') || said.test(r.zone ?? ''));
 }
-function koAddressHas(r, w) { return koAddressWord(r, w, AREA_KO.has(w)) || koDongHas(r, w); }
+function koAddressHas(r, w) { return koAddressWord(r, w, AREA_KO.has(w)) || koPlaceHas(r, w); }
 const inAreaOrName = (r, w) => inArea(r, w) || aliasMatch(r, w) || koAddressHas(r, w) || startsWord(r.name, w);
 
 // Does a search word name this place's area (neighbourhood or address)?
