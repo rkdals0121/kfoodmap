@@ -599,8 +599,9 @@ test('words that name no place and no kind of place are no search', () => {
   for (const q of ['맛집', '근처 맛집', 'レストラン', '餐厅', '附近', 'restaurants near me', 'near me', 'tempat makan', 'where to eat']) {
     assert.equal(go(q).filteredRestaurants.length, all, q);
   }
-  // A place called so is still what was meant.
-  assert.ok(go('restaurant').filteredRestaurants.length < all);
+  // One such word is no name; a place called so in full is still what was meant.
+  assert.equal(go('restaurant').filteredRestaurants.length, all);
+  assert.equal(go('Royal Restaurant').filteredRestaurants.length, 1);
   assert.equal(ids(go('서울 맛집')), ids(go('서울')));
 });
 

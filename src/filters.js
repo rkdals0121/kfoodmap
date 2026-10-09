@@ -12,7 +12,7 @@
 import { matchesDietary } from './data/verification.js';
 import { koAddressHas as koAddressWord } from './data/address-ko.js';
 import { romaniseKorean } from './data/romanise-ko.js';
-import { romaniseQuery, COOKING, AREA_NAMES } from './data/area-names.js';
+import { romaniseQuery, onlyFillers, COOKING, AREA_NAMES } from './data/area-names.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 
@@ -98,6 +98,9 @@ export function plannedTime(query, today = 0) {
   rest = rest.replace(PLAN_REST, ' ').replace(/\s+(?:の|に|で|에|은|는|的)(?=\s)/g, ' ').replace(/[?!？！]+\s*$/, '').replace(/\s+/g, ' ').trim();
   // "Open now today", "오늘 심야": today, and now — the "Open now" question
   // with a word to spare, not a plan for another hour.
+  // What is left may be no search at all: "오늘 심야 식당", "saturday dinner
+  // restaurants" (식당 alone would be the seven places with 식당 in their name).
+  if (onlyFillers(rest)) rest = '';
   if (isToday && asksOpenNow(query)) return { day, minutes, rest, sure: false, now: true };
   return { day, minutes, rest, sure };
 }

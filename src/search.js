@@ -70,8 +70,13 @@ export function searchPlaces({
   // "맛집", "근처 맛집", "レストラン", "restaurants near me": words that name no
   // place and no kind of place found nothing, or whatever record happened to
   // hold them. Every place is one — unless some place is called so
-  // ("… Restaurant", "… Halal Food"), which is then searched as typed.
-  const typed = onlyFillers(said) && !places.some(r => String(r.name).toLowerCase().includes(said.toLowerCase())) ? '' : said;
+  // ("Korean Food", "Royal Restaurant"), which is then searched as typed.
+  // (One such word is in many names — "restaurant" found 153 places while
+  // "restaurants" found all of them: a single word is a name only when it is
+  // the whole of one.)
+  const low = said.toLowerCase();
+  const aName = (r) => { const name = String(r.name).toLowerCase(); return low.includes(' ') ? name.includes(low) : name.split(/\s*[()]\s*/).some(part => part.trim() === low); };
+  const typed = onlyFillers(said) && !places.some(aName) ? '' : said;
   // A diet word beside a station is a chip, and the station the search:
   // "halal seoul station" took "halal seoul" for the station's name and
   // answered with every halal place in Seoul; "seoul station halal"
