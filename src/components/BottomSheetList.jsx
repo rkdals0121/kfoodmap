@@ -369,6 +369,9 @@ export default function BottomSheetList({
   }, [hasMore, shown]);
 
   const plan = onPlan && !activeFilters.includes(OPEN_AT) ? plannedTime(searchQuery, koreaToday()) : null;
+  const offerPlan = Boolean(plan && plan.sure);
+  const offerOpenNow = Boolean(!plan && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery));
+  const offerLocate = Boolean(onLocate && !fromYou && locateState !== 'located' && locateState !== 'asking' && asksNearMe(searchQuery));
   const planLabel = plan ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[plan.day]}`), time: formatClock(plan.minutes) }) : '';
   return (
     // The notes above the cards fold to two lines on a phone and open on a
@@ -462,19 +465,14 @@ export default function BottomSheetList({
       {/* …and a day named in it ("saturday dinner halal", "내일 점심"): "Open
           at…" with that day and time. A weekday by itself may be a name
           ("Sun Hansik"), so over results only when a meal or "open" is said. */}
-      {plan && plan.sure && sorted.length > 0 && (
-        <p className="place-list__in-map">
-          <button type="button" onClick={() => onPlan(plan)}>{planLabel}</button>
-        </p>
-      )}
-      {onLocate && sorted.length > 0 && !fromYou && locateState !== 'located' && locateState !== 'asking' && asksNearMe(searchQuery) && (
-        <p className="place-list__in-map">
-          <button type="button" onClick={onLocate}>{t('map.nearMe')}</button>
-        </p>
-      )}
-      {!plan && onOpenNow && sorted.length > 0 && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
-        <p className="place-list__in-map">
-          <button type="button" onClick={onOpenNow}>{t('list.showOpenNow')}</button>
+      {/* One band for whatever is offered: "내일 점심 근처 비건" asks two things,
+          and two bands one under the other pushed the first card off a
+          small screen. */}
+      {sorted.length > 0 && (offerPlan || offerLocate || offerOpenNow) && (
+        <p className="place-list__in-map place-list__in-map--offers">
+          {offerPlan && <button type="button" onClick={() => onPlan(plan)}>{planLabel}</button>}
+          {offerOpenNow && <button type="button" onClick={onOpenNow}>{t('list.showOpenNow')}</button>}
+          {offerLocate && <button type="button" onClick={onLocate}>{t('map.nearMe')}</button>}
         </p>
       )}
       <div className="place-list__notes">

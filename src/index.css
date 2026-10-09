@@ -7402,3 +7402,22 @@ html[lang='id'] .stat-label {
   display: inline-flex;
   color: #06704F;
 }
+
+/* Several offers over the list share one band, side by side with a line
+   between them — and under one another when they do not fit, where the
+   line would stand at the start of a row: every button carries it on its
+   left, one pixel outside the band's clipped edge for the first of a row. */
+.place-list__in-map--offers {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 2px 0;
+  overflow: hidden;
+}
+.place-list__in-map--offers button {
+  margin-left: -1px;
+  padding: 0 14px 0 13px;
+  border-left: 1px solid var(--line-hover);
+  border-radius: 0;
+  background-clip: padding-box;
+}
