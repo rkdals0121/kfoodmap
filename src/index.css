@@ -7304,3 +7304,11 @@ html[lang='id'] .stat-label {
 .practical-links .practical-link {
   white-space: nowrap;
 }
+
+/* Text being fitted to its box (useFitText) keeps its words whole: every
+   Korean element may otherwise break anywhere, and the fit then never sees
+   a word that is too long for the line. */
+[data-fit='words'],
+[data-fit='words'] * {
+  overflow-wrap: normal;
+}

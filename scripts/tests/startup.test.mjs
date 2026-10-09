@@ -106,11 +106,11 @@ test('a distance is written with the decimal mark of the language', async () => 
   const { default: i18next } = await import('i18next');
   const { formatDistance } = await import('../../src/utils.js');
   const before = i18next.language;
-  assert.equal(formatDistance(1.94), '1.9 km');
-  assert.equal(formatDistance(0.3), '300 m');
+  assert.equal(formatDistance(1.94), '1.9\u00A0km');
+  assert.equal(formatDistance(0.3), '300\u00A0m');
   await i18next.changeLanguage('id');
-  assert.equal(formatDistance(1.94), '1,9 km');
-  assert.equal(formatDistance(12.4), '12 km');
+  assert.equal(formatDistance(1.94), '1,9\u00A0km');
+  assert.equal(formatDistance(12.4), '12\u00A0km');
   await i18next.changeLanguage(before);
 });
 

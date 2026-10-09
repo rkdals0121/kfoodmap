@@ -31,10 +31,10 @@ export function haversineKm(lat1, lng1, lat2, lng2) {
 export function formatDistance(km) {
   if (!Number.isFinite(km)) return '';
   // Rounded to 50 m; 0.99 km would otherwise print as "1000 m".
-  if (km < 0.975) return `${Math.max(Math.round(km * 20) * 50, 50)} m`;
+  if (km < 0.975) return `${Math.max(Math.round(km * 20) * 50, 50)}\u00A0m`;
   // Indonesian writes the decimal with a comma: "1,9 km".
-  if (km < 10) return `${i18next.language === 'id' ? km.toFixed(1).replace('.', ',') : km.toFixed(1)} km`;
-  return `${Math.round(km)} km`;
+  if (km < 10) return `${i18next.language === 'id' ? km.toFixed(1).replace('.', ',') : km.toFixed(1)}\u00A0km`;
+  return `${Math.round(km)}\u00A0km`;
 }
 
 export const DAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];

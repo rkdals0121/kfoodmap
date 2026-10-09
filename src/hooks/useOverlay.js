@@ -84,6 +84,12 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
       const room = box.clientHeight - padY - others;
       let lo = min;
       let hi = typeof max === 'function' ? max() : max;
+      // A word is not to be cut to make the text bigger: Korean text may
+      // break anywhere when it must (a long name on a narrow phone), so
+      // "들어가나요?" was drawn as "들어가나" / "요?" at a size one word did
+      // not fit. Measured with words whole; a size at which one sticks out
+      // is too big. (`[data-fit='words']` in index.css.)
+      el.dataset.fit = 'words';
       // Binary search: 8 steps settle within a pixel.
       for (let i = 0; i < 8; i++) {
         const mid = (lo + hi) / 2;
@@ -91,6 +97,8 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
         if (el.offsetHeight <= room && el.scrollWidth <= el.clientWidth + 1) lo = mid; else hi = mid;
       }
       el.style.fontSize = `${Math.floor(lo)}px`;
+      // Even the smallest size too wide for one word: then it may break.
+      if (el.scrollWidth > el.clientWidth + 1) delete el.dataset.fit;
     };
     fit();
     // The bold Korean face may arrive after the first measure.
