@@ -505,3 +505,10 @@ test('"nearby" written against the diet word, without a space, is still the diet
   // A name that only begins like such a word is left alone.
   assert.equal(go('아빠의양식당').filteredRestaurants.length, 1);
 });
+
+test('more ways a visitor writes the diet, in Japanese and Chinese', () => {
+  const halal = ids(go('halal'));
+  for (const q of ['ハラールフード', 'ムスリムフレンドリー', 'ムスリムフレンドリー レストラン', '清真食品']) assert.equal(ids(go(q)), halal, q);
+  assert.equal(ids(go('豚肉なし')), ids(go('pork free')));
+  for (const q of ['蔬食', '吃素']) assert.equal(ids(go(q)), ids(go('素食')), q);
+});

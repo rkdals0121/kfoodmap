@@ -133,7 +133,7 @@ const DIET_WORDS = {
   '全纯素': FULLY_VEGAN, '全純素': FULLY_VEGAN, '全素': FULLY_VEGAN, vegansepenuhnya: FULLY_VEGAN, sepenuhnyavegan: FULLY_VEGAN,
   veganoptions: 'Vegan', 'ヴィーガン対応あり': 'Vegan', '有纯素选项': 'Vegan', '有純素選項': 'Vegan',
   halalfriendly: 'Halal', ramahhalal: 'Halal', 'ハラールフレンドリー': 'Halal', '할랄프렌들리': 'Halal', '清真友好': 'Halal', '清真友善': 'Halal',
-  muslim: 'Halal', muslimfriendly: 'Halal', '무슬림': 'Halal', '무슬림프렌들리': 'Halal', '무슬림친화': 'Halal', 'ムスリム': 'Halal', '穆斯林': 'Halal',
+  muslim: 'Halal', muslimfriendly: 'Halal', '무슬림': 'Halal', '무슬림프렌들리': 'Halal', '무슬림친화': 'Halal', 'ムスリム': 'Halal', 'ムスリムフレンドリー': 'Halal', 'ムスリム対応': 'Halal', '穆斯林': 'Halal', '穆斯林友好': 'Halal',
 };
 // "Pork-free" is a halal level the Halal chip leaves out (it is not halal),
 // so it is reached by typing it — in any of these wordings.
@@ -146,7 +146,7 @@ export const isPorkFreeQuery = (query) => {
   return words.some((w, i) => PORK_FREE_WORDS.has(squash(w))
     || (i + 1 < words.length && PORK_FREE_WORDS.has(squash(`${w} ${words[i + 1]}`))));
 };
-const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'withoutpork', 'tanpababi', '豚肉不使用', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '돼지고기없는', '돼지고기없는곳', '포크프리']);
+const PORK_FREE_WORDS = new Set(['porkfree', 'nopork', 'withoutpork', 'tanpababi', '豚肉不使用', '豚肉なし', 'ポークフリー', '不含猪肉', '无猪肉', '不含豬肉', '돼지고기없음', '돼지고기없는', '돼지고기없는곳', '포크프리']);
 const dietWordMatch = (r, w) => {
   // Object.hasOwn: typing "constructor" must not find Object.prototype's.
   if (Object.hasOwn(DIET_WORDS, w)) return DIET_WORDS[w] === FULLY_VEGAN ? matchesFullyVegan(r) : matchesDietary(r, DIET_WORDS[w]);
