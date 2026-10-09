@@ -7385,3 +7385,20 @@ html[lang='id'] .stat-label {
   margin: 6px 0 0;
   color: var(--ink-body);
 }
+
+/* The copy buttons keep their width when pressed: a tick stands where the
+   word was. */
+.copy-label {
+  display: inline-grid;
+  place-items: center;
+}
+.copy-label > * {
+  grid-area: 1 / 1;
+}
+.copy-label__word[aria-hidden='true'] {
+  visibility: hidden;
+}
+.copy-label__done {
+  display: inline-flex;
+  color: #06704F;
+}

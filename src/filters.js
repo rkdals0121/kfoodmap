@@ -11,6 +11,7 @@
 // string); the rest are descriptive traits.
 import { matchesDietary } from './data/verification.js';
 import { koAddressHas as koAddressWord } from './data/address-ko.js';
+import { romaniseKorean } from './data/romanise-ko.js';
 import { romaniseQuery, COOKING, AREA_NAMES } from './data/area-names.js';
 
 export const DIETARY_CHIPS = ['Vegan', 'Halal'];
@@ -416,7 +417,22 @@ const AREA_WORDS = new Set(Object.keys(AREA_NAMES).map(name => squash(name)));
 const AREA_KEYS = new Set(Object.keys(AREA_NAMES).map(name => name.toLowerCase()));
 // …and in Korean (the first written form of each): see koAddressHas.
 const AREA_KO = new Set(Object.values(AREA_NAMES).map(forms => forms[0]));
-function koAddressHas(r, w) { return koAddressWord(r, w, AREA_KO.has(w)); }
+// A neighbourhood typed in Korean — 익선동, 서교동, 한남동: the Korean address
+// on file is the road-name one and names no neighbourhood; the English one
+// says "Ikseon-dong". The word is spelt as the records spell it and looked
+// for there. (Two syllables or more before 동: 우동 is a bowl of noodles.)
+const DONG_TYPED = /^([가-힣]{2,5})(?:제?\d+)?동$/;
+const dongAsked = new Map();
+function koDongHas(r, w) {
+  if (!dongAsked.has(w)) {
+    const roman = romaniseKorean(DONG_TYPED.exec(w)?.[1]);
+    if (dongAsked.size > 200) dongAsked.clear();
+    dongAsked.set(w, roman ? new RegExp(`\\b${roman}\\d*-dong\\b`, 'i') : null);
+  }
+  const said = dongAsked.get(w);
+  return said !== null && (said.test(r.address?.value ?? '') || said.test(r.zone ?? ''));
+}
+function koAddressHas(r, w) { return koAddressWord(r, w, AREA_KO.has(w)) || koDongHas(r, w); }
 const inAreaOrName = (r, w) => inArea(r, w) || aliasMatch(r, w) || koAddressHas(r, w) || startsWord(r.name, w);
 
 // Does a search word name this place's area (neighbourhood or address)?

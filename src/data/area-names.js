@@ -58,6 +58,14 @@ const ALSO_NAMED = {
   COEX: ['코엑스'],
   Gwangalli: ['광안리', '広安里', '广安里', '廣安里', 'クァンアンリ'],
   Nampo: ['남포동', '남포', '南浦洞', '南浦', 'ナンポドン'],
+  // Neighbourhoods a guidebook in Japanese or Chinese writes in its own
+  // letters; the records' addresses hold the romanised word.
+  Ikseon: ['益善洞'],
+  Yeonnam: ['延南洞'],
+  Jeonpo: ['田浦洞', '田浦'],
+  Aewol: ['涯月'],
+  Seongsan: ['城山日出峰', '城山'],
+  Jagalchi: ['チャガルチ'],
   // Kinds of cooking, searched in the reader's own words for them: the
   // records say "temple" and "vegetarian".
   temple: ['사찰음식', '寺院料理', '寺庙料理', '寺廟料理', '寺刹料理', '精進料理', '寺庙', '寺廟', '寺院', '斋菜', '齋菜', '素斋', '素齋'],
@@ -89,7 +97,9 @@ const ALSO_NAMED = {
   // Dishes, by the names a reader types for them: the records, their
   // stories and their English menu lines say "bibimbap", "gimbap", "tofu".
   // ("ビビンバ" found nothing, with the word on screen in the menu glosses.)
-  bibimbap: ['비빔밥', 'ビビンバ', 'ビビンパ', '拌饭', '拌飯'],
+  bibimbap: ['비빔밥', 'ビビンバ', 'ビビンパ', '石锅拌饭', '石鍋拌飯', '拌饭', '拌飯'],
+  naengmyeon: ['冷麺', '冷面', '冷麵'],
+  hanjeongsik: ['韓定食', '韩定食'],
   gimbap: ['김밥', 'キンパ', 'キムパプ', '紫菜包饭', '紫菜包飯'],
   tteokbokki: ['떡볶이', 'トッポッキ', 'トッポギ', '炒年糕'],
   sundubu: ['순두부', 'スンドゥブ', '嫩豆腐'],

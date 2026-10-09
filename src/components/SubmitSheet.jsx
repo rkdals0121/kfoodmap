@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
+import { displayName } from '../utils';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { usePlaceSuggestions } from '../hooks/usePlaceSuggestions';
 import { useReturnFocus } from '../hooks/useOverlay';
@@ -239,7 +240,7 @@ export default function SubmitSheet({ place, onClose, initialName = '', initialT
             {config && status !== 'sent' && (
               <form className="submit-form" onSubmit={handleSubmit} noValidate>
                 <p className="submit-note">
-                  {place ? t('submit.introCorrection', { name: place.name }) : t('submit.introNew')}
+                  {place ? t('submit.introCorrection', { name: displayName(place.name) }) : t('submit.introNew')}
                 </p>
 
                 {!place && (

@@ -12,7 +12,7 @@ import {
   HeartIcon, CompassIcon, XIcon, ClockIcon, MapPinIcon, CrescentIcon,
   MildIcon, FermentIcon, SproutIcon, RecycleIcon, LeafIcon,
   BookIcon, BowlIcon, MenuIcon, TrainIcon, PhoneIcon, LinkIcon, SealIcon, ShareIcon, InfoIcon,
-  ChevronLeftIcon, ChevronRightIcon,
+  ChevronLeftIcon, ChevronRightIcon, CheckIcon,
 } from './Icons';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock, lastNightHours } from '../utils';
@@ -42,6 +42,20 @@ const TRAIT_META = {
 };
 
 const DIETARY_ICON = { vegan: LeafIcon, halal: CrescentIcon };
+
+// "Copy", and a tick in its place once copied: "복사했어요" and "コピーしました"
+// are three times as wide as "복사", and the address beside the button was
+// set again on narrower lines the moment it was pressed. The words are
+// still there to be read out.
+function CopyLabel({ done }) {
+  const { t } = useTranslation();
+  return (
+    <span className="copy-label">
+      <span className="copy-label__word" aria-hidden={done || undefined}>{t('detail.copy')}</span>
+      {done && <span className="copy-label__done"><CheckIcon size={16} /><span className="visually-hidden">{t('detail.copied')}</span></span>}
+    </span>
+  );
+}
 
 function SectionHead({ Icon, title, kr }) {
   const { i18n } = useTranslation();
@@ -1100,7 +1114,8 @@ export default function RestaurantDetail({
                   is all that shows: it says whose directions these are, and
                   what the two Korean buttons are to someone from abroad. */}
               <p className="section-note detail-directions__for"><strong translate="no">{displayName(place.name)}</strong></p>
-              <p className="section-note detail-directions__apps">{t('detail.mapAppsNote')}</p>
+              {/* A reader of Korean knows the two apps. */}
+              {!i18n.language.startsWith('ko') && <p className="section-note detail-directions__apps">{t('detail.mapAppsNote')}</p>}
               
               {/* The map buttons before the address: on a 375x812 phone they
                   started just below the first screen (walkthrough 2). */}
@@ -1132,7 +1147,7 @@ export default function RestaurantDetail({
                   )}
                 </span>
                 <button className="practical-copy" aria-label={colon(t('detail.copy'), shownAddress)} onClick={handleCopy}>
-                  {copied ? t('detail.copied') : t('detail.copy')}
+                  <CopyLabel done={copied} />
                 </button>
               </div>
               {!koUi && koAddr && (
@@ -1140,7 +1155,7 @@ export default function RestaurantDetail({
                   <span className="ko-name__label">{t('detail.koreanAddress')}</span>
                   <span className="ko-name__value ko-name__value--address" lang="ko" translate="no">{koAddr}</span>
                   <button type="button" className="practical-copy" aria-label={colon(t('detail.copy'), koAddr)} onClick={copyKoAddr}>
-                    {koAddrCopied ? t('detail.copied') : t('detail.copy')}
+                    <CopyLabel done={koAddrCopied} />
                   </button>
                 </div>
               )}
@@ -1151,7 +1166,7 @@ export default function RestaurantDetail({
                   <span className="ko-name__label">{t('detail.koreanName')}</span>
                   <span className="ko-name__value" lang="ko" translate="no">{koName}</span>
                   <button type="button" className="practical-copy" aria-label={colon(t('detail.copy'), koName)} onClick={copyKoName}>
-                    {nameCopied ? t('detail.copied') : t('detail.copy')}
+                    <CopyLabel done={nameCopied} />
                   </button>
                   <button type="button" className="practical-copy" ref={nameLargeBtn} aria-haspopup="dialog" onClick={() => setNameLarge(true)}>
                     {t('detail.showLarge')}

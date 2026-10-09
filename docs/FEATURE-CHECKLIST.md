@@ -494,6 +494,14 @@ P22. A device in another time zone (`tz: America/Los_Angeles`, `Pacific/Auckland
 
 P23. Old iPhones (iOS 15.0–16.3) → no shipped file contains a look-behind regex (`(?<=`, `(?<!`): `bash scripts/gates.sh` fails if one does.
 
+P24. A day said in the search (regress step `plan-said`, clock set to a Friday) → "halal saturday dinner daegu", "tomorrow lunch vegan jeju", "토요일 저녁에 여는 곳", "明日のランチ ヴィーガン ソウル", "周六晚上 清真 首尔" list places at once (searched without the day and meal) and offer "Open Sat 7:00 PM"; pressed, the "Open at" chip is on with that day and hour and the box holds the rest. "Sunday Bakery", "오늘통닭", "明日 朝鮮料理" are searched as typed and offer nothing.
+
+P25. A neighbourhood typed in Korean → "익선동", "서교동", "한남동", "신림동", "연남동 비건" find the places whose English address or zone names it; "우동" does not become U-dong.
+
+P26. The copy buttons (address, Korean address, Korean name) → pressed, a tick stands where the word was and the button keeps its width (the address beside it is not set again); a screen reader hears "Copied!".
+
+P27. After "my location" → the list is ordered from the reader ("Nearest to you") through a filter pressed, until the map is dragged, pinched, zoomed or moved with the keyboard.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)

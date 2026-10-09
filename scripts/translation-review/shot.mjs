@@ -3,7 +3,7 @@
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -129,5 +129,8 @@ for (const s of steps) {
   }
 }
 ws.close();
-chrome.kill();
+// The browser's own folder goes with it: every run left one behind (some
+// 20 MB each), and after a few thousand runs the machine was slow.
+await new Promise((done) => { chrome.once('exit', done); chrome.kill(); setTimeout(done, 3000); });
+try { rmSync(dir, { recursive: true, force: true, maxRetries: 15, retryDelay: 200 }); } catch { /* still held: the next clean-up takes it */ }
 process.exit(0);

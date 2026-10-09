@@ -3,7 +3,7 @@
 // Each file in steps/ is a list of steps for ../translation-review/shot.mjs
 // (headless Chrome); what each prints is compared by eye with README.md.
 // They press nothing that sends anything.
-import { readdirSync, readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -22,3 +22,4 @@ for (const file of readdirSync(join(here, 'steps')).filter(f => f.endsWith('.jso
   const run = spawnSync(process.execPath, [join(here, '..', 'translation-review', 'shot.mjs'), steps], { encoding: 'utf8' });
   console.log(`== ${name}\n${(run.stdout + run.stderr).trim()}`);
 }
+rmSync(work, { recursive: true, force: true });

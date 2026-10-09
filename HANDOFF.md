@@ -3753,6 +3753,17 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       run through both — run it before a search rule is committed).
       Past midnight a place still open shows the hours of the day
       before under that day's name (`lastNightHours`).
+      A day said in the search ("halal saturday dinner daegu", "明日のランチ",
+      "周六晚上") is left out of what is searched and offered as the
+      "Open at" chip (`plannedTime` in `src/filters.js`; a weekday alone
+      may be a name and is searched as typed; regress step `plan-said`).
+      A neighbourhood typed in Korean (익선동) is spelt as the records
+      spell it (`src/data/romanise-ko.js`, Revised Romanization with its
+      sound changes) and looked for in the English address and zone:
+      the Korean address on file is the road-name one. Once located, the
+      list is ordered from the reader until the map is moved by hand.
+      `scripts/translation-review/shot.mjs` now deletes the browser
+      folder it made (2,597 of them had piled up in %TEMP%).
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
