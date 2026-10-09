@@ -482,6 +482,8 @@ P19. Very narrow screens (240–319 px: a folding phone's cover screen, a page z
 
 P20. The large Korean card ("Show large", a question tapped in `/cards`) → the text is as big as fits with every word whole (no "들어가나" / "요?"), at 320×568, sideways and at the largest text size.
 
+P21. Coming back to where one was (regress step `list-returns`) → the list keeps its opened count and scroll through a place opened and closed (X or Back) and through a look at another tab; Discover and the Journal keep their scroll and open journey; a place keeps its scroll after a nearby place and Back. A new filter or search starts the list at the top. A reload keeps the address's view (filters, search, the open place and its journey).
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
