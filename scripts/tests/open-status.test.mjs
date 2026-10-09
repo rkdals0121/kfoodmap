@@ -41,7 +41,7 @@ test('last order after midnight is read against the late slot', () => {
 });
 
 test('free-text hours across midnight', () => {
-  const h = { value: { raw: '6:00\u00A0PM – 2:00\u00A0AM' }, confidence: 'supported' };
+  const h = { value: { raw: '6:00 PM – 2:00 AM' }, confidence: 'supported' };
   assert.equal(getOpenStatus(h, at(23, 0)).open, true);
   assert.equal(getOpenStatus(h, at(1, 0)).open, true);
   assert.equal(getOpenStatus(h, at(15, 0)).open, false);

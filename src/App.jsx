@@ -638,8 +638,10 @@ function AppShell() {
     if (!toast) return undefined;
     // An Undo is given ten seconds, and waits while a finger or the focus
     // is on it: five was gone before a screen reader could reach it.
+    // Otherwise as long as it takes to read: three seconds for a short line,
+    // more for two sentences (the note that a save cannot be kept).
     if (toastHeld) return undefined;
-    const timer = setTimeout(() => setToast(null), toast.undo ? 10000 : 3000);
+    const timer = setTimeout(() => setToast(null), toast.undo ? 10000 : Math.max(3000, String(toast.text ?? '').length * 70));
     return () => clearTimeout(timer);
   }, [toast, toastHeld]);
 

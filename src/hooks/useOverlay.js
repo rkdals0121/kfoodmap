@@ -70,7 +70,7 @@ export function useWakeLock(active) {
 // While `active`, the element's font size is the largest (between `min` and
 // `max`) at which it still fits its parent, less what the parent's other
 // children take; measured again when the screen turns.
-export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
+export function useFitText(ref, active, { min = 22, max = 160, words = true } = {}) {
   useLayoutEffect(() => {
     const el = ref.current;
     const box = el?.parentElement;
@@ -89,7 +89,9 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
       // "들어가나요?" was drawn as "들어가나" / "요?" at a size one word did
       // not fit. Measured with words whole; a size at which one sticks out
       // is too big. (`[data-fit='words']` in index.css.)
-      el.dataset.fit = 'words';
+      // (Not a place's name, `words: false`: a long one is set on two even
+      // lines on purpose.)
+      if (words) el.dataset.fit = 'words';
       // Binary search: 8 steps settle within a pixel.
       for (let i = 0; i < 8; i++) {
         const mid = (lo + hi) / 2;
@@ -115,7 +117,7 @@ export function useFitText(ref, active, { min = 22, max = 160 } = {}) {
     };
     // A function for `max` is read at each fit and is not a dependency.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref, active, min, typeof max === 'function' ? 0 : max]);
+  }, [ref, active, min, words, typeof max === 'function' ? 0 : max]);
 }
 
 // While an overlay rendered on <body> is open, the app behind it is inert:

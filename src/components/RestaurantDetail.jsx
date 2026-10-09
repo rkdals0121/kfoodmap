@@ -261,7 +261,7 @@ export default function RestaurantDetail({
   // two even lines (4 + 3), not six and a stray syllable.
   const nameLen = Math.min(Math.max(...(koreanName(restaurant?.name ?? '') || '').split(/\s+/).map(w => { const n = [...w].length; return n > 6 ? Math.ceil(n / 2) : n; }), 2), 6);
   const nameMax = () => Math.min(200, Math.floor((window.innerWidth - 48) / nameLen));
-  useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax });
+  useFitText(nameLargeText, nameLarge, { min: 34, max: nameMax, words: false });
   const storyRef = useRef(null);
   // Opening another place from this one ("Also nearby", a journey's next
   // stop) reuses this sheet: start the new place at its top, not wherever
