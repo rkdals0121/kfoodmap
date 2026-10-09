@@ -177,6 +177,14 @@ const LATIN_VARIANTS = new Map(Object.entries({
   // some places and "kimbap" in others, and a visitor types either.
   // Whole words only (as every entry here): "한식당" is not "korean 당".
   '한식': 'korean', '한식당': 'korean', '한식집': 'korean', '한국': 'korean', '한국음식': 'korean', '한국요리': 'korean',
+  // What a reader of Korean calls the dishes and kitchens the records name
+  // in English (each of these found nothing; only words some record holds).
+  '불고기': 'bulgogi', '만두': 'dumpling', '국밥': 'gukbap', '된장찌개': 'doenjang', '된장': 'doenjang', '순두부찌개': 'sundubu',
+  '닭갈비': 'dakgalbi', '잡채': 'japchae', '보쌈': 'bossam', '막걸리': 'makgeolli', '샤브샤브': 'shabu', '전골': 'hotpot', '분식': 'bunsik',
+  '일식': 'japanese', '일식당': 'japanese', '초밥': 'sushi', '스시': 'sushi', '중식': 'chinese', '중식당': 'chinese', '중국집': 'chinese',
+  '중동': 'middle eastern', '아랍': 'arab', '파키스탄': 'pakistan', '말레이시아': 'malaysia', '태국': 'thai', '베트남': 'vietnamese',
+  '팔라펠': 'falafel', '후무스': 'hummus', '포케': 'poke', '타코': 'taco', '부리토': 'burrito', '쿠키': 'cookie', '스콘': 'scone', '도넛': 'doughnut',
+  '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   kimbap: 'gimbap',
   gimbab: 'gimbap',
   kimbab: 'gimbap',
@@ -332,7 +340,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   'で', 'にある', 'に', '에서', '에', '의', '有什么', '有什麼', '有',
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat', 'sini', 'terdekat', 'siang', 'malam', 'pagi', 'ruang', 'pulau', 'kota',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の', 'フード', '食品', '朝ごはん', 'モーニング', '朝食', '早餐', 'sarapan', '아침', '손님', '외국인',
-  '附近', '我附近', '离我最近', '離我最近', '我', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
+  '附近', '我附近', '离我最近', '離我最近', '我', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '가능', '가능한', '옵션', '메뉴', '있는', '되는', '파는', '料理', 'cuisine']);
 
 // Of those, the words of a question (not "restaurant", "food", "the", which
 // many places carry in their names). A place whose own name has such a word

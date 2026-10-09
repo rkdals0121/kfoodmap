@@ -3764,6 +3764,19 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       list is ordered from the reader until the map is moved by hand.
       `scripts/translation-review/shot.mjs` now deletes the browser
       folder it made (2,597 of them had piled up in %TEMP%).
+      A search of nothing but words that name no place ("맛집", "near me",
+      "レストラン": `onlyFillers`) lists every place; over one that asks for
+      places near the reader the list offers "My location". More names of
+      areas, dishes and diets in ja/zh/id/ko go in `src/data/area-names.js`
+      (`ALSO_NAMED` for other scripts, `LATIN_VARIANTS` for whole words —
+      Korean dish words live there, since a short Korean alias in
+      `ALSO_NAMED` is also matched as the start of a longer word) and in
+      `DIET_WORDS` (`src/filters.js`): only spellings that are certain and
+      words some record holds. A list spread over the country starts where
+      most of its places are while the map stands as the app framed it
+      (`mapFramed` in `App.jsx`, `heart` in `BottomSheetList.jsx`).
+      When piping `shot.mjs` or `regress/run.mjs`, send the output to a
+      file: `| head` ends the script before it has cleaned up.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

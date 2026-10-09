@@ -636,3 +636,15 @@ test('a day said with more around it; a street is not its district', async () =>
   assert.ok(go('성동로').filteredRestaurants.length < go('성동구').filteredRestaurants.length);
   assert.equal(go('떡 카페').filteredRestaurants.length, go('카페').filteredRestaurants.length);
 });
+
+test('dishes and kitchens by their Korean names', () => {
+  for (const [ko, en] of [['불고기', 'bulgogi'], ['만두', 'dumpling'], ['닭갈비', 'dakgalbi'], ['막걸리', 'makgeolli'], ['일식', 'japanese'], ['중국집', 'chinese'], ['태국 음식', 'thai'], ['포케', 'poke'], ['글루텐 프리', 'gluten free'], ['락토프리', 'dairy free']]) {
+    assert.ok(go(ko).filteredRestaurants.length > 0, ko);
+    assert.equal(ids(go(ko)), ids(go(en)), `${ko} = ${en}`);
+  }
+  // (Typed in English the two words are also read as a phrase, which narrows.)
+  assert.ok(go('중동 음식').filteredRestaurants.length >= go('middle eastern').filteredRestaurants.length);
+  assert.equal(ids(go('비건 옵션')), ids(go('vegan')));
+  assert.equal(ids(go('채식 가능 한식')), ids(go('vegan korean')));
+  assert.equal(ids(go('할랄 메뉴 있는 곳')), ids(go('halal')));
+});
