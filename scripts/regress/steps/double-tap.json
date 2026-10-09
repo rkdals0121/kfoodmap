@@ -1,0 +1,16 @@
+[
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const tap=(el,x,y)=>{ const e=new MouseEvent('click',{bubbles:true,cancelable:true,detail:1,clientX:x,clientY:y}); el.dispatchEvent(e); return e.defaultPrevented; }; const card=document.querySelector('.place-card__open-btn'); const r=card.getBoundingClientRect(); const x=r.left+40, y=r.top+10; tap(card,x,y); let s=null; for(let i=0;i<100&&!s;i++){ await w(20); s=document.querySelector('.detail-sheet summary'); } const first=tap(s,x,y); const open1=document.querySelectorAll('.detail-sheet details[open]').length; await w(700); const later=tap(s,x,y); await w(300); const open2=document.querySelectorAll('.detail-sheet details[open]').length; const chip=document.querySelectorAll('.chip')[0]; return {path:location.pathname, secondTapDropped:first, openedAtOnce:open1, laterTapDropped:later, openedLater:open2}"
+ },
+ {
+  "url": "{{BASE}}/",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); const tap=(el,x,y)=>{ const e=new MouseEvent('click',{bubbles:true,cancelable:true,detail:1,clientX:x,clientY:y}); el.dispatchEvent(e); return e.defaultPrevented; }; const chip=document.querySelectorAll('.chip')[0]; tap(chip,60,470); await w(150); tap(chip,60,470); await w(600); return {sameControlTwice:location.hash}"
+ }
+]

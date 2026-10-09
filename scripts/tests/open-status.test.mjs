@@ -11,14 +11,14 @@ test('a same-day slot is open inside and closed outside', () => {
   const h = hours(every([{ from: '11:00', to: '21:00' }]));
   assert.equal(getOpenStatus(h, at(12, 0)).open, true);
   assert.equal(getOpenStatus(h, at(22, 0)).open, false);
-  assert.equal(getOpenStatus(h, at(9, 0)).detail, 'opens 11:00 AM');
+  assert.equal(getOpenStatus(h, at(9, 0)).detail, 'opens 11:00\u00A0AM');
 });
 
 test('a slot that runs past midnight is open in the evening', () => {
   const h = hours(every([{ from: '10:00', to: '01:00' }]));
   const s = getOpenStatus(h, at(23, 30));
   assert.equal(s.open, true);
-  assert.equal(s.detail, 'until 1:00 AM');
+  assert.equal(s.detail, 'until 1:00\u00A0AM');
 });
 
 test("just after midnight, yesterday's late slot is still open", () => {
@@ -31,17 +31,17 @@ test("yesterday's late slot counts even if today is a closing day", () => {
   const w = every([{ from: '17:00', to: '02:00' }]);
   w.tue = [];
   assert.equal(getOpenStatus(hours(w), at(1, 0)).open, true);
-  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'opens tomorrow 5:00 PM');
+  assert.equal(getOpenStatus(hours(w), at(12, 0)).detail, 'opens tomorrow 5:00\u00A0PM');
 });
 
 test('last order after midnight is read against the late slot', () => {
   const h = hours(every([{ from: '18:00', to: '02:00', lastOrder: '01:00' }]));
-  assert.equal(getOpenStatus(h, at(23, 0)).detail, 'until 2:00 AM · last order 1:00 AM');
+  assert.equal(getOpenStatus(h, at(23, 0)).detail, 'until 2:00\u00A0AM · last order 1:00\u00A0AM');
   assert.equal(getOpenStatus(h, at(1, 30)).label, 'Last order passed');
 });
 
 test('free-text hours across midnight', () => {
-  const h = { value: { raw: '6:00 PM – 2:00 AM' }, confidence: 'supported' };
+  const h = { value: { raw: '6:00\u00A0PM – 2:00\u00A0AM' }, confidence: 'supported' };
   assert.equal(getOpenStatus(h, at(23, 0)).open, true);
   assert.equal(getOpenStatus(h, at(1, 0)).open, true);
   assert.equal(getOpenStatus(h, at(15, 0)).open, false);
@@ -49,14 +49,14 @@ test('free-text hours across midnight', () => {
 
 test('after the last slot, it says when it next opens', () => {
   const h = hours(every([{ from: '11:00', to: '21:00' }]));
-  assert.equal(getOpenStatus(h, at(22, 0)).detail, 'opens tomorrow 11:00 AM');
+  assert.equal(getOpenStatus(h, at(22, 0)).detail, 'opens tomorrow 11:00\u00A0AM');
 });
 
 test('closing days are skipped to the next opening day', () => {
   const w = every([{ from: '11:30', to: '21:00' }]);
   w.wed = []; // 2026-09-29 is a Tuesday
   w.thu = [];
-  assert.equal(getOpenStatus(hours(w), at(22, 0)).detail, 'opens Fri 11:30 AM');
+  assert.equal(getOpenStatus(hours(w), at(22, 0)).detail, 'opens Fri 11:30\u00A0AM');
 });
 
 test('an unrecorded day stops the look-ahead rather than being skipped', () => {
@@ -111,12 +111,12 @@ test('weekHours lists Monday to Sunday, marks today in Korea, and never guesses 
   // 2026-10-02 16:00 UTC is Saturday 01:00 in Korea.
   const week = weekHours(h, new Date('2026-10-02T16:00:00Z'));
   assert.deepEqual(week.map(d => d.key), ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']);
-  assert.equal(week[0].text, '11:00 AM – 3:00 PM, 5:00 PM – 9:00 PM');
+  assert.equal(week[0].text, '11:00\u00A0AM – 3:00\u00A0PM, 5:00\u00A0PM – 9:00\u00A0PM');
   const lo = weekHours({ value: { weekly: { mon: [{ from: '11:00', to: '21:00', lastOrder: '20:30' }] } }, confidence: 'supported', source: 'x' });
-  assert.equal(lo[0].text, '11:00 AM – 9:00 PM (last order 8:30 PM)');
+  assert.equal(lo[0].text, '11:00\u00A0AM – 9:00\u00A0PM (last order 8:30\u00A0PM)');
   // Lunch and dinner each keep their own last order.
   const two = weekHours({ value: { weekly: { mon: [{ from: '11:30', to: '15:00', lastOrder: '14:30' }, { from: '16:00', to: '19:30', lastOrder: '19:00' }] } }, confidence: 'supported', source: 'x' });
-  assert.equal(two[0].text, '11:30 AM – 3:00 PM (last order 2:30 PM), 4:00 PM – 7:30 PM (last order 7:00 PM)');
+  assert.equal(two[0].text, '11:30\u00A0AM – 3:00\u00A0PM (last order 2:30\u00A0PM), 4:00\u00A0PM – 7:30\u00A0PM (last order 7:00\u00A0PM)');
   assert.equal(week[1].text, null);          // Tuesday: not recorded
   assert.equal(week[5].text, 'Closed');      // Saturday: recorded as closed
   assert.deepEqual(week.filter(d => d.today).map(d => d.key), ['sat']);
@@ -170,7 +170,7 @@ test('between two of today\'s slots is a break, not just closed', async () => {
   const brk = getOpenStatus(f, at('16:00'));
   assert.equal(brk.open, false);
   assert.equal(brk.label, 'On a break');
-  assert.equal(brk.detail, 'opens 5:30 PM');
+  assert.equal(brk.detail, 'opens 5:30\u00A0PM');
   assert.equal(getOpenStatus(f, at('09:00')).label, 'Closed');   // before the first slot
   assert.equal(getOpenStatus(f, at('22:00')).label, 'Closed');   // after the last
   // A long gap is not a break: a late night written as two slots.
@@ -193,19 +193,19 @@ test('a slot ending before a later one says when the place reopens', async () =>
   const { getOpenStatus } = await import('../../src/utils.js');
   const f = { value: { weekly: { sat: [{ from: '11:30', to: '15:00', lastOrder: '14:30' }, { from: '17:00', to: '21:00' }] } }, confidence: 'supported', source: 'x' };
   const at = (hhmm) => new Date(`2026-10-03T${hhmm}:00+09:00`);
-  assert.equal(getOpenStatus(f, at('12:00')).detail, 'until 3:00 PM · last order 2:30 PM');           // not yet: stays short
-  assert.equal(getOpenStatus(f, at('14:10')).detail, 'until 3:00 PM · last order 2:30 PM · reopens 5:00 PM');
+  assert.equal(getOpenStatus(f, at('12:00')).detail, 'until 3:00\u00A0PM · last order 2:30\u00A0PM');           // not yet: stays short
+  assert.equal(getOpenStatus(f, at('14:10')).detail, 'until 3:00\u00A0PM · last order 2:30\u00A0PM · reopens 5:00\u00A0PM');
   const over = getOpenStatus(f, at('14:40'));
   assert.equal(over.label, 'Last order passed');
-  assert.equal(over.detail, 'closes 3:00 PM · reopens 5:00 PM');
-  assert.equal(getOpenStatus(f, at('20:45')).detail, 'until 9:00 PM');                                // the last slot: nothing to reopen
+  assert.equal(over.detail, 'closes 3:00\u00A0PM · reopens 5:00\u00A0PM');
+  assert.equal(getOpenStatus(f, at('20:45')).detail, 'until 9:00\u00A0PM');                                // the last slot: nothing to reopen
 });
 
 test('a 24-hour language tells the time on a 24-hour clock', async () => {
   const i18next = (await import('i18next')).default;
   const { formatClock } = await import('../../src/utils.js');
   const id = (await import('../../src/i18n/locales/id.js')).default;
-  assert.equal(formatClock(19 * 60 + 30), '7:30 PM');
+  assert.equal(formatClock(19 * 60 + 30), '7:30\u00A0PM');
   i18next.addResourceBundle('id', 'translation', id, true, true);
   await i18next.changeLanguage('id');
   try {
@@ -248,7 +248,7 @@ test('Japanese tells the time on the 24-hour clock', async () => {
   const i18next = (await import('i18next')).default;
   const { formatClock } = await import('../../src/utils.js');
   const ja = (await import('../../src/i18n/locales/ja.js')).default;
-  assert.equal(formatClock(0), '12:00 AM');
+  assert.equal(formatClock(0), '12:00\u00A0AM');
   i18next.addResourceBundle('ja', 'translation', ja, true, true);
   await i18next.changeLanguage('ja');
   try {

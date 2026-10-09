@@ -3688,6 +3688,20 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       translator; Google's own library can be loaded into a page with
       `shot.mjs` (`init` + `csp: false`) but stops answering after a
       few runs from one machine.
+    - Same morning: `src/doubleTap.js` (imported third in `main.jsx`)
+      drops a press at the same spot within half a second of the last
+      unless it is on the same control — the second tap of a double tap
+      was landing on what the first brought up ("Call", Save, a card
+      under the list's handle). A control that replaces itself with a
+      new element when pressed, and is meant to be pressed twice
+      quickly, would be caught by it: keep such a control one element.
+      A save in a browser that refuses storage says it is kept for now
+      only (`storageKeeps()` in `data/passport.js`). Under 320 px (a
+      folding phone's cover screen, a zoomed page) the place's two map
+      buttons wrap their words. Checks worth keeping: "words wider than
+      their own button" (found the map buttons and a broken phone
+      number), one tap against a double tap on every button of a
+      screen, the app with `localStorage` throwing, the page translated.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 

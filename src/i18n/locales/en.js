@@ -383,7 +383,7 @@ export default {
     transitExit: ', exit {{exit}}',
     // Leading space is load-bearing — see areaOnly above; rendered right
     // after transitExit (or the station/line text) with no separator supplied by the JSX.
-    transitWalk: ' · {{minutes}} min walk',
+    transitWalk: ' · {{minutes}}\u00A0min walk',
     transitFar: ' — a bus or taxi may be easier',
     actionSave: 'Save',
     actionSaved: 'Saved',

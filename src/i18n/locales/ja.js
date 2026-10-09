@@ -376,7 +376,7 @@ export default {
     transitExit: ', {{exit}} 番出口',
     // Leading space is load-bearing — see areaOnly above; rendered right
     // after transitExit (or the station/line text).
-    transitWalk: ' · 徒歩 {{minutes}} 分',
+    transitWalk: ' · 徒歩\u00A0{{minutes}}\u00A0分',
     transitFar: ' — バスかタクシーのほうが便利かもしれません',
     actionSave: '保存',
     actionSaved: '保存済み',

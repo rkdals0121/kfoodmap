@@ -946,7 +946,7 @@ export default function RestaurantDetail({
                   <span>
                     {koUi && koStation(place.transit.value.station) && koLine(place.transit.value.line)
                       ? <span lang="ko" translate="no">{koStation(place.transit.value.station)} {koLine(place.transit.value.line)}</span>
-                      : <>{place.transit.value.station} {place.transit.value.line}</>}
+                      : <>{place.transit.value.station} {String(place.transit.value.line ?? '').replace(/(Line) (?=\d)/g, '$1\u00A0')}</>}
                     {place.transit.value.exit && t('detail.transitExit', { exit: place.transit.value.exit })}
                     {t('detail.transitWalk', { minutes: place.transit.value.walkingMinutes })}
                     {/* Past a quarter of an hour the "nearest station" is not

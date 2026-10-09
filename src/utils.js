@@ -68,7 +68,11 @@ function toMinutes(str) {
   return h24 ? parseInt(h24[1], 10) * 60 + parseInt(h24[2], 10) : null;
 }
 
-const fromMinutes = (total) => {
+// A clock time is one piece: "opens 11:00" / "AM" and "오전" / "10:30" were
+// breaking across two lines on a narrow phone. The space inside it is a
+// no-break space.
+const fromMinutes = (total) => clockWords(total).replace(/ /g, '\u00A0');
+const clockWords = (total) => {
   const mins = ((total % 1440) + 1440) % 1440;
   const h = Math.floor(mins / 60);
   const m = String(mins % 60).padStart(2, '0');

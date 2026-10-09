@@ -373,7 +373,7 @@ export default {
     koreaTime: 'Waktu Korea — di sana sekarang pukul {{time}}',
     transitExit: ', pintu keluar {{exit}}',
     // Spasi di awal wajib dipertahankan — lihat areaOnly.
-    transitWalk: ' · {{minutes}} mnt jalan kaki',
+    transitWalk: ' · {{minutes}}\u00A0mnt jalan kaki',
     transitFar: ' — mungkin lebih mudah naik bus atau taksi',
     actionSave: 'Simpan',
     actionSaved: 'Tersimpan',

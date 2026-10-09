@@ -1,5 +1,5 @@
 // Headless Chrome over the DevTools protocol: node shot.mjs <steps.json>
-// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), drag (finger drags), tap (finger taps on selectors), keys (+ trail: real key presses), block (url patterns), csp (false: the page's Content-Security-Policy is not applied) }]
+// steps: [{ w, h, dpr, lang, url, seen (false = first visit), pre, js, load, wait, out, full, throttle (slow phone line), cpu (slow-down factor), media (emulated media features), print (true = as printed), tz (device time zone), init (script run before the page's own), geo ({lat,lng,acc}: the answer to "My location"), drag (finger drags), tap (finger taps on selectors), tapAt (+tapGap: finger taps at points), keys (+ trail: real key presses), block (url patterns), csp (false: the page's Content-Security-Policy is not applied) }]
 // One browser for all steps: storage carries over, so run a first-visit step in a file of its own.
 // A step's js that navigates away (history.back() off the app) loses its result.
 import { spawn } from 'node:child_process';
@@ -92,6 +92,15 @@ for (const s of steps) {
     await sleep(60);
     await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
     await sleep(s.tapWait ?? 1200);
+  }
+  // tapAt: [[x, y], …] = finger taps at points, `tapGap` ms apart (120 = a
+  // double tap: the second lands on whatever the first brought up).
+  for (const [x, y] of s.tapAt ?? []) {
+    // Not waited for: the answers take longer than the gap being imitated.
+    send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
+    await sleep(30);
+    send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await sleep(s.tapGap ?? 120);
   }
   // keys: ['Tab', 'Shift+Tab', 'Enter', 'Escape', 'ArrowDown', ' '] = real
   // key presses, one after another; with `trail: true` what has focus after

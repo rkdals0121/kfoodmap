@@ -476,6 +476,8 @@ P16. An address that is nothing here (`/nope`, `/find/nope`, `/journal/x`), open
 
 P17. A browser that refuses storage (Safari with all cookies blocked; regress step `storage-blocked`) → no crash anywhere; the welcome screen shows on every load and the language follows the browser; a save works for the visit and its toast says so ("Saved for now. This browser is not storing it, so it will be gone when you close the page.") instead of promising it opens offline.
 
+P18. A quick double tap (two presses at one spot within half a second; regress step `double-tap`) → the second press counts only on the same control (zoom, a chip on and off, "Next stop"). On a card it does not reach the place that opens (no accidental "Call", Save or unfolded hours); on the list's handle it does not open a card; a confirm dialog is not confirmed by the tap that raised it. Keyboard presses are never dropped.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
