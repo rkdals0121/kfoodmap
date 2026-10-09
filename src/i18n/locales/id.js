@@ -514,11 +514,11 @@ export default {
       ],
     },
   },
-  cardText: {
+  cardText: {
     vegeS1: 'Halo. Saya vegetarian.',
     vegeS2: 'Saya tidak makan daging (sapi, babi, ayam, termasuk ham dan sosis), ikan, atau makanan laut (termasuk bakso ikan dan crab stick).',
     vegeS3: 'Saya makan telur, susu, dan produk susu.',
-    vegeS4: 'Saya juga tidak makan makanan yang memakai kaldu daging atau ikan, kecap ikan, atau udang asin.',
+    vegeS4: 'Saya juga tidak makan makanan yang memakai kaldu teri, daging, atau makanan laut, kecap ikan, atau udang asin fermentasi.',
     vegeS5: 'Apakah ada menu yang bisa saya makan?',
     vegeQ1: 'Apakah makanan ini mengandung daging atau makanan laut?',
     vegeQ2: 'Kaldunya dibuat dari apa? (ikan teri, daging, katsuobushi/cakalang kering)',

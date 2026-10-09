@@ -70,7 +70,9 @@ function leftOut(typed) {
   const words = String(typed ?? '').trim().split(/\s+/).filter(Boolean);
   if (words.length < 2 || words.length > 5) return [];
   return words.map((word, i) => ({ word, rest: words.filter((w, k) => k !== i).join(' ') }))
-    .filter(({ word, rest }) => !onlyFillers(word) && !onlyFillers(rest));
+    // Nor is the diet: "halal bibimbap hongdae" without "halal" is two places
+    // with no halal reading — not the nearest thing to what was asked.
+    .filter(({ word, rest }) => !onlyFillers(word) && !onlyFillers(rest) && liftDietWords(word).chips.length === 0 && !isPorkFreeQuery(word));
 }
 
 const titled = (s) => s.replace(/(^|[ -])([a-z])/g, (m, a, b) => a + b.toUpperCase());
@@ -88,7 +90,8 @@ export function searchPlaces({
     .replace(/^#+(?=\p{L})/u, '').replace(/^["“”„「『(（[]+(?=[^\s"“”„「『(（[])/, '').replace(/([^\s"“”」』)）\]])["“”」』)）\]]+$/, '$1');
   // "ソウル駅の近くでランチ", "首尔站附近的素食", "서울역근처 비건": what is glued
   // after a station's name is the rest of the search, not part of the name.
-  const unglued = (text) => text.replace(/(駅|站|역)(?:の近く|の周辺|周辺|付近|附近|근처|주변)(?:で|に|の|的|에서|에)?/g, '$1 ').replace(/\s+/g, ' ').trim();
+  // (Only after a name: "역주변" by itself is not a station.)
+  const unglued = (text) => text.replace(/([^\s])(駅|站|역)(?:の近く|の周辺|周辺|付近|附近|근처|주변)(?:にある|で|に|の|的|에\s*있는|에서|에)?/g, '$1$2 ').replace(/\s+/g, ' ').trim();
   const said = stripCertWords(porkFreeSaid(unglued(bare.includes('(') || bare.includes('（') ? String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim() : bare)));
   // "맛집", "근처 맛집", "レストラン", "restaurants near me": words that name no
   // place and no kind of place found nothing, or whatever record happened to
@@ -324,9 +327,12 @@ export function searchPlaces({
     // The same search run again with the chips off, so the number is the
     // one the reader will see. Not for "Saved" or a shared list: those are
     // the reader's own places, not a filter to suggest dropping.
-    withoutFilters: result.list.length === 0 && raw && chosen.length > 0 && !areaOnly
+    // (`asides: false` on every search made from inside a search: each of
+    // these asked the others again, and five words under three chips took
+    // ten seconds.)
+    withoutFilters: asides && result.list.length === 0 && raw && chosen.length > 0 && !areaOnly
       && !filters.includes(SAVED_ONLY) && !filters.includes(SHARED_LIST)
-      ? searchPlaces({ places, query, filters: [], now }).filteredRestaurants.length
+      ? searchPlaces({ places, query, filters: [], now, asides: false }).filteredRestaurants.length
       : 0,
     nearest,
     nearestFrom,

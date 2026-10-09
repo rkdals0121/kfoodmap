@@ -1206,7 +1206,15 @@ function AppShell() {
                 fromStory={fromStory}
                 withoutEach={withoutEach}
                 withoutWords={withoutWords}
-                onSearchInstead={(text) => setQuery(text)}
+                // The word goes from what was typed, and the rest stays as it
+                // was: "certified halal sushi gangnam" without "sushi" is
+                // still asking about certificates.
+                onSearchInstead={(word, rest) => setQuery((typedNow) => {
+                  const parts = String(typedNow ?? '').trim().split(/\s+/);
+                  const bare = (w) => w.replace(/^[#"“”„「『(（[]+|["“”」』)）\],.;:!?，。、]+$/g, '').toLowerCase();
+                  const at = parts.findIndex(w => bare(w) === bare(word));
+                  return at < 0 ? rest : parts.filter((w, k) => k !== at).join(' ');
+                })}
                 onDropFilter={(f) => setSelectedFilters(prev => prev.filter(x => x !== f))}
                 withoutFilters={withoutFilters}
                 onClearSearch={() => { setQuery(''); setAreaOnly(false); }}

@@ -206,7 +206,7 @@ const DIET_WORDS = {
   // their descriptions — every one of them among the Vegan chip's 521, with
   // "경주 채식" finding none of Gyeongju's four.
   vegetarian: 'Vegan', vegetarisch: 'Vegan', vegetariano: 'Vegan', vegetariana: 'Vegan', vegetarien: 'Vegan',
-  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '維根': 'Vegan', '维根': 'Vegan', '素食主义': 'Vegan', '素食主義': 'Vegan', '素食者': 'Vegan', '蛋奶素': 'Vegan', '净素': 'Vegan', '淨素': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
+  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '維根': 'Vegan', '维根': 'Vegan', '素食主义': 'Vegan', '素食主義': 'Vegan', '素食者': 'Vegan', '蛋奶素': 'Vegan', '奶蛋素': 'Vegan', lactoovo: 'Vegan', '净素': 'Vegan', '淨素': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
   // "Plant-based", "meatless", "no meat": the same question again ("plant
   // based" found 64 places by their descriptions, "meatless" none).
   plantbased: 'Vegan', meatless: 'Vegan', meatfree: 'Vegan', nomeat: 'Vegan', withoutmeat: 'Vegan', tanpadaging: 'Vegan', vegetaris: 'Vegan', nabati: 'Vegan',
@@ -226,7 +226,7 @@ const DIET_WORDS = {
   // "Muslim-friendly" is what Korean tourism lists call these places.
   // The labels on the cards and chips, as written there: typed back, they
   // found nothing ("完全ヴィーガン", "vegan sepenuhnya", "全素": 0 places).
-  fullyvegan: FULLY_VEGAN, '완전비건': FULLY_VEGAN, '完全ヴィーガン': FULLY_VEGAN, '完全ビーガン': FULLY_VEGAN,
+  fullyvegan: FULLY_VEGAN, '완전비건': FULLY_VEGAN, '완전채식': FULLY_VEGAN, '完全菜食': FULLY_VEGAN, '完全ヴィーガン': FULLY_VEGAN, '完全ビーガン': FULLY_VEGAN,
   '全纯素': FULLY_VEGAN, '全純素': FULLY_VEGAN, '全素': FULLY_VEGAN, vegansepenuhnya: FULLY_VEGAN, sepenuhnyavegan: FULLY_VEGAN,
   veganoptions: 'Vegan', 'ヴィーガン対応': 'Vegan', 'ビーガン対応': 'Vegan', 'ベジタリアン対応': 'Vegan', 'ベジ': 'Vegan', '비건옵션': 'Vegan', '비건가능': 'Vegan', '채식가능': 'Vegan', 'ヴィーガン対応あり': 'Vegan', '有纯素选项': 'Vegan', '有純素選項': 'Vegan',
   halalfriendly: 'Halal', ramahhalal: 'Halal', ramahmuslim: 'Halal', 'ハラールフレンドリー': 'Halal', '할랄프렌들리': 'Halal', '清真友好': 'Halal', '清真友善': 'Halal',

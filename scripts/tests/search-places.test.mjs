@@ -737,3 +737,17 @@ test('a polite question in Japanese, and what is glued after a station', () => {
   // One kana is no filler: もも is not every place.
   assert.equal(go('もも').filteredRestaurants.length, 0);
 });
+
+test('a search that finds nothing asks no more than a handful of others, and never offers the diet away', () => {
+  const t0 = performance.now();
+  const r = searchPlaces({ places, query: '할랄 초밥 부산 카페 라면', filters: ['Halal', 'Vegan', 'Mild Taste'], now: new Date('2026-10-09T03:00:00Z') });
+  const took = performance.now() - t0;
+  assert.equal(r.filteredRestaurants.length, 0);
+  // (Ten seconds once, when each of these searches asked the others again.)
+  assert.ok(took < 2500, `took ${Math.round(took)} ms`);
+  for (const q of ['halal bibimbap hongdae', 'pork-free sushi hongdae', 'vegan ramen itaewon']) {
+    assert.ok(go(q).withoutWords.every(x => !/halal|pork|vegan/i.test(x.word)), q);
+  }
+  // Glued after a station's name only: 역주변 by itself is no station.
+  assert.equal(go('역주변').filteredRestaurants.length, 0);
+});

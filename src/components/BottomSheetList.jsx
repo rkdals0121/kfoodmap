@@ -80,7 +80,7 @@ const asksNearMe = (query, plan = null) => {
 // "Vegetarian" is answered with the places that have vegan dishes (the map
 // records no more than that): the list says so, since a vegetarian who eats
 // egg and dairy is asking a wider question than the one answered.
-const VEGETARIAN_TYPED = /veg[aei]t[ae]r|vegetaris|ベジタリアン|ベジ(?!タブル)|菜食|素食|蔬食|吃素|蛋奶素|채식/i;
+const VEGETARIAN_TYPED = /v[eé]g[aeéi]t[ae]r|vegetaris|lacto|奶蛋素|ベジタリアン|ベジ(?!タブル)|菜食|素食|蔬食|吃素|蛋奶素|채식/i;
 const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
 // (Read without the signs a search is wrapped in, as the search reads it:
 // “not spicy” in a phone's curly quotes found places and showed no caution.)
@@ -350,8 +350,9 @@ export default function BottomSheetList({
   // on, rather than folded to a line that ends before it says so.
   const halalOn = activeFilters.includes('Halal');
   useEffect(() => {
-    if (halalOn && !listMemory.halalNoteShown && typeof window !== 'undefined' && window.innerHeight > 800) { listMemory.halalNoteShown = true; setNotesOpen(true); }
-  }, [halalOn]);
+    if (halalOn && restaurants.length > 0 && !listMemory.halalNoteShown && typeof window !== 'undefined' && window.innerHeight > 800) { listMemory.halalNoteShown = true; setNotesOpen(true); }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [halalOn, restaurants.length > 0]);
   // Someone searching for "certified", "인증" or "KMF" is asking the same
   // question: the caveat answers it whether or not the chip is on.
   const asksCertificate = /certif|sertifi|kmf|인증|認証|认证|認證/i.test(searchQuery);
@@ -544,12 +545,6 @@ export default function BottomSheetList({
           place's notes, which nobody has checked dish by dish. The same
           caution an empty search for an allergen already gets, said over
           the results too: a list under that search read as a promise. */}
-      {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(searchQuery) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to="/cards?card=vegetarian" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()}>{t('profile.staffCards')}</Link></p>
-      )}
-      {sorted.length > 0 && ASKS_INGREDIENT.test(searchQuery) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
-      )}
       {/* With both diets on, why the list is short comes before all else. */}
       {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
         <p className="section-note place-list__note">{t('list.bothDietsNote')}</p>
@@ -559,6 +554,14 @@ export default function BottomSheetList({
       {(halalOn || asksCertificate) && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
         <p className="section-note place-list__note place-list__note--key">{t('list.halalCaveat')}</p>
+      )}
+      {/* (After the halal caveat: folded, only the first note shows, and on a
+          phone "vegetarian" under the Halal chip had put the caveat out of sight.) */}
+      {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(searchQuery) && (
+        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to="/cards?card=vegetarian" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
+      )}
+      {sorted.length > 0 && ASKS_INGREDIENT.test(searchQuery) && (
+        <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* The caveat says pork-free places are left out and can be searched
           for — but searching with the Halal chip still on found nothing.
@@ -692,8 +695,8 @@ export default function BottomSheetList({
           ))}
           {/* …or the word: "hongdae vegan cafe" is ten places without "cafe". */}
           {onSearchInstead && withoutEach.length === 0 && [...withoutWords].sort((a, b) => a.n - b.n).slice(0, 3).map(({ word, rest, n }) => (
-            <button key={`${word}|${rest}`} type="button" className="place-list__clear" onClick={() => onSearchInstead(rest)}>
-              {t('list.withoutOne', { filter: word, n })}
+            <button key={`${word}|${rest}`} type="button" className="place-list__clear" onClick={() => onSearchInstead(word, rest)}>
+              {t('list.withoutOne', { filter: word.replace(/^[#"“”„「『(（[]+|["“”」』)）\],.;:!?，。、]+$/g, ''), n })}
             </button>
           ))}
           {withoutFilters > 0 && (

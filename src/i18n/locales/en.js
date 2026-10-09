@@ -114,7 +114,7 @@ export default {
     withoutFilters: '“{{query}}” finds {{n}} without the filters.',
     withoutOne: 'Without “{{filter}}”: {{n}}',
     askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
-    vegetarianNote: 'Egg and dairy are not on record. These are the places with vegan dishes — a vegetarian can eat those. To ask about the rest:',
+    vegetarianNote: 'Egg and dairy are not on record. These are the places with vegan dishes. To ask about the rest:',
     showPorkFree: 'See pork-free places (not halal)',
     // "open now" typed into the search: the chip is offered.
     showOpenNow: 'Show places open now',
@@ -527,11 +527,11 @@ export default {
   // What each Korean line on the staff cards says (src/data/staff-cards.js
   // holds the Korean and the key). A meaning, not a paraphrase: the reader
   // must know exactly what they are showing.
-  cardText: {
+  cardText: {
     vegeS1: 'Hello. I am vegetarian.',
     vegeS2: 'I do not eat meat (beef, pork, chicken, including ham and sausage), fish or seafood (including fish cake and crab stick).',
     vegeS3: 'I do eat eggs, milk and dairy.',
-    vegeS4: 'I also do not eat food with stock made from meat or fish, fish sauce or salted shrimp in it.',
+    vegeS4: 'I also do not eat food with stock made from anchovies, meat or seafood, fish sauce or salted shrimp in it.',
     vegeS5: 'Is there a dish I can eat?',
     vegeQ1: 'Is there meat or seafood in this dish?',
     vegeQ2: 'What is the stock made from? (anchovy, meat, bonito)',
