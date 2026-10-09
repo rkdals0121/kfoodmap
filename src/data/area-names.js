@@ -269,7 +269,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // …and the particles that glue an area to them: "ソウルでおすすめの…",
   // "서울에서 맛있는…", "首尔有什么好吃的…".
   'で', 'にある', 'に', '에서', '에', '의', '有什么', '有什麼', '有',
-  'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat',
+  'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat', 'sini', 'terdekat',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の',
   '附近', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
 
@@ -361,6 +361,11 @@ export function romaniseQuery(query) {
     // Only from a word known here — a diet, a kind of kitchen, an area:
     // from any word, a restaurant called "아빠의양식당" was also searched
     // as "아빠의양", and "한식당" as "한".
+    // "近くのハラール", "附近的清真餐厅", "附近素食": the same words in front
+    // of a diet or an area, written without a space — taken off the front,
+    // then the end, when what is left is a word known here.
+    const inner = peelEnd(peel(w)) || peel(w);
+    if (inner !== '' && inner !== w && peel(w) !== w && (GLUE_HEADS.has(inner) || TO_ROMAN.has(inner) || LATIN_VARIANTS.has(inner.toLowerCase()))) { changed = true; return [TO_ROMAN.get(inner) ?? inner]; }
     const head = peelEnd(w);
     if (head !== w && (GLUE_HEADS.has(head) || TO_ROMAN.has(head) || LATIN_VARIANTS.has(head.toLowerCase()))) { changed = true; return [head]; }
     return [w];

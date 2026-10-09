@@ -496,3 +496,12 @@ test('"open now" comes out of the search with what trails it', async () => {
   // "영업중단" is a place that has closed for good, not a question.
   assert.equal(asksOpenNow('영업중단'), false);
 });
+
+test('"nearby" written against the diet word, without a space, is still the diet', () => {
+  const halal = ids(go('halal'));
+  for (const q of ['近くのハラール', '近くのハラールレストラン', '附近的清真餐厅', '附近清真', 'halal dekat sini', 'makanan halal di sekitar sini']) assert.equal(ids(go(q)), halal, q);
+  assert.equal(ids(go('近くのヴィーガン')), ids(go('vegan')));
+  assert.equal(ids(go('近くの明洞')), ids(go('Myeongdong')));
+  // A name that only begins like such a word is left alone.
+  assert.equal(go('아빠의양식당').filteredRestaurants.length, 1);
+});
