@@ -1,0 +1,37 @@
+[
+ {
+  "url": "{{BASE}}/?n=1#q=hongdae%20vegan%20cafe",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); await w(1000); const before={head:document.querySelector('.place-list__header h2')?.innerText, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText), chips:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}; document.querySelector('.place-list__clear')?.click(); await w(1300); return {before, after:{head:document.querySelector('.place-list__header h2')?.innerText, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText), chips:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}}"
+ },
+ {
+  "url": "{{BASE}}/?n=2#f=Halal%2CVegan%2CMild%20Taste",
+  "w": 360,
+  "h": 740,
+  "lang": "id",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); await w(1000); const before={head:document.querySelector('.place-list__header h2')?.innerText, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText), chips:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}; document.querySelector('.place-list__clear')?.click(); await w(1300); return {before, after:{head:document.querySelector('.place-list__header h2')?.innerText, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText), chips:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}}"
+ },
+ {
+  "url": "{{BASE}}/?n=3#q=%ED%99%8D%EB%8C%80%20%EB%B9%84%EA%B1%B4%20%EC%B9%B4%ED%8E%98",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); await w(1000); const before={head:document.querySelector('.place-list__header h2')?.innerText, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText), chips:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}; document.querySelector('.place-list__clear')?.click(); await w(1300); return {before, after:{head:document.querySelector('.place-list__header h2')?.innerText, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText), chips:[...document.querySelectorAll('.chip.active')].map(c=>c.innerText), box:document.querySelector('input').value}}"
+ },
+ {
+  "url": "{{BASE}}/?n=4#q=biryani",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "js": "return {q:'biryani', head:document.querySelector('.place-list__header h2')?.innerText, note:document.querySelector('.place-list__searched-as')?.innerText}"
+ },
+ {
+  "url": "{{BASE}}/?n=5#q=sunday",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "js": "return {q:'sunday', head:document.querySelector('.place-list__header h2')?.innerText, note:document.querySelector('.place-list__searched-as')?.innerText ?? null}"
+ }
+]

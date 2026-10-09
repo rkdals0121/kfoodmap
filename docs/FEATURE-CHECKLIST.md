@@ -516,6 +516,12 @@ P33. Korean words for dishes and kitchens → 불고기, 만두, 닭갈비, 막�
 
 P34. Several offers at once ("내일 점심 근처 비건", "halal near me open now") → one band holds them side by side with a line between (one under another at 320 px when they do not fit); "halal open now today" and "오늘 심야 식당" offer "Show places open now", and pressed leave "halal" / "식당" in the box.
 
+P35. Ways out of an empty result (regress step `ways-out`) → several chips that find nothing offer "Without “X”: N" for each chip that is in the way, most places first, and pressing one takes only that chip off; several words that find nothing ("hongdae vegan cafe", "halal ramen") offer the search without each word, and pressing one leaves the rest in the box; one nonsense word offers neither.
+
+P36. Words as people type them → "hallal", "vegitarian", "halal resturant", "bibimbab", "#halal", “halal” in curly quotes, "(vegan)", "makanan korea halal" (Korean food, not Korea University), "ayam goreng", "apakah ada restoran halal di busan?", 維根, 麵包, 辣炒年糕 each find what the plain wording finds; a quoted “not spicy” still shows the caution that ingredients are not checked.
+
+P37. Outbound links → no place links to a misspelt host (`instargram.com` was one: the record now shows no link and says why); a bakery with vegan options asks about egg, butter, milk and honey, a kitchen about fish sauce, anchovy stock and egg.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
