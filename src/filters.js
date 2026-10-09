@@ -20,6 +20,12 @@ export const DIETARY_CHIPS = ['Vegan', 'Halal'];
 // its data test. A place whose hours are not recorded never matches: the
 // filter promises "open", and unknown is not open.
 export const OPEN_NOW = 'Open now';
+// The same question typed into the search box ("halal open now", "지금 영업",
+// "営業中"): no place's notes hold those words, so it found nothing. The list
+// offers the chip instead (BottomSheetList), and the words are taken out.
+const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|지금\s*영업(?:\s*중)?|영업\s*중|営業中|现在营业|現在營業|营业中|營業中|buka\s+sekarang/gi;
+export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
+export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
 // Open at a chosen weekday and time (planning ahead); never on with OPEN_NOW.
 export const OPEN_AT = 'Open at';
 

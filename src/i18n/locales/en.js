@@ -113,6 +113,8 @@ export default {
     withoutFilters: '“{{query}}” finds {{n}} without the filters.',
     askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
     showPorkFree: 'See pork-free places (not halal)',
+    // "open now" typed into the search: the chip is offered.
+    showOpenNow: 'Show places open now',
     suggestThis: 'Not on the map? Suggest it',
     nearResults: 'Also close to these:',
     noSavedTitle: 'No saved places yet',

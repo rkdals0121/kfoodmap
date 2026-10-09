@@ -110,6 +110,8 @@ export default {
     withoutFilters: '필터를 빼면 “{{query}}” 검색 결과가 {{n}}곳 있어요.',
     askStaffHint: '재료·알레르기는 가게마다 확인한 항목이 아니에요. 설명에 언급이 있어도 보장은 아니에요. 직원에게 물어볼 때:',
     showPorkFree: '돼지고기 없는 곳 보기(할랄 아님)',
+    // "open now" typed into the search: the chip is offered.
+    showOpenNow: '지금 영업 중인 곳 보기',
     suggestThis: '지도에 없나요? 제보하기',
     nearResults: '위에 나온 곳 근처에도 있어요:',
     noSavedTitle: '저장한 곳이 아직 없어요',

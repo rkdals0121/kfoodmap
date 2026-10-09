@@ -109,6 +109,8 @@ export default {
     withoutFilters: 'Tanpa filter, ada {{n}} tempat untuk “{{query}}”.',
     askStaffHint: 'Bahan dan alergen tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya, tetapi itu bukan jaminan. Untuk bertanya kepada dapur:',
     showPorkFree: 'Lihat tempat tanpa babi (bukan halal)',
+    // "open now" typed into the search: the chip is offered.
+    showOpenNow: 'Lihat yang buka sekarang',
     suggestThis: 'Belum ada di peta? Usulkan',
     nearResults: 'Dekat tempat-tempat di atas juga ada:',
     noSavedTitle: 'Belum ada tempat tersimpan',

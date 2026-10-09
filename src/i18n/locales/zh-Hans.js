@@ -108,6 +108,8 @@ export default {
     withoutFilters: '不加筛选时，“{{query}}”可找到 {{n}} 家。',
     askStaffHint: '食材和过敏原并非逐店核实的项目，说明里即使提到也不代表保证。向店员询问时可用：',
     showPorkFree: '查看不含猪肉的店（非清真）',
+    // "open now" typed into the search: the chip is offered.
+    showOpenNow: '查看现在营业的店',
     suggestThis: '地图上没有？推荐这家店',
     nearResults: '上面的店附近还有：',
     noSavedTitle: '还没有收藏的店',

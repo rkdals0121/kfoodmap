@@ -9,7 +9,7 @@ import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, kore
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
-import { TRAIT_GROUPS, isPorkFreeQuery } from '../filters';
+import { TRAIT_GROUPS, isPorkFreeQuery, asksOpenNow } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
 import { romaniseQuery } from '../data/area-names';
@@ -182,7 +182,7 @@ export default function BottomSheetList({
   inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, onClearInline, onOpenNow, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
   const { t } = useTranslation();
   const centredOnYou = Boolean(userLocation)
@@ -424,6 +424,14 @@ export default function BottomSheetList({
           </div>
         </div>
       )}
+      {/* "open now" typed into the search, with places found by those words
+          in a name or a note: the chip is what was meant. (Outside the
+          notes below, which are folded away when there is none.) */}
+      {onOpenNow && sorted.length > 0 && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
+        <p className="place-list__in-map">
+          <button type="button" onClick={onOpenNow}>{t('list.showOpenNow')}</button>
+        </p>
+      )}
       <div className="place-list__notes">
       {/* The fold's own control: the notes were opened by tapping a
           paragraph, which no keyboard or screen reader could find. */}
@@ -561,6 +569,11 @@ export default function BottomSheetList({
             && !(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0) && (
             <button type="button" className="place-list__clear" onClick={onClearSearch}>
               {t('list.clearSearchOnly')}
+            </button>
+          )}
+          {onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
+            <button type="button" className="place-list__clear" onClick={onOpenNow}>
+              {t('list.showOpenNow')}
             </button>
           )}
           {withoutFilters > 0 && (

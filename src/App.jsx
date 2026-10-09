@@ -30,7 +30,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly, storageKeeps } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery, withoutOpenNow } from './filters';
 import { searchPlaces } from './search';
 import { takeFreshList } from './freshList';
 import './index.css';
@@ -1175,6 +1175,12 @@ function AppShell() {
                 onClearSearch={() => { setQuery(''); setAreaOnly(false); }}
                 // Nothing found for a name: the way to tell us about it,
                 // with the name already written.
+                // "halal open now" typed out: the chip goes on and the words
+                // come out of the box.
+                onOpenNow={() => {
+                  setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_NOW]);
+                  setQuery(withoutOpenNow(searchQuery));
+                }}
                 onPorkFree={() => {
                   // Pork-free is not halal: the Halal chip goes off with it.
                   setSelectedFilters(prev => prev.filter(f => f !== 'Halal'));

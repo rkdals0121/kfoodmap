@@ -158,6 +158,8 @@ D26. Query containing "certified" / "KMF" / "인증" / "認証" → the halal ca
 D27. Search with chips that leaves < 3 results → under the cards a block "Nearest places that match, measured from “<area>”:" (up to 3; reach 40–90 km for an area, 5 km around results → then titled "Also close to these:") with rows (name, area · "X away, in a straight line", claim chips, open status); each row opens the place. Not shown with Saved or a shared list.
 D28. With "Open now"/"Open at…" on, the nearest block lists only open places, those closing soon last.
 
+D30. "open now" typed into the search ("halal open now", "이태원 지금 영업", "営業中", "buka sekarang") → a button "Show places open now" (in the empty state, or under the count when the words found something); pressing it turns the Open now chip on and takes the words out of the box (`#q=halal&f=Open+now`). Not offered when the chip is already on.
+
 ## E. Filters (chip row, Open now, Open at…, Saved)
 
 E1. Chip row (`.chip-row`, horizontally scrollable) order → Vegan, Fully vegan, Halal | Open now, Open at…, Saved | Sustainability, Zero waste, Local sourcing | Mild taste, Fermented. Groups have aria-labels ("Dietary filters", "Open now and saved places", "Sustainability filters", "Dining filters"). Each chip is a button with `aria-pressed`; active class `.chip.active`.

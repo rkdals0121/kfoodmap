@@ -112,6 +112,8 @@ export default {
     withoutFilters: 'フィルターなしでは「{{query}}」で {{n}} 件あります。',
     askStaffHint: '食材やアレルギーは、お店ごとに確認した項目ではありません。説明に記載があっても保証ではありません。お店で尋ねるときは：',
     showPorkFree: '豚肉不使用のお店を見る（ハラールではない）',
+    // "open now" typed into the search: the chip is offered.
+    showOpenNow: 'いま営業中のお店を見る',
     suggestThis: '地図にないお店ですか？提案する',
     nearResults: '上のお店の近くにも：',
     noSavedTitle: '保存したお店はまだありません',

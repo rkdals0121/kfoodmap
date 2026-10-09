@@ -473,3 +473,15 @@ test('a diet word of a language the app does not speak finds what the chip finds
   for (const q of ['веган', 'วีแกน', 'มังสวิรัติ', 'vegano', 'vegana', 'végane', 'veganisch', 'végétalien', 'thuần chay', 'نباتي']) assert.equal(ids(go(q)), vegan, q);
   assert.equal(ids(go('itaewon халяль')), ids(go('itaewon halal')));
 });
+
+test('"open now" typed into the search is recognised, and taken out', async () => {
+  const { asksOpenNow, withoutOpenNow } = await import('../../src/filters.js');
+  for (const q of ['open now', 'halal open now', 'Open right now itaewon', '이태원 지금 영업', '영업 중', '営業中', '现在营业', '營業中', 'buka sekarang']) assert.equal(asksOpenNow(q), true, q);
+  // Asked twice in a row: a regex with the g flag remembers where it stopped.
+  assert.equal(asksOpenNow('open now'), true);
+  for (const q of ['open', 'now', 'itaewon', 'opening', 'known open', 'nowon']) assert.equal(asksOpenNow(q), false, q);
+  assert.equal(withoutOpenNow('halal open now'), 'halal');
+  assert.equal(withoutOpenNow('open now'), '');
+  assert.equal(withoutOpenNow('이태원 지금 영업 중'), '이태원');
+  assert.equal(withoutOpenNow('itaewon open now vegan'), 'itaewon vegan');
+});
