@@ -246,7 +246,9 @@ export function searchPlaces({
     // Not a station search: that has its own answer above.
     if (result.list.length === 0 && !anchorPlaces && !station) {
       const parts = (romaniseQuery(raw) ?? raw).split(/[\s,，、]+/).filter(Boolean);
-      if (parts.length >= 2 && parts.length <= 4 && parts.every(isArea)) {
+      // (Areas only: "김해공항" is Gimhae + airport, and "airport" passed for
+      // an area — the answer was Incheon Airport's restaurants.)
+      if (parts.length >= 2 && parts.length <= 4 && parts.every(part => isArea(part) && !COOKING.has(part.toLowerCase()) && part.toLowerCase() !== 'airport')) {
         const either = select(r => parts.some(part => matchesAreaWhole(r, part)));
         if (either.list.length > 0) result = either;
       }

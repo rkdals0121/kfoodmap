@@ -632,7 +632,10 @@ export default function RestaurantDetail({
     // The claims as the page states them, with how sure each is — the
     // place's own line can say more ("a halal kitchen") than the record does.
     const claims = dietaryBadges(place).map(b => paren(b.label, trustBadge(b.fact).label)).join(' · ');
-    const how = await shareOrCopy({ title: place.name, text: [place.name, claims, placeArea(place)].filter(Boolean).join(' — '), url });
+    // The name as this reader sees it: in Korean the one on the sign, not
+    // "395 Bakery (395빵집)" with the romanised name in front.
+    const shownAs = i18n.language === 'ko' ? displayName(place.name) : place.name;
+    const how = await shareOrCopy({ title: shownAs, text: [shownAs, claims, placeArea(place)].filter(Boolean).join(' — '), url });
     if (how === 'failed') { window.prompt(t('detail.share'), url); return; }
     if (how === 'dismissed') return;
     setShared(how);

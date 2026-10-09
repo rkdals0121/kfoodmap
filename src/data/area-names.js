@@ -188,6 +188,7 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '麵包': 'bread', '面包': 'bread', '辣炒年糕': 'tteokbokki', '飯捲': 'gimbap', '饭卷': 'gimbap', '海苔飯捲': 'gimbap', '螃蟹': 'crab', kepiting: 'crab',
   'パン': 'bread', 'お寺の料理': 'temple', 'お寺': 'temple', 'カルグクス': 'kalguksu', 'チャプチェ': 'japchae', '石焼ビビンバ': 'bibimbap', '石焼きビビンバ': 'bibimbap', seomyun: 'Seomyeon', seomyon: 'Seomyeon',
   'ビリヤニ': 'biryani', 'サモサ': 'samosa', 'シーフード': 'seafood', '海鮮': 'seafood', '海鲜': 'seafood', 'フォー': 'pho', '香饭': 'biryani', '印度香饭': 'biryani', '咖喱角': 'samosa',
+  '아이스크림': 'ice cream', '젤라또': 'gelato', '젤라토': 'gelato',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',
   iteawon: 'Itaewon',
@@ -346,7 +347,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   'で', 'にある', 'に', '에서', '에', '의', '有什么', '有什麼', '有',
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat', 'sini', 'terdekat', 'siang', 'malam', 'pagi', 'ruang', 'pulau', 'kota',
   'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の', 'フード', '食品', '朝ごはん', 'モーニング', '朝食', '早餐', 'sarapan', '아침', '손님', '외국인',
-  '附近', '我附近', '离我最近', '離我最近', '我', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '가능', '가능한', '옵션', '메뉴', '있는', '되는', '파는', '料理', 'cuisine']);
+  '附近', '我附近', '离我最近', '離我最近', '我', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '가능', '가능한', '옵션', '메뉴', '있는', '되는', '파는', '받은', '접대', '접대할', '대접', '대접할', '모시고', '갈만한', '괜찮은', '料理', 'cuisine']);
 
 // Of those, the words of a question (not "restaurant", "food", "the", which
 // many places carry in their names). A place whose own name has such a word

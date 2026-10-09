@@ -751,3 +751,15 @@ test('a search that finds nothing asks no more than a handful of others, and nev
   // Glued after a station's name only: 역주변 by itself is no station.
   assert.equal(go('역주변').filteredRestaurants.length, 0);
 });
+
+test('Korean wordings of the chips; an airport is not an area to fall back on', async () => {
+  const { asksOpenNow, withoutOpenNow } = await import('../../src/filters.js');
+  const full = ids(go('완전 비건'));
+  for (const q of ['완전 비건만', '비건만', '비건 전용', 'vegan only']) assert.equal(ids(go(q)), full, q);
+  assert.equal(ids(go('손님 접대 할랄 한식')), ids(go('할랄 한식')));
+  assert.equal(ids(go('할랄 인증 받은 곳')), ids(go('할랄')));
+  for (const q of ['지금 여는 비건', '지금 문 연 비건', '24시간 비건']) { assert.ok(asksOpenNow(q), q); assert.equal(withoutOpenNow(q), '비건', q); }
+  // 김해공항: Gimhae has no airport restaurant on record — not Incheon Airport's.
+  assert.equal(go('김해공항').filteredRestaurants.length, 0);
+  assert.ok(go('인천공항').filteredRestaurants.length > 0);
+});

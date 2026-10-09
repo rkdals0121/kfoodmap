@@ -139,7 +139,8 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 {STAFF_ANSWERS.map(a => (
                   <div key={a.ko}>
                     <dt><span lang="ko" translate="no">{a.ko}</span>{gloss && <> <span className="staff-words__roman" translate="no">{a.roman}</span></>}</dt>
-                    <dd>{t(`cardText.${a.key}`)}</dd>
+                    {/* ("네 — 그렇다", "돼지고기 — 돼지의 고기": no gloss of Korean for a reader of Korean.) */}
+                    {gloss && <dd>{t(`cardText.${a.key}`)}</dd>}
                   </div>
                 ))}
               </dl>
@@ -152,7 +153,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 {MENU_WORDS.filter(w => !w.only || w.only === cardId).map(w => (
                   <div key={w.ko}>
                     <dt><span lang="ko" translate="no">{w.ko}</span>{gloss && <> <span className="staff-words__roman" translate="no">{w.roman}</span></>}</dt>
-                    <dd>{t(`cardText.${w.key}`)}</dd>
+                    {gloss && <dd>{t(`cardText.${w.key}`)}</dd>}
                   </div>
                 ))}
               </dl>
