@@ -196,6 +196,9 @@ const unpunct = (s) => String(s ?? '').replace(/[,.;:!?，。、！？]+/g, ' ')
 // squash(), so no spaces or hyphens.
 const DIET_WORDS = {
   halal: 'Halal', vegan: 'Vegan',
+  // …and as they are mistyped.
+  hallal: 'Halal', halaal: 'Halal', halall: 'Halal', halel: 'Halal', hala1: 'Halal',
+  vegitarian: 'Vegan', vegeterian: 'Vegan', vegatarian: 'Vegan', vegetarain: 'Vegan', vegiterian: 'Vegan', veggan: 'Vegan', veagan: 'Vegan', vegen: 'Vegan',
   // "Vegetarian", in each language: what a vegetarian can eat is asked of the
   // same record (a vegan dish is one), and the word alone found 32 places by
   // their descriptions — every one of them among the Vegan chip's 521, with

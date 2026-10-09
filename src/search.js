@@ -66,7 +66,12 @@ export function searchPlaces({
 }) {
   // A certification word is a question (filters.js): out before the
   // station, filler and phrase readings below see the search.
-  const said = stripCertWords(porkFreeSaid(String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim()));
+  // What a whole search is dressed in is not part of it: "#halal", a pasted
+  // "halal" in quotes, (vegan), 「ハラール」. (Inside a search such signs stay:
+  // an address holds brackets, a name an ampersand.)
+  const bare = String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim()
+    .replace(/^#+(?=\p{L})/u, '').replace(/^["“”„「『(（[]+(?=[^\s"“”„「『(（[])/, '').replace(/([^\s"“”」』)）\]])["“”」』)）\]]+$/, '$1');
+  const said = stripCertWords(porkFreeSaid(bare.includes('(') || bare.includes('（') ? String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim() : bare));
   // "맛집", "근처 맛집", "レストラン", "restaurants near me": words that name no
   // place and no kind of place found nothing, or whatever record happened to
   // hold them. Every place is one — unless some place is called so

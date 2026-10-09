@@ -187,6 +187,8 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '비리야니': 'biryani', '브리야니': 'biryani', '사모사': 'samosa', '해산물': 'seafood', '쌀국수': 'pho', '필라프': 'pilaf',
   'ビリヤニ': 'biryani', 'サモサ': 'samosa', 'シーフード': 'seafood', '海鮮': 'seafood', '海鲜': 'seafood', 'フォー': 'pho', '香饭': 'biryani', '印度香饭': 'biryani', '咖喱角': 'samosa',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
+  bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',
+  iteawon: 'Itaewon',
   kimbap: 'gimbap',
   gimbab: 'gimbap',
   kimbab: 'gimbap',
@@ -316,7 +318,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // "halal food near Itaewon", "makanan halal dekat Itaewon", "釜山 ランチ":
   // asked as a question, every word had to be found in the record, and
   // "near" or "dekat" is in none.
-  'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'places', 'lunch', 'dinner', 'breakfast',
+  'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'resturant', 'resturants', 'restaurent', 'restaraunt', 'restraunt', 'restorant', 'restoran', 'fod', 'foods', 'places', 'lunch', 'dinner', 'breakfast',
   // "halal near me", "best vegan in seoul", "where to eat in busan": the
   // rest of a question. ("me" alone started "menu" and "meat" in the
   // stories, and "halal near me" was 58 places of the 152.)
