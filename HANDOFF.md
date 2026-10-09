@@ -3710,6 +3710,16 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       for long names), the large card for staff had been cutting
       "들어가나요?" in two. A rule added for one case is checked against
       the screens that depend on the old behaviour.
+    - Evening of 10-09: Google's own page translator did load (it is
+      slow and often does not from this machine — try three times, and
+      wait up to a minute for the first `<font>`): on the live site, in
+      Thai, Arabic and Vietnamese, the presses that used to crash did
+      not, new text was translated again by the library, and the Korean
+      for staff, place names, station names and language names stayed
+      as written. The owner decided not to keep the map's position
+      across a reload (it would add to what the device holds and so to
+      the privacy policy). The list on the Map tab keeps its place
+      across tabs (`listMemory` in `BottomSheetList.jsx`).
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
