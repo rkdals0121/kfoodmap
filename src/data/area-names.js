@@ -184,6 +184,8 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '일식': 'japanese', '일식당': 'japanese', '초밥': 'sushi', '스시': 'sushi', '중식': 'chinese', '중식당': 'chinese', '중국집': 'chinese',
   '중동': 'middle eastern', '아랍': 'arab', '파키스탄': 'pakistan', '말레이시아': 'malaysia', '태국': 'thai', '베트남': 'vietnamese',
   '팔라펠': 'falafel', '후무스': 'hummus', '포케': 'poke', '타코': 'taco', '부리토': 'burrito', '쿠키': 'cookie', '스콘': 'scone', '도넛': 'doughnut',
+  '비리야니': 'biryani', '브리야니': 'biryani', '사모사': 'samosa', '해산물': 'seafood', '쌀국수': 'pho', '필라프': 'pilaf',
+  'ビリヤニ': 'biryani', 'サモサ': 'samosa', 'シーフード': 'seafood', '海鮮': 'seafood', '海鲜': 'seafood', 'フォー': 'pho', '香饭': 'biryani', '印度香饭': 'biryani', '咖喱角': 'samosa',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   kimbap: 'gimbap',
   gimbab: 'gimbap',

@@ -350,6 +350,23 @@ export function stripCertWords(query) {
 // The diet words of a search, as the chips they stand for, and the rest
 // of it: "halal seoul station" is the Halal chip and "seoul station"
 // (search.js reads a station only from the rest).
+// Whether a place's story speaks of the word: as a whole word ("pho" is not
+// "phone"; a plural counts), in a sentence that is not saying the place is
+// without it — "no meat or seafood", "free of gluten", "instead of beef".
+const SAYS_WITHOUT = /\b(?:no|not|non|never|without|free|instead|avoids?|excludes?|excluding|neither|nor|rather\s+than|n't|cannot|can't)\b|n't\b/i;
+const storyWords = new Map();
+export function mentionsInStory(r, word) {
+  if (typeof r.story !== 'string') return false;
+  const w = fold(word).trim();
+  if (!/^[a-z][a-z'-]{2,}$/.test(w)) return false;
+  let said = storyWords.get(w);
+  if (!said) {
+    said = new RegExp(`\\b${w.replace(/[-']/g, '.?')}(?:e?s)?\\b`, 'i');
+    if (storyWords.size > 200) storyWords.clear();
+    storyWords.set(w, said);
+  }
+  return r.story.split(/[.!?;]\s+/).some(sentence => said.test(sentence) && !SAYS_WITHOUT.test(sentence));
+}
 export function liftDietWords(query) {
   const parts = unpunct(query).trim().split(/\s+/).filter(Boolean);
   const chips = [];

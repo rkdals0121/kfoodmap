@@ -462,7 +462,11 @@ test('setting the words of a question aside does not lose a place named with the
   assert.ok(go('Incheon City Hall').filteredRestaurants.length > 20);
   assert.ok(go('Suwon city center').filteredRestaurants.length > 20);
   // Only a kind of food is read without its plural.
-  for (const word of ['fries', 'Las Vegas', 'jeons', 'mills seoul']) assert.equal(go(word).filteredRestaurants.length, 0, word);
+  for (const word of ['Las Vegas', 'jeons', 'mills seoul']) assert.equal(go(word).filteredRestaurants.length, 0, word);
+  // ("fries" is not "frie" — fried, friendly, 161 places: it is the places
+  // whose story speaks of fries, and the list says so.)
+  assert.ok(go('fries').filteredRestaurants.every(r => /\bfries\b/i.test(r.story)));
+  assert.ok(go('fries').filteredRestaurants.length < 20);
   assert.equal(go('Veggies').filteredRestaurants.length, 1);
   // …and a question is still a question.
   assert.equal(ids(go('halal near me')), ids(go('halal')));
@@ -647,4 +651,24 @@ test('dishes and kitchens by their Korean names', () => {
   assert.equal(ids(go('비건 옵션')), ids(go('vegan')));
   assert.equal(ids(go('채식 가능 한식')), ids(go('vegan korean')));
   assert.equal(ids(go('할랄 메뉴 있는 곳')), ids(go('halal')));
+});
+
+test('a single word only the stories hold lists the places whose story speaks of it', async () => {
+  const { mentionsInStory } = await import('../../src/filters.js');
+  const biryani = go('biryani');
+  assert.equal(biryani.fromStory, true);
+  assert.ok(biryani.filteredRestaurants.length >= 10);
+  assert.ok(biryani.filteredRestaurants.every(r => /biryani/i.test(r.story)));
+  // Under a chip, the same places that pass it.
+  const halal = searchPlaces({ places, query: 'biryani', filters: ['Halal'], now: new Date('2026-10-09T03:00:00Z') });
+  assert.ok(halal.fromStory && halal.filteredRestaurants.length > 0 && halal.filteredRestaurants.length <= biryani.filteredRestaurants.length);
+  // A whole word, in a sentence that is not saying the place is without it.
+  assert.equal(mentionsInStory({ story: 'Call by phone to book.' }, 'pho'), false);
+  assert.equal(mentionsInStory({ story: 'The kitchen uses no meat or seafood. Rice bowls and noodles.' }, 'seafood'), false);
+  assert.equal(mentionsInStory({ story: 'Curries, samosas and breads.' }, 'samosa'), true);
+  // Not when the word is on record another way, an area, or nowhere.
+  assert.equal(go('itaewon').fromStory, false);
+  assert.equal(go('bulgogi').fromStory, false);
+  assert.equal(go('xyzq').filteredRestaurants.length, 0);
+  assert.equal(searchPlaces({ places, query: 'Gyeongju', filters: ['Halal'], now: new Date('2026-10-09T03:00:00Z') }).fromStory, false);
 });

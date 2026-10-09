@@ -18,7 +18,7 @@ import { matchesDietary } from './data/verification.js';
 import { COOKING, fuzzyQuery, isListedArea, onlyFillers, questionWords, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
-  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, porkFreeSaid, liftDietWords } from './filters.js';
+  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, porkFreeSaid, liftDietWords, mentionsInStory } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
 
 // The longest search the box accepts. A page of pasted text built a regular
@@ -219,6 +219,21 @@ export function searchPlaces({
     }
   }
 
+  // One word that no place's name, area, address or one-line description
+  // holds, with or without the chips — "biryani", "samosa", "shawarma" — but
+  // some story does: those places, and the list says that is what they are.
+  // (A single word is otherwise not looked for in the stories: "itaewon"
+  // would be every place that once moved from there.)
+  let fromStory = false;
+  if (result.list.length === 0 && raw && !areaOnly && !anchorPlaces) {
+    // (As the map reads it: 비리야니 and ビリヤニ are "biryani".)
+    const word = stripFillers(romaniseQuery(raw) ?? raw).trim();
+    if (word.length >= 3 && !/\s/.test(word) && !onRecord(raw) && !onRecord(word) && !isArea(word)) {
+      const told = select(r => mentionsInStory(r, word));
+      if (told.list.length > 0) { result = told; fromStory = true; }
+    }
+  }
+
   // Little or nothing under the chips: the nearest places that do match.
   // Measured from the station when one was named; else from the results
   // that are in the area searched; else from the area itself; else (a name
@@ -283,5 +298,6 @@ export function searchPlaces({
       : 0,
     nearest,
     nearestFrom,
+    fromStory,
   };
 }

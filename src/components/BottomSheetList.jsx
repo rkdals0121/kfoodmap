@@ -211,7 +211,7 @@ export default function BottomSheetList({
   inMapOnly = false, onShowAll,
   restaurants, onRestaurantClick, onReadStory, onDirections, onToggleBookmark, bookmarkedIds, mapCenter,
   sustainabilityLens, activeFilters = [], searchQuery = '', onClearFilters, missingPlace = null, unknownHours = 0,
-  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
+  userLocation = null, sharedIds = [], sharedJourney = null, onSaveShared, onCloseShared, planAt = null, planDate = null, areaOnly = false, matchQuery = searchQuery, asked = searchQuery, onClearInline, onOpenNow, onPlan, onLocate, locateState = 'idle', fromYou = false, mapFramed = false, nearest = [], nearestFrom = '', fromStory = false, showUnknown = false, onToggleUnknown, tick = 0, onSuggest, onPorkFree, withoutFilters = 0, onClearSearch,
 }) {
   const { t, i18n } = useTranslation();
   // A Korean reader who typed Korean: "서울역" answered with “Seoul Station”도
@@ -468,6 +468,9 @@ export default function BottomSheetList({
           "noodles" as "noodle"): nothing was spelt another way. */}
       {searchQuery.trim() && matchQuery.trim() && !typedKorean && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
         <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(matchQuery) ?? matchQuery })}</p>
+      )}
+      {fromStory && sorted.length > 0 && (
+        <p className="place-list__searched-as">{t('list.fromStory', { query: searchQuery.trim() })}</p>
       )}
 
       {/* Said once for the whole list rather than on every card: the same

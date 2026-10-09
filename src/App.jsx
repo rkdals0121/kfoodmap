@@ -957,7 +957,7 @@ function AppShell() {
     return asksOpenNow(filterQuery) ? withoutOpenNow(filterQuery) : filterQuery;
   }, [filterQuery]);
   useEffect(() => { setMapFramed(false); }, [selectedFilters, searchedFor, areaOnly]);
-  const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters } = useMemo(() => searchPlaces({
+  const { filteredRestaurants, unknownHours, matchQuery, nearest, nearestFrom, withoutFilters, fromStory } = useMemo(() => searchPlaces({
     places: activeRestaurants,
     query: searchedFor,
     filters: selectedFilters,
@@ -1203,6 +1203,7 @@ function AppShell() {
                 asked={searchedFor}
                 nearest={nearest}
                 nearestFrom={nearestFrom}
+                fromStory={fromStory}
                 withoutFilters={withoutFilters}
                 onClearSearch={() => { setQuery(''); setAreaOnly(false); }}
                 // Nothing found for a name: the way to tell us about it,

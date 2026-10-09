@@ -95,6 +95,7 @@ export default {
     nearestYou: '내 위치에서 가까운 순',
     areaFirst: '검색한 지역 먼저',
     searchedAs: '“{{query}}”도 함께 검색했어요',
+    fromStory: '“{{query}}”: 이름이나 소개 한 줄에는 없고, 이야기 글에 나오는 곳들이에요.',
     shareView: '이 검색 공유',
     fromMapCentre: '(지도 중심 기준)',
     fromYou: '(내 위치 기준)',

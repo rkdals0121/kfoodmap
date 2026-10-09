@@ -98,6 +98,7 @@ export default {
     nearestYou: 'Nearest to you',
     areaFirst: 'In the searched area first',
     searchedAs: 'Also searched as “{{query}}”',
+    fromStory: 'No place is named or summed up as “{{query}}”. These mention it in their story.',
     shareView: 'Share this search',
     fromMapCentre: 'from the map centre',
     fromYou: 'from you',

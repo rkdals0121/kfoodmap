@@ -93,6 +93,7 @@ export default {
     nearestYou: '离你最近的优先',
     areaFirst: '搜索区域内的优先',
     searchedAs: '已同时按“{{query}}”搜索',
+    fromStory: '店名和简介中没有“{{query}}”，以下是故事中提到它的店。',
     shareView: '分享此搜索',
     fromMapCentre: '（从地图中心算起）',
     fromYou: '（从你的位置算起）',
