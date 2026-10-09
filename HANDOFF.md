@@ -3777,6 +3777,16 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       (`mapFramed` in `App.jsx`, `heart` in `BottomSheetList.jsx`).
       When piping `shot.mjs` or `regress/run.mjs`, send the output to a
       file: `| head` ends the script before it has cleaned up.
+      A single word found nowhere else lists the places whose story
+      speaks of serving it (`mentionsInStory`, `fromStory`; never a
+      weekday or a word about the record). Several chips that find
+      nothing offer what each, taken off, would leave (`withoutEach`).
+      `bash scripts/search-compare/run.sh <commit>` compares the working
+      search with any earlier commit — run it against the last release
+      before a batch of search rules goes out, and have the batch read by
+      a reviewer: on 10-10 two reviews each found rules that undid one
+      another (a street matched its district; "sunday" listed places
+      closed on Sundays).
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
