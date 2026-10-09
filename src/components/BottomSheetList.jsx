@@ -473,7 +473,7 @@ export default function BottomSheetList({
           by its Korean address, and the line only looked like a mistake. */}
       {/* Nor one that only left words out ("halal near me" as "halal",
           "noodles" as "noodle"): nothing was spelt another way. */}
-      {searchQuery.trim() && matchQuery.trim() && !typedKorean && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
+      {searchQuery.trim() && matchQuery.trim() && !typedKorean && !fromStory && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
         <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(matchQuery) ?? matchQuery })}</p>
       )}
       {fromStory && sorted.length > 0 && (
