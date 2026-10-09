@@ -253,7 +253,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // "halal food near Itaewon", "makanan halal dekat Itaewon", "釜山 ランチ":
   // asked as a question, every word had to be found in the record, and
   // "near" or "dekat" is in none.
-  'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'places', 'lunch', 'dinner',
+  'near', 'nearby', 'in', 'at', 'around', 'the', 'food', 'restaurant', 'restaurants', 'places', 'lunch', 'dinner', 'breakfast',
   // "halal near me", "best vegan in seoul", "where to eat in busan": the
   // rest of a question. ("me" alone started "menu" and "meat" in the
   // stories, and "halal near me" was 58 places of the 152.)
@@ -278,7 +278,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   // "서울에서 맛있는…", "首尔有什么好吃的…".
   'で', 'にある', 'に', '에서', '에', '의', '有什么', '有什麼', '有',
   'dekat', 'sekitar', 'di', 'makanan', 'masakan', 'makan', 'tempat', 'sini', 'terdekat',
-  'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の', 'フード', '食品',
+  'ランチ', 'ディナー', 'グルメ', 'ごはん', '食事', '近く', '周辺', 'の', 'フード', '食品', '朝ごはん', '朝食', '早餐', 'sarapan', '아침', '손님', '외국인',
   '附近', '美食', '午餐', '晚餐', '근처', '주변', '점심', '저녁', '밥집', '추천', '음식', '요리', '料理', 'cuisine']);
 
 // Of those, the words of a question (not "restaurant", "food", "the", which
@@ -382,6 +382,11 @@ export function romaniseQuery(query) {
       // "在明洞吃清真": an area follows, and more after it.
       const more = romaniseQuery(front);
       if (more !== null) { changed = true; return more.split(' ').filter(Boolean); }
+    }
+    // "ヴィーガンカフェ", "비건카페", "清真咖啡店": a diet and a kind of place in
+    // one word are two words.
+    for (const diet of GLUE_HEADS) {
+      if (w.length > diet.length && w.startsWith(diet) && TO_ROMAN.has(w.slice(diet.length))) { changed = true; return [diet, TO_ROMAN.get(w.slice(diet.length))]; }
     }
     const head = peelEnd(w);
     if (head !== w && (GLUE_HEADS.has(head) || TO_ROMAN.has(head) || LATIN_VARIANTS.has(head.toLowerCase()))) { changed = true; return [head]; }

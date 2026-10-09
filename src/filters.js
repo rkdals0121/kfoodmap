@@ -26,7 +26,7 @@ export const OPEN_NOW = 'Open now';
 // (With what trails the words in each language — "営業中のお店", "现在营业的店",
 // "지금 영업하는 곳" — so that taking them out leaves no stray particle; not
 // "영업중단", closed for good.)
-const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
+const OPEN_NOW_TYPED = /\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b24[- ]?(?:hours?|hr|h)\b|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:larut|tengah)\s+malam|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|(?:いま|今)?営業中(?:の(?:お店|店|レストラン))?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
 export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
 export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
 // Open at a chosen weekday and time (planning ahead); never on with OPEN_NOW.
@@ -114,6 +114,12 @@ const unpunct = (s) => String(s ?? '').replace(/[,.;:!?，。、！？]+/g, ' ')
 // squash(), so no spaces or hyphens.
 const DIET_WORDS = {
   halal: 'Halal', vegan: 'Vegan',
+  // "Vegetarian", in each language: what a vegetarian can eat is asked of the
+  // same record (a vegan dish is one), and the word alone found 32 places by
+  // their descriptions — every one of them among the Vegan chip's 521, with
+  // "경주 채식" finding none of Gyeongju's four.
+  vegetarian: 'Vegan', vegetarisch: 'Vegan', vegetariano: 'Vegan', vegetariana: 'Vegan', vegetarien: 'Vegan',
+  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
   'ハラール': 'Halal', 'ハラル': 'Halal', 'ヴィーガン': 'Vegan', 'ビーガン': 'Vegan',
   '清真': 'Halal', '纯素': 'Vegan', '純素': 'Vegan',
   '할랄': 'Halal', '비건': 'Vegan',
@@ -243,6 +249,15 @@ function dietPairs(parts) {
 // of the search once, before anything reads it (search.js): left in for
 // the station and filler readings, "kmf seoul station" was all of Seoul.
 const CERT_WORD = /^(ハラール|ハラル|清真|할랄|halal)?(?:kmf|certified|certificates?|certification|bersertifikat|sertifikat|sertifikasi|認証|认证|認證|인증)(?:書|서|证书|證書)?(?:店|餐厅|餐廳|식당|レストラン)?$/i;
+// "돼지고기 안 쓰는 집", "豚肉を使わない店", "没有猪肉": pork-free said in three
+// or four words. Put as the one word the records' level is searched by.
+const PORK_FREE_SAID = [
+  [/돼지고기(?:를|가|는)?\s*(?:안\s*(?:쓰는|넣는|들어간|들어가는|파는|먹는)|빼고|없이|없는)(?:\s*(?:집|식당|곳|가게|음식점|음식))?/g, '돼지고기없는'],
+  [/豚肉(?:を|は)?(?:使わない|使っていない|なし|抜き|不使用)(?:の?(?:店|お店|レストラン))?/g, '豚肉不使用'],
+  [/(?:没有|不用|不含|无|無|沒有)(?:猪|豬)肉(?:的(?:店|餐厅|餐廳))?/g, '不含猪肉'],
+];
+export const porkFreeSaid = (query) => PORK_FREE_SAID.reduce((q, [said, word]) => q.replace(said, ` ${word} `), String(query ?? '')).replace(/\s+/g, ' ').trim();
+
 export function stripCertWords(query) {
   const asked = String(query ?? '').trim().split(/\s+/).filter(Boolean);
   const rest = asked.flatMap((w) => {

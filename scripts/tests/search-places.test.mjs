@@ -524,3 +524,30 @@ test('a whole sentence, as spoken to a phone, is searched by what it names', () 
   // A place whose own name has such a word is still that place.
   for (const q of ['Base is Nice', 'base is nice', "Plantude I'Park Mall Yongsan"]) assert.equal(go(q).filteredRestaurants.length, 1, q);
 });
+
+test('"vegetarian" is asked of the same record as vegan, in each language', () => {
+  const vegan = ids(go('vegan'));
+  for (const q of ['vegetarian', '채식', '素食', 'ベジタリアン', 'vegetarian restaurant']) assert.equal(ids(go(q)), vegan, q);
+  assert.equal(ids(go('경주 채식')), ids(go('경주 비건')));
+  // "Veggie" is a word in names, and stays a search by name.
+  assert.ok(go('veggie').filteredRestaurants.length < 20);
+});
+
+test('pork-free said in a phrase, a diet glued to a kind of place, a meal named', () => {
+  const porkFree = ids(go('pork free'));
+  for (const q of ['돼지고기 안 쓰는 집', '돼지고기 안 쓰는 식당', '豚肉を使わない店', '没有猪肉']) assert.equal(ids(go(q)), porkFree, q);
+  assert.equal(ids(go('釜山のヴィーガンカフェ')), ids(go('busan vegan cafe')));
+  assert.equal(ids(go('비건카페')), ids(go('비건 카페')));
+  assert.equal(ids(go('vegan breakfast jeju')), ids(go('jeju vegan')));
+  assert.equal(ids(go('대구 무슬림 손님 식당')), ids(go('대구 할랄')));
+  // Names that only begin like a diet word are left alone.
+  assert.equal(go('아빠의양식당').filteredRestaurants.length, 1);
+});
+
+test('"late night", "tonight", "24 hours" are the question "open now"', async () => {
+  const { asksOpenNow, withoutOpenNow } = await import('../../src/filters.js');
+  assert.equal(withoutOpenNow('late night halal itaewon'), 'halal itaewon');
+  assert.equal(withoutOpenNow('24 hour halal'), 'halal');
+  assert.equal(withoutOpenNow('심야 할랄'), '할랄');
+  for (const q of ['latte', 'later', 'chocolate', 'translate', '24 seoul']) assert.equal(asksOpenNow(q), false, q);
+});

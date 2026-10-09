@@ -18,7 +18,7 @@ import { matchesDietary } from './data/verification.js';
 import { COOKING, fuzzyQuery, isListedArea, questionWords, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
-  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, liftDietWords } from './filters.js';
+  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, porkFreeSaid, liftDietWords } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
 
 // The longest search the box accepts. A page of pasted text built a regular
@@ -66,7 +66,7 @@ export function searchPlaces({
 }) {
   // A certification word is a question (filters.js): out before the
   // station, filler and phrase readings below see the search.
-  const typed = stripCertWords(String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim());
+  const typed = stripCertWords(porkFreeSaid(String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim()));
   // A diet word beside a station is a chip, and the station the search:
   // "halal seoul station" took "halal seoul" for the station's name and
   // answered with every halal place in Seoul; "seoul station halal"
