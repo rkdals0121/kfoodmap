@@ -153,7 +153,8 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 {MENU_WORDS.filter(w => !w.only || w.only === cardId).map(w => (
                   <div key={w.ko}>
                     <dt><span lang="ko" translate="no">{w.ko}</span>{gloss && <> <span className="staff-words__roman" translate="no">{w.roman}</span></>}</dt>
-                    {gloss && <dd>{t(`cardText.${w.key}`)}</dd>}
+                    {/* (These say where the word turns up, in Korean too.) */}
+                    <dd>{t(`cardText.${w.key}`)}</dd>
                   </div>
                 ))}
               </dl>

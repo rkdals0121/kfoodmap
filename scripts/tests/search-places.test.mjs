@@ -755,7 +755,13 @@ test('a search that finds nothing asks no more than a handful of others, and nev
 test('Korean wordings of the chips; an airport is not an area to fall back on', async () => {
   const { asksOpenNow, withoutOpenNow } = await import('../../src/filters.js');
   const full = ids(go('완전 비건'));
-  for (const q of ['완전 비건만', '비건만', '비건 전용', 'vegan only']) assert.equal(ids(go(q)), full, q);
+  for (const q of ['완전 비건만', '비건 전용', 'vegan only']) assert.equal(ids(go(q)), full, q);
+  // (Not "비건 만 원": 만 is ten thousand there.)
+  assert.equal(ids(go('비건 만 원')), ids(go('비건 원')));
+  // 대접 is a restaurant in Gwangju, not a word to set aside.
+  assert.equal(go('대접 광주').filteredRestaurants.length, 1);
+  assert.equal(withoutOpenNow('24시간 영업중인 곳'), '');
+  assert.equal(withoutOpenNow('지금 하는데'), '지금 하는데');
   assert.equal(ids(go('손님 접대 할랄 한식')), ids(go('할랄 한식')));
   assert.equal(ids(go('할랄 인증 받은 곳')), ids(go('할랄')));
   for (const q of ['지금 여는 비건', '지금 문 연 비건', '24시간 비건']) { assert.ok(asksOpenNow(q), q); assert.equal(withoutOpenNow(q), '비건', q); }
