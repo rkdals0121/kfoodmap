@@ -1315,7 +1315,7 @@ export default function RestaurantDetail({
                   <dt>{t('detail.lastChecked')}</dt>
                   {/* Dates arrive with the full record; until then say nothing
                       rather than "Never". */}
-                  <dd className={lastChecked ? 'keep-together' : undefined}>{lastChecked ? formatLongDate(lastChecked, i18n.language) : full ? t('detail.never') : fullFailed ? '—' : '…'}</dd>
+                  <dd>{lastChecked ? formatLongDate(lastChecked, i18n.language) : full ? t('detail.never') : fullFailed ? '—' : '…'}</dd>
                 </div>
               </dl>
             </footer>
