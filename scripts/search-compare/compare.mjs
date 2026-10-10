@@ -31,7 +31,7 @@ for (const q of qs) {
   for (const f of [[]]) {
     const a = O.go(q, f), b = N.go(q, f);
     const A = a.filteredRestaurants.map(p => p.id).join(','), B = b.filteredRestaurants.map(p => p.id).join(',');
-    if (A !== B || a.matchQuery !== b.matchQuery) { diff += 1; if (diff <= 40) console.log(`## ${JSON.stringify(q)} [${f}] old ${a.filteredRestaurants.length} new ${b.filteredRestaurants.length} mq ${a.matchQuery}|${b.matchQuery}`); }
+    if (A !== B || a.matchQuery !== b.matchQuery) { diff += 1; if (diff <= Number(process.env.SHOW ?? 40)) console.log(`## ${JSON.stringify(q)} [${f}] old ${a.filteredRestaurants.length} new ${b.filteredRestaurants.length} mq ${a.matchQuery}|${b.matchQuery}`); }
   }
 }
 console.log(`${qs.size} queries x 1, ${diff} differ`);
