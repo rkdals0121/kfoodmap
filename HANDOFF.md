@@ -3263,6 +3263,20 @@ Food Journey MVP, offline) → **(3)** Multilingual → **(4)** the
 backend-gated community features (UGC intake, Cross-Device Sync) plus a
 verification-gated data-expansion pipeline — explicitly *not* a bulk import.
 
+**Search, as of 2026-10-10 (candidates, none started):**
+
+- Station search by the places' own transit facts: 반월당역, 중앙로역, 동대구역,
+  삼성역 find nothing, though every place page near them names the station.
+  `transit` is a stripped field (fetched with the place page), so the list
+  cannot search it: the station's name would have to travel with the list
+  data (`src/data/station-ko.js` already pairs romanised and Korean names).
+  The same work would let "서울역 카페" mean the cafés by the station rather
+  than every café in Seoul.
+- A place named after another city in an area search ("Busan Jib" in Seoul
+  under "Busan"): shown after the area's own places, counted with them.
+- Words the records cannot answer ("예약되는", "주차 되는", "룸 있는"): say
+  which word was set aside instead of ending at nothing or ignoring it.
+
 Immediately next, in order:
 
 1. ~~**Housekeeping commit**~~ — **done, 2026-08-02.** Untracked `temp.js` /
