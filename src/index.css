@@ -7438,3 +7438,11 @@ html[lang='id'] .stat-label {
   padding: 14px 0;
   margin: -14px 0;
 }
+
+/* A name that is one long word ("jumjumjumjumjumjum") stood 72 px outside the
+   place's heading on a 320 px phone at the largest text: a heading breaks
+   inside a word when — and only when — the word cannot fit a line. */
+.detail-sheet h1,
+.detail-sheet h2 {
+  overflow-wrap: anywhere;
+}
