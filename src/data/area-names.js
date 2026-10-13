@@ -199,7 +199,7 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '意面': 'pasta', '意大利面': 'pasta', '麺': 'noodle', '麵': 'noodle', '面': 'noodle', 'お茶': 'tea', '茶': 'tea', '와인': 'wine', '맥주': 'beer',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',
-  iteawon: 'Itaewon',
+  iteawon: 'Itaewon', '이테원': 'Itaewon', '이태완': 'Itaewon',
   kimbap: 'gimbap',
   gimbab: 'gimbap',
   kimbab: 'gimbap',

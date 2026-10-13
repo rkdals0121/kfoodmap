@@ -277,6 +277,7 @@ export default {
     zeroWaste: 'ゼロウェイスト',
     localSourcing: '地元食材',
     mildTaste: '辛さ控えめ',
+    glutenFreeOptions: 'グルテンフリーあり',
     fermented: '発酵食品',
     searchPlaceholder: '店名やエリアで検索',
     clearSearch: '検索をクリア',

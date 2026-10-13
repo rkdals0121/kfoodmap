@@ -282,6 +282,7 @@ export default {
     zeroWaste: 'Zero waste',
     localSourcing: 'Local sourcing',
     mildTaste: 'Mild taste',
+    glutenFreeOptions: 'Gluten-free options',
     fermented: 'Fermented',
     searchPlaceholder: 'Search by name or area',
     clearSearch: 'Clear the search',

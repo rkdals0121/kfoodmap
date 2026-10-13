@@ -7466,3 +7466,10 @@ html[lang='id'] .stat-label {
 [aria-controls^='claim-explain-'] {
   scroll-margin-top: 96px;
 }
+
+/* The handle that folds the list stood over an open dialog (the cards, the
+   privacy text, a place's sheet) at desktop widths and covered a letter or
+   two of it. While something is open over the page it cannot be used anyway. */
+.border-region[inert] .sidebar-toggle {
+  visibility: hidden;
+}

@@ -19,6 +19,8 @@ const CHIP_LABEL_KEY = {
   ...Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey])),
   // The chips that are not traits (filters.js) are named by the same keys
   // the chip row uses, so the "nothing matches" summary is in one language.
+  // (A trait with no chip of its own.)
+  'Gluten-Free Options': 'filters.glutenFreeOptions',
   [OPEN_NOW]: 'filters.openNow',
   [OPEN_AT]: 'filters.openAt',
   [SAVED_ONLY]: 'filters.savedOnly',
@@ -97,7 +99,7 @@ const ASKS_UNRECORDED = new RegExp(
 const ASKS_PRICE = new RegExp(`\\b(?:cheap|cheapest|budget|affordable|inexpensive|prices?|murah|harga)\\b|저렴|가격|가성비|安い|値段|格安|便宜|价格|價格|平价|平價`, 'i');
 // "bebas alkohol", "no alcohol", "무알콜": some notes say whether a place
 // sells alcohol, but it is no field of the record and nothing filters by it.
-const ASKS_ALCOHOL = new RegExp(`\\b(?:alcohol|alkohol)\\b|무알콜|논알콜|술\\s*(?:안|없)|アルコール|お酒|酒精|不卖酒|不賣酒|无酒|無酒`, 'i');
+const ASKS_ALCOHOL = new RegExp(`\\b(?:alcohol|alkohol)\\b|무알콜|무알코올|논알콜|논알코올|술\\s*(?:안|없)|アルコール|お酒|酒精|不卖酒|不賣酒|无酒|無酒`, 'i');
 // "musholla", "masjid", "prayer room", "기도실": answered with the two or
 // five restaurants whose story mentions one, and nothing said that the map
 // lists places to eat, not prayer rooms.
@@ -524,7 +526,7 @@ export default function BottomSheetList({
         <p className="place-list__searched-as">{t('list.searchedAs', { query: (() => { const said = porkFreeSaid(matchQuery); return /[가-힣぀-ヿ一-鿿]/.test(said) ? (romaniseQuery(matchQuery) ?? matchQuery) : (romaniseQuery(said) ?? said); })() })}</p>
       )}
       {fromStory && sorted.length > 0 && (
-        <p className="place-list__searched-as">{t('list.fromStory', { query: fromStory })}</p>
+        <p className="place-list__searched-as">{t('list.fromStory', { query: searchQuery.trim() !== '' && !/\s/.test(searchQuery.trim()) ? searchQuery.trim() : fromStory })}</p>
       )}
 
       {/* Said once for the whole list rather than on every card: the same

@@ -204,7 +204,7 @@ const unpunct = (s) => String(s ?? '').replace(/[,.;:!?，。、！？]+/g, ' ')
 const DIET_WORDS = {
   halal: 'Halal', vegan: 'Vegan',
   // …and as they are mistyped.
-  '하랄': 'Halal', '할날': 'Halal', '베지테리안': 'Vegan', '베지테리언': 'Vegan', '베지터리언': 'Vegan', '베지터리안': 'Vegan',
+  '하랄': 'Halal', '할날': 'Halal', '할럴': 'Halal', '핼랄': 'Halal', '베지테리안': 'Vegan', '베지테리언': 'Vegan', '베지터리언': 'Vegan', '베지터리안': 'Vegan',
   hallal: 'Halal', halaal: 'Halal', halall: 'Halal', halel: 'Halal', hala1: 'Halal',
   vegitarian: 'Vegan', vegeterian: 'Vegan', vegatarian: 'Vegan', vegetarain: 'Vegan', vegiterian: 'Vegan', veggan: 'Vegan', veagan: 'Vegan', vegen: 'Vegan',
   // "Vegetarian", in each language: what a vegetarian can eat is asked of the
@@ -363,6 +363,8 @@ const PORK_FREE_SAID = [
   [/\b(?:makanan|masakan|kuliner)\s+korea\b/gi, 'korean'],
   [/\bayam\s+goreng\b/gi, 'fried chicken'],
   [/\bmakanan\s+laut\b/gi, 'seafood'],
+  // (The chip's own name, typed with its gap.)
+  [/제로\s+웨이스트/g, '제로웨이스트'],
   [/\bdaging\s+sapi\b/gi, 'beef'],
   [/\bes\s+krim\b/gi, 'ice cream'],
   [/\bmyeong\s+dong\b(?![-\w])/gi, 'myeongdong'],

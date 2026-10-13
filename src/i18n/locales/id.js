@@ -275,6 +275,7 @@ export default {
     zeroWaste: 'Nol sampah',
     localSourcing: 'Bahan lokal',
     mildTaste: 'Tidak terlalu pedas',
+    glutenFreeOptions: 'Ada pilihan bebas gluten',
     fermented: 'Fermentasi',
     searchPlaceholder: 'Cari nama atau area',
     clearSearch: 'Hapus pencarian',
