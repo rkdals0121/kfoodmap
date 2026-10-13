@@ -356,7 +356,9 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
     // is not laid out yet — no height — and the places were fitted into the
     // whole map, under where the list then came up. Waited for, briefly.
     const list = document.querySelector('.sidebar-region');
-    if (list && list.getBoundingClientRect().height === 0 && waited < 20) { waited += 1; timer = setTimeout(frame, 50); return; }
+    // (A phone only: between 768 and 1023 px the list's region has no box of
+    // its own, and would be waited for in vain every time.)
+    if (list && window.matchMedia?.('(max-width: 767px)').matches && list.getBoundingClientRect().height === 0 && waited < 20) { waited += 1; timer = setTimeout(frame, 50); return; }
     const latlngs = restaurants.map(r => { const c = coordsOf(r); return L.latLng(c.lat, c.lng); });
     const size = map.getSize();
     const overlap = sheetOverlap(map);

@@ -5532,7 +5532,6 @@ html[data-text] .toast > * {
 }
 .text-size__device {
   flex: 0 0 100%;
-  margin-top: 6px;
 }
 
 /* ---- Fourth measurement, 2026-10-04 ---- */
@@ -7453,4 +7452,11 @@ html[lang='id'] .stat-label {
 .detail-sheet h1,
 .detail-sheet h2 {
   overflow-wrap: anywhere;
+}
+
+/* Leaflet sizes its own text in rem (0.75rem): with <meta name="text-scale">
+   an Android phone set to large type would have grown the map's credit line
+   and nothing else. In pixels, as everything here. */
+.leaflet-container {
+  font-size: 12px;
 }

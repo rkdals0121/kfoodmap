@@ -192,9 +192,11 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '아이스크림': 'ice cream', '젤라또': 'gelato', '젤라토': 'gelato',
   // (The records write "ramyeon" and "doughnut".)
   ramen: 'ramyeon', ramyun: 'ramyeon', '라면': 'ramyeon', '라멘': 'ramyeon', 'ラーメン': 'ramyeon', '拉面': 'ramyeon', '拉麵': 'ramyeon',
-  donut: 'doughnut', donuts: 'doughnut', doughnuts: 'doughnut', 'ドーナツ': 'doughnut', '甜甜圈': 'doughnut',
+  donut: 'doughnut', donuts: 'doughnut', doughnuts: 'doughnut', 'ドーナツ': 'doughnut', 'ドーナッツ': 'doughnut', '甜甜圈': 'doughnut',
+  '제로웨이스트': 'zero waste', 'ゼロウェイスト': 'zero waste', '零废弃': 'zero waste', '零廢棄': 'zero waste', '오가닉': 'organic', organik: 'organic',
+  '사찰': 'temple', '절밥': 'temple', '절음식': 'temple',
   '自助': 'buffet', prasmanan: 'buffet', '무한리필': 'buffet', '食べ放題': 'buffet', '吃到饱': 'buffet', '吃到飽': 'buffet',
-  '意面': 'pasta', '意大利面': 'pasta', '麺': 'noodles', '麵': 'noodles', '面': 'noodles', 'お茶': 'tea', '茶': 'tea', '와인': 'wine', '맥주': 'beer',
+  '意面': 'pasta', '意大利面': 'pasta', '麺': 'noodle', '麵': 'noodle', '面': 'noodle', 'お茶': 'tea', '茶': 'tea', '와인': 'wine', '맥주': 'beer',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',
   iteawon: 'Itaewon',

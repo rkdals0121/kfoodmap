@@ -4,7 +4,7 @@ import { placeArea } from '../place-area';
 import i18next from 'i18next';
 import { TEXT_SIZES, applyTextSize, readTextSize, chosenTextSize } from '../textSize';
 import { askFreshList } from '../freshList';
-import { displayName, formatDistance, getOpenStatus, statusClass, closedAllDay } from '../utils';
+import { displayName, formatDistance, getOpenStatus, statusClass, closedAllDay, unknownHoursKey } from '../utils';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -278,7 +278,7 @@ function DiscoverTab({ onBrowse, diets = NO_DIETS }) {
                               const status = getOpenStatus(place.hours);
                               return status
                                 ? <><span className={statusClass(status)}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
-                                : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>;
+                                : <span className="place-card__unknown">{t(`list.${unknownHoursKey(place.hours)}`)}</span>;
                             })()}
                           </span>
                           <span className="journey-stop__claims">
@@ -360,7 +360,7 @@ function TextSizeRow() {
       <span className="settings-text">
         <span className="settings-label" id="text-size-label">{t('profile.textSize')}</span>
       </span>
-      <span className="text-size__choices" role="group" aria-labelledby="text-size-label">
+      <span className="text-size__choices" role="group" aria-labelledby="text-size-label" aria-describedby={fromDevice ? 'text-size-device' : undefined}>
         {TEXT_SIZES.map(s => (
           <button
             key={s}
@@ -374,7 +374,7 @@ function TextSizeRow() {
           </button>
         ))}
       </span>
-      {fromDevice && <span className="settings-hint text-size__device">{t('profile.textFromDevice')}</span>}
+      {fromDevice && <span className="settings-hint text-size__device" id="text-size-device">{t('profile.textFromDevice')}</span>}
     </div>
   );
 }

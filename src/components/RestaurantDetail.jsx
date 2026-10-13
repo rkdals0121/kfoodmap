@@ -1231,7 +1231,7 @@ export default function RestaurantDetail({
                                   {otherStatus.detail && <> · {otherStatus.detail}</>}
                                 </>
                               ) : (
-                                <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
+                                <span className="place-card__unknown">{t(`list.${unknownHoursKey(other.hours, !(planDate && planAt))}`)}</span>
                               )}
                             </span>
                             <span className="saved-row__claims">

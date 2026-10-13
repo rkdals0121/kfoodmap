@@ -785,3 +785,16 @@ test('more ways of asking what is open now, in each language', async () => {
   assert.equal(plannedTime('日曜営業', 5).day, 0);
   assert.equal(plannedTime('토요일 영업시간', 5)?.rest ?? '', '영업시간');
 });
+
+test('hour words that are part of something else are left alone', async () => {
+  const { asksOpenNow, withoutOpenNow, plannedTime } = await import('../../src/filters.js');
+  // Opening hours asked about, a day off, a negation: not a plan to offer.
+  for (const q of ['日曜 営業時間', '月曜 営業日', '日曜 営業していない', '토요일 영업 안하는 곳', '일요일 영업 안함']) assert.notEqual(plannedTime(q, 5)?.sure, true, q);
+  assert.equal(plannedTime('日曜 営業の店', 5).sure, true);
+  // The small hours of a named day are not ten that evening.
+  for (const q of ['토요일 새벽', '내일 새벽', '금요일 새벽까지 하는 곳']) assert.equal(plannedTime(q, 5), null, q);
+  // A clock time, a longer number, a range.
+  for (const q of ['새벽 2시', '새벽 5시 오픈', '124시', '10시-24시']) assert.equal(asksOpenNow(q), false, q);
+  for (const q of ['새벽 영업', '24시?', 'open 24/7?']) assert.ok(asksOpenNow(q), q);
+  assert.equal(withoutOpenNow('새벽까지 영업 할랄'), '할랄');
+});

@@ -339,7 +339,7 @@ export default {
     veganOptionsAsk: '这里不是纯素餐厅，请询问是否含鱼露、鳀鱼高汤和鸡蛋。',
     veganOptionsAskBakery: '这里并非全部纯素，请询问是否含鸡蛋、黄油、牛奶和蜂蜜。',
     hoursUnknown: '营业时间未知，去之前请先确认',
-    hoursUnknownToday: '今天的营业时间没有记录，其他日期见下方',
+    hoursUnknownToday: '今天的营业时间没有记录，其他日子见下方',
     website: '网站',
     instagram: 'Instagram',
     foodStory: '美食故事',
