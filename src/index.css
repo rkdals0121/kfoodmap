@@ -7473,3 +7473,14 @@ html[lang='id'] .stat-label {
 .border-region[inert] .sidebar-toggle {
   visibility: hidden;
 }
+
+/* "Every day" in the column made for "Mon": it folded to two lines beside
+   hours on one — and widened, it squeezed the hours into a word a line. The
+   single row puts its name above its hours. */
+.week-hours dl > .week-hours__all {
+  flex-direction: column;
+  gap: 2px;
+}
+.week-hours .week-hours__all dt {
+  flex: 0 0 auto;
+}

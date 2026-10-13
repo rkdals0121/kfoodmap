@@ -24,6 +24,7 @@ import { MAP_CENTER, koreaDateAt, koreaToday, coordsOf } from './utils';
 import { readPosition, readError } from './data/locate';
 import { journeys } from './data/journeys';
 import { CHIP_GROUPS } from './i18n/labels';
+import { shownArea } from './data/area-names';
 import { journeyNav } from './data/journey-nav';
 import { nearbyPlaces } from './data/nearby';
 import { matchesDietary, isQuarantined } from './data/verification';
@@ -116,7 +117,10 @@ function AppShell() {
   // scripts/prerender-places.mjs) is that search and chip on the map.
   const [startView] = useState(() => findView(window.location.pathname) ?? parseViewHash(window.location.hash, VIEW_CHIPS));
 
-  const [searchQuery, setSearchQuery] = useState(startView.q);
+  // (A guide's area by the name this reader's language has for it, as
+  // Discover's own links put it: /find/halal-itaewon opened in Korean with
+  // "Itaewon" in the box.)
+  const [searchQuery, setSearchQuery] = useState(() => (startView.area ? shownArea(startView.q, i18n.language) : startView.q));
   // The search text names an area and only that (filters.js viewHash `a`):
   // set by an area guide or Discover's "Browse by area", so the list is the
   // same places the guide counted; dropped as soon as the text is edited.
@@ -1163,7 +1167,11 @@ function AppShell() {
                 // places still came first until the button was found. (Only
                 // on the key: while the words are being typed, nothing moves.)
                 onSearchSubmit={() => {
-                  const plan = selectedFilters.includes(OPEN_AT) ? null : plannedTime(searchQuery, koreaToday());
+                  // Not over a day and time the reader chose (the key is pressed
+                  // by habit; the button is still there), nor on a word still
+                  // being composed ("심야ㅅ").
+                  if (selectedFilters.includes(OPEN_AT) || /[ㄱ-ㅎㅏ-ㅣ]/.test(searchQuery)) return;
+                  const plan = plannedTime(searchQuery, koreaToday());
                   if (plan?.sure && !plan.now) {
                     guessedPlan.current = null;
                     setPlanAt({ day: plan.day, minutes: plan.minutes });
