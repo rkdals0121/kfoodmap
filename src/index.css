@@ -7460,3 +7460,9 @@ html[lang='id'] .stat-label {
 .leaflet-container {
   font-size: 12px;
 }
+
+/* A claim chip scrolled to the top (when its explanation opens out of sight)
+   stops under the place's sticky title, not behind it. */
+[aria-controls^='claim-explain-'] {
+  scroll-margin-top: 96px;
+}

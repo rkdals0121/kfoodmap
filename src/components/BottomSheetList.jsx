@@ -101,7 +101,7 @@ const ASKS_ALCOHOL = new RegExp(`\\b(?:alcohol|alkohol)\\b|무알콜|논알콜|�
 // "musholla", "masjid", "prayer room", "기도실": answered with the two or
 // five restaurants whose story mentions one, and nothing said that the map
 // lists places to eat, not prayer rooms.
-const ASKS_PRAYER = new RegExp(`\\b(?:prayer|mosque|masjid|mush?ol+a|musala|sholat|shalat|salat)\\b|기도실|모스크|礼拝|モスク|(?:礼拜|禮拜)(?:室|堂|处|處|场所|場所)|清真寺|祈祷|祈禱`, 'i');
+const ASKS_PRAYER = new RegExp(`\\b(?:pray(?:er|ing)?|mosque|masjid|mush?[ao]l+a|musala|sholat|shalat|salat|namaz)\\b|기도실|예배실|모스크|礼拝|お祈り|モスク|(?:礼拜|禮拜)(?:室|堂|处|處|场所|場所)|清真寺|祈祷|祈禱`, 'i');
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
@@ -592,6 +592,11 @@ export default function BottomSheetList({
       {(halalOn || asksCertificate || halalTyped) && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
         <p className="section-note place-list__note place-list__note--key">{t('list.halalCaveat')}</p>
+      )}
+      {/* "halal no alcohol" lists fifty-nine places by words in their notes,
+          some of which say alcohol is sold. */}
+      {sorted.length > 0 && ASKS_ALCOHOL.test(searchQuery) && (
+        <p className="section-note place-list__note place-list__note--key">{t('list.alcoholHint')}</p>
       )}
       {sorted.length > 0 && ASKS_PRAYER.test(searchQuery) && (
         <p className="section-note place-list__note">{t('list.prayerNote')}</p>

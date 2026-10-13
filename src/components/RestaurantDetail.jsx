@@ -260,6 +260,23 @@ export default function RestaurantDetail({
     return () => { watch?.disconnect(); window.removeEventListener('resize', measure); };
   }, [docked, belowSearch]);
   useEffect(() => { setClaimFull(false); }, [openClaim, restaurant?.id]);
+  // The explanation opens under the chip — and, at the larger text sizes on a
+  // small phone, under the bar at the foot of the screen: pressing "Why?"
+  // looked as if it did nothing. Brought into view when it is not.
+  useEffect(() => {
+    if (openClaim === null) return undefined;
+    const frame = requestAnimationFrame(() => {
+      const panel = document.getElementById(`claim-explain-${openClaim}`);
+      if (!panel) return;
+      const box = panel.getBoundingClientRect();
+      const foot = document.querySelector('.detail-bar')?.getBoundingClientRect().top ?? window.innerHeight;
+      // (The chip pressed goes to the top, so the explanation is read from its
+      // first line: centred, a long one began above the screen.)
+      const chip = document.querySelector(`[aria-controls="claim-explain-${openClaim}"]`) ?? panel;
+      if (box.top > foot - 96) chip.scrollIntoView({ block: 'start', behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [openClaim]);
   // The Korean name on the whole screen, to show a driver or a passer-by.
   const [nameLarge, setNameLarge] = useState(false);
   const [nameCopied, setNameCopied] = useState(false);
