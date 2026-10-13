@@ -19,7 +19,7 @@ for (const file of readdirSync(join(here, 'steps')).filter(f => f.endsWith('.jso
   if (only.length > 0 && !only.includes(name)) continue;
   const steps = join(work, file);
   writeFileSync(steps, readFileSync(join(here, 'steps', file), 'utf8').replaceAll('{{BASE}}', base));
-  const run = spawnSync(process.execPath, [join(here, '..', 'translation-review', 'shot.mjs'), steps], { encoding: 'utf8' });
+  const run = spawnSync(process.execPath, [join(here, '..', 'translation-review', 'shot.mjs'), steps], { encoding: 'utf8', windowsHide: true });
   console.log(`== ${name}\n${(run.stdout + run.stderr).trim()}`);
 }
 rmSync(work, { recursive: true, force: true });

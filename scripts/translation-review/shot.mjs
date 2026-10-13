@@ -147,19 +147,17 @@ await new Promise((done) => {
   chrome.once('exit', done);
   // Already gone after being asked to close: nothing to end, nothing to wait for.
   if (chrome.exitCode !== null) { done(); return; }
-  if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(chrome.pid), '/T', '/F'], { stdio: 'ignore', timeout: 5000 });
+  if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(chrome.pid), '/T', '/F'], { stdio: 'ignore', timeout: 5000, windowsHide: true });
   else chrome.kill();
   setTimeout(done, 1500);
 });
 // One of its processes sometimes takes a minute to end and keeps the
-// folder's files open till then: tried now, and otherwise left to a small
-// command that outlives this script and deletes the folder a while later.
-// (What even that misses, the next run's sweep above takes.)
-try { rmSync(dir, { recursive: true, force: true }); } catch { /* still held */ }
-if (existsSync(dir)) {
-  const later = process.platform === 'win32'
-    ? spawn('cmd', ['/d', '/s', '/c', `"ping -n 90 127.0.0.1 >nul & rd /s /q "${dir}""`], { detached: true, stdio: 'ignore', windowsHide: true, windowsVerbatimArguments: true })
-    : spawn('sh', ['-c', `sleep 60; rm -rf "${dir}"`], { detached: true, stdio: 'ignore' });
-  later.unref();
+// folder's files open till then: tried a few times here, and what is still
+// held is left to the next run's sweep above. (No command is left behind to
+// do it later: on Windows a detached one opens a console window on the
+// desktop of whoever is using the machine, one per run.)
+for (let tries = 0; tries < 6 && existsSync(dir); tries++) {
+  try { rmSync(dir, { recursive: true, force: true }); } catch { /* still held */ }
+  if (existsSync(dir)) await sleep(1000);
 }
 process.exit(0);

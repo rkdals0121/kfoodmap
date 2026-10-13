@@ -38,7 +38,7 @@ const steps = ids.map((id, k) => {
 });
 const work = mkdtempSync(join(tmpdir(), 'kfm-regress-'));
 writeFileSync(join(work, 'sweep.json'), JSON.stringify(steps));
-const run = spawnSync(process.execPath, [join(here, 'shot.mjs'), join(work, 'sweep.json')], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+const run = spawnSync(process.execPath, [join(here, 'shot.mjs'), join(work, 'sweep.json')], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, windowsHide: true });
 rmSync(work, { recursive: true, force: true });
 const said = (run.stdout + run.stderr).trim();
 console.log(said === '' ? `${ids.length} pages: nothing found` : `${said}\n${ids.length} pages, ${said.split('\n').length} with something found`);
