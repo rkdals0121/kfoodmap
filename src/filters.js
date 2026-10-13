@@ -418,7 +418,7 @@ export function liftDietWords(query) {
 // (Not 면, 국, 전, 차: they are also the ends of other words — 두부면 is read
 // as tofu with a 면 left over, 제주도 as Jeju with a 도.)
 // (Nor 밥 and 술, which say "a meal" and "a drink" more than they name a dish.)
-const ONE_SYLLABLE_FOOD = new Set(['빵', '죽', '떡', '탕', '찜', '쌈', '콩', '묵']);
+const ONE_SYLLABLE_FOOD = new Set(['빵', '죽', '떡', '탕', '찜', '쌈', '콩', '묵', '面', '麺', '麵', '茶']);
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
   const q = squash(query);

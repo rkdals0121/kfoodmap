@@ -104,6 +104,7 @@ export default {
     fromYou: 'from you',
     distanceFromYou: 'distance from you',
     hoursUnknown: 'Hours not recorded',
+    hoursUnknownToday: 'Today’s hours not recorded',
     noMatch: 'No places match',
     notesToggle: 'Show or hide the notes',
     showUnknown: 'Also show {{n}} with no recorded hours',
@@ -115,6 +116,7 @@ export default {
     withoutOne: 'Without “{{filter}}”: {{n}}',
     askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
     notOnRecordHint: 'Parking, booking and delivery are not checked place by place here — a note may mention one. The place itself can tell you.',
+    priceHint: 'The search cannot sort by price. Menu prices, where on record, are on each place’s page.',
     vegetarianNote: 'Egg and dairy are not on record. These are the places with vegan dishes. To ask about the rest:',
     showPorkFree: 'See pork-free places (not halal)',
     // "open now" typed into the search: the chip is offered.
@@ -179,6 +181,7 @@ export default {
     install: 'Add to Home Screen',
     installHint: 'Opens like an app, from your home screen',
     textSize: 'Text size',
+    textFromDevice: 'Following your device’s setting',
     textNormal: 'Normal',
     textLarge: 'Large',
     textLarger: 'Larger',
@@ -346,6 +349,7 @@ export default {
     veganOptionsAsk: 'A mixed menu: ask about fish sauce, anchovy stock and egg.',
     veganOptionsAskBakery: 'Not everything here is vegan: ask about egg, butter, milk and honey.',
     hoursUnknown: 'Opening hours unknown — check before you go',
+    hoursUnknownToday: 'Today’s hours are not recorded — the other days are below',
     website: 'Website',
     instagram: 'Instagram',
     foodStory: 'The food story',
@@ -512,7 +516,7 @@ export default {
       ],
     },
     'brunch-bakery': {
-      didYouKnow: 'Seoul has one of the highest cafe densities on earth, and the weekend brunch is closer to a ritual than a meal. Korea\'s version leans on seasonal vegetables and slow baking rather than heavy sauces.',
+      didYouKnow: 'Korea\'s capital, Seoul, has one of the highest cafe densities on earth, and the weekend brunch is closer to a ritual than a meal. Korea\'s version leans on seasonal vegetables and slow baking rather than heavy sauces.',
       tips: [
         'Cafes are lingering spaces in Korea — one drink comfortably buys you the seat for the afternoon.',
         'Ask what was baked today; small-batch bakeries sell out of their best items before noon.',

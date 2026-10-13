@@ -100,6 +100,7 @@ export default {
     fromYou: 'dari Anda',
     distanceFromYou: 'jarak dari Anda',
     hoursUnknown: 'Jam buka tidak tercatat',
+    hoursUnknownToday: 'Jam buka hari ini tidak tercatat',
     noMatch: 'Tidak ada tempat yang cocok',
     notesToggle: 'Tampilkan atau sembunyikan catatan',
     showUnknown: 'Tampilkan juga {{n}} tempat tanpa catatan jam buka',
@@ -111,6 +112,7 @@ export default {
     withoutOne: 'Tanpa “{{filter}}”: {{n}} tempat',
     askStaffHint: 'Bahan dan alergen tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya, tetapi itu bukan jaminan. Untuk bertanya kepada dapur:',
     notOnRecordHint: 'Parkir, reservasi, dan pesan antar tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya. Tanyakan langsung ke tempatnya.',
+    priceHint: 'Pencarian tidak bisa berdasarkan harga. Harga menu yang tercatat ada di halaman tiap tempat.',
     vegetarianNote: 'Telur dan susu tidak dicatat. Ini tempat yang punya hidangan vegan — yang lain bisa ditanyakan kepada dapur:',
     showPorkFree: 'Lihat tempat tanpa babi (bukan halal)',
     // "open now" typed into the search: the chip is offered.
@@ -174,6 +176,7 @@ export default {
     install: 'Tambahkan ke Layar Utama',
     installHint: 'Dibuka seperti aplikasi dari layar utama',
     textSize: 'Ukuran teks',
+    textFromDevice: 'Mengikuti pengaturan perangkat',
     textNormal: 'Normal',
     textLarge: 'Besar',
     textLarger: 'Lebih besar',
@@ -339,6 +342,7 @@ export default {
     veganOptionsAsk: 'Ini bukan dapur vegan sepenuhnya: tanyakan soal kecap ikan, kaldu teri, dan telur.',
     veganOptionsAskBakery: 'Tidak semua di sini vegan: tanyakan soal telur, mentega, susu, dan madu.',
     hoursUnknown: 'Jam buka tidak diketahui — periksa dulu sebelum berangkat',
+    hoursUnknownToday: 'Jam buka hari ini tidak tercatat — hari lain ada di bawah',
     website: 'Situs web',
     instagram: 'Instagram',
     foodStory: 'Cerita di balik makanannya',
@@ -502,7 +506,7 @@ export default {
       ],
     },
     'brunch-bakery': {
-      didYouKnow: 'Seoul termasuk kota dengan kepadatan kafe tertinggi di dunia, dan brunch akhir pekan lebih mirip ritual daripada sekadar makan. Versi Korea mengandalkan sayuran musiman dan pemanggangan perlahan, bukan saus yang berat.',
+      didYouKnow: 'Ibu kota Korea, Seoul, termasuk kota dengan kepadatan kafe tertinggi di dunia, dan brunch akhir pekan lebih mirip ritual daripada sekadar makan. Versi Korea mengandalkan sayuran musiman dan pemanggangan perlahan, bukan saus yang berat.',
       tips: [
         'Kafe di Korea adalah tempat untuk berlama-lama — satu minuman sudah cukup untuk duduk nyaman sepanjang sore.',
         'Tanyakan apa yang dipanggang hari ini; toko roti berskala kecil kehabisan produk terbaiknya sebelum tengah hari.',

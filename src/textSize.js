@@ -39,12 +39,17 @@ export function deviceTextRatio() {
   }
 }
 
-export function readTextSize() {
+/** The size chosen in Profile, or null while the device's setting is followed. */
+export function chosenTextSize() {
   try {
     const stored = localStorage.getItem(TEXT_SIZE_KEY);
     if (TEXT_SIZES.includes(stored)) return stored;
   } catch { /* storage blocked: the device's setting still counts */ }
-  return typeof document === 'undefined' ? 'normal' : sizeForRatio(deviceTextRatio());
+  return null;
+}
+
+export function readTextSize() {
+  return chosenTextSize() ?? (typeof document === 'undefined' ? 'normal' : sizeForRatio(deviceTextRatio()));
 }
 
 export function applyTextSize(size, remember = false) {

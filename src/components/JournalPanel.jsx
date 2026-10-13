@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { restaurants } from '../data/restaurants';
 import { isQuarantined, isKnown, VEGAN, dietaryBadges } from '../data/verification';
 import { Whole } from './Whole';
-import { formatShortDate, displayName, getOpenStatus, statusClass, koreanName, DAY_KEYS, formatClock } from '../utils';
+import { formatShortDate, displayName, getOpenStatus, statusClass, koreanName, DAY_KEYS, formatClock, unknownHoursKey } from '../utils';
 import ClaimChip from './ClaimChip';
 import { ChevronRightIcon, ShareIcon, XIcon } from './Icons';
 import Seal from './Seal';
@@ -37,7 +37,7 @@ function SavedRow({ place, savedAt, onOpen, onRemove, at = null, atLabel = '' })
             {status ? (
               <>{atLabel && <span className="place-card__at">{colon(atLabel, '')}</span>}<span className={statusClass(status)}>{status.label}</span>{status.detail && <> · {status.detail}</>}</>
             ) : (
-              <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
+              <span className="place-card__unknown">{t(`list.${unknownHoursKey(place.hours, !at)}`)}</span>
             )}
           </span>
           <span className="saved-row__claims">

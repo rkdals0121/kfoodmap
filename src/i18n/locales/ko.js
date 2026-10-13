@@ -101,6 +101,7 @@ export default {
     fromYou: '(내 위치 기준)',
     distanceFromYou: '내 위치 기준 거리',
     hoursUnknown: '영업시간 정보 없음',
+    hoursUnknownToday: '오늘 영업시간 정보 없음',
     noMatch: '조건에 맞는 곳이 없어요',
     notesToggle: '안내 펼치기·접기',
     showUnknown: '영업시간 기록이 없는 {{n}}곳도 보기',
@@ -112,6 +113,7 @@ export default {
     withoutOne: '“{{filter}}” 빼면 {{n}}곳',
     askStaffHint: '재료·알레르기는 가게마다 확인한 항목이 아니에요. 설명에 언급이 있어도 보장은 아니에요. 직원에게 물어볼 때:',
     notOnRecordHint: '주차·예약·배달은 가게마다 확인한 항목이 아니에요. 설명에 언급이 있을 수는 있어요. 가게에 직접 확인해 주세요.',
+    priceHint: '가격으로는 찾을 수 없어요. 기록된 메뉴 가격은 가게 화면에서 볼 수 있어요.',
     vegetarianNote: '달걀·유제품이 들어가는지는 기록하지 않아요. 비건 메뉴가 있는 곳을 보여 드려요. 나머지는 직원에게 물어보세요:',
     showPorkFree: '돼지고기 없는 곳 보기(할랄 아님)',
     // "open now" typed into the search: the chip is offered.
@@ -173,6 +175,7 @@ export default {
     install: '홈 화면에 추가',
     installHint: '홈 화면에서 앱처럼 열려요',
     textSize: '글자 크기',
+    textFromDevice: '기기 설정을 따르는 중',
     textNormal: '보통',
     textLarge: '크게',
     textLarger: '더 크게',
@@ -335,6 +338,7 @@ export default {
     veganOptionsAsk: '비건 전용 식당이 아니에요. 액젓, 멸치 육수, 달걀이 들어가는지 물어보세요.',
     veganOptionsAskBakery: '전부 비건은 아니에요. 달걀, 버터, 우유, 꿀이 들어가는지 물어보세요.',
     hoursUnknown: '영업시간을 알 수 없어요. 가기 전에 확인해 보세요',
+    hoursUnknownToday: '오늘 영업시간은 기록이 없어요. 다른 요일은 아래에 있어요',
     website: '웹사이트',
     instagram: '인스타그램',
     foodStory: '음식 이야기',
@@ -495,7 +499,7 @@ export default {
       ],
     },
     'brunch-bakery': {
-      didYouKnow: '서울은 세계에서 카페가 가장 많이 몰려 있는 도시 가운데 하나이고, 주말 브런치는 한 끼 식사라기보다 주말마다 챙기는 행사에 가까워요. 한국식 브런치는 진한 소스보다 제철 채소와 천천히 구운 빵이 중심이에요.',
+      didYouKnow: '수도 서울은 세계에서 카페가 가장 많이 몰려 있는 도시 가운데 하나이고, 주말 브런치는 한 끼 식사라기보다 주말마다 챙기는 행사에 가까워요. 한국식 브런치는 진한 소스보다 제철 채소와 천천히 구운 빵이 중심이에요.',
       tips: [
         '한국에서 카페는 오래 머무는 공간이에요. 음료 한 잔이면 오후 내내 편하게 앉아 있을 수 있어요.',
         '오늘 구운 것이 무엇인지 물어보세요. 소량만 굽는 빵집은 인기 메뉴가 정오 전에 다 팔려요.',

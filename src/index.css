@@ -5526,6 +5526,14 @@ html[data-text] .toast > * {
 .text-size .settings-label {
   white-space: nowrap;
 }
+/* The line that says the size is the device's: under the row, full width. */
+.text-size--device {
+  flex-wrap: wrap;
+}
+.text-size__device {
+  flex: 0 0 100%;
+  margin-top: 6px;
+}
 
 /* ---- Fourth measurement, 2026-10-04 ---- */
 /* Tablet portrait (768–1023 px): the search and chips are a grid item by

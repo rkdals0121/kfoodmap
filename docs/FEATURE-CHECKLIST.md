@@ -526,6 +526,12 @@ P38. Vegetarians (egg and dairy eaten) → the cards page has three cards (vegan
 
 P39. Station search (regress step `station`) → a station asked by its Korean name that the lists do not know (반월당역, 중앙로역, 합정역, 혜화역, 선릉역) finds the places whose page names it as the nearest station (within a kilometre); 안국역 / Anguk Station / 安国駅 find the same places, more than the three that name the station in their text; a station whose name is a neighbourhood (성수역, 서면역) keeps the neighbourhood's places; a station with a kind beside it (이태원역 케밥) looks through the places at the station; the place data the list downloads carries `nearStation` and nothing else of `transit`.
 
+P40. Text size from the device (regress step `device-text`) → with nothing chosen, a browser whose default type is 18 px or more (or an iPhone one Dynamic Type step up) opens at Large, 21 px or three steps at Larger; nothing is stored; Profile shows the size pressed with "Following your device’s setting" under the label; a size chosen there (Normal too) wins from then on and the line goes. Android: only where the browser honours `<meta name="text-scale">`. [needs: a real phone set to large type]
+
+P41. Asking for what is not checked → "주차 되는 비건 식당", "halal reservation", "free parking vegan", "予約 ハラル" with no result: "Parking, booking and delivery are not checked place by place here…" and the offer without the word; not for "cheap halal" (menus carry prices), "2주차", "Starbucks Reserve"; never beside results.
+
+P42. More hour words → "24시 할랄", "새벽까지 하는 비건", "24/7 halal", "still open halal", "現在営業中", "现在还开着", "masih buka" are searched without those words and offer "Open now"; "일요일 영업 할랄", "日曜営業" offer that day; "새벽집" stays a name.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)

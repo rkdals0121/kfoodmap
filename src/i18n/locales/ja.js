@@ -103,6 +103,7 @@ export default {
     fromYou: '現在地から',
     distanceFromYou: '現在地からの距離',
     hoursUnknown: '営業時間の記録なし',
+    hoursUnknownToday: '今日の営業時間は記録なし',
     noMatch: '該当するお店がありません',
     notesToggle: '注意書きを開く・閉じる',
     showUnknown: '営業時間の記録がない {{n}} 件も表示',
@@ -114,6 +115,7 @@ export default {
     withoutOne: '「{{filter}}」を外すと {{n}} 件',
     askStaffHint: '食材やアレルギーは、お店ごとに確認した項目ではありません。説明に記載があっても保証ではありません。お店で尋ねるときは：',
     notOnRecordHint: '駐車場・予約・デリバリーは、お店ごとに確認した項目ではありません（説明に記載がある場合もあります）。お店に直接ご確認ください。',
+    priceHint: '価格では検索できません。記録のあるメニューの価格は、各お店のページでご覧いただけます。',
     vegetarianNote: '卵・乳製品の有無は記録していません。ヴィーガン料理のあるお店を表示しています。そのほかはお店で尋ねてください：',
     showPorkFree: '豚肉不使用のお店を見る（ハラールではない）',
     // "open now" typed into the search: the chip is offered.
@@ -177,6 +179,7 @@ export default {
     install: 'ホーム画面に追加',
     installHint: 'ホーム画面からアプリのように開けます',
     textSize: '文字サイズ',
+    textFromDevice: '端末の設定に合わせています',
     textNormal: '標準',
     textLarge: '大',
     textLarger: '特大',
@@ -341,6 +344,7 @@ export default {
     veganOptionsAsk: 'ヴィーガン専門店ではありません。魚醤、煮干しだし、卵が入っていないか尋ねてください。',
     veganOptionsAskBakery: 'すべてがヴィーガンではありません。卵、バター、牛乳、はちみつが入っていないか尋ねてください。',
     hoursUnknown: '営業時間不明 — お出かけ前にご確認ください',
+    hoursUnknownToday: '今日の営業時間は記録がありません。ほかの曜日は下にあります',
     website: 'ウェブサイト',
     instagram: 'Instagram',
     foodStory: '食のストーリー',
@@ -505,7 +509,7 @@ export default {
       ],
     },
     'brunch-bakery': {
-      didYouKnow: 'ソウルはカフェの密度が世界でも有数の高さで、週末のブランチは食事というより習慣に近いものです。韓国流のブランチは、重いソースよりも旬の野菜とじっくり焼き上げるパンが主役です。',
+      didYouKnow: '首都ソウルはカフェの密度が世界でも有数の高さで、週末のブランチは食事というより習慣に近いものです。韓国流のブランチは、重いソースよりも旬の野菜とじっくり焼き上げるパンが主役です。',
       tips: [
         '韓国のカフェはゆっくり過ごす場所です。飲み物1杯で、午後いっぱい気兼ねなく座っていられます。',
         '今日焼いたものを尋ねてみましょう。少量ずつ焼く小さなベーカリーでは、人気の品は正午前に売り切れます。',

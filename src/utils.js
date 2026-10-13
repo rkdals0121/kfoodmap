@@ -258,6 +258,17 @@ export function getOpenStatus(hoursFact, now = new Date(), { nameDay = false } =
   return { open: false, label: tr('closed'), detail: nextOpening() };
 }
 
+/**
+ * Which "hours unknown" line fits a place with no status: 'hoursUnknownToday'
+ * where only today is missing from a week that is otherwise on record
+ * ("Opening hours unknown" over Monday to Friday's hours sent people away),
+ * else 'hoursUnknown'. `forToday` false: the answer is for a chosen day.
+ */
+export function unknownHoursKey(hoursFact, forToday = true) {
+  const weekly = isKnown(hoursFact) ? hoursFact.value?.weekly : null;
+  return forToday && weekly && Object.values(weekly).some(Array.isArray) ? 'hoursUnknownToday' : 'hoursUnknown';
+}
+
 /** A clock time as the app prints it: 750 → "12:30 PM". */
 export const formatClock = (minutes) => fromMinutes(minutes);
 

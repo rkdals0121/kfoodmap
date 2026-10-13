@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useStories, useStoriesWaiting } from '../hooks/useStories';
 import { placeArea } from '../place-area';
 import i18next from 'i18next';
-import { TEXT_SIZES, applyTextSize, readTextSize } from '../textSize';
+import { TEXT_SIZES, applyTextSize, readTextSize, chosenTextSize } from '../textSize';
 import { askFreshList } from '../freshList';
 import { displayName, formatDistance, getOpenStatus, statusClass, closedAllDay } from '../utils';
 import { createPortal } from 'react-dom';
@@ -349,10 +349,13 @@ const HomeAddIcon = () => (
 function TextSizeRow() {
   const { t } = useTranslation();
   const [size, setSize] = useState(readTextSize);
-  const choose = (next) => { setSize(next); applyTextSize(next, true); };
+  // Larger than usual without having been chosen here: said, so that the
+  // pressed "A" is not a setting the reader does not remember making.
+  const [fromDevice, setFromDevice] = useState(() => chosenTextSize() === null && readTextSize() !== 'normal');
+  const choose = (next) => { setSize(next); setFromDevice(false); applyTextSize(next, true); };
   const LABEL = { normal: 'profile.textNormal', large: 'profile.textLarge', larger: 'profile.textLarger' };
   return (
-    <div className="settings-item settings-item--static text-size">
+    <div className={`settings-item settings-item--static text-size${fromDevice ? ' text-size--device' : ''}`}>
       <span className="settings-icon text-size__icon" aria-hidden="true">Aa</span>
       <span className="settings-text">
         <span className="settings-label" id="text-size-label">{t('profile.textSize')}</span>
@@ -371,6 +374,7 @@ function TextSizeRow() {
           </button>
         ))}
       </span>
+      {fromDevice && <span className="settings-hint text-size__device">{t('profile.textFromDevice')}</span>}
     </div>
   );
 }

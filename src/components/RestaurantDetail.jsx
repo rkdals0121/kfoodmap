@@ -16,7 +16,7 @@ import {
 } from './Icons';
 import { Whole } from './Whole';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock, lastNightHours } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock, lastNightHours, unknownHoursKey } from '../utils';
 import { koAddress } from '../data/address-ko';
 import { koStation, koLine } from '../data/station-ko';
 import {
@@ -943,7 +943,7 @@ export default function RestaurantDetail({
                     {!deviceOnKoreaTime() && <span className="practical-muted practical-today">{t('detail.koreaTime', { time: koreaClock() })}</span>}
                   </span>
                 ) : (
-                  <span className="practical-muted">{t('detail.hoursUnknown')}</span>
+                  <span className="practical-muted">{t(`detail.${unknownHoursKey(place.hours)}`)}</span>
                 )}
               </div>
               {/* With "Open at…" on, the list answered for that time; this

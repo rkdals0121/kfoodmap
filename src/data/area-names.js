@@ -190,6 +190,11 @@ const LATIN_VARIANTS = new Map(Object.entries({
   'ビリヤニ': 'biryani', 'サモサ': 'samosa', 'シーフード': 'seafood', '海鮮': 'seafood', '海鲜': 'seafood', 'フォー': 'pho', '香饭': 'biryani', '印度香饭': 'biryani', '咖喱角': 'samosa',
   '짜장면': 'jajangmyeon', '자장면': 'jajangmyeon', '炸醬麵': 'jajangmyeon', '炸酱面': 'jajangmyeon', 'ジャージャー麺': 'jajangmyeon', 'チャジャンミョン': 'jajangmyeon',
   '아이스크림': 'ice cream', '젤라또': 'gelato', '젤라토': 'gelato',
+  // (The records write "ramyeon" and "doughnut".)
+  ramen: 'ramyeon', ramyun: 'ramyeon', '라면': 'ramyeon', '라멘': 'ramyeon', 'ラーメン': 'ramyeon', '拉面': 'ramyeon', '拉麵': 'ramyeon',
+  donut: 'doughnut', donuts: 'doughnut', doughnuts: 'doughnut', 'ドーナツ': 'doughnut', '甜甜圈': 'doughnut',
+  '自助': 'buffet', prasmanan: 'buffet', '무한리필': 'buffet', '食べ放題': 'buffet', '吃到饱': 'buffet', '吃到飽': 'buffet',
+  '意面': 'pasta', '意大利面': 'pasta', '麺': 'noodles', '麵': 'noodles', '面': 'noodles', 'お茶': 'tea', '茶': 'tea', '와인': 'wine', '맥주': 'beer',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',
   iteawon: 'Itaewon',

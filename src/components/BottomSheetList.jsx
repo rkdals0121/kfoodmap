@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon, ShareIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, koreanName, statusClass, DAY_KEYS, formatClock, koreaToday } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, koreanName, statusClass, DAY_KEYS, formatClock, koreaToday, unknownHoursKey } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
@@ -92,6 +92,9 @@ const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*�
 const ASKS_UNRECORDED = new RegExp(
   `\\b(?:parking|reservations?|booking|delivery|parkir|reservasi)\\b`
   + `|pesan antar|(?:^|\\D)주차|예약|배달(?!의)|駐車|予約|デリバリー|出前(?!一丁)|停车|停車|订位|訂位|预约|預約|外送|外卖|外賣`, 'i');
+// "cheap vegan busan": prices are on record (on menus), but nothing sorts
+// or filters by them — said, so the empty list is not the whole answer.
+const ASKS_PRICE = new RegExp(`\\b(?:cheap|cheapest|budget|affordable|inexpensive|prices?|murah|harga)\\b|저렴|가격|가성비|安い|値段|格安|便宜|价格|價格|平价|平價`, 'i');
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
@@ -172,7 +175,7 @@ const PlaceCard = React.memo(function PlaceCard({ place, distanceKm, fromYou, bo
               {status.detail && <> · {status.detail}</>}
             </>
           ) : (
-            <span className="place-card__unknown">{t('list.hoursUnknown')}</span>
+            <span className="place-card__unknown">{t(`list.${unknownHoursKey(place.hours, !at)}`)}</span>
           )}
         </p>
 
@@ -271,7 +274,7 @@ export default function BottomSheetList({
                           const st = planDate ? getOpenStatus(place.hours, planDate, { nameDay: true }) : getOpenStatus(place.hours);
                           return (
                             <span className="saved-row__status">
-                              {st ? <>{planDate && planAt && <span className="place-card__at">{colon(t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }), '')}</span>}<span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t('list.hoursUnknown')}</span>}
+                              {st ? <>{planDate && planAt && <span className="place-card__at">{colon(t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }), '')}</span>}<span className={statusClass(st)}>{st.label}</span>{st.detail && <> · {st.detail}</>}</> : <span className="place-card__unknown">{t(`list.${unknownHoursKey(place.hours, !planDate)}`)}</span>}
                             </span>
                           );
                         })()}
@@ -727,6 +730,9 @@ export default function BottomSheetList({
               cards are where that question can be asked. */}
           {withoutFilters === 0 && ASKS_INGREDIENT.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
             <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
+          )}
+          {withoutFilters === 0 && ASKS_PRICE.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
+            <p className="place-list__hint-text">{t('list.priceHint')}</p>
           )}
           {/* ("free parking", "no reservation needed": this one, not the allergen note.) */}
           {withoutFilters === 0 && ASKS_UNRECORDED.test(searchQuery) && (

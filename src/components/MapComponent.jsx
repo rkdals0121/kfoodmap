@@ -349,7 +349,14 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
     if (restaurants.length === 0) return undefined;
     // After a pause in typing, not on every letter: "se", "seo", "seou"
     // each name a different set and the map lurched between them.
-    const timer = setTimeout(() => {
+    let timer = null;
+    let waited = 0;
+    const frame = () => {
+    // Asked from another tab (the Journal's "See them on the map"): the list
+    // is not laid out yet — no height — and the places were fitted into the
+    // whole map, under where the list then came up. Waited for, briefly.
+    const list = document.querySelector('.sidebar-region');
+    if (list && list.getBoundingClientRect().height === 0 && waited < 20) { waited += 1; timer = setTimeout(frame, 50); return; }
     const latlngs = restaurants.map(r => { const c = coordsOf(r); return L.latLng(c.lat, c.lng); });
     const size = map.getSize();
     const overlap = sheetOverlap(map);
@@ -375,7 +382,8 @@ function FollowResults({ restaurants: all, searchQuery, fitAll = false, placeOpe
     safeFlyToBounds(map, latlngs, [56, 56], [56, 56 + overlap], { maxZoom: 15, duration: 0.6 });
     // The map now shows what was found, not somewhere the reader chose.
     framedNow.current?.();
-    }, searchQuery.trim() ? 400 : 0);
+    };
+    timer = setTimeout(frame, searchQuery.trim() ? 400 : 0);
     return () => clearTimeout(timer);
     // key stands in for restaurants: same places, same key, no move.
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -99,6 +99,7 @@ export default {
     fromYou: '（从你的位置算起）',
     distanceFromYou: '与你的距离',
     hoursUnknown: '营业时间未记录',
+    hoursUnknownToday: '今天的营业时间未记录',
     noMatch: '没有符合条件的地方',
     notesToggle: '展开或收起说明',
     showUnknown: '也显示 {{n}} 家没有营业时间记录的店',
@@ -110,6 +111,7 @@ export default {
     withoutOne: '去掉“{{filter}}”：{{n}} 家',
     askStaffHint: '食材和过敏原并非逐店核实的项目，说明里即使提到也不代表保证。向店员询问时可用：',
     notOnRecordHint: '停车、订位和外送并非逐店核实的项目，说明里可能会提到。请直接向店家确认。',
+    priceHint: '无法按价格搜索。有记录的菜单价格可在各店页面查看。',
     vegetarianNote: '是否含蛋、奶并未记录。这里显示的是有纯素菜品的店，其余请向店员询问：',
     showPorkFree: '查看不含猪肉的店（非清真）',
     // "open now" typed into the search: the chip is offered.
@@ -172,6 +174,7 @@ export default {
     install: '添加到主屏幕',
     installHint: '可像应用一样从主屏幕打开',
     textSize: '文字大小',
+    textFromDevice: '跟随设备设置',
     textNormal: '标准',
     textLarge: '大',
     textLarger: '特大',
@@ -336,6 +339,7 @@ export default {
     veganOptionsAsk: '这里不是纯素餐厅，请询问是否含鱼露、鳀鱼高汤和鸡蛋。',
     veganOptionsAskBakery: '这里并非全部纯素，请询问是否含鸡蛋、黄油、牛奶和蜂蜜。',
     hoursUnknown: '营业时间未知，去之前请先确认',
+    hoursUnknownToday: '今天的营业时间没有记录，其他日期见下方',
     website: '网站',
     instagram: 'Instagram',
     foodStory: '美食故事',
@@ -497,7 +501,7 @@ export default {
       ],
     },
     'brunch-bakery': {
-      didYouKnow: '首尔是全球咖啡店密度最高的城市之一，周末早午餐与其说是一顿饭，不如说是一种仪式。韩国的早午餐偏重时令蔬菜和慢工烘焙，而不是浓重的酱汁。',
+      didYouKnow: '首都首尔是全球咖啡店密度最高的城市之一，周末早午餐与其说是一顿饭，不如说是一种仪式。韩国的早午餐偏重时令蔬菜和慢工烘焙，而不是浓重的酱汁。',
       tips: [
         '在韩国，咖啡店是可以久坐的地方——点一杯饮品，就能安心坐上一下午。',
         '问问今天烤了什么；小批量烘焙店最好的品类往往不到中午就卖完了。',
