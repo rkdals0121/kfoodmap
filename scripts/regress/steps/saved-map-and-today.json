@@ -1,0 +1,52 @@
+[
+ {
+  "url": "{{BASE}}/place/ohh-good-thing-jeonpo?n=1",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "tap": [
+   ".detail-bar__save"
+  ],
+  "js": "return 'saved 1'"
+ },
+ {
+  "url": "{{BASE}}/place/dohyeondang-haeundae?n=2",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "tap": [
+   ".detail-bar__save"
+  ],
+  "js": "return 'saved 2'"
+ },
+ {
+  "url": "{{BASE}}/journal?n=3",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "js": "const w=ms=>new Promise(r=>setTimeout(r,ms)); [...document.querySelectorAll('.journal-copy')].find(x=>/See them on the map/.test(x.innerText)).click(); await w(3500); const top=document.querySelector('.sidebar-region').getBoundingClientRect().top; const ps=[...document.querySelectorAll('.leaflet-marker-icon')].map(e=>{const r=e.getBoundingClientRect();return Math.round(r.top+r.height/2)}); return {listTop:Math.round(top), pins:ps.length, aboveList:ps.filter(y=>y>0&&y<top).length}"
+ },
+ {
+  "url": "{{BASE}}/place/tashkent-kebab-dongdaemun?n=4",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-17T18:30:00+09:00\").getTime()-R.now();class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "js": "await new Promise(r=>setTimeout(r,800)); return {saturday: document.querySelector('.practical-row')?.innerText.trim(), weekBelow: !!document.querySelector('.detail-sheet [aria-expanded]')}"
+ },
+ {
+  "url": "{{BASE}}/?n=5#q=tashkent%20kebab",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-17T18:30:00+09:00\").getTime()-R.now();class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {card: document.querySelector('.place-card .place-card__unknown')?.innerText ?? null}"
+ },
+ {
+  "url": "{{BASE}}/?n=6#q=cheap%20vegan%20busan",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:'cheap vegan busan', says:[...document.querySelectorAll('.place-list__hint-text')].map(e=>e.innerText)[0] ?? null}"
+ }
+]
