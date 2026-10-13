@@ -81,6 +81,14 @@
   gap: 5px;
 }
 
+/* A long example ("Vegan sepenuhnya · Terkonfirmasi") at the largest text
+   size on a 320 px phone ran past the card and the screen: it folds. */
+.prologue-legend__row .claim-chip {
+  max-width: 100%;
+  white-space: normal;
+  border-radius: 14px;
+}
+
 .prologue-legend__body {
   font-size: 14px;
   line-height: 1.45;

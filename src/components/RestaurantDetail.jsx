@@ -122,8 +122,10 @@ const hoursPieces = (text) => {
     const parts = k > 0 ? [slot.slice(0, k), slot.slice(wide > 0 ? k : k + 1)] : [slot];
     return (
       <React.Fragment key={slot}>
-        {parts.map((part, j) => <React.Fragment key={part}>{j > 0 && wide <= 0 && ' '}<span className="hours-piece">{part}</span></React.Fragment>)}
-        {i < all.length - 1 && comma}
+        {/* The comma stays with the slot before it: after a piece kept on one
+            line the next line could begin ", 17.00 – 22.00". */}
+        {parts.map((part, j) => <React.Fragment key={part}>{j > 0 && wide <= 0 && ' '}<span className="hours-piece">{part}{j === parts.length - 1 && i < all.length - 1 && comma.trimEnd()}</span></React.Fragment>)}
+        {i < all.length - 1 && comma.slice(comma.trimEnd().length)}
       </React.Fragment>
     );
   });
@@ -885,6 +887,10 @@ export default function RestaurantDetail({
             <div className="diet-note">
               {/* An open claim explanation already says this, with its source. */}
               {openClaim === null && <p><strong>{caveat.title}</strong>{sentenceGap()}{caveat.body}</p>}
+              {/* "Pork-free", which a reader for whom halal is serious took for
+                  a kind of halal: that it is not was the last sentence of a
+                  long note behind "Why?". */}
+              {isKnown(place.dietary.halal) && place.dietary.halal.value === 'porkFree' && <p className="diet-note__mixed">{t('detail.porkFreeMeans')}</p>}
               {/* Vegan options on a mixed menu: the broth and the fish sauce are
                   what to ask about. The list says so above its cards; a place
                   opened from a link, or read on its own, did not. */}

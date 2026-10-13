@@ -117,6 +117,8 @@ export default {
     askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
     notOnRecordHint: 'Parking, booking and delivery are not checked place by place here — a note may mention one. The place itself can tell you.',
     priceHint: 'The search cannot sort by price. Menu prices, where on record, are on each place’s page.',
+    prayerNote: 'This map lists places to eat, not prayer rooms or mosques. A place whose story mentions one is found by this search.',
+    alcoholHint: 'Whether a place sells alcohol is not checked place by place. Some notes mention it — open a place to read them.',
     vegetarianNote: 'Egg and dairy are not on record. These are the places with vegan dishes. To ask about the rest:',
     showPorkFree: 'See pork-free places (not halal)',
     // "open now" typed into the search: the chip is offered.
@@ -308,6 +310,7 @@ export default {
     loadRetry: 'Try again',
     mapAppsNote: 'Naver Map and Kakao Map are the map apps used in Korea. Google Maps is here too if it is the one you have.',
     halalFriendlyMeans: "‘Halal-friendly’ is what a source reports; it is not a halal certificate.",
+    porkFreeMeans: "‘Pork-free’ does not mean halal: a source reports that no pork is used, and the meat is not halal, or not known to be.",
     claimSourceOpen: 'Open the source',
     halalAlcohol: 'Whether alcohol is sold is not part of this label. Where a source says, it is in the note above; if it is not clear, ask the staff — the Korean cards to show staff have the question.',
     close: 'Close',

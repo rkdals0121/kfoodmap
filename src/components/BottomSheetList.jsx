@@ -95,6 +95,13 @@ const ASKS_UNRECORDED = new RegExp(
 // "cheap vegan busan": prices are on record (on menus), but nothing sorts
 // or filters by them — said, so the empty list is not the whole answer.
 const ASKS_PRICE = new RegExp(`\\b(?:cheap|cheapest|budget|affordable|inexpensive|prices?|murah|harga)\\b|저렴|가격|가성비|安い|値段|格安|便宜|价格|價格|平价|平價`, 'i');
+// "bebas alkohol", "no alcohol", "무알콜": some notes say whether a place
+// sells alcohol, but it is no field of the record and nothing filters by it.
+const ASKS_ALCOHOL = new RegExp(`\\b(?:alcohol|alkohol)\\b|무알콜|논알콜|술\\s*(?:안|없)|アルコール|お酒|酒精|不卖酒|不賣酒|无酒|無酒`, 'i');
+// "musholla", "masjid", "prayer room", "기도실": answered with the two or
+// five restaurants whose story mentions one, and nothing said that the map
+// lists places to eat, not prayer rooms.
+const ASKS_PRAYER = new RegExp(`\\b(?:prayer|mosque|masjid|mush?ol+a|musala|sholat|shalat|salat)\\b|기도실|모스크|礼拝|モスク|礼拜|禮拜|清真寺|祈祷|祈禱`, 'i');
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
@@ -367,6 +374,10 @@ export default function BottomSheetList({
   // Someone searching for "certified", "인증" or "KMF" is asking the same
   // question: the caveat answers it whether or not the chip is on.
   const asksCertificate = /certif|sertifi|kmf|인증|認証|认证|認證/i.test(searchQuery);
+  // …and so is "halal" typed into the box instead of pressed as a chip
+  // ("halal myeongdong", "清真 首尔"): the same 152 places came with no word
+  // about certificates.
+  const halalTyped = useMemo(() => liftDietWords(searchQuery).chips.includes('Halal'), [searchQuery]);
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   // With "Saved" on, what is shared is the places themselves (a link to a
   // list, as the Journal's share makes): "my saved places" is no view a
@@ -575,9 +586,17 @@ export default function BottomSheetList({
       )}
       {/* The halal caveat first: it is the one about safety, and behind
           the "Open now" note it was folded out of sight. */}
-      {(halalOn || asksCertificate) && sorted.length > 0
+      {(halalOn || asksCertificate || halalTyped) && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
         <p className="section-note place-list__note place-list__note--key">{t('list.halalCaveat')}</p>
+      )}
+      {sorted.length > 0 && ASKS_PRAYER.test(searchQuery) && (
+        <p className="section-note place-list__note">{t('list.prayerNote')}</p>
+      )}
+      {/* A search for pork-free places took the Halal chip (and its note,
+          the one place "pork-free" was explained) off: said here. */}
+      {sorted.length > 0 && searchQuery.trim() !== '' && sorted.every(r => r.dietary?.halal?.value === 'porkFree') && (
+        <p className="section-note place-list__note place-list__note--key">{t('detail.porkFreeMeans')}</p>
       )}
       {/* (After the halal caveat: folded, only the first note shows, and on a
           phone "vegetarian" under the Halal chip had put the caveat out of sight.) */}
@@ -728,11 +747,17 @@ export default function BottomSheetList({
           )}
           {/* "peanut", "五辛", "알레르기": not on record for any place — the
               cards are where that question can be asked. */}
-          {withoutFilters === 0 && ASKS_INGREDIENT.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
+          {withoutFilters === 0 && ASKS_INGREDIENT.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && !ASKS_ALCOHOL.test(searchQuery) && (
             <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
           )}
           {withoutFilters === 0 && ASKS_PRICE.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
             <p className="place-list__hint-text">{t('list.priceHint')}</p>
+          )}
+          {ASKS_PRAYER.test(searchQuery) && (
+            <p className="place-list__hint-text">{t('list.prayerNote')}</p>
+          )}
+          {withoutFilters === 0 && ASKS_ALCOHOL.test(searchQuery) && (
+            <p className="place-list__hint-text">{t('list.alcoholHint')}</p>
           )}
           {/* ("free parking", "no reservation needed": this one, not the allergen note.) */}
           {withoutFilters === 0 && ASKS_UNRECORDED.test(searchQuery) && (
