@@ -9,7 +9,7 @@ import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, kore
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
-import { TRAIT_GROUPS, asksOpenNow, withoutOpenNow, plannedTime, liftDietWords } from '../filters';
+import { TRAIT_GROUPS, asksOpenNow, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
@@ -516,10 +516,12 @@ export default function BottomSheetList({
           results are not a mystery and the spelling on signs is learned. */}
       {/* Not a half-romanised one ("Itaewon 로" for 이태원로): that was found
           by its Korean address, and the line only looked like a mistake. */}
+      {/* (Two words that are one thing are put as the search read them:
+          "ayam goreng halal" was shown as "chicken goreng halal".) */}
       {/* Nor one that only left words out ("halal near me" as "halal",
           "noodles" as "noodle"): nothing was spelt another way. */}
       {searchQuery.trim() && matchQuery.trim() && !typedKorean && !fromStory && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
-        <p className="place-list__searched-as">{t('list.searchedAs', { query: romaniseQuery(matchQuery) ?? matchQuery })}</p>
+        <p className="place-list__searched-as">{t('list.searchedAs', { query: (() => { const said = porkFreeSaid(matchQuery); return /[가-힣぀-ヿ一-鿿]/.test(said) ? (romaniseQuery(matchQuery) ?? matchQuery) : (romaniseQuery(said) ?? said); })() })}</p>
       )}
       {fromStory && sorted.length > 0 && (
         <p className="place-list__searched-as">{t('list.fromStory', { query: fromStory })}</p>
