@@ -161,7 +161,7 @@ for (let tries = 0; tries < 6 && existsSync(dir); tries++) {
   // Whatever still holds it is one of this browser's own helpers, which
   // carry the folder's name on their command line: ended by that name.
   if (tries === 1 && process.platform === 'win32') {
-    const name = dir.split(/[\/]/).pop();
+    const name = dir.split(/[\\/]/).pop();
     spawnSync('powershell', ['-NoProfile', '-NonInteractive', '-Command', `Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -like '*${name}*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }`], { stdio: 'ignore', timeout: 15000, windowsHide: true });
   }
   try { rmSync(dir, { recursive: true, force: true }); } catch { /* still held */ }

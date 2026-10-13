@@ -21,6 +21,8 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- An Android phone set to larger type tells the page so (Chrome 150 on): every size here is in pixels and stays put; src/textSize.js reads the setting and picks the app's own text size. -->
+    <meta name="text-scale" content="scale" />
     <!-- Light only: without this a browser's forced dark mode repaints the brand colours and the white pins. -->
     <meta name="color-scheme" content="only light" />
     <!-- Hours, prices and addresses are not phone numbers; real ones are tel: links. -->
