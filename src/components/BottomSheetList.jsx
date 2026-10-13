@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import PlaceImage from './PlaceImage';
 import { HeartIcon, CompassIcon, MapPinIcon, ShareIcon } from './Icons';
-import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, koreanName, statusClass, DAY_KEYS, formatClock, koreaToday, unknownHoursKey } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, koreanName, statusClass, DAY_KEYS, formatClock, koreaToday, unknownHoursKey, openAllWeek } from '../utils';
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
@@ -104,6 +104,10 @@ const ASKS_ALCOHOL = new RegExp(`\\b(?:alcohol|alkohol)\\b|무알콜|무알코�
 // five restaurants whose story mentions one, and nothing said that the map
 // lists places to eat, not prayer rooms.
 const ASKS_PRAYER = new RegExp(`\\b(?:pray(?:er|ing)?|mosque|masjid|mush?[ao]l+a|musala|sholat|shalat|salat|namaz)\\b|기도실|예배실|모스크|礼拝|お祈り|モスク|(?:礼拜|禮拜)(?:室|堂|处|處|场所|場所)|清真寺|祈祷|祈禱`, 'i');
+// "24시 할랄", "24 hours", "24/7": the list offers "Open now", which is not
+// what was asked — the places on record as open round the clock every day
+// are named above the list (of those the rest of the search found).
+const ASKS_24H = new RegExp(`(?:^|[^\\d])24\\s*(?:시간?|時間|小[时時]|jam|hours?|hrs?|h\\b|\\/\\s*7)`, 'i');
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
@@ -380,6 +384,8 @@ export default function BottomSheetList({
   // ("halal myeongdong", "清真 首尔"): the same 152 places came with no word
   // about certificates.
   // (By the letters: "明洞でハラール", "清真餐厅", "할랄식당" are written without a gap.)
+  // (At most six: beyond that it is a list of its own, and the chips do it better.)
+  const open24 = ASKS_24H.test(searchQuery) ? sorted.filter(r => openAllWeek(r.hours)).slice(0, 6) : [];
   const halalTyped = /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery);
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   // With "Saved" on, what is shared is the places themselves (a link to a
@@ -667,6 +673,23 @@ export default function BottomSheetList({
       )}
       </div>
       {unknownToggle}
+      {open24.length > 0 && (
+        <div className="place-list__nearest place-list__always">
+          <p>{t('list.open24Title')}</p>
+          <ul className="saved-list">
+            {open24.map(place => (
+              <li key={place.id}>
+                <button type="button" className="saved-row" onClick={() => onRestaurantClick(place)}>
+                  <span className="saved-row__main">
+                    <span className="saved-row__name" translate="no">{displayName(place.name)}</span>
+                    <span className="saved-row__where">{placeArea(place)}</span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {ranked.slice(0, shown).map(({ place: r, distanceKm, fromYou }) => (
         <PlaceCard

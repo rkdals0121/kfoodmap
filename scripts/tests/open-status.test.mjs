@@ -311,3 +311,18 @@ test('a week on record with one day missing is not "hours unknown"', async () =>
   const after = getOpenStatus(hours(every([{ from: '11:00', to: '20:00' }])), at(21, 0));
   assert.equal(statusClass(after), 'is-closed');
 });
+
+test('open round the clock on all seven days, and only then', async () => {
+  const { openAllWeek } = await import('../../src/utils.js');
+  assert.equal(openAllWeek(hours(every([{ from: '00:00', to: '24:00' }]))), true);
+  assert.equal(openAllWeek(hours(every([{ from: '00:00', to: '00:00' }]))), true);
+  const six = every([{ from: '00:00', to: '24:00' }]);
+  six.sun = [];
+  assert.equal(openAllWeek(hours(six)), false);
+  assert.equal(openAllWeek(hours(every([{ from: '10:00', to: '02:00' }]))), false);
+  assert.equal(openAllWeek(hours(undefined)), false);
+  assert.equal(openAllWeek(null), false);
+  // …and the four places the records hold as such.
+  const { restaurants } = await import('../../src/data/restaurants.js');
+  assert.deepEqual(restaurants.filter(r => openAllWeek(r.hours)).map(r => r.id).sort(), ['food-garden-incheon-airport-t1', 'gaeseong-jip-nonhyeon', 'ilpum-sundubu-yeondong', 'king-kebab-itaewon']);
+});
