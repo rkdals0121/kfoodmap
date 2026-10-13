@@ -188,6 +188,7 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '麵包': 'bread', '面包': 'bread', '辣炒年糕': 'tteokbokki', '飯捲': 'gimbap', '饭卷': 'gimbap', '海苔飯捲': 'gimbap', '螃蟹': 'crab', kepiting: 'crab',
   'パン': 'bread', 'お寺の料理': 'temple', 'お寺': 'temple', 'カルグクス': 'kalguksu', 'チャプチェ': 'japchae', '石焼ビビンバ': 'bibimbap', '石焼きビビンバ': 'bibimbap', seomyun: 'Seomyeon', seomyon: 'Seomyeon',
   'ビリヤニ': 'biryani', 'サモサ': 'samosa', 'シーフード': 'seafood', '海鮮': 'seafood', '海鲜': 'seafood', 'フォー': 'pho', '香饭': 'biryani', '印度香饭': 'biryani', '咖喱角': 'samosa',
+  '짜장면': 'jajangmyeon', '자장면': 'jajangmyeon', '炸醬麵': 'jajangmyeon', '炸酱面': 'jajangmyeon', 'ジャージャー麺': 'jajangmyeon', 'チャジャンミョン': 'jajangmyeon',
   '아이스크림': 'ice cream', '젤라또': 'gelato', '젤라토': 'gelato',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',

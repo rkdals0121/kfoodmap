@@ -524,6 +524,8 @@ P37. Outbound links → no place links to a misspelt host (`instargram.com` was 
 
 P38. Vegetarians (egg and dairy eaten) → the cards page has three cards (vegan, vegetarian, Muslim); the vegetarian one says no meat, fish or seafood, that egg and dairy are eaten, and no meat or fish stock, fish sauce or salted shrimp, with five questions and their meaning in the reader's language; "vegetarian", "ベジタリアン", "素食", "채식" typed show a note that egg and dairy are not on record, linking to that card; the large view fits at 320×568.
 
+P39. Station search (regress step `station`) → a station asked by its Korean name that the lists do not know (반월당역, 중앙로역, 합정역, 혜화역, 선릉역) finds the places whose page names it as the nearest station (within a kilometre); 안국역 / Anguk Station / 安国駅 find the same places, more than the three that name the station in their text; a station whose name is a neighbourhood (성수역, 서면역) keeps the neighbourhood's places; a station with a kind beside it (이태원역 케밥) looks through the places at the station; the place data the list downloads carries `nearStation` and nothing else of `transit`.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)

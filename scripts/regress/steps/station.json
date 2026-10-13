@@ -1,0 +1,51 @@
+[
+ {
+  "url": "{{BASE}}/?n=1#q=%EB%B0%98%EC%9B%94%EB%8B%B9%EC%97%AD",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"반월당역\", count:document.querySelector('.place-list__header h2')?.innerText, first:document.querySelector('.place-card h3')?.innerText ?? null, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText).slice(0,2)}"
+ },
+ {
+  "url": "{{BASE}}/?n=2#q=%EC%95%88%EA%B5%AD%EC%97%AD",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"안국역\", count:document.querySelector('.place-list__header h2')?.innerText, first:document.querySelector('.place-card h3')?.innerText ?? null, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText).slice(0,2)}"
+ },
+ {
+  "url": "{{BASE}}/?n=3#q=Anguk%20Station",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"Anguk Station\", count:document.querySelector('.place-list__header h2')?.innerText, first:document.querySelector('.place-card h3')?.innerText ?? null, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText).slice(0,2)}"
+ },
+ {
+  "url": "{{BASE}}/?n=4#q=%EC%84%B1%EC%88%98%EC%97%AD",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"성수역\", count:document.querySelector('.place-list__header h2')?.innerText, first:document.querySelector('.place-card h3')?.innerText ?? null, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText).slice(0,2)}"
+ },
+ {
+  "url": "{{BASE}}/?n=5#q=%EC%9D%B4%ED%83%9C%EC%9B%90%EC%97%AD%20%EC%BC%80%EB%B0%A5",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"이태원역 케밥\", count:document.querySelector('.place-list__header h2')?.innerText, first:document.querySelector('.place-card h3')?.innerText ?? null, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText).slice(0,2)}"
+ },
+ {
+  "url": "{{BASE}}/?n=6#q=%ED%95%A9%EC%A0%95%EC%97%AD%20%EB%B9%84%EA%B1%B4%20%EC%B9%B4%ED%8E%98",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"합정역 비건 카페\", count:document.querySelector('.place-list__header h2')?.innerText, first:document.querySelector('.place-card h3')?.innerText ?? null, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText).slice(0,2)}"
+ },
+ {
+  "url": "{{BASE}}/?n=7#q=%EC%97%86%EB%8A%94%EC%97%AD",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"없는역\", count:document.querySelector('.place-list__header h2')?.innerText, first:document.querySelector('.place-card h3')?.innerText ?? null, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText).slice(0,2)}"
+ }
+]

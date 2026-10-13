@@ -3265,13 +3265,16 @@ verification-gated data-expansion pipeline — explicitly *not* a bulk import.
 
 **Search, as of 2026-10-10 (candidates, none started):**
 
-- Station search by the places' own transit facts: 반월당역, 중앙로역, 동대구역,
-  삼성역 find nothing, though every place page near them names the station.
-  `transit` is a stripped field (fetched with the place page), so the list
-  cannot search it: the station's name would have to travel with the list
-  data (`src/data/station-ko.js` already pairs romanised and Korean names).
-  The same work would let "서울역 카페" mean the cafés by the station rather
-  than every café in Seoul.
+- ~~Station search by the places' own transit facts~~ — **done, 2026-10-14.**
+  The list data carries `nearStation` (the nearest station's name, within a
+  kilometre: `scripts/lib/client-data.mjs`), and `src/search.js` reads a
+  station as the places that name it, the places whose station it is, and —
+  when the station's name is a neighbourhood — that neighbourhood. Probes
+  and `scripts/search-compare` must use the records as the browser has
+  them (`clientRecord`), or `nearStation` is missing. Still open: "서울역
+  카페" is every café in Seoul (the words alone find them, and results are
+  only ever added to); "City Hall" and "Dongbaek" are stations in more
+  than one city and are listed together.
 - A place named after another city in an area search ("Busan Jib" in Seoul
   under "Busan"): shown after the area's own places, counted with them.
 - Words the records cannot answer ("예약되는", "주차 되는", "룸 있는"): say

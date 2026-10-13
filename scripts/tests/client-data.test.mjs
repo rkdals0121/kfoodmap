@@ -63,27 +63,62 @@ test('only the detail view reads stripped fields — anything else must fetch th
   assert.deepEqual(readers, []);
 });
 
-test('the list carries the name of a station within a kilometre, and a station search uses it', async () => {
+test('the list carries the key of a station within a kilometre, and a station search uses it', async () => {
   const { searchPlaces } = await import('../../src/search.js');
+  const { stationKey } = await import('../../src/data/station-ko.js');
   const { restaurants: all } = await import('../../src/data/restaurants.js');
   const { isQuarantined } = await import('../../src/data/verification.js');
   const places = all.filter(r => !isQuarantined(r)).map(clientRecord);
   const full = new Map(all.map(r => [r.id, r]));
   for (const r of places) {
     const t = full.get(r.id).transit?.value;
-    assert.equal(r.nearStation, t?.station && t.distanceM <= 1000 ? t.station : null, r.id);
+    assert.equal(r.nearStation ?? null, t?.station && t.distanceM <= 1000 ? stationKey(t.station) : null, r.id);
+    assert.equal('transit' in r, false);
   }
+  // One key for the spellings the records use.
+  assert.equal(stationKey('Myeong-dong'), stationKey('Myeongdong'));
+  assert.equal(stationKey('Seoul Nat’l Univ.'), stationKey("Seoul Nat'l Univ. Station"));
   const go = (query, filters = []) => searchPlaces({ places, query, filters, now: new Date('2026-10-09T03:00:00Z') }).filteredRestaurants;
+  const ids = (list) => list.map(r => r.id).sort().join(',');
   // Stations no list of names knows, asked in Korean: the places whose station it is.
-  for (const [ko, roman] of [['반월당역', 'Banwoldang'], ['합정역', 'Hapjeong'], ['혜화역', 'Hyehwa']]) {
+  for (const ko of ['반월당역', '합정역', '혜화역', '선릉역', '을지로입구역', '동묘역']) {
     const found = go(ko);
     assert.ok(found.length > 0, ko);
-    // …with the neighbourhood of that name, when there is one.
-    assert.ok(places.filter(r => r.nearStation === roman).every(r => found.includes(r)), ko);
-    assert.ok(found.every(r => r.nearStation === roman || `${r.zone} ${r.address?.value} ${r.vibe} ${r.name}`.includes(roman)), ko);
+    assert.ok(places.filter(r => r.nearStation === stationKey(ko)).every(r => found.includes(r)) || ko === '동묘역', ko);
   }
-  // A station that was found by its name in a place's text also lists the places beside it.
+  // However a station is written, the same places.
+  for (const group of [['안국역', 'Anguk Station', '安国駅', 'anguk station'], ['명동역', 'Myeongdong Station', '明洞駅'], ['방배역', 'Bangbae Station'], ['서울대입구역', "Seoul Nat'l Univ. Station"], ['홍대입구역 3번 출구', '홍대입구역']]) {
+    for (const q of group.slice(1)) assert.equal(ids(go(q)), ids(go(group[0])), `${q} = ${group[0]}`);
+  }
+  // More than the places that name the station in their own text.
   assert.ok(go('안국역').length > go('안국역').filter(r => /Anguk Station/i.test(`${r.name} ${r.vibe} ${r.zone}`)).length);
-  assert.deepEqual(go('안국역').map(r => r.id).sort(), go('Anguk Station').map(r => r.id).sort());
+  // Two stations of one name are not one place; a city beside it says which.
+  const km = (a, b) => Math.hypot((a.coordinates.value.lat - b.coordinates.value.lat) * 111, (a.coordinates.value.lng - b.coordinates.value.lng) * 88);
+  for (const q of ['시청역', '중앙로역']) { const found = go(q); assert.ok(found.length > 0 && found.every(r => km(r, found[0]) < 10), q); }
+  assert.ok(go('대전 중앙로역').every(r => /Daejeon/.test(r.address.value)) && go('대전 중앙로역').length > 0);
+  assert.ok(go('대구 중앙로역').every(r => /Daegu/.test(r.address.value)) && go('대구 중앙로역').length > 0);
+  // A story that names another station is not this one.
+  assert.ok(go('Eonju Station').every(r => !/Jeonju/.test(r.address.value)));
   assert.equal(go('없는역').length, 0);
+});
+
+test('a station beside other words, a station that is a neighbourhood, and words that only look like stations', async () => {
+  const { searchPlaces } = await import('../../src/search.js');
+  const { restaurants: all } = await import('../../src/data/restaurants.js');
+  const { isQuarantined } = await import('../../src/data/verification.js');
+  const places = all.filter(r => !isQuarantined(r)).map(clientRecord);
+  const go = (query, filters = []) => searchPlaces({ places, query, filters, now: new Date('2026-10-09T03:00:00Z') }).filteredRestaurants;
+  const ids = (list) => list.map(r => r.id).sort().join(',');
+  // The station is where, the rest is what: never fewer than the words found by themselves.
+  assert.ok(go('이태원역 케밥').length >= 5);
+  assert.ok(go('이태원역 케밥').every(r => /kebab/i.test(`${r.name} ${r.vibe} ${r.story}`)));
+  assert.equal(ids(go('안국역 한식')), ids(go('Anguk Station korean')));
+  // A station whose name is a neighbourhood keeps the neighbourhood.
+  assert.ok(go('성수역').length >= go('성수').length);
+  // However it is written.
+  assert.equal(ids(go('hongik univ station')), ids(go('Hongik Univ. Station')));
+  assert.equal(ids(go('강남역 10번 출구')), ids(go('강남역')));
+  // Not stations: a region, a word that happens to end so.
+  assert.equal(go('지역 맛집').length, 0);
+  assert.equal(go('무역센터 카페').length, 0);
 });

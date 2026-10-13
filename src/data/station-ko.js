@@ -267,6 +267,32 @@ const onePart = (part) => {
 };
 
 export const koStation = (name) => STATION_KO[name] ?? null;
+
+// One name for a station, however it is written: the records spell the same
+// station "Myeongdong" and "Myeong-dong", "Seoul Nat'l Univ." with either
+// apostrophe, "Culture Complex (Munhwa Jeondang)" with and without its
+// gloss, and a visitor types "hongik university station". The key is the
+// station's Korean name where the table above has one (명동역), else its
+// romanised name in letters and digits only. Used for what the list carries
+// of a place's nearest station (scripts/lib/client-data.mjs) and for what a
+// search asks for (src/search.js), so the two always meet.
+const plainStation = (name) => String(name ?? '').toLowerCase()
+  .replace(/\([^)]*\)/g, ' ').replace(/[’'`]/g, '')
+  .replace(/university/g, 'univ').replace(/national/g, 'natl')
+  .replace(/\b(?:station|stn)\b/g, ' ')
+  .replace(/[^a-z0-9가-힣]+/g, '');
+const KEY_BY_PLAIN = new Map(Object.entries(STATION_KO).map(([roman, ko]) => [plainStation(roman), ko]));
+const ROMANS_BY_KEY = new Map();
+for (const [roman, ko] of Object.entries(STATION_KO)) ROMANS_BY_KEY.set(ko, [...(ROMANS_BY_KEY.get(ko) ?? []), roman]);
+/** The key of a station named in any spelling; null for no name at all. */
+export function stationKey(name) {
+  const plain = plainStation(name);
+  return plain === '' ? null : KEY_BY_PLAIN.get(plain) ?? plain;
+}
+/** Whether the table knows the station by this key (a Korean name). */
+export const isKnownStation = (key) => ROMANS_BY_KEY.has(key);
+/** The romanised spellings the records use for a station, by its key. */
+export const stationRomans = (key) => ROMANS_BY_KEY.get(key) ?? [];
 // Every part known, or nothing: half a line name in each language reads
 // worse than one.
 export function koLine(line) {

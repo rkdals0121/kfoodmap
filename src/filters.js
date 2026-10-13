@@ -199,6 +199,7 @@ const unpunct = (s) => String(s ?? '').replace(/[,.;:!?，。、！？]+/g, ' ')
 const DIET_WORDS = {
   halal: 'Halal', vegan: 'Vegan',
   // …and as they are mistyped.
+  '하랄': 'Halal', '할날': 'Halal', '베지테리안': 'Vegan', '베지테리언': 'Vegan', '베지터리언': 'Vegan', '베지터리안': 'Vegan',
   hallal: 'Halal', halaal: 'Halal', halall: 'Halal', halel: 'Halal', hala1: 'Halal',
   vegitarian: 'Vegan', vegeterian: 'Vegan', vegatarian: 'Vegan', vegetarain: 'Vegan', vegiterian: 'Vegan', veggan: 'Vegan', veagan: 'Vegan', vegen: 'Vegan',
   // "Vegetarian", in each language: what a vegetarian can eat is asked of the

@@ -11,6 +11,7 @@
 //   - `evidence`, `url`, `method` and `lastCheckedAt` on any fact — the
 //     audit trail behind each badge, which only the detail view shows — and
 //   - DETAIL_ONLY fields, which nothing outside RestaurantDetail reads,
+// (one word of `transit` stays, as `nearStation`: see clientRecord),
 // and the detail view fetches the full record from /place-data/<id>.json
 // when it opens (src/hooks/usePlaceRecord.js). Value, confidence and source
 // of every remaining fact stay in the bundle, so every badge in the list
@@ -18,6 +19,8 @@
 //
 // scripts/tests/client-data.test.mjs fails if any other file starts reading
 // a stripped field — such a reader must fetch the full record first.
+import { stationKey } from '../../src/data/station-ko.js';
+
 export const DETAIL_ONLY = ['menus', 'transit', 'phone', 'officialUrl', 'instagram', 'timeline'];
 export const AUDIT_KEYS = ['evidence', 'url', 'method', 'lastCheckedAt'];
 
@@ -37,14 +40,15 @@ function stripEvidence(value) {
 export function clientRecord(r) {
   const out = stripEvidence(r);
   for (const k of DETAIL_ONLY) delete out[k];
-  // The one word of `transit` the list needs: the name of the nearest
-  // station, so that a search for a station the lists of names do not know
-  // (반월당역, 중앙로역) can find the places whose page says it is theirs.
-  // Only within a kilometre (a quarter of an hour on foot): the page of a
-  // place 7 km from its "nearest" station names it too, and that place is
-  // not at the station. Some ten bytes a place.
+  // The one word of `transit` the list needs: which station the place is
+  // at, so that a search for a station (반월당역, "Anguk Station") finds the
+  // places whose page says it is theirs. As the station's key (one name
+  // however the record spells it: src/data/station-ko.js), and only within
+  // a kilometre — the page of a place 7 km from its "nearest" station names
+  // it too, and that place is not at the station. Left out when there is
+  // none: some 12 kB over the whole list.
   const near = r.transit?.value;
-  out.nearStation = near?.station && near.distanceM <= 1000 ? near.station : null;
+  if (near?.station && near.distanceM <= 1000) out.nearStation = stationKey(near.station);
   return out;
 }
 

@@ -11,7 +11,7 @@ import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
 import { TRAIT_GROUPS, asksOpenNow, withoutOpenNow, plannedTime, liftDietWords } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash } from '../filters';
+import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted } from '../i18n/punct';
 
@@ -80,7 +80,7 @@ const asksNearMe = (query, plan = null) => {
 // "Vegetarian" is answered with the places that have vegan dishes (the map
 // records no more than that): the list says so, since a vegetarian who eats
 // egg and dairy is asking a wider question than the one answered.
-const VEGETARIAN_TYPED = /v[eé]g[aeéi]t[ae]r|vegetaris|lacto|奶蛋素|ベジタリアン|ベジ(?!タブル)|菜食|素食|蔬食|吃素|蛋奶素|채식/i;
+const VEGETARIAN_TYPED = /v[eé]g[aeéi]t[ae]r|vegetaris|lacto|奶蛋素|ベジタリアン|ベジ(?!タブル)|菜食|素食|蔬食|吃素|蛋奶素|채식|베지테리|베지터리/i;
 const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
 // (Read without the signs a search is wrapped in, as the search reads it:
 // “not spicy” in a phone's curly quotes found places and showed no caution.)
@@ -357,7 +357,20 @@ export default function BottomSheetList({
   // question: the caveat answers it whether or not the chip is on.
   const asksCertificate = /certif|sertifi|kmf|인증|認証|认证|認證/i.test(searchQuery);
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
+  // With "Saved" on, what is shared is the places themselves (a link to a
+  // list, as the Journal's share makes): "my saved places" is no view a
+  // friend can open, and the map with Saved on had no way to send them.
+  const savedOn = activeFilters.includes(SAVED_ONLY);
   const shareView = async () => {
+    if (savedOn) {
+      const listUrl = sharedListUrl(window.location.origin, sorted.map(r => r.id));
+      const names = sorted.slice(0, 8).map(r => displayName(r.name)).join(', ');
+      const title = t('journal.shareListTitle');
+      const sent = await shareOrCopy({ title, text: `${title}: ${names}${sorted.length > 8 ? ', …' : ''}`, url: listUrl });
+      if (sent === 'failed') { window.prompt(t('list.shareView'), listUrl); return; }
+      if (sent === 'copied') { setViewShared(true); setTimeout(() => setViewShared(false), 2500); }
+      return;
+    }
     const url = `${window.location.origin}/${viewLink}`;
     // Said in words too: a bare address in a group chat says nothing.
     const words = [
@@ -437,7 +450,7 @@ export default function BottomSheetList({
         <h2><span aria-live="polite">{t('list.placeCount', { count: sorted.length })}</span></h2>
         {/* In the header row, as an icon: on its own line it was one more
             thing between a filter and its first result. */}
-        {viewLink && sorted.length > 0 && (
+        {(viewLink || savedOn) && sorted.length > 0 && (
           <button type="button" className="place-list__share" onClick={shareView} aria-label={viewShared ? t('journal.listCopied') : t('list.shareView')} title={t('list.shareView')}>
             {viewShared ? <span className="place-list__share-done">{t('journal.listCopied')}</span> : <ShareIcon size={16} />}
           </button>

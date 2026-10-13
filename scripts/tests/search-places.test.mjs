@@ -13,7 +13,10 @@ const go = (query, filters = []) => searchPlaces({ places, query, filters });
 const ids = (r) => r.filteredRestaurants.map(p => p.id).sort().join(',');
 
 test('a station is read in every way it is written', () => {
-  assert.deepEqual(stationOf('Seoul Station'), { area: 'Seoul', phrase: 'Seoul station' });
+  assert.deepEqual(stationOf('Seoul Station'), { area: 'Seoul', phrase: 'Seoul station', key: '서울역' });
+  // One key however it is spelt (src/data/station-ko.js).
+  for (const q of ['서울역', 'ソウル駅', '首尔站', 'seoul stn', 'Seoul Station exit 1']) assert.equal(stationOf(q)?.key, '서울역', q);
+  assert.equal(stationOf('동대입구역')?.key, '동대입구역');
   for (const q of ['Seoul Station exit 1', 'seoul stn', 'seoul stn.', '서울역', '서울 역', '서울역 1번 출구', '首尔站', 'ソウル駅']) {
     assert.equal(stationOf(q)?.area.toLowerCase(), 'seoul', q);
   }
