@@ -272,7 +272,7 @@ export default {
     zeroWaste: '零浪费',
     localSourcing: '本地食材',
     mildTaste: '不太辣',
-    glutenFreeOptions: '有无麸质选择',
+    glutenFreeOptions: '提供无麸质选项',
     fermented: '发酵食品',
     searchPlaceholder: '搜索店名或地区',
     clearSearch: '清除搜索',

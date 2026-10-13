@@ -526,7 +526,7 @@ export default function BottomSheetList({
         <p className="place-list__searched-as">{t('list.searchedAs', { query: (() => { const said = porkFreeSaid(matchQuery); return /[가-힣぀-ヿ一-鿿]/.test(said) ? (romaniseQuery(matchQuery) ?? matchQuery) : (romaniseQuery(said) ?? said); })() })}</p>
       )}
       {fromStory && sorted.length > 0 && (
-        <p className="place-list__searched-as">{t('list.fromStory', { query: searchQuery.trim() !== '' && !/\s/.test(searchQuery.trim()) ? searchQuery.trim() : fromStory })}</p>
+        <p className="place-list__searched-as">{t('list.fromStory', { query: (() => { const typedWord = searchQuery.trim().replace(/^[#"“”„「『(（[]+|["“”」』)）\],.;:!?！？，。、]+$/g, ''); return typedWord !== '' && !/\s/.test(typedWord) ? typedWord : fromStory; })() })}</p>
       )}
 
       {/* Said once for the whole list rather than on every card: the same
@@ -613,7 +613,7 @@ export default function BottomSheetList({
       {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(searchQuery) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to="/cards?card=vegetarian" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
-      {sorted.length > 0 && ASKS_INGREDIENT.test(searchQuery) && (
+      {sorted.length > 0 && ASKS_INGREDIENT.test(searchQuery) && !ASKS_ALCOHOL.test(searchQuery) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* The caveat says pork-free places are left out and can be searched

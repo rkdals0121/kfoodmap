@@ -15,7 +15,7 @@ export default {
     legendConfirmedChip: '완전 비건',
     legendConfirmed: '식당 공식 사이트나 메뉴, 공식 기록과 대조해 확인했어요.',
     legendReportedChip: '할랄 프렌들리',
-    legendReported: '가이드, 식당 목록 사이트, 지도 등록 정보 같은 출처에 그렇게 나와 있어요. 1차 출처와 대조하지는 못했어요.',
+    legendReported: '가이드, 식당 목록 사이트, 지도 등록 정보 같은 출처에 그렇게 나와 있어요. 식당의 공식 자료와 대조하지는 못했어요.',
     legendReadingChip: '비건 메뉴 있음',
     legendReading: '찾은 자료로 미루어 본 추정이에요. 가기 전에 확인해 보세요.',
     legendUnknown: '알아내지 못했어요. 모른다고 그대로 적어 둬요.',
