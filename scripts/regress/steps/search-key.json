@@ -1,0 +1,62 @@
+[
+ {
+  "url": "{{BASE}}/?n=1#q=halal%20open%20now",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-15T19:00:00+09:00\").getTime()-R.now();class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "wait": 2500,
+  "js": "document.querySelector('input[type=search]').focus(); return 'typed'"
+ },
+ {
+  "keys": [
+   "Enter"
+  ],
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"halal open now\", box:document.querySelector('input[type=search]').value, chips:[...document.querySelectorAll('.chip[aria-pressed=true]')].map(e=>e.innerText.trim()), count:document.querySelector('.place-list__header h2')?.innerText, hash:location.hash}"
+ },
+ {
+  "url": "{{BASE}}/?n=3#q=halal%20saturday%20dinner%20itaewon",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-15T19:00:00+09:00\").getTime()-R.now();class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "wait": 2500,
+  "js": "document.querySelector('input[type=search]').focus(); return 'typed'"
+ },
+ {
+  "keys": [
+   "Enter"
+  ],
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"halal saturday dinner itaewon\", box:document.querySelector('input[type=search]').value, chips:[...document.querySelectorAll('.chip[aria-pressed=true]')].map(e=>e.innerText.trim()), count:document.querySelector('.place-list__header h2')?.innerText, hash:location.hash}"
+ },
+ {
+  "url": "{{BASE}}/?n=4#q=Sunday%20Bakery",
+  "w": 390,
+  "h": 844,
+  "lang": "en",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-15T19:00:00+09:00\").getTime()-R.now();class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "wait": 2500,
+  "js": "document.querySelector('input[type=search]').focus(); return 'typed'"
+ },
+ {
+  "keys": [
+   "Enter"
+  ],
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"Sunday Bakery\", box:document.querySelector('input[type=search]').value, chips:[...document.querySelectorAll('.chip[aria-pressed=true]')].map(e=>e.innerText.trim()), count:document.querySelector('.place-list__header h2')?.innerText, hash:location.hash}"
+ },
+ {
+  "url": "{{BASE}}/?n=2#q=%EC%A7%80%EA%B8%88%20%EC%98%81%EC%97%85%20%EC%A4%91%EC%9D%B8%20%ED%95%A0%EB%9E%84",
+  "w": 390,
+  "h": 844,
+  "lang": "ko",
+  "init": "(()=>{const R=Date;let off=new R(\"2026-10-15T19:00:00+09:00\").getTime()-R.now();class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
+  "wait": 2500,
+  "js": "document.querySelector('input[type=search]').focus(); return 'typed'"
+ },
+ {
+  "keys": [
+   "Enter"
+  ],
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:\"\\uc9c0\\uae08 \\uc601\\uc5c5 \\uc911\\uc778 \\ud560\\ub784\", box:document.querySelector('input[type=search]').value, chips:[...document.querySelectorAll('.chip[aria-pressed=true]')].map(e=>e.innerText.trim()), count:document.querySelector('.place-list__header h2')?.innerText, hash:location.hash}"
+ }
+]

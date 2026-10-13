@@ -8,7 +8,7 @@ import { DAY_KEYS, formatClock, koreaToday } from '../utils';
 import { areaSuggestions } from '../data/area-names';
 import { paren } from '../i18n/punct';
 
-export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange, onSearchFocus, planAt, onPlanAt, savedCount = 0 }) {
+export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery, onSearchChange, onSearchFocus, planAt, onPlanAt, savedCount = 0, onSearchSubmit }) {
   const { t, i18n } = useTranslation();
 
   // "/" puts the cursor in the search box, as on most map and search sites.
@@ -111,7 +111,7 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
     <header className="home-header">
       {/* A form, so the keyboard's Search key does something: it puts the
           keyboard away, and the results it was covering are in view. */}
-      <form className="search-field" role="search" onSubmit={(e) => { e.preventDefault(); searchRef.current?.blur(); }}>
+      <form className="search-field" role="search" onSubmit={(e) => { e.preventDefault(); searchRef.current?.blur(); onSearchSubmit?.(); }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
           <circle cx="11" cy="11" r="7" />
           <path d="m20 20-3.5-3.5" />

@@ -1157,6 +1157,23 @@ function AppShell() {
                 // Typing on a phone: the keyboard takes the lower half, so
                 // the sheet opens fully and the results show above it.
                 onSearchFocus={() => setSheetState(2)}
+                // The keyboard's Search key on "halal open now", "지금 영업 중인
+                // 할랄", "saturday dinner halal": what the list offers as a
+                // button is done — asked for in so many words, the closed
+                // places still came first until the button was found. (Only
+                // on the key: while the words are being typed, nothing moves.)
+                onSearchSubmit={() => {
+                  const plan = selectedFilters.includes(OPEN_AT) ? null : plannedTime(searchQuery, koreaToday());
+                  if (plan?.sure && !plan.now) {
+                    guessedPlan.current = null;
+                    setPlanAt({ day: plan.day, minutes: plan.minutes });
+                    setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_AT]);
+                    setQuery(plan.rest);
+                  } else if (asksOpenNow(searchQuery) && !selectedFilters.includes(OPEN_NOW)) {
+                    setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_NOW]);
+                    setQuery(plan?.now ? plan.rest : withoutOpenNow(searchQuery));
+                  }
+                }}
                 selectedFilters={selectedFilters}
                 onToggleFilter={handleToggleFilter}
                 planAt={planAt}
