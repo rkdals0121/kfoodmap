@@ -532,6 +532,24 @@ P41. Asking for what is not checked → "주차 되는 비건 식당", "halal re
 
 P42. More hour words → "24시 할랄", "새벽까지 하는 비건", "24/7 halal", "still open halal", "現在営業中", "现在还开着", "masih buka" are searched without those words and offer "Open now"; "일요일 영업 할랄", "日曜営業" offer that day; "새벽집" stays a name.
 
+P43. Pork-free is not halal → a place whose halal level is pork-free says so in its advice box on the first screen ("‘Pork-free’ does not mean halal: the place is reported to use no pork, and the meat is not halal, or not known to be."); a search that lists only pork-free places ("no pork", "tanpa babi", "tidak ada babi", "돼지고기 없는 식당", a pork-free place by name) carries the same line over the list; "tidak ada babi jeju" does not offer "Without “tanpa”".
+
+P44. The halal caveat without the chip → "halal", "halal myeongdong", "明洞でハラール", "清真餐厅", "할랄식당" typed into the box show "None of these places has a halal certificate that we have seen…" as the Halal chip does.
+
+P45. What the map does not hold, said → no result for alcohol words ("bebas alkohol", "무알코올") and results for them ("halal no alcohol", "술 안 파는 할랄"): "Whether a place sells alcohol is not checked place by place…" (one caution, not the ingredient one beside it); "musholla", "masjid", "prayer room", "기도실": "This map lists places to eat — it is not a list of prayer rooms or mosques."; not for "禮拜六 晚餐" (a weekday). "cheap vegan busan" with no result: the search cannot sort by price.
+
+P46. Journal → "See them on the map (n)" on a phone: every saved pin is above the list (regress step `saved-map-and-today`). At 768–1023 px the framing is not delayed.
+
+P47. Hours → a place whose week is on record but not today: "Today’s hours are not recorded — the other days are below" on its page, "Today’s hours not recorded" on cards, Journal rows, journey stops and nearby rows (59 places have such a week); with a day chosen ("Open at…") the plain "Hours not recorded". The same hours on all seven days are one row, "Every day" (194 places). At the largest text size no line of today's hours begins with a comma.
+
+P48. "Why?" at the largest text size on a 320 px phone → the pressed chip moves to the top and its explanation is read from its first line (it opened under the bar at the foot and looked as if nothing happened).
+
+P49. Welcome screen at the largest text size, 320 px → the legend's example chips fold onto two lines inside the card ("Vegan sepenuhnya · Terkonfirmasi" ran off the screen).
+
+P50. Desktop → with the cards, the privacy text or the suggest form open, the handle that folds the list is hidden (it covered a letter of the dialog).
+
+P51. Words shown as typed → "라면" found by a story is announced as "“라면”…", not "ramyeon"; "#biryani?" as "biryani"; "ayam goreng halal" is "also searched as “fried chicken halal”". "Not spicy" phrases ("tidak pedas", "안 매운", "辛くない", "不辣") are NOT rewritten: they find nothing (rewritten, they listed thirteen places that serve spicy food).
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)

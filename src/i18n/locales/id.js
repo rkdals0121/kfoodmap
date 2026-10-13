@@ -365,6 +365,7 @@ export default {
     dietary: 'Vegan dan halal',
     lastChecked: 'Halaman terakhir dicek',
     notRecorded: 'Tidak tercatat',
+    everyDay: 'Setiap hari',
     never: 'Belum pernah',
     suggestEdit: 'Ada yang salah?',
     traitMildTaste: 'Tidak terlalu pedas',

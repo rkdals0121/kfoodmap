@@ -372,6 +372,7 @@ export default {
     dietary: 'Dietary',
     lastChecked: 'Page last checked',
     notRecorded: 'Not recorded',
+    everyDay: 'Every day',
     never: 'Never',
     suggestEdit: 'Something wrong?',
     traitMildTaste: 'Mild taste',

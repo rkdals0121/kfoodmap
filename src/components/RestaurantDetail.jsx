@@ -567,6 +567,11 @@ export default function RestaurantDetail({
   const today = todaysHours(place.hours);
   const lastNight = lastNightHours(place.hours);
   const week = weekHours(place.hours);
+  // The same hours on all seven days are said once ("Every day"): seven
+  // identical rows were twenty-one lines at the largest text size.
+  const weekRows = week && week[0].text && week.every(d => d.text === week[0].text)
+    ? [{ key: 'all', day: t('detail.everyDay'), text: week[0].text, today: false }]
+    : week;
   const planStatus = planDate && planAt ? getOpenStatus(place.hours, planDate, { nameDay: true }) : null;
   const planWhen = planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : '';
   const culture = getCulture(place);
@@ -987,7 +992,7 @@ export default function RestaurantDetail({
                 <details key={place.id} className="week-hours" onToggle={(e) => { if (e.currentTarget.open) e.currentTarget.scrollIntoView({ block: 'nearest' }); }}>
                   <summary>{t('detail.weekHours')}</summary>
                   <dl>
-                    {week.map(d => (
+                    {weekRows.map(d => (
                       <div key={d.key} className={d.today ? 'is-today' : undefined}>
                         <dt>{d.day}{d.today && <span className="visually-hidden">{paren('', t('filters.today'))}</span>}</dt>
                         {/* Lunch and dinner each on a line of their own: run together

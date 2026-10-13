@@ -362,6 +362,7 @@ export default {
     dietary: '饮食',
     lastChecked: '本页最近核查',
     notRecorded: '未记录',
+    everyDay: '每天',
     never: '从未',
     suggestEdit: '信息有误？',
     traitMildTaste: '不太辣',

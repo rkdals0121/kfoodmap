@@ -367,6 +367,7 @@ export default {
     dietary: '食事',
     lastChecked: 'ページの最終確認',
     notRecorded: '記録なし',
+    everyDay: '毎日',
     never: '未確認',
     suggestEdit: '誤りがありましたか？',
     traitMildTaste: '辛さ控えめ',
