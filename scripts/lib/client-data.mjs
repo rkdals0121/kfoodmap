@@ -37,6 +37,14 @@ function stripEvidence(value) {
 export function clientRecord(r) {
   const out = stripEvidence(r);
   for (const k of DETAIL_ONLY) delete out[k];
+  // The one word of `transit` the list needs: the name of the nearest
+  // station, so that a search for a station the lists of names do not know
+  // (반월당역, 중앙로역) can find the places whose page says it is theirs.
+  // Only within a kilometre (a quarter of an hour on foot): the page of a
+  // place 7 km from its "nearest" station names it too, and that place is
+  // not at the station. Some ten bytes a place.
+  const near = r.transit?.value;
+  out.nearStation = near?.station && near.distanceM <= 1000 ? near.station : null;
   return out;
 }
 

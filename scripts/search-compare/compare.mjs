@@ -10,7 +10,9 @@ const load = async (d) => {
   const { isQuarantined } = await import(`./${d}/src/data/verification.js`);
   const { searchPlaces } = await import(`./${d}/src/search.js`);
   const an = await import(`./${d}/src/data/area-names.js`);
-  const places = restaurants.filter(r => !isQuarantined(r));
+  // As the browser has them: with the nearest station's name (within a
+  // kilometre) that the list carries — see scripts/lib/client-data.mjs.
+  const places = restaurants.filter(r => !isQuarantined(r)).map(r => ({ ...r, nearStation: r.transit?.value?.station && r.transit.value.distanceM <= 1000 ? r.transit.value.station : null }));
   return { go: (q, f = []) => searchPlaces({ places, query: q, filters: f }), an, places };
 };
 const O = await load('old'), N = await load('new');
@@ -26,6 +28,9 @@ for (const [k, v] of Object.entries(N.an.AREAS ?? {})) { add(k); for (const a of
 const tests = readFileSync('./new/scripts/tests/search-places.test.mjs', 'utf8');
 for (const m of tests.matchAll(/'([^'\n]{2,60})'/g)) add(m[1]);
 for (const m of tests.matchAll(/"([^"\n]{2,60})"/g)) add(m[1]);
+// Every station some place is at, by its romanised and Korean names, alone and with a kind beside it.
+const st = await import('./new/src/data/station-ko.js').catch(() => ({ STATION_KO: {} }));
+for (const [roman, ko] of Object.entries(st.STATION_KO)) { add(`${roman} Station`); add(ko); add(`${ko} 카페`); add(`${roman} Station cafe`); }
 let diff = 0;
 for (const q of qs) {
   for (const f of [[]]) {

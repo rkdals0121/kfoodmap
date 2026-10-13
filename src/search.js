@@ -20,6 +20,11 @@ import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
   matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, porkFreeSaid, liftDietWords, mentionsInStory, storyWord } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
+import { STATION_KO } from './data/station-ko.js';
+
+// The romanised names (sometimes two spellings) a Korean station name stands for.
+const STATIONS_BY_KO = new Map();
+for (const [roman, ko] of Object.entries(STATION_KO)) STATIONS_BY_KO.set(ko, [...(STATIONS_BY_KO.get(ko) ?? []), roman]);
 
 // The longest search the box accepts. A page of pasted text built a regular
 // expression too large to compile and took the whole app down.
@@ -51,6 +56,12 @@ export function stationOf(query) {
     // clean romanisation is an area.
     if (roman && !/[\u0080-\uffff]/.test(roman)) return { area: roman, phrase: `${roman} station` };
     if (/^[A-Za-z][A-Za-z .'-]*$/.test(cjk[1])) return { area: cjk[1], phrase: `${cjk[1]} station` };
+    // A station the lists of names do not know, but some place's own transit
+    // line does — 반월당역, 중앙로역, 동대구역: every place page near them says
+    // "반월당역 · 걸어서 5분", and the search found nothing. Asked by its Korean
+    // name, such a station is the places whose nearest station it is.
+    const known = STATIONS_BY_KO.get(`${cjk[1]}역`);
+    if (known) return { area: known[0], phrase: `${known[0]} station`, nearestTo: known };
     return null;
   }
   const latin = LATIN_STATION.exec(s);
@@ -73,6 +84,21 @@ function leftOut(typed) {
     // Nor is the diet: "halal bibimbap hongdae" without "halal" is two places
     // with no halal reading — not the nearest thing to what was asked.
     .filter(({ word, rest }) => !onlyFillers(word) && !onlyFillers(rest) && liftDietWords(word).chips.length === 0 && !isPorkFreeQuery(word));
+}
+
+// A station among other words: { station, rest }, or null. The station is
+// one word ending in 역 / 駅 / 站, or the word before "station".
+function stationBeside(asked) {
+  const words = String(asked ?? '').trim().split(/\s+/).filter(Boolean);
+  if (words.length < 2 || words.length > 5) return null;
+  for (let i = 0; i < words.length; i += 1) {
+    const latin = /^(?:station|stn\.?)$/i.test(words[i]) && i > 0;
+    if (!latin && !/.(?:역|駅|站)$/.test(words[i])) continue;
+    const station = stationOf(latin ? `${words[i - 1]} station` : words[i]);
+    const rest = words.filter((w, k) => k !== i && !(latin && k === i - 1)).join(' ');
+    if (station && rest !== '') return { station, rest };
+  }
+  return null;
 }
 
 const titled = (s) => s.replace(/(^|[ -])([a-z])/g, (m, a, b) => a + b.toUpperCase());
@@ -183,14 +209,52 @@ export function searchPlaces({
     // for the station's area and answered with the whole city.
     const asked = stripFillers(raw);
     const station = stationOf(asked);
-    if (station) {
-      const here = (r) => matchesPhrase(r, station.phrase);
+    // The places that say they are at a station — and the places whose
+    // nearest station it is ("안국역" was the three that name it in their
+    // text, of the twenty whose page says "안국역 · 걸어서 …").
+    const atStation = (st) => {
+      // ("hongik univ" is "Hongik Univ.": letters and digits only.)
+      const plain = (n) => n.toLowerCase().replace(/university/g, 'univ').replace(/national|nat'l/g, 'natl').replace(/[^a-z0-9]+/g, ' ').trim();
+      const names = (st.nearestTo ?? [st.area]).map(plain);
+      const nearest = (r) => typeof r.nearStation === 'string' && names.includes(plain(r.nearStation));
+      // (A story that names the station — "a short walk from Gajwa Station" —
+      // counts for a station, as it does not for an area.)
+      const inStory = (r) => typeof r.story === 'string' && r.story.toLowerCase().includes(st.phrase.toLowerCase());
+      return st.nearestTo ? nearest : (r) => matchesPhrase(r, st.phrase) || nearest(r) || inStory(r);
+    };
+    // A station with something else beside it — "이태원역 케밥", "안국역 한식",
+    // "seoul station korean": the station is where, the rest is what, so the
+    // places whose station it is are looked through for the rest as well.
+    // Only a station some place is at; otherwise as before.
+    // (Asked even when the whole reads as a station's name: "cafe seoul
+    // station" is no station called Cafe Seoul.)
+    // …unless the whole is a station some place is at ("Hongik Univ. Station").
+    const aroundStation = (st) => {
+      const at = atStation(st);
+      const namedInText = !st.nearestTo && places.some(r => matchesPhrase(r, st.phrase));
+      const asArea = !namedInText && (onRecord(st.area) || isArea(st.area)) ? byText(st.area) : null;
+      return { here: asArea ? (r) => at(r) || asArea(r) : at, asArea };
+    };
+    const beside = station && places.some(atStation(station)) ? null : stationBeside(asked);
+    const besideHere = beside ? aroundStation(beside.station).here : null;
+    // Not when what stands beside it is an area: "Changwon Jungang Station" is
+    // one station's name, and "서울 강남역" says the city, not a second thing.
+    if (beside && !isArea(beside.rest) && !isArea(romaniseQuery(beside.rest) ?? beside.rest) && places.some(besideHere)) {
+      // Added to what the words find by themselves, never in place of it: a
+      // café whose own text says "Bangbae", "station" and "café" was found
+      // before and still is.
+      result = select(r => (besideHere(r) && hits(beside.rest).has(r)) || hits(raw).has(r));
+    } else if (station) {
+      // A station no place's text names, whose name is also a neighbourhood
+      // (성수역, 서면역, 인천역): the neighbourhood, as it always was, with the
+      // places whose station it is — not those few alone.
+      const { here, asArea } = aroundStation(station);
       const label = station.phrase.toLowerCase() === asked.toLowerCase() ? asked : `${titled(station.area)} Station`;
       const named = select(here);
       const spots = named.list.length > 0 ? [] : places.filter(here);
       if (named.list.length > 0) {
         result = named;
-        used = label;
+        used = asArea ? station.area : label;
       } else if (spots.length > 0 && filters.length > 0) {
         result = { list: [], unknown: named.unknown };
         used = label;

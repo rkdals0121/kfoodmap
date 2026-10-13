@@ -62,3 +62,28 @@ test('only the detail view reads stripped fields — anything else must fetch th
     .filter(f => pattern.test(readFileSync(f, 'utf8')));
   assert.deepEqual(readers, []);
 });
+
+test('the list carries the name of a station within a kilometre, and a station search uses it', async () => {
+  const { searchPlaces } = await import('../../src/search.js');
+  const { restaurants: all } = await import('../../src/data/restaurants.js');
+  const { isQuarantined } = await import('../../src/data/verification.js');
+  const places = all.filter(r => !isQuarantined(r)).map(clientRecord);
+  const full = new Map(all.map(r => [r.id, r]));
+  for (const r of places) {
+    const t = full.get(r.id).transit?.value;
+    assert.equal(r.nearStation, t?.station && t.distanceM <= 1000 ? t.station : null, r.id);
+  }
+  const go = (query, filters = []) => searchPlaces({ places, query, filters, now: new Date('2026-10-09T03:00:00Z') }).filteredRestaurants;
+  // Stations no list of names knows, asked in Korean: the places whose station it is.
+  for (const [ko, roman] of [['반월당역', 'Banwoldang'], ['합정역', 'Hapjeong'], ['혜화역', 'Hyehwa']]) {
+    const found = go(ko);
+    assert.ok(found.length > 0, ko);
+    // …with the neighbourhood of that name, when there is one.
+    assert.ok(places.filter(r => r.nearStation === roman).every(r => found.includes(r)), ko);
+    assert.ok(found.every(r => r.nearStation === roman || `${r.zone} ${r.address?.value} ${r.vibe} ${r.name}`.includes(roman)), ko);
+  }
+  // A station that was found by its name in a place's text also lists the places beside it.
+  assert.ok(go('안국역').length > go('안국역').filter(r => /Anguk Station/i.test(`${r.name} ${r.vibe} ${r.zone}`)).length);
+  assert.deepEqual(go('안국역').map(r => r.id).sort(), go('Anguk Station').map(r => r.id).sort());
+  assert.equal(go('없는역').length, 0);
+});
