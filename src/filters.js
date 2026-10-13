@@ -27,7 +27,7 @@ export const OPEN_NOW = 'Open now';
 // (With what trails the words in each language — "営業中のお店", "现在营业的店",
 // "지금 영업하는 곳" — so that taking them out leaves no stray particle; not
 // "영업중단", closed for good.)
-const OPEN_NOW_TYPED = /\bmalam\s+ini\b|\b(?:open\s+)?24\/7(?=\s|$|[?!.,])|\ball[- ]night\b|\b(?:still|currently)\s+open\b|\bopen\s+rn\b|(?:^|\s)24\s*시(?:\s*영업)?(?=\s|$|[?!.,])|새벽(?!\s*\d)(?:까지)?(?:\s*(?:여는|하는|영업하는|영업))?(?:\s*(?:곳|가게|식당|맛집))?(?![가-힣])|지금\s*열려\s*있는(?:\s*(?:곳|가게|식당|맛집))?|(?:いま|今)やってる(?:お店|店)?|まだ(?:開|あ)いて(?:い)?る(?:お店|店)?|夜遅くまで(?:営業(?:している)?|(?:開|あ)いて(?:い)?る|やってる)?(?:お店|店)?|(?:现在|現在)?(?:还|還)(?:开着|開著|在营业|在營業)(?:的(?:店|餐厅|餐廳))?|(?:现在|現在)(?:开门|開門|开着|開著)(?:的(?:店|餐厅|餐廳))?|通宵(?:营业|營業)?|\b(?:yang\s+)?masih\s+buka\b|\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b(?:buka\s+)?24[- ]?(?:hours?|hr|h|jam)\b|24\s*시간(?:\s*(?:영업\s*(?:중(?:인)?|하는)?|하는|여는))?(?:\s*(?:곳|가게|식당|맛집))?|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:buka\s+)?(?:sampai\s+)?(?:larut|tengah)\s+malam|\bbuka\s+(?:sampai\s+)?malam\b|\bopen\s+(?:at|till|until)\s+(?:night|late)\b|밤늦게(?:까지)?(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|지금\s*(?:여는|문\s*연|열린|하는)(?:\s*(?:곳|가게|식당|맛집)|(?![가-힣]))|(?:いま|今|現在)?営業中(?:の(?:お店|店|レストラン))?|(?:いま|今)(?:、)?(?:開|あ)いて(?:い)?る(?:お店|店|ところ)?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
+const OPEN_NOW_TYPED = /\b(?:(?:buka|makan)\s+)?malam\s+ini\b|\b(?:open\s+)?24\/7(?=\s|$|[?!.,])|\ball[- ]night\b|\b(?:still|currently)\s+open\b|\bopen\s+rn\b|(?:^|\s)24\s*시(?:\s*영업)?(?=\s|$|[?!.,])|새벽(?!\s*\d)(?:까지)?(?:\s*(?:여는|하는|영업하는|영업))?(?:\s*(?:곳|가게|식당|맛집))?(?![가-힣])|지금\s*열려\s*있는(?:\s*(?:곳|가게|식당|맛집))?|(?:いま|今)やってる(?:お店|店)?|まだ(?:開|あ)いて(?:い)?る(?:お店|店)?|夜遅くまで(?:営業(?:している)?|(?:開|あ)いて(?:い)?る|やってる)?(?:お店|店)?|(?:现在|現在)?(?:还|還)(?:开着|開著|在营业|在營業)(?:的(?:店|餐厅|餐廳))?|(?:现在|現在)(?:开门|開門|开着|開著)(?:的(?:店|餐厅|餐廳))?|通宵(?:营业|營業)?|\b(?:yang\s+)?masih\s+buka\b|\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b(?:buka\s+)?24[- ]?(?:hours?|hr|h|jam)\b|24\s*시간(?:\s*(?:영업\s*(?:중(?:인)?|하는)?|하는|여는))?(?:\s*(?:곳|가게|식당|맛집))?|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:buka\s+)?(?:sampai\s+)?(?:larut|tengah)\s+malam|\bbuka\s+(?:sampai\s+)?malam\b|\bopen\s+(?:at|till|until)\s+(?:night|late)\b|밤늦게(?:까지)?(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|지금\s*(?:여는|문\s*연|열린|하는)(?:\s*(?:곳|가게|식당|맛집)|(?![가-힣]))|(?:いま|今|現在)?営業中(?:の(?:お店|店|レストラン))?|(?:いま|今)(?:、)?(?:開|あ)いて(?:い)?る(?:お店|店|ところ)?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
 export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
 export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
 // A day named in the search — "halal saturday dinner", "tomorrow lunch
@@ -244,7 +244,9 @@ const DIET_WORDS = {
 // steps aside, since pork-free is by definition not in it).
 // …or one of its words does ("Seoul pork-free", "pork free places").
 export const isPorkFreeQuery = (query) => {
-  const words = unpunct(query).trim().split(/\s+/).filter(Boolean);
+  // (As the search reads it: "tidak ada babi", "돼지고기 안 쓰는 집" are the
+  // level too, and the Halal chip goes off for them as for "pork-free".)
+  const words = unpunct(porkFreeSaid(query)).trim().split(/\s+/).filter(Boolean);
   if (PORK_FREE_WORDS.has(squash(words.join(' ')))) return true;
   return words.some((w, i) => PORK_FREE_WORDS.has(squash(w))
     || (i + 1 < words.length && PORK_FREE_WORDS.has(squash(`${w} ${words[i + 1]}`))));
@@ -360,8 +362,6 @@ const PORK_FREE_SAID = [
   // found Korea University), and a name is sometimes typed in its syllables.
   [/\b(?:makanan|masakan|kuliner)\s+korea\b/gi, 'korean'],
   [/\bayam\s+goreng\b/gi, 'fried chicken'],
-  // "Not spicy" as each language says it, in the records' own words.
-  [/\b(?:tidak|tak|gak|nggak|enggak)\s+(?:terlalu\s+)?pedas\b|안\s*매운|맵지\s*않은|안\s*맵게|辛くない|不辣/gi, 'not spicy'],
   [/\bmakanan\s+laut\b/gi, 'seafood'],
   [/\bdaging\s+sapi\b/gi, 'beef'],
   [/\bes\s+krim\b/gi, 'ice cream'],

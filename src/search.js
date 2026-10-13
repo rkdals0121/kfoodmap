@@ -82,7 +82,9 @@ function leftOut(typed) {
   return words.map((word, i) => ({ word, rest: words.filter((w, k) => k !== i).join(' ') }))
     // Nor is the diet: "halal bibimbap hongdae" without "halal" is two places
     // with no halal reading — not the nearest thing to what was asked.
-    .filter(({ word, rest }) => !onlyFillers(word) && !onlyFillers(rest) && liftDietWords(word).chips.length === 0 && !isPorkFreeQuery(word));
+    // (…nor half of it: "tanpa babi jeju" without "tanpa" is "babi jeju".)
+    .filter(({ word, rest }, i) => !onlyFillers(word) && !onlyFillers(rest) && liftDietWords(word).chips.length === 0 && !isPorkFreeQuery(word)
+      && !(i + 1 < words.length && isPorkFreeQuery(`${word} ${words[i + 1]}`)) && !(i > 0 && isPorkFreeQuery(`${words[i - 1]} ${word}`)));
 }
 
 // A station among other words: { station, rest }, or null. The station is

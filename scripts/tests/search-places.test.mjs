@@ -798,3 +798,14 @@ test('hour words that are part of something else are left alone', async () => {
   for (const q of ['새벽 영업', '24시?', 'open 24/7?']) assert.ok(asksOpenNow(q), q);
   assert.equal(withoutOpenNow('새벽까지 영업 할랄'), '할랄');
 });
+
+test('pork-free said in Indonesian is the level, and is not offered in halves', async () => {
+  const { isPorkFreeQuery, porkFreeSaid } = await import('../../src/filters.js');
+  for (const q of ['tidak ada babi', 'tidak pakai babi', 'non babi', 'tanpa daging babi', '돼지고기 안 쓰는 집']) assert.ok(isPorkFreeQuery(q), q);
+  assert.equal(isPorkFreeQuery('ada babi'), false);
+  // "Not spicy" is not turned into words: they found thirteen places that serve spicy food.
+  for (const q of ['tidak pedas', '안 매운', '부안 매운탕', '辛くない', '不辣']) assert.equal(porkFreeSaid(q), q);
+  const r = go('tidak ada babi jeju');
+  assert.equal(r.filteredRestaurants.length, 0);
+  assert.ok(!r.withoutWords.some(x => /^(tanpa|babi|tidak|ada)$/i.test(x.word)), JSON.stringify(r.withoutWords.map(x => x.word)));
+});

@@ -60,7 +60,7 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|出汁|だし|ダシ|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
 // (Not "no pork" / "pork-free" by itself: that is a level the records do
 // carry. Beside another such word — "no pork gluten free" — the note stands.)
-const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|bebas)\s+babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
+const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|bebas)\s+(?:daging\s+)?babi|\b(?:tidak|tak|gak|nggak|enggak)\s+(?:ada|pakai|pake|memakai|menggunakan|mengandung)\s+(?:daging\s+)?babi|\bnon[- ]?babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
 // "No meat", "meat-free", "고기 없는": the vegan question, answered from the
 // record like "no pork" — not an ingredient the map cannot check.
 // "Halal near me", "근처 맛집", "附近的清真餐厅": near the reader — which the map
@@ -101,7 +101,7 @@ const ASKS_ALCOHOL = new RegExp(`\\b(?:alcohol|alkohol)\\b|무알콜|논알콜|�
 // "musholla", "masjid", "prayer room", "기도실": answered with the two or
 // five restaurants whose story mentions one, and nothing said that the map
 // lists places to eat, not prayer rooms.
-const ASKS_PRAYER = new RegExp(`\\b(?:prayer|mosque|masjid|mush?ol+a|musala|sholat|shalat|salat)\\b|기도실|모스크|礼拝|モスク|礼拜|禮拜|清真寺|祈祷|祈禱`, 'i');
+const ASKS_PRAYER = new RegExp(`\\b(?:prayer|mosque|masjid|mush?ol+a|musala|sholat|shalat|salat)\\b|기도실|모스크|礼拝|モスク|(?:礼拜|禮拜)(?:室|堂|处|處|场所|場所)|清真寺|祈祷|祈禱`, 'i');
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
@@ -377,7 +377,8 @@ export default function BottomSheetList({
   // …and so is "halal" typed into the box instead of pressed as a chip
   // ("halal myeongdong", "清真 首尔"): the same 152 places came with no word
   // about certificates.
-  const halalTyped = useMemo(() => liftDietWords(searchQuery).chips.includes('Halal'), [searchQuery]);
+  // (By the letters: "明洞でハラール", "清真餐厅", "할랄식당" are written without a gap.)
+  const halalTyped = /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery);
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   // With "Saved" on, what is shared is the places themselves (a link to a
   // list, as the Journal's share makes): "my saved places" is no view a
