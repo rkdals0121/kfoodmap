@@ -7484,3 +7484,8 @@ html[lang='id'] .stat-label {
 .week-hours .week-hours__all dt {
   flex: 0 0 auto;
 }
+
+/* "See them on the map (n)" over both of the Journal's lists. */
+.journal-copy--all {
+  margin: 4px 0 10px;
+}

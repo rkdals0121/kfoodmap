@@ -12,7 +12,7 @@ import { sealText } from '../data/seal-text';
 import { groupByRegion, joinedRegionName } from '../data/region';
 import { sharedListUrl } from '../filters';
 import { copyText, shareOrCopy } from '../share';
-import { colon, paren } from '../i18n/punct';
+import { colon, paren, listComma } from '../i18n/punct';
 import { koAddress } from '../data/address-ko';
 import { shownArea } from '../data/area-names';
 
@@ -98,7 +98,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
     // the list is as often for a visitor as from one.
     // As the app shows each name to this reader (in Korean, the name on the sign).
     const names = savedList.slice(0, 8).map(x => displayName(x.place.name)).join(', ');
-    const how = await shareOrCopy({ title, text: `${title}: ${names}${savedList.length > 8 ? ', …' : ''}`, url });
+    const how = await shareOrCopy({ title, text: `${colon(title, names)}${savedList.length > 8 ? `${listComma()}…` : ''}`, url });
     if (how === 'failed') { window.prompt(title, url); return; }
     if (how === 'copied') { setListShared(true); setTimeout(() => setListShared(false), 2500); }
   };
@@ -189,6 +189,14 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
         </div>
       </div>
 
+      {/* Over both lists, not inside "Saved for later": the map's Saved filter
+          holds the visited places too, and "(2)" under a list of one read as a
+          mistake (four walk-throughs said so). */}
+      {onShowSaved && stamped.length > 0 && (
+        <button type="button" className="journal-copy journal-copy--all" onClick={onShowSaved}>
+          {paren(t('journal.showOnMap'), stamped.length)}
+        </button>
+      )}
       {visitedList.length > 0 && (
         <div className="journal-section">
           <div className="journal-section-header">
@@ -222,13 +230,6 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
               {listShared ? t('journal.listCopied') : t('journal.shareList')}
             </button>
           </div>
-          {onShowSaved && (
-            <button type="button" className="journal-copy" onClick={onShowSaved}>
-              {/* The map's Saved filter also holds the visited places: the
-                  count says how many will be there. */}
-              {paren(t('journal.showOnMap'), stamped.length)}
-            </button>
-          )}
           <button type="button" className="journal-copy" onClick={copyListText}>
             {listCopied ? t('journal.copyListDone') : t('journal.copyList')}
           </button>

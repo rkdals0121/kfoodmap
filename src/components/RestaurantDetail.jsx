@@ -569,9 +569,18 @@ export default function RestaurantDetail({
   const week = weekHours(place.hours);
   // The same hours on all seven days are said once ("Every day"): seven
   // identical rows were twenty-one lines at the largest text size.
-  const weekRows = week && week[0].text && week.every(d => d.text === week[0].text)
-    ? [{ key: 'all', day: t('detail.everyDay'), text: week[0].text, today: false, all: true }]
-    : week;
+  // …and days in a row with the same hours as one ("Mon–Sat"): six rows of
+  // the same two lines were most of a screen.
+  const weekRows = (() => {
+    if (!week) return null;
+    if (week[0].text && week.every(d => d.text === week[0].text)) return [{ key: 'all', day: t('detail.everyDay'), text: week[0].text, today: false, all: true }];
+    const rows = [];
+    for (const d of week) {
+      const last = rows[rows.length - 1];
+      if (last && d.text && last.text === d.text) { last.to = d.day; last.today = last.today || d.today; last.key = `${last.key}-${d.key}`; } else rows.push({ ...d });
+    }
+    return rows.map(r => (r.to ? { ...r, day: `${r.day}–${r.to}`, all: true } : r));
+  })();
   const planStatus = planDate && planAt ? getOpenStatus(place.hours, planDate, { nameDay: true }) : null;
   const planWhen = planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : '';
   const culture = getCulture(place);
@@ -993,7 +1002,7 @@ export default function RestaurantDetail({
                   <summary>{t('detail.weekHours')}</summary>
                   <dl>
                     {weekRows.map(d => (
-                      <div key={d.key} className={d.today ? 'is-today' : d.all ? 'week-hours__all' : undefined}>
+                      <div key={d.key} className={[d.today ? 'is-today' : '', d.all ? 'week-hours__all' : ''].filter(Boolean).join(' ') || undefined}>
                         <dt>{d.day}{d.today && <span className="visually-hidden">{paren('', t('filters.today'))}</span>}</dt>
                         {/* Lunch and dinner each on a line of their own: run together
                             they wrapped mid-time on a phone. */}

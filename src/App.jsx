@@ -31,7 +31,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly, storageKeeps } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery, asksOpenNow, withoutOpenNow, plannedTime } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery, asksOpenNow, asksLateHours, withoutOpenNow, plannedTime } from './filters';
 import { searchPlaces } from './search';
 import { takeFreshList } from './freshList';
 import './index.css';
@@ -1177,7 +1177,7 @@ function AppShell() {
                     setPlanAt({ day: plan.day, minutes: plan.minutes });
                     setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_AT]);
                     setQuery(plan.rest);
-                  } else if (asksOpenNow(searchQuery) && !selectedFilters.includes(OPEN_NOW)) {
+                  } else if (asksOpenNow(searchQuery) && !asksLateHours(searchQuery) && !selectedFilters.includes(OPEN_NOW)) {
                     setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_NOW]);
                     setQuery(plan?.now ? plan.rest : withoutOpenNow(searchQuery));
                   }

@@ -27,8 +27,14 @@ export const OPEN_NOW = 'Open now';
 // (With what trails the words in each language — "営業中のお店", "现在营业的店",
 // "지금 영업하는 곳" — so that taking them out leaves no stray particle; not
 // "영업중단", closed for good.)
-const OPEN_NOW_TYPED = /\b(?:(?:buka|makan)\s+)?malam\s+ini\b|\b(?:open\s+)?24\/7(?=\s|$|[?!.,])|\ball[- ]night\b|\b(?:still|currently)\s+open\b|\bopen\s+rn\b|(?:^|\s)24\s*시(?:\s*영업)?(?=\s|$|[?!.,])|새벽(?!\s*\d)(?:까지)?(?:\s*(?:여는|하는|영업하는|영업))?(?:\s*(?:곳|가게|식당|맛집))?(?![가-힣])|지금\s*열려\s*있는(?:\s*(?:곳|가게|식당|맛집))?|(?:いま|今)やってる(?:お店|店)?|まだ(?:開|あ)いて(?:い)?る(?:お店|店)?|夜遅くまで(?:営業(?:している)?|(?:開|あ)いて(?:い)?る|やってる)?(?:お店|店)?|(?:现在|現在)?(?:还|還)(?:开着|開著|在营业|在營業)(?:的(?:店|餐厅|餐廳))?|(?:现在|現在)(?:开门|開門|开着|開著)(?:的(?:店|餐厅|餐廳))?|通宵(?:营业|營業)?|\b(?:yang\s+)?masih\s+buka\b|\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b(?:(?:buka|open)\s+)?24[- ]?(?:hours?|hr|h|jam)\b|24\s*시간(?:\s*(?:영업\s*(?:중(?:인)?|하는)?|하는|여는))?(?:\s*(?:곳|가게|식당|맛집))?|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:buka\s+)?(?:sampai\s+)?(?:larut|tengah)\s+malam|\bbuka\s+(?:sampai\s+)?malam\b|\bopen\s+(?:at|till|until)\s+(?:night|late)\b|밤늦게(?:까지)?(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|지금\s*(?:여는|문\s*연|열린|하는)(?:\s*(?:곳|가게|식당|맛집)|(?![가-힣]))|(?:いま|今|現在)?営業中(?:の(?:お店|店|レストラン))?|(?:いま|今)(?:、)?(?:開|あ)いて(?:い)?る(?:お店|店|ところ)?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
+const OPEN_NOW_TYPED = /\b(?:(?:buka|makan)\s+)?malam\s+ini\b|\b(?:open\s+)?24\/7(?=\s|$|[?!.,])|\ball[- ]night\b|\b(?:still|currently)\s+open\b|\bopen\s+rn\b|(?:^|\s)24\s*시(?:\s*영업)?(?=\s|$|[?!.,])|새벽(?!\s*\d)(?:까지)?(?:\s*(?:여는|하는|영업하는|영업))?(?:\s*(?:곳|가게|식당|맛집))?(?![가-힣])|지금\s*열려\s*있는(?:\s*(?:곳|가게|식당|맛집))?|(?:いま|今)やってる(?:お店|店)?|まだ(?:開|あ)いて(?:い)?る(?:お店|店)?|夜遅くまで(?:営業(?:している)?|(?:開|あ)いて(?:い)?る|やってる)?(?:お店|店)?|(?:现在|現在)?(?:还|還)(?:开着|開著|在营业|在營業)(?:的(?:店|餐厅|餐廳)?)?|(?:现在|現在)(?:开门|開門|开着|開著)(?:的(?:店|餐厅|餐廳)?)?|通宵(?:营业|營業)?|\b(?:yang\s+)?masih\s+buka\b|\bopen\s+(?:right\s+)?now\b|\b(?:open\s+)?late(?:[- ]night)?\b|\btonight\b|\b(?:(?:buka|open)\s+)?24[- ]?(?:hours?|hr|h|jam)\b|24\s*시간(?:\s*(?:영업\s*(?:중(?:인)?|하는)?|하는|여는))?(?:\s*(?:곳|가게|식당|맛집))?|심야|야식|늦게까지(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|深夜(?:営業)?|24時間(?:営業)?|24小[时時](?:营业|營業)?|(?:buka\s+)?(?:sampai\s+)?(?:larut|tengah)\s+malam|\bbuka\s+(?:sampai\s+)?malam\b|\bopen\s+(?:at|till|until)\s+(?:night|late)\b|밤늦게(?:까지)?(?:\s*(?:여는|하는|영업하는))?(?:\s*(?:곳|식당|가게))?|(?:지금\s*)?영업\s*(?:중(?!단)(?:인)?|하는)(?:\s*(?:곳|가게|식당|맛집))?|지금\s*영업|지금\s*(?:여는|문\s*연|열린|하는)(?:\s*(?:곳|가게|식당|맛집)|(?![가-힣]))|(?:いま|今|現在)?営業中(?:の(?:お店|店|レストラン))?|(?:いま|今)(?:、)?(?:開|あ)いて(?:い)?る(?:お店|店|ところ)?|(?:(?:现在|現在)(?:营业|營業)中?|(?:营业|營業)中)(?:的(?:店|餐厅|餐廳|地方))?|(?:yang\s+)?buka\s+sekarang/gi;
 export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPEN_NOW_TYPED.test(String(query ?? '')); };
+// Of those words, the ones that ask for late or round-the-clock hours, not for
+// this minute: "24時間", "夜遅くまで", "late night", "새벽까지". The list still
+// offers "Open now" for them, but the keyboard's Search key does not press
+// it — at seven in the evening it answered "open late" with everything open.
+const LATE_TYPED = /\blate\b|\ball[- ]night\b|24|심야|야식|늦게|새벽|深夜|夜遅く|通宵|\b(?:larut|tengah)\s+malam\b|\bsampai\s+malam\b/i;
+export const asksLateHours = (query) => LATE_TYPED.test(String(query ?? ''));
 export const withoutOpenNow = (query) => String(query ?? '').replace(OPEN_NOW_TYPED, ' ').replace(/\s+/g, ' ').trim();
 // A day named in the search — "halal saturday dinner", "tomorrow lunch
 // vegan jeju", "토요일 저녁에 여는 곳", "明日のランチ", "周六晚上", "besok malam":
@@ -217,7 +223,7 @@ const DIET_WORDS = {
   // based" found 64 places by their descriptions, "meatless" none).
   plantbased: 'Vegan', meatless: 'Vegan', meatfree: 'Vegan', nomeat: 'Vegan', withoutmeat: 'Vegan', tanpadaging: 'Vegan', vegetaris: 'Vegan', nabati: 'Vegan',
   '식물성': 'Vegan', '고기없는': 'Vegan', 'プラントベース': 'Vegan', '植物性': 'Vegan', '植物基': 'Vegan', '肉なし': 'Vegan', '无肉': 'Vegan', '無肉': 'Vegan',
-  'ハラール': 'Halal', 'ハラル': 'Halal', 'ヴィーガン': 'Vegan', 'ビーガン': 'Vegan',
+  'ハラール': 'Halal', 'ハラル': 'Halal', 'ヴィーガン': 'Vegan', 'ビーガン': 'Vegan', 'ヴィガン': 'Vegan', 'ビガン': 'Vegan', 'ヴィ-ガン': 'Vegan',
   '清真': 'Halal', '纯素': 'Vegan', '純素': 'Vegan',
   '할랄': 'Halal', '비건': 'Vegan',
   // …and in languages the app does not speak but its visitors do.
