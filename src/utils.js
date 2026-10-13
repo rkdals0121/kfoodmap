@@ -115,7 +115,9 @@ export const CLOSING_SOON_MIN = 30;
 const MAX_BREAK_MIN = 300;
 
 /** The class for an open/closed label: green, amber when closing soon, grey. */
-export const statusClass = (status) => (status.soon ? 'is-soon' : status.open ? 'is-open' : 'is-closed');
+// (`is-later`: closed now but opening later today — before the first opening,
+// or on a break. Styled as closed; named so the two can be told apart.)
+export const statusClass = (status) => (status.soon ? 'is-soon' : status.open ? 'is-open' : status.later ? 'is-closed is-later' : 'is-closed');
 
 /**
  * hoursFact → { open, label, detail } | null when we can't say.
@@ -251,7 +253,7 @@ export function getOpenStatus(hoursFact, now = new Date(), { nameDay = false } =
     // Before the day's first opening, some languages have a word of their
     // own ("영업 전", "開店前"): "영업시간 아님 · 오전 10:30에 열어요" read as a
     // translation. English says Closed for both.
-    return { open: false, onBreak, label: tr(onBreak ? 'onBreak' : ended < 0 && !ranLate ? 'notYetOpen' : 'closed'), detail: tr('opens', { time: fromMinutes(next) }) };
+    return { open: false, onBreak, later: true, label: tr(onBreak ? 'onBreak' : ended < 0 && !ranLate ? 'notYetOpen' : 'closed'), detail: tr('opens', { time: fromMinutes(next) }) };
   }
   return { open: false, label: tr('closed'), detail: nextOpening() };
 }
