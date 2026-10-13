@@ -589,16 +589,18 @@ export default function BottomSheetList({
       {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
         <p className="section-note place-list__note">{t('list.bothDietsNote')}</p>
       )}
+      {/* "halal no alcohol", "술 안 파는 할랄" list places by words in their
+          notes, some of which say alcohol is sold: said before the halal
+          caveat — folded on a phone, only the first note shows, and this
+          one answers what was typed. */}
+      {sorted.length > 0 && ASKS_ALCOHOL.test(searchQuery) && (
+        <p className="section-note place-list__note place-list__note--key">{t('list.alcoholHint')}</p>
+      )}
       {/* The halal caveat first: it is the one about safety, and behind
           the "Open now" note it was folded out of sight. */}
       {(halalOn || asksCertificate || halalTyped) && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
         <p className="section-note place-list__note place-list__note--key">{t('list.halalCaveat')}</p>
-      )}
-      {/* "halal no alcohol" lists fifty-nine places by words in their notes,
-          some of which say alcohol is sold. */}
-      {sorted.length > 0 && ASKS_ALCOHOL.test(searchQuery) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.alcoholHint')}</p>
       )}
       {sorted.length > 0 && ASKS_PRAYER.test(searchQuery) && (
         <p className="section-note place-list__note">{t('list.prayerNote')}</p>
