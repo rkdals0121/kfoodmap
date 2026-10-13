@@ -290,3 +290,24 @@ test('after midnight, the hours still being kept are those of the day before', a
   assert.equal(lastNightHours({ value: { weekly: { thu: [{ from: '11:00', to: '22:00' }] } }, confidence: 'supported' }, fri0100), null);
   assert.equal(lastNightHours(null, fri0100), null);
 });
+
+test('a week on record with one day missing is not "hours unknown"', async () => {
+  const { unknownHoursKey, statusClass } = await import('../../src/utils.js');
+  const week = { ...every([{ from: '11:00', to: '20:00' }]) };
+  delete week.tue;
+  const h = hours(week);
+  // Tuesday: nothing to say about now, but the other days are there.
+  assert.equal(getOpenStatus(h, at(12, 0)), null);
+  assert.equal(unknownHoursKey(h), 'hoursUnknownToday');
+  // For a day the reader chose, "today" would be the wrong word.
+  assert.equal(unknownHoursKey(h, false), 'hoursUnknown');
+  assert.equal(unknownHoursKey(hours(undefined)), 'hoursUnknown');
+  assert.equal(unknownHoursKey(hours({})), 'hoursUnknown');
+  assert.equal(unknownHoursKey(null), 'hoursUnknown');
+  // Before the day's first opening: closed, and named as opening later.
+  const before = getOpenStatus(hours(every([{ from: '11:00', to: '20:00' }])), at(9, 0));
+  assert.equal(before.open, false);
+  assert.equal(statusClass(before), 'is-closed is-later');
+  const after = getOpenStatus(hours(every([{ from: '11:00', to: '20:00' }])), at(21, 0));
+  assert.equal(statusClass(after), 'is-closed');
+});
