@@ -3827,6 +3827,22 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       framing places asked for from another tab. `shot.mjs` must never
       start a detached child on Windows: it opened a console window on the
       owner's desktop for every run.
+      Later on 10-14 (three walk-throughs — a vegan visitor to Busan, a
+      Muslim family reading Indonesian, a Korean student — and five
+      reviews; docs/MOBILE-AUDIT §29): a pork-free place says on its first
+      screen that pork-free does not mean halal (`detail.porkFreeMeans`),
+      and so does a list of only such places; the halal caveat shows for
+      "halal" typed as well as pressed (`halalTyped`); the keyboard's
+      Search key applies the hour offer (`onSearchSubmit` in `App.jsx`,
+      never over a chosen "Open at…"); the same hours on seven days are one
+      row (`weekRows`); "Why?" scrolls its chip to the top when the
+      explanation would open out of sight. Two rules learnt again: a
+      sentence that says the map does NOT hold something is checked
+      against the data first (prices were on 537 menus), and a search rule
+      goes to a reviewer BEFORE it is deployed ("not spicy" phrases listed
+      thirteen places serving spicy food for seventeen minutes).
+      `sweep-places.mjs` over more than about 220 pages in one run can
+      hang: run it in chunks of 80.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
