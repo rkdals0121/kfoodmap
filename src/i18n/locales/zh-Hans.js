@@ -109,6 +109,7 @@ export default {
     withoutFilters: '不加筛选时，“{{query}}”可找到 {{n}} 家。',
     withoutOne: '去掉“{{filter}}”：{{n}} 家',
     askStaffHint: '食材和过敏原并非逐店核实的项目，说明里即使提到也不代表保证。向店员询问时可用：',
+    notOnRecordHint: '本地图没有记录停车、订位、外送和价格，请直接向店家确认。',
     vegetarianNote: '是否含蛋、奶并未记录。这里显示的是有纯素菜品的店，其余请向店员询问：',
     showPorkFree: '查看不含猪肉的店（非清真）',
     // "open now" typed into the search: the chip is offered.

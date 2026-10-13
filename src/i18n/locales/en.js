@@ -114,6 +114,7 @@ export default {
     withoutFilters: '“{{query}}” finds {{n}} without the filters.',
     withoutOne: 'Without “{{filter}}”: {{n}}',
     askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
+    notOnRecordHint: 'Parking, booking, delivery and prices are not on record here — the place itself can tell you.',
     vegetarianNote: 'Egg and dairy are not on record. These are the places with vegan dishes. To ask about the rest:',
     showPorkFree: 'See pork-free places (not halal)',
     // "open now" typed into the search: the chip is offered.

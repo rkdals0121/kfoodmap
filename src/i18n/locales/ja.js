@@ -113,6 +113,7 @@ export default {
     withoutFilters: 'フィルターなしでは「{{query}}」で {{n}} 件あります。',
     withoutOne: '「{{filter}}」を外すと {{n}} 件',
     askStaffHint: '食材やアレルギーは、お店ごとに確認した項目ではありません。説明に記載があっても保証ではありません。お店で尋ねるときは：',
+    notOnRecordHint: '駐車場・予約・デリバリー・価格は、この地図に記録がありません。お店に直接ご確認ください。',
     vegetarianNote: '卵・乳製品の有無は記録していません。ヴィーガン料理のあるお店を表示しています。そのほかはお店で尋ねてください：',
     showPorkFree: '豚肉不使用のお店を見る（ハラールではない）',
     // "open now" typed into the search: the chip is offered.
