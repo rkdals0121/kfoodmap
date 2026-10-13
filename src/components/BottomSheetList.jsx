@@ -84,12 +84,14 @@ const VEGETARIAN_TYPED = /v[eé]g[aeéi]t[ae]r|vegetaris|lacto|奶蛋素|ベジ�
 const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
 // (Read without the signs a search is wrapped in, as the search reads it:
 // “not spicy” in a phone's curly quotes found places and showed no caution.)
-// Parking, booking, delivery, prices: asked for often ("주차 되는 비건 식당",
-// "halal reservation"), and no record holds them. A search that finds
-// nothing says so, rather than leave it to read as "no such place".
+// Parking, booking, delivery: asked for often ("주차 되는 비건 식당", "halal
+// reservation"), and not checked for any place — a story mentions one here
+// and there. A search that finds nothing says so, rather than leave it to
+// read as "no such place". (Not prices: menus carry them. Not "reserve",
+// "2주차": a name, a week.)
 const ASKS_UNRECORDED = new RegExp(
-  `\\b(?:parking|reservations?|reserve|booking|delivery|cheap|budget|prices?|parkir|reservasi|murah|harga)\\b`
-  + '|pesan antar|주차|예약|배달|저렴|가격|가성비|駐車|予約|デリバリー|出前|安い|値段|停车|停車|订位|訂位|预约|預約|外送|外卖|外賣|便宜|价格|價格', 'i');
+  `\\b(?:parking|reservations?|booking|delivery|parkir|reservasi)\\b`
+  + `|pesan antar|(?:^|\\D)주차|예약|배달(?!의)|駐車|予約|デリバリー|出前(?!一丁)|停车|停車|订位|訂位|预约|預約|外送|外卖|外賣`, 'i');
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
@@ -723,10 +725,11 @@ export default function BottomSheetList({
           )}
           {/* "peanut", "五辛", "알레르기": not on record for any place — the
               cards are where that question can be asked. */}
-          {withoutFilters === 0 && ASKS_INGREDIENT.test(searchQuery) && (
+          {withoutFilters === 0 && ASKS_INGREDIENT.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
             <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
           )}
-          {withoutFilters === 0 && !ASKS_INGREDIENT.test(searchQuery) && ASKS_UNRECORDED.test(searchQuery) && (
+          {/* ("free parking", "no reservation needed": this one, not the allergen note.) */}
+          {withoutFilters === 0 && ASKS_UNRECORDED.test(searchQuery) && (
             <p className="place-list__hint-text">{t('list.notOnRecordHint')}</p>
           )}
           {/* The way out comes before the hint, so it is visible in the

@@ -110,7 +110,7 @@ export default {
     withoutFilters: 'Tanpa filter, ada {{n}} tempat untuk “{{query}}”.',
     withoutOne: 'Tanpa “{{filter}}”: {{n}} tempat',
     askStaffHint: 'Bahan dan alergen tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya, tetapi itu bukan jaminan. Untuk bertanya kepada dapur:',
-    notOnRecordHint: 'Parkir, reservasi, pesan antar, dan harga tidak dicatat di peta ini. Tanyakan langsung ke tempatnya.',
+    notOnRecordHint: 'Parkir, reservasi, dan pesan antar tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya. Tanyakan langsung ke tempatnya.',
     vegetarianNote: 'Telur dan susu tidak dicatat. Ini tempat yang punya hidangan vegan — yang lain bisa ditanyakan kepada dapur:',
     showPorkFree: 'Lihat tempat tanpa babi (bukan halal)',
     // "open now" typed into the search: the chip is offered.

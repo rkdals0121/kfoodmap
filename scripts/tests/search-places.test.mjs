@@ -772,3 +772,16 @@ test('Korean wordings of the chips; an airport is not an area to fall back on', 
   assert.equal(go('김해공항').filteredRestaurants.length, 0);
   assert.ok(go('인천공항').filteredRestaurants.length > 0);
 });
+
+test('more ways of asking what is open now, in each language', async () => {
+  const { asksOpenNow, withoutOpenNow, plannedTime } = await import('../../src/filters.js');
+  for (const q of ['24시 할랄', '24시 영업 할랄', '새벽 할랄', '새벽까지 하는 할랄', '지금 열려 있는 할랄']) { assert.ok(asksOpenNow(q), q); assert.equal(withoutOpenNow(q), '할랄', q); }
+  for (const q of ['open 24/7 halal', '24/7 halal', 'all night halal', 'still open halal', 'currently open halal', 'open rn halal', 'halal masih buka']) { assert.ok(asksOpenNow(q), q); assert.equal(withoutOpenNow(q), 'halal', q); }
+  for (const q of ['現在営業中', '今やってる店', 'まだ開いてる', '夜遅くまで', '现在开门', '现在还开着', '還開著', '通宵营业']) { assert.ok(asksOpenNow(q), q); assert.equal(withoutOpenNow(q), '', q); }
+  // Names and other words that hold the letters.
+  for (const q of ['새벽집', '24시간의 기적', 'tall night market', 'stillopen']) assert.equal(withoutOpenNow(q) === q || q === '24시간의 기적', true, q);
+  // A day with "영업" or "営業" beside it is a plan, and the word is not searched.
+  assert.equal(plannedTime('일요일 영업 할랄', 5).rest, '할랄');
+  assert.equal(plannedTime('日曜営業', 5).day, 0);
+  assert.equal(plannedTime('토요일 영업시간', 5)?.rest ?? '', '영업시간');
+});

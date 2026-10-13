@@ -8,11 +8,14 @@
 // who has told their phone or browser to use larger type opened the app at
 // the smallest size and had to find the setting in Profile to be able to
 // read it. Nothing about that is stored — it is read again on every visit.
+// (Not on Android, where the system's font size does not reach the page:
+// there the setting in Profile is still the only way.)
 export const TEXT_SIZE_KEY = 'kfm-text-size';
 export const TEXT_SIZES = ['normal', 'large', 'larger'];
 
 /** The size that goes with type `ratio` times the usual size. */
-export const sizeForRatio = (ratio) => (ratio >= 1.3 ? 'larger' : ratio >= 1.12 ? 'large' : 'normal');
+// (One step up on an iPhone is 19 px against 17: a little under 1.12.)
+export const sizeForRatio = (ratio) => (ratio >= 1.3 ? 'larger' : ratio >= 1.1 ? 'large' : 'normal');
 
 // How much larger than usual the device sets its text: the browser's default
 // font size (16 px unless the reader changed it) and, on an iPhone or iPad,

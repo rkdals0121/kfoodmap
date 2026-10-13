@@ -1,0 +1,40 @@
+[
+ {
+  "url": "{{BASE}}/?n=1",
+  "w": 390,
+  "h": 800,
+  "lang": "en",
+  "js": "return {usual: document.documentElement.dataset.text ?? null, stored: localStorage.getItem('kfm-text-size')}"
+ },
+ {
+  "url": "{{BASE}}/?n=2",
+  "w": 390,
+  "h": 800,
+  "lang": "en",
+  "init": "(()=>{const g=window.getComputedStyle;window.getComputedStyle=function(el,...a){const cs=g.call(window,el,...a);if(el&&el.style&&/font-size:\\s*medium/.test(el.style.cssText)){return new Proxy(cs,{get:(t,k)=>k==='fontSize'?'22px':(typeof t[k]==='function'?t[k].bind(t):t[k])});}return cs;};})()",
+  "js": "return {deviceSetLarge: document.documentElement.dataset.text ?? null, stored: localStorage.getItem('kfm-text-size')}"
+ },
+ {
+  "url": "{{BASE}}/?n=3",
+  "w": 390,
+  "h": 800,
+  "lang": "en",
+  "pre": "localStorage.setItem('kfm-text-size','normal')",
+  "init": "(()=>{const g=window.getComputedStyle;window.getComputedStyle=function(el,...a){const cs=g.call(window,el,...a);if(el&&el.style&&/font-size:\\s*medium/.test(el.style.cssText)){return new Proxy(cs,{get:(t,k)=>k==='fontSize'?'22px':(typeof t[k]==='function'?t[k].bind(t):t[k])});}return cs;};})()",
+  "js": "const v = {choseNormalThere: document.documentElement.dataset.text ?? null, stored: localStorage.getItem('kfm-text-size')}; localStorage.removeItem('kfm-text-size'); return v"
+ },
+ {
+  "url": "{{BASE}}/?n=4#q=%EC%A3%BC%EC%B0%A8%20%EB%90%98%EB%8A%94%20%EB%B9%84%EA%B1%B4%20%EC%8B%9D%EB%8B%B9",
+  "w": 360,
+  "h": 740,
+  "lang": "ko",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:'주차 되는 비건 식당', says:[...document.querySelectorAll('.place-list__hint-text')].map(e=>e.innerText)[0] ?? null, offers:[...document.querySelectorAll('.place-list__clear')].map(b=>b.innerText).slice(0,1)}"
+ },
+ {
+  "url": "{{BASE}}/?n=5#q=vegan%20seoul",
+  "w": 360,
+  "h": 740,
+  "lang": "en",
+  "js": "await new Promise(r=>setTimeout(r,900)); return {q:'vegan seoul', says:[...document.querySelectorAll('.place-list__hint-text')].map(e=>e.innerText)}"
+ }
+]

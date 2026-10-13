@@ -5,10 +5,12 @@ import { sizeForRatio, readTextSize, TEXT_SIZES } from '../../src/textSize.js';
 
 test('the device\'s type size is followed in three steps', () => {
   assert.equal(sizeForRatio(1), 'normal');
-  assert.equal(sizeForRatio(1.1), 'normal');
-  // A browser set to 18 px (1.125), an iPhone one step up from the default.
+  assert.equal(sizeForRatio(1.05), 'normal');
+  // A browser set to 18 px (1.125); an iPhone one step up from the default
+  // (19 px against 17).
+  assert.equal(sizeForRatio(19 / 17), 'large');
   assert.equal(sizeForRatio(1.125), 'large');
-  // 20 px and over, or Dynamic Type at its largest ordinary sizes.
+  // 21 px and over, or Dynamic Type three steps up.
   assert.equal(sizeForRatio(1.3), 'larger');
   assert.equal(sizeForRatio(2), 'larger');
   for (const r of [0.8, 1, 1.2, 1.5]) assert.ok(TEXT_SIZES.includes(sizeForRatio(r)));

@@ -157,7 +157,8 @@ await new Promise((done) => {
 // do it later: on Windows a detached one opens a console window on the
 // desktop of whoever is using the machine, one per run.)
 for (let tries = 0; tries < 6 && existsSync(dir); tries++) {
+  if (tries > 0) await sleep(1000);
   try { rmSync(dir, { recursive: true, force: true }); } catch { /* still held */ }
-  if (existsSync(dir)) await sleep(1000);
 }
+if (existsSync(dir)) console.error(`left behind (still held): ${dir}`);
 process.exit(0);

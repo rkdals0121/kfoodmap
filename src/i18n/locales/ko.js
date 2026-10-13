@@ -111,7 +111,7 @@ export default {
     withoutFilters: '필터를 빼면 “{{query}}” 검색 결과가 {{n}}곳 있어요.',
     withoutOne: '“{{filter}}” 빼면 {{n}}곳',
     askStaffHint: '재료·알레르기는 가게마다 확인한 항목이 아니에요. 설명에 언급이 있어도 보장은 아니에요. 직원에게 물어볼 때:',
-    notOnRecordHint: '주차·예약·배달·가격은 이 지도에 기록이 없어요. 가게에 직접 확인해 주세요.',
+    notOnRecordHint: '주차·예약·배달은 가게마다 확인한 항목이 아니에요. 설명에 언급이 있을 수는 있어요. 가게에 직접 확인해 주세요.',
     vegetarianNote: '달걀·유제품이 들어가는지는 기록하지 않아요. 비건 메뉴가 있는 곳을 보여 드려요. 나머지는 직원에게 물어보세요:',
     showPorkFree: '돼지고기 없는 곳 보기(할랄 아님)',
     // "open now" typed into the search: the chip is offered.

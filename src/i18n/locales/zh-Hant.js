@@ -109,7 +109,7 @@ export default {
     withoutFilters: '不加篩選時，「{{query}}」有 {{n}} 家。',
     withoutOne: '移除「{{filter}}」：{{n}} 家',
     askStaffHint: '本地圖不會逐店查證食材和過敏原；說明裡即使提到，也不代表保證。要問店家時可用：',
-    notOnRecordHint: '本地圖沒有記錄停車、訂位、外送和價格，請直接向店家確認。',
+    notOnRecordHint: '本地圖不會逐店查證停車、訂位和外送；說明裡可能會提到。請直接向店家確認。',
     vegetarianNote: '是否含蛋、奶並未記錄。這裡顯示的是有純素餐點的店家，其餘請向店家詢問：',
     showPorkFree: '查看不含豬肉的店（非清真）',
     // "open now" typed into the search: the chip is offered.
