@@ -3813,6 +3813,20 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       in an area search ("Busan Jib" in Seoul under "Busan"), "not open
       yet" in red, prayer rooms as a fact of their own, the research
       voice of the evidence text.
+      2026-10-14: the text size follows the device until one is chosen in
+      Profile (`src/textSize.js`; iPhone Dynamic Type, a browser's default
+      size, and Android only through `<meta name="text-scale">` — not tried
+      on a real phone). An empty search says what it cannot answer:
+      parking, booking and delivery are not checked place by place
+      (`ASKS_UNRECORDED`), prices are on menus but not searchable
+      (`ASKS_PRICE`) — the first wording claimed prices were not on record
+      and was wrong for 20 minutes; a reviewer caught it. "Opens later
+      today" carries `is-later` (same look; grey or red is the owner's
+      call). A place whose week is on record but not today says so
+      (`unknownHoursKey`). The map waits for the list to be laid out before
+      framing places asked for from another tab. `shot.mjs` must never
+      start a detached child on Windows: it opened a console window on the
+      owner's desktop for every run.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
