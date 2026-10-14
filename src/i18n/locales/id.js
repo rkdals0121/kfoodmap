@@ -114,6 +114,7 @@ export default {
     notOnRecordHint: 'Parkir, reservasi, dan pesan antar tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya. Tanyakan langsung ke tempatnya.',
     priceHint: 'Pencarian tidak bisa dilakukan berdasarkan harga. Harga menu yang tercatat ada di halaman tiap tempat.',
     open24Title: 'Tercatat buka 24 jam setiap hari:',
+    open24None: 'Tidak ada di antara tempat ini yang tercatat buka 24 jam setiap hari.',
     prayerNote: 'Peta ini memuat tempat makan, bukan daftar musala atau masjid.',
     alcoholHint: 'Apakah sebuah tempat menjual alkohol tidak diperiksa satu per satu. Beberapa catatan menyebutkannya — buka tempatnya untuk membacanya.',
     vegetarianNote: 'Telur dan susu tidak dicatat. Ini tempat yang punya hidangan vegan — yang lain bisa ditanyakan kepada dapur:',

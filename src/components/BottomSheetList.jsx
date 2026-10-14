@@ -13,7 +13,7 @@ import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, li
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
-import { colon, quoted } from '../i18n/punct';
+import { colon, quoted, listComma } from '../i18n/punct';
 
 const CHIP_LABEL_KEY = {
   ...Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey])),
@@ -386,7 +386,15 @@ export default function BottomSheetList({
   // (All of them — seven on the whole map: a list cut short under "on record"
   // would say the rest are not.)
   const open24 = asks24Hours(searchQuery) ? sorted.filter(r => openAllWeek(r.hours)) : [];
-  const halalTyped = /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery);
+  // The search without its words about alcohol, parking, booking, delivery
+  // (each has a note of its own): what is left may still ask about an
+  // ingredient — "no egg no alcohol", "free parking gluten free" — or not
+  // ("no alcohol", "free parking").
+  const sansAlcohol = searchQuery
+    .replace(new RegExp(`(?:\\b(?:no|non|without|free|tanpa|bebas)\\s+)?(?:${ASKS_ALCOHOL.source})(?:\\s*[- ]?free\\b)?`, 'gi'), ' ')
+    .replace(new RegExp(`(?:\\b(?:no|free)\\s+)?(?:${ASKS_UNRECORDED.source})(?:\\s+needed\\b)?`, 'gi'), ' ')
+    .replace(/\s+/g, ' ').trim();
+  const halalTyped = /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery) || liftDietWords(searchQuery).chips.includes('Halal');
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   // With "Saved" on, what is shared is the places themselves (a link to a
   // list, as the Journal's share makes): "my saved places" is no view a
@@ -395,9 +403,9 @@ export default function BottomSheetList({
   const shareView = async () => {
     if (savedOn) {
       const listUrl = sharedListUrl(window.location.origin, sorted.map(r => r.id));
-      const names = sorted.slice(0, 8).map(r => displayName(r.name)).join(', ');
+      const names = sorted.slice(0, 8).map(r => displayName(r.name)).join(listComma());
       const title = t('journal.shareListTitle');
-      const sent = await shareOrCopy({ title, text: `${title}: ${names}${sorted.length > 8 ? ', …' : ''}`, url: listUrl });
+      const sent = await shareOrCopy({ title, text: `${colon(title, names)}${sorted.length > 8 ? `${listComma()}…` : ''}`, url: listUrl });
       if (sent === 'failed') { window.prompt(t('list.shareView'), listUrl); return; }
       if (sent === 'copied') { setViewShared(true); setTimeout(() => setViewShared(false), 2500); }
       return;
@@ -462,9 +470,12 @@ export default function BottomSheetList({
     return () => io.disconnect();
   }, [hasMore, shown]);
 
-  const plan = onPlan && !activeFilters.includes(OPEN_AT) ? plannedTime(searchQuery, koreaToday()) : null;
+  // (Asked for 24 hours, neither "Open now" nor "Open Fri 10 PM" is the answer:
+  // the places open round the clock are named instead — open24 above.)
+  const allDay = asks24Hours(searchQuery);
+  const plan = onPlan && !allDay && !activeFilters.includes(OPEN_AT) ? plannedTime(searchQuery, koreaToday()) : null;
   const offerPlan = Boolean(plan && plan.sure);
-  const offerOpenNow = Boolean(!plan?.sure && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery));
+  const offerOpenNow = Boolean(!plan?.sure && !allDay && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery));
   const offerLocate = Boolean(onLocate && !fromYou && locateState !== 'located' && locateState !== 'asking' && asksNearMe(searchQuery, plan));
   const planLabel = plan ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[plan.day]}`), time: formatClock(plan.minutes) }) : '';
   return (
@@ -610,6 +621,15 @@ export default function BottomSheetList({
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
         <p className="section-note place-list__note place-list__note--key">{t('list.halalCaveat')}</p>
       )}
+      {/* "reservation" finds eight places, "vegan delivery" three — by a word in
+          their notes; the empty list said these are not checked, the list
+          with results said nothing. */}
+      {sorted.length > 0 && ASKS_UNRECORDED.test(searchQuery) && (
+        <p className="section-note place-list__note place-list__note--key">{t('list.notOnRecordHint')}</p>
+      )}
+      {sorted.length > 0 && ASKS_PRICE.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
+        <p className="section-note place-list__note">{t('list.priceHint')}</p>
+      )}
       {sorted.length > 0 && ASKS_PRAYER.test(searchQuery) && (
         <p className="section-note place-list__note">{t('list.prayerNote')}</p>
       )}
@@ -620,10 +640,10 @@ export default function BottomSheetList({
       )}
       {/* (After the halal caveat: folded, only the first note shows, and on a
           phone "vegetarian" under the Halal chip had put the caveat out of sight.) */}
-      {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(searchQuery) && (
+      {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(sansAlcohol) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to="/cards?card=vegetarian" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
-      {sorted.length > 0 && ASKS_INGREDIENT.test(searchQuery) && !ASKS_ALCOHOL.test(searchQuery) && (
+      {sorted.length > 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* The caveat says pork-free places are left out and can be searched
@@ -675,6 +695,9 @@ export default function BottomSheetList({
       )}
       </div>
       {unknownToggle}
+      {allDay && sorted.length > 0 && open24.length === 0 && (
+        <p className="section-note place-list__note">{t('list.open24None')}</p>
+      )}
       {open24.length > 0 && (
         <div className="place-list__nearest place-list__always">
           <p id="open24-title">{t('list.open24Title')}</p>
@@ -757,7 +780,7 @@ export default function BottomSheetList({
               {planLabel}
             </button>
           )}
-          {(!plan || plan.now) && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
+          {(!plan || plan.now) && !allDay && onOpenNow && !activeFilters.includes(OPEN_NOW) && asksOpenNow(searchQuery) && (
             <button type="button" className="place-list__clear" onClick={onOpenNow}>
               {t('list.showOpenNow')}
             </button>
@@ -784,7 +807,7 @@ export default function BottomSheetList({
           )}
           {/* "peanut", "五辛", "알레르기": not on record for any place — the
               cards are where that question can be asked. */}
-          {withoutFilters === 0 && ASKS_INGREDIENT.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && !ASKS_ALCOHOL.test(searchQuery) && (
+          {withoutFilters === 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
             <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
           )}
           {withoutFilters === 0 && ASKS_PRICE.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (

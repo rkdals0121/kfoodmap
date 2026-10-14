@@ -32,7 +32,7 @@
   "h": 740,
   "lang": "en",
   "init": "(()=>{const R=Date;let off=new R(\"2026-10-17T18:30:00+09:00\").getTime()-R.now();class D extends R{constructor(...a){if(a.length===0)super(R.now()+off);else super(...a);}static now(){return R.now()+off;}}window.Date=D;})()",
-  "js": "await new Promise(r=>setTimeout(r,800)); return {saturday: document.querySelector('.practical-row')?.innerText.trim(), weekBelow: !!document.querySelector('.detail-sheet [aria-expanded]')}"
+  "js": "await new Promise(r=>setTimeout(r,800)); return {saturday: document.querySelector('.practical-row')?.innerText.trim(), weekBelow: !!document.querySelector('.detail-sheet details.week-hours')}"
  },
  {
   "url": "{{BASE}}/?n=5#q=tashkent%20kebab",

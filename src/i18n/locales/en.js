@@ -118,6 +118,7 @@ export default {
     notOnRecordHint: 'Parking, booking and delivery are not checked place by place here — a note may mention one. The place itself can tell you.',
     priceHint: 'The search cannot find places by price. Menu prices, where on record, are on each place’s page.',
     open24Title: 'On record as open 24 hours, every day:',
+    open24None: 'None of these places is on record as open 24 hours every day.',
     prayerNote: 'This map lists places to eat — it is not a list of prayer rooms or mosques.',
     alcoholHint: 'Whether a place sells alcohol is not checked place by place. Some notes mention it — open a place to read them.',
     vegetarianNote: 'Egg and dairy are not on record. These are the places with vegan dishes. To ask about the rest:',

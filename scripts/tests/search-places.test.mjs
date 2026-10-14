@@ -779,7 +779,7 @@ test('more ways of asking what is open now, in each language', async () => {
   for (const q of ['open 24/7 halal', '24/7 halal', 'all night halal', 'still open halal', 'currently open halal', 'open rn halal', 'halal masih buka']) { assert.ok(asksOpenNow(q), q); assert.equal(withoutOpenNow(q), 'halal', q); }
   for (const q of ['現在営業中', '今やってる店', 'まだ開いてる', '夜遅くまで', '现在开门', '现在还开着', '還開著', '通宵营业']) { assert.ok(asksOpenNow(q), q); assert.equal(withoutOpenNow(q), '', q); }
   // Names and other words that hold the letters.
-  for (const q of ['새벽집', '24시간의 기적', 'tall night market', 'stillopen']) assert.equal(withoutOpenNow(q) === q || q === '24시간의 기적', true, q);
+  for (const q of ['새벽집', 'tall night market', 'stillopen']) assert.equal(withoutOpenNow(q), q, q);
   // A day with "영업" or "営業" beside it is a plan, and the word is not searched.
   assert.equal(plannedTime('일요일 영업 할랄', 5).rest, '할랄');
   assert.equal(plannedTime('日曜営業', 5).day, 0);

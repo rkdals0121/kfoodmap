@@ -76,6 +76,7 @@ const MEAL_ALONE = {
 };
 // The search with each of its words left out in turn (words of a question
 // are not offered: leaving out "in" changes nothing).
+const NEGATES = /^(?:no|not|non|without|free|tanpa|bebas|없는|없이|안|なし|抜き|无|無|不含|不要)$/i;
 function leftOut(typed) {
   const words = String(typed ?? '').trim().split(/\s+/).filter(Boolean);
   if (words.length < 2 || words.length > 5) return [];
@@ -84,7 +85,10 @@ function leftOut(typed) {
     // with no halal reading — not the nearest thing to what was asked.
     // (…nor half of it: "tanpa babi jeju" without "tanpa" is "babi jeju".)
     .filter(({ word, rest }, i) => !onlyFillers(word) && !onlyFillers(rest) && liftDietWords(word).chips.length === 0 && !isPorkFreeQuery(word)
-      && !(i + 1 < words.length && isPorkFreeQuery(`${word} ${words[i + 1]}`)) && !(i > 0 && isPorkFreeQuery(`${words[i - 1]} ${word}`)));
+      && !(i + 1 < words.length && isPorkFreeQuery(`${word} ${words[i + 1]}`)) && !(i > 0 && isPorkFreeQuery(`${words[i - 1]} ${word}`))
+      // (…nor of any "no X", "X free": "alcohol free vegan" without "free" is the
+      // vegan places whose notes speak of alcohol.)
+      && !NEGATES.test(word) && !(i > 0 && NEGATES.test(words[i - 1])) && !(i + 1 < words.length && NEGATES.test(words[i + 1])));
 }
 
 // A station among other words: { station, rest }, or null. The station is

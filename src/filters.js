@@ -33,7 +33,7 @@ export const asksOpenNow = (query) => { OPEN_NOW_TYPED.lastIndex = 0; return OPE
 // this minute: "24時間", "夜遅くまで", "late night", "새벽까지". The list still
 // offers "Open now" for them, but the keyboard's Search key does not press
 // it — at seven in the evening it answered "open late" with everything open.
-const LATE_TYPED = /\blate\b|\ball[- ]night\b|심야|야식|늦게|새벽|深夜|夜遅く|通宵|\b(?:larut|tengah)\s+malam\b|\bsampai\s+malam\b/i;
+const LATE_TYPED = /\blate\b|\b(?:to)?night\b|\bmalam\b|오늘\s*밤|밤에|今夜|今晚|\ball[- ]night\b|심야|야식|늦게|새벽|深夜|夜遅く|通宵|\b(?:larut|tengah)\s+malam\b|\bsampai\s+malam\b/i;
 // "24시", "24 hours", "24-hour", "24/7", "24時間", "24小时", "24 jam": round the
 // clock. (Not "24시까지" or "10시-24시", which end at midnight; not "124시".)
 const ALL_DAY_TYPED = /(?:^|[^\d~–-])24[- ]?(?:시(?!까지)간?|時間|小[时時]|jam\b|hours?\b|hrs?\b|h\b|\/\s*7)/i;
