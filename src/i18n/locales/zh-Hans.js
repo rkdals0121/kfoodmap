@@ -345,7 +345,7 @@ export default {
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: '这里不是纯素餐厅，请询问是否含鱼露、鳀鱼高汤和鸡蛋。',
     veganOptionsAskBakery: '这里并非全部纯素，请询问是否含鸡蛋、黄油、牛奶和蜂蜜。',
-    veganOptionsAskWorld: '这里不是纯素餐厅，请询问是否含黄油或酥油、奶油、鸡蛋和肉汤。',
+    veganOptionsAskWorld: '这里不是纯素餐厅，请询问是否含黄油或酥油、奶油或酸奶、鸡蛋和肉汤。',
     allergenNote: '这里写的“无麸质”或与过敏原有关的说法来自信息来源，并非我们核实的结果。同时使用小麦或坚果的厨房，可能共用烤箱、油和器具。点餐前请先询问。',
     hoursUnknown: '营业时间未知，去之前请先确认',
     hoursUnknownToday: '今天的营业时间没有记录，其他日子见下方',

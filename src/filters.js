@@ -490,16 +490,28 @@ const SAYS_LEFT_OUT = new Map();
 // too. Not "no fish sauce" for fish, nor "without white sugar" for sugar (raw
 // sugar is sugar still), nor what a visitor is told to say: "tell the staff
 // you eat no meat, fish or egg" is the visitor's diet, not the kitchen's, and
-// "ask whether it is made without fish stock" is a question.
-const NOT_A_PART = '(?![\\s-]+(?:sauce|stock|broth|cake|paste|oil|ball|powder)s?\\b)';
+// "ask whether it is made without fish stock" is a question. ("Ask for no
+// egg on the bibimbap", "say you want it without fish": a dish the record
+// says can be had without it — a lead, and the list's note says to ask.)
+// Between the word that leaves out and the ingredient stands only a list of
+// other things left out ("no meat, fish, eggs or dairy", "without butter,
+// eggs, dairy, or added sugar"); a list ends at a clause — "no pork is
+// served, though the chicken…", "without the kimchi, which contains fish" —
+// and "non" is only the word right before ("non bread … beef samsa" is the
+// bread). Soy milk is not soy.
+const NOT_A_PART = '(?![\\s-]+(?:sauce|stock|broth|cake|paste|oil|ball|powder|milk|cream|curd)s?\\b)';
+const LIST_LEAD = '(?:(?:the|any|added)\\s+)?';
+const LIST_ITEM = '(?!white\\b|refined\\b|raw\\b|brown\\b|or\\b|and\\b)[a-z]+(?:[\\s-](?!or\\b|and\\b)[a-z]+)?';
+const LIST_SEP = '(?:\\s*,\\s*(?:or\\s+|and\\s+)?|\\s+(?:or|and)\\s+)';
 function saysLeftOut(text, x) {
   let re = SAYS_LEFT_OUT.get(x);
   if (!re) {
     const base = x.replace(/ /g, '[\\s-]+');
     const forms = /y$/.test(x) ? `${base.slice(0, -1)}(?:y|ies)` : `${base}(?:e?s)?`;
     const word = ALLIUMS.has(x) ? `(?:${forms}|five pungent|pungent vegetables|alliums|osinchae)` : `(?:${forms})`;
-    const between = '(?:(?!white\\b|refined\\b|raw\\b|brown\\b)[a-z]+[\\s,-]+){0,5}?';
-    re = new RegExp(`\\b(?:no|without|excluding|excludes?|free of|free from|instead of|in place of|non|avoids?|omits?|leaves? out|left out|rules? out|replaces?|replacing|minus)[\\s-]+${between}${word}\\b${NOT_A_PART}`
+    const between = `${LIST_LEAD}(?:${LIST_ITEM}${LIST_SEP}${LIST_LEAD}){0,5}?`;
+    re = new RegExp(`\\b(?:no|without|excluding|excludes?|free of|free from|instead of|in place of|avoids?|omits?|leaves? out|left out|rules? out|replaces?|replacing|minus)[\\s-]+${between}${word}\\b${NOT_A_PART}`
+      + `|\\bnon[\\s-]+${word}\\b${NOT_A_PART}`
       + `|\\b${word}[\\s-]?(?:free|less)\\b`
       + `|\\b${word}\\b${NOT_A_PART}[^.;]{0,30}?\\b(?:left out|ruled out|omitted)\\b`, 'g');
     SAYS_LEFT_OUT.set(x, re);

@@ -849,3 +849,19 @@ test('an ingredient asked to be left out is answered by a text that says so, not
   assert.ok(ids('gluten free').includes('glunic'));
   assert.equal(go('no pork').filteredRestaurants.length > 0, true);
 });
+
+test('a list of things left out ends at a clause: no chicken is not "no pork, though the chicken"', () => {
+  const ids = (q) => go(q).filteredRestaurants.map(r => r.id);
+  // "no pork is served, though the chicken…" (samgyetang), "no pork, though its beef…".
+  for (const id of ['juwangsan-samgyetang-hyeonpung', 'yeonhwajeong-samgyetang-nongong']) assert.ok(!ids('no chicken').includes(id), id);
+  assert.ok(!ids('no beef').includes('park-soseon-halmae-gomtang-hyeonpung'));
+  // "non bread … beef samsa" is the bread.
+  assert.ok(!ids('no beef').includes('atlas-uijeongbu'));
+  // "without the kimchi, which contains fish" is not "no fish".
+  assert.ok(!ids('no fish').includes('samgyori-dongchimi-makguksu-chuncheon'));
+  // Soy milk is not soy.
+  assert.ok(!ids('no soy').includes('may-green-wonju'));
+  // A list still reads to its end: "no meat, fish, eggs or dairy".
+  assert.ok(ids('no fish').includes('bium-cheongdam'));
+  assert.equal(ids('bibimbap no egg').length >= 8, true);
+});

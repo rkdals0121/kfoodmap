@@ -119,7 +119,7 @@ export const STAFF_CARDS = [
       { ko: '이 음식에 밀가루가 들어가나요?', roman: 'I eumsige milgaruga deureoganayo?', key: 'wheatQ1' },
       { ko: '간장, 고추장, 된장을 쓰나요?', roman: 'Ganjang, gochujang, doenjangeul sseunayo?', key: 'wheatQ2' },
       { ko: '튀김옷이나 부침가루를 쓰나요?', roman: 'Twigimosina buchimgarureul sseunayo?', key: 'wheatQ3' },
-      { ko: '튀김 기름이나 면 삶는 물을 밀가루 음식과 같이 쓰나요?', roman: 'Twigim gireumina myeon salmneun mureul milgaru eumsikgwa gachi sseunayo?', key: 'wheatQ4' },
+      { ko: '튀김 기름이나 면 삶는 물을 밀가루 음식과 같이 쓰나요?', roman: 'Twigim gireumina myeon samneun mureul milgaru eumsikgwa gachi sseunayo?', key: 'wheatQ4' },
       { ko: '보리(보리차 포함)⁠가 들어가나요?', roman: 'Bori (boricha poham) ga deureoganayo?', key: 'wheatQ5' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'wheatQ6' },
       { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'wheatQ7' },
@@ -220,12 +220,13 @@ export const CARD_EXTRAS = [
 // so. (Jain: no egg, no onion or garlic, no root vegetables.) Not 蛋奶素,
 // which is a vegetarian who does eat egg.
 const ASKED = {
-  egg: /\b(?:no|without|not)\s+eggs?\b|\beggless\b|\beggs?[- ]?free\b|\bjain|(?:달걀|계란)\s*(?:없|빼|안)|无蛋|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|卵(?:なし|抜き|を?食べない)|tanpa telur/i,
+  egg: /\b(?:no|without|not)\s+eggs?\b|\beggless\b|\beggs?[- ]?free\b|\bjain|(?:달걀|계란)\s*(?:없|빼|안)|无蛋|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|卵(?:なし|抜き|を?食べない)|tanpa telur|\bpure[ -]?veg(?!an)/i,
   // (Both, or the five by name: "no onion" alone does not say no chives.)
   pungent: /\bjain|\bfive pungent|오신채|五辛|五葷|\bonions?\b.*\bgarlic|\bgarlic\b.*\bonions?\b|(?:마늘.*양파|양파.*마늘)|不吃(?:葱|蔥)蒜|tanpa bawang/i,
   roots: /\bjain|\broot vegetables?\b|뿌리\s*채소|根菜|根茎|根莖|umbi/i,
 
-  wheat: /gluten|c(?:o)?eliac|\bwheat|글루텐|셀리악|밀가루|グルテン|セリアック|小麦|麸质|麩質|gandum/i,
+  // (Gluten, coeliac, or wheat left out — not every "whole wheat bread".)
+  wheat: /gluten|c(?:o)?eliac|\b(?:no|without)\s+wheat|\bwheat[- ]?free|글루텐|셀리악|밀가루\s*(?:없|빼|안)|グルテン|セリアック|小麦(?:粉)?(?:なし|不使用|抜き|アレルギー)|麸质|麩質|tanpa gandum/i,
 };
 export const extrasAsked = (text) => Object.keys(ASKED).filter(id => ASKED[id].test(text ?? ''));
 

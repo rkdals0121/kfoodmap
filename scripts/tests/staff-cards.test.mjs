@@ -101,3 +101,10 @@ test('someone who cannot eat wheat has a card, and the other cards can say it to
   assert.ok(extrasAsked('セリアック').includes('wheat'));
   assert.ok(!extrasAsked('vegan').includes('wheat'));
 });
+
+test('"pure veg" is a vegetarian who eats no egg; "whole wheat bread" is not the wheat card', () => {
+  assert.ok(extrasAsked('pure veg').includes('egg'));
+  assert.ok(!extrasAsked('pure vegan').includes('egg'));
+  assert.ok(!extrasAsked('whole wheat bread').includes('wheat'));
+  assert.ok(extrasAsked('wheat free').includes('wheat') && extrasAsked('no wheat').includes('wheat'));
+});

@@ -345,7 +345,7 @@ export default {
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: '這裡不是純素餐廳，請詢問是否含魚露、鯷魚高湯和雞蛋。',
     veganOptionsAskBakery: '這裡並非全部純素，請詢問是否含雞蛋、奶油、牛奶和蜂蜜。',
-    veganOptionsAskWorld: '這裡不是純素餐廳，請詢問是否含奶油或酥油、鮮奶油、雞蛋和肉湯。',
+    veganOptionsAskWorld: '這裡不是純素餐廳，請詢問是否含奶油或酥油、鮮奶油或優格、雞蛋和肉湯。',
     allergenNote: '這裡寫的「無麩質」或與過敏原有關的說法來自資訊來源，並非我們核實的結果。同時使用小麥或堅果的廚房，可能共用烤箱、油和器具。點餐前請先詢問。',
     hoursUnknown: '營業時間未知，去之前請先確認',
     hoursUnknownToday: '今天的營業時間沒有紀錄，其他日子見下方',

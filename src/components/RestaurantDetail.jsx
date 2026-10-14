@@ -204,6 +204,11 @@ function ClaimFact({ id, Icon, label, fact, open, onToggle }) {
 // Keyed by confidence level; titleKey/bodyKey are resolved with t() inside
 // the component (module scope can't call useTranslation's t and still react
 // to a language change — see the coordinator note in the fix-round report).
+// A South Asian, Middle Eastern or Mediterranean kitchen: what hides in a
+// curry, a naan or a mezze is butter or ghee, cream or yogurt, egg and meat
+// stock, not the fish sauce and anchovy stock of a Korean one. By the
+// cuisine the place's own line names (most are not in the world-halal set).
+const WORLD_KITCHEN = /\b(?:indian|india|nepal(?:i|ese)?|himalayan?|tandoori?|masala|biryani|middle eastern|mediterranean|lebanese|turkish|arab(?:ic|ian)?|levant(?:ine)?|uzbek|pakistani|bangladeshi|persian|afghan|syrian|moroccan|egyptian|yemeni|greek)\b/i;
 const DIET_CAVEAT_KEYS = {
   [CONFIDENCE.CONFIRMED]: { titleKey: 'detail.caveatConfirmedTitle', bodyKey: 'detail.caveatConfirmedBody' },
   [CONFIDENCE.SUPPORTED]: { titleKey: 'detail.caveatSupportedTitle', bodyKey: 'detail.caveatSupportedBody' },
@@ -932,11 +937,11 @@ export default function RestaurantDetail({
               {/* Vegan options on a mixed menu: the broth and the fish sauce are
                   what to ask about. The list says so above its cards; a place
                   opened from a link, or read on its own, did not. */}
-              {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && <p className="diet-note__mixed">{t(place.category === 'brunch-bakery' ? 'detail.veganOptionsAskBakery' : place.category === 'world-halal' ? 'detail.veganOptionsAskWorld' : 'detail.veganOptionsAsk')}</p>}
+              {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && <p className="diet-note__mixed">{t(place.category === 'brunch-bakery' ? 'detail.veganOptionsAskBakery' : place.category === 'world-halal' || WORLD_KITCHEN.test(`${place.name} ${place.vibe ?? ''}`) ? 'detail.veganOptionsAskWorld' : 'detail.veganOptionsAsk')}</p>}
               {/* A gluten-free or allergen word in the text is the source's, and the
                   caution about it stood only over search results (walk-through as a
                   coeliac, 2026-10-14): said where the claim is read. */}
-              {/gluten|allerg|c(?:o)?eliac|nut[- ]free|dairy[- ]free|lactose/i.test([place.vibe, place.story, place.esg_point].filter(x => typeof x === 'string').join(' ')) && <p className="diet-note__mixed">{t('detail.allergenNote')}</p>}
+              {/gluten|allerg|c(?:o)?eliac|nut[- ]free|dairy[- ]free|lactose|wheat[- ]free|(?:without|instead of|avoiding) (?:white )?wheat/i.test([place.vibe, place.story, place.esg_point].filter(x => typeof x === 'string').join(' ')) && <p className="diet-note__mixed">{t('detail.allergenNote')}</p>}
               {/* "Ask staff" needs a way to ask: the Korean cards, on the
                   visitor's own card if they chose one, else the card that
                   fits this place's claims. */}

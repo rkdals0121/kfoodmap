@@ -355,7 +355,7 @@ export default {
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: 'A mixed menu: ask about fish sauce, anchovy stock and egg.',
     veganOptionsAskBakery: 'Not everything here is vegan: ask about egg, butter, milk and honey.',
-    veganOptionsAskWorld: 'A mixed menu: ask about butter or ghee, cream, egg and meat stock.',
+    veganOptionsAskWorld: 'A mixed menu: ask about butter or ghee, cream or yogurt, egg and meat stock.',
     allergenNote: 'Any “gluten-free” or allergen word here is the source’s, not a check of ours, and a kitchen that also uses wheat or nuts may share its ovens, oil and tools. Ask before you order.',
     hoursUnknown: 'Opening hours unknown — check before you go',
     hoursUnknownToday: 'Today’s hours are not recorded — the other days are below',

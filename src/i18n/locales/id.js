@@ -348,7 +348,7 @@ export default {
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: 'Ini bukan dapur vegan sepenuhnya: tanyakan soal kecap ikan, kaldu teri, dan telur.',
     veganOptionsAskBakery: 'Tidak semua di sini vegan: tanyakan soal telur, mentega, susu, dan madu.',
-    veganOptionsAskWorld: 'Ini bukan dapur vegan sepenuhnya: tanyakan soal mentega atau ghee, krim, telur, dan kaldu daging.',
+    veganOptionsAskWorld: 'Ini bukan dapur vegan sepenuhnya: tanyakan soal mentega atau ghee, krim atau yoghurt, telur, dan kaldu daging.',
     allergenNote: 'Kata “bebas gluten” atau soal alergen di sini berasal dari sumbernya, bukan hasil pemeriksaan kami. Dapur yang juga memakai gandum atau kacang bisa berbagi oven, minyak, dan peralatan. Tanyakan sebelum memesan.',
     hoursUnknown: 'Jam buka tidak diketahui — periksa dulu sebelum berangkat',
     hoursUnknownToday: 'Jam buka hari ini tidak tercatat — hari lain ada di bawah',
