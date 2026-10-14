@@ -287,15 +287,20 @@ export function koreaDateAt(day, minutes, now = new Date()) {
   return new Date(now.getTime() + (days * 1440 + minutes - cur) * 60000);
 }
 
-/** True only when today (in Korea) is recorded as a day off. */
-/** On record as open round the clock on all seven days (four places are). */
+/**
+ * On record as open round the clock on all seven days: 00:00–24:00 in each
+ * day of the week, or — where the record has no week, only its source's
+ * words — "Open 24 hours daily" (seven places in all).
+ */
 export function openAllWeek(hoursFact) {
   if (!isKnown(hoursFact)) return false;
-  const weekly = hoursFact.value?.weekly;
-  return Boolean(weekly) && DAY_KEYS.every(day => Array.isArray(weekly[day])
+  const { weekly, raw } = hoursFact.value ?? {};
+  if (!weekly) return typeof raw === 'string' && /^open 24 hours daily\b/i.test(raw.trim());
+  return DAY_KEYS.every(day => Array.isArray(weekly[day])
     && weekly[day].some(slot => slot.from === '00:00' && (slot.to === '24:00' || slot.to === '00:00')));
 }
 
+/** True only when today (in Korea) is recorded as a day off. */
 export function closedAllDay(hoursFact, now = new Date()) {
   if (!isKnown(hoursFact)) return false;
   const day = hoursFact.value.weekly?.[DAY_KEYS[inKorea(now).getUTCDay()]];

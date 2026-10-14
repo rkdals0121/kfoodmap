@@ -97,7 +97,7 @@ export default function JournalPanel({ bookmarks, onRestaurantClick, sessionEnde
     // As recorded — "Luna Asia (루나아시아)" — whatever the sender's language:
     // the list is as often for a visitor as from one.
     // As the app shows each name to this reader (in Korean, the name on the sign).
-    const names = savedList.slice(0, 8).map(x => displayName(x.place.name)).join(', ');
+    const names = savedList.slice(0, 8).map(x => displayName(x.place.name)).join(listComma());
     const how = await shareOrCopy({ title, text: `${colon(title, names)}${savedList.length > 8 ? `${listComma()}…` : ''}`, url });
     if (how === 'failed') { window.prompt(title, url); return; }
     if (how === 'copied') { setListShared(true); setTimeout(() => setListShared(false), 2500); }

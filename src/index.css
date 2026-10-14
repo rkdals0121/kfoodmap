@@ -7487,5 +7487,6 @@ html[lang='id'] .stat-label {
 
 /* "See them on the map (n)" over both of the Journal's lists. */
 .journal-copy--all {
-  margin: 4px 0 10px;
+  /* (In line with the lists under it: they are inset by 20 px.) */
+  margin: 8px 20px 0;
 }

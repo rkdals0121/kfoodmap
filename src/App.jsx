@@ -31,7 +31,7 @@ import { matchesDietary, isQuarantined } from './data/verification';
 import { resolvePlace } from './data/leads';
 import { loadLocalPassport, saveLocalPassport, savedOnly, storageKeeps } from './data/passport';
 import usePassportSync from './hooks/usePassportSync';
-import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery, asksOpenNow, asksLateHours, withoutOpenNow, plannedTime } from './filters';
+import { DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, matchesFullyVegan, SHARED_LIST, parseSharedList, viewHash, parseViewHash, isPorkFreeQuery, asksOpenNow, asksLateHours, asks24Hours, withoutOpenNow, plannedTime } from './filters';
 import { searchPlaces } from './search';
 import { takeFreshList } from './freshList';
 import './index.css';
@@ -1170,7 +1170,9 @@ function AppShell() {
                   // Not over a day and time the reader chose (the key is pressed
                   // by habit; the button is still there), nor on a word still
                   // being composed ("심야ㅅ").
-                  if (selectedFilters.includes(OPEN_AT) || /[ㄱ-ㅎㅏ-ㅣ]/.test(searchQuery)) return;
+                  // (Nor for "24 hours": the list names the places open round the
+                  // clock, and "friday 24 hours" is not ten on Friday night.)
+                  if (selectedFilters.includes(OPEN_AT) || /[ㄱ-ㅎㅏ-ㅣ]/.test(searchQuery) || asks24Hours(searchQuery)) return;
                   const plan = plannedTime(searchQuery, koreaToday());
                   if (plan?.sure && !plan.now) {
                     guessedPlan.current = null;

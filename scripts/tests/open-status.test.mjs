@@ -322,7 +322,11 @@ test('open round the clock on all seven days, and only then', async () => {
   assert.equal(openAllWeek(hours(every([{ from: '10:00', to: '02:00' }]))), false);
   assert.equal(openAllWeek(hours(undefined)), false);
   assert.equal(openAllWeek(null), false);
-  // …and the four places the records hold as such.
+  // …and the seven places the records hold as such.
   const { restaurants } = await import('../../src/data/restaurants.js');
-  assert.deepEqual(restaurants.filter(r => openAllWeek(r.hours)).map(r => r.id).sort(), ['food-garden-incheon-airport-t1', 'gaeseong-jip-nonhyeon', 'ilpum-sundubu-yeondong', 'king-kebab-itaewon']);
+  assert.deepEqual(restaurants.filter(r => openAllWeek(r.hours)).map(r => r.id).sort(), ['food-garden-incheon-airport-t1', 'gaeseong-jip-nonhyeon', 'ilpum-sundubu-yeondong', 'king-kebab-gyeongridan', 'king-kebab-itaewon', 'mr-kebab-itaewon', 'sultan-kebab-itaewon']);
+  // (Three of them have no week on record, only their source's "Open 24 hours daily".)
+  assert.equal(openAllWeek({ value: { raw: 'Open 24 hours daily (per DiningCode)', weekly: null }, confidence: 'supported' }), true);
+  assert.equal(openAllWeek({ value: { raw: 'Tue–Sun open 24 hours; closed Mondays', weekly: null }, confidence: 'supported' }), false);
+  assert.equal(openAllWeek({ value: { raw: 'Daily 11:00–24:00', weekly: null }, confidence: 'supported' }), false);
 });

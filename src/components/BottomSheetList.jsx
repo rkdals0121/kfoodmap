@@ -9,7 +9,7 @@ import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, kore
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
-import { TRAIT_GROUPS, asksOpenNow, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid } from '../filters';
+import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
@@ -107,7 +107,6 @@ const ASKS_PRAYER = new RegExp(`\\b(?:pray(?:er|ing)?|mosque|masjid|mush?[ao]l+a
 // "24시 할랄", "24 hours", "24/7": the list offers "Open now", which is not
 // what was asked — the places on record as open round the clock every day
 // are named above the list (of those the rest of the search found).
-const ASKS_24H = new RegExp(`(?:^|[^\\d])24\\s*(?:시간?|時間|小[时時]|jam|hours?|hrs?|h\\b|\\/\\s*7)`, 'i');
 const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
 
 // Is this reading of a search the search itself with words left out or cut
@@ -384,8 +383,9 @@ export default function BottomSheetList({
   // ("halal myeongdong", "清真 首尔"): the same 152 places came with no word
   // about certificates.
   // (By the letters: "明洞でハラール", "清真餐厅", "할랄식당" are written without a gap.)
-  // (At most six: beyond that it is a list of its own, and the chips do it better.)
-  const open24 = ASKS_24H.test(searchQuery) ? sorted.filter(r => openAllWeek(r.hours)).slice(0, 6) : [];
+  // (All of them — seven on the whole map: a list cut short under "on record"
+  // would say the rest are not.)
+  const open24 = asks24Hours(searchQuery) ? sorted.filter(r => openAllWeek(r.hours)) : [];
   const halalTyped = /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery);
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   // With "Saved" on, what is shared is the places themselves (a link to a
@@ -675,8 +675,8 @@ export default function BottomSheetList({
       {unknownToggle}
       {open24.length > 0 && (
         <div className="place-list__nearest place-list__always">
-          <p>{t('list.open24Title')}</p>
-          <ul className="saved-list">
+          <p id="open24-title">{t('list.open24Title')}</p>
+          <ul className="saved-list" aria-labelledby="open24-title">
             {open24.map(place => (
               <li key={place.id}>
                 <button type="button" className="saved-row" onClick={() => onRestaurantClick(place)}>
