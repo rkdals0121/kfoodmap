@@ -562,6 +562,8 @@ P56. A station's name → one spelling on every place page ("Myeongdong", "Hongi
 
 P57. The cards' word list → under 돼지고기: "pork — often in ham, bacon and sausage too" (each language); under 우유 / 버터 / 치즈 (vegan card): "…often in bread, desserts and sauces too". In Korean no gloss repeats the word it explains.
 
+P58. The vegetarian card (egg and dairy eaten) → among its questions, "오신채(마늘, 파, 부추, 달래, 양파)가 들어가나요?" with its meaning in the reader's language, as on the vegan card. Asked for 24 hours with no such place in the results ("pork free 24 hours"): "None of these places is on record as open 24 hours every day.", and no "Open now" offer; "halaal myeongdong", "핼랄 명동" carry the halal caveat; "reservation", "vegan delivery" over results say parking, booking and delivery are not checked; "alcohol free vegan" offers no "Without “free”".
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
