@@ -633,7 +633,8 @@ export default {
     extrasLabel: 'これも食べません：',
     noEgg: '卵',
     noPungent: '五葷（ねぎ・にんにく等）',
-    noRoots: '根菜',
+    noRoots: '根菜',
+    takenOff: 'カードから外しました：{{what}}',
     wheatLabel: '小麦が食べられません',
     noWheat: '小麦（グルテン）',
     showThis: 'これをお店の方に見せてください',

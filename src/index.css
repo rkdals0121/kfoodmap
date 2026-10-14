@@ -7568,3 +7568,27 @@ html[lang='id'] .stat-label {
     margin-top: -16px;
   }
 }
+
+/* "Read story" moves focus to the story's heading: a place to read from,
+   not a control, so no ring around it. */
+.section-head h3[tabindex='-1']:focus {
+  outline: none;
+}
+/* The cards' tabs and "I also don't eat" choices wrap their words at the
+   largest text: "Saya tidak bisa makan gandum (gluten)" ran off a 360 px
+   screen. */
+.staff-cards__tabs .chip,
+.staff-cards__extras .chip {
+  white-space: normal;
+  flex-shrink: 1;
+  max-width: 100%;
+  height: auto;
+  min-height: 44px;
+  padding-block: 8px;
+  line-height: 1.3;
+  text-align: start;
+}
+/* "Tap to close" under the large Korean: readable across a counter too. */
+.staff-large__close {
+  font-size: 16px;
+}

@@ -180,7 +180,13 @@ export default function FilterBar({ selectedFilters, onToggleFilter, searchQuery
               aria-pressed={selectedFilters.includes(OPEN_AT)}
               aria-expanded={selectedFilters.includes(OPEN_AT)}
               aria-controls="plan-row"
-              onClick={() => onToggleFilter(OPEN_AT)}
+              // Turned on from the keyboard, the day and time come next: they
+              // stood six chips further on (walk-through, 2026-10-15).
+              onClick={(e) => {
+                const opening = !selectedFilters.includes(OPEN_AT);
+                onToggleFilter(OPEN_AT);
+                if (opening && e.detail === 0) requestAnimationFrame(() => requestAnimationFrame(() => document.querySelector('#plan-row select')?.focus()));
+              }}
             >
               {selectedFilters.includes(OPEN_AT)
                 ? t('filters.openAtSet', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) })

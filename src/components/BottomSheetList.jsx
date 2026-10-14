@@ -83,7 +83,7 @@ const asksNearMe = (query, plan = null) => {
 // "Vegetarian" is answered with the places that have vegan dishes (the map
 // records no more than that): the list says so, since a vegetarian who eats
 // egg and dairy is asking a wider question than the one answered.
-const VEGETARIAN_TYPED = /v[eé]g[aeéi]t[ae]r|vegetaris|lacto|\bpure[ -]?veg(?!an)|शाकाहारी|奶蛋素|ベジタリアン|ベジ(?!タブル)|菜食|素食|蔬食|吃素|蛋奶素|채식|베지테리|베지터리/i;
+const VEGETARIAN_TYPED = /v[eé]g[aeéi]t[ae]r|vegetaris|lacto[- ]?ovo|ovo[- ]?lacto|lacto[- ]?veg|\bpure[ -]?veg(?!an)|शाकाहारी|奶蛋素|ベジタリアン|ベジ(?!タブル)|菜食|素食|蔬食|吃素|蛋奶素|채식|베지테리|베지터리/i;
 const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*없는|肉なし|无肉|無肉/gi;
 // (Read without the signs a search is wrapped in, as the search reads it:
 // “not spicy” in a phone's curly quotes found places and showed no caution.)
@@ -251,12 +251,16 @@ export default function BottomSheetList({
   const typedKorean = i18n.language === 'ko' && /[가-힣]/.test(searchQuery);
   // "vegetarian no egg", "jain": the cards open on the card that says so.
   const askedOut = extrasAsked(searchQuery, leftOutQuery(searchQuery).items);
+  const dairyAsked = /lactose|laktosa|유제품|우유|乳製品|乳糖|牛奶|牛乳/i.test(searchQuery) || leftOutQuery(searchQuery).items.some(x => ['dairy', 'milk', 'butter', 'cheese', 'cream'].includes(x));
   // The card for the diet on screen: a chip first (Halal alone → the Muslim
   // card, Vegan → the vegan one: the vegetarian card tells staff "I do eat
   // eggs and dairy"), then the words typed; with nothing to go by none is
   // named, and the cards choose as they always did.
   const dietCard = activeFilters.includes('Halal') && !activeFilters.includes('Vegan') && !activeFilters.includes(FULLY_VEGAN) ? 'muslim'
     : activeFilters.includes('Vegan') || activeFilters.includes(FULLY_VEGAN) || /vegan|비건|ヴィーガン|ビーガン|纯素|純素|全素/i.test(searchQuery) ? 'vegan'
+      // (Not for milk or dairy left out: the vegetarian card says "I do eat
+      // dairy". With no card named, the visitor's own or the vegan one opens.)
+      : dairyAsked ? null
       : VEGETARIAN_TYPED.test(searchQuery) || askedOut.includes('egg') ? 'vegetarian'
         : askedOut.includes('wheat') ? 'wheat' : null;
   const cardsLink = (card) => {

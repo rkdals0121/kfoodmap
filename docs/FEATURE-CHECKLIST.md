@@ -254,7 +254,7 @@ F49. Menu notes → "Not every dish here is vegan: this place offers vegan optio
 F50. "Location and directions" → place name in bold, note about Naver/Kakao/Google, three links (`.detail-directions a`): Naver Map (`https://map.naver.com/p/directions/-/<x>,<y>,<name>/-/transit`), Kakao Map (`https://map.kakao.com/link/to/<name>,<lat>,<lng>`), Google Maps (`https://www.google.com/maps/dir/?api=1&destination=<lat>,<lng>`), all `target=_blank`, destination only (routing starts from the phone's location).
 F51. Address row → address + "Copy" button (aria-label "Copy: <address>") → clipboard gets the address, button reads "Copied!" for 2 s. Area-level addresses append " — area only".
 F52. Non-Korean UI → extra row "Address in Korean" with its own Copy. Korean UI → the Korean address is the main address with the romanised one below.
-F53. "Name in Korean" row (places with a Korean name) → Copy button + "Show large" (`aria-haspopup=dialog`).
+F53. "Name in Korean" row (places with a Korean name) → Copy button + "Show large" (a full-screen button; no `aria-haspopup`, since what opens is not a dialog).
 F54. "Show large" → full-screen overlay (`button.staff-large`, portal on body) with the Korean name auto-sized as large as fits (max 200 px, min 34 px; long names break evenly), the Korean address, the phone number, and "Tap to close"; the app behind is inert; the screen is kept awake (Wake Lock) while open.
 F55. Close the large name → tap anywhere, Escape, or browser Back: ONLY the overlay closes (the place stays open); focus returns to "Show large"; Tab does not leave the overlay. Rotating re-fits the text.
 F56. "Report incorrect info" link at the end of the section → `/submit?place=<id>` (no topic preselected).

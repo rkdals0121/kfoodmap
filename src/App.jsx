@@ -17,7 +17,8 @@ import { askConfirm } from './confirm';
 import Prologue from './components/Prologue';
 import SubmitSheet from './components/SubmitSheet';
 import PrivacySheet from './components/PrivacySheet';
-import StaffCardSheet from './components/StaffCardSheet';
+import StaffCardSheet from './components/StaffCardSheet';
+import { chosenCard } from './data/staff-cards';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
 import { MAP_CENTER, koreaDateAt, koreaToday, coordsOf } from './utils';
@@ -1427,11 +1428,18 @@ function AppShell() {
       {/* Opened from a place, the cards close back to that place. */}
       {isCards && (
         <StaffCardSheet
-          // No card named in the address: the one for the diet the reader
-          // has filtered by (Halal alone → the Muslim card).
-          initialCard={new URLSearchParams(location.search).get('card')
+          // No card named in the address: the one the visitor chose while the
+          // app is open (from Profile, Discover or a list's note too), else the
+          // one for the diet the reader has filtered by (Halal alone → the
+          // Muslim card). What they also leave out comes with their own card.
+          initialCard={new URLSearchParams(location.search).get('card') ?? chosenCard()?.id
             ?? (selectedFilters.includes('Halal') && !selectedFilters.includes('Vegan') && !selectedFilters.includes(FULLY_VEGAN) ? 'muslim' : null)}
-          initialExtras={(new URLSearchParams(location.search).get('no') ?? '').split(',').filter(Boolean)}
+          initialExtras={(() => {
+            const params = new URLSearchParams(location.search);
+            const named = params.get('card');
+            const mine = chosenCard();
+            return [...new Set([...(params.get('no') ?? '').split(',').filter(Boolean), ...(mine && (!named || named === mine.id) ? mine.extras : [])])];
+          })()}
           onClose={() => (location.state?.fromApp ? (ownBack(), navigate(-1)) : navigate(tabPath, { replace: true }))}
           onCardChange={(card, extras) => navigate(`/cards?card=${card}${extras.length ? `&no=${extras.join(',')}` : ''}`, { replace: true, state: location.state })}
         />

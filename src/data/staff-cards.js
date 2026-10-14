@@ -143,27 +143,29 @@ export const STAFF_ANSWERS = [
 
 // Words to look for on a menu or a packet. "Usually" is the honest word: a
 // kitchen can leave any of these out, and only the kitchen knows.
-// only: the card a word belongs to. Eggs and dairy are a vegan's question,
-// cooking wine a Muslim's; on the other card they were noise.
+// cards: the cards a word belongs to (a card's extras can add more). Eggs and
+// dairy are a vegan's question, the seafood words not a Muslim's (seafood is
+// theirs to judge), cooking wine a Muslim's, and none of them the wheat
+// card's: on another card they were noise.
 export const MENU_WORDS = [
-  { ko: '액젓', roman: 'aekjeot', key: 'word1' },
-  { ko: '새우젓', roman: 'saeujeot', key: 'word2' },
-  { ko: '젓갈', roman: 'jeotgal', key: 'word3' },
-  { ko: '멸치 육수', roman: 'myeolchi yuksu', key: 'word4' },
-  { ko: '사골', roman: 'sagol', key: 'word5' },
-  { ko: '돼지고기', roman: 'dwaejigogi', key: 'word6' },
-  { ko: '돼지기름', roman: 'dwaejigireum', key: 'word7' },
-  { ko: '굴소스', roman: 'gulsoseu', key: 'word8' },
-  { ko: '달걀 / 계란', roman: 'dalgyal / gyeran', key: 'word9', only: 'vegan' },
-  { ko: '우유 / 버터 / 치즈', roman: 'uyu / beoteo / chijeu', key: 'word10', only: 'vegan' },
-  { ko: '맛술 / 미림', roman: 'matsul / mirim', key: 'word11', only: 'muslim' },
-  { ko: '청주', roman: 'cheongju', key: 'word12', only: 'muslim' },
-  { ko: '젤라틴', roman: 'jellatin', key: 'word13' },
-  { ko: '밀가루 / 소맥분', roman: 'milgaru / somaekbun', key: 'word14', only: 'wheat' },
-  { ko: '간장', roman: 'ganjang', key: 'word15', only: 'wheat' },
-  { ko: '고추장 / 된장', roman: 'gochujang / doenjang', key: 'word16', only: 'wheat' },
-  { ko: '부침가루 / 튀김가루', roman: 'buchimgaru / twigimgaru', key: 'word17', only: 'wheat' },
-  { ko: '보리', roman: 'bori', key: 'word18', only: 'wheat' },
+  { ko: '액젓', roman: 'aekjeot', key: 'word1', cards: ['vegan', 'vegetarian'] },
+  { ko: '새우젓', roman: 'saeujeot', key: 'word2', cards: ['vegan', 'vegetarian'] },
+  { ko: '젓갈', roman: 'jeotgal', key: 'word3', cards: ['vegan', 'vegetarian'] },
+  { ko: '멸치 육수', roman: 'myeolchi yuksu', key: 'word4', cards: ['vegan', 'vegetarian'] },
+  { ko: '사골', roman: 'sagol', key: 'word5', cards: ['vegan', 'vegetarian', 'muslim'] },
+  { ko: '돼지고기', roman: 'dwaejigogi', key: 'word6', cards: ['vegan', 'vegetarian', 'muslim'] },
+  { ko: '돼지기름', roman: 'dwaejigireum', key: 'word7', cards: ['vegan', 'vegetarian', 'muslim'] },
+  { ko: '굴소스', roman: 'gulsoseu', key: 'word8', cards: ['vegan', 'vegetarian'] },
+  { ko: '달걀 / 계란', roman: 'dalgyal / gyeran', key: 'word9', cards: ['vegan'] },
+  { ko: '우유 / 버터 / 치즈', roman: 'uyu / beoteo / chijeu', key: 'word10', cards: ['vegan'] },
+  { ko: '맛술 / 미림', roman: 'matsul / mirim', key: 'word11', cards: ['muslim'] },
+  { ko: '청주', roman: 'cheongju', key: 'word12', cards: ['muslim'] },
+  { ko: '젤라틴', roman: 'jellatin', key: 'word13', cards: ['vegan', 'vegetarian', 'muslim'] },
+  { ko: '밀가루 / 소맥분', roman: 'milgaru / somaekbun', key: 'word14', cards: ['wheat'] },
+  { ko: '간장', roman: 'ganjang', key: 'word15', cards: ['wheat'] },
+  { ko: '고추장 / 된장', roman: 'gochujang / doenjang', key: 'word16', cards: ['wheat'] },
+  { ko: '부침가루 / 튀김가루', roman: 'buchimgaru / twigimgaru', key: 'word17', cards: ['wheat'] },
+  { ko: '보리', roman: 'bori', key: 'word18', cards: ['wheat'] },
 ];
 
 export const cardById = (id) => STAFF_CARDS.find(c => c.id === id) ?? STAFF_CARDS[0];
@@ -177,6 +179,7 @@ export const cardById = (id) => STAFF_CARDS.find(c => c.id === id) ?? STAFF_CARD
 //  statement: a line added before the card's last ("Is there a dish I can eat?");
 //  questions: asked after the card's first question;
 //  words: menu words shown with it.
+const wheatLine = (key) => { const c = STAFF_CARDS.find(x => x.id === 'wheat'); return [...c.statement, ...c.questions].find(l => l.key === key); };
 export const CARD_EXTRAS = [
   {
     id: 'egg',
@@ -200,8 +203,11 @@ export const CARD_EXTRAS = [
     id: 'wheat',
     labelKey: 'cards.noWheat',
     cards: ['vegan', 'vegetarian', 'muslim'],
-    statement: { ko: '글루텐(밀, 보리, 호밀)⁠이 들어간 음식도 먹을 수 없습니다. 간장, 고추장, 된장에 든 밀도 안 됩니다.', roman: 'Geulluten (mil, bori, homil) i deureogan eumsikdo meogeul su eopseumnida. Ganjang, gochujang, doenjange deun mildo an doemnida.', key: 'extraNoWheat' },
-    questions: [{ ko: '이 음식에 밀가루나 간장, 고추장, 된장이 들어가나요?', roman: 'I eumsige milgaruna ganjang, gochujang, doenjangi deureoganayo?', key: 'extraQWheat' }],
+    // (With the card's own line on oil and water shared with wheat foods, and its
+    // questions on batter, frying oil and noodle water, and barley: added to
+    // another card, it said less than the wheat card.)
+    statement: [{ ko: '글루텐(밀, 보리, 호밀)⁠이 들어간 음식도 먹을 수 없습니다. 간장, 고추장, 된장에 든 밀도 안 됩니다.', roman: 'Geulluten (mil, bori, homil) i deureogan eumsikdo meogeul su eopseumnida. Ganjang, gochujang, doenjange deun mildo an doemnida.', key: 'extraNoWheat' }, wheatLine('wheatS3')],
+    questions: [{ ko: '이 음식에 밀가루나 간장, 고추장, 된장이 들어가나요?', roman: 'I eumsige milgaruna ganjang, gochujang, doenjangi deureoganayo?', key: 'extraQWheat' }, wheatLine('wheatQ3'), wheatLine('wheatQ4'), wheatLine('wheatQ5')],
     words: ['word14', 'word15', 'word16', 'word17', 'word18'],
   },
   {
@@ -248,7 +254,7 @@ export function cardLines(card, extras = []) {
   const on = CARD_EXTRAS.filter(x => x.cards.includes(card.id) && extras.includes(x.id));
   const swap = (line) => on.reduce((l, x) => x.replace?.[line.key] ?? l, line);
   const statement = card.statement.map(swap);
-  statement.splice(statement.length - 1, 0, ...on.flatMap(x => (x.statement ? [x.statement] : [])));
+  statement.splice(statement.length - 1, 0, ...on.flatMap(x => [].concat(x.statement ?? [])));
   const questions = card.questions.map(swap);
   questions.splice(1, 0, ...on.flatMap(x => x.questions ?? []));
   return { statement, questions, words: new Set(on.flatMap(x => x.words ?? [])) };
@@ -259,6 +265,8 @@ export function cardLines(card, extras = []) {
 // Muslim card by every Indian restaurant whose only claim is halal.
 let chosen = null;
 export const rememberCard = (id, extras) => { chosen = { id, extras }; };
+/** The card the visitor chose while the app is open, or null. */
+export const chosenCard = () => chosen;
 
 /** The address of the cards from a place: the visitor's own card if they chose one, else the one its claims point to (halal claim only → the Muslim card). */
 export function cardLinkForPlace(place) {
@@ -266,10 +274,13 @@ export function cardLinkForPlace(place) {
   return `/cards?card=${cardForPlace(place)}`;
 }
 
-/** Which card a place's own claims point to: halal claim only → the Muslim card. */
+/** Which card a place's own claims point to: a halal claim → the Muslim card, unless the kitchen is fully vegan. */
+// (Vegan options at a halal-friendly kitchen — Bagdad, Bollywood, Asalam — did
+// open the vegan card for the Muslim family who came for the halal claim; a
+// vegan visitor who chose their card gets theirs.)
 export function cardForPlace(place) {
   const known = (f) => f && f.confidence !== 'unknown' && f.value != null;
-  const vegan = known(place?.dietary?.vegan) && place.dietary.vegan.value !== 'none';
+  const fullyVegan = known(place?.dietary?.vegan) && place.dietary.vegan.value === 'full';
   const halal = known(place?.dietary?.halal) && place.dietary.halal.value !== 'none';
-  return halal && !vegan ? 'muslim' : 'vegan';
+  return halal && !fullyVegan ? 'muslim' : 'vegan';
 }

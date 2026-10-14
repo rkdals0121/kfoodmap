@@ -50,9 +50,26 @@ export default function StaffCardSheet({ initialCard, initialExtras, onClose, on
   const chooseCard = (id) => {
     setCardId(id); onCardChange?.(id, wanted); rememberCard(id, wanted);
   };
+  // What a switch did to the card, said to a screen reader: the card and its
+  // meaning changed with no word (walk-through, 2026-10-15).
+  const [said, setSaid] = useState('');
   const toggleExtra = (x) => {
-    const next = wanted.includes(x) ? wanted.filter(e => e !== x) : [...wanted, x];
+    const on = !wanted.includes(x);
+    const next = on ? [...wanted, x] : wanted.filter(e => e !== x);
     setWanted(next); onCardChange?.(cardId, next); rememberCard(cardId, next);
+    const extra = CARD_EXTRAS.find(e => e.id === x);
+    const first = extra.replace ? Object.values(extra.replace)[0] : [].concat(extra.statement)[0];
+    setSaid(on ? (gloss ? t(`cardText.${first.key}`) : t(extra.labelKey)) : t('cards.takenOff', { what: t(extra.labelKey) }));
+  };
+  // One card of several: a radio group, moved through with the arrow keys.
+  const tabRefs = useRef({});
+  const onTabKey = (e, i) => {
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    if (!step) return;
+    e.preventDefault();
+    const next = STAFF_CARDS[(i + step + STAFF_CARDS.length) % STAFF_CARDS.length].id;
+    chooseCard(next);
+    tabRefs.current[next]?.focus();
   };
 
   // The tab title names the page, as place pages do.
@@ -93,14 +110,18 @@ export default function StaffCardSheet({ initialCard, initialExtras, onClose, on
         <div className="detail-scroll">
           <div className="detail-content submit-content staff-cards">
             <h2 className="submit-title">{t('cards.title')}</h2>
-            <div className="staff-cards__tabs" role="group" aria-label={t('cards.chooseCard')}>
-              {STAFF_CARDS.map(c => (
+            <div className="staff-cards__tabs" role="radiogroup" aria-label={t('cards.chooseCard')}>
+              {STAFF_CARDS.map((c, i) => (
                 <button
                   key={c.id}
                   type="button"
+                  ref={(el) => { tabRefs.current[c.id] = el; }}
                   className={`chip${c.id === cardId ? ' active' : ''}`}
-                  aria-pressed={c.id === cardId}
+                  role="radio"
+                  aria-checked={c.id === cardId}
+                  tabIndex={c.id === cardId ? 0 : -1}
                   onClick={() => chooseCard(c.id)}
+                  onKeyDown={(e) => onTabKey(e, i)}
                 >
                   {t(c.labelKey)}
                 </button>
@@ -122,6 +143,8 @@ export default function StaffCardSheet({ initialCard, initialExtras, onClose, on
                 ))}
               </div>
             )}
+
+            <p className="visually-hidden" role="status">{said}</p>
 
             <section className="staff-card" aria-label={t('cards.showThis')}>
               <h3 className="staff-cards__heading">{t('cards.showThis')}</h3>
@@ -182,7 +205,7 @@ export default function StaffCardSheet({ initialCard, initialExtras, onClose, on
               <h3 className="staff-cards__heading">{t('cards.menuWords')}</h3>
               <p className="staff-cards__hint">{t('cards.menuWordsHint')}</p>
               <dl className="staff-words">
-                {MENU_WORDS.filter(w => !w.only || w.only === cardId || lines.words.has(w.key)).map(w => (
+                {MENU_WORDS.filter(w => w.cards.includes(cardId) || lines.words.has(w.key)).map(w => (
                   <div key={w.ko}>
                     <dt><span lang="ko" translate="no">{w.ko}</span>{gloss && <> <span className="staff-words__roman" translate="no">{w.roman}</span></>}</dt>
                     {/* (These say where the word turns up, in Korean too.) */}

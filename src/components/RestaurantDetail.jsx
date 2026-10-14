@@ -537,6 +537,10 @@ export default function RestaurantDetail({
       sheetRef.current?.focus({ preventScroll: true });
     } else if (focusStory && storyRef.current) {
       storyRef.current.scrollIntoView({ block: 'start' });
+      // Focus with it: "Read story" left focus on the button that opened it,
+      // and a screen reader heard nothing (walk-through, 2026-10-15).
+      const head = storyRef.current.querySelector('h3');
+      if (head) { head.tabIndex = -1; head.focus({ preventScroll: true }); } else sheetRef.current?.focus({ preventScroll: true });
     } else if (focusDirections && directionsRef.current) {
       directionsRef.current.scrollIntoView({ block: 'start' });
       directionsRef.current.querySelector('.detail-directions a')?.focus({ preventScroll: true });
@@ -1233,7 +1237,7 @@ export default function RestaurantDetail({
                   <button type="button" className="practical-copy" aria-label={nameCopied ? t('detail.copied') : colon(t('detail.copy'), koName)} onClick={copyKoName}>
                     <CopyLabel done={nameCopied} />
                   </button>
-                  <button type="button" className="practical-copy" ref={nameLargeBtn} aria-haspopup="dialog" onClick={() => setNameLarge(true)}>
+                  <button type="button" className="practical-copy" ref={nameLargeBtn} onClick={() => setNameLarge(true)}>
                     {t('detail.showLarge')}
                   </button>
                   {/* On the body, not inside the sheet: the sheet is

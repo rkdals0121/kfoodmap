@@ -630,7 +630,8 @@ export default {
     extrasLabel: 'Saya juga tidak makan:',
     noEgg: 'Telur',
     noPungent: 'Bawang dan kucai',
-    noRoots: 'Sayuran akar',
+    noRoots: 'Sayuran akar',
+    takenOff: 'Dihapus dari kartu: {{what}}',
     wheatLabel: 'Saya tidak bisa makan gandum (gluten)',
     noWheat: 'Gandum (gluten)',
     showThis: 'Tunjukkan ini kepada staf',

@@ -645,7 +645,8 @@ export default {
     extrasLabel: 'I also don’t eat:',
     noEgg: 'Egg',
     noPungent: 'Onion, garlic, chives (five pungent)',
-    noRoots: 'Root vegetables',
+    noRoots: 'Root vegetables',
+    takenOff: 'Taken off the card: {{what}}',
     wheatLabel: 'I cannot eat wheat (gluten)',
     noWheat: 'Wheat (gluten)',
     showThis: 'Show this to staff',

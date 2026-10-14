@@ -7,12 +7,13 @@ import en from '../../src/i18n/locales/en.js';
 // A line's meaning lives in the locale files (cardText.*), keyed by `key`.
 const meaning = (l) => en.cardText[l.key];
 
-const lines = [
+// (An extra may reuse a card's own line, the same object: counted once.)
+const lines = [...new Set([
   ...STAFF_CARDS.flatMap(c => [...c.statement, ...c.questions]),
-  ...CARD_EXTRAS.flatMap(x => [...Object.values(x.replace ?? {}), ...(x.statement ? [x.statement] : []), ...(x.questions ?? [])]),
+  ...CARD_EXTRAS.flatMap(x => [...Object.values(x.replace ?? {}), ...[].concat(x.statement ?? []), ...(x.questions ?? [])]),
   ...STAFF_ANSWERS,
   ...MENU_WORDS,
-];
+])];
 
 test('every line has Korean, a romanisation and its English meaning', () => {
   for (const l of lines) {
@@ -50,7 +51,8 @@ test('statements are in the polite formal register; questions end as questions',
 test('a place with only a halal claim opens the Muslim card; anything else the vegan one', () => {
   const f = (value) => ({ value, confidence: 'supported' });
   assert.equal(cardForPlace({ dietary: { halal: f('friendly') } }), 'muslim');
-  assert.equal(cardForPlace({ dietary: { vegan: f('options'), halal: f('friendly') } }), 'vegan');
+  assert.equal(cardForPlace({ dietary: { vegan: f('options'), halal: f('friendly') } }), 'muslim');
+  assert.equal(cardForPlace({ dietary: { vegan: f('full'), halal: f('friendly') } }), 'vegan');
   assert.equal(cardForPlace({ dietary: { vegan: f('full') } }), 'vegan');
   assert.equal(cardForPlace({ dietary: { halal: f('none') } }), 'vegan');
   assert.equal(cardForPlace({}), 'vegan');
@@ -114,4 +116,21 @@ test('"pure veg" is a vegetarian who eats no egg; "whole wheat bread" is not the
   assert.ok(!extrasAsked('pure vegan').includes('egg'));
   assert.ok(!extrasAsked('whole wheat bread').includes('wheat'));
   assert.ok(extrasAsked('wheat free').includes('wheat') && extrasAsked('no wheat').includes('wheat'));
+});
+
+test('wheat added to another card says all the wheat card says about oil, water, batter and barley', () => {
+  for (const id of ['vegan', 'vegetarian', 'muslim']) {
+    const l = cardLines(cardById(id), ['wheat']);
+    const ko = [...l.statement, ...l.questions].map(x => x.ko).join(' ');
+    for (const w of ['기름이나 물', '튀김 기름', '보리차', '튀김옷']) assert.ok(ko.includes(w), `${id}: ${w}`);
+    assert.equal(l.statement.at(-1).ko, '제가 먹을 수 있는 메뉴가 있을까요?');
+  }
+});
+
+test('each card shows the menu words that are its own', () => {
+  const shown = (id, extras = []) => MENU_WORDS.filter(w => w.cards.includes(id) || cardLines(cardById(id), extras).words.has(w.key)).map(w => w.key);
+  assert.ok(!shown('wheat').includes('word1') && !shown('wheat').includes('word6'));
+  assert.ok(!shown('muslim').includes('word1'));
+  assert.ok(shown('muslim', ['wheat']).includes('word15'));
+  for (const w of MENU_WORDS) assert.ok(Array.isArray(w.cards) && w.cards.length > 0, w.key);
 });

@@ -624,7 +624,8 @@ export default {
     extrasLabel: '이것도 안 먹어요:',
     noEgg: '달걀',
     noPungent: '오신채(파·마늘·양파 등)',
-    noRoots: '뿌리채소',
+    noRoots: '뿌리채소',
+    takenOff: '카드에서 뺐어요: {{what}}',
     wheatLabel: '저는 밀을 못 먹어요',
     noWheat: '밀(글루텐)',
     showThis: '직원에게 보여 주세요',
