@@ -3843,7 +3843,7 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       thirteen places serving spicy food for seventeen minutes).
       `sweep-places.mjs` over more than about 220 pages in one run can
       hang: run it in chunks of 80.
-      State at 12:30 on 10-14: live = master, code `c645719`; 43 regress
+      State at 12:30 on 10-14: live = master, code `c645719` (afternoon: see below); 43 regress
       steps and the place sweep pass on the live site. The notes over a
       list are decided in `BottomSheetList.jsx` by a handful of patterns
       (`ASKS_UNRECORDED`, `ASKS_PRICE`, `ASKS_ALCOHOL`, `ASKS_PRAYER`,
@@ -3853,6 +3853,14 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       ready), the Korean of the vegetarian and Muslim cards, the kind of
       place on cards (the records' `vibe` line is English only and shown
       nowhere), one "halal-friendly" label over very different evidence.
+      Afternoon of 10-14 (docs/MOBILE-AUDIT §30): fifty places' sources name
+      days off the week table cannot hold — a note under the table
+      (`closesOtherDays`); three "Open 24 hours daily" records with no week
+      read as open round the clock everywhere (`statusFromRaw`); "also
+      searched as" only when a place name was respelt; a range of days is
+      read "Monday to Friday". The regress run is to be run alone: with
+      another headless job beside it, steps fail for nothing. State at
+      16:55: live = master; 43 regress steps pass.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
