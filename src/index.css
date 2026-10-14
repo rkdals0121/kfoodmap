@@ -7490,3 +7490,12 @@ html[lang='id'] .stat-label {
   /* (In line with the lists under it: they are inset by 20 px.) */
   margin: 8px 20px 0;
 }
+
+/* The day ("明天（週五）", "Tomorrow (Fri)") is longer than the time: at the
+   largest text size on a 320 px phone its last bracket sat under the arrow.
+   The day's box takes the larger share of the row. */
+@media (max-width: 340px) {
+  .plan-row label:first-of-type {
+    flex-grow: 1.5;
+  }
+}
