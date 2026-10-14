@@ -3861,6 +3861,10 @@ nothing. As of 2026-09-28 it reports 11 of 15 failing.
       read "Monday to Friday". The regress run is to be run alone: with
       another headless job beside it, steps fail for nothing. State at
       16:55: live = master; 43 regress steps pass.
+      Evening of 10-14 (§31): numbered subway lines in ja/zh/id
+      (`localLine` in station-ko.js — named lines stay English, none
+      guessed); first tablet/desktop pass of the day (768–1440 px): no
+      overflow; the cards window's doubled gaps from 768 px fixed.
 
 Read next: `docs/EVIDENCE.md`, then `docs/DATA.md`.
 
