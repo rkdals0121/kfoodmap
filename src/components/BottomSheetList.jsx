@@ -825,6 +825,14 @@ export default function BottomSheetList({
           {withoutFilters === 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
             <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to={cardsLink()} state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
           )}
+          {/* "jain", "오신채 없는", "五辛": nothing is called so, but some records
+              say the kitchen cooks without onion or garlic — the search that
+              finds those (as typed in English: the records are). */}
+          {onSearchInstead && askedOut.includes('pungent') && !/onion|garlic/i.test(searchQuery) && (
+            <button type="button" className="place-list__clear" onClick={() => onSearchInstead('', 'no onion no garlic')}>
+              {t('list.withoutAlliums')}
+            </button>
+          )}
           {withoutFilters === 0 && ASKS_PRICE.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
             <p className="place-list__hint-text">{t('list.priceHint')}</p>
           )}
