@@ -65,3 +65,55 @@ test('a text says it is left out — and what does not say so', () => {
   ];
   for (const [text, x, want] of cases) assert.equal(saysLeftOut(text, x), want, `${x}: ${text}`);
 });
+
+test('the second review: punctuation, full width, lists with meat or pork, places as fallbacks', async () => {
+  const { restaurants } = await import('../../src/data/restaurants.js');
+  const { isQuarantined } = await import('../../src/data/verification.js');
+  const { searchPlaces } = await import('../../src/search.js');
+  const places = restaurants.filter(r => !isQuarantined(r));
+  const ids = (q) => searchPlaces({ places, query: q }).filteredRestaurants.map(r => r.id).sort().join(' ');
+  const egg = ids('no egg');
+  for (const q of ['no egg?', 'no egg.', 'egg free?', 'eggless?', 'vegan: no egg', 'ｎｏ ｅｇｇ', 'no, egg', 'no fried egg']) assert.equal(ids(q), egg, q);
+  assert.equal(ids('no egg or dairy?'), ids('no egg or dairy'));
+  // A place that does not say ham is left out is not "seoul no ham" (332 once).
+  assert.ok(ids('seoul no ham').split(' ').filter(Boolean).length <= 2);
+  assert.equal(ids('no butter or ham'), '');
+  // Meat and pork in a list are what they are alone; the list reads on.
+  assert.equal(ids('no meat or dairy'), ids('no dairy or meat'));
+  assert.equal(ids('no egg or pork'), '');
+  // A food is an ingredient after "no": not the places that serve lamb.
+  assert.equal(ids('no lamb'), '');
+  // Another script beside the left-out part.
+  assert.equal(ids('ソウル no egg or dairy'), ids('seoul no egg or dairy'));
+  // "no onion garlic", "no onion/garlic": a list.
+  assert.deepEqual(leftOutQuery('no onion garlic').items, ['onion', 'garlic']);
+  assert.deepEqual(leftOutQuery('no onion/garlic').items, ['onion', 'garlic']);
+  // "no egg bibimbap": the dish is the rest.
+  assert.deepEqual(leftOutQuery('no egg bibimbap').rest, ['bibimbap']);
+  assert.deepEqual(leftOutQuery('no tomatoes').items, ['tomato']);
+  assert.deepEqual(leftOutQuery('no octopus').items, ['octopus']);
+});
+
+test('more texts that do not say the kitchen leaves it out', () => {
+  const no = [
+    ['There is no gluten-free option.', 'gluten'],
+    ['It is not really gluten-free.', 'gluten'],
+    ['It is unclear if the noodles are egg-free.', 'egg'],
+    ['Visitors who eat no egg should go elsewhere.', 'egg'],
+    ['Nothing here is made without egg.', 'egg'],
+    ['Egg free with any order over 10,000 won.', 'egg'],
+    ['Is the cake egg-free? Ask the staff.', 'egg'],
+    ['It bakes non bread and samsa.', 'bread'],
+    ['The noodles without the egg, and the buckwheat pancake without the kimchi.', 'buckwheat'],
+    ['Rice breads and gluten-free breads.', 'bread'],
+    ['The pita and the cheese sauce served with the vegan falafel both contain milk, so ask for them to be left off.', 'falafel'],
+  ];
+  for (const [t, x] of no) assert.equal(saysLeftOut(t, x), false, `${x}: ${t}`);
+  const yes = [
+    ['It can be made vegan by leaving out the egg.', 'egg'],
+    ['The vegan roll: ham, fish cake and imitation crab left out.', 'ham'],
+    ['Dishes are made with egg, and the chef leaves it out on request.', 'egg'],
+    ['Skip the cheese topping and it is vegan.', 'cheese'],
+  ];
+  for (const [t, x] of yes) assert.equal(saysLeftOut(t, x), true, `${x}: ${t}`);
+});

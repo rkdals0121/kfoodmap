@@ -213,6 +213,8 @@ const WORLD_KITCHEN = /\b(?:indian|india|nepal(?:i|ese)?|himalayan?|tandoori?|ma
 // Korean as well): cheese, butter or cream, egg and meat stock.
 const WESTERN_KITCHEN = /\b(?:italian|pizz\w*|napoli|neapolitan|trattoria|mexican|tacos?|taqueria|burritos?|latin|tex-?mex|burgers?)\b/i;
 const KOREAN_KITCHEN = /\bkorean\b(?!-style)/i;
+// (Vietnamese or Thai beside it: fish sauce is the question there — Lagniappe.)
+const FISH_SAUCE_KITCHEN = /\b(?:vietnam(?:ese)?|thai|pho|banh)\b/i;
 const DIET_CAVEAT_KEYS = {
   [CONFIDENCE.CONFIRMED]: { titleKey: 'detail.caveatConfirmedTitle', bodyKey: 'detail.caveatConfirmedBody' },
   [CONFIDENCE.SUPPORTED]: { titleKey: 'detail.caveatSupportedTitle', bodyKey: 'detail.caveatSupportedBody' },
@@ -945,7 +947,7 @@ export default function RestaurantDetail({
               {/* Vegan options on a mixed menu: the broth and the fish sauce are
                   what to ask about. The list says so above its cards; a place
                   opened from a link, or read on its own, did not. */}
-              {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && <p className="diet-note__mixed">{t(place.category === 'brunch-bakery' ? 'detail.veganOptionsAskBakery' : place.category === 'world-halal' || WORLD_KITCHEN.test(`${place.name} ${place.vibe ?? ''}`) ? 'detail.veganOptionsAskWorld' : WESTERN_KITCHEN.test(`${place.name} ${place.vibe ?? ''}`) && !KOREAN_KITCHEN.test(place.vibe ?? '') ? 'detail.veganOptionsAskWestern' : 'detail.veganOptionsAsk')}</p>}
+              {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && <p className="diet-note__mixed">{t(place.category === 'brunch-bakery' ? 'detail.veganOptionsAskBakery' : place.category === 'world-halal' || WORLD_KITCHEN.test(`${place.name} ${place.vibe ?? ''}`) ? 'detail.veganOptionsAskWorld' : WESTERN_KITCHEN.test(`${place.name} ${place.vibe ?? ''}`) && !KOREAN_KITCHEN.test(place.vibe ?? '') && !FISH_SAUCE_KITCHEN.test(place.vibe ?? '') ? 'detail.veganOptionsAskWestern' : 'detail.veganOptionsAsk')}</p>}
               {/* A gluten-free or allergen word in the text is the source's, and the
                   caution about it stood only over search results (walk-through as a
                   coeliac, 2026-10-14): said where the claim is read. */}

@@ -7592,3 +7592,9 @@ html[lang='id'] .stat-label {
 .staff-large__close {
   font-size: 16px;
 }
+
+/* The day and time of "Open at…" grow with the text size too (they stayed at
+   13 px beside 16 px chips). */
+html[data-text] .plan-row {
+  font-size: calc(13px * var(--text-zoom, 1));
+}

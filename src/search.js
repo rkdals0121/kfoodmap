@@ -336,7 +336,7 @@ export function searchPlaces({
       }
       // Nothing on record under these words at all: perhaps one letter off
       // an area ("myongdong"). Not when the chips are what emptied the list.
-      if (result.list.length === 0 && !onRecord(raw)) {
+      if (result.list.length === 0 && !onRecord(raw) && leftOutQuery(raw).items.length === 0) {
         const guess = fuzzyQuery(raw);
         if (guess) {
           const again = select(byText(guess));
@@ -348,7 +348,9 @@ export function searchPlaces({
     // once. No record is in both, so every word together finds nothing —
     // the places in either are what was meant.
     // Not a station search: that has its own answer above.
-    if (result.list.length === 0 && !anchorPlaces && !station) {
+    // (Not when something is asked to be left out: "seoul no ham" read "no"
+    // and "ham" as places too, and was 332 places.)
+    if (result.list.length === 0 && !anchorPlaces && !station && leftOutQuery(raw).items.length === 0) {
       const parts = (romaniseQuery(raw) ?? raw).split(/[\s,，、]+/).filter(Boolean);
       // (Areas only: "김해공항" is Gimhae + airport, and "airport" passed for
       // an area — the answer was Incheon Airport's restaurants.)

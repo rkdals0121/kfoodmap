@@ -251,13 +251,16 @@ export default function BottomSheetList({
   const typedKorean = i18n.language === 'ko' && /[가-힣]/.test(searchQuery);
   // "vegetarian no egg", "jain": the cards open on the card that says so.
   const askedOut = extrasAsked(searchQuery, leftOutQuery(searchQuery).items);
-  const dairyAsked = /lactose|laktosa|유제품|우유|乳製品|乳糖|牛奶|牛乳/i.test(searchQuery) || leftOutQuery(searchQuery).items.some(x => ['dairy', 'milk', 'butter', 'cheese', 'cream'].includes(x));
+  const dairyAsked = /lactose|laktosa|susu|유제품|우유|乳製品|乳糖|牛奶|牛乳|不吃奶|[无無]奶/i.test(searchQuery) || leftOutQuery(searchQuery).items.some(x => ['dairy', 'milk', 'butter', 'cheese', 'cream', 'ghee'].includes(x));
   // The card for the diet on screen: a chip first (Halal alone → the Muslim
   // card, Vegan → the vegan one: the vegetarian card tells staff "I do eat
   // eggs and dairy"), then the words typed; with nothing to go by none is
   // named, and the cards choose as they always did.
-  const dietCard = activeFilters.includes('Halal') && !activeFilters.includes('Vegan') && !activeFilters.includes(FULLY_VEGAN) ? 'muslim'
-    : activeFilters.includes('Vegan') || activeFilters.includes(FULLY_VEGAN) || /vegan|비건|ヴィーガン|ビーガン|纯素|純素|全素/i.test(searchQuery) ? 'vegan'
+  // (Halal typed, not only the chip: "halal no egg" opened "I am vegetarian … I do not eat meat".)
+  const halalSaid = activeFilters.includes('Halal') || /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery);
+  const veganSaid = activeFilters.includes('Vegan') || activeFilters.includes(FULLY_VEGAN) || /vegan|비건|ヴィーガン|ビーガン|纯素|純素|全素/i.test(searchQuery);
+  const dietCard = halalSaid && !veganSaid ? 'muslim'
+    : veganSaid ? 'vegan'
       // (Not for milk or dairy left out: the vegetarian card says "I do eat
       // dairy". With no card named, the visitor's own or the vegan one opens.)
       : dairyAsked ? null
@@ -662,7 +665,7 @@ export default function BottomSheetList({
       {/* (After the halal caveat: folded, only the first note shows, and on a
           phone "vegetarian" under the Halal chip had put the caveat out of sight.) */}
       {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(sansAlcohol) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to={cardsLink('vegetarian')} state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
+        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to={cardsLink(dairyAsked ? undefined : 'vegetarian')} state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* "halal no alcohol", "술 안 파는 할랄" list places by words in their
           notes, some of which say alcohol is sold. After the halal caveat and the

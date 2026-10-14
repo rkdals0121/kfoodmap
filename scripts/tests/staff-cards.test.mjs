@@ -134,3 +134,9 @@ test('each card shows the menu words that are its own', () => {
   assert.ok(shown('muslim', ['wheat']).includes('word15'));
   for (const w of MENU_WORDS) assert.ok(Array.isArray(w.cards) && w.cards.length > 0, w.key);
 });
+
+test('the five pungent: said left out, not a label that has them, nor one of them alone in Korean', () => {
+  const asked = (q) => extrasAsked(q, leftOutQuery(q).items);
+  for (const q of ['五辛素', '植物五辛素', '五辛蛋奶素', '含五辛', '오신채 들어간 채식', '양파 없는', '마늘 빼고', 'tanpa bawang putih', 'onion rings garlic bread']) assert.ok(!asked(q).includes('pungent'), q);
+  for (const q of ['不吃五辛', '無五辛 首爾', '오신채 없는', '양파 마늘 없는', 'no onion/garlic', 'no onion garlic', 'jain']) assert.ok(asked(q).includes('pungent'), q);
+});

@@ -227,9 +227,10 @@ export const CARD_EXTRAS = [
 // which is a vegetarian who does eat egg.
 const ASKED = {
   egg: /\b(?:no|without|not)\s+eggs?\b|\beggless\b|\beggs?[- ]?free\b|\bjain|(?:달걀|계란)\s*(?:없|빼|안)|无蛋|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|卵(?:なし|抜き|を?食べない)|tanpa telur|\bpure[ -]?veg(?!an)/i,
-  // (The five by name, or both left out — the search's own reading below:
-  // "no onion" alone does not say no chives, "onion rings garlic bread" nothing.)
-  pungent: /\bjain|\bfive pungent|\b(?:no|without)\s+(?:the\s+)?(?:alliums?|osinchae|pungent vegetables)|오신채|五辛|五葷|(?:양파|마늘)[\s·,및과와]*(?:양파|마늘)?\s*(?:없|빼|안)|不吃(?:葱|蔥)蒜|tanpa bawang/i,
+  // (五辛素 is a label for vegetarian food WITH the five pungent; 含五辛,
+  // 오신채 들어간 say they are in it: not these. In Korean, both onion and
+  // garlic: "양파 없는" alone does not say no chives.)
+  pungent: /\bjain|\bfive pungent|\b(?:no|without)\s+(?:the\s+)?(?:alliums?|osinchae|pungent vegetables)|(?:不吃|不含|不用|不要|[無无]|沒有|没有|去)(?:五辛|五葷)|(?:^|[^含可吃])(?:五辛|五葷)(?![蛋奶]*素)|오신채(?!\s*(?:포함|들어간|들어가는|있는|먹))|(?:양파[\s·,및과와]*마늘|마늘[\s·,및과와]*양파)\s*(?:없|빼|안)|不吃(?:葱|蔥)蒜|tanpa bawang(?!\s+(?:putih|merah|bombay|bombai))/i,
   roots: /\bjain|\broot vegetables?\b|뿌리\s*채소|根菜|根茎|根莖|umbi/i,
 
   // (Gluten, coeliac, or wheat left out — not every "whole wheat bread".)
