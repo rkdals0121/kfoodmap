@@ -221,14 +221,23 @@ export const CARD_EXTRAS = [
 // which is a vegetarian who does eat egg.
 const ASKED = {
   egg: /\b(?:no|without|not)\s+eggs?\b|\beggless\b|\beggs?[- ]?free\b|\bjain|(?:달걀|계란)\s*(?:없|빼|안)|无蛋|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|卵(?:なし|抜き|を?食べない)|tanpa telur|\bpure[ -]?veg(?!an)/i,
-  // (Both, or the five by name: "no onion" alone does not say no chives.)
-  pungent: /\bjain|\bfive pungent|오신채|五辛|五葷|\bonions?\b.*\bgarlic|\bgarlic\b.*\bonions?\b|(?:마늘.*양파|양파.*마늘)|不吃(?:葱|蔥)蒜|tanpa bawang/i,
+  // (The five by name, or both left out — the search's own reading below:
+  // "no onion" alone does not say no chives, "onion rings garlic bread" nothing.)
+  pungent: /\bjain|\bfive pungent|\b(?:no|without)\s+(?:the\s+)?(?:alliums?|osinchae|pungent vegetables)|오신채|五辛|五葷|(?:양파|마늘)[\s·,및과와]*(?:양파|마늘)?\s*(?:없|빼|안)|不吃(?:葱|蔥)蒜|tanpa bawang/i,
   roots: /\bjain|\broot vegetables?\b|뿌리\s*채소|根菜|根茎|根莖|umbi/i,
 
   // (Gluten, coeliac, or wheat left out — not every "whole wheat bread".)
   wheat: /gluten|c(?:o)?eliac|\b(?:no|without)\s+wheat|\bwheat[- ]?free|글루텐|셀리악|밀가루\s*(?:없|빼|안)|グルテン|セリアック|小麦(?:粉)?(?:なし|不使用|抜き|アレルギー)|麸质|麩質|tanpa gandum/i,
 };
-export const extrasAsked = (text) => Object.keys(ASKED).filter(id => ASKED[id].test(text ?? ''));
+// …and what the search itself read as left out (filters.js leftOutQuery):
+// "vegetarian no-egg", "egg and dairy free", "without any wheat".
+const FROM_ITEMS = {
+  egg: (items) => items.includes('egg'),
+  pungent: (items) => items.includes('onion') && items.includes('garlic'),
+  roots: () => false,
+  wheat: (items) => items.includes('wheat') || items.includes('gluten'),
+};
+export const extrasAsked = (text, items = []) => Object.keys(ASKED).filter(id => ASKED[id].test(text ?? '') || FROM_ITEMS[id](items));
 
 /** The extras a card offers, from a list of ids (an address's "no=egg,roots"). */
 export const extrasFor = (cardId, ids) =>

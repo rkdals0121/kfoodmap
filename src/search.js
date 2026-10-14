@@ -18,7 +18,7 @@ import { matchesDietary } from './data/verification.js';
 import { COOKING, fuzzyQuery, isListedArea, onlyFillers, questionWords, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
-  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, stripCertWords, porkFreeSaid, liftDietWords, mentionsInStory, storyWord } from './filters.js';
+  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, leftOutQuery, stripCertWords, porkFreeSaid, liftDietWords, mentionsInStory, storyWord } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
 import { stationKey, isKnownStation, stationRomans } from './data/station-ko.js';
 import { romaniseKorean } from './data/romanise-ko.js';
@@ -316,7 +316,9 @@ export function searchPlaces({
       // of cooking: "korean food" was the two records named "… Korean
       // Food", of the 128 that say Korean. (A name — "The India", "Royal
       // Restaurant" — is still narrowed to.)
-      if (raw.includes(' ') && !/[,，、]/.test(raw) && !(asked !== raw && (COOKING.has(asked.toLowerCase()) || isListedArea(asked))) && !isListedArea((romaniseQuery(raw) ?? '').replace(/-si$/, ''))) {
+      // Nor for an ingredient left out: "without egg" was the two places whose
+      // one line says those words, of the 46 that say egg is left out.
+      if (raw.includes(' ') && !/[,，、]/.test(raw) && leftOutQuery(raw).items.length === 0 && !(asked !== raw && (COOKING.has(asked.toLowerCase()) || isListedArea(asked))) && !isListedArea((romaniseQuery(raw) ?? '').replace(/-si$/, ''))) {
         const exact = select(r => hits(raw).has(r) && matchesPhrase(r, raw));
         if (exact.list.length > 0 && exact.list.length < result.list.length) result = exact;
       }

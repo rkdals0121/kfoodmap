@@ -11,7 +11,7 @@ import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
 import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl } from '../filters';
+import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted, listComma } from '../i18n/punct';
 import { extrasAsked } from '../data/staff-cards';
@@ -250,7 +250,7 @@ export default function BottomSheetList({
   // 함께 검색했어요 read as if something else had been searched.
   const typedKorean = i18n.language === 'ko' && /[가-힣]/.test(searchQuery);
   // "vegetarian no egg", "jain": the cards open on the card that says so.
-  const askedOut = extrasAsked(searchQuery);
+  const askedOut = extrasAsked(searchQuery, leftOutQuery(searchQuery).items);
   // The card for the diet on screen: a chip first (Halal alone → the Muslim
   // card, Vegan → the vegan one: the vegetarian card tells staff "I do eat
   // eggs and dairy"), then the words typed; with nothing to go by none is

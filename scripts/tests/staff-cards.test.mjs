@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, CARD_EXTRAS, cardById, cardForPlace, cardLines, extrasFor, extrasAsked } from '../../src/data/staff-cards.js';
+import { leftOutQuery } from '../../src/filters.js';
 import en from '../../src/i18n/locales/en.js';
 
 // A line's meaning lives in the locale files (cardText.*), keyed by `key`.
@@ -79,7 +80,13 @@ test('a search that leaves something out opens the card that says so', () => {
   assert.deepEqual(extrasAsked('vegetarian no egg'), ['egg']);
   assert.deepEqual(extrasAsked('eggless'), ['egg']);
   assert.deepEqual(extrasAsked('jain'), ['egg', 'pungent', 'roots']);
-  assert.deepEqual(extrasAsked('no onion no garlic'), ['pungent']);
+  // (Both left out, as the search reads it: "no onion" alone does not say no chives.)
+  assert.deepEqual(extrasAsked('no onion no garlic', leftOutQuery('no onion no garlic').items), ['pungent']);
+  assert.deepEqual(extrasAsked('no onion', leftOutQuery('no onion').items), []);
+  assert.deepEqual(extrasAsked('onion rings garlic bread', leftOutQuery('onion rings garlic bread').items), []);
+  assert.deepEqual(extrasAsked('vegetarian no-egg', leftOutQuery('vegetarian no-egg').items), ['egg']);
+  assert.deepEqual(extrasAsked('egg and dairy free', leftOutQuery('egg and dairy free').items), ['egg']);
+  assert.deepEqual(extrasAsked('without any wheat', leftOutQuery('without any wheat').items), ['wheat']);
   assert.deepEqual(extrasAsked('오신채 없는'), ['pungent']);
   // A vegetarian who eats egg (蛋奶素), and eggplant, are not "no egg".
   assert.deepEqual(extrasAsked('蛋奶素'), []);

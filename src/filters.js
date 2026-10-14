@@ -447,84 +447,200 @@ const ONE_SYLLABLE_FOOD = new Set(['빵', '죽', '떡', '탕', '찜', '쌈', '�
 // "no egg", "egg-free", "without onion", "eggless": an ingredient asked to be
 // left out. Word by word, "vegetarian no egg" was the vegetarian places with
 // a word starting "no" and one starting "egg" — those that serve egg, and
-// those with eggplant (walk-through, 2026-10-14). Such a pair is answered by
-// a text that says the ingredient is left out, never by one that names it.
-// (Not alcohol, pork or meat: those have answers of their own.) A sauce or a
-// stock is a thing of its own: "no fish sauce" is not "no fish".
+// those with eggplant (walk-through, 2026-10-14). Such a question is answered
+// by a text that says the ingredient is left out, never by one that names it
+// — for any ingredient: "no oyster", "no ham" were the places that serve them.
+// (Not alcohol, whose note says how it is answered; not pork or meat, which
+// are levels the records carry: "no pork", "no meat".) A sauce or a stock is
+// a thing of its own: "no fish sauce" is not "no fish".
 const LEFT_OUT = new Set(['egg', 'dairy', 'milk', 'gluten', 'wheat', 'nut', 'peanut', 'soy', 'onion', 'garlic', 'sugar', 'lactose', 'msg', 'sesame', 'shellfish', 'fish', 'seafood', 'honey', 'butter', 'cheese', 'gelatin', 'chive', 'leek', 'scallion',
   'beef', 'chicken', 'shrimp', 'anchovy', 'ghee', 'cream', 'mayo', 'mayonnaise', 'mushroom', 'tofu', 'kimchi',
-  'fish sauce', 'soy sauce', 'oyster sauce', 'fish stock', 'anchovy stock', 'meat stock']);
+  'fish sauce', 'soy sauce', 'oyster sauce', 'fish stock', 'anchovy stock', 'meat stock', 'meat broth', 'beef broth', 'bone broth', 'seafood broth']);
+// Other words for the same thing: what the records say for them.
+const LEFT_OUT_SAME = { allium: 'onion', alliums: 'onion', 'five pungent': 'onion', 'pungent vegetables': 'onion', osinchae: 'onion', lactose: 'dairy', 'egg yolk': 'egg', yolk: 'egg', yolks: 'egg' };
 const ALLIUMS = new Set(['onion', 'garlic', 'chive', 'leek', 'scallion']);
-const stemOf = (w) => [w, w.replace(/s$/, ''), w.replace(/es$/, ''), w.replace(/ies$/, 'y')].find(s => LEFT_OUT.has(s)) ?? null;
-function leftOutPairs(words) {
-  const out = [];
-  const rest = [];
-  // The ingredient at i: two words that are one ("fish sauce"), or one word.
-  const at = (i) => {
-    const two = i + 1 < words.length ? stemOf(`${words[i]} ${words[i + 1]}`) : null;
-    if (two) return [two, 2];
-    const one = i < words.length ? stemOf(words[i]) : null;
-    return one ? [one, 1] : null;
-  };
-  for (let i = 0; i < words.length; i += 1) {
-    const w = words[i];
-    // "nondairy", "noegg" (typed with a hyphen, read as one word), "eggless", "eggfree".
-    const glued = [/^non([a-z]+)$/, /^no([a-z]+)$/, /^([a-z]+?)(?:free|less)$/].map(re => re.exec(w)?.[1]).find(x => x && stemOf(x));
-    const after = /^(?:no|without|non)$/.test(w) ? at(i + 1) : null;
-    const here = after ? null : at(i);
-    if (after) {
-      out.push(after[0]);
-      i += after[1];
-    } else if (here && /^(?:free|less)$/.test(words[i + here[1]] ?? '')) {
-      out.push(here[0]);
-      i += here[1];
-    } else if (glued) out.push(stemOf(glued));
-    else rest.push(w);
+const COMPOUND = new Map([...LEFT_OUT, ...Object.keys(LEFT_OUT_SAME)].filter(x => x.includes(' ')).map(x => [x.replace(' ', ''), x]));
+const stemOf = (w) => {
+  if (Object.hasOwn(LEFT_OUT_SAME, w)) return LEFT_OUT_SAME[w];
+  const glued = COMPOUND.get(w);
+  if (glued) return LEFT_OUT_SAME[glued] ?? glued;
+  return [w, w.replace(/s$/, ''), w.replace(/es$/, ''), w.replace(/ies$/, 'y')].find(s => LEFT_OUT.has(s)) ?? null;
+};
+// Words that are not an ingredient after "no": a kind of place, a diet, a
+// place name, a word of the question; and alcohol (see above).
+const NOT_AN_INGREDIENT = /^(?:please|food|foods|dish|dishes|menu|menus|option|options|place|places|restaurants?|cafes?|shops?|near|me|here|thanks|only|more|other|alcohol|alcoholic|liquor|alkohol|sake|soju|beer|wine|drinks?|meat|pork|added|extra|the|any|charge|cost)$/;
+const LEAD = /^(?:no|without|non|minus|excluding|hold)$/;
+const JOIN = /^(?:and|or|nor|&|,)$/;
+const SKIP = /^(?:the|any|added|extra)$/;
+// "free" that is not "left out": "kimchi free refills", "egg free of charge".
+const FREE_OTHERWISE = /^(?:refills?|of|for|charge|parking|wifi|delivery|entry|admission|shipping|tasting|samples?)$/;
+const LESS_OTHERWISE = /^(?:spicy|sweet|salty|oily|greasy|hot|sour)$/;
+/**
+ * What a search asks to be left out, and the rest of it: { items, rest }.
+ * "vegetarian no egg or fish" → { items: ['egg', 'fish'], rest: ['vegetarian'] }.
+ */
+// Asked once per search, not once per place: kept.
+const LEFT_OUT_READ = new Map();
+export function leftOutQuery(query) {
+  const key = String(query ?? '');
+  let read = LEFT_OUT_READ.get(key);
+  if (!read) {
+    if (LEFT_OUT_READ.size > 200) LEFT_OUT_READ.clear();
+    read = readLeftOut(key);
+    LEFT_OUT_READ.set(key, read);
   }
-  return { out, rest };
+  return read;
 }
+function readLeftOut(query) {
+  const raw = String(query ?? '').toLowerCase().replace(/[，、]/g, ',').replace(/\s*,\s*/g, ' , ').replace(/&/g, ' & ');
+  // A hyphen is a space where it joins "no", "non", "free" or "less", or an
+  // ingredient of two words ("fish-sauce"); elsewhere ("mapo-gu") it stays.
+  const tokens = raw.trim().split(/\s+/).filter(Boolean).flatMap((w) => {
+    const halves = w.split('-').filter(Boolean);
+    return halves.length > 1 && (halves.some(h => /^(?:no|non|free|less|and|or)$/.test(h)) || COMPOUND.has(halves.join(''))) ? halves : [w.replace(/-$/, '')];
+  });
+  const item = (i, generic) => {
+    if (i >= tokens.length) return null;
+    const two = i + 1 < tokens.length ? stemOf(`${tokens[i]} ${tokens[i + 1]}`) : null;
+    if (two) return [two, 2];
+    const one = stemOf(tokens[i]);
+    if (one) return [one, 1];
+    const w = tokens[i];
+    if (!generic || !/^[a-z]{3,}$/.test(w) || NOT_AN_INGREDIENT.test(w) || Object.hasOwn(DIET_WORDS, w) || AREA_WORDS.has(w) || COOKING.has(w) || FILLER_WORD.test(w)) return null;
+    return [w.length > 4 && /[^s]s$/.test(w) ? w.slice(0, -1) : w, 1];
+  };
+  const items = [];
+  const used = new Set();
+  const take = (at, n, x) => { items.push(x); for (let k = at; k < at + n; k += 1) used.add(k); };
+  for (let i = 0; i < tokens.length; i += 1) {
+    if (used.has(i)) continue;
+    const w = tokens[i];
+    // "no egg", "without the egg or fish", "free of dairy", "hold the cheese".
+    const lead = LEAD.test(w) ? 1 : w === 'free' && /^(?:of|from)$/.test(tokens[i + 1] ?? '') ? 2 : 0;
+    if (lead) {
+      let j = i + lead;
+      while (SKIP.test(tokens[j] ?? '')) j += 1;
+      // ("no meat", "no pork", "non halal": answered as before.)
+      const first = item(j, w !== 'non');
+      if (!first) continue;
+      for (let k = i; k < j; k += 1) used.add(k);
+      take(j, first[1], first[0]);
+      j += first[1];
+      while (JOIN.test(tokens[j] ?? '')) {
+        let k = j + 1;
+        while (SKIP.test(tokens[k] ?? '') || JOIN.test(tokens[k] ?? '')) k += 1;
+        const next = item(k, true);
+        if (!next) break;
+        for (let m = j; m < k; m += 1) used.add(m);
+        take(k, next[1], next[0]);
+        j = k + next[1];
+      }
+      i = j - 1;
+      continue;
+    }
+    // "egg free", "fish and egg free", "gluten free busan"; "egg less" only
+    // for an ingredient ("chicken less spicy" is not).
+    if ((w === 'free' && !FREE_OTHERWISE.test(tokens[i + 1] ?? '')) || (w === 'less' && !LESS_OTHERWISE.test(tokens[i + 1] ?? ''))) {
+      const before = [];
+      let j = i - 1;
+      const back = (end) => {
+        const two = end >= 1 ? stemOf(`${tokens[end - 1]} ${tokens[end]}`) : null;
+        if (two) return [two, 2];
+        const one = stemOf(tokens[end] ?? '');
+        if (one) return [one, 1];
+        return w === 'free' && end >= 0 ? item(end, true) : null;
+      };
+      let got = j >= 0 && !used.has(j) ? back(j) : null;
+      while (got) {
+        before.push([j - got[1] + 1, got[1], got[0]]);
+        j -= got[1];
+        if (!JOIN.test(tokens[j] ?? '')) break;
+        const k = j - 1;
+        got = k >= 0 && !used.has(k) ? back(k) : null;
+        if (got) used.add(j);
+        j = k;
+      }
+      if (before.length > 0) {
+        used.add(i);
+        for (const [at, n, x] of before) take(at, n, x);
+      }
+      continue;
+    }
+    // Glued: "noegg", "nondairy", "eggless", "glutenfree", "nofishsauce".
+    const glued = [/^non([a-z]+)$/, /^no([a-z]+)$/, /^([a-z]+?)(?:free|less)$/].map(re => re.exec(w)?.[1]).find(x => x && stemOf(x));
+    if (glued) take(i, 1, stemOf(glued));
+  }
+  return { items: [...new Set(items)], rest: tokens.filter((t, i) => !used.has(i) && !JOIN.test(t)) };
+}
+const FILLER_WORD = /^(?:restaurant|restaurants|food|place|places)$/;
+
 const SAYS_LEFT_OUT = new Map();
 // The text says it is left out: "no eggs", "no meat, fish, eggs or dairy",
 // "egg-free", "eggless", "without onion", "leave out the egg", "egg and ham
-// are left out"; for an onion or garlic, "excluding the five pungent alliums"
-// too. Not "no fish sauce" for fish, nor "without white sugar" for sugar (raw
-// sugar is sugar still), nor what a visitor is told to say: "tell the staff
-// you eat no meat, fish or egg" is the visitor's diet, not the kitchen's, and
-// "ask whether it is made without fish stock" is a question. ("Ask for no
-// egg on the bibimbap", "say you want it without fish": a dish the record
-// says can be had without it — a lead, and the list's note says to ask.)
-// Between the word that leaves out and the ingredient stands only a list of
-// other things left out ("no meat, fish, eggs or dairy", "without butter,
-// eggs, dairy, or added sugar"); a list ends at a clause — "no pork is
-// served, though the chicken…", "without the kimchi, which contains fish" —
-// and "non" is only the word right before ("non bread … beef samsa" is the
-// bread). Soy milk is not soy.
-const NOT_A_PART = '(?![\\s-]+(?:sauce|stock|broth|cake|paste|oil|ball|powder|milk|cream|curd)s?\\b)';
+// are left out", "the chef leaves it out"; for an onion or garlic, "excluding
+// the five pungent alliums" too. ("Ask for no egg on the bibimbap", "say you
+// want it without fish": a dish the record says can be had without it — a
+// lead, and the list's note says to ask.)
+// Not:
+//  - "no fish sauce" for fish, "soy milk" for soy, "cream cheese" for cream;
+//  - "without white sugar" for sugar, nor "no raw fish or shellfish" for
+//    shellfish (the word before may cover both);
+//  - a list run on into a clause — "no pork is served, though the chicken…",
+//    "without the kimchi, which contains fish" — nor "non bread … beef samsa";
+//  - what the visitor is to say or ask: "tell the staff you eat no egg",
+//    "ask whether it is made without fish stock", "confirm that your table
+//    has no fish sauce", "if you avoid egg";
+//  - "not gluten-free", "kimchi free refills", "egg free of charge";
+//  - "a sugar-free bagel made with coconut sugar".
+const NOT_A_PART = '(?![\\s-]+(?:sauce|stock|broth|cake|paste|oil|ball|powder|milk|cream|curd|cheese|yolk|whites?|substitutes?)s?\\b)';
 const LIST_LEAD = '(?:(?:the|any|added)\\s+)?';
-const LIST_ITEM = '(?!white\\b|refined\\b|raw\\b|brown\\b|or\\b|and\\b)[a-z]+(?:[\\s-](?!or\\b|and\\b)[a-z]+)?';
+const LIST_ITEM = '(?!or\\b|and\\b)[a-z]+(?:[\\s-](?!or\\b|and\\b)[a-z]+)?';
 const LIST_SEP = '(?:\\s*,\\s*(?:or\\s+|and\\s+)?|\\s+(?:or|and)\\s+)';
+const COVERED_BY_BEFORE = /\b(?:white|refined|raw|brown)\s+[a-z]+\s+(?:and|or)\s+(?:(?:the|any|added)\s+)?$/;
+const NOT_THE_KITCHEN = /\b(?:ask|asking|check|checking|confirm|find out|make sure)\b[^.;:!?]{0,30}\b(?:whether|if|which)\b|\bconfirm\b[^.;:!?]{0,40}\bthat\b|\b(?:you|i|we)\b[^.;:!?]{0,20}\b(?:eat|do not eat|don't eat)\s*$|\b(?:you|who|i|we)\s*$|\b(?:does not|doesn't|do not|don't) say\b[^.;:!?]*\bwhether\b|\bunclear\b[^.;:!?]*\bwhether\b|\b(?:not|isn't|no longer|never|nothing(?: here)? is)\s+(?:(?:a|an|the|fully|entirely|completely|always)\s+)?$/;
 function saysLeftOut(text, x) {
   let re = SAYS_LEFT_OUT.get(x);
   if (!re) {
     const base = x.replace(/ /g, '[\\s-]+');
     const forms = /y$/.test(x) ? `${base.slice(0, -1)}(?:y|ies)` : `${base}(?:e?s)?`;
-    const word = ALLIUMS.has(x) ? `(?:${forms}|five pungent|pungent vegetables|alliums|osinchae)` : `(?:${forms})`;
-    const between = `${LIST_LEAD}(?:${LIST_ITEM}${LIST_SEP}${LIST_LEAD}){0,5}?`;
-    re = new RegExp(`\\b(?:no|without|excluding|excludes?|free of|free from|instead of|in place of|avoids?|omits?|leaves? out|left out|rules? out|replaces?|replacing|minus)[\\s-]+${between}${word}\\b${NOT_A_PART}`
-      + `|\\bnon[\\s-]+${word}\\b${NOT_A_PART}`
-      + `|\\b${word}[\\s-]?(?:free|less)\\b`
-      + `|\\b${word}\\b${NOT_A_PART}[^.;]{0,30}?\\b(?:left out|ruled out|omitted)\\b`, 'g');
+    const word = ALLIUMS.has(x) ? `(?:${forms}|five pungent|pungent vegetables|alliums?|osinchae)` : `(?:${forms})`;
+    const between = `(${LIST_LEAD}(?:${LIST_ITEM}${LIST_SEP}${LIST_LEAD}){0,5}?)`;
+    re = {
+      word,
+      all: new RegExp(`\\b(?:no|without|excluding|excludes?|free of|free from|instead of|in place of|avoids?|omits?|leaves? out|left out|rules? out|replaces?|replacing|minus)[\\s-]+${between}${word}\\b${NOT_A_PART}`
+        + `|\\bnon[\\s-]+${word}\\b${NOT_A_PART}`
+        + `|\\b${word}(?:[\\s-]?free|-?less)\\b(?!\\s+(?:of charge|refills?|for)\\b)`
+        // ("dairy- and egg-free", "egg, milk and butter free".)
+        + `|\\b${word}-?(?:\\s*,\\s*|\\s+(?:and|or)\\s+)(?:[a-z]+-?(?:\\s*,\\s*|\\s+(?:and|or)\\s+)){0,3}[a-z]+[\\s-]free\\b(?!\\s+(?:of charge|refills?|for)\\b)`
+        + `|\\b${word}\\b${NOT_A_PART}(?:(?!\\bbut\\b|\\bthough\\b)[^.;,]){0,30}?\\b(?:left out|left off|ruled out|omitted)\\b`
+        // ("…come with egg, and the chef leaves it out", "a fried egg is offered
+        // …, so say you want it without", "both contain milk, so ask for them to
+        // be left off": the ingredient is in the dish the pronoun stands for —
+        // not "the spicy makguksu … ask for them without the egg".)
+        + `|(?:\\b(?:with|contains?|comes? with|includes?|topped with)\\s+(?:(?:a|an|the|some)\\s+)?(?:[a-z]+\\s+)?${word}\\b${NOT_A_PART}|\\b${word}\\b${NOT_A_PART}\\s+(?:is|are)\\s+(?:offered|added|served|included|put))[^.;]{0,80}?\\b(?:leaves? it out|left (?:it|them) (?:out|off)|(?:want|ask for) (?:it|them) without\\b|(?:it|them) to be left (?:out|off))`, 'g'),
+      madeWith: new RegExp(`\\b(?:made|sweetened|baked|cooked|filled)\\s+(?:with|from)\\s+(?!no\\b|without\\b)(?:(?!\\bwithout\\b|\\bno\\b|\\binstead of\\b)[^.;,]){0,60}\\b${word}\\b`),
+    };
     SAYS_LEFT_OUT.set(x, re);
   }
   if (typeof text !== 'string') return false;
   const t = fold(text);
-  re.lastIndex = 0;
-  for (let m = re.exec(t); m; m = re.exec(t)) {
-    const before = t.slice(0, m.index).split(/[.;:!?]/).at(-1);
-    if (!/\b(?:you|i|we)\s+(?:eat|do not eat|don't eat)\s*$|\bask (?:whether|if|which)\b/.test(before)) return true;
+  re.all.lastIndex = 0;
+  for (let m = re.all.exec(t); m; m = re.all.exec(t)) {
+    const start = t.lastIndexOf('.', m.index) + 1;
+    const before = t.slice(start, m.index).split(/[;:!?]/).at(-1);
+    if (NOT_THE_KITCHEN.test(before)) continue;
+    if (m[1] !== undefined && COVERED_BY_BEFORE.test(m[1])) continue;
+    // ("There is no English menu, eggs and spam come on top": past the comma
+    // a new clause began.)
+    if (m[1] && /,\s*$/.test(m[1]) && /^\s*(?:and\s+[a-z]+\s+)?(?:is|are|was|were|comes?|came|sits?|goes?|go)\b/.test(t.slice(m.index + m[0].length))) continue;
+    const endAt = t.slice(m.index).search(/[.;!?]/);
+    const sentence = t.slice(start, endAt < 0 ? t.length : m.index + endAt);
+    if (re.madeWith.test(sentence)) continue;
+    return true;
   }
   return false;
 }
+export { saysLeftOut };
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
   const q = squash(query);
@@ -553,6 +669,18 @@ function searchCore(r, rawQuery) {
   const halal = r.dietary?.halal;
   const fields = [r.name, r.vibe, r.zone, r.address?.value,
     halal && halal.confidence !== 'unknown' ? halal.value : null];
+  // An ingredient asked to be left out ("vegetarian no egg", "fish and egg
+  // free", "no oyster"): the places whose text says so, and the rest of the
+  // search asked word by word of the name, area, address and story. (A place
+  // called so still answers: "No Brand Burger".)
+  const asked = leftOutQuery(rawQuery);
+  if (asked.items.length > 0) {
+    if (startsWord(r.name, q)) return true;
+    const text = [...fields, r.story].filter(f => typeof f === 'string').join(' ');
+    if (!asked.items.every(x => saysLeftOut(text, x))) return false;
+    const rest = dietPairs(asked.rest.filter(w => !REST_STOP.test(w))).filter(w => w.length >= 2 || ONE_SYLLABLE_FOOD.has(w));
+    return rest.every(w => wordMatch(r, w, text));
+  }
   if (fields.some(f => startsWord(f, q))) return true;
   // The address in Korean, by its own words ("용산구", "이태원로"): see koAddressHas.
   if (koAddressHas(r, q)) return true;
@@ -575,9 +703,7 @@ function searchCore(r, rawQuery) {
   // was every vegan place, 521 of them, with the 빵 thrown away.)
   // Only beside words the map knows (a diet, an area, a kind of place): next to
   // any other word it is set aside as before.
-  // (An ingredient asked to be left out is a question of its own: below.)
-  const { out: leftOutAsked, rest: restOfSearch } = leftOutPairs(dietPairs(spaced));
-  const paired = restOfSearch;
+  const paired = dietPairs(spaced);
   const isDiet = (w) => Object.hasOwn(DIET_WORDS, w) || PORK_FREE_WORDS.has(w);
   // …or beside an area or a kind of place as well: "이태원 빵", "비건 빵 카페".
   const known = (w) => isDiet(w) || AREA_WORDS.has(squash(w)) || COOKING.has(w.toLowerCase());
@@ -585,11 +711,8 @@ function searchCore(r, rawQuery) {
   // Words of one letter are dropped, not required: "busan v" (mid-typing)
   // and "제주도" (split into Jeju + 도) are then judged on what is left.
   const haystack = [...fields, r.story].filter(f => typeof f === 'string').join(' ');
-  if (leftOutAsked.length > 0 && !leftOutAsked.every(x => saysLeftOut(haystack, x))) return false;
-  if (words.length === 0) return leftOutAsked.length > 0;
-  // (Beside an ingredient left out, the one word left is asked of the story
-  // too: "bibimbap no egg" is the places whose story says so.)
-  if (words.length === 1 && leftOutAsked.length === 0) {
+  if (words.length === 0) return false;
+  if (words.length === 1) {
     // A single remaining word that the whole-query check above did not
     // match can only match here if the query had dropped words.
     const dropped = String(query).trim().split(/\s+/).length > 1;
@@ -608,11 +731,17 @@ function searchCore(r, rawQuery) {
   // So is a diet word: "hongdae halal" listed six vegan bakeries with no
   // halal reading at all, for a "halal" in their stories ("not halal",
   // "no halal claim"). A name with the word in it still counts.
-  return words.every(w => (PORK_FREE_WORDS.has(w) ? dietWordMatch(r, w)
-    : Object.hasOwn(DIET_WORDS, w) ? dietWordMatch(r, w) || startsWord(r.name, w)
-    : AREA_WORDS.has(squash(w)) ? inAreaOrName(r, w)
-      : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w)));
+  return words.every(w => wordMatch(r, w, haystack));
 }
+// One word of a search of several, asked of a place.
+function wordMatch(r, w, haystack) {
+  return PORK_FREE_WORDS.has(w) ? dietWordMatch(r, w)
+    : Object.hasOwn(DIET_WORDS, w) ? dietWordMatch(r, w) || startsWord(r.name, w)
+      : AREA_WORDS.has(squash(w)) ? inAreaOrName(r, w)
+        : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w);
+}
+// Words said around a question that ask nothing of a place.
+const REST_STOP = /^(?:please|pls|plz|thanks|thank|you)$/;
 const AREA_WORDS = new Set(Object.keys(AREA_NAMES).map(name => squash(name)));
 const AREA_KEYS = new Set(Object.keys(AREA_NAMES).map(name => name.toLowerCase()));
 // …and in Korean (the first written form of each): see koAddressHas.
@@ -680,6 +809,10 @@ export function matchesSearch(r, query) {
   if (searchCore(r, query)) return true;
   const roman = romanOf(query);
   if (roman === null) return false;
+  // Not a reading that loses what is left out: "no egg or fish" read as "no
+  // egg fish" asked only that fish be named.
+  const asked = leftOutQuery(query).items;
+  if (asked.length > 0 && leftOutQuery(roman).items.join('|') !== asked.join('|')) return false;
   if (searchCore(r, roman)) return true;
   // Once more: "gimbap" is also written "kimbap" in the records, and that
   // second spelling was tried for "gimbap" as typed but not for "gimbap"
