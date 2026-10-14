@@ -307,13 +307,13 @@ export function openAllWeek(hoursFact) {
 /**
  * Whether the source's own words name days off that the week cannot hold:
  * "closed the 1st and 3rd Wednesday of every month", "closed on Seollal and
- * Chuseok", "closed on public holidays", "occasional temporary closures" —
- * thirty-three places, some shown as "Every day".
+ * Chuseok", "closed on public holidays", "one-off closures", "hours may
+ * change" — some of these places are shown as "Every day".
  */
 export function closesOtherDays(hoursFact) {
   if (!isKnown(hoursFact)) return false;
   const raw = String(hoursFact.value?.raw ?? '');
-  return /closed (?:on |the |every )?(?:1st|2nd|3rd|4th|first|second|third|fourth|last|every other|alternate|public holidays|national holidays|traditional|on traditional|the day before|seollal|chuseok|lunar|1 jan|holidays)|closes? (?:on )?(?:public|national) holidays|격주|명절|irregular|occasional/i.test(raw);
+  return /closed (?:on |the |every |around |also )?(?:1st|2nd|3rd|4th|first|second|third|fourth|last|every other|alternate|public holidays|national holidays|traditional|on traditional|the day before|seollal|chuseok|lunar|new year|1 jan|\d|holidays)|closes? (?:on )?(?:public|national) holidays|closures|closing days may|one-off|hours may change|may change|marks [^;]{0,40}closed|격주|명절|irregular|occasional/i.test(raw);
 }
 
 /** True only when today (in Korea) is recorded as a day off. */

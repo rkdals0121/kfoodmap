@@ -364,7 +364,7 @@ export default {
     lastChecked: '페이지 최근 확인',
     notRecorded: '기록 없음',
     everyDay: '매일',
-    weekExceptions: '출처에는 명절처럼 쉬는 날도 따로 적혀 있어요. 가기 전에 확인해 주세요.',
+    weekExceptions: '출처에는 이 밖에 쉬는 날이나 바뀌는 시간도 적혀 있어요. 가기 전에 확인해 주세요.',
     dayRange: '{{from}}부터 {{to}}까지',
     never: '없음',
     suggestEdit: '틀린 곳이 있나요?',
