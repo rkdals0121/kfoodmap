@@ -239,6 +239,9 @@ const DIET_WORDS = {
   'халяль': 'Halal', 'халал': 'Halal', 'ҳалол': 'Halal', halol: 'Halal', 'हलाल': 'Halal', 'হালাল': 'Halal',
   'веган': 'Vegan', 'วีแกน': 'Vegan', 'มังสวิรัติ': 'Vegan', vegano: 'Vegan', vegana: 'Vegan', vegane: 'Vegan', veganisch: 'Vegan',
   vegetalien: 'Vegan', 'نباتي': 'Vegan', thuanchay: 'Vegan',
+  // "Pure veg" is how India says vegetarian (no meat, fish or egg): word by
+  // word it was Pureun Deli. Hindi too.
+  pureveg: 'Vegan', purevegetarian: 'Vegan', 'शाकाहारी': 'Vegan',
   // "Muslim-friendly" is what Korean tourism lists call these places.
   // The labels on the cards and chips, as written there: typed back, they
   // found nothing ("完全ヴィーガン", "vegan sepenuhnya", "全素": 0 places).
