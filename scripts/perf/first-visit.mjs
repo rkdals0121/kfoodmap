@@ -1,12 +1,19 @@
 // A first visit on a slow phone connection (1.6 Mbps, 150 ms; set rate: 4 below for a slow processor too):
 // when the welcome screen mounts, the largest paint, layout shift, and each file's start and end.
-import { spawn } from 'node:child_process';
-import { mkdtempSync } from 'node:fs';
+import { spawn, spawnSync } from 'node:child_process';
+import { mkdtempSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 const url = process.argv[2];
+// (Its own browser folder, deleted when done: left behind, they piled up.)
+// …and any an earlier run could not delete (a helper held it a few seconds
+// longer), once it is ten minutes old.
+for (const old of readdirSync(tmpdir()).filter(n => n.startsWith('kfm-perf-'))) {
+  try { if (Date.now() - statSync(join(tmpdir(), old)).mtimeMs > 10 * 60 * 1000) rmSync(join(tmpdir(), old), { recursive: true, force: true }); } catch { /* still held, or gone */ }
+}
+const profile = mkdtempSync(join(tmpdir(), 'kfm-perf-'));
 const port = 9800 + (process.pid % 100);
-const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', ['--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'kfm-perf-'))}`, '--no-first-run', '--disable-gpu', 'about:blank'], { stdio: 'ignore' });
+const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', ['--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, '--no-first-run', '--disable-gpu', 'about:blank'], { stdio: 'ignore' });
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 let target;
 for (let i = 0; i < 50 && !target; i++) { await sleep(200); try { target = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find(t => t.type === 'page'); } catch { /* not yet */ } }
@@ -31,4 +38,12 @@ const v = (await send('Runtime.evaluate', { expression: `JSON.stringify({lcp:Mat
 console.log(url, v);
 console.log('transferred kB', Math.round(bytes / 1024), Object.fromEntries(Object.entries(byType).map(([k, n]) => [k, Math.round(n / 1024)])));
 console.log([...reqs.values()].filter(r => r.size > 40000).sort((a, b) => b.size - a.size).slice(0, 10).map(r => `${Math.round(r.size / 1024)}kB ${r.url.split('/').pop().slice(0, 50)}`).join('\n'));
-ws.close(); chrome.kill(); process.exit(0);
+await Promise.race([send('Browser.close'), sleep(3000)]);
+ws.close();
+if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(chrome.pid), '/T', '/F'], { stdio: 'ignore', timeout: 5000, windowsHide: true }); else chrome.kill();
+// (A helper of the browser can hold the folder: ended by the folder's name, as shot.mjs does.)
+for (let tries = 0; tries < 6 && existsSync(profile); tries++) {
+  if (tries > 0) await sleep(1000);
+  if (tries === 1 && process.platform === 'win32') spawnSync('powershell', ['-NoProfile', '-NonInteractive', '-Command', `Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -like '*${profile.split(/[\\/]/).pop()}*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }`], { stdio: 'ignore', timeout: 15000, windowsHide: true });
+  try { rmSync(profile, { recursive: true, force: true }); } catch { /* still held */ } }
+process.exit(0);
