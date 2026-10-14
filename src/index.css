@@ -7598,3 +7598,6 @@ html[lang='id'] .stat-label {
 html[data-text] .plan-row {
   font-size: calc(13px * var(--text-zoom, 1));
 }
+html[data-text] .plan-row .plan-row__tz {
+  font-size: calc(12px * var(--text-zoom, 1));
+}

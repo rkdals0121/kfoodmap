@@ -98,21 +98,13 @@ const browse = () => browseCache ?? (browseCache = CHIP_GROUPS.flatMap(g => g.ch
       .sort((a, b) => b.count - a.count),
   }))
   .map(({ chip, areas }) => ({ chip, areas: withCities(areas) })));
-// The twelve with most places, but every city among them: Seoul's own
-// neighbourhoods took half the row, and Jeju (4 halal places) and Incheon
-// had no way in from Discover (walk-through, 2026-10-15). A city left out
-// takes the place of the last neighbourhood.
+// The twelve with most places, and after them every city they left out:
+// Seoul's own neighbourhoods took half the row, and Jeju (4 halal places)
+// and Incheon had no way in from Discover (walk-through, 2026-10-15). (Not
+// in place of the neighbourhoods: in the vegan row the cities alone filled
+// it, and Hongdae and Itaewon were gone.)
 const CITIES = new Set(['Seoul', 'Busan', 'Incheon', 'Daegu', 'Daejeon', 'Gwangju', 'Ulsan', 'Jeju', 'Seogwipo', 'Suwon', 'Jeonju', 'Gyeongju', 'Gangneung']);
-function withCities(areas) {
-  const kept = areas.slice(0, BROWSE_MAX);
-  for (const city of areas.slice(BROWSE_MAX).filter(a => CITIES.has(a.area))) {
-    const at = kept.map(a => CITIES.has(a.area)).lastIndexOf(false);
-    if (at < 0) break;
-    kept.splice(at, 1);
-    kept.push(city);
-  }
-  return kept.sort((a, b) => b.count - a.count);
-}
+const withCities = (areas) => [...areas.slice(0, BROWSE_MAX), ...areas.slice(BROWSE_MAX).filter(a => CITIES.has(a.area))];
 
 // Where the reader was in Discover, for this visit: which journeys were
 // open and how far down. "Show on the map" and Back used to return to the
