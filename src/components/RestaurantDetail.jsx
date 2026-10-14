@@ -933,6 +933,10 @@ export default function RestaurantDetail({
                   what to ask about. The list says so above its cards; a place
                   opened from a link, or read on its own, did not. */}
               {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && <p className="diet-note__mixed">{t(place.category === 'brunch-bakery' ? 'detail.veganOptionsAskBakery' : place.category === 'world-halal' ? 'detail.veganOptionsAskWorld' : 'detail.veganOptionsAsk')}</p>}
+              {/* A gluten-free or allergen word in the text is the source's, and the
+                  caution about it stood only over search results (walk-through as a
+                  coeliac, 2026-10-14): said where the claim is read. */}
+              {/gluten|allerg|c(?:o)?eliac|nut[- ]free|dairy[- ]free|lactose/i.test([place.vibe, place.story, place.esg_point].filter(x => typeof x === 'string').join(' ')) && <p className="diet-note__mixed">{t('detail.allergenNote')}</p>}
               {/* "Ask staff" needs a way to ask: the Korean cards, on the
                   visitor's own card if they chose one, else the card that
                   fits this place's claims. */}

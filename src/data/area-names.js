@@ -80,7 +80,9 @@ const ALSO_NAMED = {
   Gimpo: ['金浦', 'キンポ'],
   Hannam: ['漢南洞', '汉南洞'],
   Konkuk: ['建大', '建国大学', '建國大學'],
-  'gluten free': ['グルテンフリー', '无麸质', '無麩質', '글루텐프리'],
+  // (…and what a coeliac types: the disease, "no wheat", "non-gluten" — 0
+  // places, where the gluten-free ones are what is asked for.)
+  'gluten free': ['グルテンフリー', '无麸质', '無麩質', '글루텐프리', 'ノングルテン', 'グルテンなし', 'グルテン不使用', '小麦なし', '小麦不使用', '小麦粉不使用', 'セリアック', 'セリアック病', 'celiac', 'coeliac', '셀리악', '셀리악병', '밀가루없는', '글루텐없는', '无麸质的', '不含麸质', '不含麩質'],
   // Cities, in the letters their names are written in.
   Chuncheon: ['春川', 'チュンチョン'],
   Sokcho: ['束草', 'ソクチョ'],
@@ -197,7 +199,7 @@ const LATIN_VARIANTS = new Map(Object.entries({
   '사찰': 'temple', '절밥': 'temple', '절음식': 'temple', '斋饭': 'temple', '素斋': 'temple', '齋飯': 'temple', '素齋': 'temple',
   '自助': 'buffet', prasmanan: 'buffet', '무한리필': 'buffet', '食べ放題': 'buffet', '吃到饱': 'buffet', '吃到飽': 'buffet',
   '意面': 'pasta', '意大利面': 'pasta', '麺': 'noodle', '麵': 'noodle', '面': 'noodle', 'お茶': 'tea', '茶': 'tea', '와인': 'wine', '맥주': 'beer',
-  '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free',
+  '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free', 'グルテン': 'gluten', '米粉': 'rice flour', '米粉パン': 'rice bread', '쌀빵': 'rice bread',
   bibimbab: 'bibimbap', tteokboki: 'tteokbokki', tteokbokgi: 'tteokbokki', bulgoki: 'bulgogi', gimchi: 'kimchi',
   iteawon: 'Itaewon', '이테원': 'Itaewon', '이태완': 'Itaewon',
   kimbap: 'gimbap',

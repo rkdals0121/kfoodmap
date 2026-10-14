@@ -449,33 +449,69 @@ const ONE_SYLLABLE_FOOD = new Set(['빵', '죽', '떡', '탕', '찜', '쌈', '�
 // a word starting "no" and one starting "egg" — those that serve egg, and
 // those with eggplant (walk-through, 2026-10-14). Such a pair is answered by
 // a text that says the ingredient is left out, never by one that names it.
-// (Not alcohol, pork or meat: those have answers of their own.)
-const LEFT_OUT = new Set(['egg', 'dairy', 'milk', 'gluten', 'wheat', 'nut', 'peanut', 'soy', 'onion', 'garlic', 'sugar', 'lactose', 'msg', 'sesame', 'shellfish', 'fish', 'seafood', 'honey', 'butter', 'cheese', 'gelatin', 'chive', 'leek', 'scallion']);
+// (Not alcohol, pork or meat: those have answers of their own.) A sauce or a
+// stock is a thing of its own: "no fish sauce" is not "no fish".
+const LEFT_OUT = new Set(['egg', 'dairy', 'milk', 'gluten', 'wheat', 'nut', 'peanut', 'soy', 'onion', 'garlic', 'sugar', 'lactose', 'msg', 'sesame', 'shellfish', 'fish', 'seafood', 'honey', 'butter', 'cheese', 'gelatin', 'chive', 'leek', 'scallion',
+  'beef', 'chicken', 'shrimp', 'anchovy', 'ghee', 'cream', 'mayo', 'mayonnaise', 'mushroom', 'tofu', 'kimchi',
+  'fish sauce', 'soy sauce', 'oyster sauce', 'fish stock', 'anchovy stock', 'meat stock']);
 const ALLIUMS = new Set(['onion', 'garlic', 'chive', 'leek', 'scallion']);
-const stemOf = (w) => (LEFT_OUT.has(w) ? w : LEFT_OUT.has(w.replace(/e?s$/, '')) ? w.replace(/e?s$/, '') : null);
+const stemOf = (w) => [w, w.replace(/s$/, ''), w.replace(/es$/, ''), w.replace(/ies$/, 'y')].find(s => LEFT_OUT.has(s)) ?? null;
 function leftOutPairs(words) {
   const out = [];
   const rest = [];
+  // The ingredient at i: two words that are one ("fish sauce"), or one word.
+  const at = (i) => {
+    const two = i + 1 < words.length ? stemOf(`${words[i]} ${words[i + 1]}`) : null;
+    if (two) return [two, 2];
+    const one = i < words.length ? stemOf(words[i]) : null;
+    return one ? [one, 1] : null;
+  };
   for (let i = 0; i < words.length; i += 1) {
     const w = words[i];
-    const next = words[i + 1] ?? '';
-    const glued = /^([a-z]+?)(?:free|less)$/.exec(w);
-    if (/^(?:no|without|non)$/.test(w) && stemOf(next)) { out.push(stemOf(next)); i += 1; } else if (/^(?:free|less)$/.test(next) && stemOf(w)) { out.push(stemOf(w)); i += 1; } else if (glued && stemOf(glued[1])) out.push(stemOf(glued[1])); else rest.push(w);
+    // "nondairy", "noegg" (typed with a hyphen, read as one word), "eggless", "eggfree".
+    const glued = [/^non([a-z]+)$/, /^no([a-z]+)$/, /^([a-z]+?)(?:free|less)$/].map(re => re.exec(w)?.[1]).find(x => x && stemOf(x));
+    const after = /^(?:no|without|non)$/.test(w) ? at(i + 1) : null;
+    const here = after ? null : at(i);
+    if (after) {
+      out.push(after[0]);
+      i += after[1];
+    } else if (here && /^(?:free|less)$/.test(words[i + here[1]] ?? '')) {
+      out.push(here[0]);
+      i += here[1];
+    } else if (glued) out.push(stemOf(glued));
+    else rest.push(w);
   }
   return { out, rest };
 }
 const SAYS_LEFT_OUT = new Map();
 // The text says it is left out: "no eggs", "no meat, fish, eggs or dairy",
-// "egg-free", "eggless", "without onion"; for an onion or garlic, "excluding
-// the five pungent alliums" too.
+// "egg-free", "eggless", "without onion", "leave out the egg", "egg and ham
+// are left out"; for an onion or garlic, "excluding the five pungent alliums"
+// too. Not "no fish sauce" for fish, nor "without white sugar" for sugar (raw
+// sugar is sugar still), nor what a visitor is told to say: "tell the staff
+// you eat no meat, fish or egg" is the visitor's diet, not the kitchen's, and
+// "ask whether it is made without fish stock" is a question.
+const NOT_A_PART = '(?![\\s-]+(?:sauce|stock|broth|cake|paste|oil|ball|powder)s?\\b)';
 function saysLeftOut(text, x) {
   let re = SAYS_LEFT_OUT.get(x);
   if (!re) {
-    const word = ALLIUMS.has(x) ? `(?:${x}(?:e?s)?|five pungent|pungent vegetables|alliums|osinchae)` : `${x}(?:e?s)?`;
-    re = new RegExp(`\\b(?:no|without|excluding|excludes?|free of|free from|instead of|in place of|non|avoids?|omits?)[\\s-]+(?:[a-z]+[\\s,-]+){0,3}?${word}\\b|\\b${word}[\\s-]?(?:free|less)\\b`);
+    const base = x.replace(/ /g, '[\\s-]+');
+    const forms = /y$/.test(x) ? `${base.slice(0, -1)}(?:y|ies)` : `${base}(?:e?s)?`;
+    const word = ALLIUMS.has(x) ? `(?:${forms}|five pungent|pungent vegetables|alliums|osinchae)` : `(?:${forms})`;
+    const between = '(?:(?!white\\b|refined\\b|raw\\b|brown\\b)[a-z]+[\\s,-]+){0,5}?';
+    re = new RegExp(`\\b(?:no|without|excluding|excludes?|free of|free from|instead of|in place of|non|avoids?|omits?|leaves? out|left out|rules? out|replaces?|replacing|minus)[\\s-]+${between}${word}\\b${NOT_A_PART}`
+      + `|\\b${word}[\\s-]?(?:free|less)\\b`
+      + `|\\b${word}\\b${NOT_A_PART}[^.;]{0,30}?\\b(?:left out|ruled out|omitted)\\b`, 'g');
     SAYS_LEFT_OUT.set(x, re);
   }
-  return typeof text === 'string' && re.test(fold(text));
+  if (typeof text !== 'string') return false;
+  const t = fold(text);
+  re.lastIndex = 0;
+  for (let m = re.exec(t); m; m = re.exec(t)) {
+    const before = t.slice(0, m.index).split(/[.;:!?]/).at(-1);
+    if (!/\b(?:you|i|we)\s+(?:eat|do not eat|don't eat)\s*$|\bask (?:whether|if|which)\b/.test(before)) return true;
+  }
+  return false;
 }
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
@@ -539,10 +575,12 @@ function searchCore(r, rawQuery) {
   const haystack = [...fields, r.story].filter(f => typeof f === 'string').join(' ');
   if (leftOutAsked.length > 0 && !leftOutAsked.every(x => saysLeftOut(haystack, x))) return false;
   if (words.length === 0) return leftOutAsked.length > 0;
-  if (words.length === 1) {
+  // (Beside an ingredient left out, the one word left is asked of the story
+  // too: "bibimbap no egg" is the places whose story says so.)
+  if (words.length === 1 && leftOutAsked.length === 0) {
     // A single remaining word that the whole-query check above did not
     // match can only match here if the query had dropped words.
-    const dropped = String(query).trim().split(/\s+/).length > 1 || leftOutAsked.length > 0;
+    const dropped = String(query).trim().split(/\s+/).length > 1;
     // …read as it would be alone: "busan v" is "busan", an area, not
     // every place with a Busan in its description.
     if (!dropped) return false;

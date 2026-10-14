@@ -101,6 +101,30 @@ export const STAFF_CARDS = [
       { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'muslimQ9' },
     ],
   },
+  // For a coeliac, or anyone who cannot eat wheat: "gluten" is not an everyday
+  // word in a Korean kitchen, and the wheat that matters is in the soy sauce,
+  // the chilli and soybean pastes, the batter, and the oil and water shared
+  // with wheat foods (walk-through, 2026-10-14). No disease is named: the
+  // card says what the visitor cannot eat.
+  {
+    id: 'wheat',
+    labelKey: 'cards.wheatLabel',
+    statement: [
+      { ko: '안녕하세요. 저는 건강상의 이유로 글루텐(밀, 보리, 호밀)⁠이 들어간 음식을 먹을 수 없습니다.', roman: 'Annyeonghaseyo. Jeoneun geongangsangui iyuro geulluten (mil, bori, homil) i deureogan eumsigeul meogeul su eopseumnida.', key: 'wheatS1' },
+      { ko: '간장, 고추장, 된장, 튀김옷, 부침가루에 든 밀도 먹을 수 없습니다.', roman: 'Ganjang, gochujang, doenjang, twigimot, buchimgarue deun mildo meogeul su eopseumnida.', key: 'wheatS2' },
+      { ko: '조금이라도 들어가면 안 되고, 밀가루 음식과 같은 기름이나 물로 조리한 음식도 먹을 수 없습니다.', roman: 'Jogeumirado deureogamyeon an doego, milgaru eumsikgwa gateun gireumina mullo jorihan eumsikdo meogeul su eopseumnida.', key: 'wheatS3' },
+      { ko: '제가 먹을 수 있는 메뉴가 있을까요?', roman: 'Jega meogeul su inneun menyuga isseulkkayo?', key: 'wheatS4' },
+    ],
+    questions: [
+      { ko: '이 음식에 밀가루가 들어가나요?', roman: 'I eumsige milgaruga deureoganayo?', key: 'wheatQ1' },
+      { ko: '간장, 고추장, 된장을 쓰나요?', roman: 'Ganjang, gochujang, doenjangeul sseunayo?', key: 'wheatQ2' },
+      { ko: '튀김옷이나 부침가루를 쓰나요?', roman: 'Twigimosina buchimgarureul sseunayo?', key: 'wheatQ3' },
+      { ko: '튀김 기름이나 면 삶는 물을 밀가루 음식과 같이 쓰나요?', roman: 'Twigim gireumina myeon salmneun mureul milgaru eumsikgwa gachi sseunayo?', key: 'wheatQ4' },
+      { ko: '보리(보리차 포함)⁠가 들어가나요?', roman: 'Bori (boricha poham) ga deureoganayo?', key: 'wheatQ5' },
+      { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'wheatQ6' },
+      { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'wheatQ7' },
+    ],
+  },
 ];
 
 // What staff are likely to answer, so the visitor can read the reply.
@@ -135,6 +159,11 @@ export const MENU_WORDS = [
   { ko: '맛술 / 미림', roman: 'matsul / mirim', key: 'word11', only: 'muslim' },
   { ko: '청주', roman: 'cheongju', key: 'word12', only: 'muslim' },
   { ko: '젤라틴', roman: 'jellatin', key: 'word13' },
+  { ko: '밀가루 / 소맥분', roman: 'milgaru / somaekbun', key: 'word14', only: 'wheat' },
+  { ko: '간장', roman: 'ganjang', key: 'word15', only: 'wheat' },
+  { ko: '고추장 / 된장', roman: 'gochujang / doenjang', key: 'word16', only: 'wheat' },
+  { ko: '부침가루 / 튀김가루', roman: 'buchimgaru / twigimgaru', key: 'word17', only: 'wheat' },
+  { ko: '보리', roman: 'bori', key: 'word18', only: 'wheat' },
 ];
 
 export const cardById = (id) => STAFF_CARDS.find(c => c.id === id) ?? STAFF_CARDS[0];
@@ -168,11 +197,21 @@ export const CARD_EXTRAS = [
     statement: { ko: '오신채(마늘, 파, 부추, 달래, 양파)⁠도 먹지 않습니다.', roman: 'Osinchae (maneul, pa, buchu, dallae, yangpa) do meokji anseumnida.', key: 'extraNoPungent' },
   },
   {
+    id: 'wheat',
+    labelKey: 'cards.noWheat',
+    cards: ['vegan', 'vegetarian', 'muslim'],
+    statement: { ko: '글루텐(밀, 보리, 호밀)⁠이 들어간 음식도 먹을 수 없습니다. 간장, 고추장, 된장에 든 밀도 안 됩니다.', roman: 'Geulluten (mil, bori, homil) i deureogan eumsikdo meogeul su eopseumnida. Ganjang, gochujang, doenjange deun mildo an doemnida.', key: 'extraNoWheat' },
+    questions: [{ ko: '이 음식에 밀가루나 간장, 고추장, 된장이 들어가나요?', roman: 'I eumsige milgaruna ganjang, gochujang, doenjangi deureoganayo?', key: 'extraQWheat' }],
+    words: ['word14', 'word15', 'word16', 'word17', 'word18'],
+  },
+  {
     id: 'roots',
     labelKey: 'cards.noRoots',
     cards: ['vegan', 'vegetarian'],
-    statement: { ko: '감자, 고구마, 당근, 무 같은 뿌리채소도 먹지 않습니다.', roman: 'Gamja, goguma, danggeun, mu gateun ppurichaesodo meokji anseumnida.', key: 'extraNoRoots' },
-    questions: [{ ko: '감자, 고구마, 당근, 무 같은 뿌리채소가 들어가나요?', roman: 'Gamja, goguma, danggeun, mu gateun ppurichaesoga deureoganayo?', key: 'extraQRoots' }],
+    // (Ginger, lotus root and burdock by name: a Korean kitchen does not think of
+    // 생강 in kimchi, or 연근 and 우엉 among the side dishes, as root vegetables.)
+    statement: { ko: '감자, 고구마, 당근, 무, 생강, 연근, 우엉 같은 뿌리채소도 먹지 않습니다.', roman: 'Gamja, goguma, danggeun, mu, saenggang, yeongeun, ueong gateun ppurichaesodo meokji anseumnida.', key: 'extraNoRoots' },
+    questions: [{ ko: '감자, 고구마, 당근, 무, 생강, 연근, 우엉 같은 뿌리채소가 들어가나요?', roman: 'Gamja, goguma, danggeun, mu, saenggang, yeongeun, ueong gateun ppurichaesoga deureoganayo?', key: 'extraQRoots' }],
   },
 ];
 
@@ -182,8 +221,11 @@ export const CARD_EXTRAS = [
 // which is a vegetarian who does eat egg.
 const ASKED = {
   egg: /\b(?:no|without|not)\s+eggs?\b|\beggless\b|\beggs?[- ]?free\b|\bjain|(?:달걀|계란)\s*(?:없|빼|안)|无蛋|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|卵(?:なし|抜き|を?食べない)|tanpa telur/i,
-  pungent: /\bjain|\b(?:no|without)\s+(?:onions?|garlic)\b|\bfive pungent|오신채|(?:마늘|양파)\s*(?:없|빼|안)|五辛|五葷|不吃(?:葱|蔥)蒜|にんにく(?:なし|抜き)|tanpa bawang/i,
+  // (Both, or the five by name: "no onion" alone does not say no chives.)
+  pungent: /\bjain|\bfive pungent|오신채|五辛|五葷|\bonions?\b.*\bgarlic|\bgarlic\b.*\bonions?\b|(?:마늘.*양파|양파.*마늘)|不吃(?:葱|蔥)蒜|tanpa bawang/i,
   roots: /\bjain|\broot vegetables?\b|뿌리\s*채소|根菜|根茎|根莖|umbi/i,
+
+  wheat: /gluten|c(?:o)?eliac|\bwheat|글루텐|셀리악|밀가루|グルテン|セリアック|小麦|麸质|麩質|gandum/i,
 };
 export const extrasAsked = (text) => Object.keys(ASKED).filter(id => ASKED[id].test(text ?? ''));
 

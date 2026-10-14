@@ -86,3 +86,18 @@ test('a search that leaves something out opens the card that says so', () => {
   assert.deepEqual(extrasAsked('eggplant'), []);
   assert.deepEqual(extrasAsked('vegan'), []);
 });
+
+test('someone who cannot eat wheat has a card, and the other cards can say it too', () => {
+  const wheat = cardById('wheat');
+  assert.equal(wheat.id, 'wheat');
+  // The wheat that matters in a Korean kitchen is in the sauces and pastes.
+  assert.ok(wheat.statement.some(l => /간장/.test(l.ko) && /고추장/.test(l.ko) && /된장/.test(l.ko)));
+  assert.ok(wheat.questions.some(l => /기름/.test(l.ko) && /물/.test(l.ko)));
+  const veg = cardLines(cardById('vegetarian'), ['wheat']);
+  assert.ok(veg.statement.some(l => l.key === 'extraNoWheat') && veg.words.has('word15'));
+  assert.deepEqual(extrasFor('muslim', ['wheat', 'egg']), ['wheat']);
+  assert.deepEqual(extrasFor('wheat', ['wheat', 'egg', 'roots']), []);
+  assert.ok(extrasAsked('gluten free').includes('wheat'));
+  assert.ok(extrasAsked('セリアック').includes('wheat'));
+  assert.ok(!extrasAsked('vegan').includes('wheat'));
+});

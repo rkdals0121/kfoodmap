@@ -19,8 +19,11 @@ export default function StaffCardSheet({ initialCard, initialExtras, onClose, on
   const sheetRef = useRef(null);
   const [cardId, setCardId] = useState(() => cardById(initialCard).id);
   // "No egg", "no onion or garlic", "no root vegetables": lines the visitor
-  // adds to the card.
-  const [extras, setExtras] = useState(() => extrasFor(cardById(initialCard).id, initialExtras));
+  // adds to the card. All they chose, kept when another card is looked at
+  // (vegetarian + no egg → vegan → vegetarian still says no egg); each card
+  // shows those it offers.
+  const [wanted, setWanted] = useState(() => (initialExtras ?? []).filter(x => CARD_EXTRAS.some(e => e.id === x)));
+  const extras = extrasFor(cardId, wanted);
   // What is on the big screen: an array of Korean lines, or null.
   const [large, setLarge] = useState(null);
   const largeRef = useRef(null);
@@ -42,16 +45,15 @@ export default function StaffCardSheet({ initialCard, initialExtras, onClose, on
   useInertRoot(large !== null);
   // The address follows the card, so a reload or a shared link shows the
   // same one.
+  // What the visitor chooses (not what they were shown) is kept while the
+  // app is open: a place's link to the cards then opens their own card.
   const chooseCard = (id) => {
-    const kept = extrasFor(id, extras);
-    setCardId(id); setExtras(kept); onCardChange?.(id, kept);
+    setCardId(id); onCardChange?.(id, wanted); rememberCard(id, wanted);
   };
   const toggleExtra = (x) => {
-    const next = extrasFor(cardId, extras.includes(x) ? extras.filter(e => e !== x) : [...extras, x]);
-    setExtras(next); onCardChange?.(cardId, next);
+    const next = wanted.includes(x) ? wanted.filter(e => e !== x) : [...wanted, x];
+    setWanted(next); onCardChange?.(cardId, next); rememberCard(cardId, next);
   };
-  // Kept while the app is open: a place's link to the cards opens this one.
-  useEffect(() => { rememberCard(cardId, extras); }, [cardId, extras]);
 
   // The tab title names the page, as place pages do.
   useEffect(() => {

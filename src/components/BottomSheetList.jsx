@@ -60,7 +60,7 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // …and what is asked for by leaving something out: "no fish sauce" finds twelve
 // places, among them one whose note says its kimchi contains it; "not spicy"
 // finds thirteen that are. The words are found in the notes one by one.
-const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|五葷|오신채|\bjain|five pungent|root vegetables?|뿌리\s*채소|根菜|根茎|根莖|umbi-umbian|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|出汁|だし|ダシ|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
+const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|五葷|오신채|セリアック|셀리악|小麦|밀가루|グルテン|\bjain|five pungent|root vegetables?|뿌리\s*채소|根菜|根茎|根莖|umbi-umbian|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|出汁|だし|ダシ|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
 // (Not "no pork" / "pork-free" by itself: that is a level the records do
 // carry. Beside another such word — "no pork gluten free" — the note stands.)
 const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|bebas)\s+(?:daging\s+)?babi|\b(?:tidak|tak|gak|nggak|enggak)\s+(?:ada|pakai|pake|memakai|menggunakan|mengandung)\s+(?:daging\s+)?babi|\bnon[- ]?babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
@@ -251,9 +251,19 @@ export default function BottomSheetList({
   const typedKorean = i18n.language === 'ko' && /[가-힣]/.test(searchQuery);
   // "vegetarian no egg", "jain": the cards open on the card that says so.
   const askedOut = extrasAsked(searchQuery);
-  const cardsLink = (card) => (askedOut.length
-    ? `/cards?card=${card ?? (/vegan|비건|ヴィーガン|纯素|純素|素食主义|全素/i.test(searchQuery) ? 'vegan' : 'vegetarian')}&no=${askedOut.join(',')}`
-    : card ? `/cards?card=${card}` : '/cards');
+  // The card for the diet on screen: a chip first (Halal alone → the Muslim
+  // card, Vegan → the vegan one: the vegetarian card tells staff "I do eat
+  // eggs and dairy"), then the words typed; with nothing to go by none is
+  // named, and the cards choose as they always did.
+  const dietCard = activeFilters.includes('Halal') && !activeFilters.includes('Vegan') && !activeFilters.includes(FULLY_VEGAN) ? 'muslim'
+    : activeFilters.includes('Vegan') || activeFilters.includes(FULLY_VEGAN) || /vegan|비건|ヴィーガン|ビーガン|纯素|純素|全素/i.test(searchQuery) ? 'vegan'
+      : VEGETARIAN_TYPED.test(searchQuery) || askedOut.includes('egg') ? 'vegetarian'
+        : askedOut.includes('wheat') ? 'wheat' : null;
+  const cardsLink = (card) => {
+    const named = card ?? dietCard;
+    const q = [named ? `card=${named}` : '', askedOut.length ? `no=${askedOut.join(',')}` : ''].filter(Boolean).join('&');
+    return q ? `/cards?${q}` : '/cards';
+  };
   // Ordered from the reader while the map has not been moved by hand since
   // "My location" answered — and something listed is within reach of them
   // (a search for Busan made from Seoul is ordered from the map, as before).
