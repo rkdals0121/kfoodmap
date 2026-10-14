@@ -349,7 +349,8 @@ export default {
     menuNotAllVegan: 'ここにある料理がすべてヴィーガンというわけではありません。このお店は「ヴィーガン対応あり」です。',
     // On the page of a place with vegan options: what the list's note says, said there too.
     veganOptionsAsk: 'ヴィーガン専門店ではありません。魚醤、煮干しだし、卵が入っていないか尋ねてください。',
-    veganOptionsAskBakery: 'すべてがヴィーガンではありません。卵、バター、牛乳、はちみつが入っていないか尋ねてください。',
+    veganOptionsAskBakery: 'すべてがヴィーガンではありません。卵、バター、牛乳、はちみつが入っていないか尋ねてください。',
+    veganOptionsAskWorld: 'ヴィーガン専門店ではありません。バターやギー、クリーム、卵、肉のだしが入っていないか尋ねてください。',
     hoursUnknown: '営業時間不明 — お出かけ前にご確認ください',
     hoursUnknownToday: '本日の営業時間は記録がありません。ほかの曜日は下にあります',
     website: 'ウェブサイト',
