@@ -268,6 +268,31 @@ const onePart = (part) => {
 
 export const koStation = (name) => STATION_KO[name] ?? null;
 
+// The numbered lines in Japanese, Chinese and Indonesian, as the signs in the
+// stations write them ("4号線", "4号线", "4號線", "Jalur 4"; "釜山1号線").
+// Named lines (AREX, Suin-Bundang…) are left as the record writes them: no
+// official name of theirs is on record here, and none is guessed.
+const LINE_WORD = {
+  ja: (n, city) => `${city ? CITY_HAN[city] : ''}${n}号線`,
+  'zh-Hans': (n, city) => `${city ? CITY_HAN[city] : ''}${n}号线`,
+  'zh-Hant': (n, city) => `${city ? CITY_HAN[city] : ''}${n}號線`,
+  id: (n, city) => `Jalur ${n}${city ? ` ${city}` : ''}`,
+};
+const CITY_HAN = { Busan: '釜山', Daegu: '大邱', Incheon: '仁川', Gwangju: '光州', Daejeon: '大田' };
+/** A line as the reader's language writes it, or null (then the record's English). Every part, or none. */
+export function localLine(line, language) {
+  const word = LINE_WORD[language];
+  if (!word || typeof line !== 'string' || !line) return null;
+  const parts = line.split(' / ').map((part) => {
+    let m = part.match(/^(?:Seoul Subway )?Line (\d)$/);
+    if (m) return word(m[1]);
+    m = part.match(/^(Busan|Daegu|Incheon|Gwangju|Daejeon)(?: Metro)? Line (\d)$/);
+    return m ? word(m[2], m[1]) : null;
+  });
+  return parts.every(Boolean) ? parts.join(' · ') : null;
+}
+
+
 // One name for a station, however it is written: the records spell the same
 // station "Myeongdong" and "Myeong-dong", "Seoul Nat'l Univ." with either
 // apostrophe, "Culture Complex (Munhwa Jeondang)" with and without its

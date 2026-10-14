@@ -5653,6 +5653,12 @@ html[data-text] .toast > * {
   align-self: flex-start;
   font-size: 13px;
 }
+/* Under "Hours for the week" both lines keep their 44 px to press, but the
+   12 px row gap and the summary's own 4 px under it left a hole as tall as
+   a line between the two words. */
+.week-hours + .detail-report--hours {
+  margin-top: -12px;
+}
 
 /* From 1024 px the tabs are pills with the label beside the icon: the count
    goes after the label, not over it. Collapsed to icons, it sits on the
