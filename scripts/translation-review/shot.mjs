@@ -75,6 +75,14 @@ for (const s of steps) {
     initId = s.init ? (await send('Page.addScriptToEvaluateOnNewDocument', { source: s.init })).result.identifier : null;
     await send('Page.navigate', { url: s.url });
     await sleep(s.load ?? 4500);
+    // …and, on a slow afternoon, until the app is past its loading screen (the
+    // splash's status line is gone), up to ten seconds more: the first step of
+    // a run met a page still loading three times on 10-14 and read nothing.
+    // (Not where the loading screen is what is measured: a slow or blocked
+    // load, a first visit's welcome.)
+    if (!s.throttle && !s.block && s.seen !== false && !s.cpu) {
+      for (let i = 0; i < 20 && await evalJs("Boolean(document.querySelector('#root > div > [role=status]'))"); i++) await sleep(500);
+    }
   }
   // drag: [{ from: [x, y], to: [x, y], ms, hold }] = a finger put down, moved
   // and lifted (real touch events), one after another, before `js` runs.
