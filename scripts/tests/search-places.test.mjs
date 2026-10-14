@@ -809,3 +809,16 @@ test('pork-free said in Indonesian is the level, and is not offered in halves', 
   assert.equal(r.filteredRestaurants.length, 0);
   assert.ok(!r.withoutWords.some(x => /^(tanpa|babi|tidak|ada)$/i.test(x.word)), JSON.stringify(r.withoutWords.map(x => x.word)));
 });
+
+test('late and round-the-clock words are told from "now"; no half of a negation is offered', async () => {
+  const { asks24Hours, asksLateHours, asksOpenNow } = await import('../../src/filters.js');
+  for (const q of ['24시 할랄', '24시간', '24-hour halal', '24 hours', '24hrs', '24/7', '24 時間', '24小時 素食', 'buka 24 jam']) assert.ok(asks24Hours(q), q);
+  for (const q of ['할랄 24시까지', '10시-24시', '124시', '2024 halal', '24 seoul', '24 jamsil']) assert.equal(asks24Hours(q), false, q);
+  // Asked of the list as "Open now", but not pressed by the Search key.
+  for (const q of ['halal tonight', 'halal malam ini', 'late night halal', '夜遅くまで ヴィーガン', '심야 할랄', '24시 할랄']) { assert.ok(asksOpenNow(q), q); assert.ok(asksLateHours(q), q); }
+  for (const q of ['halal open now', '지금 영업 중인 할랄', '今開いてるヴィーガン', '現在還開著的素食']) { assert.ok(asksOpenNow(q), q); assert.equal(asksLateHours(q), false, q); }
+  for (const q of ['alcohol free vegan', 'halal delivery no alcohol', 'vegan no egg zzzz']) {
+    const offered = go(q).withoutWords.map(x => x.word.toLowerCase());
+    for (const w of ['free', 'no', 'alcohol', 'egg']) assert.ok(!offered.includes(w), `${q}: offers “${w}”`);
+  }
+});
