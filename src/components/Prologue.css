@@ -86,6 +86,10 @@
 .prologue-legend__row .claim-chip {
   max-width: 100%;
   white-space: normal;
+  /* (The level is a piece of its own in the chip's row: it goes to the next
+     line whole — "Terkonfirmasi" stood 26 px outside the chip.) */
+  flex-wrap: wrap;
+  row-gap: 0;
   border-radius: 14px;
 }
 
