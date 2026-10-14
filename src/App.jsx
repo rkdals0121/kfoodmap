@@ -1431,8 +1431,9 @@ function AppShell() {
           // has filtered by (Halal alone → the Muslim card).
           initialCard={new URLSearchParams(location.search).get('card')
             ?? (selectedFilters.includes('Halal') && !selectedFilters.includes('Vegan') && !selectedFilters.includes(FULLY_VEGAN) ? 'muslim' : null)}
+          initialExtras={(new URLSearchParams(location.search).get('no') ?? '').split(',').filter(Boolean)}
           onClose={() => (location.state?.fromApp ? (ownBack(), navigate(-1)) : navigate(tabPath, { replace: true }))}
-          onCardChange={(card) => navigate(`/cards?card=${card}`, { replace: true, state: location.state })}
+          onCardChange={(card, extras) => navigate(`/cards?card=${card}${extras.length ? `&no=${extras.join(',')}` : ''}`, { replace: true, state: location.state })}
         />
       )}
 

@@ -822,3 +822,30 @@ test('late and round-the-clock words are told from "now"; no half of a negation 
     for (const w of ['free', 'no', 'alcohol', 'egg']) assert.ok(!offered.includes(w), `${q}: offers “${w}”`);
   }
 });
+
+test('an ingredient asked to be left out is answered by a text that says so, not one that names it', () => {
+  const ids = (q) => go(q).filteredRestaurants.map(r => r.id);
+  // "egg" is not "eggplant", and a place that serves egg is not egg-free.
+  for (const q of ['no egg', 'vegetarian no egg', 'eggless', 'egg free', 'vegan egg-free']) {
+    const found = ids(q);
+    assert.ok(found.length > 10, q);
+    for (const id of ['bebab-hongdae', 'myeongga-uyukmyeon-seolleung', 'yeongmi-gimbap']) assert.ok(!found.includes(id), `${q}: ${id}`);
+    assert.ok(found.includes('gimye-mebbangso-gimhae'), q);
+  }
+  // "no garlic": not the place whose menu has grilled vegetables with garlic,
+  // nor the one cooking with the five pungent vegetables; the temple kitchen
+  // "excluding the five pungent alliums" is found.
+  for (const q of ['no garlic', 'no onion no garlic', 'vegetarian without onion']) {
+    const found = ids(q);
+    assert.ok(!found.includes('yo-la-tengo') && !found.includes('loving-hut-smile-gaepo'), q);
+    assert.ok(found.includes('veginarang-sinchon') && found.includes('bium-cheongdam'), q);
+  }
+  // A place saying dairy is used ("some drinks use dairy") is not dairy-free;
+  // one using soy milk "in place of dairy" is.
+  const dairy = ids('dairy free');
+  assert.ok(!dairy.includes('may-green-wonju') && dairy.includes('bakeshop-pivot-bangbae'));
+  // The words themselves, without "no", are searched as before.
+  assert.ok(ids('eggplant').includes('bebab-hongdae'));
+  assert.ok(ids('gluten free').includes('glunic'));
+  assert.equal(go('no pork').filteredRestaurants.length > 0, true);
+});

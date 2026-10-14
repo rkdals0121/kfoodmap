@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay, useReturnFocus } from '../hooks/useOverlay';
 import { useTranslation } from 'react-i18next';
 import { XIcon } from './Icons';
-import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-cards';
+import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, CARD_EXTRAS, cardById, cardLines, extrasFor, rememberCard } from '../data/staff-cards';
 
 // The sheet for /cards: Korean text to show restaurant staff
 // (data/staff-cards.js). Two jobs on one screen:
@@ -11,13 +11,16 @@ import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById } from '../data/staff-
 //  - staff read the Korean, which "Show large" puts on the whole screen at a
 //    size readable across a counter, with nothing else on it.
 // Works offline: everything here ships in the bundle.
-export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
+export default function StaffCardSheet({ initialCard, initialExtras, onClose, onCardChange }) {
   const { t, i18n } = useTranslation();
   // A Korean reader needs no gloss of the Korean: the meaning lines would
   // repeat the sentence above them.
   const gloss = i18n.language !== 'ko';
   const sheetRef = useRef(null);
   const [cardId, setCardId] = useState(() => cardById(initialCard).id);
+  // "No egg", "no onion or garlic", "no root vegetables": lines the visitor
+  // adds to the card.
+  const [extras, setExtras] = useState(() => extrasFor(cardById(initialCard).id, initialExtras));
   // What is on the big screen: an array of Korean lines, or null.
   const [large, setLarge] = useState(null);
   const largeRef = useRef(null);
@@ -39,7 +42,16 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
   useInertRoot(large !== null);
   // The address follows the card, so a reload or a shared link shows the
   // same one.
-  const chooseCard = (id) => { setCardId(id); onCardChange?.(id); };
+  const chooseCard = (id) => {
+    const kept = extrasFor(id, extras);
+    setCardId(id); setExtras(kept); onCardChange?.(id, kept);
+  };
+  const toggleExtra = (x) => {
+    const next = extrasFor(cardId, extras.includes(x) ? extras.filter(e => e !== x) : [...extras, x]);
+    setExtras(next); onCardChange?.(cardId, next);
+  };
+  // Kept while the app is open: a place's link to the cards opens this one.
+  useEffect(() => { rememberCard(cardId, extras); }, [cardId, extras]);
 
   // The tab title names the page, as place pages do.
   useEffect(() => {
@@ -48,6 +60,8 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
     return () => { document.title = before; };
   }, [t]);
   const card = cardById(cardId);
+  const lines = cardLines(card, extras);
+  const offered = CARD_EXTRAS.filter(x => x.cards.includes(cardId));
 
   // Focus goes back to what opened the cards — or to its twin: the link on
   // a place is drawn again when the place comes back under the closing
@@ -90,23 +104,39 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
                 </button>
               ))}
             </div>
+            {offered.length > 0 && (
+              <div className="staff-cards__extras" role="group" aria-label={t('cards.extrasLabel')}>
+                <span className="staff-cards__extras-label" aria-hidden="true">{t('cards.extrasLabel')}</span>
+                {offered.map(x => (
+                  <button
+                    key={x.id}
+                    type="button"
+                    className={`chip${extras.includes(x.id) ? ' active' : ''}`}
+                    aria-pressed={extras.includes(x.id)}
+                    onClick={() => toggleExtra(x.id)}
+                  >
+                    {t(x.labelKey)}
+                  </button>
+                ))}
+              </div>
+            )}
 
             <section className="staff-card" aria-label={t('cards.showThis')}>
               <h3 className="staff-cards__heading">{t('cards.showThis')}</h3>
               {/* The button before the card: under it, it was below the first
                   screen of a shorter phone. Tapping the card does the same. */}
-              <button type="button" className="staff-card__large-btn" onClick={() => openLarge(card.statement.map(l => l.ko))}>
+              <button type="button" className="staff-card__large-btn" onClick={() => openLarge(lines.statement.map(l => l.ko))}>
                 {t('cards.showLarge')}
               </button>
-              <div className="staff-card__paper" onClick={() => openLarge(card.statement.map(l => l.ko))}>
-                {card.statement.map(line => (
+              <div className="staff-card__paper" onClick={() => openLarge(lines.statement.map(l => l.ko))}>
+                {lines.statement.map(line => (
                   <p key={line.ko} className="staff-card__ko" lang="ko" translate="no">{line.ko}</p>
                 ))}
               </div>
               {gloss && <details className="staff-card__meaning" open>
                 <summary>{t('cards.whatItSays')}</summary>
                 <ul>
-                  {card.statement.map(line => <li key={line.ko}>{t(`cardText.${line.key}`)}</li>)}
+                  {lines.statement.map(line => <li key={line.ko}>{t(`cardText.${line.key}`)}</li>)}
                 </ul>
               </details>}
             </section>
@@ -119,7 +149,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <h3 className="staff-cards__heading">{t('cards.questions')}</h3>
               <p className="staff-cards__hint">{t('cards.questionsHint')}</p>
               <ul className="staff-questions">
-                {card.questions.map(q => (
+                {lines.questions.map(q => (
                   <li key={q.ko}>
                     <button type="button" className="staff-question" onClick={() => openLarge([q.ko], gloss ? t(`cardText.${q.key}`) : '')}>
                       {gloss && <span className="staff-question__en">{t(`cardText.${q.key}`)}</span>}
@@ -150,7 +180,7 @@ export default function StaffCardSheet({ initialCard, onClose, onCardChange }) {
               <h3 className="staff-cards__heading">{t('cards.menuWords')}</h3>
               <p className="staff-cards__hint">{t('cards.menuWordsHint')}</p>
               <dl className="staff-words">
-                {MENU_WORDS.filter(w => !w.only || w.only === cardId).map(w => (
+                {MENU_WORDS.filter(w => !w.only || w.only === cardId || lines.words.has(w.key)).map(w => (
                   <div key={w.ko}>
                     <dt><span lang="ko" translate="no">{w.ko}</span>{gloss && <> <span className="staff-words__roman" translate="no">{w.roman}</span></>}</dt>
                     {/* (These say where the word turns up, in Korean too.) */}

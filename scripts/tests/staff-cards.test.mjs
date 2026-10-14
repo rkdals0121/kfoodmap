@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, cardById, cardForPlace } from '../../src/data/staff-cards.js';
+import { STAFF_CARDS, STAFF_ANSWERS, MENU_WORDS, CARD_EXTRAS, cardById, cardForPlace, cardLines, extrasFor, extrasAsked } from '../../src/data/staff-cards.js';
 import en from '../../src/i18n/locales/en.js';
 
 // A line's meaning lives in the locale files (cardText.*), keyed by `key`.
@@ -8,6 +8,7 @@ const meaning = (l) => en.cardText[l.key];
 
 const lines = [
   ...STAFF_CARDS.flatMap(c => [...c.statement, ...c.questions]),
+  ...CARD_EXTRAS.flatMap(x => [...Object.values(x.replace ?? {}), ...(x.statement ? [x.statement] : []), ...(x.questions ?? [])]),
   ...STAFF_ANSWERS,
   ...MENU_WORDS,
 ];
@@ -53,4 +54,35 @@ test('a place with only a halal claim opens the Muslim card; anything else the v
   assert.equal(cardForPlace({ dietary: { halal: f('none') } }), 'vegan');
   assert.equal(cardForPlace({}), 'vegan');
   assert.equal(cardById('nope').id, 'vegan');
+});
+
+test('a vegetarian who eats no egg shows a card that says so', () => {
+  const veg = cardById('vegetarian');
+  const plain = cardLines(veg, []);
+  assert.ok(plain.statement.some(l => l.ko.includes('달걀과 우유·유제품은 먹습니다')));
+  const noEgg = cardLines(veg, ['egg']);
+  assert.ok(!noEgg.statement.some(l => l.ko.includes('달걀과 우유·유제품은 먹습니다')), 'still says egg is eaten');
+  assert.ok(noEgg.statement.some(l => l.ko.includes('달걀은 먹지 않습니다')));
+  assert.ok(noEgg.questions.some(l => l.ko.startsWith('달걀이 들어가나요')));
+  assert.ok(noEgg.questions.some(l => l.key === 'vegeQ5NoEgg') && !noEgg.questions.some(l => l.key === 'vegeQ5'));
+  assert.ok(noEgg.words.has('word9'));
+  // The last line is still the question.
+  assert.equal(noEgg.statement.at(-1).key, 'vegeS5');
+  const jain = cardLines(veg, ['egg', 'pungent', 'roots']);
+  assert.ok(jain.statement.some(l => l.key === 'extraNoPungent') && jain.statement.some(l => l.key === 'extraNoRoots'));
+  // A card offers only what it does not already say: the vegan card says no egg.
+  assert.deepEqual(extrasFor('vegan', ['egg', 'roots']), ['roots']);
+  assert.deepEqual(extrasFor('muslim', ['egg', 'pungent']), []);
+});
+
+test('a search that leaves something out opens the card that says so', () => {
+  assert.deepEqual(extrasAsked('vegetarian no egg'), ['egg']);
+  assert.deepEqual(extrasAsked('eggless'), ['egg']);
+  assert.deepEqual(extrasAsked('jain'), ['egg', 'pungent', 'roots']);
+  assert.deepEqual(extrasAsked('no onion no garlic'), ['pungent']);
+  assert.deepEqual(extrasAsked('오신채 없는'), ['pungent']);
+  // A vegetarian who eats egg (蛋奶素), and eggplant, are not "no egg".
+  assert.deepEqual(extrasAsked('蛋奶素'), []);
+  assert.deepEqual(extrasAsked('eggplant'), []);
+  assert.deepEqual(extrasAsked('vegan'), []);
 });

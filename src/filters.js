@@ -441,6 +441,39 @@ export function liftDietWords(query) {
 // as tofu with a 면 left over, 제주도 as Jeju with a 도.)
 // (Nor 밥 and 술, which say "a meal" and "a drink" more than they name a dish.)
 const ONE_SYLLABLE_FOOD = new Set(['빵', '죽', '떡', '탕', '찜', '쌈', '콩', '묵', '面', '麺', '麵', '茶']);
+// "no egg", "egg-free", "without onion", "eggless": an ingredient asked to be
+// left out. Word by word, "vegetarian no egg" was the vegetarian places with
+// a word starting "no" and one starting "egg" — those that serve egg, and
+// those with eggplant (walk-through, 2026-10-14). Such a pair is answered by
+// a text that says the ingredient is left out, never by one that names it.
+// (Not alcohol, pork or meat: those have answers of their own.)
+const LEFT_OUT = new Set(['egg', 'dairy', 'milk', 'gluten', 'wheat', 'nut', 'peanut', 'soy', 'onion', 'garlic', 'sugar', 'lactose', 'msg', 'sesame', 'shellfish', 'fish', 'seafood', 'honey', 'butter', 'cheese', 'gelatin', 'chive', 'leek', 'scallion']);
+const ALLIUMS = new Set(['onion', 'garlic', 'chive', 'leek', 'scallion']);
+const stemOf = (w) => (LEFT_OUT.has(w) ? w : LEFT_OUT.has(w.replace(/e?s$/, '')) ? w.replace(/e?s$/, '') : null);
+function leftOutPairs(words) {
+  const out = [];
+  const rest = [];
+  for (let i = 0; i < words.length; i += 1) {
+    const w = words[i];
+    const next = words[i + 1] ?? '';
+    const glued = /^([a-z]+?)(?:free|less)$/.exec(w);
+    if (/^(?:no|without|non)$/.test(w) && stemOf(next)) { out.push(stemOf(next)); i += 1; } else if (/^(?:free|less)$/.test(next) && stemOf(w)) { out.push(stemOf(w)); i += 1; } else if (glued && stemOf(glued[1])) out.push(stemOf(glued[1])); else rest.push(w);
+  }
+  return { out, rest };
+}
+const SAYS_LEFT_OUT = new Map();
+// The text says it is left out: "no eggs", "no meat, fish, eggs or dairy",
+// "egg-free", "eggless", "without onion"; for an onion or garlic, "excluding
+// the five pungent alliums" too.
+function saysLeftOut(text, x) {
+  let re = SAYS_LEFT_OUT.get(x);
+  if (!re) {
+    const word = ALLIUMS.has(x) ? `(?:${x}(?:e?s)?|five pungent|pungent vegetables|alliums|osinchae)` : `${x}(?:e?s)?`;
+    re = new RegExp(`\\b(?:no|without|excluding|excludes?|free of|free from|instead of|in place of|non|avoids?|omits?)[\\s-]+(?:[a-z]+[\\s,-]+){0,3}?${word}\\b|\\b${word}[\\s-]?(?:free|less)\\b`);
+    SAYS_LEFT_OUT.set(x, re);
+  }
+  return typeof text === 'string' && re.test(fold(text));
+}
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
   const q = squash(query);
@@ -491,19 +524,22 @@ function searchCore(r, rawQuery) {
   // was every vegan place, 521 of them, with the 빵 thrown away.)
   // Only beside words the map knows (a diet, an area, a kind of place): next to
   // any other word it is set aside as before.
-  const paired = dietPairs(spaced);
+  // (An ingredient asked to be left out is a question of its own: below.)
+  const { out: leftOutAsked, rest: restOfSearch } = leftOutPairs(dietPairs(spaced));
+  const paired = restOfSearch;
   const isDiet = (w) => Object.hasOwn(DIET_WORDS, w) || PORK_FREE_WORDS.has(w);
   // …or beside an area or a kind of place as well: "이태원 빵", "비건 빵 카페".
   const known = (w) => isDiet(w) || AREA_WORDS.has(squash(w)) || COOKING.has(w.toLowerCase());
   const words = paired.filter(w => w.length >= 2 || (ONE_SYLLABLE_FOOD.has(w) && paired.every(other => other === w || known(other))));
   // Words of one letter are dropped, not required: "busan v" (mid-typing)
   // and "제주도" (split into Jeju + 도) are then judged on what is left.
-  if (words.length === 0) return false;
   const haystack = [...fields, r.story].filter(f => typeof f === 'string').join(' ');
+  if (leftOutAsked.length > 0 && !leftOutAsked.every(x => saysLeftOut(haystack, x))) return false;
+  if (words.length === 0) return leftOutAsked.length > 0;
   if (words.length === 1) {
     // A single remaining word that the whole-query check above did not
     // match can only match here if the query had dropped words.
-    const dropped = String(query).trim().split(/\s+/).length > 1;
+    const dropped = String(query).trim().split(/\s+/).length > 1 || leftOutAsked.length > 0;
     // …read as it would be alone: "busan v" is "busan", an area, not
     // every place with a Busan in its description.
     if (!dropped) return false;

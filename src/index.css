@@ -7543,3 +7543,28 @@ html[lang='id'] .stat-label {
 .place-list__hint-text {
   color: var(--muted-strong);
 }
+
+/* "No egg / no onion or garlic / no root vegetables" under the card's tabs:
+   smaller than the tabs, as they add to the card chosen above them. */
+.staff-cards__extras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: -4px;
+}
+.staff-cards__extras-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted-strong);
+  margin-right: 2px;
+}
+.staff-cards__extras .chip {
+  font-size: 14px;
+  min-height: 44px;
+}
+@media (min-width: 768px) {
+  .staff-cards > .staff-cards__extras {
+    margin-top: -16px;
+  }
+}

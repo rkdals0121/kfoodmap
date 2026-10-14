@@ -27,7 +27,7 @@ import usePlaceRecord from '../hooks/usePlaceRecord';
 import { useBackToClose, useWakeLock, useFitText, useInertRoot, focusAfterOverlay, lastFocusInApp, markOf, findByMark } from '../hooks/useOverlay';
 import { copyText, shareOrCopy } from '../share';
 import { CLAIM_CLASS } from './claim';
-import { cardForPlace } from '../data/staff-cards';
+import { cardLinkForPlace } from '../data/staff-cards';
 import ClaimChip from './ClaimChip';
 import KoText from './KoText';
 import { colon, paren, sentenceGap, listComma } from '../i18n/punct';
@@ -631,7 +631,12 @@ export default function RestaurantDetail({
   const certNotes = extrasFit ? notes.cert : null;
   const timelineNotes = extrasFit ? notes.timeline : null;
   const caveatKeys = DIET_CAVEAT_KEYS[dietaryConfidence(place)] ?? DIET_CAVEAT_KEYS[CONFIDENCE.UNKNOWN];
-  const caveat = { title: t(caveatKeys.titleKey), body: t(caveatKeys.bodyKey) };
+  // With two claims at different levels the box speaks for the weaker one,
+  // and says which: "Vegan options · Confirmed" over a bare "Reported, not
+  // confirmed." (the halal claim) read as the page contradicting itself.
+  const levels = new Set(claimFacts.filter(c => isKnown(c.fact)).map(c => c.fact.confidence));
+  const caveatFor = levels.size > 1 ? claimFacts.find(c => isKnown(c.fact) && c.fact.confidence === dietaryConfidence(place))?.label : null;
+  const caveat = { title: caveatFor ? colon(caveatFor, t(caveatKeys.titleKey)) : t(caveatKeys.titleKey), body: t(caveatKeys.bodyKey) };
   const lastChecked = [
     place.coordinates, place.address, place.hours, place.menus,
     place.phone, place.officialUrl, place.instagram, place.transit,
@@ -929,11 +934,12 @@ export default function RestaurantDetail({
                   opened from a link, or read on its own, did not. */}
               {isKnown(place.dietary.vegan) && place.dietary.vegan.value === VEGAN.OPTIONS && <p className="diet-note__mixed">{t(place.category === 'brunch-bakery' ? 'detail.veganOptionsAskBakery' : 'detail.veganOptionsAsk')}</p>}
               {/* "Ask staff" needs a way to ask: the Korean cards, on the
-                  card that fits this place's claims. */}
+                  visitor's own card if they chose one, else the card that
+                  fits this place's claims. */}
               {(
                 <Link
                   className="diet-note__ask"
-                  to={`/cards?card=${cardForPlace(place)}`}
+                  to={cardLinkForPlace(place)}
                   state={{ fromApp: true, tab: location.state?.tab }}
                 >
                   {t('detail.askInKorean')}

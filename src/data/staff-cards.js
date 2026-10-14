@@ -139,6 +139,81 @@ export const MENU_WORDS = [
 
 export const cardById = (id) => STAFF_CARDS.find(c => c.id === id) ?? STAFF_CARDS[0];
 
+// What a card leaves out, added by the visitor. Most vegetarians from India
+// eat no egg, and the vegetarian card told staff "I do eat eggs"; a Jain
+// visitor, or a temple-food eater, also leaves out the five pungent
+// vegetables, and some the root vegetables. Each is a line of the visitor's
+// own diet, like the rest of the card: nothing about what a kitchen serves.
+//  replace: a line of the card said instead (by key);
+//  statement: a line added before the card's last ("Is there a dish I can eat?");
+//  questions: asked after the card's first question;
+//  words: menu words shown with it.
+export const CARD_EXTRAS = [
+  {
+    id: 'egg',
+    labelKey: 'cards.noEgg',
+    cards: ['vegetarian'],
+    replace: {
+      vegeS3: { ko: '우유·유제품은 먹지만, 달걀은 먹지 않습니다.', roman: 'Uyu·yujepumeun meokjiman, dalgyareun meokji anseumnida.', key: 'vegeS3NoEgg' },
+      vegeQ5: { ko: '고기와 달걀을 빼고 만들어 주실 수 있나요?', roman: 'Gogiwa dalgyareul ppaego mandeureo jusil su innayo?', key: 'vegeQ5NoEgg' },
+    },
+    // Egg hides in batter, bread and sauces (mayonnaise), not only on top.
+    questions: [{ ko: '달걀이 들어가나요? (반죽, 빵, 소스 포함)', roman: 'Dalgyari deureoganayo? (banjuk, ppang, soseu poham)', key: 'vegeQ9' }],
+    words: ['word9'],
+  },
+  {
+    id: 'pungent',
+    labelKey: 'cards.noPungent',
+    cards: ['vegan', 'vegetarian'],
+    statement: { ko: '오신채(마늘, 파, 부추, 달래, 양파)⁠도 먹지 않습니다.', roman: 'Osinchae (maneul, pa, buchu, dallae, yangpa) do meokji anseumnida.', key: 'extraNoPungent' },
+  },
+  {
+    id: 'roots',
+    labelKey: 'cards.noRoots',
+    cards: ['vegan', 'vegetarian'],
+    statement: { ko: '감자, 고구마, 당근, 무 같은 뿌리채소도 먹지 않습니다.', roman: 'Gamja, goguma, danggeun, mu gateun ppurichaesodo meokji anseumnida.', key: 'extraNoRoots' },
+    questions: [{ ko: '감자, 고구마, 당근, 무 같은 뿌리채소가 들어가나요?', roman: 'Gamja, goguma, danggeun, mu gateun ppurichaesoga deureoganayo?', key: 'extraQRoots' }],
+  },
+];
+
+// What a search says the visitor leaves out, for the link to the cards: a
+// family who searched "vegetarian no egg" or "jain" gets the card that says
+// so. (Jain: no egg, no onion or garlic, no root vegetables.) Not 蛋奶素,
+// which is a vegetarian who does eat egg.
+const ASKED = {
+  egg: /\b(?:no|without|not)\s+eggs?\b|\beggless\b|\beggs?[- ]?free\b|\bjain|(?:달걀|계란)\s*(?:없|빼|안)|无蛋|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|卵(?:なし|抜き|を?食べない)|tanpa telur/i,
+  pungent: /\bjain|\b(?:no|without)\s+(?:onions?|garlic)\b|\bfive pungent|오신채|(?:마늘|양파)\s*(?:없|빼|안)|五辛|五葷|不吃(?:葱|蔥)蒜|にんにく(?:なし|抜き)|tanpa bawang/i,
+  roots: /\bjain|\broot vegetables?\b|뿌리\s*채소|根菜|根茎|根莖|umbi/i,
+};
+export const extrasAsked = (text) => Object.keys(ASKED).filter(id => ASKED[id].test(text ?? ''));
+
+/** The extras a card offers, from a list of ids (an address's "no=egg,roots"). */
+export const extrasFor = (cardId, ids) =>
+  CARD_EXTRAS.filter(x => x.cards.includes(cardId) && (ids ?? []).includes(x.id)).map(x => x.id);
+
+/** A card's lines with the extras switched on. */
+export function cardLines(card, extras = []) {
+  const on = CARD_EXTRAS.filter(x => x.cards.includes(card.id) && extras.includes(x.id));
+  const swap = (line) => on.reduce((l, x) => x.replace?.[line.key] ?? l, line);
+  const statement = card.statement.map(swap);
+  statement.splice(statement.length - 1, 0, ...on.flatMap(x => (x.statement ? [x.statement] : [])));
+  const questions = card.questions.map(swap);
+  questions.splice(1, 0, ...on.flatMap(x => x.questions ?? []));
+  return { statement, questions, words: new Set(on.flatMap(x => x.words ?? [])) };
+}
+
+// The card the visitor last chose, while the app is open (not stored: it is
+// gone on a reload). A family who chose "vegetarian, no egg" was sent to the
+// Muslim card by every Indian restaurant whose only claim is halal.
+let chosen = null;
+export const rememberCard = (id, extras) => { chosen = { id, extras }; };
+
+/** The address of the cards from a place: the visitor's own card if they chose one, else the one its claims point to (halal claim only → the Muslim card). */
+export function cardLinkForPlace(place) {
+  if (chosen) return `/cards?card=${chosen.id}${chosen.extras.length ? `&no=${chosen.extras.join(',')}` : ''}`;
+  return `/cards?card=${cardForPlace(place)}`;
+}
+
 /** Which card a place's own claims point to: halal claim only → the Muslim card. */
 export function cardForPlace(place) {
   const known = (f) => f && f.confidence !== 'unknown' && f.value != null;

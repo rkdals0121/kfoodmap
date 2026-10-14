@@ -14,6 +14,7 @@ import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted, listComma } from '../i18n/punct';
+import { extrasAsked } from '../data/staff-cards';
 
 const CHIP_LABEL_KEY = {
   ...Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey])),
@@ -59,7 +60,7 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // …and what is asked for by leaving something out: "no fish sauce" finds twelve
 // places, among them one whose note says its kimchi contains it; "not spicy"
 // finds thirteen that are. The words are found in the notes one by one.
-const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|오신채|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|出汁|だし|ダシ|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
+const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|五葷|오신채|\bjain|five pungent|root vegetables?|뿌리\s*채소|根菜|根茎|根莖|umbi-umbian|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|出汁|だし|ダシ|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
 // (Not "no pork" / "pork-free" by itself: that is a level the records do
 // carry. Beside another such word — "no pork gluten free" — the note stands.)
 const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|bebas)\s+(?:daging\s+)?babi|\b(?:tidak|tak|gak|nggak|enggak)\s+(?:ada|pakai|pake|memakai|menggunakan|mengandung)\s+(?:daging\s+)?babi|\bnon[- ]?babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
@@ -248,6 +249,11 @@ export default function BottomSheetList({
   // A Korean reader who typed Korean: "서울역" answered with “Seoul Station”도
   // 함께 검색했어요 read as if something else had been searched.
   const typedKorean = i18n.language === 'ko' && /[가-힣]/.test(searchQuery);
+  // "vegetarian no egg", "jain": the cards open on the card that says so.
+  const askedOut = extrasAsked(searchQuery);
+  const cardsLink = (card) => (askedOut.length
+    ? `/cards?card=${card ?? (/vegan|비건|ヴィーガン|纯素|純素|素食主义|全素/i.test(searchQuery) ? 'vegan' : 'vegetarian')}&no=${askedOut.join(',')}`
+    : card ? `/cards?card=${card}` : '/cards');
   // Ordered from the reader while the map has not been moved by hand since
   // "My location" answered — and something listed is within reach of them
   // (a search for Busan made from Seoul is ordered from the map, as before).
@@ -642,7 +648,7 @@ export default function BottomSheetList({
       {/* (After the halal caveat: folded, only the first note shows, and on a
           phone "vegetarian" under the Halal chip had put the caveat out of sight.) */}
       {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(sansAlcohol) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to="/cards?card=vegetarian" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
+        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to={cardsLink('vegetarian')} state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* "halal no alcohol", "술 안 파는 할랄" list places by words in their
           notes, some of which say alcohol is sold. After the halal caveat and the
@@ -653,7 +659,7 @@ export default function BottomSheetList({
         <p className="section-note place-list__note place-list__note--key">{t('list.alcoholHint')}</p>
       )}
       {sorted.length > 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
+        <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to={cardsLink()} state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* The caveat says pork-free places are left out and can be searched
           for — but searching with the Halal chip still on found nothing.
@@ -817,7 +823,7 @@ export default function BottomSheetList({
           {/* "peanut", "五辛", "알레르기": not on record for any place — the
               cards are where that question can be asked. */}
           {withoutFilters === 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
-            <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
+            <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to={cardsLink()} state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
           )}
           {withoutFilters === 0 && ASKS_PRICE.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
             <p className="place-list__hint-text">{t('list.priceHint')}</p>
