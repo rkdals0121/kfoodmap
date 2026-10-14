@@ -7507,3 +7507,10 @@ html[lang='id'] .stat-label {
   line-height: 1.45;
   color: var(--muted-strong);
 }
+
+/* The notes over a list and under an empty one: 4.5:1 on the grey with no
+   room to spare (an accessibility review); the stronger grey gives 5.2:1. */
+.section-note.place-list__note:not(.place-list__note--key),
+.place-list__hint-text {
+  color: var(--muted-strong);
+}
