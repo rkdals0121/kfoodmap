@@ -281,7 +281,7 @@ F72. Past midnight, inside the hours of the day before (fixed clock Fri 01:00 KS
 ## G. Explore tab (Discover, `/discover`)
 
 G1. Header → bowl icon, H2 "Food Journeys", subtitle, and a link-button "Korean cards to show staff" (`.discover-cards-link`) → opens `/cards`; closing returns to Discover.
-G2. "Browse by area" (`.browse-areas`) → two rows, Vegan and Halal, each a horizontally scrollable list of up to 12 areas with at least 3 places, most first, each "Area <count>" (names in Korean in ko; in Japanese or Chinese script in ja, zh-Hans, zh-Hant; romanised in en and id). The row of a diet whose chip is on comes first.
+G2. "Browse by area" (`.browse-areas`) → two rows, Vegan and Halal, each a horizontally scrollable list of up to 12 areas with at least 3 places, most first — and every city with 3 or more (Jeju, Incheon…) among them, in place of the last neighbourhoods — each "Area <count>" (names in Korean in ko; in Japanese or Chinese script in ja, zh-Hans, zh-Hant; romanised in en and id). The row of a diet whose chip is on comes first.
 G3. Tap an area link (e.g. Halal → Busan) → the Map tab opens with search "Busan", only the Halal chip on, in area-only mode (places IN Busan; Seoul's "Busan Jib" is excluded); URL `/#q=Busan&a=1&f=Halal` (the name as shown: `/#q=ソウル&a=1&f=Vegan`, `/#q=서울&a=1&f=Vegan`); the count equals the number on the link; the map frames them.
 G4. Area link `href` → `/find/<diet>-<area>` (e.g. `/find/halal-busan`): opening it in a new tab loads the prerendered guide URL which the app turns into the same map view.
 G5. Edit the search text after G3 → area-only mode is dropped (`a=1` leaves the hash) and normal search applies.

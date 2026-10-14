@@ -17,7 +17,7 @@ import { askConfirm } from './confirm';
 import Prologue from './components/Prologue';
 import SubmitSheet from './components/SubmitSheet';
 import PrivacySheet from './components/PrivacySheet';
-import StaffCardSheet from './components/StaffCardSheet';
+import StaffCardSheet from './components/StaffCardSheet';
 import { chosenCard } from './data/staff-cards';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import useAppUpdate from './hooks/useAppUpdate';
@@ -662,6 +662,22 @@ function AppShell() {
     const timer = setTimeout(() => setToast(null), toast.undo ? 10000 : Math.max(3000, String(toast.text ?? '').length * 70));
     return () => clearTimeout(timer);
   }, [toast, toastHeld]);
+  // Undo from anywhere with Ctrl/Cmd+Z while it shows: on a wide screen the
+  // toast's button stood ten Shift+Tabs back, past the map's own buttons
+  // (walk-through, 2026-10-15). Not inside a box being typed in.
+  useEffect(() => {
+    if (!toast?.undo) return undefined;
+    const onKey = (e) => {
+      if (!(e.ctrlKey || e.metaKey) || e.shiftKey || e.altKey || e.key.toLowerCase() !== 'z') return;
+      const el = document.activeElement;
+      if (el && (el.isContentEditable || /^(?:INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+      e.preventDefault();
+      const undo = toast.undo;
+      setToastHeld(false); setToast(null); undo();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [toast]);
 
   // Undo of an unsave: the save put back as it was, and said so.
   // Every place removed while the Undo is still showing: tidying the Journal
@@ -1092,7 +1108,7 @@ function AppShell() {
           <div className={`toast${selectedRestaurant && !isWide ? ' toast--over-place' : ''}${selectedRestaurant && isWide && threeColumns ? ' toast--beside-place' : ''}${underDock ? ' toast--docked' : ''}`} key={toast.at}>
             <span>{toast.text}</span>
             {toast.undo && (
-              <button type="button" className="toast__undo" onClick={() => { const undo = toast.undo; setToastHeld(false); setToast(null); undo(); }}>
+              <button type="button" className="toast__undo" aria-keyshortcuts="Control+Z Meta+Z" onClick={() => { const undo = toast.undo; setToastHeld(false); setToast(null); undo(); }}>
                 {t('app.undo')}
               </button>
             )}
