@@ -330,3 +330,10 @@ test('open round the clock on all seven days, and only then', async () => {
   assert.equal(openAllWeek({ value: { raw: 'Tue–Sun open 24 hours; closed Mondays', weekly: null }, confidence: 'supported' }), false);
   assert.equal(openAllWeek({ value: { raw: 'Daily 11:00–24:00', weekly: null }, confidence: 'supported' }), false);
 });
+
+test('days off the week cannot hold are noticed in the source words', async () => {
+  const { closesOtherDays } = await import('../../src/utils.js');
+  const fact = (raw) => ({ value: { raw, weekly: every([{ from: '10:00', to: '22:00' }]) }, confidence: 'supported' });
+  for (const raw of ['10:00–23:00; closed the 1st and 3rd Wednesday of every month', 'Daily 08:00–19:00; closed on public holidays', 'Daily 11:30–20:30; closed the day before, day of and day after Seollal and Chuseok', 'closed Mondays; the owner warns of occasional temporary closures']) assert.ok(closesOtherDays(fact(raw)), raw);
+  for (const raw of ['Daily 11:00 AM – 10:00 PM (break 4:00–5:00 PM; last order 9:10 PM)', '10:00–21:30 daily, no break, open year-round', 'Daily 11:00–22:00; public holidays 11:00–22:00', 'Tue–Sun 11:00–21:00; closed Mondays']) assert.equal(closesOtherDays(fact(raw)), false, raw);
+});

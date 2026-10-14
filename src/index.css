@@ -7499,3 +7499,11 @@ html[lang='id'] .stat-label {
     flex-grow: 1.5;
   }
 }
+
+/* Under the week: the source also names days off the table cannot hold. */
+.week-hours__note {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted-strong);
+}

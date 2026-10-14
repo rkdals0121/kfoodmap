@@ -370,6 +370,7 @@ export default {
     lastChecked: 'ページの最終確認',
     notRecorded: '記録なし',
     everyDay: '毎日',
+    weekExceptions: '情報源には祝日などの休業日も記載されています。お出かけ前にご確認ください。',
     dayRange: '{{from}}から{{to}}まで',
     never: '未確認',
     suggestEdit: '誤りがありましたか？',

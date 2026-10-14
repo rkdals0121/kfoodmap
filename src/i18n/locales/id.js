@@ -368,6 +368,7 @@ export default {
     lastChecked: 'Halaman terakhir dicek',
     notRecorded: 'Tidak tercatat',
     everyDay: 'Setiap hari',
+    weekExceptions: 'Sumber juga mencatat hari tutup, misalnya hari libur. Periksa dulu sebelum berangkat.',
     dayRange: '{{from}} sampai {{to}}',
     never: 'Belum pernah',
     suggestEdit: 'Ada yang salah?',

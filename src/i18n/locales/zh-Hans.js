@@ -365,6 +365,7 @@ export default {
     lastChecked: '本页最近核查',
     notRecorded: '未记录',
     everyDay: '每天',
+    weekExceptions: '来源还列出了节假日等休息日，去之前请先确认。',
     dayRange: '{{from}}至{{to}}',
     never: '从未',
     suggestEdit: '信息有误？',

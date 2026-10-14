@@ -16,7 +16,7 @@ import {
 } from './Icons';
 import { Whole } from './Whole';
 import { getCulture } from '../data/culture';
-import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock, lastNightHours, unknownHoursKey } from '../utils';
+import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock, lastNightHours, unknownHoursKey, closesOtherDays } from '../utils';
 import { koAddress } from '../data/address-ko';
 import { koStation, koLine, shownStation } from '../data/station-ko';
 import {
@@ -1012,6 +1012,9 @@ export default function RestaurantDetail({
                       </div>
                     ))}
                   </dl>
+                  {/* ("Every day" over a place closed the 1st and 3rd Wednesday of
+                      the month said more than the record.) */}
+                  {closesOtherDays(place.hours) && <p className="week-hours__note">{t('detail.weekExceptions')}</p>}
                 </details>
               )}
               {/* Hours are what goes out of date first: the way to say so is

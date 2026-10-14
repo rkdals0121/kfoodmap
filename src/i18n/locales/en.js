@@ -375,6 +375,7 @@ export default {
     lastChecked: 'Page last checked',
     notRecorded: 'Not recorded',
     everyDay: 'Every day',
+    weekExceptions: 'The source also names days it closes, such as holidays. Check before you go.',
     dayRange: '{{from}} to {{to}}',
     never: 'Never',
     suggestEdit: 'Something wrong?',
