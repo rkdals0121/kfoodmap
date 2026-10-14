@@ -528,7 +528,9 @@ export default function BottomSheetList({
           "ayam goreng halal" was shown as "chicken goreng halal".) */}
       {/* Nor one that only left words out ("halal near me" as "halal",
           "noodles" as "noodle"): nothing was spelt another way. */}
-      {searchQuery.trim() && matchQuery.trim() && !typedKorean && !fromStory && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
+      {/* (Not over an empty list: "also searched as “停車 vegetarian”" above "no
+          places" explained nothing and showed a word the reader never typed.) */}
+      {sorted.length > 0 && searchQuery.trim() && matchQuery.trim() && !typedKorean && !fromStory && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
         <p className="place-list__searched-as">{t('list.searchedAs', { query: (() => { const said = porkFreeSaid(matchQuery); return /[가-힣぀-ヿ一-鿿]/.test(said) ? (romaniseQuery(matchQuery) ?? matchQuery) : (romaniseQuery(said) ?? said); })() })}</p>
       )}
       {fromStory && sorted.length > 0 && (

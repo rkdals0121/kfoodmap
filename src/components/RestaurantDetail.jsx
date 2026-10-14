@@ -18,7 +18,7 @@ import { Whole } from './Whole';
 import { getCulture } from '../data/culture';
 import { haversineKm, formatDistance, getOpenStatus, todaysHours, directionsUrl, naverMapUrl, kakaoMapUrl, coordsOf, formatLongDate, displayName, deviceOnKoreaTime, koreaClock, koreanName, weekHours, statusClass, DAY_KEYS, formatClock, lastNightHours, unknownHoursKey } from '../utils';
 import { koAddress } from '../data/address-ko';
-import { koStation, koLine } from '../data/station-ko';
+import { koStation, koLine, shownStation } from '../data/station-ko';
 import {
   dietaryBadges, isKnown, needsCheck, trustBadge, dietaryConfidence, CONFIDENCE, VEGAN, HALAL,
 } from '../data/verification';
@@ -1026,7 +1026,7 @@ export default function RestaurantDetail({
                   <span>
                     {koUi && koStation(place.transit.value.station) && koLine(place.transit.value.line)
                       ? <span lang="ko" translate="no">{koStation(place.transit.value.station)} {koLine(place.transit.value.line)}</span>
-                      : <><span translate="no">{place.transit.value.station}</span> {String(place.transit.value.line ?? '').replace(/(Line) (?=\d)/g, '$1\u00A0')}</>}
+                      : <><span translate="no">{shownStation(place.transit.value.station)}</span> {String(place.transit.value.line ?? '').replace(/(Line) (?=\d)/g, '$1\u00A0')}</>}
                     {place.transit.value.exit && t('detail.transitExit', { exit: place.transit.value.exit })}
                     {/* "7 min walk" is one piece: on a very narrow screen it stood as
                         "7 min" / "walk", and in Japanese as "徒" / "歩 7 分". The dot

@@ -300,3 +300,18 @@ export function koLine(line) {
   const parts = line.split(' / ').map(onePart);
   return parts.every(Boolean) ? parts.join(' · ') : null;
 }
+
+// The same station is written two ways across the records ("Myeongdong" on
+// eight pages, "Myeong-dong" on six): shown one way, the way most records
+// have it (or, at a tie, without the gloss). Display only — the records and
+// the search (stationKey above) are untouched.
+const SHOWN_AS = {
+  'Myeong-dong': 'Myeongdong', 'Incheon Nat’l Univ.': 'Incheon National University', 'Hongik University': 'Hongik Univ.',
+  'Ewha Womans University': 'Ewha Womans Univ.', 'Sungkyunkwan University': 'Sungkyunkwan Univ.', 'Hansung University': 'Hansung Univ.',
+  'Seoul Nat’l Univ.': "Seoul Nat'l Univ.", 'Euljiro 1(il)-ga': 'Euljiro 1-ga', 'Jongno 5(o)-ga': 'Jongno 5-ga',
+  'Keimyung University': 'Keimyung Univ.', 'Jungang-ro': 'Jungangno', 'Culture Complex (Munhwa Jeondang)': 'Culture Complex', 'Sang-dong': 'Sangdong',
+  // (A city's own station keeps the word: "Suwon Line 1" reads as the city.)
+  Suwon: 'Suwon Station', Gangneung: 'Gangneung Station', 'Nampo Station': 'Nampo', 'Gwanggyo Jungang': 'Gwanggyo Jungang Station',
+};
+/** A station's name as the place page prints it. */
+export const shownStation = (name) => SHOWN_AS[name] ?? name;
