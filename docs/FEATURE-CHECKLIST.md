@@ -550,6 +550,18 @@ P50. Desktop → with the cards, the privacy text or the suggest form open, the 
 
 P51. Words shown as typed → "라면" found by a story is announced as "“라면”…", not "ramyeon"; "#biryani?" as "biryani"; "ayam goreng halal" is "also searched as “fried chicken halal”". "Not spicy" phrases ("tidak pedas", "안 매운", "辛くない", "不辣") are NOT rewritten: they find nothing (rewritten, they listed thirteen places that serve spicy food).
 
+P52. The keyboard's Search key (regress step `search-key`) → Enter in the search box on "halal open now", "지금 영업 중인 할랄", "halal malam ini": the Open now chip goes on and the words leave the box; on "halal saturday dinner itaewon": "Open Sat 7:00 PM" and "halal itaewon"; on a name ("Sunday Bakery"), an area, or a search with no hour words: only the keyboard goes away. Nothing changes while typing, with "Open at…" already set, on a word still being composed, or for words that ask for late or round-the-clock hours ("24時間", "夜遅くまで", "late night").
+
+P53. Asked for 24 hours → "24시 할랄", "halal 24 hours", "24-hour kebab", "24/7", "24時間", "24小時 素食", "buka 24 jam": above the cards, "On record as open 24 hours, every day:" and the places of the current results whose record is 00:00–24:00 on all seven days or whose source says "Open 24 hours daily" (seven on the whole map; four of them halal-friendly kebab places in Itaewon), all of them, each opening its page. Not for "24시까지", "10시-24시", "124시", "2024".
+
+P54. Hours for the week → the same hours on all seven days: one row "Every day" (194 places); days in a row with the same hours: one row "Mon–Fri" (the row that holds today is the highlighted one); a day not recorded or different stays a row of its own; grouped rows put the days above the hours.
+
+P55. Journal → "See them on the map (n)" stands above both lists (visited and saved for later), n = every saved place still on the map; the list's share and "copy as text" stay with "Saved for later" and carry those places only.
+
+P56. A station's name → one spelling on every place page ("Myeongdong", "Hongik Univ.", "Seoul Nat'l Univ."; a city's own station keeps the word: "Suwon Station"); the search finds it by any spelling (P39).
+
+P57. The cards' word list → under 돼지고기: "pork — often in ham, bacon and sausage too" (each language); under 우유 / 버터 / 치즈 (vegan card): "…often in bread, desserts and sauces too". In Korean no gloss repeats the word it explains.
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
