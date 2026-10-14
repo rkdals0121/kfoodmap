@@ -276,20 +276,28 @@ const LINE_WORD = {
   ja: (n, city) => `${city ? CITY_HAN[city] : ''}${n}号線`,
   'zh-Hans': (n, city) => `${city ? CITY_HAN[city] : ''}${n}号线`,
   'zh-Hant': (n, city) => `${city ? CITY_HAN[city] : ''}${n}號線`,
-  id: (n, city) => `Jalur ${n}${city ? ` ${city}` : ''}`,
+  // A no-break space: "Jalur" / "4" must not part at the end of a line.
+  id: (n, city) => `Jalur ${n}${city ? ` ${city}` : ''}`,
 };
+// Not " · ": the walking time after the line already starts with one.
+const LINE_JOIN = { ja: '・', 'zh-Hans': '、', 'zh-Hant': '、', id: ' / ' };
 const CITY_HAN = { Busan: '釜山', Daegu: '大邱', Incheon: '仁川', Gwangju: '光州', Daejeon: '大田' };
 /** A line as the reader's language writes it, or null (then the record's English). Every part, or none. */
 export function localLine(line, language) {
   const word = LINE_WORD[language];
   if (!word || typeof line !== 'string' || !line) return null;
+  // "Daegu Line 1 / Line 2": the second is Daegu's too, so it keeps the
+  // city ("Jalur 2" alone would read as Seoul's). A bare first part is Seoul.
+  let city;
   const parts = line.split(' / ').map((part) => {
     let m = part.match(/^(?:Seoul Subway )?Line (\d)$/);
-    if (m) return word(m[1]);
+    if (m) return word(m[1], city);
     m = part.match(/^(Busan|Daegu|Incheon|Gwangju|Daejeon)(?: Metro)? Line (\d)$/);
-    return m ? word(m[2], m[1]) : null;
+    if (!m) return null;
+    city = m[1];
+    return word(m[2], city);
   });
-  return parts.every(Boolean) ? parts.join(' · ') : null;
+  return parts.every(Boolean) ? parts.join(LINE_JOIN[language]) : null;
 }
 
 

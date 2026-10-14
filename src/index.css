@@ -5027,6 +5027,19 @@ body {
     margin-bottom: 0;
   }
 }
+/* From 768 px the window's 32 px gap came on top of each part's own margin:
+   56 px between the title and its own tabs, and again above the card. The
+   gap alone spaces them; the tabs sit a little closer to their title. */
+@media (min-width: 768px) {
+  .staff-cards > *,
+  .staff-cards > section {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .staff-cards > .staff-cards__tabs {
+    margin-top: -8px;
+  }
+}
 
 /* Story cards' "Read story": a 44 px target. */
 .story-card-btn {
