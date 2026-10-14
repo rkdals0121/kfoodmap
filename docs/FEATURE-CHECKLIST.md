@@ -564,6 +564,12 @@ P57. The cards' word list → under 돼지고기: "pork — often in ham, bacon 
 
 P58. The vegetarian card (egg and dairy eaten) → among its questions, "오신채(마늘, 파, 부추, 달래, 양파)가 들어가나요?" with its meaning in the reader's language, as on the vegan card. Asked for 24 hours with no such place in the results ("pork free 24 hours"): "None of these places is on record as open 24 hours every day.", and no "Open now" offer; "halaal myeongdong", "핼랄 명동" carry the halal caveat; "reservation", "vegan delivery" over results say parking, booking and delivery are not checked; "alcohol free vegan" offers no "Without “free”".
 
+P59. Hours with days off the week cannot hold → a place whose source names other closures ("closed the 1st and 3rd Wednesday of every month", "closed on Seollal and Chuseok", "closed on public holidays"; 33 places, e.g. `/place/samarkand-city-dongdaemun`, `/place/bibiri-hongdae`) shows under "Hours for the week" "The source also names days it closes, such as holidays. Check before you go."; a place without such words (`/place/kampungku`) does not.
+
+P60. Screen reader and keyboard → "halal no alcohol" on a phone: the halal certificate caveat is the first (unfolded) note; the notes' toggle has `aria-controls`; after Enter changes the search, focus is on the count over the list; a grouped day row is read "Monday to Friday (today)" (the visible "Mon–Fri" is `aria-hidden`); the device's-size line is the pressed size button's description.
+
+P61. "Also searched as" → shown for "Pusan vegan" (Busan), "清真 首尔" (Seoul), "heundae vegan" (Haeundae); not for "精進料理", "musholla", "ayam goreng halal", "ヴィーガン 食べ放題" (only a dish or kind word became English).
+
 ## Q. Other: Privacy sheet, Suggest / Report form, misc
 
 ### Privacy (`/privacy`)
