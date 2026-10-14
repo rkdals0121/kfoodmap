@@ -594,7 +594,7 @@ export default {
   },
   cards: {
     title: 'Kartu bahasa Korea untuk staf',
-    intro: 'Sebagian besar staf restoran tidak membaca bahasa Inggris, dan “vegan” serta “halal” bukan kata sehari-hari di dapur Korea. Tunjukkan teks Koreanya; arti yang ditampilkan bersamanya persis sama dengan isi teks itu.',
+    intro: 'Sebagian besar staf restoran tidak membaca bahasa Inggris atau bahasa Indonesia, dan “vegan” serta “halal” bukan kata sehari-hari di dapur Korea. Tunjukkan teks Koreanya; arti yang ditampilkan bersamanya persis sama dengan isi teks itu.',
     chooseCard: 'Pilih kartu',
     veganLabel: 'Saya vegan',
     vegetarianLabel: 'Saya vegetarian',

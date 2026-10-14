@@ -99,6 +99,10 @@ const clockWords = (total) => {
 // Fall back to reading a free-text range like "11:30 AM – 9:30 PM". Only used
 // for places whose hours haven't been structured yet.
 function statusFromRaw(raw, cur) {
+  // "Open 24 hours daily" with no week on record (three kebab places): open,
+  // as the list of round-the-clock places (openAllWeek) says — the page
+  // said "Opening hours unknown" under the same name.
+  if (/^open 24 hours daily\b/i.test(String(raw).trim())) return { open: true, soon: false, label: tr('open'), detail: tr('allDay') };
   const parts = String(raw).split('–').map(s => s.trim());
   if (parts.length !== 2) return null;
   const opens = toMinutes(parts[0]);
@@ -341,7 +345,9 @@ const lateOrder = (sl) => {
 export function todaysHours(hoursFact, now = new Date()) {
   if (!isKnown(hoursFact)) return null;
   const { weekly } = hoursFact.value;
-  if (!weekly) return hoursFact.value.raw ?? null;
+  // ("Open 24 hours daily": the status line says "Open · 24 hours" already, and
+  // the source's English under it was untranslated.)
+  if (!weekly) return /^open 24 hours daily\b/i.test(String(hoursFact.value.raw ?? '').trim()) ? null : hoursFact.value.raw ?? null;
   const today = weekly[DAY_KEYS[inKorea(now).getUTCDay()]];
   if (!today) return null;
   if (today.length === 0) return tr('closedWord');
