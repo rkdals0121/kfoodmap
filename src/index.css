@@ -4715,6 +4715,16 @@ body {
 .place-list__header h2 {
   margin-right: auto;
 }
+/* Beside the order's note the count keeps one line ("676 places", not
+   "676" / "places" on the narrowest phone at the largest text): the note
+   wraps instead. Beside Share and Clear there is no room to spare. */
+.place-list__header h2:has(+ .place-list__hint) {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.place-list__header .place-list__hint {
+  text-align: right;
+}
 .place-list__share {
   flex: 0 0 auto;
   min-width: 44px;
