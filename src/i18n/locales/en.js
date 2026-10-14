@@ -375,6 +375,7 @@ export default {
     lastChecked: 'Page last checked',
     notRecorded: 'Not recorded',
     everyDay: 'Every day',
+    dayRange: '{{from}} to {{to}}',
     never: 'Never',
     suggestEdit: 'Something wrong?',
     traitMildTaste: 'Mild taste',

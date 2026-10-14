@@ -1182,7 +1182,16 @@ function AppShell() {
                   } else if (asksOpenNow(searchQuery) && !asksLateHours(searchQuery) && !selectedFilters.includes(OPEN_NOW)) {
                     setSelectedFilters(prev => [...prev.filter(f => f !== OPEN_AT && f !== OPEN_NOW), OPEN_NOW]);
                     setQuery(plan?.now ? plan.rest : withoutOpenNow(searchQuery));
-                  }
+                  } else return;
+                  // Something changed: focus to the count over the list (as a tab
+                  // change does), so a screen reader says it — the field let go of
+                  // focus and it fell to the page.
+                  requestAnimationFrame(() => requestAnimationFrame(() => {
+                    const heading = document.querySelector('.place-list__header h2');
+                    if (!heading) return;
+                    heading.tabIndex = -1;
+                    heading.focus({ preventScroll: true });
+                  }));
                 }}
                 selectedFilters={selectedFilters}
                 onToggleFilter={handleToggleFilter}

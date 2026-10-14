@@ -394,6 +394,13 @@ export default function BottomSheetList({
     .replace(new RegExp(`(?:\\b(?:no|non|without|free|tanpa|bebas)\\s+)?(?:${ASKS_ALCOHOL.source})(?:\\s*[- ]?free\\b)?`, 'gi'), ' ')
     .replace(new RegExp(`(?:\\b(?:no|free)\\s+)?(?:${ASKS_UNRECORDED.source})(?:\\s+needed\\b)?`, 'gi'), ' ')
     .replace(/\s+/g, ' ').trim();
+  // "Also searched as …": the search as it was read. Said when it names a
+  // place another way ("Pusan" → "Busan", "釜山" → "Busan", "heundae" →
+  // "Haeundae": the spelling on signs), not when only a word for a dish or
+  // a kind of place became the records' English ("「temple」でも検索しました",
+  // "「prayer」" read as words the reader never typed).
+  const searchedAs = (() => { const said = porkFreeSaid(matchQuery); return /[가-힣぀-ヿ一-鿿]/.test(said) ? (romaniseQuery(matchQuery) ?? matchQuery) : (romaniseQuery(said) ?? said); })();
+  const respelt = String(searchedAs).split(/\s+/).filter(w => !String(searchQuery).toLowerCase().split(/\s+/).includes(w.toLowerCase())).some(w => /^[A-Z]/.test(w));
   const halalTyped = /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery) || liftDietWords(searchQuery).chips.includes('Halal');
   const activeN = activeFilters.filter(f => f !== SHARED_LIST).length + (searchQuery.trim() ? 1 : 0);
   // With "Saved" on, what is shared is the places themselves (a link to a
@@ -541,8 +548,8 @@ export default function BottomSheetList({
           "noodles" as "noodle"): nothing was spelt another way. */}
       {/* (Not over an empty list: "also searched as “停車 vegetarian”" above "no
           places" explained nothing and showed a word the reader never typed.) */}
-      {sorted.length > 0 && searchQuery.trim() && matchQuery.trim() && !typedKorean && !fromStory && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && (
-        <p className="place-list__searched-as">{t('list.searchedAs', { query: (() => { const said = porkFreeSaid(matchQuery); return /[가-힣぀-ヿ一-鿿]/.test(said) ? (romaniseQuery(matchQuery) ?? matchQuery) : (romaniseQuery(said) ?? said); })() })}</p>
+      {sorted.length > 0 && searchQuery.trim() && matchQuery.trim() && !typedKorean && !fromStory && (romaniseQuery(matchQuery) || matchQuery !== asked) && !/[가-힣]/.test(romaniseQuery(matchQuery) ?? '') && !onlyShorter(matchQuery, romaniseQuery(matchQuery)) && respelt && (
+        <p className="place-list__searched-as">{t('list.searchedAs', { query: searchedAs })}</p>
       )}
       {fromStory && sorted.length > 0 && (
         <p className="place-list__searched-as">{t('list.fromStory', { query: (() => { const typedWord = searchQuery.trim().replace(/^[#"“”„「『(（[]+|["“”」』)）\],.;:!?！？，。、]+$/g, ''); return typedWord !== '' && !/\s/.test(typedWord) ? typedWord : fromStory; })() })}</p>
@@ -587,13 +594,14 @@ export default function BottomSheetList({
           {offerLocate && <button type="button" onClick={onLocate}>{t('map.nearMe')}</button>}
         </p>
       )}
-      <div className="place-list__notes">
+      <div className="place-list__notes" id="place-list-notes">
       {/* The fold's own control: the notes were opened by tapping a
           paragraph, which no keyboard or screen reader could find. */}
       <button
         type="button"
         className="place-list__notes-toggle"
         aria-expanded={notesOpen}
+        aria-controls="place-list-notes"
         aria-label={t('list.notesToggle')}
         onClick={(e) => { e.stopPropagation(); setNotesOpen(o => !o); }}
       />
@@ -607,13 +615,6 @@ export default function BottomSheetList({
       {/* With both diets on, why the list is short comes before all else. */}
       {activeFilters.includes('Halal') && activeFilters.includes('Vegan') && (
         <p className="section-note place-list__note">{t('list.bothDietsNote')}</p>
-      )}
-      {/* "halal no alcohol", "술 안 파는 할랄" list places by words in their
-          notes, some of which say alcohol is sold: said before the halal
-          caveat — folded on a phone, only the first note shows, and this
-          one answers what was typed. */}
-      {sorted.length > 0 && ASKS_ALCOHOL.test(searchQuery) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.alcoholHint')}</p>
       )}
       {/* The halal caveat first: it is the one about safety, and behind
           the "Open now" note it was folded out of sight. */}
@@ -642,6 +643,14 @@ export default function BottomSheetList({
           phone "vegetarian" under the Halal chip had put the caveat out of sight.) */}
       {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(sansAlcohol) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to="/cards?card=vegetarian" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
+      )}
+      {/* "halal no alcohol", "술 안 파는 할랄" list places by words in their
+          notes, some of which say alcohol is sold. After the halal caveat and the
+          vegetarian note: on a phone only the first note shows, and the
+          certificate caveat is the one about safety (an accessibility review
+          found it folded away behind this one). */}
+      {sorted.length > 0 && ASKS_ALCOHOL.test(searchQuery) && (
+        <p className="section-note place-list__note place-list__note--key">{t('list.alcoholHint')}</p>
       )}
       {sorted.length > 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to="/cards" state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
@@ -701,7 +710,7 @@ export default function BottomSheetList({
       {open24.length > 0 && (
         <div className="place-list__nearest place-list__always">
           <p id="open24-title">{t('list.open24Title')}</p>
-          <ul className="saved-list" aria-labelledby="open24-title">
+          <ul className="saved-list" role="list" aria-labelledby="open24-title">
             {open24.map(place => (
               <li key={place.id}>
                 <button type="button" className="saved-row" onClick={() => onRestaurantClick(place)}>

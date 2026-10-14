@@ -579,7 +579,9 @@ export default function RestaurantDetail({
       const last = rows[rows.length - 1];
       if (last && d.text && last.text === d.text) { last.to = d.day; last.today = last.today || d.today; last.key = `${last.key}-${d.key}`; } else rows.push({ ...d });
     }
-    return rows.map(r => (r.to ? { ...r, day: `${r.day}–${r.to}`, all: true } : r));
+    // Read out as "Monday to Friday": "Mon–Fri" was "Mon Fri" to a screen reader.
+    const longDay = (key) => { try { return new Intl.DateTimeFormat(i18n.language, { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(2026, 9, 5 + DAY_KEYS.indexOf(key) - 1))); } catch { return key; } };
+    return rows.map(r => (r.to ? { ...r, day: `${r.day}–${r.to}`, spoken: t('detail.dayRange', { from: longDay(r.key.split('-')[0]), to: longDay(r.key.split('-').pop()) }), all: true } : r));
   })();
   const planStatus = planDate && planAt ? getOpenStatus(place.hours, planDate, { nameDay: true }) : null;
   const planWhen = planAt ? t('filters.dayTime', { day: t(`hours.day.${DAY_KEYS[planAt.day]}`), time: formatClock(planAt.minutes) }) : '';
@@ -1003,7 +1005,7 @@ export default function RestaurantDetail({
                   <dl>
                     {weekRows.map(d => (
                       <div key={d.key} className={[d.today ? 'is-today' : '', d.all ? 'week-hours__all' : ''].filter(Boolean).join(' ') || undefined}>
-                        <dt>{d.day}{d.today && <span className="visually-hidden">{paren('', t('filters.today'))}</span>}</dt>
+                        <dt>{d.spoken ? <><span aria-hidden="true">{d.day}</span><span className="visually-hidden">{d.spoken}</span></> : d.day}{d.today && <span className="visually-hidden">{paren('', t('filters.today'))}</span>}</dt>
                         {/* Lunch and dinner each on a line of their own: run together
                             they wrapped mid-time on a phone. */}
                         <dd>{d.text ? d.text.split(listComma()).map(part => <span key={part} className="week-hours__slot">{hoursPieces(part)}</span>) : t('detail.notRecorded')}</dd>

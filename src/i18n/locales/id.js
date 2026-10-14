@@ -368,6 +368,7 @@ export default {
     lastChecked: 'Halaman terakhir dicek',
     notRecorded: 'Tidak tercatat',
     everyDay: 'Setiap hari',
+    dayRange: '{{from}} sampai {{to}}',
     never: 'Belum pernah',
     suggestEdit: 'Ada yang salah?',
     traitMildTaste: 'Tidak terlalu pedas',

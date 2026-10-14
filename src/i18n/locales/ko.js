@@ -364,6 +364,7 @@ export default {
     lastChecked: '페이지 최근 확인',
     notRecorded: '기록 없음',
     everyDay: '매일',
+    dayRange: '{{from}}부터 {{to}}까지',
     never: '없음',
     suggestEdit: '틀린 곳이 있나요?',
     traitMildTaste: '순한 맛',

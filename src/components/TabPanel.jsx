@@ -367,6 +367,7 @@ function TextSizeRow() {
             type="button"
             className={`text-size__btn text-size__btn--${s}${s === size ? ' is-on' : ''}`}
             aria-pressed={s === size}
+            aria-describedby={s === size && fromDevice ? 'text-size-device' : undefined}
             onClick={() => choose(s)}
           >
             {/* Named by the letter it shows and what it means. */}

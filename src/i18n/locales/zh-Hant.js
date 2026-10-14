@@ -365,6 +365,7 @@ export default {
     lastChecked: '本頁最近查核',
     notRecorded: '未記錄',
     everyDay: '每天',
+    dayRange: '{{from}}至{{to}}',
     never: '從未',
     suggestEdit: '資訊有誤？',
     traitMildTaste: '不太辣',

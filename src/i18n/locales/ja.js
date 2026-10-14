@@ -370,6 +370,7 @@ export default {
     lastChecked: 'ページの最終確認',
     notRecorded: '記録なし',
     everyDay: '毎日',
+    dayRange: '{{from}}から{{to}}まで',
     never: '未確認',
     suggestEdit: '誤りがありましたか？',
     traitMildTaste: '辛さ控えめ',
