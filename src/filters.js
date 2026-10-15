@@ -821,6 +821,9 @@ const allStrings = (v, out = []) => {
 };
 export function saysNoAlcohol(r) {
   if (!r || typeof r !== 'object') return false;
+  // (The browser's copy has no evidence text: the answer was read from the
+  // full record when it was made — scripts/lib/client-data.mjs.)
+  if (typeof r.noAlcoholSaid === 'boolean') return r.noAlcoholSaid;
   if (noAlcoholMemo.has(r)) return noAlcoholMemo.get(r);
   const text = allStrings(r).join(' \n ');
   NO_ALCOHOL_SAID.lastIndex = 0;

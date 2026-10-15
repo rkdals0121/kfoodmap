@@ -20,6 +20,7 @@
 // scripts/tests/client-data.test.mjs fails if any other file starts reading
 // a stripped field — such a reader must fetch the full record first.
 import { stationKey } from '../../src/data/station-ko.js';
+import { saysNoAlcohol } from '../../src/filters.js';
 
 export const DETAIL_ONLY = ['menus', 'transit', 'phone', 'officialUrl', 'instagram', 'timeline'];
 export const AUDIT_KEYS = ['evidence', 'url', 'method', 'lastCheckedAt'];
@@ -49,6 +50,9 @@ export function clientRecord(r) {
   // none: some 12 kB over the whole list.
   const near = r.transit?.value;
   if (near?.station && near.distanceM <= 1000) out.nearStation = stationKey(near.station);
+  // Whether a note says no alcohol is sold: most of those notes are
+  // evidence text, which is not here — read from the full record, at build.
+  out.noAlcoholSaid = saysNoAlcohol(r);
   return out;
 }
 

@@ -896,3 +896,13 @@ test('no alcohol, however worded: the places whose notes say so, never one that 
   // A drink is a drink.
   for (const q of ['alcohol free beer', 'ノンアルコールビール']) assert.equal(ids(q), '', q);
 });
+
+test('the browser copy of the places (no evidence text) answers every search as the full records do', async () => {
+  const { clientRecord } = await import('../lib/client-data.mjs');
+  const client = places.map(clientRecord);
+  for (const q of ['무알콜', 'halal no alcohol', 'no alcohol seoul station', 'vegetarian no egg', 'vegetarian tanpa telur', '素食 无蛋', 'gluten free', 'no garlic', 'prayer room', 'musholla seoul', 'halal', 'vegan busan', 'no pork', 'egg allergy']) {
+    const ids = (list) => searchPlaces({ places: list, query: q }).filteredRestaurants.map(r => r.id).join(' ');
+    assert.equal(ids(client), ids(places), q);
+  }
+});
+
