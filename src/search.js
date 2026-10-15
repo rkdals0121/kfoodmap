@@ -18,7 +18,7 @@ import { matchesDietary } from './data/verification.js';
 import { COOKING, fuzzyQuery, isListedArea, onlyFillers, questionWords, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
-  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, leftOutQuery, alcoholAsked, saysNoAlcohol, asksPrayer, stripCertWords, porkFreeSaid, liftDietWords, mentionsInStory, storyWord } from './filters.js';
+  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, leftOutQuery, ALLERGY_WORD, alcoholAsked, saysNoAlcohol, asksPrayer, stripCertWords, porkFreeSaid, liftDietWords, mentionsInStory, storyWord } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
 import { stationKey, isKnownStation, stationRomans } from './data/station-ko.js';
 import { romaniseKorean } from './data/romanise-ko.js';
@@ -80,6 +80,7 @@ const NEGATES = /^(?:no|not|non|without|free|tanpa|bebas|없는|없이|안|な�
 function leftOut(typed) {
   const words = String(typed ?? '').trim().split(/\s+/).filter(Boolean);
   if (words.length < 2 || words.length > 5) return [];
+  if (ALLERGY_WORD.test(typed)) return [];
   return words.map((word, i) => ({ word, rest: words.filter((w, k) => k !== i).join(' ') }))
     // Nor is the diet: "halal bibimbap hongdae" without "halal" is two places
     // with no halal reading — not the nearest thing to what was asked.
@@ -110,6 +111,12 @@ function stationBeside(asked) {
 const titled = (s) => s.replace(/(^|[ -])([a-z])/g, (m, a, b) => a + b.toUpperCase());
 
 const NO_ALCOHOL_SAID_CHIP = 'no-alcohol-said';
+// "egg allergy", "nut allergy seoul", "えび アレルギー": the places whose notes
+// say egg can be left out of a dish (49) read as kitchens an allergic
+// visitor can trust, and the one bakery whose cake is "nut-free" as the
+// answer. No record can say a kitchen is free of an allergen: no list, the
+// note and the allergy card (walk-through, 2026-10-15).
+const ALLERGY_ASKED_CHIP = 'allergy-asked';
 export function searchPlaces({
   places, query = '', filters = [], areaOnly = false, openOn = false, includeUnknown = false,
   now = new Date(), bookmarkedIds = [], sharedIds = [], asides = true,
@@ -169,8 +176,10 @@ export function searchPlaces({
   // "no alcohol jeju" nothing, with no nearest offered. (Not one the reader
   // chose: never offered to take off.)
   if (noAlcohol) filters = [...filters, NO_ALCOHOL_SAID_CHIP];
+  if (ALLERGY_WORD.test(said) && leftOutQuery(said).items.length > 0) filters = [...filters, ALLERGY_ASKED_CHIP];
   const chips = (r) => filters.every((f) => {
     if (f === NO_ALCOHOL_SAID_CHIP) return saysNoAlcohol(r);
+    if (f === ALLERGY_ASKED_CHIP) return false;
     if (f === OPEN_NOW || f === OPEN_AT) return true; // asked last, in select()
     if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
     if (f === SHARED_LIST) return sharedIds.includes(r.id);

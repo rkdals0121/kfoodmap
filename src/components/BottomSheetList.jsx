@@ -11,7 +11,7 @@ import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
 import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid, isPorkFreeQuery } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery, asksAlcohol, stripAlcoholWords, prayerSaid } from '../filters';
+import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery, asksAlcohol, stripAlcoholWords, prayerSaid, ALLERGY_WORD } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted, listComma } from '../i18n/punct';
 import { extrasAsked, chosenCard } from '../data/staff-cards';
@@ -279,9 +279,11 @@ export default function BottomSheetList({
   // for a family that eats everything but shrimp.)
   // (Only when an allergy is said: "no shrimp" is not "someone in our group
   // has a food allergy".)
-  const allergyAsked = !VEGETARIAN_TYPED.test(searchQuery)
-    && /allerg|alergi|알레르기|알러지|アレルギー|过敏|過敏/i.test(searchQuery)
-    && askedOut.some(x => ['shellfish', 'fish', 'nuts', 'milk', 'sesame', 'egg'].includes(x));
+  // (…and "peanut free", "no shrimp", "참깨 없는" with no diet named: the
+  // vegan card opened, telling staff the visitor is vegan.)
+  const allergyAsked = !VEGETARIAN_TYPED.test(searchQuery) && (
+    (/allerg|alergi|알레르기|알러지|アレルギー|过敏|過敏/i.test(searchQuery) && askedOut.some(x => ['shellfish', 'fish', 'nuts', 'milk', 'sesame', 'egg'].includes(x)))
+    || askedOut.some(x => ['shellfish', 'nuts', 'sesame'].includes(x)));
   const dietCard = halalSaid && !veganSaid ? 'muslim'
     : veganSaid ? 'vegan'
       : allergyAsked ? 'allergy'
@@ -873,7 +875,7 @@ export default function BottomSheetList({
           {/* "peanut", "五辛", "알레르기": not on record for any place — the
               cards are where that question can be asked. */}
           {withoutFilters === 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
-            <p className="place-list__hint-text">{t('list.askStaffHint')} <Link to={cardsLink()} state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
+            <p className="place-list__hint-text">{t(ALLERGY_WORD.test(searchQuery) ? 'list.allergyHint' : 'list.askStaffHint')} <Link to={cardsLink()} state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
           )}
           {/* "jain", "오신채 없는", "五辛": nothing is called so, but some records
               say the kitchen cooks without onion or garlic — the search that

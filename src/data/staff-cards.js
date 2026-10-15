@@ -24,6 +24,9 @@
 
 // A word joiner (U+2060) follows a closing bracket where a particle comes
 // next: shown large, "가" was left alone on a line of its own.
+// The allergy card's two lines that go with any allergen, on any card.
+const ALLERGY_EVEN_A_LITTLE = { ko: '알레르기 재료가 양념, 소스, 육수에 조금만 들어가도 먹을 수 없습니다.', roman: 'Allereugi jaeryoga yangnyeom, soseu, yuksue jogeumman deureogado meogeul su eopseumnida.', key: 'allergyS2' };
+const ALLERGY_SHARED_OIL = { ko: '같은 기름이나 조리 도구로 다른 음식도 만드나요?', roman: 'Gateun gireumina jori doguro dareun eumsikdo mandeunayo?', key: 'allergyQ3' };
 export const STAFF_CARDS = [
   {
     id: 'vegan',
@@ -48,7 +51,6 @@ export const STAFF_CARDS = [
       { ko: '고기와 달걀을 빼고 만들어 주실 수 있나요?', roman: 'Gogiwa dalgyareul ppaego mandeureo jusil su innayo?', key: 'veganQ6' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'veganQ7' },
       { ko: '오신채(마늘, 파, 부추, 달래, 양파)⁠가 들어가나요?', roman: 'Osinchae (maneul, pa, buchu, dallae, yangpa) ga deureoganayo?', key: 'vegeQ8' },
-      { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'veganQ9' },
     ],
   },
   // For someone who eats egg and dairy: the vegan card tells a kitchen they
@@ -75,9 +77,9 @@ export const STAFF_CARDS = [
       // (Asked by many vegetarians from Taiwan and by temple-food eaters, who more
       // often pick this card than the vegan one: the same sentence as there.)
       { ko: '오신채(마늘, 파, 부추, 달래, 양파)⁠가 들어가나요?', roman: 'Osinchae (maneul, pa, buchu, dallae, yangpa) ga deureoganayo?', key: 'veganQ8' },
-      // The two every card carries: a child at the table, and nuts.
+      // Every card carries a child at the table. (A nut question that said
+      // "I have a nut allergy" for everyone is now the nut allergy's own.)
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'vegeQ6' },
-      { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'vegeQ7' },
     ],
   },
   {
@@ -98,7 +100,6 @@ export const STAFF_CARDS = [
       { ko: '고기 없이 해산물이나 채소로 만든 메뉴가 있나요?', roman: 'Gogi eopsi haesanmurina chaesoro mandeun menyuga innayo?', key: 'muslimQ6' },
       { ko: '여기서 술을 판매하나요?', roman: 'Yeogiseo sureul panmaehanayo?', key: 'muslimQ7' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'muslimQ8' },
-      { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'muslimQ9' },
     ],
   },
   // For a coeliac, or anyone who cannot eat wheat: "gluten" is not an everyday
@@ -122,7 +123,6 @@ export const STAFF_CARDS = [
       { ko: '튀김 기름이나 면 삶는 물을 밀가루 음식과 같이 쓰나요?', roman: 'Twigim gireumina myeon samneun mureul milgaru eumsikgwa gachi sseunayo?', key: 'wheatQ4' },
       { ko: '보리(보리차 포함)⁠가 들어가나요?', roman: 'Bori (boricha poham) ga deureoganayo?', key: 'wheatQ5' },
       { ko: '아이가 먹을 수 있는 맵지 않은 메뉴가 있나요?', roman: 'Aiga meogeul su inneun maepji aneun menyuga innayo?', key: 'wheatQ6' },
-      { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'wheatQ7' },
     ],
   },
   // For a food allergy — a child who cannot eat shrimp, a parent with a nut
@@ -135,13 +135,13 @@ export const STAFF_CARDS = [
     labelKey: 'cards.allergyLabel',
     statement: [
       { ko: '안녕하세요. 저희 일행 중에 음식 알레르기가 있는 사람이 있습니다.', roman: 'Annyeonghaseyo. Jeohui ilhaeng junge eumsik allereugiga inneun sarami isseumnida.', key: 'allergyS1' },
-      { ko: '알레르기 재료가 양념, 소스, 육수에 조금만 들어가도 먹을 수 없습니다.', roman: 'Allereugi jaeryoga yangnyeom, soseu, yuksue jogeumman deureogado meogeul su eopseumnida.', key: 'allergyS2' },
+      ALLERGY_EVEN_A_LITTLE,
       { ko: '먹을 수 있는 메뉴가 있을까요?', roman: 'Meogeul su inneun menyuga isseulkkayo?', key: 'allergyS3' },
     ],
     questions: [
       { ko: '이 음식에 어떤 재료가 들어가나요?', roman: 'I eumsige eotteon jaeryoga deureoganayo?', key: 'allergyQ1' },
       { ko: '양념, 소스, 육수에는 무엇이 들어가나요?', roman: 'Yangnyeom, soseu, yuksueneun mueosi deureoganayo?', key: 'allergyQ2' },
-      { ko: '같은 기름이나 조리 도구로 다른 음식도 만드나요?', roman: 'Gateun gireumina jori doguro dareun eumsikdo mandeunayo?', key: 'allergyQ3' },
+      ALLERGY_SHARED_OIL,
     ],
   },
 ];
@@ -253,6 +253,7 @@ export const CARD_EXTRAS = [
   {
     id: 'shellfish',
     labelKey: 'cards.allergyShellfish',
+    allergen: true,
     cards: ['allergy', 'muslim', 'wheat'],
     replace: { muslimQ6: VEGETABLE_DISH },
     statement: { ko: '새우, 게 같은 갑각류를 먹을 수 없습니다. 새우젓, 새우 가루, 해물 육수도 안 됩니다.', roman: 'Saeu, ge gateun gapgangnyureul meogeul su eopseumnida. Saeujeot, saeu garu, haemul yuksudo an doemnida.', key: 'allergyShellfishS' },
@@ -262,6 +263,7 @@ export const CARD_EXTRAS = [
   {
     id: 'fish',
     labelKey: 'cards.allergyFish',
+    allergen: true,
     cards: ['allergy', 'muslim', 'wheat'],
     replace: { muslimQ6: VEGETABLE_DISH },
     statement: { ko: '생선을 먹을 수 없습니다. 멸치 육수, 액젓, 어묵도 안 됩니다.', roman: 'Saengseoneul meogeul su eopseumnida. Myeolchi yuksu, aekjeot, eomukdo an doemnida.', key: 'allergyFishS' },
@@ -271,16 +273,16 @@ export const CARD_EXTRAS = [
   {
     id: 'nuts',
     labelKey: 'cards.allergyNuts',
+    allergen: true,
     cards: ['allergy', 'vegan', 'vegetarian', 'muslim', 'wheat'],
     statement: { ko: '땅콩과 견과류(호두, 잣, 아몬드 등)⁠를 먹을 수 없습니다.', roman: 'Ttangkonggwa gyeongwaryu (hodu, jat, amondeu deung) reul meogeul su eopseumnida.', key: 'allergyNutsS' },
-    // (In place of the card's own nut question: asked twice, it was noise.)
-    replace: { veganQ9: NUTS_QUESTION, vegeQ7: NUTS_QUESTION, muslimQ9: NUTS_QUESTION, wheatQ7: NUTS_QUESTION },
     questions: [NUTS_QUESTION],
     words: ['word20'],
   },
   {
     id: 'egg',
     labelKey: 'cards.allergyEgg',
+    allergen: true,
     // (The vegetarian card has its own egg, above.)
     cards: ['allergy', 'muslim', 'wheat'],
     statement: { ko: '달걀을 먹을 수 없습니다. 반죽, 빵, 마요네즈에 든 것도 안 됩니다.', roman: 'Dalgyareul meogeul su eopseumnida. Banjuk, ppang, mayonejeue deun geotdo an doemnida.', key: 'allergyEggS' },
@@ -290,6 +292,7 @@ export const CARD_EXTRAS = [
   {
     id: 'milk',
     labelKey: 'cards.allergyMilk',
+    allergen: true,
     cards: ['allergy', 'muslim', 'wheat'],
     statement: { ko: '우유와 유제품(버터, 치즈, 크림)⁠을 먹을 수 없습니다.', roman: 'Uyuwa yujepum (beoteo, chijeu, keurim) eul meogeul su eopseumnida.', key: 'allergyMilkS' },
     questions: [{ ko: '우유, 버터, 치즈, 크림이 들어가나요?', roman: 'Uyu, beoteo, chijeu, keurimi deureoganayo?', key: 'allergyMilkQ' }],
@@ -298,6 +301,7 @@ export const CARD_EXTRAS = [
   {
     id: 'sesame',
     labelKey: 'cards.allergySesame',
+    allergen: true,
     cards: ['allergy', 'vegan', 'vegetarian', 'muslim', 'wheat'],
     statement: { ko: '참깨를 먹을 수 없습니다. 참기름, 깨소금도 안 됩니다.', roman: 'Chamkkaereul meogeul su eopseumnida. Chamgireum, kkaesogeumdo an doemnida.', key: 'allergySesameS' },
     questions: [{ ko: '참깨나 참기름이 들어가나요?', roman: 'Chamkkaena chamgireumi deureoganayo?', key: 'allergySesameQ' }],
@@ -353,9 +357,13 @@ export function cardLines(card, extras = []) {
   const on = CARD_EXTRAS.filter(x => x.cards.includes(card.id) && extras.includes(x.id));
   const swap = (line) => on.reduce((l, x) => x.replace?.[line.key] ?? l, line);
   const statement = card.statement.map(swap);
-  statement.splice(statement.length - 1, 0, ...on.flatMap(x => [].concat(x.statement ?? [])));
+  // (An allergen on another card brings the allergy card's "even a little"
+  // and shared oil: "달걀을 먹을 수 없습니다" after "저는 무슬림입니다" read as a
+  // preference — walk-through, 2026-10-15.)
+  const allergen = card.id !== 'allergy' && on.some(x => x.allergen);
+  statement.splice(statement.length - 1, 0, ...on.flatMap(x => [].concat(x.statement ?? [])), ...(allergen ? [ALLERGY_EVEN_A_LITTLE] : []));
   const questions = card.questions.map(swap);
-  questions.splice(1, 0, ...on.flatMap(x => x.questions ?? []));
+  questions.splice(1, 0, ...on.flatMap(x => x.questions ?? []), ...(allergen ? [ALLERGY_SHARED_OIL] : []));
   const once = (list) => list.filter((l, i) => list.findIndex(m => m.ko === l.ko) === i);
   return { statement: once(statement), questions: once(questions), words: new Set(on.flatMap(x => x.words ?? [])) };
 }

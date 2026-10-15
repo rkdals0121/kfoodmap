@@ -542,8 +542,8 @@ const ABROAD_LIST = `(?:${ABROAD_ALT})(?:(?:\\s*(?:[、,，・/和与與及や]|
 // of the phrase: "无糖奶茶" is sugar-free milk tea, not "no milk".)
 const ABROAD_RUN = `(?:${ABROAD_ALT})(?:(?:\\s*(?:[、,，/和与與及])\\s*)?(?:${ABROAD_ALT}))*(?=$|[\\s,，、。.!?！？的了吧呢无無不没沒免]|过敏|過敏)`;
 const ABROAD_LEFT_OUT = [
-  // Indonesian: "tanpa telur", "bebas gluten", "tidak pakai bawang".
-  new RegExp(`\\b(?:tanpa|bebas|tidak (?:pakai|pake|memakai|mengandung)|nggak pakai|gak pakai|non)\\s+(${ABROAD_LIST})\\b`, 'gi'),
+  // Indonesian: "tanpa telur", "bebas gluten", "tidak pakai bawang", "alergi telur".
+  new RegExp(`\\b(?:tanpa|bebas|tidak (?:pakai|pake|memakai|mengandung)|nggak pakai|gak pakai|non|alergi)\\s+(${ABROAD_LIST})\\b`, 'gi'),
   // Korean: "달걀 없는", "계란 빼고", "마늘 안 들어간", "글루텐 프리".
   new RegExp(`(${ABROAD_LIST})\\s*(?:을|를|이|가|은|는)?\\s*(?:없는|없이|없음|없고|빼고|빼서|빼 ?주세요|뺀|제외|안\\s*(?:들어간|들어가는|넣은|넣고|먹는|먹어요|먹습니다)|못\\s*먹|안\\s*(?:쓰는|써요|씁니다)|(?:들어가지|넣지|쓰지)\\s*않|프리|알레르기|알러지)`, 'g'),
   // Korean "무설탕", "무글루텐".
@@ -562,13 +562,17 @@ function inEnglishLeftOut(text) {
   for (const re of ABROAD_LEFT_OUT) {
     out = out.replace(re, (whole, list, at, all) => {
       // (Korean: "비밀 없는", "우리밀 없는" end in 밀 but are other words.)
-      if (/^[가-힣]/.test(whole) && /[가-힣]$/.test(String(all).slice(0, at))) return whole;
+      // (…but "생새우", "건새우", "냉동새우", "벌꿀" are the same food.)
+      const before = String(all).slice(0, at);
+      if (/^[가-힣]/.test(whole) && /[가-힣]$/.test(before) && !/(?:^|[^가-힣])(?:생|건|냉동|벌|토종)$/.test(before)) return whole;
       const ens = [...String(list).matchAll(ABROAD_ONE)].map(m => ABROAD_EN.get(m[0]) ?? ABROAD_EN.get(m[0].toLowerCase())).filter(Boolean);
       return ens.length > 0 ? ` ${ens.map(en => `no ${en}`).join(' ')} ` : whole;
     });
   }
   return out;
 }
+// An allergy named ("egg allergy", "えび アレルギー", "alergi telur").
+export const ALLERGY_WORD = /\ballerg(?:y|ies|ic)\b|\balergi\b|알레르기|알러지|アレルギー|过敏|過敏/i;
 export function leftOutQuery(query) {
   const key = String(query ?? '');
   let read = LEFT_OUT_READ.get(key);

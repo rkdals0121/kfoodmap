@@ -167,3 +167,14 @@ test('a food allergy has a card: the allergens chosen, where they hide, and the 
   assert.deepEqual(extrasAsked('shrimp fried rice', leftOutQuery('shrimp fried rice').items), []);
 });
 
+test('an allergen on another card is said as an allergy; no card says "I have a nut allergy" unless chosen', () => {
+  const muslimEgg = cardLines(cardById('muslim'), ['egg']);
+  assert.ok(muslimEgg.statement.some(l => l.key === 'allergyS2'));
+  assert.ok(muslimEgg.questions.some(l => l.key === 'allergyQ3'));
+  assert.equal(muslimEgg.statement.at(-1).key, 'muslimS4');
+  // The vegetarian's own egg is a diet, not an allergy.
+  assert.ok(!cardLines(cardById('vegetarian'), ['egg']).statement.some(l => l.key === 'allergyS2'));
+  for (const c of STAFF_CARDS) assert.ok(!cardLines(c, []).questions.some(l => /알레르기가 있습니다/.test(l.ko)), c.id);
+  assert.ok(cardLines(cardById('vegan'), ['nuts']).statement.some(l => /땅콩/.test(l.ko)));
+});
+
