@@ -549,6 +549,7 @@ export default {
   // holds the Korean and the key). A meaning, not a paraphrase: the reader
   // must know exactly what they are showing.
   cardText: {
+    allergyVegetableDish: 'Is there a dish made with vegetables instead of meat?',
     allergyS1: 'Hello. Someone in our group has a food allergy.',
     allergyS2: 'Even a little of an allergy ingredient in a seasoning, sauce or stock means the dish cannot be eaten.',
     allergyS3: 'Is there a dish that can be eaten?',

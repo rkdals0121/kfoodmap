@@ -530,6 +530,7 @@ export default {
   },
   // What each Korean line on the staff cards says, in plain Korean.
   cardText: {
+    allergyVegetableDish: '고기 없이 채소로 만든 메뉴가 있나요?',
     allergyS1: '안녕하세요. 저희 일행 중에 음식 알레르기가 있는 사람이 있어요.',
     allergyS2: '알레르기 재료가 양념, 소스, 육수에 조금만 들어가도 먹을 수 없어요.',
     allergyS3: '먹을 수 있는 메뉴가 있을까요?',

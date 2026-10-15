@@ -533,6 +533,7 @@ export default {
   // 店員卡片上每句韓語的意思（韓語原文和鍵在 src/data/staff-cards.js）。
   // 是原意，不是意譯：讀者必須確切知道自己出示的是什麼。
   cardText: {
+    allergyVegetableDish: '有不用肉、用蔬菜做的菜嗎？',
     allergyS1: '您好。我們同行的人中有人有食物過敏。',
     allergyS2: '過敏食材即使只是少量用在調味料、醬汁或高湯裡，也不能吃。',
     allergyS3: '有可以吃的菜嗎？',

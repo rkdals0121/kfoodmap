@@ -104,8 +104,15 @@ const ASKS_PRICE = new RegExp(`\\b(?:cheap|cheapest|budget|affordable|inexpensiv
 // question (search.js) — the list is every vegan place, and nothing said
 // that whether each serves breakfast is not on record (walk-through,
 // 2026-10-15). Alone, "breakfast" is the places whose records say so.
-const BREAKFAST_WORD = /\b(?:breakfast|sarapan)\b|아침|조식|朝食|朝ごはん|モーニング|早餐|早饭|早飯/gi;
-const ASKS_BREAKFAST = { test: (q) => { const text = String(q ?? ''); BREAKFAST_WORD.lastIndex = 0; const said = BREAKFAST_WORD.test(text); BREAKFAST_WORD.lastIndex = 0; return said && text.replace(BREAKFAST_WORD, '').trim() !== ''; } };
+// (A word of its own, or glued after another in Chinese and Japanese —
+// "純素早餐" — and with something else asked: not "이조식탁", a name, nor
+// "早餐店" or "아침밥", which ask for breakfast alone.)
+const BREAKFAST_WORDS = ['breakfast', 'sarapan', '아침', '조식', '朝食', '朝ごはん', 'モーニング', '早餐', '早饭', '早飯'];
+const ASKS_BREAKFAST = { test: (q) => {
+  const words = String(q ?? '').toLowerCase().replace(/[?!.,，、。？！]+/g, ' ').split(/\s+/).filter(Boolean);
+  const glued = (w) => /[\u3040-\u9fff]/.test(w) && BREAKFAST_WORDS.some(b => w.endsWith(b) && w.length > b.length);
+  return words.some(w => BREAKFAST_WORDS.includes(w) || glued(w)) && words.some(w => !BREAKFAST_WORDS.includes(w));
+} };
 const ASKS_ALCOHOL = new RegExp(`\\b(?:alcohol|alkohol)\\b|무알콜|무알코올|논알콜|논알코올|술\\s*(?:안|없)|アルコール|お酒|酒精|不卖酒|不賣酒|无酒|無酒`, 'i');
 // "musholla", "masjid", "prayer room", "기도실": answered with the two or
 // five restaurants whose story mentions one, and nothing said that the map

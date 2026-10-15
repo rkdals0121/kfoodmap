@@ -201,6 +201,10 @@ export const cardById = (id) => STAFF_CARDS.find(c => c.id === id) ?? STAFF_CARD
 //  statement: a line added before the card's last ("Is there a dish I can eat?");
 //  questions: asked after the card's first question;
 //  words: menu words shown with it.
+const NUTS_QUESTION = { ko: '땅콩이나 견과류가 들어가나요? (소스, 고명 포함)', roman: 'Ttangkongina gyeongwaryuga deureoganayo? (soseu, gomyeong poham)', key: 'allergyNutsQ' };
+// (The Muslim card asked for "a dish of seafood or vegetables" after saying
+// fish or shrimp cannot be eaten.)
+const VEGETABLE_DISH = { ko: '고기 없이 채소로 만든 메뉴가 있나요?', roman: 'Gogi eopsi chaesoro mandeun menyuga innayo?', key: 'allergyVegetableDish' };
 const EGG_QUESTION = { ko: '달걀이 들어가나요? (반죽, 빵, 소스 포함)', roman: 'Dalgyari deureoganayo? (banjuk, ppang, soseu poham)', key: 'vegeQ9' };
 const wheatLine = (key) => { const c = STAFF_CARDS.find(x => x.id === 'wheat'); return [...c.statement, ...c.questions].find(l => l.key === key); };
 export const CARD_EXTRAS = [
@@ -250,6 +254,7 @@ export const CARD_EXTRAS = [
     id: 'shellfish',
     labelKey: 'cards.allergyShellfish',
     cards: ['allergy', 'muslim', 'wheat'],
+    replace: { muslimQ6: VEGETABLE_DISH },
     statement: { ko: '새우, 게 같은 갑각류를 먹을 수 없습니다. 새우젓, 새우 가루, 해물 육수도 안 됩니다.', roman: 'Saeu, ge gateun gapgangnyureul meogeul su eopseumnida. Saeujeot, saeu garu, haemul yuksudo an doemnida.', key: 'allergyShellfishS' },
     questions: [{ ko: '새우나 게가 들어가나요? (새우젓, 새우 가루, 해물 육수 포함)', roman: 'Saeuna gega deureoganayo? (saeujeot, saeu garu, haemul yuksu poham)', key: 'allergyShellfishQ' }],
     words: ['word2', 'word3'],
@@ -258,6 +263,7 @@ export const CARD_EXTRAS = [
     id: 'fish',
     labelKey: 'cards.allergyFish',
     cards: ['allergy', 'muslim', 'wheat'],
+    replace: { muslimQ6: VEGETABLE_DISH },
     statement: { ko: '생선을 먹을 수 없습니다. 멸치 육수, 액젓, 어묵도 안 됩니다.', roman: 'Saengseoneul meogeul su eopseumnida. Myeolchi yuksu, aekjeot, eomukdo an doemnida.', key: 'allergyFishS' },
     questions: [{ ko: '생선이 들어가나요? (멸치 육수, 액젓, 어묵 포함)', roman: 'Saengseoni deureoganayo? (myeolchi yuksu, aekjeot, eomuk poham)', key: 'allergyFishQ' }],
     words: ['word1', 'word3', 'word4'],
@@ -267,7 +273,9 @@ export const CARD_EXTRAS = [
     labelKey: 'cards.allergyNuts',
     cards: ['allergy', 'vegan', 'vegetarian', 'muslim', 'wheat'],
     statement: { ko: '땅콩과 견과류(호두, 잣, 아몬드 등)⁠를 먹을 수 없습니다.', roman: 'Ttangkonggwa gyeongwaryu (hodu, jat, amondeu deung) reul meogeul su eopseumnida.', key: 'allergyNutsS' },
-    questions: [{ ko: '땅콩이나 견과류가 들어가나요? (소스, 고명 포함)', roman: 'Ttangkongina gyeongwaryuga deureoganayo? (soseu, gomyeong poham)', key: 'allergyNutsQ' }],
+    // (In place of the card's own nut question: asked twice, it was noise.)
+    replace: { veganQ9: NUTS_QUESTION, vegeQ7: NUTS_QUESTION, muslimQ9: NUTS_QUESTION, wheatQ7: NUTS_QUESTION },
+    questions: [NUTS_QUESTION],
     words: ['word20'],
   },
   {
@@ -348,7 +356,8 @@ export function cardLines(card, extras = []) {
   statement.splice(statement.length - 1, 0, ...on.flatMap(x => [].concat(x.statement ?? [])));
   const questions = card.questions.map(swap);
   questions.splice(1, 0, ...on.flatMap(x => x.questions ?? []));
-  return { statement, questions, words: new Set(on.flatMap(x => x.words ?? [])) };
+  const once = (list) => list.filter((l, i) => list.findIndex(m => m.ko === l.ko) === i);
+  return { statement: once(statement), questions: once(questions), words: new Set(on.flatMap(x => x.words ?? [])) };
 }
 
 // The card the visitor last chose, while the app is open (not stored: it is

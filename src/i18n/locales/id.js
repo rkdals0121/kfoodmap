@@ -536,6 +536,7 @@ export default {
     },
   },
   cardText: {
+    allergyVegetableDish: 'Apakah ada menu dari sayuran tanpa daging?',
     allergyS1: 'Halo. Ada orang dalam rombongan kami yang punya alergi makanan.',
     allergyS2: 'Bahan alergen tidak bisa dimakan, meski hanya sedikit di bumbu, saus, atau kaldu.',
     allergyS3: 'Apakah ada menu yang bisa dimakan?',
