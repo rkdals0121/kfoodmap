@@ -281,9 +281,10 @@ export default function BottomSheetList({
   // has a food allergy".)
   // (…and "peanut free", "no shrimp", "참깨 없는" with no diet named: the
   // vegan card opened, telling staff the visitor is vegan.)
-  const allergyAsked = !VEGETARIAN_TYPED.test(searchQuery) && (
-    (/allerg|alergi|알레르기|알러지|アレルギー|过敏|過敏/i.test(searchQuery) && askedOut.some(x => ['shellfish', 'fish', 'nuts', 'milk', 'sesame', 'egg'].includes(x)))
-    || askedOut.some(x => ['shellfish', 'nuts', 'sesame'].includes(x)));
+  // ("shrimp free kimchi" is a vegan's kimchi: not shrimp. "soy allergy",
+  // "海鲜过敏": the allergy card, with what it can say.)
+  const allergyAsked = !VEGETARIAN_TYPED.test(searchQuery)
+    && (ALLERGY_WORD.test(searchQuery) || askedOut.some(x => ['nuts', 'sesame'].includes(x)));
   const dietCard = halalSaid && !veganSaid ? 'muslim'
     : veganSaid ? 'vegan'
       : allergyAsked ? 'allergy'
@@ -874,7 +875,7 @@ export default function BottomSheetList({
           )}
           {/* "peanut", "五辛", "알레르기": not on record for any place — the
               cards are where that question can be asked. */}
-          {withoutFilters === 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
+          {withoutFilters === 0 && (ASKS_INGREDIENT.test(sansAlcohol) || ALLERGY_WORD.test(searchQuery)) && (
             <p className="place-list__hint-text">{t(ALLERGY_WORD.test(searchQuery) ? 'list.allergyHint' : 'list.askStaffHint')} <Link to={cardsLink()} state={{ fromApp: true, tab: 'map' }}>{t('profile.staffCards')}</Link></p>
           )}
           {/* "jain", "오신채 없는", "五辛": nothing is called so, but some records

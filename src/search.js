@@ -176,7 +176,9 @@ export function searchPlaces({
   // "no alcohol jeju" nothing, with no nearest offered. (Not one the reader
   // chose: never offered to take off.)
   if (noAlcohol) filters = [...filters, NO_ALCOHOL_SAID_CHIP];
-  if (ALLERGY_WORD.test(said) && leftOutQuery(said).items.length > 0) filters = [...filters, ALLERGY_ASKED_CHIP];
+  // ("food allergies", "allergen free" too: a note that a bakery is "for
+  // people with allergies" is no answer either.)
+  if (ALLERGY_WORD.test(said)) filters = [...filters, ALLERGY_ASKED_CHIP];
   const chips = (r) => filters.every((f) => {
     if (f === NO_ALCOHOL_SAID_CHIP) return saysNoAlcohol(r);
     if (f === ALLERGY_ASKED_CHIP) return false;

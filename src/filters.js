@@ -572,7 +572,7 @@ function inEnglishLeftOut(text) {
   return out;
 }
 // An allergy named ("egg allergy", "えび アレルギー", "alergi telur").
-export const ALLERGY_WORD = /\ballerg(?:y|ies|ic)\b|\balergi\b|알레르기|알러지|アレルギー|过敏|過敏/i;
+export const ALLERGY_WORD = /\b(?:hypo)?allerg(?:y|ies|ic|ens?|enic)\b|\balergi|알레르기|알러지|알레르겐|アレルギー|アレルゲン|过敏|過敏/i;
 export function leftOutQuery(query) {
   const key = String(query ?? '');
   let read = LEFT_OUT_READ.get(key);

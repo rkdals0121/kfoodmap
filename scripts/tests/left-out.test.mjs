@@ -142,7 +142,7 @@ test('the body said of an ingredient, temple food in Chinese, alcohol left out b
   const ids = (q) => searchPlaces({ places, query: q }).filteredRestaurants.map(r => r.id).sort().join(' ');
   assert.equal(ids('lactose intolerant'), ids('dairy free'));
   // An allergy is not answered by a list (a note that egg can be left out of a dish is no allergy answer): the card asks.
-  for (const q of ['allergic to egg', 'egg allergy', 'nut allergy seoul', 'えび アレルギー', 'alergi telur', 'halal egg allergy']) assert.equal(ids(q), '', q);
+  for (const q of ['allergic to egg', 'egg allergy', 'nut allergy seoul', 'えび アレルギー', 'alergi telur', 'halal egg allergy', 'food allergies', 'allergen free']) assert.equal(ids(q), '', q);
   assert.equal(ids('佛教素食'), ids('寺廟料理'));
   assert.equal(ids('素菜'), ids('素食'));
   const halal = ids('halal no alcohol');
