@@ -245,6 +245,8 @@ const LATIN_VARIANTS = new Map(Object.entries({
   mie: 'noodle',
   tahu: 'tofu',
   ayam: 'chicken',
+  sayur: 'vegetables',
+  sayuran: 'vegetables',
   bubur: 'porridge',
   pasar: 'market',
   manis: 'dessert',
@@ -350,7 +352,7 @@ const FILLER = new Set(['餐厅', '餐廳', '饭店', '飯店', '식당', '맛�
   'を', 'が', 'は', '食べたい', '食べられる', '教えて', 'ください', 'ありますか', 'でも', 'お店', 'お店は', 'あります', '探しています', '探してます', '知りたい', 'どこですか', 'どこ', '行きたい', 'です',
   '在', '吃', '想吃', '吗', '嗎', '请问', '請問', '哪儿',
   // ("清真的地方", "我想找素食餐厅", "我要清真的": a place, I want, look for.)
-  '地方', '我想', '想', '想找', '找', '我要', '要', '帮我找', '幫我找', '餐厅', '餐廳',
+  '地方', '我想', '想', '想找', '找', '我要', '要', '帮我找', '幫我找', '餐厅', '餐廳', '需要', '想去', '我想去',
   'cari', 'mencari', 'ada', 'ingin', 'mau', 'tolong', 'apa', 'apakah', 'adakah', 'dimana',
   'recommended', 'recommendation', 'recommendations', 'popular', 'famous', 'delicious', 'tasty',
   'おすすめ', 'オススメ', 'お勧め', '人気', '美味しい', 'おいしい', '有名', 'どこ', '近くの',

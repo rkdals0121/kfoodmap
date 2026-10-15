@@ -913,3 +913,12 @@ test('a Chinese sentence around a search: a place, I want, look for', () => {
   assert.equal(ids('我要不含蛋的素食'), ids('素食 不含蛋'));
 });
 
+test('more ways of saying it: 不要猪肉, 需要清真, 我想去明洞, sayur; 비밀 is not 밀', () => {
+  const ids = (q) => go(q).filteredRestaurants.map(r => r.id).sort().join(' ');
+  assert.equal(ids('不要猪肉'), ids('不含猪肉'));
+  assert.equal(ids('需要清真'), ids('清真'));
+  assert.equal(ids('我想去明洞'), ids('明洞'));
+  assert.equal(ids('sayur'), ids('vegetables'));
+  assert.notEqual(ids('有没有猪肉'), ids('不含猪肉'));
+});
+

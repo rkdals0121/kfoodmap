@@ -366,7 +366,7 @@ const CERT_WORD = /^(ハラール|ハラル|清真|할랄|halal)?(?:kmf|certifie
 const PORK_FREE_SAID = [
   [/돼지고기(?:를|가|는)?\s*(?:안\s*(?:쓰는|넣는|들어간|들어가는|파는|먹는)|빼고|없이|없는)(?:\s*(?:집|식당|곳|가게|음식점|음식))?/g, '돼지고기없는'],
   [/豚肉(?:を|は)?(?:使わない|使っていない|なし|抜き|不使用)(?:の?(?:店|お店|レストラン))?/g, '豚肉不使用'],
-  [/(?:没有|不用|不含|无|無|沒有)(?:猪|豬)肉(?:的(?:店|餐厅|餐廳))?/g, '不含猪肉'],
+  [/(?:没有|不用|不含|无|無|沒有|不要|不吃|不加)(?:猪|豬)肉(?:的(?:店|餐厅|餐廳))?/g, '不含猪肉'],
   // ("tidak ada babi": left as words, the list offered the search without
   // "tidak" — "ada babi", with pork.)
   [/\b(?:tidak|tak|gak|nggak|enggak)\s+(?:ada|pakai|pake|memakai|menggunakan|mengandung)\s+(?:daging\s+)?babi\b|\bnon[- ]?babi\b|\btanpa\s+daging\s+babi\b/gi, 'tanpa babi'],
@@ -383,7 +383,8 @@ const PORK_FREE_SAID = [
   [/\bmyeong\s+dong\b(?![-\w])/gi, 'myeongdong'],
   [/\bitae\s+won\b/gi, 'itaewon'],
 ];
-export const porkFreeSaid = (query) => PORK_FREE_SAID.reduce((q, [said, word]) => q.replace(said, ` ${word} `), String(query ?? '')).replace(/\s+/g, ' ').trim();
+// ("有没有猪肉" — is there pork? — is a question: notAQuestion, below.)
+export const porkFreeSaid = (query) => PORK_FREE_SAID.reduce((q, [said, word]) => q.replace(said, ` ${word} `), notAQuestion(query)).replace(/\s+/g, ' ').trim();
 
 export function stripCertWords(query) {
   const asked = String(query ?? '').trim().split(/\s+/).filter(Boolean);
@@ -556,7 +557,9 @@ export const notAQuestion = (text) => String(text ?? '').replace(/(有)(?:没|�
 function inEnglishLeftOut(text) {
   let out = notAQuestion(text);
   for (const re of ABROAD_LEFT_OUT) {
-    out = out.replace(re, (whole, list) => {
+    out = out.replace(re, (whole, list, at, all) => {
+      // (Korean: "비밀 없는", "우리밀 없는" end in 밀 but are other words.)
+      if (/^[가-힣]/.test(whole) && /[가-힣]$/.test(String(all).slice(0, at))) return whole;
       const ens = [...String(list).matchAll(ABROAD_ONE)].map(m => ABROAD_EN.get(m[0]) ?? ABROAD_EN.get(m[0].toLowerCase())).filter(Boolean);
       return ens.length > 0 ? ` ${ens.map(en => `no ${en}`).join(' ')} ` : whole;
     });
