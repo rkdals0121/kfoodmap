@@ -93,8 +93,8 @@ const MEAT_FREE_TYPED = /\b(?:no|without)\s+meat\b|\bmeat[- ]?free\b|고기\s*�
 // read as "no such place". (Not prices: menus carry them. Not "reserve",
 // "2주차": a name, a week.)
 const ASKS_UNRECORDED = new RegExp(
-  `\\b(?:parking|reservations?|booking|delivery|parkir|reservasi)\\b`
-  + `|pesan antar|(?:^|\\D)주차|예약|배달(?!의)|駐車|予約|デリバリー|出前(?!一丁)|停车|停車|订位|訂位|预约|預約|外送|外卖|外賣`, 'i');
+  `\\b(?:parking|reservations?|booking|delivery|parkir|reservasi|strollers?|prams?|buggy|high ?chairs?|baby ?chairs?|kids?[- ]friendly|child[- ]friendly|family[- ]friendly|wheelchairs?|ramah anak|ramah keluarga|kursi (?:bayi|roda))\\b`
+  + `|pesan antar|유모차|아기 ?의자|유아 ?의자|휠체어|노키즈|키즈존|ベビーカー|車椅子|婴儿车|嬰兒車|儿童椅|兒童椅|轮椅|輪椅|(?:^|\\D)주차|예약|배달(?!의)|駐車|予約|デリバリー|出前(?!一丁)|停车|停車|订位|訂位|预约|預約|外送|外卖|外賣`, 'i');
 // "cheap vegan busan": prices are on record (on menus), but nothing sorts
 // or filters by them — said, so the empty list is not the whole answer.
 const ASKS_PRICE = new RegExp(`\\b(?:cheap|cheapest|budget|affordable|inexpensive|prices?|murah|harga)\\b|저렴|가격|가성비|安い|値段|格安|便宜|价格|價格|平价|平價`, 'i');

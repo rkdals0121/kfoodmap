@@ -230,7 +230,7 @@ const ASKED = {
   // (五辛素 is a label for vegetarian food WITH the five pungent; 含五辛,
   // 오신채 들어간 say they are in it: not these. In Korean, both onion and
   // garlic: "양파 없는" alone does not say no chives.)
-  pungent: /\bjain|\bfive pungent|\b(?:no|without)\s+(?:the\s+)?(?:alliums?|osinchae|pungent vegetables)|(?:不吃|不含|不用|不要|[無无]|沒有|没有|去)(?:五辛|五葷)|(?:^|[^含可吃])(?:五辛|五葷)(?![蛋奶]*素)|오신채(?!\s*(?:포함|들어간|들어가는|있는|먹))|(?:양파[\s·,및과와]*마늘|마늘[\s·,및과와]*양파)\s*(?:없|빼|안)|不吃(?:葱|蔥)蒜|tanpa bawang(?!\s+(?:putih|merah|bombay|bombai))/i,
+  pungent: /\bjain|\bfive pungent|\b(?:no|without)\s+(?:the\s+)?(?:alliums?|osinchae|pungent vegetables)|(?:不吃|不含|不用|不要|[無无]|沒有|没有|去)(?:五辛|五葷)|(?:^|[^含可吃])(?:五辛|五葷)(?![蛋奶]*素)|오신채(?!\s*(?:포함|들어간|들어가는|있는|먹))|(?:양파[\s·,및과와]*마늘|마늘[\s·,및과와]*양파)\s*(?:없|빼|안)|不吃(?:葱|蔥)蒜|tanpa bawang(?!\s+(?:putih|merah|bombay|bombai))|佛教素食|佛門素食|佛门素食|佛家素食/i,
   // (Named with no word of leaving out — "root vegetable curry", 根菜カレー —
   // they are what is wanted, not left out.)
   roots: /\bjain|\b(?:no|without)\s+(?:the\s+)?root vegetables?|root vegetables?[- ]free|뿌리\s*채소\s*(?:없|빼|안)|(?:不吃|不含|[无無])根(?:茎|莖)|根菜(?:なし|抜き|を?食べない)|tanpa\s+umbi/i,

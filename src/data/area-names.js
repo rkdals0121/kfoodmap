@@ -197,6 +197,9 @@ const LATIN_VARIANTS = new Map(Object.entries({
   donut: 'doughnut', donuts: 'doughnut', doughnuts: 'doughnut', 'ドーナツ': 'doughnut', 'ドーナッツ': 'doughnut', '甜甜圈': 'doughnut',
   '제로웨이스트': 'zero waste', 'ゼロウェイスト': 'zero waste', '零废弃': 'zero waste', '零廢棄': 'zero waste', '오가닉': 'organic', organik: 'organic',
   '사찰': 'temple', '절밥': 'temple', '절음식': 'temple', '斋饭': 'temple', '素斋': 'temple', '齋飯': 'temple', '素齋': 'temple',
+  // (Buddhist vegetarian, as Taiwan and China write it: the temple kitchens,
+  // which keep the five pungent out — not every vegan place.)
+  '佛教素食': 'temple', '佛教素': 'temple', '佛教料理': 'temple', '佛門素食': 'temple', '佛门素食': 'temple', '佛家素食': 'temple', '佛教餐廳': 'temple', '佛教餐厅': 'temple',
   '自助': 'buffet', prasmanan: 'buffet', '무한리필': 'buffet', '食べ放題': 'buffet', '吃到饱': 'buffet', '吃到飽': 'buffet',
   '意面': 'pasta', '意大利面': 'pasta', '麺': 'noodle', '麵': 'noodle', '面': 'noodle', 'お茶': 'tea', '茶': 'tea', '와인': 'wine', '맥주': 'beer',
   '템플스테이': 'temple stay', '락토프리': 'dairy free', '글루텐': 'gluten', '프리': 'free', 'グルテン': 'gluten',

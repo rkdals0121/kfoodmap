@@ -112,7 +112,7 @@ export default {
     withoutOne: 'Tanpa “{{filter}}”: {{n}} tempat',
     askStaffHint: 'Bahan dan alergen tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya, tetapi itu bukan jaminan. Untuk bertanya kepada dapur:',
     withoutAlliums: 'Lihat tempat yang disebut memasak tanpa bawang',
-    notOnRecordHint: 'Parkir, reservasi, dan pesan antar tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya. Tanyakan langsung ke tempatnya.',
+    notOnRecordHint: 'Parkir, reservasi, pesan antar, serta fasilitas untuk anak, kereta bayi, atau kursi roda tidak diperiksa satu per satu di peta ini — catatan bisa menyebutkannya. Tanyakan langsung ke tempatnya.',
     priceHint: 'Pencarian tidak bisa dilakukan berdasarkan harga. Harga menu yang tercatat ada di halaman tiap tempat.',
     open24Title: 'Tercatat buka 24 jam setiap hari:',
     open24None: 'Tidak ada di antara tempat ini yang tercatat buka 24 jam setiap hari.',

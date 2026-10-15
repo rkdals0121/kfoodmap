@@ -116,7 +116,7 @@ export default {
     withoutOne: 'Without “{{filter}}”: {{n}}',
     askStaffHint: 'The map does not check ingredients or allergens place by place — a note may mention one, but that is no guarantee. To ask the kitchen:',
     withoutAlliums: 'Places described as cooking without onion or garlic',
-    notOnRecordHint: 'Parking, booking and delivery are not checked place by place here — a note may mention one. The place itself can tell you.',
+    notOnRecordHint: 'Parking, booking, delivery, and what a place has for children, prams or wheelchairs are not checked place by place here — a note may mention one. The place itself can tell you.',
     priceHint: 'The search cannot find places by price. Menu prices, where on record, are on each place’s page.',
     open24Title: 'On record as open 24 hours, every day:',
     open24None: 'None of these places is on record as open 24 hours every day.',

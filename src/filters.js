@@ -222,7 +222,7 @@ const DIET_WORDS = {
   // their descriptions — every one of them among the Vegan chip's 521, with
   // "경주 채식" finding none of Gyeongju's four.
   vegetarian: 'Vegan', vegetarisch: 'Vegan', vegetariano: 'Vegan', vegetariana: 'Vegan', vegetarien: 'Vegan',
-  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '維根': 'Vegan', '维根': 'Vegan', '素食主义': 'Vegan', '素食主義': 'Vegan', '素食者': 'Vegan', '蛋奶素': 'Vegan', '奶蛋素': 'Vegan', lactoovo: 'Vegan', '净素': 'Vegan', '淨素': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
+  '채식': 'Vegan', '채식주의': 'Vegan', '채식주의자': 'Vegan', '素食': 'Vegan', '素菜': 'Vegan', '維根': 'Vegan', '维根': 'Vegan', '素食主义': 'Vegan', '素食主義': 'Vegan', '素食者': 'Vegan', '蛋奶素': 'Vegan', '奶蛋素': 'Vegan', lactoovo: 'Vegan', '净素': 'Vegan', '淨素': 'Vegan', '蔬食': 'Vegan', '吃素': 'Vegan', 'ベジタリアン': 'Vegan', '菜食': 'Vegan',
   // "Plant-based", "meatless", "no meat": the same question again ("plant
   // based" found 64 places by their descriptions, "meatless" none).
   plantbased: 'Vegan', meatless: 'Vegan', meatfree: 'Vegan', nomeat: 'Vegan', withoutmeat: 'Vegan', tanpadaging: 'Vegan', vegetaris: 'Vegan', nabati: 'Vegan',
@@ -457,7 +457,7 @@ const LEFT_OUT = new Set(['egg', 'dairy', 'milk', 'gluten', 'wheat', 'nut', 'pea
   'beef', 'chicken', 'shrimp', 'anchovy', 'ghee', 'cream', 'mayo', 'mayonnaise', 'mushroom', 'tofu', 'kimchi',
   'fish sauce', 'soy sauce', 'oyster sauce', 'fish stock', 'anchovy stock', 'meat stock', 'meat broth', 'beef broth', 'bone broth', 'seafood broth']);
 // Other words for the same thing: what the records say for them.
-const LEFT_OUT_SAME = { allium: 'onion', alliums: 'onion', 'five pungent': 'onion', 'pungent vegetables': 'onion', osinchae: 'onion', lactose: 'dairy', 'egg yolk': 'egg', yolk: 'egg', yolks: 'egg' };
+const LEFT_OUT_SAME = { laktosa: 'dairy', allium: 'onion', alliums: 'onion', 'five pungent': 'onion', 'pungent vegetables': 'onion', osinchae: 'onion', lactose: 'dairy', 'egg yolk': 'egg', yolk: 'egg', yolks: 'egg' };
 const ALLIUMS = new Set(['onion', 'garlic', 'chive', 'leek', 'scallion']);
 const COMPOUND = new Map([...LEFT_OUT, ...Object.keys(LEFT_OUT_SAME)].filter(x => x.includes(' ')).map(x => [x.replace(' ', ''), x]));
 const stemOf = (w) => {
@@ -470,7 +470,7 @@ const stemOf = (w) => {
 // and pork are levels the records carry, and alcohol is answered by its note:
 // in a list they stay as they were said ("no meat or egg" is the Vegan word
 // and egg left out), and the rest of the list is read on.
-const NOT_AN_INGREDIENT = /^(?:please|food|foods|dish|dishes|menu|menus|option|options|place|places|restaurants?|cafes?|shops?|near|me|here|thanks|only|more|other|sake|soju|beer|wine|drinks?|added|extra|the|any|charge|cost|and|or|nor|using|free|less|no|without|non|corkage|tax|duty|smoke|smoking|delivery|parking|wifi|refill|refills|entry|admission|shipping|child|children|kids|pet|pets|though|which|that|this|these|those|its|it|is|are|was|were|but|with|from|into|for|to|of|in|on|at|by|as|so|if|when|while|then|than|very|too|also|just|all|some|one)$/;
+const NOT_AN_INGREDIENT = /^(?:please|food|foods|dish|dishes|menu|menus|option|options|place|places|restaurants?|cafes?|shops?|near|me|here|thanks|only|more|other|sake|soju|beer|wine|drinks?|added|extra|the|any|charge|cost|and|or|nor|using|free|less|no|without|non|allergic|allergy|allergies|intolerant|intolerance|corkage|tax|duty|smoke|smoking|delivery|parking|wifi|refill|refills|entry|admission|shipping|child|children|kids|pet|pets|though|which|that|this|these|those|its|it|is|are|was|were|but|with|from|into|for|to|of|in|on|at|by|as|so|if|when|while|then|than|very|too|also|just|all|some|one)$/;
 const KEPT_AS_SAID = /^(?:meat|meats|pork|alcohol|alcoholic|liquor|alkohol)$/;
 // A kind of place is not an ingredient ("no korean", "no bakery"); a food is
 // ("no lamb", "no noodles": those listed the places that serve them).
@@ -547,7 +547,8 @@ function readLeftOut(query) {
     const w = tokens[i];
     // "no egg", "without the egg or fish", "free of dairy", "hold the cheese",
     // "skip the kimchi".
-    const lead = LEAD.test(w) ? 1 : w === 'free' && /^(?:of|from)$/.test(tokens[i + 1] ?? '') ? 2 : 0;
+    // (…and "allergic to egg".)
+    const lead = LEAD.test(w) ? 1 : (w === 'free' && /^(?:of|from)$/.test(tokens[i + 1] ?? '')) || (w === 'allergic' && tokens[i + 1] === 'to') ? 2 : 0;
     if (lead) {
       let j = i + lead;
       while (SKIP.test(tokens[j] ?? '') || tokens[j] === ',') j += 1;
@@ -585,7 +586,9 @@ function readLeftOut(query) {
     }
     // "egg free", "fish and egg free", "gluten free busan"; "egg less" only
     // for an ingredient ("chicken less spicy" is not).
-    if ((w === 'free' && !FREE_OTHERWISE.test(tokens[i + 1] ?? '')) || (w === 'less' && !LESS_OTHERWISE.test(tokens[i + 1] ?? ''))) {
+    // ("lactose intolerant", "peanut allergy": the body, said of a known
+    // ingredient, asks the same — "lactose intolerant" found nothing.)
+    if ((w === 'free' && !FREE_OTHERWISE.test(tokens[i + 1] ?? '')) || (w === 'less' && !LESS_OTHERWISE.test(tokens[i + 1] ?? '')) || /^(?:intolerant|intolerance|allergy|allergies|allergic)$/.test(w)) {
       const back = (end) => {
         if (end < 0 || used.has(end)) return null;
         const two = end >= 1 ? stemOf(`${tokens[end - 1]} ${tokens[end]}`) : null;
@@ -714,6 +717,26 @@ function saysLeftOut(text, x) {
   return false;
 }
 export { saysLeftOut };
+// "halal no alcohol", "halal tanpa alkohol", "술 없는 할랄", "无酒 清真": whether
+// a place sells alcohol is not on record (the list's note says so), and asked
+// word by word it was 58 places, 0 or 152 by the wording — the halal places
+// whose notes held a "no" and an "alcohol". The words go; the rest is
+// searched and the note stays. (Alone — "alcohol free" — they stay as typed.)
+const ALCOHOL_LEFT_OUT = new RegExp([
+  '\\b(?:no|non|without|free of|zero)[\\s-]+(?:alcohol(?:ic)?(?:[\\s-]+drinks?)?|liquor|booze)\\b',
+  '\\balcohol[\\s-]?free\\b',
+  '\\bnon[\\s-]?alcoholic\\b',
+  '\\b(?:tanpa|bebas|tidak (?:ada|jual|menjual)|tak ada)\\s+(?:alkohol|alcohol|miras|minuman keras)\\b',
+  '술\\s*(?:을|이)?\\s*(?:안\\s*(?:파는|나오는|팔고|팔아요)|없는|없이|금지)',
+  '무알코?올', '논알코?올',
+  '(?:お酒|アルコール)(?:なし|無し|を?出さない|提供なし)', 'ノンアルコール',
+  '不(?:卖|賣|供应|供應)酒', '[无無]酒(?:精)?', '不含酒精',
+].join('|'), 'gi');
+export function withoutAlcoholWords(query) {
+  const text = String(query ?? '');
+  const rest = text.replace(ALCOHOL_LEFT_OUT, ' ').replace(/\s+/g, ' ').trim();
+  return rest === '' || rest === text.trim() ? text : rest;
+}
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
   const q = squash(query);

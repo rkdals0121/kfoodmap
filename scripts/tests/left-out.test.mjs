@@ -133,3 +133,19 @@ test('the last review: words of the question beside it, levels before the next f
   assert.deepEqual(leftOutQuery('corkage free').items, []);
   assert.deepEqual(leftOutQuery('free free free').items, []);
 });
+
+test('the body said of an ingredient, temple food in Chinese, alcohol left out by any wording', async () => {
+  const { restaurants } = await import('../../src/data/restaurants.js');
+  const { isQuarantined } = await import('../../src/data/verification.js');
+  const { searchPlaces } = await import('../../src/search.js');
+  const places = restaurants.filter(r => !isQuarantined(r));
+  const ids = (q) => searchPlaces({ places, query: q }).filteredRestaurants.map(r => r.id).sort().join(' ');
+  assert.equal(ids('lactose intolerant'), ids('dairy free'));
+  assert.equal(ids('allergic to egg'), ids('no egg'));
+  assert.equal(ids('egg allergy'), ids('no egg'));
+  assert.equal(ids('佛教素食'), ids('寺廟料理'));
+  assert.equal(ids('素菜'), ids('素食'));
+  const halal = ids('halal');
+  for (const q of ['halal no alcohol', 'halal tanpa alkohol', 'halal without alcohol', '술 없는 할랄', '술 안 파는 할랄', '清真 无酒']) assert.equal(ids(q), halal, q);
+  assert.equal(ids('halal tanpa alkohol jeju'), ids('halal jeju'));
+});
