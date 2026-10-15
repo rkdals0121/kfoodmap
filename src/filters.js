@@ -516,7 +516,7 @@ const ABROAD_INGREDIENT = [
   ['soy', 'kedelai|대두|大豆|黄豆|黃豆'],
   ['garlic', 'bawang putih|마늘|にんにく|ニンニク|大蒜|蒜'],
   ['onion', 'bawang bombay|bawang merah|bawang|양파|오신채|玉ねぎ|たまねぎ|タマネギ|洋葱|洋蔥|五辛|五葷|五荤'],
-  ['scallion', '대파|파|葱|蔥|ねぎ|ネギ'],
+  ['scallion', '대파|쪽파|실파|葱|蔥|ねぎ|ネギ'],
   ['sugar', 'gula|설탕|砂糖|糖'],
   ['sesame', 'wijen|참깨|ごま|胡麻|芝麻'],
   ['seafood', 'makanan laut|해산물|魚介|海鲜|海鮮'],
