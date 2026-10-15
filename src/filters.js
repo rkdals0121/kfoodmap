@@ -470,7 +470,7 @@ const stemOf = (w) => {
 // and pork are levels the records carry, and alcohol is answered by its note:
 // in a list they stay as they were said ("no meat or egg" is the Vegan word
 // and egg left out), and the rest of the list is read on.
-const NOT_AN_INGREDIENT = /^(?:please|food|foods|dish|dishes|menu|menus|option|options|place|places|restaurants?|cafes?|shops?|near|me|here|thanks|only|more|other|sake|soju|beer|wine|drinks?|added|extra|the|any|charge|cost|and|or|nor|using|though|which|that|this|these|those|its|it|is|are|was|were|but|with|from|into|for|to|of|in|on|at|by|as|so|if|when|while|then|than|very|too|also|just|all|some|one)$/;
+const NOT_AN_INGREDIENT = /^(?:please|food|foods|dish|dishes|menu|menus|option|options|place|places|restaurants?|cafes?|shops?|near|me|here|thanks|only|more|other|sake|soju|beer|wine|drinks?|added|extra|the|any|charge|cost|and|or|nor|using|free|less|no|without|non|corkage|tax|duty|smoke|smoking|delivery|parking|wifi|refill|refills|entry|admission|shipping|child|children|kids|pet|pets|though|which|that|this|these|those|its|it|is|are|was|were|but|with|from|into|for|to|of|in|on|at|by|as|so|if|when|while|then|than|very|too|also|just|all|some|one)$/;
 const KEPT_AS_SAID = /^(?:meat|meats|pork|alcohol|alcoholic|liquor|alkohol)$/;
 // A kind of place is not an ingredient ("no korean", "no bakery"); a food is
 // ("no lamb", "no noodles": those listed the places that serve them).
@@ -607,7 +607,7 @@ function readLeftOut(query) {
         if (one) used.add(j);
         j -= 1;
       }
-      if (got.length > 0) {
+      if (got.length > 0 || levels.length > 0) {
         used.add(i);
         for (const [at, n, x] of got) take(at, n, x);
         for (const at of levels) { said.push('no', tokens[at]); used.add(at); }
@@ -751,7 +751,9 @@ function searchCore(r, rawQuery) {
     if (startsWord(r.name, q)) return true;
     const text = [...fields, r.story].filter(f => typeof f === 'string').join(' ');
     if (!asked.items.every(x => saysLeftOut(text, x))) return false;
-    const restOf = (words) => dietPairs(words.filter(w => !REST_STOP.test(w))).filter(w => w.length >= 2 || ONE_SYLLABLE_FOOD.has(w));
+    // ("gluten free food", "no egg near me", "gluten free 맛집": words that ask
+    // for nothing are set aside, as in any other search — they made 38 places 0.)
+    const restOf = (words) => dietPairs(words.filter(w => !REST_STOP.test(w) && !onlyFillers(w)).filter((w, i, all) => !(w === 'near' && all[i + 1] === 'me') && !(w === 'me' && all[i - 1] === 'near'))).filter(w => w.length >= 2 || ONE_SYLLABLE_FOOD.has(w));
     if (restOf(asked.rest).every(w => wordMatch(r, w, text))) return true;
     // The rest in another script ("ソウル no egg or dairy"): read in Latin
     // letters, the left-out part kept as it was read.

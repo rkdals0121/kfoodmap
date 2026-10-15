@@ -252,7 +252,7 @@ export default function BottomSheetList({
   const typedKorean = i18n.language === 'ko' && /[가-힣]/.test(searchQuery);
   // "vegetarian no egg", "jain": the cards open on the card that says so.
   const askedOut = extrasAsked(searchQuery, leftOutQuery(searchQuery).items);
-  const dairyAsked = /lactose|laktosa|susu|유제품|우유|乳製品|乳糖|牛奶|牛乳|不吃奶|[无無]奶/i.test(searchQuery) || leftOutQuery(searchQuery).items.some(x => ['dairy', 'milk', 'butter', 'cheese', 'cream', 'ghee'].includes(x));
+  const dairyAsked = /lactose|laktosa|\bovo[- ]?veg|susu|유제품|우유|乳製品|乳糖|牛奶|牛乳|不吃奶|[无無]奶/i.test(searchQuery) || leftOutQuery(searchQuery).items.some(x => ['dairy', 'milk', 'butter', 'cheese', 'cream', 'ghee'].includes(x));
   // The card for the diet on screen: a chip first (Halal alone → the Muslim
   // card, Vegan → the vegan one: the vegetarian card tells staff "I do eat
   // eggs and dairy"), then the words typed; with nothing to go by none is

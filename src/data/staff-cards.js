@@ -226,7 +226,7 @@ export const CARD_EXTRAS = [
 // so. (Jain: no egg, no onion or garlic, no root vegetables.) Not 蛋奶素,
 // which is a vegetarian who does eat egg.
 const ASKED = {
-  egg: /\b(?:no|without|not)\s+eggs?\b|\beggless\b|\beggs?[- ]?free\b|\bjain|(?:달걀|계란)\s*(?:없|빼|안)|无蛋|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|卵(?:なし|抜き|を?食べない)|tanpa telur|\bpure[ -]?veg(?!an)/i,
+  egg: /\b(?:no|without|not)\s+eggs?\b|\beggless\b|\beggs?[- ]?free\b|\bjain|(?:달걀|계란)\s*(?:없|빼|안)|无蛋|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|卵(?:なし|抜き|を?食べない)|tanpa telur|\bpure[ -]?veg(?!an)|\blacto[- ]?veg/i,
   // (五辛素 is a label for vegetarian food WITH the five pungent; 含五辛,
   // 오신채 들어간 say they are in it: not these. In Korean, both onion and
   // garlic: "양파 없는" alone does not say no chives.)

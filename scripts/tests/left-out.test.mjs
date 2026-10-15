@@ -117,3 +117,19 @@ test('more texts that do not say the kitchen leaves it out', () => {
   ];
   for (const [t, x] of yes) assert.equal(saysLeftOut(t, x), true, `${x}: ${t}`);
 });
+
+test('the last review: words of the question beside it, levels before the next free, services', async () => {
+  const { restaurants } = await import('../../src/data/restaurants.js');
+  const { isQuarantined } = await import('../../src/data/verification.js');
+  const { searchPlaces } = await import('../../src/search.js');
+  const places = restaurants.filter(r => !isQuarantined(r));
+  const ids = (q) => searchPlaces({ places, query: q }).filteredRestaurants.map(r => r.id).sort().join(' ');
+  const gf = ids('gluten free');
+  for (const q of ['gluten free food', 'gluten free restaurants', 'gluten free 맛집', 'best gluten free food', 'gluten free near me', 'gluten free nearby']) assert.equal(ids(q), gf, q);
+  const egg = ids('no egg');
+  for (const q of ['no egg near me', 'no egg places', 'egg free restaurant']) assert.equal(ids(q), egg, q);
+  assert.equal(ids('meat-free, egg-free'), ids('egg-free, meat-free'));
+  assert.deepEqual(leftOutQuery('meat free and egg free').items, ['egg']);
+  assert.deepEqual(leftOutQuery('corkage free').items, []);
+  assert.deepEqual(leftOutQuery('free free free').items, []);
+});
