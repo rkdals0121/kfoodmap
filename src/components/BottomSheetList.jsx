@@ -9,12 +9,12 @@ import { haversineKm, formatDistance, getOpenStatus, coordsOf, displayName, kore
 import { dietaryBadges } from '../data/verification';
 import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
-import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid } from '../filters';
+import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid, isPorkFreeQuery } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
 import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted, listComma } from '../i18n/punct';
-import { extrasAsked } from '../data/staff-cards';
+import { extrasAsked, chosenCard } from '../data/staff-cards';
 
 const CHIP_LABEL_KEY = {
   ...Object.fromEntries(CHIP_GROUPS.flatMap(g => g.chips).map(c => [c.id, c.labelKey])),
@@ -60,7 +60,7 @@ const SUSTAINABILITY_TRAITS = TRAIT_GROUPS.Sustainability;
 // …and what is asked for by leaving something out: "no fish sauce" finds twelve
 // places, among them one whose note says its kimchi contains it; "not spicy"
 // finds thirteen that are. The words are found in the notes one by one.
-const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|五葷|오신채|セリアック|셀리악|小麦|밀가루|\bjain|five pungent|root vegetables?|뿌리\s*채소|根菜|根茎|根莖|umbi-umbian|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|出汁|だし|ダシ|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
+const INGREDIENT_WORDS = /^(?:no|not|non|without|tanpa)\s|\bfree\b|allerg|alergi|peanut|kacang|gluten|c(?:o)?eliac|lactose|dairy|\bnuts?\b|\beggs?\b|honey|fish sauce|anchov|oyster sauce|shrimp paste|alcohol|\bmsg\b|garlic|\bonions?\b|액젓|젓갈|달걀|계란|없는|없이|빼고|魚醤|はちみつ|なし|抜き|不使用|卵|乳製品|鱼露|魚露|鸡蛋|雞蛋|蜂蜜|不含|无糖|无麸质|无蛋|无奶|无酒精|無糖|無麩質|無蛋|無奶|無酒精|sesame|shellfish|五辛|五葷|오신채|\btanpa\s|telur|不吃(?:鸡|雞)?蛋|不含(?:鸡|雞)?蛋|セリアック|셀리악|小麦|밀가루|\bjain|five pungent|root vegetables?|뿌리\s*채소|根菜|根茎|根莖|umbi-umbian|알레르기|알러지|땅콩|견과|글루텐|참깨|갑각류|アレルギー|ピーナッツ|ナッツ|グルテン|ごま|甲殻類|出汁|だし|ダシ|过敏|過敏|花生|坚果|堅果|麸质|麩質|芝麻/i;
 // (Not "no pork" / "pork-free" by itself: that is a level the records do
 // carry. Beside another such word — "no pork gluten free" — the note stands.)
 const PORK_FREE_TYPED = /\b(?:no|without)\s+pork\b|\bpork[- ]?free\b|(?:tanpa|bebas)\s+(?:daging\s+)?babi|\b(?:tidak|tak|gak|nggak|enggak)\s+(?:ada|pakai|pake|memakai|menggunakan|mengandung)\s+(?:daging\s+)?babi|\bnon[- ]?babi|돼지고기\s*없(?:는|음)(?:\s*곳)?|포크\s*프리|豚肉不使用|豚肉なし|ポークフリー|不含猪肉|无猪肉|不含豬肉/gi;
@@ -108,7 +108,8 @@ const ASKS_PRAYER = new RegExp(`\\b(?:pray(?:er|ing)?|mosque|masjid|mush?[ao]l+a
 // "24시 할랄", "24 hours", "24/7": the list offers "Open now", which is not
 // what was asked — the places on record as open round the clock every day
 // are named above the list (of those the rest of the search found).
-const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) };
+// (…and whatever the search reads as left out: "eggless", "vegan no butter", "hold the cheese".)
+const ASKS_INGREDIENT = { test: (query) => INGREDIENT_WORDS.test(String(query ?? '').trim().replace(/^[#"“”„「『(（[\s]+/, '').replace(PORK_FREE_TYPED, ' ').replace(MEAT_FREE_TYPED, ' ').replace(/ドーナッツ|ココナッツ/g, '').trim()) || leftOutQuery(String(query ?? '')).items.length > 0 };
 
 // Is this reading of a search the search itself with words left out or cut
 // short — no word of it spelt differently?
@@ -257,13 +258,17 @@ export default function BottomSheetList({
   // eggs and dairy"), then the words typed; with nothing to go by none is
   // named, and the cards choose as they always did.
   // (Halal typed, not only the chip: "halal no egg" opened "I am vegetarian … I do not eat meat".)
-  const halalSaid = activeFilters.includes('Halal') || /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery);
-  const veganSaid = activeFilters.includes('Vegan') || activeFilters.includes(FULLY_VEGAN) || /vegan|비건|ヴィーガン|ビーガン|纯素|純素|全素/i.test(searchQuery);
+  const typedChips = liftDietWords(searchQuery).chips;
+  const halalSaid = activeFilters.includes('Halal') || typedChips.includes('Halal') || /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery);
+  const veganSaid = activeFilters.includes('Vegan') || activeFilters.includes(FULLY_VEGAN) || typedChips.includes(FULLY_VEGAN) || /vegan|비건|ヴィーガン|ビーガン|纯素|純素|全素/i.test(searchQuery);
   const dietCard = halalSaid && !veganSaid ? 'muslim'
     : veganSaid ? 'vegan'
       // (Not for milk or dairy left out: the vegetarian card says "I do eat
       // dairy". With no card named, the visitor's own or the vegan one opens.)
-      : dairyAsked ? null
+      // (…and the vegetarian card chosen earlier would say it: the vegan one.)
+      : dairyAsked ? (chosenCard()?.id === 'vegetarian' ? 'vegan' : null)
+      // (Pork left out: not "I am vegetarian … I do not eat meat"; none named.)
+      : isPorkFreeQuery(searchQuery) && !VEGETARIAN_TYPED.test(searchQuery) ? null
       : VEGETARIAN_TYPED.test(searchQuery) || askedOut.includes('egg') ? 'vegetarian'
         : askedOut.includes('wheat') ? 'wheat' : null;
   const cardsLink = (card) => {
@@ -665,7 +670,7 @@ export default function BottomSheetList({
       {/* (After the halal caveat: folded, only the first note shows, and on a
           phone "vegetarian" under the Halal chip had put the caveat out of sight.) */}
       {sorted.length > 0 && VEGETARIAN_TYPED.test(searchQuery) && !ASKS_INGREDIENT.test(sansAlcohol) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to={cardsLink(dairyAsked ? undefined : 'vegetarian')} state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
+        <p className="section-note place-list__note place-list__note--key">{t('list.vegetarianNote')} <Link to={cardsLink(dairyAsked || dietCard === 'vegan' || dietCard === 'muslim' ? undefined : 'vegetarian')} state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* "halal no alcohol", "술 안 파는 할랄" list places by words in their
           notes, some of which say alcohol is sold. After the halal caveat and the

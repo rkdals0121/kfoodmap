@@ -140,3 +140,11 @@ test('the five pungent: said left out, not a label that has them, nor one of the
   for (const q of ['五辛素', '植物五辛素', '五辛蛋奶素', '含五辛', '오신채 들어간 채식', '양파 없는', '마늘 빼고', 'tanpa bawang putih', 'onion rings garlic bread']) assert.ok(!asked(q).includes('pungent'), q);
   for (const q of ['不吃五辛', '無五辛 首爾', '오신채 없는', '양파 마늘 없는', 'no onion/garlic', 'no onion garlic', 'jain']) assert.ok(asked(q).includes('pungent'), q);
 });
+
+test('a food named is not a food left out: root vegetables and gluten', () => {
+  const asked = (q) => extrasAsked(q, leftOutQuery(q).items);
+  for (const q of ['root vegetable curry', '根菜カレー', '뿌리채소 요리', '채식 뿌리채소']) assert.ok(!asked(q).includes('roots'), q);
+  assert.ok(!asked('글루텐 들어간 빵').includes('wheat'));
+  for (const q of ['jain', 'no root vegetables', '뿌리채소 없는']) assert.ok(asked(q).includes('roots'), q);
+  for (const q of ['gluten free', '글루텐 프리', 'グルテンフリー']) assert.ok(asked(q).includes('wheat'), q);
+});
