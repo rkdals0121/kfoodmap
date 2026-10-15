@@ -909,16 +909,18 @@ export default function BottomSheetList({
           {/* Nothing in the area searched, but the same filters match close
               by: "Haeundae" has no halal place on record and Busan has
               eight. Offer them, measured from the area that was typed. */}
-          {onSuggest && searchQuery.trim() && activeFilters.length === 0 && nearest.length === 0 && (
+          {/* (Not for an allergy: another name or area will not answer it, and
+              "egg allergy" is no place to suggest — the card is the way.) */}
+          {onSuggest && searchQuery.trim() && activeFilters.length === 0 && nearest.length === 0 && !ALLERGY_WORD.test(searchQuery) && (
             <button type="button" className="place-list__suggest" onClick={() => onSuggest(searchQuery.trim())}>
               {t('list.suggestThis')}
             </button>
           )}
-          <p className="place-list__hint-text">
+          {!ALLERGY_WORD.test(searchQuery) && <p className="place-list__hint-text">
             {t(activeFilters.includes(SAVED_ONLY) && bookmarkedIds.length === 0
               ? 'list.noSavedYet'
               : activeFilters.length ? 'list.noMatchHint' : 'list.noMatchHintSearch')}
-          </p>
+          </p>}
         </div>
       )}
     </div>
