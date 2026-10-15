@@ -499,6 +499,60 @@ const singular = (w) => (/(?:us|is|ss)$/.test(w) ? w
  */
 // Asked once per search, not once per place: kept.
 const LEFT_OUT_READ = new Map();
+// "vegetarian tanpa telur", "달걀 없는 채식", "卵なし ベジタリアン", "素食 无蛋":
+// the same question as "vegetarian no egg" (49 places), and each was 0 — the
+// words for an ingredient and for leaving it out are read in the other five
+// languages of the map, as "no egg". (Only these ingredients, and only beside
+// such a word: "계란말이", "蛋糕", "kacang" in a name stay as typed.)
+const ABROAD_INGREDIENT = [
+  ['egg', 'telur|달걀|계란|卵|たまご|玉子|鸡蛋|雞蛋|蛋'],
+  ['dairy', 'susu|유제품|乳製品|乳制品|奶制品|奶製品'],
+  ['milk', '우유|牛乳|牛奶|奶'],
+  ['gluten', 'gluten|글루텐|グルテン|麸质|麩質'],
+  ['wheat', 'gandum|밀가루|밀|小麦粉|小麦|小麥'],
+  ['peanut', 'kacang tanah|땅콩|ピーナッツ|落花生|花生'],
+  ['nut', 'kacang|견과류|견과|ナッツ|坚果|堅果'],
+  ['soy', 'kedelai|대두|大豆|黄豆|黃豆'],
+  ['garlic', 'bawang putih|마늘|にんにく|ニンニク|大蒜|蒜'],
+  ['onion', 'bawang bombay|bawang merah|bawang|양파|오신채|玉ねぎ|たまねぎ|タマネギ|洋葱|洋蔥|五辛|五葷|五荤'],
+  ['sugar', 'gula|설탕|砂糖|糖'],
+  ['sesame', 'wijen|참깨|ごま|胡麻|芝麻'],
+  ['seafood', 'makanan laut|해산물|魚介|海鲜|海鮮'],
+  ['fish sauce', 'kecap ikan|젓갈|액젓|魚醤|鱼露|魚露'],
+  ['fish', 'ikan|생선|魚|鱼'],
+  ['honey', 'madu|꿀|はちみつ|蜂蜜'],
+  ['butter', 'mentega|버터|バター|黄油|牛油'],
+  ['cheese', 'keju|치즈|チーズ|奶酪|起司|芝士'],
+  ['shrimp', 'udang|새우|えび|エビ|虾|蝦'],
+  ['mushroom', 'jamur|버섯|きのこ|キノコ|蘑菇'],
+  ['msg', 'micin|vetsin|화학조미료|化学調味料|味精'],
+];
+const ABROAD_WORDS = ABROAD_INGREDIENT.flatMap(([en, words]) => words.split('|').map(w => [w, en])).sort((a, b) => b[0].length - a[0].length);
+const ABROAD_ALT = ABROAD_WORDS.map(([w]) => w).join('|');
+const ABROAD_EN = new Map(ABROAD_WORDS);
+const ABROAD_LEFT_OUT = [
+  // Indonesian: "tanpa telur", "bebas gluten", "tidak pakai bawang".
+  new RegExp(`\\b(?:tanpa|bebas|tidak (?:pakai|pake|memakai|mengandung)|nggak pakai|gak pakai|non)\\s+(${ABROAD_ALT})\\b`, 'gi'),
+  // Korean: "달걀 없는", "계란 빼고", "마늘 안 들어간", "글루텐 프리".
+  new RegExp(`(${ABROAD_ALT})\\s*(?:을|를|이|가|은|는)?\\s*(?:없는|없이|없음|없고|빼고|빼서|빼 ?주세요|뺀|제외|안\\s*(?:들어간|들어가는|넣은|넣고|먹는|먹어요|먹습니다)|프리|알레르기|알러지)`, 'g'),
+  // Korean "무설탕", "무글루텐".
+  /무(설탕|글루텐)/g,
+  // Japanese: "卵なし", "にんにく抜き", "小麦不使用", "グルテンフリー".
+  new RegExp(`(${ABROAD_ALT})\\s*(?:なし|無し|抜き|ぬき|不使用|フリー|を?使わない|を?食べない|が?入っていない|アレルギー)`, 'g'),
+  // Chinese: "无蛋", "不含麸质", "不吃五辛", "不要蒜", "去葱"…, and "花生过敏".
+  new RegExp(`(?:无|無|不含|不吃|不要|不加|不放|免|没有|沒有)\\s*(${ABROAD_ALT})`, 'g'),
+  new RegExp(`(${ABROAD_ALT})\\s*(?:过敏|過敏)`, 'g'),
+];
+function inEnglishLeftOut(text) {
+  let out = String(text ?? '');
+  for (const re of ABROAD_LEFT_OUT) {
+    out = out.replace(re, (whole, w) => {
+      const en = ABROAD_EN.get(w) ?? ABROAD_EN.get(String(w).toLowerCase());
+      return en ? ` no ${en} ` : whole;
+    });
+  }
+  return out;
+}
 export function leftOutQuery(query) {
   const key = String(query ?? '');
   let read = LEFT_OUT_READ.get(key);
@@ -513,7 +567,7 @@ function readLeftOut(query) {
   // As the other readings of a search see it: full-width letters from a
   // Japanese keyboard folded, a question mark or a full stop no part of a
   // word ("no egg?" read as the word "egg?"). A comma, "&", "/" and "+" join.
-  const raw = fold(String(query ?? '')).replace(/[.;:!?。！？"“”‘’()（）「」『』…]+/g, ' ')
+  const raw = inEnglishLeftOut(fold(String(query ?? ''))).replace(/[.;:!?。！？"“”‘’()（）「」『』…]+/g, ' ')
     .replace(/[，、]/g, ',').replace(/\s*[,/+]\s*/g, ' , ').replace(/&/g, ' & ');
   // A hyphen is a space where it joins "no", "non", "free" or "less", or an
   // ingredient of two words ("fish-sauce"); elsewhere ("mapo-gu") it stays.
@@ -733,28 +787,32 @@ const ALCOHOL_LEFT_OUT = new RegExp([
   '술\\s*(?:을|이)?\\s*(?:안\\s*(?:파는|나오는|팔고|팔아요)|없는|없이|금지)',
   '무알(?:코올|콜)', '논알(?:코올|콜)',
   '(?:お酒|アルコール)(?:なし|無し|を?出さない|提供なし)', 'ノンアルコール',
-  '不(?:卖|賣|供应|供應)酒', '[无無]酒(?:精)?', '不含酒精',
+  '不(?:卖|賣|供应|供應)酒', '[无無]酒(?:精)?', '不含酒(?:精)?', '(?:没有|沒有|不要)酒',
 ].join('|'), 'gi');
 // (Nor when what is left asks nothing of a place — "술 없는 식당", "alcohol
 // free places" were the whole map — or is the drink itself: "alcohol free
 // beer" is a drink, not the places with beer.)
 const DRINK_LEFT = /\b(?:beers?|wines?|cocktails?|drinks?|beverages?|soju|sake|makgeolli|bir|minuman)\b|맥주|와인|칵테일|음료|소주|막걸리|ビール|ワイン|カクテル|ドリンク|飲み物|啤酒|葡萄酒|红酒|紅酒|鸡尾酒|雞尾酒|饮料|飲料/i;
 // What is left after the alcohol words: null when none were said, or the
-// search was of a drink ("alcohol free beer"); '' when nothing but fillers
-// and polite words is left ("술 없는 식당", "no alcohol, thanks!").
+// search was of a drink ("alcohol free beer"); without polite words ("no
+// alcohol, thanks!"). Fillers and meals are the search's own to read.
 export function alcoholAsked(query) {
   const text = String(query ?? '');
   const rest = text.replace(ALCOHOL_LEFT_OUT, ' ').replace(/\s+/g, ' ').trim();
   if (rest === text.trim()) return null;
-  const polite = (t) => t.split(/\s+/).filter(w => !/^(?:please|pls|plz|thanks|thank|you|ok|okay)$/i.test(w.replace(/[?!.,，、。？！]+/g, ''))).join(' ').replace(/^[\s,，、]+|[\s,，、]+$/g, '').trim();
+  const polite = (t) => t.split(/\s+/).filter(w => !/^(?:please|pls|plz|thanks|thank|you|ok|okay|sold|served|allowed|is|here)$/i.test(w.replace(/[?!.,，、。？！]+/g, ''))).join(' ').replace(/^[\s,，、]+|[\s,，、]+$/g, '').trim();
   const bare = polite(rest).replace(/[?!.,，、。？！]+/g, ' ').trim();
   if (DRINK_LEFT.test(bare)) return null;
-  return { rest: bare === '' || onlyFillers(bare) ? '' : polite(rest) };
+  return { rest: bare === '' ? '' : polite(rest) };
 }
-const NO_ALCOHOL_SAID = /\bno alcohol\b(?!\s+(?:is\s+)?(?:mentioned|stated|addressed))|Alcohol for Sale Ⓧ|\b(?:does not|doesn't|do not|don't) (?:sell|serve) alcohol|\bnot selling alcohol|\bserves? no alcohol|술을?\s*(?:사용하지|팔지|판매하지)/gi;
+// (Said of selling, serving or allowing it: a menu that shows none, or a
+// listing without an "alcohol" feature, says nothing of the bar — eleven
+// places came in on "no pork … and no alcohol" on a partial menu.)
+const NO_ALCOHOL_SAID = /Alcohol for Sale Ⓧ|\bno alcohol (?:is )?(?:allowed|served|sold)\b|\bserves? no (?:pork (?:and|or) no )?alcohol\b|\b(?:does not|doesn't|do not|don't) (?:sell|serve) alcohol|\bnot sell(?:ing)? alcohol|술을?\s*(?:사용하지|팔지|판매하지)/gi;
 // (Read with the "no alcohol" sayings taken out: "no alcohol is served" is
 // not "alcohol is served".)
-const ALCOHOL_SOLD_SAID = /Alcohol for Sale Ⓞ|alcohol is (?:sold|served)\b|\b(?:sells|serves) alcohol\b|whether alcohol is (?:sold|served) is not|Alcohol is not (?:addressed|listed)/i;
+// (Free corkage is alcohol at the table too.)
+const ALCOHOL_SOLD_SAID = /콜키지|corkage|bring (?:their|your) own|Alcohol for Sale Ⓞ|alcohol is (?:sold|served)\b|\b(?:sells|serves) alcohol\b|whether alcohol is (?:sold|served) is not|Alcohol is not (?:addressed|listed)/i;
 const noAlcoholMemo = new WeakMap();
 const allStrings = (v, out = []) => {
   if (typeof v === 'string') out.push(v);

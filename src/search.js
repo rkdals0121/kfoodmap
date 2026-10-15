@@ -109,6 +109,7 @@ function stationBeside(asked) {
 
 const titled = (s) => s.replace(/(^|[ -])([a-z])/g, (m, a, b) => a + b.toUpperCase());
 
+const NO_ALCOHOL_SAID_CHIP = 'no-alcohol-said';
 export function searchPlaces({
   places, query = '', filters = [], areaOnly = false, openOn = false, includeUnknown = false,
   now = new Date(), bookmarkedIds = [], sharedIds = [], asides = true,
@@ -127,7 +128,6 @@ export function searchPlaces({
   // ("no alcohol": the places whose notes say so, the rest searched as usual.)
   const asSaid = stripCertWords(porkFreeSaid(unglued(bare.includes('(') || bare.includes('（') ? String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim() : bare)));
   const noAlcohol = alcoholAsked(asSaid);
-  if (noAlcohol) places = places.filter(saysNoAlcohol);
   const said = noAlcohol ? noAlcohol.rest : asSaid;
   // "맛집", "근처 맛집", "レストラン", "restaurants near me": words that name no
   // place and no kind of place found nothing, or whatever record happened to
@@ -164,7 +164,13 @@ export function searchPlaces({
   // evidence — an unknown dietary record never matches, so we never send
   // someone somewhere we can't vouch for. A group chip ORs within itself.
   const porkFreeAsked = isPorkFreeQuery(raw);
+  // "no alcohol" is a chip of its own, not the places searched: narrowed
+  // first, "no alcohol seoul station" was every such place in Seoul and
+  // "no alcohol jeju" nothing, with no nearest offered. (Not one the reader
+  // chose: never offered to take off.)
+  if (noAlcohol) filters = [...filters, NO_ALCOHOL_SAID_CHIP];
   const chips = (r) => filters.every((f) => {
+    if (f === NO_ALCOHOL_SAID_CHIP) return saysNoAlcohol(r);
     if (f === OPEN_NOW || f === OPEN_AT) return true; // asked last, in select()
     if (f === SAVED_ONLY) return bookmarkedIds.includes(r.id);
     if (f === SHARED_LIST) return sharedIds.includes(r.id);

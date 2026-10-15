@@ -156,3 +156,21 @@ test('"allergic to" and "allergy to" are of an ingredient only', async () => {
   assert.deepEqual(leftOutQuery('allergic to the egg').items, ['egg']);
   for (const q of ['allergic to cats', 'allergic to pollen', 'allergic to dogs']) assert.deepEqual(leftOutQuery(q).items, [], q);
 });
+
+test('leaving an ingredient out, said in the other languages of the map, is read as in English', async () => {
+  const { searchPlaces } = await import('../../src/search.js');
+  const { restaurants } = await import('../../src/data/restaurants.js');
+  const { isQuarantined } = await import('../../src/data/verification.js');
+  const places = restaurants.filter(r => !isQuarantined(r));
+  const ids = (q) => searchPlaces({ places, query: q }).filteredRestaurants.map(r => r.id).sort().join(' ');
+  const egg = ids('vegetarian no egg');
+  assert.ok(egg.length > 0);
+  for (const q of ['vegetarian tanpa telur', '달걀 없는 채식', '계란 빼고 채식', '卵なし ベジタリアン', '素食 无蛋', '素食 不吃蛋']) assert.equal(ids(q), egg, q);
+  const gluten = ids('gluten free');
+  for (const q of ['bebas gluten', '글루텐 프리', 'グルテンフリー', '无麸质']) assert.equal(ids(q), gluten, q);
+  for (const q of ['tanpa bawang putih', '마늘 없는']) assert.equal(ids(q), ids('no garlic'), q);
+  assert.deepEqual(leftOutQuery('素食 无蛋无奶').items.sort(), ['egg', 'milk']);
+  // A dish or a name that holds the word is not a word left out.
+  for (const q of ['계란말이', '蛋糕', 'kacang']) assert.deepEqual(leftOutQuery(q).items, [], q);
+});
+

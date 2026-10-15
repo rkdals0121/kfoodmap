@@ -117,7 +117,7 @@ export default {
     open24None: '其中没有记录为每天 24 小时营业的店。',
     prayerNote: '本地图收录的是用餐地点，不是礼拜室或清真寺的列表。',
     alcoholHint: '是否售酒并非逐店核实的项目。部分说明里有提到，请点开店铺查看。',
-    alcoholFreeHint: '这里只列出说明中写明不供应酒的餐厅（依据旅游资料、店家或菜单）。本地图未逐店核实，请向店员确认。',
+    alcoholFreeHint: '这里只列出说明中写明不售酒的餐厅（依据旅游资料、清真餐厅指南或店家）。本地图未核实，请向店员确认。',
     vegetarianNote: '是否含蛋、奶并未记录。这里显示的是有纯素菜品的店，其余请向店员询问：',
     showPorkFree: '查看不含猪肉的店（非清真）',
     // "open now" typed into the search: the chip is offered.

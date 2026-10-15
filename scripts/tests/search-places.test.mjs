@@ -882,13 +882,17 @@ test('a prayer room asked for by itself is every place whose text names one', ()
 test('no alcohol, however worded: the places whose notes say so, never one that says it is sold', () => {
   const ids = (q) => go(q).filteredRestaurants.map(r => r.id).sort().join(' ');
   const all = ids('no alcohol');
-  assert.ok(all.split(' ').length >= 30, all);
+  assert.ok(all.split(' ').length >= 20, all);
+  // A partial menu showing none, or free corkage, is not "no alcohol sold".
+  for (const id of ['the-halal-oppa-sangsu', 'afiya-halal-gungdong', 'samarkand-main-dongdaemun']) assert.ok(!all.includes(id), id);
+  assert.equal(go('no alcohol breakfast').filteredRestaurants.length < 5, true);
+  assert.ok(go('no alcohol seoul station').nearest.length > 0);
   for (const q of ['alcohol free', 'alcohol free places', 'no alcohol near me', 'no alcohol, thanks!', '술 없는 식당', '무알콜', '무알코올 식당', '无酒', 'お酒なし', 'tanpa alkohol', 'Non-Alcoholic']) assert.equal(ids(q), all, q);
   // "Pork Free … alcohol is sold" is not alcohol free.
   for (const id of ['byeollan-ori-changsin', 'hyeongje-yukhoe-jongno']) assert.ok(!all.includes(id), id);
   const halal = ids('halal no alcohol');
   for (const q of ['halal no liquor', 'halal non alcoholic', 'halal 무알콜', '무알콜 할랄', 'halal tanpa miras', '술을 안 파는 할랄', '清真 不供应酒', 'halal no alcohol thanks', 'halal no alcohol pls']) assert.equal(ids(q), halal, q);
-  assert.ok(halal.split(' ').length >= 30 && all.includes(halal.split(' ')[0]));
+  assert.ok(halal.split(' ').length >= 20 && all.includes(halal.split(' ')[0]));
   // A drink is a drink.
   for (const q of ['alcohol free beer', 'ノンアルコールビール']) assert.equal(ids(q), '', q);
 });

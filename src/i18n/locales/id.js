@@ -118,7 +118,7 @@ export default {
     open24None: 'Tidak ada di antara tempat ini yang tercatat buka 24 jam setiap hari.',
     prayerNote: 'Peta ini memuat tempat makan, bukan daftar musala atau masjid.',
     alcoholHint: 'Apakah sebuah tempat menjual alkohol tidak diperiksa satu per satu. Beberapa catatan menyebutkannya — buka tempatnya untuk membacanya.',
-    alcoholFreeHint: 'Yang ditampilkan hanya tempat yang catatannya menyebut tanpa alkohol — dari daftar pariwisata, restorannya, atau menunya. Peta ini tidak memeriksanya; tanyakan langsung ke staf.',
+    alcoholFreeHint: 'Yang ditampilkan hanya tempat yang catatannya menyebut tidak menjual alkohol — dari daftar pariwisata, direktori halal, atau restorannya. Peta ini tidak memeriksanya; tanyakan langsung ke staf.',
     vegetarianNote: 'Telur dan susu tidak dicatat. Ini tempat yang punya hidangan vegan — yang lain bisa ditanyakan kepada dapur:',
     showPorkFree: 'Lihat tempat tanpa babi (bukan halal)',
     // "open now" typed into the search: the chip is offered.
