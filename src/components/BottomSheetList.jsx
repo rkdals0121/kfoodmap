@@ -100,6 +100,12 @@ const ASKS_UNRECORDED = new RegExp(
 const ASKS_PRICE = new RegExp(`\\b(?:cheap|cheapest|budget|affordable|inexpensive|prices?|murah|harga)\\b|저렴|가격|가성비|安い|値段|格安|便宜|价格|價格|平价|平價`, 'i');
 // "bebas alkohol", "no alcohol", "무알콜": some notes say whether a place
 // sells alcohol, but it is no field of the record and nothing filters by it.
+// "vegan breakfast", "純素 早餐": breakfast beside other words is a word of the
+// question (search.js) — the list is every vegan place, and nothing said
+// that whether each serves breakfast is not on record (walk-through,
+// 2026-10-15). Alone, "breakfast" is the places whose records say so.
+const BREAKFAST_WORD = /\b(?:breakfast|sarapan)\b|아침|조식|朝食|朝ごはん|モーニング|早餐|早饭|早飯/gi;
+const ASKS_BREAKFAST = { test: (q) => { const text = String(q ?? ''); BREAKFAST_WORD.lastIndex = 0; const said = BREAKFAST_WORD.test(text); BREAKFAST_WORD.lastIndex = 0; return said && text.replace(BREAKFAST_WORD, '').trim() !== ''; } };
 const ASKS_ALCOHOL = new RegExp(`\\b(?:alcohol|alkohol)\\b|무알콜|무알코올|논알콜|논알코올|술\\s*(?:안|없)|アルコール|お酒|酒精|不卖酒|不賣酒|无酒|無酒`, 'i');
 // "musholla", "masjid", "prayer room", "기도실": answered with the two or
 // five restaurants whose story mentions one, and nothing said that the map
@@ -261,8 +267,17 @@ export default function BottomSheetList({
   const typedChips = liftDietWords(searchQuery).chips;
   const halalSaid = activeFilters.includes('Halal') || typedChips.includes('Halal') || /halal|hallal|할랄|하랄|ハラー?ル|清真/i.test(searchQuery);
   const veganSaid = activeFilters.includes('Vegan') || activeFilters.includes(FULLY_VEGAN) || typedChips.includes(FULLY_VEGAN) || /vegan|비건|ヴィーガン|ビーガン|纯素|純素|全素/i.test(searchQuery);
+  // (An allergy, with no diet word: "shellfish allergy", "えび なし", "egg
+  // allergy" opened "I am vegetarian … I do not eat meat" or no card at all,
+  // for a family that eats everything but shrimp.)
+  // (Only when an allergy is said: "no shrimp" is not "someone in our group
+  // has a food allergy".)
+  const allergyAsked = !VEGETARIAN_TYPED.test(searchQuery)
+    && /allerg|alergi|알레르기|알러지|アレルギー|过敏|過敏/i.test(searchQuery)
+    && askedOut.some(x => ['shellfish', 'fish', 'nuts', 'milk', 'sesame', 'egg'].includes(x));
   const dietCard = halalSaid && !veganSaid ? 'muslim'
     : veganSaid ? 'vegan'
+      : allergyAsked ? 'allergy'
       // (Not for milk or dairy left out: the vegetarian card says "I do eat
       // dairy". With no card named, the visitor's own or the vegan one opens.)
       // (…and the vegetarian card chosen earlier would say it: the vegan one.)
@@ -655,6 +670,9 @@ export default function BottomSheetList({
           with results said nothing. */}
       {sorted.length > 0 && ASKS_UNRECORDED.test(searchQuery) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.notOnRecordHint')}</p>
+      )}
+      {sorted.length > 0 && ASKS_BREAKFAST.test(searchQuery) && (
+        <p className="section-note place-list__note">{t('list.breakfastHint')}</p>
       )}
       {sorted.length > 0 && ASKS_PRICE.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
         <p className="section-note place-list__note">{t('list.priceHint')}</p>

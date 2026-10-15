@@ -527,6 +527,7 @@ const ABROAD_INGREDIENT = [
   ['butter', 'mentega|버터|バター|黄油|牛油'],
   ['cheese', 'keju|치즈|チーズ|奶酪|起司|芝士'],
   ['shrimp', 'udang|새우|えび|エビ|虾|蝦'],
+  ['shellfish', '갑각류|甲殻類|甲壳类|甲殼類'],
   ['mushroom', 'jamur|버섯|きのこ|キノコ|蘑菇'],
   ['msg', 'micin|vetsin|화학조미료|化学調味料|味精'],
 ];

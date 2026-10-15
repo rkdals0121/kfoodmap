@@ -125,6 +125,25 @@ export const STAFF_CARDS = [
       { ko: '견과류(땅콩, 호두, 잣 등)⁠가 들어가나요? 견과류 알레르기가 있습니다.', roman: 'Gyeongwaryu (ttangkong, hodu, jat deung) ga deureoganayo? Gyeongwaryu allereugiga isseumnida.', key: 'wheatQ7' },
     ],
   },
+  // For a food allergy — a child who cannot eat shrimp, a parent with a nut
+  // allergy — in a group that otherwise eats everything: the diet cards each
+  // say "I do not eat meat" or "I am Muslim", and none named shellfish
+  // (walk-through, 2026-10-15). The allergens are chosen below, as extras;
+  // "someone in our group" covers the child at the table.
+  {
+    id: 'allergy',
+    labelKey: 'cards.allergyLabel',
+    statement: [
+      { ko: '안녕하세요. 저희 일행 중에 음식 알레르기가 있는 사람이 있습니다.', roman: 'Annyeonghaseyo. Jeohui ilhaeng junge eumsik allereugiga inneun sarami isseumnida.', key: 'allergyS1' },
+      { ko: '알레르기 재료가 양념, 소스, 육수에 조금만 들어가도 먹을 수 없습니다.', roman: 'Allereugi jaeryoga yangnyeom, soseu, yuksue jogeumman deureogado meogeul su eopseumnida.', key: 'allergyS2' },
+      { ko: '먹을 수 있는 메뉴가 있을까요?', roman: 'Meogeul su inneun menyuga isseulkkayo?', key: 'allergyS3' },
+    ],
+    questions: [
+      { ko: '이 음식에 어떤 재료가 들어가나요?', roman: 'I eumsige eotteon jaeryoga deureoganayo?', key: 'allergyQ1' },
+      { ko: '양념, 소스, 육수에는 무엇이 들어가나요?', roman: 'Yangnyeom, soseu, yuksueneun mueosi deureoganayo?', key: 'allergyQ2' },
+      { ko: '같은 기름이나 조리 도구로 다른 음식도 만드나요?', roman: 'Gateun gireumina jori doguro dareun eumsikdo mandeunayo?', key: 'allergyQ3' },
+    ],
+  },
 ];
 
 // What staff are likely to answer, so the visitor can read the reply.
@@ -166,6 +185,9 @@ export const MENU_WORDS = [
   { ko: '고추장 / 된장', roman: 'gochujang / doenjang', key: 'word16', cards: ['wheat'] },
   { ko: '부침가루 / 튀김가루', roman: 'buchimgaru / twigimgaru', key: 'word17', cards: ['wheat'] },
   { ko: '보리', roman: 'bori', key: 'word18', cards: ['wheat'] },
+  // (Words an allergy hides in, shown on the allergy card.)
+  { ko: '참기름 / 깨소금', roman: 'chamgireum / kkaesogeum', key: 'word19', cards: ['allergy'] },
+  { ko: '땅콩 / 호두 / 잣', roman: 'ttangkong / hodu / jat', key: 'word20', cards: ['allergy'] },
 ];
 
 export const cardById = (id) => STAFF_CARDS.find(c => c.id === id) ?? STAFF_CARDS[0];
@@ -179,6 +201,7 @@ export const cardById = (id) => STAFF_CARDS.find(c => c.id === id) ?? STAFF_CARD
 //  statement: a line added before the card's last ("Is there a dish I can eat?");
 //  questions: asked after the card's first question;
 //  words: menu words shown with it.
+const EGG_QUESTION = { ko: '달걀이 들어가나요? (반죽, 빵, 소스 포함)', roman: 'Dalgyari deureoganayo? (banjuk, ppang, soseu poham)', key: 'vegeQ9' };
 const wheatLine = (key) => { const c = STAFF_CARDS.find(x => x.id === 'wheat'); return [...c.statement, ...c.questions].find(l => l.key === key); };
 export const CARD_EXTRAS = [
   {
@@ -190,7 +213,7 @@ export const CARD_EXTRAS = [
       vegeQ5: { ko: '고기와 달걀을 빼고 만들어 주실 수 있나요?', roman: 'Gogiwa dalgyareul ppaego mandeureo jusil su innayo?', key: 'vegeQ5NoEgg' },
     },
     // Egg hides in batter, bread and sauces (mayonnaise), not only on top.
-    questions: [{ ko: '달걀이 들어가나요? (반죽, 빵, 소스 포함)', roman: 'Dalgyari deureoganayo? (banjuk, ppang, soseu poham)', key: 'vegeQ9' }],
+    questions: [EGG_QUESTION],
     words: ['word9'],
   },
   {
@@ -202,7 +225,7 @@ export const CARD_EXTRAS = [
   {
     id: 'wheat',
     labelKey: 'cards.noWheat',
-    cards: ['vegan', 'vegetarian', 'muslim'],
+    cards: ['vegan', 'vegetarian', 'muslim', 'allergy'],
     // (With the card's own line on oil and water shared with wheat foods, and its
     // questions on batter, frying oil and noodle water, and barley: added to
     // another card, it said less than the wheat card.)
@@ -218,6 +241,59 @@ export const CARD_EXTRAS = [
     // 생강 in kimchi, or 연근 and 우엉 among the side dishes, as root vegetables.)
     statement: { ko: '감자, 고구마, 당근, 무, 생강, 연근, 우엉 같은 뿌리채소도 먹지 않습니다.', roman: 'Gamja, goguma, danggeun, mu, saenggang, yeongeun, ueong gateun ppurichaesodo meokji anseumnida.', key: 'extraNoRoots' },
     questions: [{ ko: '감자, 고구마, 당근, 무, 생강, 연근, 우엉 같은 뿌리채소가 들어가나요?', roman: 'Gamja, goguma, danggeun, mu, saenggang, yeongeun, ueong gateun ppurichaesoga deureoganayo?', key: 'extraQRoots' }],
+  },
+  // The allergy card's choices (and the other cards' but where the card
+  // already says it): each says the allergen cannot be eaten, and
+  // where it hides in a Korean kitchen (salted shrimp, anchovy stock, sesame
+  // oil), and asks about it.
+  {
+    id: 'shellfish',
+    labelKey: 'cards.allergyShellfish',
+    cards: ['allergy', 'muslim', 'wheat'],
+    statement: { ko: '새우, 게 같은 갑각류를 먹을 수 없습니다. 새우젓, 새우 가루, 해물 육수도 안 됩니다.', roman: 'Saeu, ge gateun gapgangnyureul meogeul su eopseumnida. Saeujeot, saeu garu, haemul yuksudo an doemnida.', key: 'allergyShellfishS' },
+    questions: [{ ko: '새우나 게가 들어가나요? (새우젓, 새우 가루, 해물 육수 포함)', roman: 'Saeuna gega deureoganayo? (saeujeot, saeu garu, haemul yuksu poham)', key: 'allergyShellfishQ' }],
+    words: ['word2', 'word3'],
+  },
+  {
+    id: 'fish',
+    labelKey: 'cards.allergyFish',
+    cards: ['allergy', 'muslim', 'wheat'],
+    statement: { ko: '생선을 먹을 수 없습니다. 멸치 육수, 액젓, 어묵도 안 됩니다.', roman: 'Saengseoneul meogeul su eopseumnida. Myeolchi yuksu, aekjeot, eomukdo an doemnida.', key: 'allergyFishS' },
+    questions: [{ ko: '생선이 들어가나요? (멸치 육수, 액젓, 어묵 포함)', roman: 'Saengseoni deureoganayo? (myeolchi yuksu, aekjeot, eomuk poham)', key: 'allergyFishQ' }],
+    words: ['word1', 'word3', 'word4'],
+  },
+  {
+    id: 'nuts',
+    labelKey: 'cards.allergyNuts',
+    cards: ['allergy', 'vegan', 'vegetarian', 'muslim', 'wheat'],
+    statement: { ko: '땅콩과 견과류(호두, 잣, 아몬드 등)⁠를 먹을 수 없습니다.', roman: 'Ttangkonggwa gyeongwaryu (hodu, jat, amondeu deung) reul meogeul su eopseumnida.', key: 'allergyNutsS' },
+    questions: [{ ko: '땅콩이나 견과류가 들어가나요? (소스, 고명 포함)', roman: 'Ttangkongina gyeongwaryuga deureoganayo? (soseu, gomyeong poham)', key: 'allergyNutsQ' }],
+    words: ['word20'],
+  },
+  {
+    id: 'egg',
+    labelKey: 'cards.allergyEgg',
+    // (The vegetarian card has its own egg, above.)
+    cards: ['allergy', 'muslim', 'wheat'],
+    statement: { ko: '달걀을 먹을 수 없습니다. 반죽, 빵, 마요네즈에 든 것도 안 됩니다.', roman: 'Dalgyareul meogeul su eopseumnida. Banjuk, ppang, mayonejeue deun geotdo an doemnida.', key: 'allergyEggS' },
+    questions: [EGG_QUESTION],
+    words: ['word9'],
+  },
+  {
+    id: 'milk',
+    labelKey: 'cards.allergyMilk',
+    cards: ['allergy', 'muslim', 'wheat'],
+    statement: { ko: '우유와 유제품(버터, 치즈, 크림)⁠을 먹을 수 없습니다.', roman: 'Uyuwa yujepum (beoteo, chijeu, keurim) eul meogeul su eopseumnida.', key: 'allergyMilkS' },
+    questions: [{ ko: '우유, 버터, 치즈, 크림이 들어가나요?', roman: 'Uyu, beoteo, chijeu, keurimi deureoganayo?', key: 'allergyMilkQ' }],
+    words: ['word10'],
+  },
+  {
+    id: 'sesame',
+    labelKey: 'cards.allergySesame',
+    cards: ['allergy', 'vegan', 'vegetarian', 'muslim', 'wheat'],
+    statement: { ko: '참깨를 먹을 수 없습니다. 참기름, 깨소금도 안 됩니다.', roman: 'Chamkkaereul meogeul su eopseumnida. Chamgireum, kkaesogeumdo an doemnida.', key: 'allergySesameS' },
+    questions: [{ ko: '참깨나 참기름이 들어가나요?', roman: 'Chamkkaena chamgireumi deureoganayo?', key: 'allergySesameQ' }],
+    words: ['word19'],
   },
 ];
 
@@ -235,6 +311,13 @@ const ASKED = {
   // they are what is wanted, not left out.)
   roots: /\bjain|\b(?:no|without)\s+(?:the\s+)?root vegetables?|root vegetables?[- ]free|뿌리\s*채소\s*(?:없|빼|안)|(?:不吃|不含|[无無])根(?:茎|莖)|根菜(?:なし|抜き|を?食べない)|tanpa\s+umbi/i,
 
+  // (The allergy card's: "alergi udang" — the other languages are read as
+  // left out by the search, filters.js.)
+  shellfish: /\balergi\s+(?:udang|kepiting)/i,
+  fish: /\balergi\s+ikan/i,
+  nuts: /\balergi\s+kacang/i,
+  milk: /\balergi\s+susu/i,
+  sesame: /\balergi\s+wijen/i,
   // (Gluten, coeliac, or wheat left out — not every "whole wheat bread".)
   wheat: /gluten(?!\s+(?:bread|flour)\b)|c(?:o)?eliac|\b(?:no|without)\s+wheat|\bwheat[- ]?free|글루텐(?!\s*(?:들어간|들어가는|포함|있는))|셀리악|밀가루\s*(?:없|빼|안)|グルテン(?!入り|を?含む)|セリアック|小麦(?:粉)?(?:なし|不使用|抜き|アレルギー)|麸质|麩質|tanpa gandum/i,
 };
@@ -245,6 +328,11 @@ const FROM_ITEMS = {
   pungent: (items) => items.includes('onion') && items.includes('garlic'),
   roots: () => false,
   wheat: (items) => items.includes('wheat') || items.includes('gluten'),
+  shellfish: (items) => items.includes('shellfish') || items.includes('shrimp'),
+  fish: (items) => ['fish', 'fish sauce', 'anchovy', 'fish stock', 'anchovy stock'].some(x => items.includes(x)),
+  nuts: (items) => items.includes('nut') || items.includes('peanut'),
+  milk: (items) => ['milk', 'dairy', 'butter', 'cheese', 'cream'].some(x => items.includes(x)),
+  sesame: (items) => items.includes('sesame'),
 };
 export const extrasAsked = (text, items = []) => Object.keys(ASKED).filter(id => ASKED[id].test(text ?? '') || FROM_ITEMS[id](items));
 

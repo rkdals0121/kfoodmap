@@ -75,7 +75,8 @@ test('a vegetarian who eats no egg shows a card that says so', () => {
   assert.ok(jain.statement.some(l => l.key === 'extraNoPungent') && jain.statement.some(l => l.key === 'extraNoRoots'));
   // A card offers only what it does not already say: the vegan card says no egg.
   assert.deepEqual(extrasFor('vegan', ['egg', 'roots']), ['roots']);
-  assert.deepEqual(extrasFor('muslim', ['egg', 'pungent']), []);
+  // (Egg as an allergen: the allergy card's line, on the Muslim card too.)
+  assert.deepEqual(extrasFor('muslim', ['egg', 'pungent']), ['egg']);
 });
 
 test('a search that leaves something out opens the card that says so', () => {
@@ -87,7 +88,7 @@ test('a search that leaves something out opens the card that says so', () => {
   assert.deepEqual(extrasAsked('no onion', leftOutQuery('no onion').items), []);
   assert.deepEqual(extrasAsked('onion rings garlic bread', leftOutQuery('onion rings garlic bread').items), []);
   assert.deepEqual(extrasAsked('vegetarian no-egg', leftOutQuery('vegetarian no-egg').items), ['egg']);
-  assert.deepEqual(extrasAsked('egg and dairy free', leftOutQuery('egg and dairy free').items), ['egg']);
+  assert.deepEqual(extrasAsked('egg and dairy free', leftOutQuery('egg and dairy free').items), ['egg', 'milk']);
   assert.deepEqual(extrasAsked('without any wheat', leftOutQuery('without any wheat').items), ['wheat']);
   assert.deepEqual(extrasAsked('오신채 없는'), ['pungent']);
   // A vegetarian who eats egg (蛋奶素), and eggplant, are not "no egg".
@@ -104,8 +105,9 @@ test('someone who cannot eat wheat has a card, and the other cards can say it to
   assert.ok(wheat.questions.some(l => /기름/.test(l.ko) && /물/.test(l.ko)));
   const veg = cardLines(cardById('vegetarian'), ['wheat']);
   assert.ok(veg.statement.some(l => l.key === 'extraNoWheat') && veg.words.has('word15'));
-  assert.deepEqual(extrasFor('muslim', ['wheat', 'egg']), ['wheat']);
-  assert.deepEqual(extrasFor('wheat', ['wheat', 'egg', 'roots']), []);
+  assert.deepEqual(extrasFor('muslim', ['wheat', 'egg']), ['wheat', 'egg']);
+  assert.deepEqual(extrasFor('wheat', ['wheat', 'egg', 'roots']), ['egg']);
+  assert.deepEqual(extrasFor('allergy', ['wheat', 'shellfish']), ['wheat', 'shellfish']);
   assert.ok(extrasAsked('gluten free').includes('wheat'));
   assert.ok(extrasAsked('セリアック').includes('wheat'));
   assert.ok(!extrasAsked('vegan').includes('wheat'));
@@ -148,3 +150,20 @@ test('a food named is not a food left out: root vegetables and gluten', () => {
   for (const q of ['jain', 'no root vegetables', '뿌리채소 없는']) assert.ok(asked(q).includes('roots'), q);
   for (const q of ['gluten free', '글루텐 프리', 'グルテンフリー']) assert.ok(asked(q).includes('wheat'), q);
 });
+
+test('a food allergy has a card: the allergens chosen, where they hide, and the question', () => {
+  const allergy = cardById('allergy');
+  assert.equal(allergy.id, 'allergy');
+  const plain = cardLines(allergy, []);
+  assert.ok(plain.statement.length === allergy.statement.length);
+  const shell = cardLines(allergy, ['shellfish']);
+  assert.ok(shell.statement.some(l => /갑각류/.test(l.ko) && /새우젓/.test(l.ko)));
+  assert.ok(shell.questions.some(l => /새우나 게/.test(l.ko)));
+  assert.match(shell.statement[shell.statement.length - 1].ko, /메뉴가 있을까요\?/);
+  assert.deepEqual(extrasFor('allergy', ['shellfish', 'egg', 'pungent']), ['shellfish', 'egg']);
+  // From a search, in any language the search reads.
+  for (const q of ['えび なし', 'shellfish allergy', '새우 알레르기', '虾过敏', '甲殻類アレルギー']) assert.ok(extrasAsked(q, leftOutQuery(q).items).includes('shellfish'), q);
+  assert.ok(extrasAsked('alergi udang').includes('shellfish'));
+  assert.deepEqual(extrasAsked('shrimp fried rice', leftOutQuery('shrimp fried rice').items), []);
+});
+

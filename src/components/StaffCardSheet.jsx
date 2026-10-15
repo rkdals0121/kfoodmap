@@ -57,7 +57,7 @@ export default function StaffCardSheet({ initialCard, initialExtras, onClose, on
     const on = !wanted.includes(x);
     const next = on ? [...wanted, x] : wanted.filter(e => e !== x);
     setWanted(next); onCardChange?.(cardId, next); rememberCard(cardId, next);
-    const extra = CARD_EXTRAS.find(e => e.id === x);
+    const extra = CARD_EXTRAS.find(e => e.id === x && e.cards.includes(cardId));
     const first = extra.replace ? Object.values(extra.replace)[0] : [].concat(extra.statement)[0];
     setSaid(on ? (gloss ? t(`cardText.${first.key}`) : t(extra.labelKey)) : t('cards.takenOff', { what: t(extra.labelKey) }));
   };
@@ -128,8 +128,8 @@ export default function StaffCardSheet({ initialCard, initialExtras, onClose, on
               ))}
             </div>
             {offered.length > 0 && (
-              <div className="staff-cards__extras" role="group" aria-label={t('cards.extrasLabel')}>
-                <span className="staff-cards__extras-label" aria-hidden="true">{t('cards.extrasLabel')}</span>
+              <div className="staff-cards__extras" role="group" aria-label={t(cardId === 'allergy' ? 'cards.allergyExtrasLabel' : 'cards.extrasLabel')}>
+                <span className="staff-cards__extras-label" aria-hidden="true">{t(cardId === 'allergy' ? 'cards.allergyExtrasLabel' : 'cards.extrasLabel')}</span>
                 {offered.map(x => (
                   <button
                     key={x.id}
