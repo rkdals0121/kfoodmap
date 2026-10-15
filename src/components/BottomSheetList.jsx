@@ -11,7 +11,7 @@ import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
 import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid, isPorkFreeQuery } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery, asksAlcohol } from '../filters';
+import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery, asksAlcohol, stripAlcoholWords } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted, listComma } from '../i18n/punct';
 import { extrasAsked, chosenCard } from '../data/staff-cards';
@@ -418,7 +418,7 @@ export default function BottomSheetList({
   // (each has a note of its own): what is left may still ask about an
   // ingredient — "no egg no alcohol", "free parking gluten free" — or not
   // ("no alcohol", "free parking").
-  const sansAlcohol = searchQuery
+  const sansAlcohol = stripAlcoholWords(searchQuery)
     .replace(new RegExp(`(?:\\b(?:no|non|without|free|tanpa|bebas)\\s+)?(?:${ASKS_ALCOHOL.source})(?:\\s*[- ]?free\\b)?`, 'gi'), ' ')
     .replace(new RegExp(`(?:\\b(?:no|free)\\s+)?(?:${ASKS_UNRECORDED.source})(?:\\s+needed\\b)?`, 'gi'), ' ')
     .replace(/\s+/g, ' ').trim();

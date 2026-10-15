@@ -740,8 +740,16 @@ export function withoutAlcoholWords(query) {
   const text = String(query ?? '');
   const rest = text.replace(ALCOHOL_LEFT_OUT, ' ').replace(/\s+/g, ' ').trim();
   if (rest === '' || rest === text.trim()) return text;
-  const bare = rest.replace(/[?!.,，、。？！]+/g, ' ').trim();
-  return bare === '' || onlyFillers(bare) || DRINK_LEFT.test(bare) ? text : rest;
+  // ("no alcohol, thanks!" was the café named Thanks; "halal no alcohol
+  // thanks" nothing.)
+  const polite = (t) => t.split(/\s+/).filter(w => !/^(?:please|pls|plz|thanks|thank|you|ok|okay)$/i.test(w.replace(/[?!.,，、。？！]+/g, ''))).join(' ').replace(/[\s,，、]+$/, '').trim();
+  const bare = polite(rest).replace(/[?!.,，、。？！]+/g, ' ').trim();
+  if (bare === '' || onlyFillers(bare) || DRINK_LEFT.test(bare)) return polite(text) || text;
+  return polite(rest);
+}
+// The search without any of those words, for the notes beside the list.
+export function stripAlcoholWords(query) {
+  return String(query ?? '').replace(ALCOHOL_LEFT_OUT, ' ');
 }
 // Whether the search said anything of alcohol, in the words above or others.
 export function asksAlcohol(query) {
@@ -774,7 +782,10 @@ function searchCore(r, rawQuery) {
   const alias = Object.keys(AREA_ALIASES).find(k => q.startsWith(k));
   const asksDiet = parts.some(w => Object.hasOwn(DIET_WORDS, w) || PORK_FREE_WORDS.has(w));
   const firstWord = squash(query.trim().split(/[\s-]+/)[0] ?? '');
-  if (alias && !asksDiet && aliasMatch(r, q) && (q === alias || firstWord !== alias)) return true;
+  // (Nor before a prayer room: "lotte world prayer room" was three places
+  // near Lotte World, none with one.)
+  const asksPrayerToo = parts.some(w => PRAYER_ASKED.test(squash(w)));
+  if (alias && !asksDiet && !asksPrayerToo && aliasMatch(r, q) && (q === alias || firstWord !== alias)) return true;
   // The whole search is an area's name: answered by where the place is or
   // what it is called — not by a line saying it "moved from Itaewon".
   if (AREA_WORDS.has(q)) return inAreaOrName(r, q);
@@ -791,7 +802,7 @@ function searchCore(r, rawQuery) {
   // (…and with other words: "prayer room seoul", "halal musholla" — the
   // prayer words as above, the rest as any search. Word by word, "prayer
   // room seoul" missed the place whose text says "prayer facilities".)
-  const prayerAt = parts.findIndex(w => PRAYER_ASKED.test(squash(w)));
+  const prayerAt = asksPrayerToo ? parts.findIndex(w => PRAYER_ASKED.test(squash(w))) : -1;
   if (prayerAt >= 0) {
     const rest = parts.filter((w, i) => i !== prayerAt && !(i === prayerAt + 1 && /^(?:rooms?|spaces?|facilit(?:y|ies)|areas?)$/i.test(w)));
     if (rest.length > 0 && !rest.some(w => /^(?:times?|mats?|schedules?|call)$/i.test(w))) return prayerSaid(r) && searchCore(r, rest.join(' '));
