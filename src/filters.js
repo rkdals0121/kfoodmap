@@ -533,7 +533,10 @@ const ABROAD_WORDS = ABROAD_INGREDIENT.flatMap(([en, words]) => words.split('|')
 const ABROAD_ALT = ABROAD_WORDS.map(([w]) => w).join('|');
 const ABROAD_EN = new Map(ABROAD_WORDS);
 // One ingredient or several: "蛋奶", "卵、小麦", "밀, 달걀", "鱼和虾".
-const ABROAD_LIST = `(?:${ABROAD_ALT})(?:\\s*(?:[、,，・/和与與及や]|와|과|및|と|dan|atau)?\\s*(?:${ABROAD_ALT}))*`;
+const ABROAD_LIST = `(?:${ABROAD_ALT})(?:(?:\\s*(?:[、,，・/和与與及や]|와|과|및|と|dan|atau)\\s*|\\s+)(?:${ABROAD_ALT}))*`;
+// (In Chinese the words also run together — "不吃蛋奶" — but only to the end
+// of the phrase: "无糖奶茶" is sugar-free milk tea, not "no milk".)
+const ABROAD_RUN = `(?:${ABROAD_ALT})(?:(?:\\s*(?:[、,，/和与與及])\\s*)?(?:${ABROAD_ALT}))*(?=$|[\\s,，、。.!?！？的了吧呢无無不没沒免]|过敏|過敏)`;
 const ABROAD_LEFT_OUT = [
   // Indonesian: "tanpa telur", "bebas gluten", "tidak pakai bawang".
   new RegExp(`\\b(?:tanpa|bebas|tidak (?:pakai|pake|memakai|mengandung)|nggak pakai|gak pakai|non)\\s+(${ABROAD_LIST})\\b`, 'gi'),
@@ -544,11 +547,12 @@ const ABROAD_LEFT_OUT = [
   // Japanese: "卵なし", "にんにく抜き", "小麦不使用", "グルテンフリー".
   new RegExp(`(${ABROAD_LIST})\\s*(?:なし|無し|抜き|ぬき|不使用|フリー|を?使わない|を?食べない|が?入っていない|アレルギー)`, 'g'),
   // Chinese: "无蛋", "不含麸质", "不吃五辛", "不要蒜", "去葱"…, and "花生过敏".
-  new RegExp(`(?:无|無|不含|不吃|不要|不加|不放|免|没有|沒有)\\s*(${ABROAD_LIST})`, 'g'),
-  new RegExp(`(${ABROAD_LIST})\\s*(?:过敏|過敏)`, 'g'),
+  new RegExp(`(?:无|無|不含|不吃|不要|不加|不放|免|没有|沒有)\\s*(${ABROAD_RUN})`, 'g'),
+  new RegExp(`(${ABROAD_RUN})\\s*(?:过敏|過敏)`, 'g'),
 ];
 const ABROAD_ONE = new RegExp(ABROAD_ALT, 'gi');
-export const notAQuestion = (text) => String(text ?? '').replace(/(有|要|吃|加)(没有|沒有|不要|不吃|不加)/g, '$1');
+// (Only the same verb twice is a question: "要不加葱的" is "without scallion".)
+export const notAQuestion = (text) => String(text ?? '').replace(/(有)(?:没|沒)有|(要)不要|(吃)不吃|(加)不加/g, (m, a, b, c, d) => a ?? b ?? c ?? d);
 function inEnglishLeftOut(text) {
   let out = notAQuestion(text);
   for (const re of ABROAD_LEFT_OUT) {
