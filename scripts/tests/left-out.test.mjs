@@ -169,11 +169,11 @@ test('leaving an ingredient out, said in the other languages of the map, is read
   const gluten = ids('gluten free');
   for (const q of ['bebas gluten', '글루텐 프리', 'グルテンフリー', '无麸质']) assert.equal(ids(q), gluten, q);
   for (const q of ['tanpa bawang putih', '마늘 없는']) assert.equal(ids(q), ids('no garlic'), q);
-  assert.deepEqual(leftOutQuery('素食 无蛋无奶').items.sort(), ['egg', 'milk']);
+  assert.deepEqual(leftOutQuery('素食 无蛋无奶').items.sort(), ['dairy', 'egg']);
   // A dish or a name that holds the word is not a word left out.
   for (const q of ['계란말이', '蛋糕', 'kacang', '파스타 없는', 'gula aren']) assert.deepEqual(leftOutQuery(q).items, [], q);
   // Every word of a list, and a question is not "no".
-  for (const [q, items] of [['不吃蛋奶', ['egg', 'milk']], ['鱼、蛋过敏', ['fish', 'egg']], ['卵、小麦なし', ['egg', 'gluten']], ['밀, 달걀 없는', ['gluten', 'egg']], ['tanpa telur dan susu', ['egg', 'dairy']], ['不吃蒜葱', ['garlic', 'scallion']], ['우유 못 먹어요', ['milk']], ['와이파이 없는', []], ['비밀 없는', []], ['우리밀 없는', []], ['대파 빼고', ['scallion']], ['有没有虾', []], ['要不要蛋', []], ['要不加葱的', ['scallion']], ['我要没有虾的菜', ['shrimp']], ['无糖奶茶', []]]) assert.deepEqual(leftOutQuery(q).items, items, q);
+  for (const [q, items] of [['不吃蛋奶', ['egg', 'dairy']], ['鱼、蛋过敏', ['fish', 'egg']], ['卵、小麦なし', ['egg', 'gluten']], ['밀, 달걀 없는', ['gluten', 'egg']], ['tanpa telur dan susu', ['egg', 'dairy']], ['不吃蒜葱', ['garlic', 'scallion']], ['우유 못 먹어요', ['milk']], ['와이파이 없는', []], ['비밀 없는', []], ['우리밀 없는', []], ['대파 빼고', ['scallion']], ['有没有虾', []], ['要不要蛋', []], ['要不加葱的', ['scallion']], ['我要没有虾的菜', ['shrimp']], ['无糖奶茶', []]]) assert.deepEqual(leftOutQuery(q).items, items, q);
   // Wheat keeps the reading it had: gluten free.
   for (const q of ['小麦なし', '밀가루없는']) assert.equal(ids(q), ids('gluten free'), q);
   assert.equal(ids('有没有酒'), '');

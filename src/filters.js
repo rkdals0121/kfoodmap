@@ -508,7 +508,9 @@ const LEFT_OUT_READ = new Map();
 const ABROAD_INGREDIENT = [
   ['egg', 'telur|달걀|계란|卵|たまご|玉子|鸡蛋|雞蛋|蛋'],
   ['dairy', 'susu|유제품|乳製品|乳制品|奶制品|奶製品'],
-  ['milk', '우유|牛乳|牛奶|奶'],
+  // (奶 alone — "蛋奶", "无奶" — is dairy, as "no egg no dairy" reads.)
+  ['milk', '우유|牛乳|牛奶'],
+  ['dairy', '奶'],
   ['gluten', 'gluten|글루텐|グルテン|麸质|麩質'],
   // (Wheat as gluten: "小麦なし", "밀가루없는" were "gluten free" before.)
   ['gluten', 'gandum|밀가루|밀|小麦粉|小麦|小麥'],
