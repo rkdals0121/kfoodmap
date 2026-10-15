@@ -318,7 +318,7 @@ export function searchPlaces({
       // Restaurant" — is still narrowed to.)
       // Nor for an ingredient left out: "without egg" was the two places whose
       // one line says those words, of the 46 that say egg is left out.
-      if (raw.includes(' ') && !/[,，、]/.test(raw) && leftOutQuery(raw).items.length === 0 && !(asked !== raw && (COOKING.has(asked.toLowerCase()) || isListedArea(asked))) && !isListedArea((romaniseQuery(raw) ?? '').replace(/-si$/, ''))) {
+      if (raw.includes(' ') && !/[,，、]/.test(raw) && leftOutQuery(raw).items.length === 0 && !/^\s*prayer[\s-]+(?:rooms?|spaces?|facilities)\s*$/i.test(raw) && !(asked !== raw && (COOKING.has(asked.toLowerCase()) || isListedArea(asked))) && !isListedArea((romaniseQuery(raw) ?? '').replace(/-si$/, ''))) {
         const exact = select(r => hits(raw).has(r) && matchesPhrase(r, raw));
         if (exact.list.length > 0 && exact.list.length < result.list.length) result = exact;
       }

@@ -865,3 +865,11 @@ test('a list of things left out ends at a clause: no chicken is not "no pork, th
   assert.ok(ids('no fish').includes('bium-cheongdam'));
   assert.equal(ids('bibimbap no egg').length >= 8, true);
 });
+
+test('a prayer room asked for by itself is every place whose text names one', () => {
+  const ids = (q) => go(q).filteredRestaurants.map(r => r.id).sort().join(' ');
+  const all = ids('musholla');
+  assert.ok(all.split(' ').length >= 8 && all.includes('asalam-jeju') && all.includes('bakso-bejo-nampo'));
+  for (const q of ['prayer room', 'prayer', '기도실', 'ruang salat']) assert.equal(ids(q), all, q);
+  assert.equal(ids('musholla jeju'), 'asalam-jeju');
+});

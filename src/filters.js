@@ -765,6 +765,11 @@ function searchCore(r, rawQuery) {
   const halal = r.dietary?.halal;
   const fields = [r.name, r.vibe, r.zone, r.address?.value,
     halal && halal.confidence !== 'unknown' ? halal.value : null];
+  // A prayer room asked for by itself ("musholla", "prayer room", "기도실"):
+  // the places whose text names one — eight, from Jeju to Busan; a single
+  // word is otherwise not looked for in the stories, and it was the two in
+  // Myeongdong whose one line says so (walk-through, 2026-10-15).
+  if (PRAYER_ASKED.test(q)) return PRAYER_SAID.test([r.vibe, r.story].filter(f => typeof f === 'string').join(' '));
   // An ingredient asked to be left out ("vegetarian no egg", "fish and egg
   // free", "no oyster"): the places whose text says so, and the rest of the
   // search asked word by word of the name, area, address and story. (A place
@@ -842,6 +847,8 @@ function wordMatch(r, w, haystack) {
       : AREA_WORDS.has(squash(w)) ? inAreaOrName(r, w)
         : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w);
 }
+const PRAYER_ASKED = /^(?:prayer(?:rooms?|spaces?|facilit(?:y|ies)|areas?)?|mush?[ao]l+a|musala)$/;
+const PRAYER_SAID = /\bprayer[\s-]+(?:rooms?|spaces?|facilit(?:y|ies)|areas?|mats?)\b|\bmush?[ao]l+a\b|\bmusala\b/i;
 // Words said around a question that ask nothing of a place.
 const REST_STOP = /^(?:please|pls|plz|thanks|thank|you)$/;
 const AREA_WORDS = new Set(Object.keys(AREA_NAMES).map(name => squash(name)));
