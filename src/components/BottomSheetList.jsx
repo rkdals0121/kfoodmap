@@ -11,7 +11,7 @@ import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
 import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid, isPorkFreeQuery } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery } from '../filters';
+import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery, asksAlcohol } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted, listComma } from '../i18n/punct';
 import { extrasAsked, chosenCard } from '../data/staff-cards';
@@ -677,7 +677,7 @@ export default function BottomSheetList({
           vegetarian note: on a phone only the first note shows, and the
           certificate caveat is the one about safety (an accessibility review
           found it folded away behind this one). */}
-      {sorted.length > 0 && ASKS_ALCOHOL.test(searchQuery) && (
+      {sorted.length > 0 && (ASKS_ALCOHOL.test(searchQuery) || asksAlcohol(searchQuery)) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.alcoholHint')}</p>
       )}
       {sorted.length > 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
@@ -861,7 +861,7 @@ export default function BottomSheetList({
           {ASKS_PRAYER.test(searchQuery) && (
             <p className="place-list__hint-text">{t('list.prayerNote')}</p>
           )}
-          {withoutFilters === 0 && ASKS_ALCOHOL.test(searchQuery) && (
+          {withoutFilters === 0 && (ASKS_ALCOHOL.test(searchQuery) || asksAlcohol(searchQuery)) && (
             <p className="place-list__hint-text">{t('list.alcoholHint')}</p>
           )}
           {/* ("free parking", "no reservation needed": this one, not the allergen note.) */}

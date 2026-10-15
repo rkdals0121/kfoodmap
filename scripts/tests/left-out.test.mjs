@@ -149,3 +149,10 @@ test('the body said of an ingredient, temple food in Chinese, alcohol left out b
   for (const q of ['halal no alcohol', 'halal tanpa alkohol', 'halal without alcohol', '술 없는 할랄', '술 안 파는 할랄', '清真 无酒']) assert.equal(ids(q), halal, q);
   assert.equal(ids('halal tanpa alkohol jeju'), ids('halal jeju'));
 });
+
+test('"allergic to" and "allergy to" are of an ingredient only', async () => {
+  const { leftOutQuery } = await import('../../src/filters.js');
+  assert.deepEqual(leftOutQuery('allergy to egg').items, ['egg']);
+  assert.deepEqual(leftOutQuery('allergic to the egg').items, ['egg']);
+  for (const q of ['allergic to cats', 'allergic to pollen', 'allergic to dogs']) assert.deepEqual(leftOutQuery(q).items, [], q);
+});

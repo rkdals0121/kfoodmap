@@ -548,7 +548,7 @@ function readLeftOut(query) {
     // "no egg", "without the egg or fish", "free of dairy", "hold the cheese",
     // "skip the kimchi".
     // (…and "allergic to egg".)
-    const lead = LEAD.test(w) ? 1 : (w === 'free' && /^(?:of|from)$/.test(tokens[i + 1] ?? '')) || (w === 'allergic' && tokens[i + 1] === 'to') ? 2 : 0;
+    const lead = LEAD.test(w) ? 1 : (w === 'free' && /^(?:of|from)$/.test(tokens[i + 1] ?? '')) || (/^(?:allergic|allergy)$/.test(w) && tokens[i + 1] === 'to' && Boolean(stemOf(tokens[i + 2] === 'the' ? tokens[i + 3] ?? '' : tokens[i + 2] ?? ''))) ? 2 : 0;
     if (lead) {
       let j = i + lead;
       while (SKIP.test(tokens[j] ?? '') || tokens[j] === ',') j += 1;
@@ -723,19 +723,37 @@ export { saysLeftOut };
 // whose notes held a "no" and an "alcohol". The words go; the rest is
 // searched and the note stays. (Alone — "alcohol free" — they stay as typed.)
 const ALCOHOL_LEFT_OUT = new RegExp([
-  '\\b(?:no|non|without|free of|zero)[\\s-]+(?:alcohol(?:ic)?(?:[\\s-]+drinks?)?|liquor|booze)\\b',
+  '\\b(?:no|non|without|free of|zero)[\\s-]+(?:alcohol(?:ic)?(?:[\\s-]+drinks?)?|alkohol|liquor|booze)\\b',
   '\\balcohol[\\s-]?free\\b',
   '\\bnon[\\s-]?alcoholic\\b',
   '\\b(?:tanpa|bebas|tidak (?:ada|jual|menjual)|tak ada)\\s+(?:alkohol|alcohol|miras|minuman keras)\\b',
   '술\\s*(?:을|이)?\\s*(?:안\\s*(?:파는|나오는|팔고|팔아요)|없는|없이|금지)',
-  '무알코?올', '논알코?올',
+  '무알(?:코올|콜)', '논알(?:코올|콜)',
   '(?:お酒|アルコール)(?:なし|無し|を?出さない|提供なし)', 'ノンアルコール',
   '不(?:卖|賣|供应|供應)酒', '[无無]酒(?:精)?', '不含酒精',
 ].join('|'), 'gi');
+// (Nor when what is left asks nothing of a place — "술 없는 식당", "alcohol
+// free places" were the whole map — or is the drink itself: "alcohol free
+// beer" is a drink, not the places with beer.)
+const DRINK_LEFT = /\b(?:beers?|wines?|cocktails?|drinks?|beverages?|soju|sake|makgeolli|bir|minuman)\b|맥주|와인|칵테일|음료|소주|막걸리|ビール|ワイン|カクテル|ドリンク|飲み物|啤酒|葡萄酒|红酒|紅酒|鸡尾酒|雞尾酒|饮料|飲料/i;
 export function withoutAlcoholWords(query) {
   const text = String(query ?? '');
   const rest = text.replace(ALCOHOL_LEFT_OUT, ' ').replace(/\s+/g, ' ').trim();
-  return rest === '' || rest === text.trim() ? text : rest;
+  if (rest === '' || rest === text.trim()) return text;
+  const bare = rest.replace(/[?!.,，、。？！]+/g, ' ').trim();
+  return bare === '' || onlyFillers(bare) || DRINK_LEFT.test(bare) ? text : rest;
+}
+// Whether the search said anything of alcohol, in the words above or others.
+export function asksAlcohol(query) {
+  const text = String(query ?? '');
+  ALCOHOL_LEFT_OUT.lastIndex = 0;
+  const said = ALCOHOL_LEFT_OUT.test(text);
+  ALCOHOL_LEFT_OUT.lastIndex = 0;
+  return said;
+}
+// A prayer room asked for, however punctuated ("prayer room?").
+export function asksPrayer(query) {
+  return PRAYER_ASKED.test(squash(unpunct(String(query ?? ''))));
 }
 function searchCore(r, rawQuery) {
   const query = unpunct(rawQuery);
@@ -769,7 +787,15 @@ function searchCore(r, rawQuery) {
   // the places whose text names one — eight, from Jeju to Busan; a single
   // word is otherwise not looked for in the stories, and it was the two in
   // Myeongdong whose one line says so (walk-through, 2026-10-15).
-  if (PRAYER_ASKED.test(q)) return PRAYER_SAID.test([r.vibe, r.story].filter(f => typeof f === 'string').join(' '));
+  if (PRAYER_ASKED.test(q)) return prayerSaid(r);
+  // (…and with other words: "prayer room seoul", "halal musholla" — the
+  // prayer words as above, the rest as any search. Word by word, "prayer
+  // room seoul" missed the place whose text says "prayer facilities".)
+  const prayerAt = parts.findIndex(w => PRAYER_ASKED.test(squash(w)));
+  if (prayerAt >= 0) {
+    const rest = parts.filter((w, i) => i !== prayerAt && !(i === prayerAt + 1 && /^(?:rooms?|spaces?|facilit(?:y|ies)|areas?)$/i.test(w)));
+    if (rest.length > 0 && !rest.some(w => /^(?:times?|mats?|schedules?|call)$/i.test(w))) return prayerSaid(r) && searchCore(r, rest.join(' '));
+  }
   // An ingredient asked to be left out ("vegetarian no egg", "fish and egg
   // free", "no oyster"): the places whose text says so, and the rest of the
   // search asked word by word of the name, area, address and story. (A place
@@ -848,6 +874,9 @@ function wordMatch(r, w, haystack) {
         : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w);
 }
 const PRAYER_ASKED = /^(?:prayer(?:rooms?|spaces?|facilit(?:y|ies)|areas?)?|mush?[ao]l+a|musala)$/;
+function prayerSaid(r) {
+  return PRAYER_SAID.test([r.vibe, r.story].filter(f => typeof f === 'string').join(' '));
+}
 const PRAYER_SAID = /\bprayer[\s-]+(?:rooms?|spaces?|facilit(?:y|ies)|areas?|mats?)\b|\bmush?[ao]l+a\b|\bmusala\b/i;
 // Words said around a question that ask nothing of a place.
 const REST_STOP = /^(?:please|pls|plz|thanks|thank|you)$/;

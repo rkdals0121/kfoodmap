@@ -872,4 +872,17 @@ test('a prayer room asked for by itself is every place whose text names one', ()
   assert.ok(all.split(' ').length >= 8 && all.includes('asalam-jeju') && all.includes('bakso-bejo-nampo'));
   for (const q of ['prayer room', 'prayer', '기도실', 'ruang salat']) assert.equal(ids(q), all, q);
   assert.equal(ids('musholla jeju'), 'asalam-jeju');
+  assert.equal(ids('prayer room?'), all);
+  assert.equal(ids('halal prayer room'), ids('halal musholla'));
+  assert.ok(ids('prayer room seoul').split(' ').length >= 4);
+  assert.equal(ids('prayer times'), '');
+});
+
+test('alcohol words beside another search go; alone, with only fillers, or of a drink they stay', () => {
+  const n = (q) => go(q).filteredRestaurants.length;
+  const halal = n('halal');
+  for (const q of ['halal no alcohol', 'halal no liquor', 'halal non alcoholic', 'halal 무알콜', '무알콜 할랄', 'halal tanpa miras', '술을 안 파는 할랄', '清真 不供应酒']) assert.equal(n(q), halal, q);
+  for (const q of ['술 없는 식당', '무알코올 식당', 'alcohol free beer', 'ノンアルコールビール']) assert.equal(n(q), 0, q);
+  assert.ok(n('alcohol free places') < 10);
+  assert.ok(n('no alcohol near me') < 100);
 });
