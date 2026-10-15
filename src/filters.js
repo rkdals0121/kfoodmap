@@ -509,12 +509,14 @@ const ABROAD_INGREDIENT = [
   ['dairy', 'susu|유제품|乳製品|乳制品|奶制品|奶製品'],
   ['milk', '우유|牛乳|牛奶|奶'],
   ['gluten', 'gluten|글루텐|グルテン|麸质|麩質'],
-  ['wheat', 'gandum|밀가루|밀|小麦粉|小麦|小麥'],
+  // (Wheat as gluten: "小麦なし", "밀가루없는" were "gluten free" before.)
+  ['gluten', 'gandum|밀가루|밀|小麦粉|小麦|小麥'],
   ['peanut', 'kacang tanah|땅콩|ピーナッツ|落花生|花生'],
   ['nut', 'kacang|견과류|견과|ナッツ|坚果|堅果'],
   ['soy', 'kedelai|대두|大豆|黄豆|黃豆'],
   ['garlic', 'bawang putih|마늘|にんにく|ニンニク|大蒜|蒜'],
   ['onion', 'bawang bombay|bawang merah|bawang|양파|오신채|玉ねぎ|たまねぎ|タマネギ|洋葱|洋蔥|五辛|五葷|五荤'],
+  ['scallion', '대파|파|葱|蔥|ねぎ|ネギ'],
   ['sugar', 'gula|설탕|砂糖|糖'],
   ['sesame', 'wijen|참깨|ごま|胡麻|芝麻'],
   ['seafood', 'makanan laut|해산물|魚介|海鲜|海鮮'],
@@ -530,25 +532,29 @@ const ABROAD_INGREDIENT = [
 const ABROAD_WORDS = ABROAD_INGREDIENT.flatMap(([en, words]) => words.split('|').map(w => [w, en])).sort((a, b) => b[0].length - a[0].length);
 const ABROAD_ALT = ABROAD_WORDS.map(([w]) => w).join('|');
 const ABROAD_EN = new Map(ABROAD_WORDS);
+// One ingredient or several: "蛋奶", "卵、小麦", "밀, 달걀", "鱼和虾".
+const ABROAD_LIST = `(?:${ABROAD_ALT})(?:\\s*(?:[、,，・/和与與及や]|와|과|및|と|dan|atau)?\\s*(?:${ABROAD_ALT}))*`;
 const ABROAD_LEFT_OUT = [
   // Indonesian: "tanpa telur", "bebas gluten", "tidak pakai bawang".
-  new RegExp(`\\b(?:tanpa|bebas|tidak (?:pakai|pake|memakai|mengandung)|nggak pakai|gak pakai|non)\\s+(${ABROAD_ALT})\\b`, 'gi'),
+  new RegExp(`\\b(?:tanpa|bebas|tidak (?:pakai|pake|memakai|mengandung)|nggak pakai|gak pakai|non)\\s+(${ABROAD_LIST})\\b`, 'gi'),
   // Korean: "달걀 없는", "계란 빼고", "마늘 안 들어간", "글루텐 프리".
-  new RegExp(`(${ABROAD_ALT})\\s*(?:을|를|이|가|은|는)?\\s*(?:없는|없이|없음|없고|빼고|빼서|빼 ?주세요|뺀|제외|안\\s*(?:들어간|들어가는|넣은|넣고|먹는|먹어요|먹습니다)|프리|알레르기|알러지)`, 'g'),
+  new RegExp(`(${ABROAD_LIST})\\s*(?:을|를|이|가|은|는)?\\s*(?:없는|없이|없음|없고|빼고|빼서|빼 ?주세요|뺀|제외|안\\s*(?:들어간|들어가는|넣은|넣고|먹는|먹어요|먹습니다)|못\\s*먹|안\\s*(?:쓰는|써요|씁니다)|(?:들어가지|넣지|쓰지)\\s*않|프리|알레르기|알러지)`, 'g'),
   // Korean "무설탕", "무글루텐".
   /무(설탕|글루텐)/g,
   // Japanese: "卵なし", "にんにく抜き", "小麦不使用", "グルテンフリー".
-  new RegExp(`(${ABROAD_ALT})\\s*(?:なし|無し|抜き|ぬき|不使用|フリー|を?使わない|を?食べない|が?入っていない|アレルギー)`, 'g'),
+  new RegExp(`(${ABROAD_LIST})\\s*(?:なし|無し|抜き|ぬき|不使用|フリー|を?使わない|を?食べない|が?入っていない|アレルギー)`, 'g'),
   // Chinese: "无蛋", "不含麸质", "不吃五辛", "不要蒜", "去葱"…, and "花生过敏".
-  new RegExp(`(?:无|無|不含|不吃|不要|不加|不放|免|没有|沒有)\\s*(${ABROAD_ALT})`, 'g'),
-  new RegExp(`(${ABROAD_ALT})\\s*(?:过敏|過敏)`, 'g'),
+  new RegExp(`(?:无|無|不含|不吃|不要|不加|不放|免|没有|沒有)\\s*(${ABROAD_LIST})`, 'g'),
+  new RegExp(`(${ABROAD_LIST})\\s*(?:过敏|過敏)`, 'g'),
 ];
+const ABROAD_ONE = new RegExp(ABROAD_ALT, 'gi');
+export const notAQuestion = (text) => String(text ?? '').replace(/(有|要|吃|加)(没有|沒有|不要|不吃|不加)/g, '$1');
 function inEnglishLeftOut(text) {
-  let out = String(text ?? '');
+  let out = notAQuestion(text);
   for (const re of ABROAD_LEFT_OUT) {
-    out = out.replace(re, (whole, w) => {
-      const en = ABROAD_EN.get(w) ?? ABROAD_EN.get(String(w).toLowerCase());
-      return en ? ` no ${en} ` : whole;
+    out = out.replace(re, (whole, list) => {
+      const ens = [...String(list).matchAll(ABROAD_ONE)].map(m => ABROAD_EN.get(m[0]) ?? ABROAD_EN.get(m[0].toLowerCase())).filter(Boolean);
+      return ens.length > 0 ? ` ${ens.map(en => `no ${en}`).join(' ')} ` : whole;
     });
   }
   return out;
@@ -797,7 +803,7 @@ const DRINK_LEFT = /\b(?:beers?|wines?|cocktails?|drinks?|beverages?|soju|sake|m
 // search was of a drink ("alcohol free beer"); without polite words ("no
 // alcohol, thanks!"). Fillers and meals are the search's own to read.
 export function alcoholAsked(query) {
-  const text = String(query ?? '');
+  const text = notAQuestion(query);
   const rest = text.replace(ALCOHOL_LEFT_OUT, ' ').replace(/\s+/g, ' ').trim();
   if (rest === text.trim()) return null;
   const polite = (t) => t.split(/\s+/).filter(w => !/^(?:please|pls|plz|thanks|thank|you|ok|okay|sold|served|allowed|is|here)$/i.test(w.replace(/[?!.,，、。？！]+/g, ''))).join(' ').replace(/^[\s,，、]+|[\s,，、]+$/g, '').trim();
@@ -835,7 +841,7 @@ export function saysNoAlcohol(r) {
 }
 // The search without any of those words, for the notes beside the list.
 export function stripAlcoholWords(query) {
-  return String(query ?? '').replace(ALCOHOL_LEFT_OUT, ' ');
+  return notAQuestion(query).replace(ALCOHOL_LEFT_OUT, ' ');
 }
 // Whether the search asked for no alcohol, in the words above.
 export function asksAlcohol(query) {
