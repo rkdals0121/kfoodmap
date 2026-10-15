@@ -145,9 +145,9 @@ test('the body said of an ingredient, temple food in Chinese, alcohol left out b
   assert.equal(ids('egg allergy'), ids('no egg'));
   assert.equal(ids('佛教素食'), ids('寺廟料理'));
   assert.equal(ids('素菜'), ids('素食'));
-  const halal = ids('halal');
-  for (const q of ['halal no alcohol', 'halal tanpa alkohol', 'halal without alcohol', '술 없는 할랄', '술 안 파는 할랄', '清真 无酒']) assert.equal(ids(q), halal, q);
-  assert.equal(ids('halal tanpa alkohol jeju'), ids('halal jeju'));
+  const halal = ids('halal no alcohol');
+  for (const q of ['halal tanpa alkohol', 'halal without alcohol', '술 없는 할랄', '술 안 파는 할랄', '清真 无酒']) assert.equal(ids(q), halal, q);
+  for (const id of ids('halal tanpa alkohol busan').split(' ').filter(Boolean)) assert.ok(ids('halal busan').includes(id), id);
 });
 
 test('"allergic to" and "allergy to" are of an ingredient only', async () => {

@@ -678,7 +678,7 @@ export default function BottomSheetList({
           certificate caveat is the one about safety (an accessibility review
           found it folded away behind this one). */}
       {sorted.length > 0 && (ASKS_ALCOHOL.test(searchQuery) || asksAlcohol(searchQuery)) && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.alcoholHint')}</p>
+        <p className="section-note place-list__note place-list__note--key">{t(asksAlcohol(searchQuery) ? 'list.alcoholFreeHint' : 'list.alcoholHint')}</p>
       )}
       {sorted.length > 0 && ASKS_INGREDIENT.test(sansAlcohol) && (
         <p className="section-note place-list__note place-list__note--key">{t('list.askStaffHint')} <Link to={cardsLink()} state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
@@ -862,7 +862,7 @@ export default function BottomSheetList({
             <p className="place-list__hint-text">{t('list.prayerNote')}</p>
           )}
           {withoutFilters === 0 && (ASKS_ALCOHOL.test(searchQuery) || asksAlcohol(searchQuery)) && (
-            <p className="place-list__hint-text">{t('list.alcoholHint')}</p>
+            <p className="place-list__hint-text">{t(asksAlcohol(searchQuery) ? 'list.alcoholFreeHint' : 'list.alcoholHint')}</p>
           )}
           {/* ("free parking", "no reservation needed": this one, not the allergen note.) */}
           {withoutFilters === 0 && ASKS_UNRECORDED.test(searchQuery) && (

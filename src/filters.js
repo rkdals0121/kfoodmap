@@ -717,11 +717,14 @@ function saysLeftOut(text, x) {
   return false;
 }
 export { saysLeftOut };
-// "halal no alcohol", "halal tanpa alkohol", "술 없는 할랄", "无酒 清真": whether
-// a place sells alcohol is not on record (the list's note says so), and asked
-// word by word it was 58 places, 0 or 152 by the wording — the halal places
-// whose notes held a "no" and an "alcohol". The words go; the rest is
-// searched and the note stays. (Alone — "alcohol free" — they stay as typed.)
+// "no alcohol", "halal tanpa alkohol", "술 없는 할랄", "无酒 清真": no field of
+// the record says whether a place sells alcohol, but forty notes do — a
+// tourism listing's "Alcohol for Sale Ⓧ", HalalRank's "No alcohol allowed",
+// the owner, the menu. Word by word it was 0, 2, 58 or 152 places by the
+// wording, and "alcohol free" two places whose notes say alcohol IS sold
+// ("Pork Free … alcohol is sold"). Now: the places whose notes say no
+// alcohol, the rest of the search asked of them as usual, and a note that
+// says where that comes from.
 const ALCOHOL_LEFT_OUT = new RegExp([
   '\\b(?:no|non|without|free of|zero)[\\s-]+(?:alcohol(?:ic)?(?:[\\s-]+drinks?)?|alkohol|liquor|booze)\\b',
   '\\balcohol[\\s-]?free\\b',
@@ -736,28 +739,46 @@ const ALCOHOL_LEFT_OUT = new RegExp([
 // free places" were the whole map — or is the drink itself: "alcohol free
 // beer" is a drink, not the places with beer.)
 const DRINK_LEFT = /\b(?:beers?|wines?|cocktails?|drinks?|beverages?|soju|sake|makgeolli|bir|minuman)\b|맥주|와인|칵테일|음료|소주|막걸리|ビール|ワイン|カクテル|ドリンク|飲み物|啤酒|葡萄酒|红酒|紅酒|鸡尾酒|雞尾酒|饮料|飲料/i;
-export function withoutAlcoholWords(query) {
+// What is left after the alcohol words: null when none were said, or the
+// search was of a drink ("alcohol free beer"); '' when nothing but fillers
+// and polite words is left ("술 없는 식당", "no alcohol, thanks!").
+export function alcoholAsked(query) {
   const text = String(query ?? '');
   const rest = text.replace(ALCOHOL_LEFT_OUT, ' ').replace(/\s+/g, ' ').trim();
-  if (rest === '' || rest === text.trim()) return text;
-  // ("no alcohol, thanks!" was the café named Thanks; "halal no alcohol
-  // thanks" nothing.)
-  const polite = (t) => t.split(/\s+/).filter(w => !/^(?:please|pls|plz|thanks|thank|you|ok|okay)$/i.test(w.replace(/[?!.,，、。？！]+/g, ''))).join(' ').replace(/[\s,，、]+$/, '').trim();
+  if (rest === text.trim()) return null;
+  const polite = (t) => t.split(/\s+/).filter(w => !/^(?:please|pls|plz|thanks|thank|you|ok|okay)$/i.test(w.replace(/[?!.,，、。？！]+/g, ''))).join(' ').replace(/^[\s,，、]+|[\s,，、]+$/g, '').trim();
   const bare = polite(rest).replace(/[?!.,，、。？！]+/g, ' ').trim();
-  if (bare === '' || onlyFillers(bare) || DRINK_LEFT.test(bare)) return polite(text) || text;
-  return polite(rest);
+  if (DRINK_LEFT.test(bare)) return null;
+  return { rest: bare === '' || onlyFillers(bare) ? '' : polite(rest) };
+}
+const NO_ALCOHOL_SAID = /\bno alcohol\b(?!\s+(?:is\s+)?(?:mentioned|stated|addressed))|Alcohol for Sale Ⓧ|\b(?:does not|doesn't|do not|don't) (?:sell|serve) alcohol|\bnot selling alcohol|\bserves? no alcohol|술을?\s*(?:사용하지|팔지|판매하지)/gi;
+// (Read with the "no alcohol" sayings taken out: "no alcohol is served" is
+// not "alcohol is served".)
+const ALCOHOL_SOLD_SAID = /Alcohol for Sale Ⓞ|alcohol is (?:sold|served)\b|\b(?:sells|serves) alcohol\b|whether alcohol is (?:sold|served) is not|Alcohol is not (?:addressed|listed)/i;
+const noAlcoholMemo = new WeakMap();
+const allStrings = (v, out = []) => {
+  if (typeof v === 'string') out.push(v);
+  else if (v && typeof v === 'object') for (const x of Object.values(v)) allStrings(x, out);
+  return out;
+};
+export function saysNoAlcohol(r) {
+  if (!r || typeof r !== 'object') return false;
+  if (noAlcoholMemo.has(r)) return noAlcoholMemo.get(r);
+  const text = allStrings(r).join(' \n ');
+  NO_ALCOHOL_SAID.lastIndex = 0;
+  const said = NO_ALCOHOL_SAID.test(text);
+  NO_ALCOHOL_SAID.lastIndex = 0;
+  const yes = said && !ALCOHOL_SOLD_SAID.test(text.replace(NO_ALCOHOL_SAID, ' '));
+  noAlcoholMemo.set(r, yes);
+  return yes;
 }
 // The search without any of those words, for the notes beside the list.
 export function stripAlcoholWords(query) {
   return String(query ?? '').replace(ALCOHOL_LEFT_OUT, ' ');
 }
-// Whether the search said anything of alcohol, in the words above or others.
+// Whether the search asked for no alcohol, in the words above.
 export function asksAlcohol(query) {
-  const text = String(query ?? '');
-  ALCOHOL_LEFT_OUT.lastIndex = 0;
-  const said = ALCOHOL_LEFT_OUT.test(text);
-  ALCOHOL_LEFT_OUT.lastIndex = 0;
-  return said;
+  return alcoholAsked(query) !== null;
 }
 // A prayer room asked for, however punctuated ("prayer room?").
 export function asksPrayer(query) {

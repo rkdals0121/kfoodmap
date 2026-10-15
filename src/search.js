@@ -18,7 +18,7 @@ import { matchesDietary } from './data/verification.js';
 import { COOKING, fuzzyQuery, isListedArea, onlyFillers, questionWords, romaniseQuery, stripFillers } from './data/area-names.js';
 import {
   DIETARY_CHIPS, TRAIT_GROUPS, OPEN_NOW, OPEN_AT, SAVED_ONLY, SHARED_LIST, FULLY_VEGAN,
-  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, leftOutQuery, withoutAlcoholWords, asksPrayer, stripCertWords, porkFreeSaid, liftDietWords, mentionsInStory, storyWord } from './filters.js';
+  matchesFullyVegan, matchesSearch, matchesArea, matchesAreaWhole, matchesPhrase, isPorkFreeQuery, leftOutQuery, alcoholAsked, saysNoAlcohol, asksPrayer, stripCertWords, porkFreeSaid, liftDietWords, mentionsInStory, storyWord } from './filters.js';
 import { getOpenStatus, coordsOf, haversineKm } from './utils.js';
 import { stationKey, isKnownStation, stationRomans } from './data/station-ko.js';
 import { romaniseKorean } from './data/romanise-ko.js';
@@ -124,7 +124,11 @@ export function searchPlaces({
   // after a station's name is the rest of the search, not part of the name.
   // (Only after a name: "역주변" by itself is not a station.)
   const unglued = (text) => text.replace(/([^\s])(駅|站|역)(?:の近く|の周辺|周辺|付近|附近|근처|주변)(?:にある|で|に|の|的|에\s*있는|에서|에)?/g, '$1$2 ').replace(/\s+/g, ' ').trim();
-  const said = withoutAlcoholWords(stripCertWords(porkFreeSaid(unglued(bare.includes('(') || bare.includes('（') ? String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim() : bare))));
+  // ("no alcohol": the places whose notes say so, the rest searched as usual.)
+  const asSaid = stripCertWords(porkFreeSaid(unglued(bare.includes('(') || bare.includes('（') ? String(query ?? '').slice(0, MAX_QUERY).replace(/\s+/g, ' ').trim() : bare)));
+  const noAlcohol = alcoholAsked(asSaid);
+  if (noAlcohol) places = places.filter(saysNoAlcohol);
+  const said = noAlcohol ? noAlcohol.rest : asSaid;
   // "맛집", "근처 맛집", "レストラン", "restaurants near me": words that name no
   // place and no kind of place found nothing, or whatever record happened to
   // hold them. Every place is one — unless some place is called so
