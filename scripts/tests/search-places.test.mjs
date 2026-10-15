@@ -906,3 +906,10 @@ test('the browser copy of the places (no evidence text) answers every search as 
   }
 });
 
+test('a Chinese sentence around a search: a place, I want, look for', () => {
+  const ids = (q) => go(q).filteredRestaurants.map(r => r.id).sort().join(' ');
+  for (const q of ['清真的地方', '我要清真的地方']) assert.equal(ids(q), ids('清真'), q);
+  assert.equal(ids('我想找素食餐厅'), ids('素食'));
+  assert.equal(ids('我要不含蛋的素食'), ids('素食 不含蛋'));
+});
+
