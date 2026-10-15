@@ -522,7 +522,7 @@ export default {
       ],
     },
     'brunch-bakery': {
-      didYouKnow: 'Ibu kota Korea, Seoul, termasuk kota dengan kepadatan kafe tertinggi di dunia, dan brunch akhir pekan lebih mirip ritual daripada sekadar makan. Versi Korea mengandalkan sayuran musiman dan pemanggangan perlahan, bukan saus yang berat.',
+      didYouKnow: 'Kafe adalah bagian dari keseharian di seluruh Korea (ibu kota Korea, Seoul, termasuk kota dengan kepadatan kafe tertinggi di dunia), dan brunch akhir pekan lebih mirip ritual daripada sekadar makan. Versi Korea mengandalkan sayuran musiman dan pemanggangan perlahan, bukan saus yang berat.',
       tips: [
         'Kafe di Korea adalah tempat untuk berlama-lama — satu minuman sudah cukup untuk duduk nyaman sepanjang sore.',
         'Tanyakan apa yang dipanggang hari ini; toko roti berskala kecil kehabisan produk terbaiknya sebelum tengah hari.',

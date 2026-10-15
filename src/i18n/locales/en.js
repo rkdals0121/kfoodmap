@@ -532,7 +532,7 @@ export default {
       ],
     },
     'brunch-bakery': {
-      didYouKnow: 'Korea\'s capital, Seoul, has one of the highest cafe densities on earth, and the weekend brunch is closer to a ritual than a meal. Korea\'s version leans on seasonal vegetables and slow baking rather than heavy sauces.',
+      didYouKnow: 'Cafes are part of daily life all over Korea (the capital, Seoul, has one of the highest cafe densities on earth), and the weekend brunch is closer to a ritual than a meal. Korea\'s version leans on seasonal vegetables and slow baking rather than heavy sauces.',
       tips: [
         'Cafes are lingering spaces in Korea — one drink comfortably buys you the seat for the afternoon.',
         'Ask what was baked today; small-batch bakeries sell out of their best items before noon.',
