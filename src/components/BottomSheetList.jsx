@@ -11,7 +11,7 @@ import ClaimChip from './ClaimChip';
 import { shareOrCopy } from '../share';
 import { TRAIT_GROUPS, asksOpenNow, asks24Hours, withoutOpenNow, plannedTime, liftDietWords, porkFreeSaid, isPorkFreeQuery } from '../filters';
 import { CHIP_GROUPS } from '../i18n/labels';
-import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery, asksAlcohol, stripAlcoholWords } from '../filters';
+import { matchesArea, OPEN_NOW, OPEN_AT, SAVED_ONLY, FULLY_VEGAN, SHARED_LIST, viewHash, sharedListUrl, leftOutQuery, asksAlcohol, stripAlcoholWords, prayerSaid } from '../filters';
 import { romaniseQuery, AREA_NAMES, onlyFillers } from '../data/area-names';
 import { colon, quoted, listComma } from '../i18n/punct';
 import { extrasAsked, chosenCard } from '../data/staff-cards';
@@ -648,7 +648,7 @@ export default function BottomSheetList({
           the "Open now" note it was folded out of sight. */}
       {(halalOn || asksCertificate || halalTyped) && sorted.length > 0
         && !sorted.some(r => r.dietary?.halal?.value === 'certified') && (
-        <p className="section-note place-list__note place-list__note--key">{t('list.halalCaveat')}</p>
+        <p className="section-note place-list__note place-list__note--key">{t('list.halalCaveat')} <Link to={cardsLink()} state={{ fromApp: true, tab: 'map' }} onClick={(e) => e.stopPropagation()} onFocus={() => setNotesOpen(true)}>{t('profile.staffCards')}</Link></p>
       )}
       {/* "reservation" finds eight places, "vegan delivery" three — by a word in
           their notes; the empty list said these are not checked, the list
@@ -659,8 +659,11 @@ export default function BottomSheetList({
       {sorted.length > 0 && ASKS_PRICE.test(searchQuery) && !ASKS_UNRECORDED.test(searchQuery) && (
         <p className="section-note place-list__note">{t('list.priceHint')}</p>
       )}
+      {/* (Why these: "礼拜室" listed eight places and said only what the map
+          is not — when every one is there for a note naming a prayer room,
+          the note says so.) */}
       {sorted.length > 0 && ASKS_PRAYER.test(searchQuery) && (
-        <p className="section-note place-list__note">{t('list.prayerNote')}</p>
+        <p className="section-note place-list__note">{t(sorted.every(prayerSaid) ? 'list.prayerListNote' : 'list.prayerNote')}</p>
       )}
       {/* A search for pork-free places took the Halal chip (and its note,
           the one place "pork-free" was explained) off: said here. */}

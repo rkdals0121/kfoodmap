@@ -964,7 +964,7 @@ function wordMatch(r, w, haystack) {
         : startsWord(haystack, w) || dietWordMatch(r, w) || aliasMatch(r, w) || koAddressHas(r, w);
 }
 const PRAYER_ASKED = /^(?:prayer(?:rooms?|spaces?|facilit(?:y|ies)|areas?)?|mush?[ao]l+a|musala)$/;
-function prayerSaid(r) {
+export function prayerSaid(r) {
   return PRAYER_SAID.test([r.vibe, r.story].filter(f => typeof f === 'string').join(' '));
 }
 const PRAYER_SAID = /\bprayer[\s-]+(?:rooms?|spaces?|facilit(?:y|ies)|areas?|mats?)\b|\bmush?[ao]l+a\b|\bmusala\b/i;

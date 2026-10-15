@@ -117,6 +117,7 @@ export default {
     open24Title: 'Tercatat buka 24 jam setiap hari:',
     open24None: 'Tidak ada di antara tempat ini yang tercatat buka 24 jam setiap hari.',
     prayerNote: 'Peta ini memuat tempat makan, bukan daftar musala atau masjid.',
+    prayerListNote: 'Tempat-tempat ini muncul karena catatannya menyebut musala atau ruang salat — tanyakan ke staf apakah boleh dipakai. Peta ini memuat tempat makan, bukan daftar musala atau masjid.',
     alcoholHint: 'Apakah sebuah tempat menjual alkohol tidak diperiksa satu per satu. Beberapa catatan menyebutkannya — buka tempatnya untuk membacanya.',
     alcoholFreeHint: 'Yang ditampilkan hanya tempat yang catatannya menyebut tidak menjual alkohol — dari daftar pariwisata, direktori halal, atau restorannya. Peta ini tidak memeriksanya; tanyakan langsung ke staf.',
     vegetarianNote: 'Telur dan susu tidak dicatat. Ini tempat yang punya hidangan vegan — yang lain bisa ditanyakan kepada dapur:',
